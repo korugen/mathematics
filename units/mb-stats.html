@@ -33,21 +33,23 @@
 
   <div class="box theorem">
     <p><span class="name">期待値・分散・標準偏差</span>：確率変数 \(X\) が値 \(x_1,\dots,x_n\) をとる確率が \(p_1,\dots,p_n\)（\(\sum p_i=1\)）のとき</p>
-    \[ E(X)=\sum_{i=1}^nx_ip_i=m,\qquad V(X)=\sum_{i=1}^n(x_i-m)^2p_i=E(X^2)-\{E(X)\}^2,\qquad \sigma(X)=\sqrt{V(X)} \]
+    \[ \begin{aligned}E(X)&=\sum_{i=1}^nx_ip_i=m\\V(X)&=\sum_{i=1}^n(x_i-m)^2p_i\\&=E(X^2)-\{E(X)\}^2\\\sigma(X)&=\sqrt{V(X)}\end{aligned} \]
     <p>なぜ \(V=E(X^2)-m^2\)：\((x_i-m)^2=x_i^2-2mx_i+m^2\) を展開して \(p_i\) をかけて足すと \(E(X^2)-2m\cdot m+m^2\)。</p>
   </div>
 
   <div class="box theorem">
     <p><span class="name">変換・和・積の公式</span>（\(a,b\) は定数）</p>
-    \[ E(aX+b)=aE(X)+b,\quad V(aX+b)=a^2V(X),\quad \sigma(aX+b)=\abs{a}\sigma(X) \]
-    \[ E(X+Y)=E(X)+E(Y)\quad(\text{独立でなくても成立}) \]
-    \[ X,Y\ \text{が独立なら}\quad E(XY)=E(X)E(Y),\quad V(X+Y)=V(X)+V(Y) \]
+    \[ \begin{gathered} E(aX+b)=aE(X)+b\\ V(aX+b)=a^2V(X)\\ \sigma(aX+b)=\abs{a}\sigma(X) \end{gathered} \]
+    <p>和の期待値（\(X,Y\) が独立でなくても成立）：</p>
+    \[ E(X+Y)=E(X)+E(Y) \]
+    <p>\(X,Y\) が独立なら：</p>
+    \[ \begin{gathered} E(XY)=E(X)E(Y)\\ V(X+Y)=V(X)+V(Y) \end{gathered} \]
     <p>なぜ：\(V(aX+b)\) は「ばらつき」なので平行移動 \(b\) には無関係で、\(a\) 倍すると偏差が \(a\) 倍、2乗して \(a^2\) 倍。\(V(X+Y)=V(X)+V(Y)+2\{E(XY)-E(X)E(Y)\}\) で、独立なら最後の項が0になる。</p>
   </div>
 
   <div class="box theorem">
     <p><span class="name">二項分布 \(B(n,p)\)</span>：1回の試行で事象 \(A\) が起こる確率が \(p\)、\(q=1-p\) とする。\(n\) 回の反復試行で \(A\) が起こる回数 \(X\) は</p>
-    \[ P(X=k)=\C{n}{k}p^kq^{n-k},\qquad E(X)=np,\qquad V(X)=npq \]
+    \[ \begin{gathered} P(X=k)=\C{n}{k}p^kq^{n-k}\\ E(X)=np,\qquad V(X)=npq \end{gathered} \]
     <p>なぜ：\(i\) 回目に \(A\) が起これば1、起こらなければ0となる \(X_i\) を考えると \(X=X_1+\cdots+X_n\)。\(E(X_i)=p,\ V(X_i)=p-p^2=pq\) で、\(X_i\) は独立だから和の公式でそれぞれ \(n\) 倍。</p>
   </div>
 
@@ -463,7 +465,7 @@
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">得点は最初0点である。1個のサイコロを投げ、1または2の目が出れば得点を1点増やし、それ以外の目が出れば得点を0点に戻す。この操作を \(n\) 回行った後の得点の期待値 \(E_n\) を求めよ。</div>
       <p>\(n\) 回後の得点を \(X_n\) とする。\(X_n=k\) のとき、\(X_{n+1}\) は確率 \(\frac13\) で \(k+1\)、確率 \(\frac23\) で \(0\)。</p>
-      \[ \begin{aligned}E_{n+1}&=\sum_kP(X_n=k)\left\{\frac13(k+1)+\frac23\cdot0\right\}\\&=\frac13\sum_kk\,P(X_n=k)+\frac13\sum_kP(X_n=k)=\frac13E_n+\frac13\end{aligned} \]
+      \[ \begin{aligned}E_{n+1}&=\sum_kP(X_n=k)\cdot\frac{k+1}3\\&=\frac13\sum_kk\,P(X_n=k)\\&\quad+\frac13\sum_kP(X_n=k)\\&=\frac13E_n+\frac13\end{aligned} \]
       <p>\(E_0=0\)。\(\alpha=\frac13\alpha+\frac13\) より \(\alpha=\frac12\)。\(E_n-\frac12=\left(-\frac12\right)\left(\frac13\right)^n\)。</p>
       <p class="answer">\(E_n=\dfrac12\left\{1-\left(\dfrac13\right)^n\right\}\)</p>
       <p class="point">検算：\(E_1=\frac13\)（1点の確率 \(\frac13\)）、\(E_2=\frac49\)（2点の確率 \(\frac19\)、1点の確率 \(\frac23\cdot\frac13=\frac29\) で \(\frac29+\frac29=\frac49\)）。</p>
@@ -506,7 +508,7 @@
       <p>(2) \(I_k\) は0か1なので \(I_k^2=I_k\)。また \(j\ne k\) のとき、\(j\) 番目と \(k\) 番目がともに一致する並べ方は \((n-2)!\) 通りなので</p>
       \[ E(I_jI_k)=\frac{(n-2)!}{n!}=\frac1{n(n-1)} \]
       <p>よって</p>
-      \[ \begin{aligned}E(X^2)&=E\Big(\sum_kI_k^2+2\sum_{j\lt k}I_jI_k\Big)=\sum_kE(I_k)+2\sum_{j\lt k}E(I_jI_k)\\&=1+2\cdot\C{n}{2}\cdot\frac1{n(n-1)}=1+1=2\end{aligned} \]
+      \[ \begin{aligned}E(X^2)&=E\Big(\sum_kI_k^2+2\sum_{j\lt k}I_jI_k\Big)\\&=\sum_kE(I_k)+2\sum_{j\lt k}E(I_jI_k)\\&=1+2\cdot\C{n}{2}\cdot\frac1{n(n-1)}=2\end{aligned} \]
       <p>\(V(X)=E(X^2)-\{E(X)\}^2=2-1=1\)。<span class="answer">\(V(X)=1\)</span></p>
       <p class="point">採点ポイント：(1) 指示変数の定義と \(E(I_k)=\frac1n\) の根拠、(2) \(I_j,I_k\) が独立でないため \(E(I_jI_k)\) を直接数えること、\(\C n2\) 組あることの明示。\(n\) によらず期待値も分散も1になるという美しい結論。小さい \(n\)（\(n=3\) で6通りを全部書く：一致数は 3,1,1,0,0,1）で検算できる。<a href="../thinking.html#t-experiment">発想：小さい場合で実験</a></p>
     </div></details>
@@ -521,7 +523,7 @@
     <details class="sol"><summary>解答</summary><div class="inner">
       <p>\(n\) 回の操作後、袋の中の玉は \(n+2\) 個である。</p>
       <p>(1) \(X_n=k\) のとき、\(n+1\) 回目に赤を取り出す確率は \(\frac k{n+2}\) で、そのとき \(X_{n+1}=k+1\)、白なら \(X_{n+1}=k\)。よって</p>
-      \[ \begin{aligned}E(X_{n+1})&=\sum_kP(X_n=k)\left\{(k+1)\frac k{n+2}+k\left(1-\frac k{n+2}\right)\right\}\\&=\sum_kP(X_n=k)\left(k+\frac{k}{n+2}\right)=\frac{n+3}{n+2}E(X_n)\end{aligned} \]
+      \[ \begin{aligned}&E(X_{n+1})\\&=\sum_kP(X_n=k)\Big\{(k+1)\frac k{n+2}\\&\qquad\qquad+k\Big(1-\frac k{n+2}\Big)\Big\}\\&=\sum_kP(X_n=k)\Big(k+\frac{k}{n+2}\Big)\\&=\frac{n+3}{n+2}E(X_n)\end{aligned} \]
       <p>\(E(X_0)=1\) より \(E(X_n)=\dfrac32\cdot\dfrac43\cdots\dfrac{n+2}{n+1}\cdot E(X_0)=\dfrac{n+2}2\)。</p>
       <p class="answer">\(E(X_{n+1})=\dfrac{n+3}{n+2}E(X_n)\)、\(E(X_n)=\dfrac{n+2}2\)</p>
       <p>(2) [I] \(n=0\)：\(X_0=1\) で \(P(X_0=1)=1=\frac1{0+1}\)。成立。</p>
@@ -533,7 +535,7 @@
       </ul>
       <p>よって \(n+1\) でも成立。[I][II] より、すべての \(n\ge0\) で成立する。（証明終）</p>
       <p>(3) (2) より \(E(X_n^2)=\frac1{n+1}\sum_{k=1}^{n+1}k^2=\frac{(n+2)(2n+3)}6\)。</p>
-      \[ V(X_n)=\frac{(n+2)(2n+3)}6-\frac{(n+2)^2}4=\frac{(n+2)\{2(2n+3)-3(n+2)\}}{12}=\frac{n(n+2)}{12} \]
+      \[ \begin{aligned}V(X_n)&=\frac{(n+2)(2n+3)}6-\frac{(n+2)^2}4\\&=\frac{(n+2)\{2(2n+3)-3(n+2)\}}{12}\\&=\frac{n(n+2)}{12}\end{aligned} \]
       <p class="answer">\(V(X_n)=\dfrac{n(n+2)}{12}\)</p>
       <p class="point">採点ポイント：(1) 条件ごとの期待値を確率で重みづけする式を省略せずに書く、(2) 端の \(k=1,\ n+2\) を別に扱う、(3) (2) の結果を \(\Sigma\) の公式で使う。(1) は (2) の一様分布からも \(\frac{1+(n+1)}2\) と確かめられる（検算）。<a href="mb-sequence.html">数列</a>の帰納法と \(\Sigma\) の総合問題になっている。</p>
     </div></details>

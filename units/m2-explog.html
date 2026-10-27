@@ -33,13 +33,13 @@
 
   <div class="box theorem">
     <p><span class="name">累乗根と有理数の指数</span>：\(a\gt 0\)、\(m,n\) は正の整数のとき</p>
-    \[ a^0=1,\quad a^{-n}=\frac{1}{a^n},\quad a^{\frac{m}{n}}=\sqrt[n]{a^m}=\left(\sqrt[n]{a}\right)^m \]
+    \[ \begin{gathered} a^0=1,\quad a^{-n}=\frac{1}{a^n}\\ a^{\frac{m}{n}}=\sqrt[n]{a^m}=\left(\sqrt[n]{a}\right)^m \end{gathered} \]
     <p>なぜ：\(a^{-n}\) や \(a^{\frac mn}\) は「指数法則 \(a^pa^q=a^{p+q}\) がそのまま成り立つように」決めた定義である。たとえば \(\left(a^{\frac1n}\right)^n=a^{1}\) となるべきだから \(a^{\frac1n}=\sqrt[n]a\)。</p>
   </div>
 
   <div class="box theorem">
     <p><span class="name">指数法則</span>：\(a\gt0,\ b\gt0\)、\(p,q\) は実数のとき</p>
-    \[ a^pa^q=a^{p+q},\quad \frac{a^p}{a^q}=a^{p-q},\quad (a^p)^q=a^{pq},\quad (ab)^p=a^pb^p \]
+    \[ \begin{gathered} a^pa^q=a^{p+q},\quad \frac{a^p}{a^q}=a^{p-q}\\ (a^p)^q=a^{pq},\quad (ab)^p=a^pb^p \end{gathered} \]
     <p>なぜ：\(a^3a^2=(aaa)(aa)=a^5\) のように「かけた個数を数える」ことが出発点。負・分数・実数の指数はこれが壊れないように拡張されている。</p>
   </div>
 
@@ -54,13 +54,13 @@
 
   <div class="box theorem">
     <p><span class="name">対数の定義と性質</span>：\(a\gt0,\ a\ne1,\ M\gt0\) のとき \(a^p=M \iff p=\log_a M\)。\(M,N\gt0\) で</p>
-    \[ \log_a MN=\log_a M+\log_a N,\quad \log_a\frac MN=\log_a M-\log_a N,\quad \log_a M^r=r\log_a M \]
+    \[ \begin{gathered} \log_a MN=\log_a M+\log_a N\\ \log_a\frac MN=\log_a M-\log_a N\\ \log_a M^r=r\log_a M \end{gathered} \]
     <p>なぜ：\(M=a^p,\ N=a^q\) とおくと \(MN=a^{p+q}\)。つまり<b>対数の性質は指数法則を「指数の側」から読んだもの</b>にすぎない。</p>
   </div>
 
   <div class="box theorem">
     <p><span class="name">底の変換公式</span>：\(a,b,c\gt0,\ a\ne1,\ c\ne1\) のとき</p>
-    \[ \log_a b=\frac{\log_c b}{\log_c a},\qquad \text{特に}\ \log_a b=\frac{1}{\log_b a}\ (b\ne1) \]
+    \[ \begin{gathered} \log_a b=\frac{\log_c b}{\log_c a}\\ \text{特に}\ \log_a b=\frac{1}{\log_b a}\ (b\ne1) \end{gathered} \]
     <p>なぜ：\(p=\log_a b\) とすると \(a^p=b\)。両辺の \(\log_c\) をとって \(p\log_c a=\log_c b\)。</p>
   </div>
 
@@ -241,7 +241,7 @@
       <div class="problem">(1) \(\log_2 3\cdot\log_3 5\cdot\log_5 8\) の値を求めよ。<br>(2) \(\log_2 3=a,\ \log_3 5=b\) のとき、\(\log_{15}40\) を \(a,b\) で表せ。</div>
       <p>(1) 底を2にそろえると \(\log_23\cdot\dfrac{\log_25}{\log_23}\cdot\dfrac{\log_28}{\log_25}=\log_2 8=3\)。<span class="answer">3</span></p>
       <p>(2) 底を2にそろえる。\(\log_2 5=\log_2 3\cdot\log_3 5=ab\)。</p>
-      \[ \log_{15}40=\frac{\log_2 40}{\log_2 15}=\frac{\log_2 8+\log_2 5}{\log_2 3+\log_2 5}=\frac{3+ab}{a+ab} \]
+      \[ \begin{aligned}\log_{15}40&=\frac{\log_2 40}{\log_2 15}=\frac{\log_2 8+\log_2 5}{\log_2 3+\log_2 5}\\&=\frac{3+ab}{a+ab}\end{aligned} \]
       <p class="answer">\(\log_{15}40=\dfrac{ab+3}{a(b+1)}\)</p>
     </div></details>
   </article>
@@ -548,7 +548,7 @@
     <details class="sol"><summary>解答</summary><div class="inner">
       <p>(1) 桁数の定義より \(10^{a-1}\le2^n\lt10^a,\ 10^{b-1}\le5^n\lt10^b\)。</p>
       <p>ここで \(n\ge1\) のとき \(2^n\) は5の倍数でないので10のべき乗ではない。同様に \(5^n\) は偶数なので10のべき乗ではない。よって左側の等号は成り立たず</p>
-      \[ 10^{a-1}\lt2^n\lt10^a,\qquad 10^{b-1}\lt5^n\lt10^b \]
+      \[ \begin{gathered} 10^{a-1}\lt2^n\lt10^a\\ 10^{b-1}\lt5^n\lt10^b \end{gathered} \]
       <p>辺々かけ合わせる（すべて正）と \(10^{a+b-2}\lt10^n\lt10^{a+b}\)。底 \(10\gt1\) なので \(a+b-2\lt n\lt a+b\)。</p>
       <p>\(n\) は整数なので \(n=a+b-1\)、すなわち \(a+b=n+1\)。（証明終）</p>
       <p>(2) (1) で \(n=100,\ a=31\) とすると \(b=101-31=70\)。<span class="answer">70桁</span></p>

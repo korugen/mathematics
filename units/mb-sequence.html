@@ -33,27 +33,27 @@
 
   <div class="box theorem">
     <p><span class="name">等差数列・等比数列</span>：初項 \(a\)、公差 \(d\)／公比 \(r\) とすると</p>
-    \[ a_n=a+(n-1)d,\quad S_n=\frac{n\{2a+(n-1)d\}}{2}=\frac{n(a_1+a_n)}{2} \]
-    \[ a_n=ar^{n-1},\quad S_n=\frac{a(r^n-1)}{r-1}\ (r\ne1),\quad S_n=na\ (r=1) \]
+    \[ \begin{gathered} a_n=a+(n-1)d\\ S_n=\frac{n\{2a+(n-1)d\}}{2}=\frac{n(a_1+a_n)}{2} \end{gathered} \]
+    \[ \begin{gathered} a_n=ar^{n-1}\\ S_n=\frac{a(r^n-1)}{r-1}\ (r\ne1)\\ S_n=na\ (r=1) \end{gathered} \]
     <p>なぜ：等差数列の和は、逆順に並べて足すと各組が \(a_1+a_n\) で \(n\) 組。等比数列の和は \(S-rS\) で途中の項がすべて消える（P6 と同じ仕組み）。</p>
   </div>
 
   <div class="box theorem">
     <p><span class="name">\(\Sigma\) の公式</span></p>
-    \[ \sum_{k=1}^nk=\frac{n(n+1)}2,\quad \sum_{k=1}^nk^2=\frac{n(n+1)(2n+1)}6,\quad \sum_{k=1}^nk^3=\left\{\frac{n(n+1)}2\right\}^2 \]
+    \[ \begin{gathered} \sum_{k=1}^nk=\frac{n(n+1)}2\\ \sum_{k=1}^nk^2=\frac{n(n+1)(2n+1)}6\\ \sum_{k=1}^nk^3=\left\{\frac{n(n+1)}2\right\}^2 \end{gathered} \]
     <p>なぜ：\((k+1)^3-k^3=3k^2+3k+1\) を \(k=1\) から \(n\) まで足すと、左辺は途中が消えて \((n+1)^3-1\)。これから \(\sum k^2\) が求まる。「差の形にして和をとると消える」が数列の和の根本原理。</p>
   </div>
 
   <div class="box theorem">
     <p><span class="name">階差数列と和からの一般項</span></p>
-    \[ b_n=a_{n+1}-a_n\ \text{のとき}\quad a_n=a_1+\sum_{k=1}^{n-1}b_k\quad(n\ge2) \]
+    \[ \begin{gathered} b_n=a_{n+1}-a_n\ \text{のとき}\\ a_n=a_1+\sum_{k=1}^{n-1}b_k\quad(n\ge2) \end{gathered} \]
     \[ a_1=S_1,\qquad a_n=S_n-S_{n-1}\quad(n\ge2) \]
     <p>どちらも<b>\(n\ge2\) でしか使えない</b>（\(\sum_{k=1}^{0}\) や \(S_0\) は意味をもたない）ので、最後に \(n=1\) を別に確かめる。</p>
   </div>
 
   <div class="box theorem">
     <p><span class="name">漸化式 \(a_{n+1}=pa_n+q\ (p\ne1)\) の解法</span>：\(\alpha=p\alpha+q\) を満たす \(\alpha\)（特性方程式の解）を使うと</p>
-    \[ a_{n+1}-\alpha=p(a_n-\alpha)\quad\Longrightarrow\quad a_n=\alpha+(a_1-\alpha)p^{n-1} \]
+    \[ \begin{gathered} a_{n+1}-\alpha=p(a_n-\alpha)\\ \Longrightarrow\ a_n=\alpha+(a_1-\alpha)p^{n-1} \end{gathered} \]
     <p>なぜ：\(a_{n+1}=pa_n+q\) から \(\alpha=p\alpha+q\) を辺々引くと \(q\) が消える。「動かない値 \(\alpha\) からのずれ」は毎回 \(p\) 倍される等比数列である。</p>
   </div>
 
@@ -141,7 +141,7 @@
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">(1) \(\sum_{k=1}^n(2k-1)^2\)　(2) \(1\cdot2+2\cdot3+\cdots+n(n+1)\)　(3) \(\sum_{k=1}^n2\cdot3^{k-1}\)</div>
       <p>(1) \((2k-1)^2=4k^2-4k+1\)。</p>
-      \[ \begin{aligned}\sum_{k=1}^n(4k^2-4k+1)&=\frac{4n(n+1)(2n+1)}6-2n(n+1)+n\\&=\frac n3\{2(n+1)(2n+1)-6(n+1)+3\}=\frac{n(4n^2-1)}3\end{aligned} \]
+      \[ \begin{aligned}&\sum_{k=1}^n(4k^2-4k+1)\\&=\frac{4n(n+1)(2n+1)}6-2n(n+1)+n\\&=\frac n3\{2(n+1)(2n+1)-6(n+1)+3\}\\&=\frac{n(4n^2-1)}3\end{aligned} \]
       <p class="answer">\(\frac{n(2n-1)(2n+1)}3\)</p>
       <p>(2) \(\sum_{k=1}^nk(k+1)=\frac{n(n+1)(2n+1)}6+\frac{n(n+1)}2=\frac{n(n+1)}6\{(2n+1)+3\}\)。<span class="answer">\(\frac{n(n+1)(n+2)}3\)</span></p>
       <p>(3) 初項2、公比3、項数 \(n\) の等比数列の和。\(\frac{2(3^n-1)}{3-1}\)。<span class="answer">\(3^n-1\)</span></p>
@@ -210,11 +210,12 @@
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">(1) \(\sum_{k=1}^n\dfrac1{(2k-1)(2k+1)}\)　(2) \(\sum_{k=1}^n\dfrac1{k(k+2)}\) を求めよ。</div>
       <p>(1) \(\frac1{(2k-1)(2k+1)}=\frac12\left(\frac1{2k-1}-\frac1{2k+1}\right)\)。</p>
-      <p>\(\frac12\left\{\left(1-\frac13\right)+\left(\frac13-\frac15\right)+\cdots+\left(\frac1{2n-1}-\frac1{2n+1}\right)\right\}=\frac12\left(1-\frac1{2n+1}\right)\)。<span class="answer">\(\frac{n}{2n+1}\)</span></p>
+      \[ \begin{aligned}&\frac12\Big\{\left(1-\tfrac13\right)+\left(\tfrac13-\tfrac15\right)+\cdots\\&\qquad+\left(\tfrac1{2n-1}-\tfrac1{2n+1}\right)\Big\}\\&=\frac12\left(1-\frac1{2n+1}\right)\end{aligned} \]
+      <p class="answer">\(\frac{n}{2n+1}\)</p>
       <p>(2) \(\frac1{k(k+2)}=\frac12\left(\frac1k-\frac1{k+2}\right)\)。書き並べると</p>
-      \[ \frac12\left\{\left(1-\tfrac13\right)+\left(\tfrac12-\tfrac14\right)+\left(\tfrac13-\tfrac15\right)+\cdots+\left(\tfrac1n-\tfrac1{n+2}\right)\right\} \]
+      \[ \begin{aligned}&\frac12\Big\{\left(1-\tfrac13\right)+\left(\tfrac12-\tfrac14\right)+\left(\tfrac13-\tfrac15\right)\\&\qquad+\cdots+\left(\tfrac1n-\tfrac1{n+2}\right)\Big\}\end{aligned} \]
       <p>正の項は \(1,\frac12\) だけ、負の項は \(-\frac1{n+1},-\frac1{n+2}\) だけが残る。</p>
-      \[ \frac12\left(\frac32-\frac1{n+1}-\frac1{n+2}\right)=\frac{n(3n+5)}{4(n+1)(n+2)} \]
+      \[ \begin{aligned}&\frac12\left(\frac32-\frac1{n+1}-\frac1{n+2}\right)\\&=\frac{n(3n+5)}{4(n+1)(n+2)}\end{aligned} \]
       <p class="answer">\(\dfrac{n(3n+5)}{4(n+1)(n+2)}\)</p>
       <p class="point">(2) で「最初と最後の1個ずつ」だけ残すと誤答。分母の間隔が2なら2個ずつ残る。迷ったら必ず書き並べる。根号型は \(\frac{1}{\sqrt k+\sqrt{k+1}}=\sqrt{k+1}-\sqrt k\) で和は \(\sqrt{n+1}-1\)。</p>
     </div></details>
@@ -235,9 +236,9 @@
     </dl>
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">\(S_n=\sum_{k=1}^nk\cdot2^{k-1}\) を求めよ。</div>
-      \[ \begin{aligned}S_n&=1+2\cdot2+3\cdot2^2+\cdots+n\cdot2^{n-1}\\2S_n&=\phantom{1+{}}1\cdot2+2\cdot2^2+\cdots+(n-1)2^{n-1}+n\cdot2^n\end{aligned} \]
+      \[ \begin{aligned}S_n&=1+2\cdot2+\cdots+n\cdot2^{n-1}\\2S_n&=\phantom{1+{}}1\cdot2+\cdots+(n-1)2^{n-1}+n\cdot2^n\end{aligned} \]
       <p>辺々引くと</p>
-      \[ -S_n=1+2+2^2+\cdots+2^{n-1}-n\cdot2^n=(2^n-1)-n\cdot2^n \]
+      \[ \begin{aligned}-S_n&=1+2+2^2+\cdots+2^{n-1}-n\cdot2^n\\&=(2^n-1)-n\cdot2^n\end{aligned} \]
       <p class="answer">\(S_n=(n-1)2^n+1\)</p>
       <p class="point">検算：\(n=2\) で \(1+4=5\)、式は \(1\cdot4+1=5\)。最後の項 \(-n\cdot2^n\) を落とすのが典型的なミス。</p>
     </div></details>
@@ -492,14 +493,14 @@
       <div class="problem">(1) すべての自然数 \(n\) について \(1^3+2^3+\cdots+n^3=\left\{\frac{n(n+1)}2\right\}^2\) を示せ。<br>(2) \(n\ge5\) のすべての整数 \(n\) について \(2^n\gt n^2\) を示せ。<br>(3) すべての自然数 \(n\) について \(4^n+6n-1\) は9の倍数であることを示せ。</div>
       <p>(1) [I] \(n=1\)：左辺 \(1\)、右辺 \(1\)。成立。</p>
       <p>[II] \(n=k\) で成立すると仮定すると、</p>
-      \[ \begin{aligned}1^3+\cdots+k^3+(k+1)^3&=\frac{k^2(k+1)^2}4+(k+1)^3\\&=\frac{(k+1)^2(k^2+4k+4)}4=\left\{\frac{(k+1)(k+2)}2\right\}^2\end{aligned} \]
+      \[ \begin{aligned}&1^3+\cdots+k^3+(k+1)^3\\&=\frac{k^2(k+1)^2}4+(k+1)^3\\&=\frac{(k+1)^2(k^2+4k+4)}4\\&=\left\{\frac{(k+1)(k+2)}2\right\}^2\end{aligned} \]
       <p>\(n=k+1\) でも成立。[I][II] よりすべての自然数 \(n\) で成立する。（証明終）</p>
       <p>(2) [I] \(n=5\)：\(32\gt25\)。成立。</p>
       <p>[II] \(k\ge5\) で \(2^k\gt k^2\) と仮定する。\(2^{k+1}=2\cdot2^k\gt2k^2\)。ここで \(2k^2-(k+1)^2=k^2-2k-1=(k-1)^2-2\gt0\)（\(k\ge5\) より \((k-1)^2\ge16\)）。よって \(2^{k+1}\gt2k^2\gt(k+1)^2\)。</p>
       <p>[I][II] より \(n\ge5\) で成立する。（証明終）</p>
       <p>(3) [I] \(n=1\)：\(4+6-1=9\)。成立。</p>
       <p>[II] \(4^k+6k-1=9m\)（\(m\) は整数）と仮定する。</p>
-      \[ \begin{aligned}4^{k+1}+6(k+1)-1&=4\cdot4^k+6k+5=4(9m-6k+1)+6k+5\\&=36m-18k+9=9(4m-2k+1)\end{aligned} \]
+      \[ \begin{aligned}&4^{k+1}+6(k+1)-1=4\cdot4^k+6k+5\\&=4(9m-6k+1)+6k+5\\&=36m-18k+9=9(4m-2k+1)\end{aligned} \]
       <p>\(n=k+1\) でも9の倍数。[I][II] よりすべての自然数で成立。（証明終）</p>
       <p class="point">(3) のコツは「\(4^k=9m-6k+1\) と仮定を \(4^k\) について解いて代入する」こと。(2) は \(n=1\) では成り立つが \(n=2,3,4\) で成り立たない。出発点を問題文どおりにする。</p>
     </div></details>
@@ -662,7 +663,7 @@
     <details class="sol"><summary>解答</summary><div class="inner">
       <p>\(n\) 秒後に B, D にある確率をそれぞれ \(b_n,\ d_n\) とする。移動の規則は時計回りと反時計回りで対称で、出発点 A も B と D に対して対称な位置にあるので \(b_n=d_n\)。よって \(a_n+2b_n+c_n=1\)。</p>
       <p>A に来るのは「A でとどまる」「B から移る」「D から移る」の場合で、各確率は \(\frac13\)。C も同様なので</p>
-      \[ a_{n+1}=\frac13a_n+\frac23b_n,\qquad c_{n+1}=\frac13c_n+\frac23b_n \]
+      \[ \begin{gathered} a_{n+1}=\frac13a_n+\frac23b_n\\ c_{n+1}=\frac13c_n+\frac23b_n \end{gathered} \]
       <p><b>差</b>：\(a_{n+1}-c_{n+1}=\frac13(a_n-c_n)\)、\(a_0-c_0=1\) より \(a_n-c_n=\left(\frac13\right)^n\)。</p>
       <p><b>和</b>：\(s_n=a_n+c_n\) とおくと \(2b_n=1-s_n\) より</p>
       \[ s_{n+1}=\frac13s_n+\frac23(1-s_n)=-\frac13s_n+\frac23 \]
@@ -683,11 +684,11 @@
       <p>(1) \(a_1=1\gt0\)、\(a_n\gt0\) なら \(a_{n+1}=a_n+\frac1{a_n}\gt0\)。よってすべての \(n\) で \(a_n\gt0\)。</p>
       <p>両辺を2乗して \(a_{n+1}^2=a_n^2+2+\dfrac1{a_n^2}\gt a_n^2+2\)。\(a_1^2=1=2\cdot1-1\)。\(a_k^2\ge2k-1\) なら \(a_{k+1}^2\gt2k+1=2(k+1)-1\)。帰納法により \(a_n^2\ge2n-1\)。（証明終）</p>
       <p>(2) (1) より \(\dfrac1{a_k^2}\le\dfrac1{2k-1}\) なので \(a_{k+1}^2\le a_k^2+2+\dfrac1{2k-1}\)。これを \(k=1,2,\dots,n-1\) について辺々加えると</p>
-      \[ a_n^2\le a_1^2+2(n-1)+\sum_{k=1}^{n-1}\frac1{2k-1}=2n-1+\sum_{k=1}^{n-1}\frac1{2k-1} \]
+      \[ \begin{aligned}a_n^2&\le a_1^2+2(n-1)+\sum_{k=1}^{n-1}\frac1{2k-1}\\&=2n-1+\sum_{k=1}^{n-1}\frac1{2k-1}\end{aligned} \]
       <p>（証明終）</p>
       <p>(3) (1) より \(a_{100}^2\ge199\gt196=14^2\)。</p>
       <p>(2) の和 \(\sum_{k=1}^{99}\frac1{2k-1}\) を評価する。\(k=1\) の項は1、\(k=2,\dots,5\) の4項はそれぞれ \(\frac13\) 以下、\(k=6,\dots,99\) の94項はそれぞれ \(\frac1{11}\) 以下なので</p>
-      \[ \sum_{k=1}^{99}\frac1{2k-1}\le1+\frac43+\frac{94}{11}\lt1+2+9=12 \]
+      \[ \begin{aligned}\sum_{k=1}^{99}\frac1{2k-1}&\le1+\frac43+\frac{94}{11}\\&\lt1+2+9=12\end{aligned} \]
       <p>よって \(a_{100}^2\lt199+12=211\lt225=15^2\)。\(a_{100}\gt0\) なので \(14\lt a_{100}\lt15\)。</p>
       <p class="answer">\(a_{100}\) の整数部分は 14</p>
       <p class="point">採点ポイント：(1) で2乗する発想と帰納法、(2) で (1) を評価に使うこと、(3) で \(14^2\lt a_{100}^2\lt15^2\) を明示すること。和は精密に計算する必要はなく、<b>答えが決まる精度で粗く</b>評価すればよい（実際の値は \(a_{100}\approx14.21\)）。数IIIでは \(\sum\frac1{2k-1}\) を積分で評価して \(\log n\) 程度の増え方だと分かる。<a href="../thinking.html#t-integral-eval">発想：和を積分で評価する</a></p>
