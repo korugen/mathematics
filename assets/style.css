@@ -124,6 +124,8 @@ li { margin: .2em 0; }
 .tip { background: var(--ok-soft); border-color: transparent; }
 .idea { background: var(--accent-soft); border-color: transparent; }
 .math-scroll, .katex-display { overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
+/* KaTeX の非表示 MathML（position:absolute）をスクロール枠内に閉じ込め、ページ全体の横はみ出しを防ぐ */
+.math-scroll, .katex-display, .table-wrap, details, article.pattern, .box { position: relative; }
 
 /* ---- quick table ---- */
 .table-wrap { overflow-x: auto; margin: 1rem 0; }
