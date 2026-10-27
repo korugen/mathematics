@@ -65,7 +65,7 @@
   <div class="box theorem">
     <p><span class="name">2次曲線の統一的定義（離心率）</span>：定点 \(F\)（焦点）と定直線 \(\ell\)（準線）に対し \(\dfrac{PF}{(P\text{ と }\ell\text{ の距離})}=e\) となる点 \(P\) の軌跡は</p>
     <p>\(0\lt e\lt1\) なら楕円、\(e=1\) なら放物線、\(e\gt1\) なら双曲線。楕円・双曲線では \(e=\dfrac ca\)、準線は \(x=\pm\dfrac{a}{e}=\pm\dfrac{a^2}{c}\)。</p>
-    <p>なぜ：\(\sqrt{(x-c)^2+y^2}=e\left|x-\frac{a}{e}\right|\) を2乗すると、\(x^2\) の係数が \(1-e^2\) になる。その符号（正・0・負）で楕円・放物線・双曲線が分かれる。</p>
+    <p>なぜ：\(\sqrt{(x-c)^2+y^2}=e\left|x-\frac{a}{e}\right|\) を2乗すると、\(x^2\) の係数が \(1-e^2\) になる。その符号（正・0・負）で楕円・放物線・双曲線が分かれる（<a href="../thinking.html#t-casework">発想：場合分け</a>）。</p>
   </div>
 
   <div class="box theorem">
@@ -187,7 +187,7 @@
         <li>焦点などは標準形で求めてから \((p,q)\) だけずらす。</li>
       </ol></dd>
       <dt>使う定理・公式</dt><dd>平行移動：\(f(x-p,\ y-q)=0\) は \(f(x,y)=0\) を \((p,q)\) だけ移動</dd>
-      <dt>なぜこの方法？</dt><dd>平行移動は形を変えないので、<b>標準形の世界で考えてから戻す</b>のが一番ミスが少ない。<a href="m1-quadratic.html">2次関数</a>の頂点を平方完成で求めたのと同じ発想。</dd>
+      <dt>なぜこの方法？</dt><dd>平行移動は形を変えないので、<b>標準形の世界で考えてから戻す</b>のが一番ミスが少ない（<a href="../thinking.html#t-subst">発想：置き換え</a>）。<a href="m1-quadratic.html">2次関数</a>の頂点を平方完成で求めたのと同じ発想。</dd>
     </dl>
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">方程式 \(x^2+4y^2-4x+8y+4=0\) が表す曲線の名前、中心、焦点を求めよ。</div>
@@ -354,7 +354,7 @@
         <li>概形：\(\theta\) の増減表に \(x\) の増減・\(y\) の増減を並べ、主要な点（端点・\(y\) 最大の点）を結ぶ。</li>
       </ol></dd>
       <dt>使う定理・公式</dt><dd>媒介変数の微分（<a href="m3-diff.html">微分法とその応用</a>）</dd>
-      <dt>なぜこの方法？</dt><dd>\(\theta\) が少し増えたとき \(x\) が \(dx\)、\(y\) が \(dy\) 動くので、その比が傾き。サイクロイドの面積・長さは<a href="m3-integral-app.html">積分法の応用</a>で頻出（面積 \(3\pi a^2\)、1アーチの長さ \(8a\)）。</dd>
+      <dt>なぜこの方法？</dt><dd>\(\theta\) が少し増えたとき \(x\) が \(dx\)、\(y\) が \(dy\) 動くので、その比が傾き。グラフの形は増減表から読む（<a href="../thinking.html#t-graph">発想：グラフにする</a>）。サイクロイドの面積・長さは<a href="m3-integral-app.html">積分法の応用</a>で頻出（面積 \(3\pi a^2\)、1アーチの長さ \(8a\)）。</dd>
     </dl>
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">サイクロイド \(x=\theta-\sin\theta,\ y=1-\cos\theta\ (0\le\theta\le2\pi)\) について、(1) \(\theta=\frac\pi2\) に対応する点における接線の方程式を求めよ。(2) 曲線の概形を述べよ。</div>
