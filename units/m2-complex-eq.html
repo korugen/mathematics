@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>複素数と方程式（数学II）｜解法の地図</title>
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-unit="m2-complex-eq" data-root="../">
+<main>
+
+<header class="unit-head">
+  <span class="subj-badge">数学II</span>
+  <h1>複素数と方程式</h1>
+  <p class="lead">数の範囲を複素数まで広げ、「方程式の解」と「式の係数・割り算の余り」を自由に行き来できるようにする単元。解と係数の関係・剰余の定理・次数下げは、数列・整数・複素数平面・微積分の計算でくり返し使う基本技術である。</p>
+  <div class="goal">
+    <strong>このページの到達目標</strong>
+    <ul>
+      <li>【基礎】複素数の四則計算と相等ができ、2次方程式の解を判別し、解と係数の関係・剰余の定理・因数定理を使って値や因数分解を求められる。</li>
+      <li>【標準】余りの決定（2次式・重解をもつ3次式で割る）、1の3乗根 \(\omega\)、実数係数の虚数解、相反方程式を型どおりに処理できる。</li>
+      <li>【阪大】\(x^n\) を割った余りを漸化式や二項定理でとらえ、次数下げ・解の置き換え・パラメータを含む解の個数を答案として完成できる。</li>
+    </ul>
+  </div>
+  <p class="prereq">前提：<a href="m1-quadratic.html">2次関数</a>（判別式）、<a href="m2-proof.html">式と証明</a>（整式の除法・恒等式）／ 次に進む：<a href="mc-complex.html">複素数平面</a>、<a href="m2-calculus.html">微分法・積分法（数II）</a></p>
+</header>
+
+<section id="core">
+  <h2>必ず押さえる基本事項</h2>
+
+  <div class="box theorem">
+    <p><span class="name">複素数と相等</span>：\(i^2=-1\)。\(a,b,c,d\) が実数のとき</p>
+    \[ a+bi=c+di\iff a=c\ \text{かつ}\ b=d,\qquad a+bi=0\iff a=b=0 \]
+    <p>なぜ：\(b\neq d\) なら \(i=\dfrac{a-c}{d-b}\) が実数になり \(i^2=-1\) に矛盾。<b>「実数である」ことが前提</b>なので、答案では「\(x,y\) は実数だから」と必ず書く。</p>
+    <p>\(a\gt0\) のとき \(\sqrt{-a}=\sqrt a\,i\)。\(\sqrt{-2}\sqrt{-3}=\sqrt2 i\cdot\sqrt3 i=-\sqrt6\)（\(\sqrt{(-2)(-3)}\) ではない）。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">共役複素数</span>：\(z=a+bi\) に対し \(\bar z=a-bi\)。</p>
+    \[ z+\bar z=2a,\quad z\bar z=a^2+b^2,\quad \overline{z\pm w}=\bar z\pm\bar w,\quad \overline{zw}=\bar z\,\bar w,\quad \overline{\left(\tfrac zw\right)}=\tfrac{\bar z}{\bar w} \]
+    <p>\(z\) が実数 \(\iff\bar z=z\)。なぜ：成分で計算すれば確かめられる。特に \(z\bar z\) は実数なので、<b>分母に \(\bar z\) を掛けると分母が実数になる</b>。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">判別式と解と係数の関係</span>：\(ax^2+bx+c=0\)（\(a,b,c\) 実数）の判別式 \(D=b^2-4ac\) について</p>
+    <p>\(D\gt0\)：異なる2つの実数解、\(D=0\)：重解、\(D\lt0\)：異なる2つの虚数解。</p>
+    <p>2解を \(\alpha,\beta\) とすると \(\alpha+\beta=-\dfrac ba,\ \alpha\beta=\dfrac ca\)。3次方程式 \(ax^3+bx^2+cx+d=0\) の3解 \(\alpha,\beta,\gamma\) では</p>
+    \[ \alpha+\beta+\gamma=-\frac ba,\quad \alpha\beta+\beta\gamma+\gamma\alpha=\frac ca,\quad \alpha\beta\gamma=-\frac da \]
+    <p>なぜ：\(ax^2+bx+c=a(x-\alpha)(x-\beta)\) が恒等式なので、右辺を展開して係数を比べる（3次も同様）。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">剰余の定理・因数定理</span>：整式 \(P(x)\) を \(x-a\) で割った余りは \(P(a)\)。\(ax+b\) で割った余りは \(P\left(-\frac ba\right)\)。</p>
+    <p>\(P(a)=0\iff P(x)\) は \(x-a\) で割り切れる。</p>
+    <p>なぜ：\(P(x)=(x-a)Q(x)+R\)（\(R\) は定数）に \(x=a\) を代入すると \(P(a)=R\)。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">1の3乗根と実数係数の虚数解</span></p>
+    <ul>
+      <li>\(x^3=1\) の虚数解の1つを \(\omega\) とすると \(\omega^3=1,\ \omega^2+\omega+1=0,\ \bar\omega=\omega^2=\frac1\omega\)。（\(x^3-1=(x-1)(x^2+x+1)\) より）</li>
+      <li>係数がすべて実数の方程式 \(P(x)=0\) が虚数解 \(\alpha\) をもてば、\(\bar\alpha\) も解。（\(P(\bar\alpha)=\overline{P(\alpha)}=\bar0=0\)）</li>
+    </ul>
+  </div>
+
+  <div class="box idea">
+    <p><b>この単元を貫く考え方</b>：「\(\alpha\) が解である」とは「\(P(\alpha)=0\) という<b>使える等式</b>が手に入った」ということ。この等式で、<b>高い次数を低い次数に落とす</b>（次数下げ）、<b>未知の係数を決める</b>、<b>割り算の余りを決める</b>。解を求めることにこだわらず、解が満たす等式を道具として使う。</p>
+  </div>
+</section>
+
+<section id="quick">
+  <h2>早見表：こう来たら → こう解く</h2>
+  <div class="table-wrap"><table class="quick">
+    <tr><th>問題の特徴（こう来たら）</th><th>方針（こう解く）</th><th>使う道具</th><th>詳細</th></tr>
+    <tr data-level="1"><td>複素数の計算、分母に \(i\)</td><td>\(i^2=-1\)、分母の共役を掛ける</td><td>共役複素数</td><td><a href="#ceq-p1">P1</a></td></tr>
+    <tr data-level="1"><td>「\(x,y\) は実数」＋複素数の等式</td><td>実部・虚部を比較</td><td>複素数の相等</td><td><a href="#ceq-p2">P2</a></td></tr>
+    <tr data-level="2"><td>「\(z+\frac1z\) が実数」など実数条件</td><td>\(\bar w=w\) を使う</td><td>共役の性質</td><td><a href="#ceq-p3">P3</a></td></tr>
+    <tr data-level="1"><td>解の種類を判別せよ</td><td>判別式の符号</td><td>判別式</td><td><a href="#ceq-p4">P4</a></td></tr>
+    <tr data-level="1"><td>\(\alpha^2+\beta^2,\ \alpha^3+\beta^3\) の値</td><td>基本対称式 \(\alpha+\beta,\ \alpha\beta\) で表す</td><td>解と係数の関係</td><td><a href="#ceq-p5">P5</a></td></tr>
+    <tr data-level="2"><td>「\(\alpha^2,\beta^2\) を解とする方程式」「2解の比が \(1:2\)」</td><td>和と積を求める／解を \(\alpha,2\alpha\) とおく</td><td>\(x^2-(\text{和})x+(\text{積})=0\)</td><td><a href="#ceq-p6">P6</a></td></tr>
+    <tr data-level="2"><td>3次方程式の解 \(\alpha,\beta,\gamma\) の式の値</td><td>3つの基本対称式で表す</td><td>3次の解と係数の関係</td><td><a href="#ceq-p7">P7</a></td></tr>
+    <tr data-level="1"><td>「\(x-1\) で割り切れ、\(x+1\) で割ると余り〜」</td><td>\(P(1),P(-1)\) を計算</td><td>剰余の定理・因数定理</td><td><a href="#ceq-p8">P8</a></td></tr>
+    <tr data-level="2"><td>1次式で割った余りから2次式で割った余り</td><td>余りを \(ax+b\) とおき代入</td><td>\(A=BQ+R\)</td><td><a href="#ceq-p9">P9</a></td></tr>
+    <tr data-level="2"><td>\((x-1)^2(x+2)\) で割った余り</td><td>余りを \(a(x-1)^2+(\text{既知の余り})\) とおく</td><td>余りの再分割</td><td><a href="#ceq-p10">P10</a></td></tr>
+    <tr data-level="3"><td>\(x^n,\ x^{100}\) を2次式で割った余り</td><td>二項定理／\(x^3=1\) の利用</td><td>二項定理・\(\omega\)</td><td><a href="#ceq-p11">P11</a></td></tr>
+    <tr data-level="1"><td>3次・4次方程式を解け</td><td>因数定理で1つ見つけ、組立除法で次数下げ</td><td>因数定理・複2次式</td><td><a href="#ceq-p12">P12</a></td></tr>
+    <tr data-level="2"><td>\(\omega^{100}\)、「\(x^2+x+1\) で割り切れる」</td><td>\(\omega^3=1,\ \omega^2+\omega+1=0\)</td><td>1の3乗根</td><td><a href="#ceq-p13">P13</a></td></tr>
+    <tr data-level="2"><td>「係数は実数、\(1+2i\) を解にもつ」</td><td>\(1-2i\) も解 → 2次因数で割る</td><td>共役な解</td><td><a href="#ceq-p14">P14</a></td></tr>
+    <tr data-level="2"><td>係数が左右対称な4次方程式</td><td>\(x^2\) で割り \(t=x+\frac1x\)</td><td>相反方程式</td><td><a href="#ceq-p15">P15</a></td></tr>
+    <tr data-level="3"><td>\(\alpha=1+i\) のとき \(\alpha^5-\cdots\) の値</td><td>\(\alpha\) が満たす2次式で割った余りに代入</td><td>次数下げ</td><td><a href="#ceq-p16">P16</a></td></tr>
+    <tr data-level="3"><td>「\(\alpha+\beta,\ \beta+\gamma,\ \gamma+\alpha\) を解とする3次方程式」</td><td>置き換え or 新しい基本対称式</td><td>解と係数の関係</td><td><a href="#ceq-p17">P17</a></td></tr>
+  </table></div>
+</section>
+
+<section id="patterns">
+  <h2>パターン別 解法マップ</h2>
+
+  <article class="pattern" id="ceq-p1" data-level="1">
+    <h3><span class="pid">P1</span>複素数の四則計算（分母の実数化・負の数の平方根）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\frac{3+i}{1-2i}\) を \(a+bi\) の形で表せ」「\((2-i)^3\) を計算せよ」「\(\sqrt{-2}\sqrt{-3}\)」</dd>
+      <dt>こう考える</dt><dd>\(i\) は「\(i^2=-1\) という規則つきの文字」。普通の文字式と同じに計算し、\(i^2\) が出たら \(-1\) に直す。分母に \(i\) があれば<b>分母の共役複素数を掛けて分母を実数に</b>する。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\sqrt{-a}\) はまず \(\sqrt a\,i\) に直してから計算する。</li>
+        <li>分数は分母・分子に分母の共役を掛ける：\((a+bi)(a-bi)=a^2+b^2\)。</li>
+        <li>最後に「実部 \(+\) 虚部 \(i\)」の形に整理する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(i^2=-1\)、\(z\bar z=a^2+b^2\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(z\bar z\) は必ず実数なので、共役を掛ければ分母から \(i\) が消える（有理化と同じ発想）。\(\sqrt a\sqrt b=\sqrt{ab}\) は \(a,b\ge0\) でしか成り立たないので、負の数の根号は先に \(i\) を出す。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">次の計算をせよ。(1) \(\dfrac{3+i}{1-2i}\)　(2) \((2-i)^3\)　(3) \(\sqrt{-2}\,\sqrt{-3}\)</div>
+      <p>(1) \(\dfrac{(3+i)(1+2i)}{(1-2i)(1+2i)}=\dfrac{3+6i+i+2i^2}{1+4}=\dfrac{1+7i}{5}\)。<span class="answer">\(\dfrac15+\dfrac75i\)</span></p>
+      <p>(2) \((2-i)^2=4-4i+i^2=3-4i\)。\((3-4i)(2-i)=6-3i-8i+4i^2=2-11i\)。<span class="answer">\(2-11i\)</span></p>
+      <p>(3) \(\sqrt2\,i\cdot\sqrt3\,i=\sqrt6\,i^2\)。<span class="answer">\(-\sqrt6\)</span></p>
+      <p class="point">(3) を \(\sqrt{(-2)(-3)}=\sqrt6\) とするのは典型的な誤り。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="ceq-p2" data-level="1">
+    <h3><span class="pid">P2</span>複素数の相等（実部と虚部を比べる）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\((1+2i)x+(3-i)y=5+3i\) を満たす実数 \(x,y\)」「\(z^2=3+4i\) を満たす複素数 \(z\)」</dd>
+      <dt>こう考える</dt><dd>複素数の等式1本は、<b>実部と虚部の2本の実数の等式</b>に分かれる。未知数が2つでも解ける理由はここにある。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>未知の複素数は \(z=x+yi\)（\(x,y\) は実数）とおく。</li>
+        <li>左辺を「実部 \(+\) 虚部 \(i\)」に整理する。</li>
+        <li>「\(x,y\) は実数だから」と書いて、実部・虚部をそれぞれ等しいとおき、連立方程式を解く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>複素数の相等</dd>
+      <dt>なぜこの方法？</dt><dd>\(1\) と \(i\) は「別々の向き」の数で、実数倍しても互いに作れない。だから両辺の \(1\) の成分どうし、\(i\) の成分どうしが等しくなる（ベクトルの成分比較と同じ）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \((1+2i)x+(3-i)y=5+3i\) を満たす実数 \(x,y\) を求めよ。<br>(2) \(z^2=3+4i\) を満たす複素数 \(z\) を求めよ。</div>
+      <p>(1) 左辺 \(=(x+3y)+(2x-y)i\)。\(x,y\) は実数なので \(x+3y=5,\ 2x-y=3\)。<span class="answer">\(x=2,\ y=1\)</span></p>
+      <p>(2) \(z=x+yi\)（\(x,y\) 実数）とおくと \(z^2=(x^2-y^2)+2xyi\)。よって \(x^2-y^2=3,\ xy=2\)。</p>
+      <p>\(y=\frac2x\) を代入して \(x^4-3x^2-4=0\)、\((x^2-4)(x^2+1)=0\)。\(x\) は実数なので \(x^2=4\)、\(x=\pm2\)、\(y=\pm1\)（複号同順）。</p>
+      <p class="answer">\(z=\pm(2+i)\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="ceq-p3" data-level="2">
+    <h3><span class="pid">P3</span>共役複素数の性質を使う</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(z+\frac1z\) が実数となる虚数 \(z\)」「\(z=2+3i\) を解にもつ実数係数の2次方程式」「\(z\bar z\)」</dd>
+      <dt>こう考える</dt><dd>「\(w\) が実数」は \(\bar w=w\) と<b>等式で言い換えられる</b>。成分 \(a+bi\) で計算するより、共役の計算規則でまとめて処理すると速い。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>実数条件を \(\bar w=w\) と書く（\(\overline{z+\frac1z}=\bar z+\frac{1}{\bar z}\)）。</li>
+        <li>移項して因数分解し、\(z-\bar z\) の因数を作る。</li>
+        <li>\(z\) が虚数なら \(z\neq\bar z\) なので、もう一方の因数が 0。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\overline{z+w}=\bar z+\bar w\)、\(\overline{zw}=\bar z\bar w\)、\(z\) が実数 \(\iff\bar z=z\)</dd>
+      <dt>なぜこの方法？</dt><dd>実部・虚部に分けると式が4倍に膨らむ。共役のまま扱えば \(z\) を1つのカタマリとして計算できる。<a href="mc-complex.html">複素数平面</a>では \(z\bar z=\abs z^2\) として毎回使う。<a href="../thinking.html#t-rephrase">発想：同値な言い換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(z=2+3i\) のとき \(z+\bar z,\ z\bar z\) を求め、\(z\) を解にもつ実数係数の2次方程式を1つ作れ。<br>(2) 虚数 \(z\) について \(z+\dfrac1z\) が実数ならば、\(z\bar z=1\) であることを示せ。</div>
+      <p>(1) \(z+\bar z=4,\ z\bar z=4+9=13\)。\(z,\bar z\) を解とする2次方程式は <span class="answer">\(x^2-4x+13=0\)</span></p>
+      <p>(2) \(w=z+\frac1z\) が実数なので \(\bar w=w\)、すなわち \(\bar z+\frac1{\bar z}=z+\frac1z\)。移項して</p>
+      \[ (z-\bar z)-\frac{z-\bar z}{z\bar z}=0\iff(z-\bar z)\left(1-\frac{1}{z\bar z}\right)=0 \]
+      <p>\(z\) は虚数なので \(z\neq\bar z\)。よって \(1-\frac1{z\bar z}=0\)、\(z\bar z=1\)。（証明終）</p>
+      <p class="point">(2) の結論は \(z=a+bi\) なら \(a^2+b^2=1\)、つまり \(z\) は複素数平面の単位円上にある。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="ceq-p4" data-level="1">
+    <h3><span class="pid">P4</span>2次方程式の解の判別（虚数解）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x^2+2(k-1)x+k+5=0\) の解の種類を判別せよ」「虚数解をもつ \(k\) の範囲」</dd>
+      <dt>こう考える</dt><dd>解の公式の \(\sqrt{\ }\) の中身 \(D\) の符号で、解が実数か虚数かが決まる。<b>係数が実数であること</b>が前提。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(x\) の係数が偶数なら \(D/4=b'^2-ac\) を使う。</li>
+        <li>\(D\) を因数分解して符号を調べる。</li>
+        <li>\(D\gt0,\ D=0,\ D\lt0\) の3通りで答える。\(x^2\) の係数に文字があるときは「2次方程式か」から確認。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>判別式、解の公式</dd>
+      <dt>なぜこの方法？</dt><dd>\(D\lt0\) なら \(\sqrt D=\sqrt{-D}\,i\) となって解に \(i\) が残る。<a href="m1-quadratic.html">2次関数</a>のグラフでは「\(x\) 軸と交わらない」ときにあたる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(k\) を実数の定数とする。2次方程式 \(x^2+2(k-1)x+k+5=0\) の解の種類を判別せよ。</div>
+      <p>\(D/4=(k-1)^2-(k+5)=k^2-3k-4=(k-4)(k+1)\)。</p>
+      <p class="answer">\(k\lt-1,\ 4\lt k\)：異なる2つの実数解／\(k=-1,\ 4\)：重解／\(-1\lt k\lt4\)：異なる2つの虚数解</p>
+      <p class="point">重解は \(x=-(k-1)\)。\(k=-1\) で \(x=2\)、\(k=4\) で \(x=-3\)。代入して確かめると安心。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="ceq-p5" data-level="1">
+    <h3><span class="pid">P5</span>解と係数の関係で対称式の値を求める</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「2次方程式の2つの解を \(\alpha,\beta\) とするとき、\(\alpha^2+\beta^2,\ \alpha^3+\beta^3,\ \frac\beta\alpha+\frac\alpha\beta\) の値を求めよ」</dd>
+      <dt>こう考える</dt><dd>\(\alpha,\beta\) を入れ替えても変わらない式（対称式）は、<b>必ず \(\alpha+\beta\) と \(\alpha\beta\) で表せる</b>。解を求めずに（虚数でも）値が出る。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>解と係数の関係で \(\alpha+\beta,\ \alpha\beta\) を求める。</li>
+        <li>\(\alpha^2+\beta^2=(\alpha+\beta)^2-2\alpha\beta\)、\(\alpha^3+\beta^3=(\alpha+\beta)^3-3\alpha\beta(\alpha+\beta)\) に代入。</li>
+        <li>分数は通分してから同様に。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>解と係数の関係、対称式の変形</dd>
+      <dt>なぜこの方法？</dt><dd>解の公式で \(\alpha,\beta\) を出して代入すると根号や \(i\) の計算が大変。基本対称式は係数から一瞬で出るので、計算量が圧倒的に少ない。<a href="../thinking.html#t-symmetry">発想：対称性を使う</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(2x^2-4x+3=0\) の2つの解を \(\alpha,\beta\) とする。\(\alpha^2+\beta^2,\ \alpha^3+\beta^3,\ \dfrac\beta\alpha+\dfrac\alpha\beta\) の値を求めよ。</div>
+      <p>\(\alpha+\beta=2,\ \alpha\beta=\frac32\)。</p>
+      <p>\(\alpha^2+\beta^2=2^2-2\cdot\frac32=1\)。\(\alpha^3+\beta^3=2^3-3\cdot\frac32\cdot2=-1\)。\(\dfrac\beta\alpha+\dfrac\alpha\beta=\dfrac{\alpha^2+\beta^2}{\alpha\beta}=\dfrac{1}{3/2}=\dfrac23\)。</p>
+      <p class="answer">\(1,\ -1,\ \dfrac23\)</p>
+      <p class="point">この方程式の解は虚数（\(D/4=4-6\lt0\)）だが、対称式の値は実数になる。\((\alpha-\beta)^2=4-6=-2\) のように負になることもある。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="ceq-p6" data-level="2">
+    <h3><span class="pid">P6</span>2数を解とする方程式・解の条件から係数を決める</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\alpha^2,\beta^2\) を解とする2次方程式を1つ作れ」「和が2、積が5である2数」「2つの解の比が \(1:2\) であるとき \(k\) の値」</dd>
+      <dt>こう考える</dt><dd>2数 \(p,q\) を解とする2次方程式は \(x^2-(p+q)x+pq=0\)。<b>和と積さえ分かれば方程式が作れる</b>。逆に解に条件があれば、解を \(\alpha,2\alpha\) のようにおいて解と係数の関係に入れる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>新しい2数の和と積を、元の \(\alpha+\beta,\ \alpha\beta\) で計算する。</li>
+        <li>\(x^2-(\text{和})x+(\text{積})=0\) を書き、係数を整数にする。</li>
+        <li>解の比・差の条件は、解を1つの文字で表して連立する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>解と係数の関係の逆：\((x-p)(x-q)=x^2-(p+q)x+pq\)</dd>
+      <dt>なぜこの方法？</dt><dd>2次方程式は「和と積」の2つの情報で決まる（\(x^2\) の係数を1にしたとき）。和と積は対称式なので P5 の技術で必ず計算できる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(2x^2-4x+3=0\) の2つの解を \(\alpha,\beta\) とするとき、\(\alpha^2,\ \beta^2\) を解とする2次方程式を1つ作れ。<br>(2) \(x^2-6x+k=0\) の2つの解の比が \(1:2\) であるとき、定数 \(k\) の値と2つの解を求めよ。</div>
+      <p>(1) P5 より \(\alpha^2+\beta^2=1\)、\(\alpha^2\beta^2=(\alpha\beta)^2=\frac94\)。よって \(x^2-x+\frac94=0\)。<span class="answer">\(4x^2-4x+9=0\)</span></p>
+      <p>(2) 2つの解を \(\alpha,\ 2\alpha\) とおく。和：\(3\alpha=6\) より \(\alpha=2\)。積：\(k=2\alpha^2=8\)。</p>
+      <p class="answer">\(k=8\)、解は \(x=2,\ 4\)</p>
+      <p class="point">「和が2、積が5の2数」は \(t^2-2t+5=0\) の解 \(1\pm2i\)。実数とは限らないことに注意。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="ceq-p7" data-level="2">
+    <h3><span class="pid">P7</span>3次方程式の解と係数の関係</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x^3-2x^2+3x-4=0\) の3つの解を \(\alpha,\beta,\gamma\) とするとき、\(\alpha^2+\beta^2+\gamma^2,\ (\alpha+1)(\beta+1)(\gamma+1)\) の値」</dd>
+      <dt>こう考える</dt><dd>3文字の対称式は \(\alpha+\beta+\gamma,\ \alpha\beta+\beta\gamma+\gamma\alpha,\ \alpha\beta\gamma\) で表せる。さらに \(f(x)=(x-\alpha)(x-\beta)(x-\gamma)\) と<b>因数分解された形</b>を使うと、\((p-\alpha)(p-\beta)(p-\gamma)=f(p)\) が一瞬で出る。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>3つの基本対称式を係数から読む（符号に注意：\(-\frac ba,\ \frac ca,\ -\frac da\)）。</li>
+        <li>\(\alpha^2+\beta^2+\gamma^2=(\alpha+\beta+\gamma)^2-2(\alpha\beta+\beta\gamma+\gamma\alpha)\)。</li>
+        <li>\((\alpha+1)(\beta+1)(\gamma+1)\) は \(f(-1)=(-1-\alpha)(-1-\beta)(-1-\gamma)\) を利用。</li>
+        <li>3乗和は \(\alpha^3=2\alpha^2-3\alpha+4\) を足し合わせる（次数下げ）と速い。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>3次の解と係数の関係、\(f(x)=(x-\alpha)(x-\beta)(x-\gamma)\)</dd>
+      <dt>なぜこの方法？</dt><dd>解と係数の関係は「因数分解形と展開形の係数比較」そのもの。だから因数分解形に値を代入する方法も同じ情報を使っている。3乗和は「解は方程式を満たす」を使うのが最短。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(x^3-2x^2+3x-4=0\) の3つの解を \(\alpha,\beta,\gamma\) とする。次の値を求めよ。<br>(1) \(\alpha^2+\beta^2+\gamma^2\)　(2) \((\alpha+1)(\beta+1)(\gamma+1)\)　(3) \(\alpha^3+\beta^3+\gamma^3\)</div>
+      <p>\(\alpha+\beta+\gamma=2,\ \alpha\beta+\beta\gamma+\gamma\alpha=3,\ \alpha\beta\gamma=4\)。</p>
+      <p>(1) \(2^2-2\cdot3=-2\)。<span class="answer">\(-2\)</span></p>
+      <p>(2) \(f(x)=x^3-2x^2+3x-4=(x-\alpha)(x-\beta)(x-\gamma)\)。\(f(-1)=-(1+\alpha)(1+\beta)(1+\gamma)\)、\(f(-1)=-1-2-3-4=-10\)。<span class="answer">\(10\)</span></p>
+      <p>(3) 各解は \(t^3=2t^2-3t+4\) を満たすので、足して \(\alpha^3+\beta^3+\gamma^3=2(-2)-3\cdot2+3\cdot4=2\)。<span class="answer">\(2\)</span></p>
+      <p class="point">(1) が負になるのは、解に虚数が含まれるから。実数解だけなら2乗和は負にならない。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="ceq-p8" data-level="1">
+    <h3><span class="pid">P8</span>剰余の定理・因数定理で係数を決める</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(P(x)=x^3+ax^2+bx-6\) は \(x-1\) で割り切れ、\(x+1\) で割ると余りが \(-8\)」「\(2x-1\) で割った余りを求めよ」</dd>
+      <dt>こう考える</dt><dd>実際に割り算をする必要はない。「\(x-a\) で割った余り」＝「\(P(a)\)」、「割り切れる」＝「\(P(a)=0\)」。<b>代入1回</b>で済む。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>条件を \(P(1)=0,\ P(-1)=-8\) などの式にする。</li>
+        <li>連立して係数を求める。</li>
+        <li>\(ax+b\) で割った余りは \(P\left(-\frac ba\right)\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>剰余の定理、因数定理</dd>
+      <dt>なぜこの方法？</dt><dd>\(P(x)=(x-a)Q(x)+R\) の \(x=a\) では \((x-a)Q(x)\) が消えて \(R\) だけが残る。商 \(Q\) を知らなくてよいのが強み。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(P(x)=x^3+ax^2+bx-6\) は \(x-1\) で割り切れ、\(x+1\) で割ると余りが \(-8\) である。定数 \(a,b\) の値を求めよ。また、\(P(x)\) を \(2x-1\) で割った余りを求めよ。</div>
+      <p>\(P(1)=1+a+b-6=0\) より \(a+b=5\)。\(P(-1)=-1+a-b-6=-8\) より \(a-b=-1\)。よって \(a=2,\ b=3\)。</p>
+      <p>\(P(x)=x^3+2x^2+3x-6\) を \(2x-1\) で割った余りは \(P\left(\frac12\right)=\frac18+\frac12+\frac32-6=-\frac{31}{8}\)。</p>
+      <p class="answer">\(a=2,\ b=3\)、余り \(-\dfrac{31}{8}\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="ceq-p9" data-level="2">
+    <h3><span class="pid">P9</span>2次式で割った余りを決める</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(P(x)\) を \(x-1\) で割ると余り3、\(x+2\) で割ると余り \(-3\)。\((x-1)(x+2)\) で割った余りを求めよ」</dd>
+      <dt>こう考える</dt><dd>2次式で割った余りは1次以下なので <b>\(ax+b\) とおける</b>。\(P(x)=(x-1)(x+2)Q(x)+ax+b\) に、割る式が 0 になる \(x\) を代入すれば \(Q\) が消える。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(P(x)=(x-1)(x+2)Q(x)+ax+b\) と書く。</li>
+        <li>\(x=1,\ -2\) を代入して \(P(1)=a+b,\ P(-2)=-2a+b\)。</li>
+        <li>剰余の定理の条件 \(P(1)=3,\ P(-2)=-3\) と連立。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(A=BQ+R\)（余りの次数 \(\lt\) 割る式の次数）、剰余の定理</dd>
+      <dt>なぜこの方法？</dt><dd>商 \(Q(x)\) は分からないが、割る式が 0 になる値を入れれば<b>分からない部分ごと消える</b>。余りの未知数の個数（2個）と、代入できる値の個数（2個）が一致するので決まる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">整式 \(P(x)\) を \(x-1\) で割ると余りが3、\(x+2\) で割ると余りが \(-3\) である。\(P(x)\) を \((x-1)(x+2)\) で割った余りを求めよ。</div>
+      <p>余りを \(ax+b\) とおくと \(P(x)=(x-1)(x+2)Q(x)+ax+b\)。</p>
+      <p>\(P(1)=a+b=3\)、\(P(-2)=-2a+b=-3\)。辺々引いて \(3a=6\)、\(a=2,\ b=1\)。</p>
+      <p class="answer">\(2x+1\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="ceq-p10" data-level="2">
+    <h3><span class="pid">P10</span>重解をもつ割る式・3次式で割った余り</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(P(x)\) を \((x-1)^2\) で割ると余り \(2x+1\)、\(x+2\) で割ると余り \(-6\)。\((x-1)^2(x+2)\) で割った余りを求めよ」</dd>
+      <dt>こう考える</dt><dd>3次式で割った余りは2次以下。ただし \(ax^2+bx+c\) とおくと、\(x=1\) は1回しか代入できず条件が足りない。そこで<b>余りをさらに \((x-1)^2\) で割って</b> \(a(x-1)^2+2x+1\) とおく。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(P(x)=(x-1)^2(x+2)Q(x)+R(x)\) で、\(R(x)\) を \((x-1)^2\) で割った余りは \(P(x)\) を \((x-1)^2\) で割った余りと同じ。</li>
+        <li>よって \(R(x)=a(x-1)^2+2x+1\) とおける。</li>
+        <li>残る条件（\(P(-2)=-6\)）を代入して \(a\) を決める。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>除法の等式、剰余の定理</dd>
+      <dt>なぜこの方法？</dt><dd>\(P(x)=(x-1)^2\{(x+2)Q(x)+a\}+2x+1\) と見れば、\((x-1)^2\) で割った余りが \(2x+1\) である条件が自動的に組み込まれる。未知数が1個に減る。（別法：\(R(x)=ax^2+bx+c\) とおき、\(P(1)=3\) と微分 \(P'(1)=2\) を使う。<a href="m2-calculus.html">微分法</a>）</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">整式 \(P(x)\) を \((x-1)^2\) で割ると余りが \(2x+1\)、\(x+2\) で割ると余りが \(-6\) である。\(P(x)\) を \((x-1)^2(x+2)\) で割った余りを求めよ。</div>
+      <p>\(P(x)=(x-1)^2(x+2)Q(x)+R(x)\)（\(R\) は2次以下）。</p>
+      <p>\((x-1)^2(x+2)Q(x)\) は \((x-1)^2\) で割り切れるので、\(R(x)\) を \((x-1)^2\) で割った余りは \(2x+1\)。よって \(R(x)=a(x-1)^2+2x+1\) とおける。</p>
+      <p>\(P(-2)=R(-2)=9a-3=-6\) より \(a=-\frac13\)。</p>
+      \[ R(x)=-\frac13(x-1)^2+2x+1=-\frac13x^2+\frac83x+\frac23 \]
+      <p class="answer">\(-\dfrac13x^2+\dfrac83x+\dfrac23\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="ceq-p11" data-level="3">
+    <h3><span class="pid">P11</span>\(x^n\) を割った余り（二項定理・\(x^3=1\) の利用）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x^n\)（\(n\ge2\)）を \((x-1)^2\) で割った余り」「\(x^{100}\) を \(x^2+x+1\) で割った余り」</dd>
+      <dt>こう考える</dt><dd>\(n\) が文字や大きな数では筆算できない。<b>割る式を「1つの文字」とみなせる形に書き直す</b>：\(x=1+(x-1)\) として二項定理、または \(x^2+x+1\) が \(x^3-1\) の因数であることを使う。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\((x-1)^2\) なら \(x^n=\{1+(x-1)\}^n\) を二項定理で展開し、\((x-1)^2\) 以上の項を捨てる。</li>
+        <li>\(x^2+x+1\) なら \(x^3-1=(x-1)(x^2+x+1)\) より「\(x^3\) は1と同じ余り」。\(x^{100}=x\cdot(x^3)^{33}\) と分ける。</li>
+        <li>（別法）\(\omega\) を代入：余り \(ax+b\) について \(a\omega+b=\omega^{100}\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>二項定理、\(x^3-1=(x-1)(x^2+x+1)\)</dd>
+      <dt>なぜこの方法？</dt><dd>「\((x-1)^2\) で割った余り」は「\(x-1\) の1次までの部分」のこと。\(x-1\) を主役の文字にすると、残すべき項が一目で分かる。整数の「\(10^n\) を 9 で割った余り」と同じ構造。<a href="../thinking.html#t-mod">発想：余りで分類</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(n\) を2以上の整数とする。\(x^n\) を \((x-1)^2\) で割った余りを求めよ。<br>(2) \(x^{100}\) を \(x^2+x+1\) で割った余りを求めよ。</div>
+      <p>(1) 二項定理より</p>
+      \[ x^n=\{1+(x-1)\}^n=1+n(x-1)+\sum_{k=2}^{n}\C nk(x-1)^k \]
+      <p>\(k\ge2\) の項はすべて \((x-1)^2\) で割り切れる。よって余りは \(1+n(x-1)\)。</p>
+      <p class="answer">(1) \(nx-n+1\)</p>
+      <p>(2) \(x^3-1=(x-1)(x^2+x+1)\) より、\(x^3=(x^2+x+1)(x-1)+1\)。\(x^{99}-1=(x^3)^{33}-1\) は \(x^3-1\) で割り切れるので \(x^2+x+1\) でも割り切れる。</p>
+      <p>\(x^{100}=x(x^{99}-1)+x\) で、\(x(x^{99}-1)\) は \(x^2+x+1\) で割り切れ、\(x\) は1次。</p>
+      <p class="answer">(2) \(x\)</p>
+      <p class="point">(1) を \(n=2,3,4\) で実験すると \(2x-1,\ 3x-2,\ 4x-3\) となり規則が見える。予想してから証明する姿勢が大切。<a href="../thinking.html#t-experiment">発想：小さい場合で実験</a></p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="ceq-p12" data-level="1">
+    <h3><span class="pid">P12</span>高次方程式を解く（因数定理で次数下げ）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「3次方程式 \(x^3-4x^2+6x-4=0\) を解け」「\(x^4+4=0\) を解け」</dd>
+      <dt>こう考える</dt><dd>3次以上は解の公式を使わない。<b>解を1つ見つけて因数分解</b>し、2次以下に落とす。4次で \(x^2\) の式に見えるなら \(x^2=X\) とおくか、平方の差をつくる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>定数項の約数（最高次の係数が1でないなら \(\pm\frac{\text{定数項の約数}}{\text{最高次の係数の約数}}\)）を代入し、\(P(a)=0\) となる \(a\) を探す。</li>
+        <li>組立除法で \(P(x)=(x-a)Q(x)\) と因数分解。</li>
+        <li>\(Q(x)=0\) を解の公式で解く。</li>
+        <li>複2次式は「\((x^2+k)^2-(\ \ )^2\)」の平方の差に変形。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>因数定理、組立除法、解の公式</dd>
+      <dt>なぜこの方法？</dt><dd>整数係数の方程式の有理数解は「定数項の約数 ÷ 最高次の係数の約数」の形に限られる（代入して整理すると分かる）ので、候補は有限個。1つ見つかれば次数が下がる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">次の方程式を解け。(1) \(x^3-4x^2+6x-4=0\)　(2) \(x^4+4=0\)</div>
+      <p>(1) \(P(2)=8-16+12-4=0\)。組立除法で \(P(x)=(x-2)(x^2-2x+2)\)。\(x^2-2x+2=0\) より \(x=1\pm i\)。</p>
+      <p class="answer">(1) \(x=2,\ 1\pm i\)</p>
+      <p>(2) \(x^4+4=(x^2+2)^2-4x^2=(x^2+2x+2)(x^2-2x+2)\)。それぞれ解いて</p>
+      <p class="answer">(2) \(x=-1\pm i,\ 1\pm i\)</p>
+      <p class="point">(2) は \(x^2=\pm2i\) と解いてもよいが、平方の差の方が実数係数の因数分解が見えて速い。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="ceq-p13" data-level="2">
+    <h3><span class="pid">P13</span>1の3乗根 \(\omega\) の性質</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x^3=1\) の虚数解の1つを \(\omega\) とするとき、\(\omega^{100}+\omega^{50}+1\) の値」「\(x^{2n}+x^n+1\) が \(x^2+x+1\) で割り切れることを示せ」</dd>
+      <dt>こう考える</dt><dd>\(\omega\) の具体的な値 \(\frac{-1+\sqrt3 i}{2}\) は使わない。使うのは <b>\(\omega^3=1\)（指数は3で割った余りだけが効く）と \(\omega^2+\omega+1=0\)</b> の2つだけ。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>指数を3で割った余りに直す：\(\omega^{100}=\omega^{3\cdot33+1}=\omega\)。</li>
+        <li>\(1+\omega=-\omega^2\)、\(\frac1\omega=\omega^2\) などに置き換える。</li>
+        <li>割り切れることの証明は、余りを \(ax+b\)（\(a,b\) 実数）とおき、\(\omega\) を代入して \(a\omega+b=0\) から \(a=b=0\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\omega^3=1,\ \omega^2+\omega+1=0\)、複素数の相等</dd>
+      <dt>なぜこの方法？</dt><dd>\(\omega^n\) は \(\omega,\ \omega^2,\ 1\) の3つをくり返す（周期3）。だから指数は3で割った余りで分類すればよい。\(\omega\) は虚数なので、実数 \(a,b\) で \(a\omega+b=0\) なら \(a=b=0\)。<a href="../thinking.html#t-mod">発想：余りで分類</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(x^3=1\) の虚数解の1つを \(\omega\) とする。<br>(1) \(\omega^{100}+\omega^{50}+1\)、\((1+\omega)^6\) の値を求めよ。<br>(2) \(n\) が3の倍数でない自然数のとき、\(x^{2n}+x^n+1\) は \(x^2+x+1\) で割り切れることを示せ。</div>
+      <p>(1) \(\omega^{100}=\omega^{99}\omega=\omega\)、\(\omega^{50}=\omega^{48}\omega^2=\omega^2\)。和は \(\omega+\omega^2+1=0\)。</p>
+      <p>\(1+\omega=-\omega^2\) なので \((1+\omega)^6=\omega^{12}=1\)。<span class="answer">\(0,\ 1\)</span></p>
+      <p>(2) \(P(x)=x^{2n}+x^n+1\) を \(x^2+x+1\) で割った商を \(Q(x)\)、余りを \(ax+b\)（\(a,b\) は実数）とする。\(\omega^2+\omega+1=0\) より \(P(\omega)=a\omega+b\)。</p>
+      <p>\(n=3m+1\) のとき：\(P(\omega)=\omega^{6m+2}+\omega^{3m+1}+1=\omega^2+\omega+1=0\)。</p>
+      <p>\(n=3m+2\) のとき：\(P(\omega)=\omega^{6m+4}+\omega^{3m+2}+1=\omega+\omega^2+1=0\)。</p>
+      <p>いずれも \(a\omega+b=0\)。\(a\neq0\) なら \(\omega=-\frac ba\) が実数となり矛盾。よって \(a=0\)、したがって \(b=0\)。余りが 0 なので割り切れる。（証明終）</p>
+      <p class="point">\(n\) が3の倍数なら \(P(\omega)=3\neq0\) で割り切れない。逆向きの確認もしておくと理解が深まる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="ceq-p14" data-level="2">
+    <h3><span class="pid">P14</span>実数係数の方程式の虚数解（共役も解）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(a,b\) は実数。\(x^3+ax^2+bx+10=0\) が \(1+2i\) を解にもつとき \(a,b\) と他の解を求めよ」</dd>
+      <dt>こう考える</dt><dd>係数が実数なら、虚数解は<b>共役とペアで現れる</b>。\(1\pm2i\) を解とする2次式 \(x^2-2x+5\) が因数になるので、割り算または係数比較で残りが決まる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>【解法1】\(1+2i\) を代入し、実部・虚部 \(=0\) で連立（\(a,b\) が実数であることを使う）。</li>
+        <li>【解法2】\(1-2i\) も解なので \(x^2-2x+5\) で割り切れる。\((x^2-2x+5)(x+c)\) と係数比較。</li>
+        <li>残りの解を答える。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>共役な虚数解、解と係数の関係、複素数の相等</dd>
+      <dt>なぜこの方法？</dt><dd>\(P(\alpha)=0\) の両辺の共役をとると、係数が実数なので \(P(\bar\alpha)=0\)。解法2は「解の組」をまとめて扱うので計算が軽い。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(a,b\) を実数とする。3次方程式 \(x^3+ax^2+bx+10=0\) が \(1+2i\) を解にもつとき、\(a,b\) の値と他の解を求めよ。</div>
+      <p>係数が実数なので \(1-2i\) も解。この2数の和は2、積は5なので、左辺は \(x^2-2x+5\) で割り切れる。</p>
+      <p>\(x^3+ax^2+bx+10=(x^2-2x+5)(x+c)\) とおき、右辺を展開すると \(x^3+(c-2)x^2+(5-2c)x+5c\)。</p>
+      <p>定数項より \(5c=10\)、\(c=2\)。よって \(a=c-2=0,\ b=5-2c=1\)。</p>
+      <p class="answer">\(a=0,\ b=1\)、他の解は \(x=1-2i,\ -2\)</p>
+      <p class="point">検算：\((1+2i)^3=-11-2i\) なので \((1+2i)^3+(1+2i)+10=0\)。解法1で実部・虚部を比較しても同じ結果になる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="ceq-p15" data-level="2">
+    <h3><span class="pid">P15</span>相反方程式（\(t=x+\frac1x\) とおく）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">係数が左右対称な4次方程式（\(x^4+2x^3-x^2+2x+1=0\) のように \(1,2,-1,2,1\)）</dd>
+      <dt>こう考える</dt><dd>係数の対称性は「\(x\) が解なら \(\frac1x\) も解」という意味。<b>\(x^2\) で割ると \(x^2+\frac1{x^2}\) と \(x+\frac1x\) が現れ</b>、\(t=x+\frac1x\) の2次方程式になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(x=0\) は解でないことを確認し、両辺を \(x^2\) で割る。</li>
+        <li>\(x^2+\frac{1}{x^2}=t^2-2\) を使って \(t\) の2次方程式にする。</li>
+        <li>\(t\) を求め、\(x+\frac1x=t\)、つまり \(x^2-tx+1=0\) を解く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(x^2+\frac1{x^2}=\left(x+\frac1x\right)^2-2\)</dd>
+      <dt>なぜこの方法？</dt><dd>解が \(x\) と \(\frac1x\) のペアで現れるなら、ペアごとに共通の値 \(x+\frac1x\) を変数にすれば次数が半分になる。<a href="../thinking.html#t-subst">発想：置き換え</a>・<a href="../thinking.html#t-symmetry">発想：対称性</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">方程式 \(x^4+2x^3-x^2+2x+1=0\) を解け。</div>
+      <p>\(x=0\) は解でないので、両辺を \(x^2\) で割って</p>
+      \[ x^2+\frac1{x^2}+2\left(x+\frac1x\right)-1=0 \]
+      <p>\(t=x+\frac1x\) とおくと \(t^2-2+2t-1=0\)、\(t^2+2t-3=0\)、\((t+3)(t-1)=0\)。</p>
+      <p>\(t=1\)：\(x^2-x+1=0\) より \(x=\dfrac{1\pm\sqrt3 i}{2}\)。\(t=-3\)：\(x^2+3x+1=0\) より \(x=\dfrac{-3\pm\sqrt5}{2}\)。</p>
+      <p class="answer">\(x=\dfrac{1\pm\sqrt3 i}{2},\ \dfrac{-3\pm\sqrt5}{2}\)</p>
+      <p class="point">実数 \(x\) に対して \(t=x+\frac1x\) は \(\abs t\ge2\) の範囲しかとらない（\(t=1\) からは虚数解）。解の個数を問われたらこの対応が鍵（演3）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="ceq-p16" data-level="3">
+    <h3><span class="pid">P16</span>解の値を代入した式の値（次数下げ）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\alpha=1+i\) のとき \(\alpha^5-2\alpha^4+3\alpha^3-4\alpha^2+5\alpha-1\) の値」「\(x=\frac{1+\sqrt5}{2}\) のとき \(x^5\) の値」</dd>
+      <dt>こう考える</dt><dd>そのまま5乗するのは大変。\(\alpha\) が満たす<b>2次方程式 \(\alpha^2-2\alpha+2=0\)</b> を作れば、\(\alpha^2=2\alpha-2\) で次数をどんどん下げられる。割り算でまとめて処理するのが最速。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\alpha\) と共役（または \(\sqrt{\ }\) の符号違い）の和と積から、\(\alpha\) を解にもつ2次方程式 \(g(x)=0\) を作る。</li>
+        <li>与式 \(P(x)\) を \(g(x)\) で割り、\(P(x)=g(x)Q(x)+px+q\)。</li>
+        <li>\(g(\alpha)=0\) なので \(P(\alpha)=p\alpha+q\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>整式の除法、\(g(\alpha)=0\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(P(\alpha)\) の値は「\(P(x)\) を \(g(x)\) で割った余り」に \(\alpha\) を入れたものと同じ（商の部分は \(g(\alpha)=0\) で消える）。大きな次数でも1回の割り算で1次式に落ちる。<a href="../thinking.html#t-goal">発想：ゴールから逆算</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\alpha=1+i\) のとき、\(P(\alpha)=\alpha^5-2\alpha^4+3\alpha^3-4\alpha^2+5\alpha-1\) の値を求めよ。</div>
+      <p>\(\alpha+\bar\alpha=2,\ \alpha\bar\alpha=2\) より、\(\alpha\) は \(g(x)=x^2-2x+2=0\) の解。</p>
+      <p>\(P(x)=x^5-2x^4+3x^3-4x^2+5x-1\) を \(g(x)\) で割ると、商 \(x^3+x-2\)、余り \(-x+3\)：</p>
+      \[ P(x)=(x^2-2x+2)(x^3+x-2)-x+3 \]
+      <p>\(g(\alpha)=0\) なので \(P(\alpha)=-\alpha+3=-(1+i)+3\)。</p>
+      <p class="answer">\(2-i\)</p>
+      <p class="point">検算：右辺を展開すると \(x^5-2x^4+3x^3-4x^2+6x-4-x+3\) となり \(P(x)\) に一致。割り算は必ず \(A=BQ+R\) で検算する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="ceq-p17" data-level="3">
+    <h3><span class="pid">P17</span>解を変換した3次方程式を作る</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\alpha,\beta,\gamma\) が \(x^3-2x^2+3x-4=0\) の解のとき、\(\alpha+\beta,\ \beta+\gamma,\ \gamma+\alpha\) を解とする3次方程式」「\(\alpha\beta,\ \beta\gamma,\ \gamma\alpha\) を解とする方程式」</dd>
+      <dt>こう考える</dt><dd>2つの方法がある。①新しい解が<b>元の解の1次式で書ける</b>（\(\alpha+\beta=2-\gamma\)）なら、\(y=2-x\) と置き換えて元の方程式に代入。②一般には新しい3数の<b>和・2つずつの積の和・積</b>を計算して \(y^3-(\ )y^2+(\ )y-(\ )=0\)。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\alpha+\beta+\gamma=s\) を使って \(\alpha+\beta=s-\gamma\) と書けるか確認。書けるなら \(x=s-y\) を \(f(x)=0\) に代入。</li>
+        <li>書けないなら、新しい3数の基本対称式を元の基本対称式で表す（\(\alpha\beta\cdot\beta\gamma+\cdots=\alpha\beta\gamma(\alpha+\beta+\gamma)\) など）。</li>
+        <li>\(y^3-(\text{和})y^2+(\text{2つずつの積の和})y-(\text{積})=0\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>3次の解と係数の関係とその逆</dd>
+      <dt>なぜこの方法？</dt><dd>①は「\(y\) が新しい解 \(\iff\) \(x=s-y\) が元の解」という対応を使うので、計算が展開1回で済む。②は P6 の3次版で、どんな変換にも使える万能型。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(x^3-2x^2+3x-4=0\) の3つの解を \(\alpha,\beta,\gamma\) とする。<br>(1) \(\alpha+\beta,\ \beta+\gamma,\ \gamma+\alpha\) を解とする3次方程式を1つ作れ。<br>(2) \(\alpha\beta,\ \beta\gamma,\ \gamma\alpha\) を解とする3次方程式を1つ作れ。</div>
+      <p>\(\alpha+\beta+\gamma=2,\ \alpha\beta+\beta\gamma+\gamma\alpha=3,\ \alpha\beta\gamma=4\)。</p>
+      <p>(1) \(\alpha+\beta=2-\gamma\) などなので、新しい解 \(y\) は \(y=2-x\)（\(x\) は元の解）。\(x=2-y\) を代入して</p>
+      \[ (2-y)^3-2(2-y)^2+3(2-y)-4=0 \iff -y^3+4y^2-7y+2=0 \]
+      <p class="answer">(1) \(y^3-4y^2+7y-2=0\)</p>
+      <p>(2) 和：\(\alpha\beta+\beta\gamma+\gamma\alpha=3\)。2つずつの積の和：\(\alpha\beta\cdot\beta\gamma+\beta\gamma\cdot\gamma\alpha+\gamma\alpha\cdot\alpha\beta=\alpha\beta\gamma(\alpha+\beta+\gamma)=8\)。積：\((\alpha\beta\gamma)^2=16\)。</p>
+      <p class="answer">(2) \(y^3-3y^2+8y-16=0\)</p>
+      <p class="point">(1) の検算：新しい3解の和は \(2(\alpha+\beta+\gamma)=4\) で、\(y^2\) の係数 \(-4\) と合う。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="pitfalls">
+  <h2>よくあるミスと対策</h2>
+  <ul class="pitfalls">
+    <li><b>\(\sqrt{-2}\sqrt{-3}=\sqrt6\) としてしまう</b>（P1）。→ 負の数の根号は、計算の前に必ず \(\sqrt2 i\) の形にする。</li>
+    <li><b>相等で「\(x,y\) は実数」を書かない・確かめない</b>（P2, P13）。→ 実部・虚部の比較は実数であることが根拠。答案に明記する。</li>
+    <li><b>3次の解と係数の関係の符号ミス</b>（P7）。→ \(-\frac ba,\ +\frac ca,\ -\frac da\)。「符号が交互」と覚え、簡単な例 \((x-1)(x-2)(x-3)\) で確かめる。</li>
+    <li><b>3次式で割った余りを \(ax^2+bx+c\) とおいて条件不足になる</b>（P10）。→ 重解をもつ割る式は「余りをさらに割った形」でおく。</li>
+    <li><b>\(\omega\) の値 \(\frac{-1+\sqrt3 i}2\) を代入して計算が爆発する</b>（P13）。→ \(\omega^3=1\) と \(\omega^2+\omega+1=0\) だけで済ませる。</li>
+    <li><b>相反方程式で \(x=0\) の確認を忘れる・\(t\) と \(x\) の対応を忘れる</b>（P15）。→ 実数 \(x\) に対して \(\abs t\ge2\)。解の個数問題では \(t\) 1つに \(x\) が何個対応するかを数える。</li>
+    <li><b>共役な解を「係数が実数」と確認せずに使う</b>（P14）。→ 係数に \(i\) が含まれる方程式では成り立たない。</li>
+  </ul>
+</section>
+
+<section id="handai">
+  <h2>阪大レベルへの橋渡し</h2>
+  <p>阪大理系では、この単元は<b>整式の割り算 × 数列・整数</b>（\(x^n\) を割った余りの係数の性質）、<b>パラメータを含む高次方程式の解の個数</b>として出題されやすい。どちらも「因数分解できるか」「置き換えで次数を下げられるか」を見抜けるかが最初の一手になる。</p>
+  <ul>
+    <li>\(x^n\) の余りは、\(x^{n+1}=x\cdot x^n\) と1つずらして<b>漸化式</b>を立てる（演1）。</li>
+    <li>パラメータを含む3次方程式は、まず<b>パラメータによらない解</b>を探して因数分解する（演2）。</li>
+    <li>置き換えた後は「\(t\) の1つの値に \(x\) がいくつ対応するか」を数える（演3）。</li>
+  </ul>
+
+  <article class="pattern" id="ceq-h1" data-level="3">
+    <h3><span class="pid">演1</span>\(x^n\) を割った余りと漸化式・互いに素</h3>
+    <div class="problem">自然数 \(n\) に対し、\(x^n\) を \(x^2-x-1\) で割った余りを \(a_nx+b_n\) とする。<br>(1) \(a_{n+1},\ b_{n+1}\) を \(a_n,\ b_n\) で表せ。<br>(2) \(x^{10}\) を \(x^2-x-1\) で割った余りを求めよ。<br>(3) すべての自然数 \(n\) について、\(a_n\) と \(a_{n+1}\) は互いに素な正の整数であることを示せ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>\(x^{n+1}=x\cdot x^n\) に \(x^n=(x^2-x-1)Q_n(x)+a_nx+b_n\) を代入すると、\(a_nx^2\) が出てくる。\(x^2=(x^2-x-1)+x+1\) で \(x^2\) をもう一度割れば、余りの関係（漸化式）が分かる。互いに素は「最大公約数が順に引き継がれる」ことを使う（ユークリッドの互除法の考え方）。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) \(x^n=(x^2-x-1)Q_n(x)+a_nx+b_n\) とする。両辺に \(x\) を掛けて</p>
+      \[ \begin{aligned} x^{n+1}&=(x^2-x-1)xQ_n(x)+a_nx^2+b_nx\\&=(x^2-x-1)\{xQ_n(x)+a_n\}+(a_n+b_n)x+a_n \end{aligned} \]
+      <p>（\(a_nx^2=a_n(x^2-x-1)+a_nx+a_n\) を用いた）。\((a_n+b_n)x+a_n\) は1次以下なので、これが余りである。余りはただ1つに決まるから</p>
+      <p class="answer">(1) \(a_{n+1}=a_n+b_n,\ b_{n+1}=a_n\)</p>
+      <p>(2) \(x^1\) の余りは \(x\) なので \(a_1=1,\ b_1=0\)。(1) を順に用いると \((a_n,b_n)\) は</p>
+      <p>\((1,0),(1,1),(2,1),(3,2),(5,3),(8,5),(13,8),(21,13),(34,21),(55,34)\)。</p>
+      <p class="answer">(2) \(55x+34\)</p>
+      <p>(3) (1) より \(a_{n+1}=a_n+a_{n-1}\ (n\ge2)\)、\(a_1=a_2=1\)。帰納的に \(a_n\) はすべて正の整数。</p>
+      <p>\(a_n\) と \(a_{n+1}\) の最大公約数を \(d_n\) とする。\(a_{n+1}=a_n+a_{n-1}\) より、\(a_n\) と \(a_{n+1}\) の公約数は \(a_{n-1}=a_{n+1}-a_n\) も割り切り、逆に \(a_{n-1}\) と \(a_n\) の公約数は \(a_{n+1}\) を割り切る。よって \(d_n=d_{n-1}\ (n\ge2)\)。</p>
+      <p>したがって \(d_n=d_1=(a_1,a_2\text{ の最大公約数})=1\)。（証明終）</p>
+      <p class="point">採点ポイント：①\(x^2\) をもう一度割って余りが1次以下になることの明示（「余りの一意性」）、②初期値 \(a_1=1,\ b_1=0\)、③最大公約数が保存されることの論証。\(a_n\) はフィボナッチ数列で、<a href="mb-sequence.html">数列</a>・<a href="ma-integer.html">整数の性質</a>との融合の典型。<a href="../thinking.html#t-recurrence">発想：漸化式を立てる</a>・<a href="../thinking.html#t-induction">発想：数学的帰納法</a></p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="ceq-h2" data-level="3">
+    <h3><span class="pid">演2</span>パラメータを含む3次方程式の実数解の個数</h3>
+    <div class="problem">\(a\) を実数とする。\(x\) の3次方程式<br>\(\qquad x^3+(2a-1)x^2+(2-a)x-a-2=0\)<br>の異なる実数解の個数を、\(a\) の値によって分類せよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>\(a\) について整理する（\(a(2x^2-x-1)+(x^3-x^2+2x-2)\)）か、係数の和を見る。\(x=1\) を代入すると \(a\) によらず 0 になるので、\(x-1\) で割れる。残りの2次方程式の判別式に加えて、<b>「2次方程式の解が \(x=1\) と重なる場合」</b>を見落とさないこと。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>左辺を \(P(x)\) とすると \(P(1)=1+(2a-1)+(2-a)-a-2=0\)。よって</p>
+      \[ P(x)=(x-1)(x^2+2ax+a+2) \]
+      <p>\(g(x)=x^2+2ax+a+2\) とおく。\(D/4=a^2-a-2=(a-2)(a+1)\)。また \(g(1)=3a+3\) なので、\(g(x)=0\) が \(x=1\) を解にもつのは \(a=-1\) のときに限る。</p>
+      <p>[1] \(a\lt-1,\ 2\lt a\)：\(g(x)=0\) は異なる2実数解をもち、\(a\neq-1\) なのでどちらも1ではない。<b>3個</b>。</p>
+      <p>[2] \(a=2\)：\(g(x)=(x+2)^2\)。解は \(x=1,\ -2\) の<b>2個</b>。</p>
+      <p>[3] \(a=-1\)：\(g(x)=x^2-2x+1=(x-1)^2\) で、\(P(x)=(x-1)^3\)。解は \(x=1\) のみで<b>1個</b>。</p>
+      <p>[4] \(-1\lt a\lt2\)：\(g(x)=0\) は虚数解のみ。実数解は \(x=1\) の<b>1個</b>。</p>
+      <p class="answer">\(a\lt-1,\ 2\lt a\) のとき3個、\(a=2\) のとき2個、\(-1\le a\lt2\) のとき1個</p>
+      <p class="point">採点ポイント：①\(x=1\) の発見と因数分解、②判別式による分類、③<b>\(g(1)=0\) となる \(a=-1\) の吟味</b>。\(a=-1\) で「重解だから2個」とすると誤り（重解 \(x=1\) が \(x-1\) の解と一致する）。<a href="../thinking.html#t-casework">発想：場合分け（もれなく重複なく）</a></p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="ceq-h3" data-level="3">
+    <h3><span class="pid">演3</span>相反方程式の実数解の個数（置き換えの対応）</h3>
+    <div class="problem">\(a\) を実数とする。\(x\) の4次方程式<br>\(\qquad x^4+2x^3+ax^2+2x+1=0\)<br>の異なる実数解の個数を、\(a\) の値によって分類せよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>係数が対称なので \(x^2\) で割り \(t=x+\frac1x\)。実数 \(x\) に対応する \(t\) は \(\abs t\ge2\) に限られ、\(\abs t\gt2\) なら \(x\) は2個、\(t=\pm2\) なら1個。\(t\) の2次方程式の解と区間 \(\abs t\ge2\) の位置関係を、定数分離またはグラフで調べる。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>\(x=0\) は解でないので両辺を \(x^2\) で割り、\(t=x+\frac1x\) とおくと \(t^2-2+2t+a=0\)、すなわち</p>
+      \[ t^2+2t-2=-a \qquad\cdots① \]
+      <p><b>\(t\) と \(x\) の対応</b>：\(x+\frac1x=t\iff x^2-tx+1=0\)（判別式 \(t^2-4\)）。実数 \(x\) は、\(\abs t\gt2\) のとき2個、\(t=\pm2\) のとき1個（\(x=\pm1\)）、\(\abs t\lt2\) のとき0個。また \(t\) が異なれば対応する \(x\) も異なる（\(x\) から \(t\) が1つに決まるため）。</p>
+      <p><b>①の解</b>：\(h(t)=t^2+2t-2=(t+1)^2-3\) のグラフと直線 \(y=-a\) の共有点を考える。\(h(-2)=-2,\ h(2)=6\)。\(\abs t\ge2\) の範囲で</p>
+      <ul>
+        <li>\(t\le-2\) の部分：\(h\) は減少で \(h(t)\ge-2\)。\(-a\gt-2\) なら \(t\lt-2\) に1個、\(-a=-2\) なら \(t=-2\)。</li>
+        <li>\(t\ge2\) の部分：\(h\) は増加で \(h(t)\ge6\)。\(-a\gt6\) なら \(t\gt2\) に1個、\(-a=6\) なら \(t=2\)。</li>
+      </ul>
+      <p>よって、\(-a\) の値で分けて（\(x\) の個数）：</p>
+      <ul>
+        <li>\(-a\gt6\)（\(a\lt-6\)）：\(t\lt-2\) と \(t\gt2\) に1個ずつ → \(2+2=4\) 個</li>
+        <li>\(-a=6\)（\(a=-6\)）：\(t\lt-2\) に1個、\(t=2\) → \(2+1=3\) 個</li>
+        <li>\(-2\lt-a\lt6\)（\(-6\lt a\lt2\)）：\(t\lt-2\) に1個のみ → 2個</li>
+        <li>\(-a=-2\)（\(a=2\)）：\(t=-2\) のみ → 1個</li>
+        <li>\(-a\lt-2\)（\(a\gt2\)）：\(\abs t\ge2\) に解なし → 0個</li>
+      </ul>
+      <p class="answer">\(a\lt-6\)：4個、\(a=-6\)：3個、\(-6\lt a\lt2\)：2個、\(a=2\)：1個、\(a\gt2\)：0個</p>
+      <p class="point">採点ポイント：①\(t\) の範囲 \(\abs t\ge2\) と「\(t\) 1つに \(x\) 何個」の対応を明記、②①を定数分離してグラフで数える、③境界 \(a=-6,\ 2\) で \(t=\pm2\)（\(x=\pm1\)）になる場合の個数。検算：\(a=-6\) では \(x=1\)（重解）と \(x^2+4x+1=0\) の2解で計3個。<a href="../thinking.html#t-separate">発想：定数分離</a>・<a href="../thinking.html#t-subst">発想：置き換え</a></p>
+    </div></details>
+  </article>
+</section>
+
+<section id="next">
+  <h2>次に学ぶとつながる単元</h2>
+  <ul>
+    <li><a href="mc-complex.html">複素数平面</a>：P3 の共役の扱い、P13 の \(\omega\)（\(1\) の3乗根は単位円を3等分する点）が、極形式・ド・モアブルの定理で一気に見通しよくなる。</li>
+    <li><a href="m2-calculus.html">微分法・積分法（数II）</a>：3次方程式の実数解の個数はグラフでも数えられる（演2 の別解）。P10 の重解の条件は微分係数 \(P'(a)=0\) と対応する。</li>
+    <li><a href="mb-sequence.html">数列</a>・<a href="ma-integer.html">整数の性質</a>：演1 のように、余りの係数が漸化式を満たし、整数の性質（互いに素）と結びつく。</li>
+    <li><a href="m2-trig.html">三角関数</a>：P15 の \(t=x+\frac1x\) の範囲の考え方は、\(t=\sin\theta+\cos\theta\) の置き換えと同じ型。</li>
+    <li><a href="m1-quadratic.html">2次関数</a>：演3 の「\(t\) の方程式が \(\abs t\ge2\) に解をもつ」は解の配置問題そのもの。</li>
+  </ul>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>

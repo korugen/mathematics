@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>積分法の応用（数学III）｜解法の地図</title>
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-unit="m3-integral-app" data-root="../">
+<main>
+
+<header class="unit-head">
+  <span class="subj-badge">数学III</span>
+  <h1>積分法の応用</h1>
+  <p class="lead">面積・体積・曲線の長さ・道のりを「<b>細かく切って足す</b>」という1つの考え方で求め、さらに積分を<b>和の評価や極限の道具</b>として使う単元。阪大理系では「立体の体積」と「積分と不等式・極限」がほぼ毎年出題される最重要テーマである。</p>
+  <div class="goal">
+    <strong>このページの到達目標</strong>
+    <ul>
+      <li>【基礎】2曲線間の面積、\(x\) 軸回転体の体積、曲線の長さ、区分求積を、図を描いて正しく立式できる。</li>
+      <li>【標準】\(y\) 軸回転（置換・バウムクーヘン）、軸をまたぐ図形の回転、交点が求まらない面積、和の範囲がずれた区分求積を処理できる。</li>
+      <li>【阪大】空間図形を「どの平面で切るか」決めて断面積を正確に求め、斜め回転・線分の回転体・円柱の共通部分の体積を出せる。積分で \(\sum\frac1k\)、\(\log n!\) を評価して極限を求められる。</li>
+    </ul>
+  </div>
+  <p class="prereq">前提：<a href="m3-integral.html">積分法（計算）</a>、<a href="m3-diff.html">微分法とその応用</a>（グラフの概形）、<a href="m3-limit.html">極限</a>（はさみうち） ／ 関連：<a href="mc-vector.html">ベクトル</a>（空間座標）、<a href="mb-sequence.html">数列</a>（和の計算）</p>
+</header>
+
+<section id="core">
+  <h2>必ず押さえる基本事項</h2>
+
+  <div class="box theorem">
+    <p><span class="name">面積</span>：\(a\le x\le b\) で \(f(x)\ge g(x)\) のとき、2曲線の間の面積は</p>
+    \[ S=\int_a^b\{f(x)-g(x)\}dx\qquad\left(\text{y で積分するなら }S=\int_c^d\{(\text{右の }x)-(\text{左の }x)\}dy\right) \]
+    <p>なぜ：幅 \(\Delta x\) の細長い長方形（高さ \(f-g\)）の面積を足し合わせ、幅を 0 に近づけた極限が定積分だから。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">体積（断面積の積分）</span>：\(x\) 軸に垂直な平面で切った断面積が \(S(x)\) なら</p>
+    \[ V=\int_a^bS(x)\,dx,\qquad x\text{ 軸回転体：}V=\pi\int_a^b\{f(x)\}^2dx \]
+    <p>なぜ：厚さ \(\Delta x\) の薄い板（体積 \(\fallingdotseq S(x)\Delta x\)）を積み重ねる。回転体なら断面は半径 \(|f(x)|\) の円。<b>どんな立体も「断面積が分かれば」体積が出る</b>。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">曲線の長さ・道のり</span></p>
+    \[ L=\int_a^b\sqrt{1+\{f'(x)\}^2}\,dx,\qquad L=\int_\alpha^\beta\sqrt{\left(\frac{dx}{dt}\right)^2+\left(\frac{dy}{dt}\right)^2}dt \]
+    <p>なぜ：微小部分は斜辺 \(\sqrt{(\Delta x)^2+(\Delta y)^2}\) の線分とみなせるから（三平方の定理）。媒介変数表示なら、これは「速さ \(|\vec v|\) を時間で積分」したものでもある。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">区分求積法</span>：\(f\) が \([0,1]\) で連続なら</p>
+    \[ \lim_{n\to\infty}\frac1n\sum_{k=1}^nf\left(\frac kn\right)=\lim_{n\to\infty}\frac1n\sum_{k=0}^{n-1}f\left(\frac kn\right)=\int_0^1f(x)\,dx \]
+    <p>なぜ：\(\frac1nf\left(\frac kn\right)\) は幅 \(\frac1n\)、高さ \(f\left(\frac kn\right)\) の長方形の面積。和は長方形の面積の合計で、\(n\to\infty\) で曲線の下の面積に近づく。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">積分と不等式</span>：\(a\le x\le b\) で \(f(x)\le g(x)\) なら \(\displaystyle\int_a^bf(x)dx\le\int_a^bg(x)dx\)（\(f,g\) が連続で \(f\ne g\) となる点があれば等号なし）。</p>
+    <p>なぜ：差 \(g-f\ge0\) の面積は 0 以上。この性質が、<b>和を積分で評価する</b>（長方形の面積と曲線の下の面積を比べる）根拠になる。</p>
+  </div>
+
+  <div class="box idea">
+    <p><b>この単元を貫く考え方</b>：<b>「細かく切る → 1切れを近似する → 足して極限をとる」</b>。面積なら細長い長方形、体積なら薄い板、長さなら短い線分。だから最初にやることは<b>図を描いて、どの向きに切るか決めること</b>。逆向きに使えば、和（\(\sum\)）を積分に変えて極限を求めたり、積分で和を評価したりできる。</p>
+  </div>
+</section>
+
+<section id="quick">
+  <h2>早見表：こう来たら → こう解く</h2>
+  <div class="table-wrap"><table class="quick">
+    <tr><th>問題の特徴（こう来たら）</th><th>方針（こう解く）</th><th>使う道具</th><th>詳細</th></tr>
+    <tr data-level="1"><td>2曲線で囲まれた部分の面積</td><td>交点を求め、上下関係を図で確認して（上）−（下）</td><td>\(\int(f-g)dx\)</td><td><a href="#inta-p1">P1</a></td></tr>
+    <tr data-level="2"><td>交点が解けない（\(\sin x=kx\) など）</td><td>交点を \(\alpha\) とおき、関係式で式を簡単に</td><td>文字設定</td><td><a href="#inta-p2">P2</a></td></tr>
+    <tr data-level="2"><td>\(x=f(t),\ y=g(t)\) で囲まれた面積</td><td>\(\int y\,dx=\int y\frac{dx}{dt}dt\)、区間の向きに注意</td><td>置換積分</td><td><a href="#inta-p3">P3</a></td></tr>
+    <tr data-level="2"><td>\(x=g(y)\) の方が楽、逆関数のグラフ</td><td>\(y\) で積分／長方形から引く</td><td>逆関数の面積</td><td><a href="#inta-p4">P4</a></td></tr>
+    <tr data-level="1"><td>断面が正方形・三角形の立体、錐体の体積</td><td>断面積 \(S(x)\) を求めて積分</td><td>\(V=\int S(x)dx\)</td><td><a href="#inta-p5">P5</a></td></tr>
+    <tr data-level="1"><td>\(x\) 軸のまわりに1回転</td><td>\(\pi\int f^2dx\)。2曲線間はドーナツ型</td><td>回転体の公式</td><td><a href="#inta-p6">P6</a></td></tr>
+    <tr data-level="2"><td>\(y\) 軸のまわりに1回転</td><td>\(x\) について解く／置換 \(dy=f'(x)dx\)</td><td>\(\pi\int x^2dy\)</td><td><a href="#inta-p7">P7</a></td></tr>
+    <tr data-level="2"><td>\(y\) 軸回転で \(x\) について解けない</td><td>バウムクーヘン \(2\pi\int xf(x)dx\)＋正当化</td><td>円筒分割</td><td><a href="#inta-p8">P8</a></td></tr>
+    <tr data-level="2"><td>回転軸をまたぐ図形・2つの領域の回転</td><td>下側を折り返し、外側の曲線で回転</td><td>\(\max\) をとる</td><td><a href="#inta-p9">P9</a></td></tr>
+    <tr data-level="3"><td>直線 \(y=x\) などのまわりに回転</td><td>軸に沿った座標 \(t\) と軸からの距離で立式</td><td>点と直線の距離・置換</td><td><a href="#inta-p10">P10</a></td></tr>
+    <tr data-level="2"><td>円柱を斜めの平面で切った立体</td><td>断面が簡単になる平面を選んで切る</td><td>断面積</td><td><a href="#inta-p11">P11</a></td></tr>
+    <tr data-level="3"><td>空間の線分・図形を軸のまわりに回転</td><td>\(z=t\) で切り、軸からの最大・最小距離</td><td>断面＝円または円環</td><td><a href="#inta-p12">P12</a></td></tr>
+    <tr data-level="3"><td>円柱の共通部分など、回転体でない立体</td><td>不等式で立体を表し、\(y=t\) などで切る</td><td>不等式と断面</td><td><a href="#inta-p13">P13</a></td></tr>
+    <tr data-level="1"><td>曲線の長さを求めよ</td><td>\(\int\sqrt{1+f'^2}dx\)、根号の中を平方に</td><td>曲線の長さの公式</td><td><a href="#inta-p14">P14</a></td></tr>
+    <tr data-level="1"><td>\(\lim\sum\frac{1}{n+k}\)、\(\lim\sum\frac{n}{n^2+k^2}\)</td><td>\(\frac1n\) をくくり出し \(\frac kn\) の関数に</td><td>区分求積法</td><td><a href="#inta-p15">P15</a></td></tr>
+    <tr data-level="3"><td>和の範囲が \(n+1\sim3n\)、積の \(n\) 乗根の極限</td><td>区間を \(\frac kn\) の動く範囲に合わせる／\(\log\) で和に</td><td>区分求積の応用</td><td><a href="#inta-p16">P16</a></td></tr>
+    <tr data-level="2"><td>\(\sum\frac1k\) と \(\log n\) の比較</td><td>長方形と曲線の下の面積を比べる</td><td>積分で和を評価</td><td><a href="#inta-p17">P17</a></td></tr>
+    <tr data-level="3"><td>\(\log n!\) の評価、\(\lim\frac{\sqrt[n]{n!}}{n}\)</td><td>\(\log k\) を \(\int\log x\,dx\) で上下から挟む</td><td>積分の評価・はさみうち</td><td><a href="#inta-p18">P18</a></td></tr>
+    <tr data-level="3"><td>\(\lim\int_0^1x^nf(x)dx\)、\(\lim n\int_0^1x^nf(x)dx\)</td><td>被積分関数を挟む／部分積分で \(f(1)\) を取り出す</td><td>はさみうち</td><td><a href="#inta-p19">P19</a></td></tr>
+    <tr data-level="1"><td>速度から位置・道のりを求めよ</td><td>位置の変化 \(\int v\,dt\)、道のり \(\int|v|dt\)</td><td>絶対値の積分</td><td><a href="#inta-p20">P20</a></td></tr>
+    <tr data-level="2"><td>容器に水を注ぐ、水面の上昇速度</td><td>\(V(h)=\int_0^hS(y)dy\)、\(\frac{dV}{dt}=S(h)\frac{dh}{dt}\)</td><td>合成関数の微分</td><td><a href="#inta-p21">P21</a></td></tr>
+  </table></div>
+</section>
+
+<section id="patterns">
+  <h2>パターン別 解法マップ</h2>
+
+  <article class="pattern" id="inta-p1" data-level="1">
+    <h3><span class="pid">P1</span>2曲線の間の面積</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「曲線 \(y=\sin x,\ y=\cos x\ \left(\frac\pi4\le x\le\frac{5\pi}{4}\right)\) で囲まれた部分の面積」「曲線 \(y=\log x\)、\(x\) 軸、直線 \(x=e\) で囲まれた部分の面積」</dd>
+      <dt>こう考える</dt><dd>面積は<b>（上の曲線）−（下の曲線）を積分</b>。\(x\) 軸より下にあるかどうかは関係なく、上下関係だけが大事。上下が入れ替わる点で区間を分ける。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>交点の \(x\) 座標を求める。</li>
+        <li>グラフを描き、各区間でどちらが上か確認。</li>
+        <li>\(\int(\text{上}-\text{下})dx\) を計算。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(S=\int_a^b\{f(x)-g(x)\}dx\ (f\ge g)\)</dd>
+      <dt>なぜこの方法？</dt><dd>縦に細く切ると、1切れの長方形の高さは「上の \(y\) − 下の \(y\)」。これは2曲線が \(x\) 軸の上にあっても下にあっても同じ。だから \(x\) 軸との位置関係で場合分けする必要はない。<a href="../thinking.html#t-graph">発想：図にする</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 2曲線 \(y=\sin x,\ y=\cos x\ \left(\dfrac\pi4\le x\le\dfrac{5\pi}{4}\right)\) で囲まれた部分の面積を求めよ。<br>(2) 曲線 \(y=\log x\)、\(x\) 軸、直線 \(x=e\) で囲まれた部分の面積を求めよ。</div>
+      <p>(1) 交点は \(\tan x=1\) より \(x=\frac\pi4,\frac{5\pi}{4}\)。この間で \(\sin x\ge\cos x\)。</p>
+      \[ S=\int_{\frac\pi4}^{\frac{5\pi}{4}}(\sin x-\cos x)dx=\Big[-\cos x-\sin x\Big]_{\frac\pi4}^{\frac{5\pi}{4}}=\left(\frac{\sqrt2}{2}+\frac{\sqrt2}{2}\right)-\left(-\frac{\sqrt2}{2}-\frac{\sqrt2}{2}\right)=2\sqrt2 \]
+      <p>(2) \(1\le x\le e\) で \(\log x\ge0\)。\(\displaystyle S=\int_1^e\log x\,dx=\Big[x\log x-x\Big]_1^e=0-(-1)=1\)</p>
+      <p class="answer">(1) \(2\sqrt2\)　(2) 1</p>
+      <p class="point">(1) は区間の後半で両曲線とも \(x\) 軸より下に来るが、式は変わらない。「\(x\) 軸の下は \(-\int\)」は<b>曲線と \(x\) 軸の間</b>の面積の話（下側の曲線が \(y=0\)）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="inta-p2" data-level="2">
+    <h3><span class="pid">P2</span>交点が求まらない面積（交点を文字でおく）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(0\lt k\lt1\) とする。曲線 \(y=\sin x\ (0\le x\le\pi)\) と直線 \(y=kx\) で囲まれた部分の面積」（交点の方程式 \(\sin x=kx\) が解けない）</dd>
+      <dt>こう考える</dt><dd>交点の \(x\) 座標を<b>求めずに \(\alpha\) とおく</b>。\(\alpha\) が満たす関係式（\(\sin\alpha=k\alpha\)）を使って、答えを \(\alpha\) だけ（または \(k\) だけ）で整理する。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>交点が存在すること（と個数）を確認し、その \(x\) 座標を \(\alpha\) とおく。</li>
+        <li>面積を \(\alpha\) と \(k\) で表す。</li>
+        <li>関係式 \(k=\frac{\sin\alpha}{\alpha}\) で \(k\) を消去する（または \(\alpha\) を残す）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>面積の公式、交点の関係式</dd>
+      <dt>なぜこの方法？</dt><dd>答えに必要なのは交点の<b>値そのもの</b>ではなく、交点で成り立つ<b>関係</b>。\(\cos\alpha\) や \(\alpha^2\) は関係式を通じて互いに書き換えられる。阪大ではこの後「\(S\) を \(\alpha\) の関数とみて最大最小」「\(k\to\) 極限」と続くことが多い。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(0\lt k\lt1\) とする。曲線 \(y=\sin x\ (0\le x\le\pi)\) と直線 \(y=kx\) の原点以外の交点の \(x\) 座標を \(\alpha\) とする。曲線と直線で囲まれた部分の面積 \(S\) を \(\alpha\) で表せ。</div>
+      <svg viewBox="0 0 320 120" width="100%" style="max-width:420px" role="img" aria-label="y=sin x と y=kx で囲まれた部分">
+        <polygon points="20.0,110.0 25.7,104.3 31.4,98.7 37.1,93.0 42.7,87.5 48.4,82.0 54.1,76.7 59.8,71.5 65.5,66.4 71.2,61.5 76.9,56.8 82.6,52.4 88.2,48.1 93.9,44.1 99.6,40.4 105.3,36.9 111.0,33.7 116.7,30.9 122.4,28.3 128.0,26.1 133.7,24.2 139.4,22.7 145.1,21.5 150.8,20.6 156.5,20.1 162.2,20.0 167.8,20.2 173.5,20.8 179.2,21.8 184.9,23.1 190.6,24.7" fill="var(--accent)" opacity="0.25"/>
+        <line x1="5" y1="110" x2="315" y2="110" stroke="currentColor" stroke-width="1"/>
+        <line x1="20" y1="5" x2="20" y2="118" stroke="currentColor" stroke-width="1"/>
+        <polyline fill="none" stroke="var(--accent)" stroke-width="2" points="20.0,110.0 27.1,102.9 34.1,95.9 41.2,89.0 48.3,82.2 55.3,75.6 62.4,69.1 69.5,63.0 76.5,57.1 83.6,51.5 90.7,46.4 97.8,41.6 104.8,37.2 111.9,33.3 119.0,29.8 126.0,26.9 133.1,24.4 140.2,22.5 147.2,21.1 154.3,20.3 161.4,20.0 168.4,20.3 175.5,21.1 182.6,22.5 189.6,24.4 196.7,26.9 203.8,29.8 210.9,33.3 217.9,37.2 225.0,41.6 232.1,46.4 239.1,51.5 246.2,57.1 253.3,63.0 260.3,69.1 267.4,75.6 274.5,82.2 281.5,89.0 288.6,95.9 295.7,102.9 302.7,110.0"/>
+        <line x1="20" y1="110" x2="218" y2="11" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="190.6" y1="24.7" x2="190.6" y2="110" stroke="currentColor" stroke-dasharray="3 3" stroke-width="0.8"/>
+        <text x="186" y="119" font-size="11" fill="currentColor">α</text>
+        <text x="296" y="119" font-size="11" fill="currentColor">π</text>
+        <text x="222" y="14" font-size="11" fill="currentColor">y=kx</text>
+        <text x="236" y="40" font-size="11" fill="currentColor">y=sin x</text>
+      </svg>
+      <p>\(h(x)=\sin x-kx\) とおくと \(h(0)=0\)、\(h'(x)=\cos x-k\)。\(h'(0)=1-k\gt0\)、\(h''(x)=-\sin x\le0\) なので \(h\) は上に凸で、\(h(\pi)=-k\pi\lt0\)。よって \(0\lt x\lt\pi\) で \(h(x)=0\) となる \(x\) はちょうど1つ（これが \(\alpha\)）、\(0\lt x\lt\alpha\) で \(\sin x\gt kx\)。</p>
+      \[ S=\int_0^\alpha(\sin x-kx)dx=\Big[-\cos x\Big]_0^\alpha-\frac{k\alpha^2}{2}=1-\cos\alpha-\frac{k\alpha^2}{2} \]
+      <p>\(\sin\alpha=k\alpha\) より \(k\alpha^2=\alpha\sin\alpha\)。</p>
+      <p class="answer">\(S=1-\cos\alpha-\dfrac{\alpha\sin\alpha}{2}\)</p>
+      <p class="point">数値確認：\(k=\frac12\) のとき \(\alpha\fallingdotseq1.8955\)、\(S\fallingdotseq0.4208\)（数値積分と一致）。「交点がちょうど1つ」の確認（上に凸＋端点の符号）を省くと減点される。<a href="../thinking.html#t-subst">発想：置き換え</a></p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="inta-p3" data-level="2">
+    <h3><span class="pid">P3</span>媒介変数表示の曲線で囲まれた面積（極方程式は発展）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「サイクロイド \(x=t-\sin t,\ y=1-\cos t\ (0\le t\le2\pi)\) と \(x\) 軸で囲まれた部分の面積」「楕円 \(x=a\cos t,\ y=b\sin t\) の面積」</dd>
+      <dt>こう考える</dt><dd>まず \(x\) で積分する形 \(S=\int y\,dx\) を書き、それを<b>置換積分で \(t\) の積分に直す</b>：\(dx=\frac{dx}{dt}dt\)、区間は \(x\) の端に対応する \(t\)。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(t\) が増えると \(x\) が増えるか減るか（\(\frac{dx}{dt}\) の符号）を確認し、曲線の概形をつかむ。</li>
+        <li>\(\displaystyle S=\int_a^by\,dx=\int_\alpha^\beta y(t)\frac{dx}{dt}dt\)（\(x=a\) ⇔ \(t=\alpha\)、\(x=b\) ⇔ \(t=\beta\)）。</li>
+        <li>計算して、面積が正になることを確認（向きを間違えると負になる）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>置換積分。発展：極方程式 \(r=f(\theta)\) の面積 \(S=\frac12\int_\alpha^\beta r^2d\theta\)（扇形 \(\frac12r^2\Delta\theta\) の和）</dd>
+      <dt>なぜこの方法？</dt><dd>\(y\) を \(x\) の式で表せなくても、「\(x\) で積分」を「\(t\) で積分」に乗り換えれば計算できる。置換積分の考え方そのもの。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) サイクロイド \(x=t-\sin t,\ y=1-\cos t\ (0\le t\le2\pi)\) と \(x\) 軸で囲まれた部分の面積を求めよ。<br>(2) 楕円 \(x=a\cos t,\ y=b\sin t\ (a,b\gt0)\) の囲む面積を求めよ。</div>
+      <p>(1) \(\frac{dx}{dt}=1-\cos t\ge0\) なので \(x\) は \(0\) から \(2\pi\) まで単調に増加し、\(y\ge0\)。</p>
+      \[ S=\int_0^{2\pi}y\,dx=\int_0^{2\pi}(1-\cos t)^2dt=\int_0^{2\pi}\left(1-2\cos t+\frac{1+\cos2t}{2}\right)dt=\frac32\cdot2\pi=3\pi \]
+      <p>(2) 上半分（\(0\le t\le\pi\)、\(x\) は \(a\) から \(-a\) へ）の面積を2倍する。</p>
+      \[ S=2\int_{-a}^ay\,dx=2\int_\pi^0b\sin t\cdot(-a\sin t)dt=2ab\int_0^\pi\sin^2t\,dt=2ab\cdot\frac\pi2=\pi ab \]
+      <p class="answer">(1) \(3\pi\)　(2) \(\pi ab\)</p>
+      <p class="point">(2) で \(x=-a\) ⇔ \(t=\pi\)、\(x=a\) ⇔ \(t=0\)。\(\int_{-a}^a\) は \(\int_\pi^0\) になる（区間の上下を逆にしない）。（発展）カージオイド \(r=1+\cos\theta\) の面積は \(\frac12\int_0^{2\pi}(1+\cos\theta)^2d\theta=\frac{3\pi}{2}\)（<a href="mc-curves.html">平面上の曲線</a>）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="inta-p4" data-level="2">
+    <h3><span class="pid">P4</span>\(y\) で積分する・逆関数との関係</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「曲線 \(y=\log x\)、\(y\) 軸、\(x\) 軸、直線 \(y=2\) で囲まれた部分」（左右の境界が曲線）、\(\int f\) と \(\int f^{-1}\) の両方が出てくる</dd>
+      <dt>こう考える</dt><dd>境界が「左右」で決まる図形は<b>横に切る</b>（\(y\) で積分）。\(y=\log x\) ⇔ \(x=e^y\) のように、\(x\) について解いた方が積分しやすいことも多い。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>曲線を \(x=g(y)\) の形にする。</li>
+        <li>\(S=\int_c^d\{(\text{右の }x)-(\text{左の }x)\}dy\)。</li>
+        <li>逆関数の関係：\(f\) が増加、\(f(0)=0\) なら \(\int_0^af(x)dx+\int_0^{f(a)}f^{-1}(y)dy=af(a)\)（長方形の分割）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(S=\int x\,dy\)、逆関数のグラフは \(y=x\) に関して対称</dd>
+      <dt>なぜこの方法？</dt><dd>縦に切ると1切れの上端・下端が場所によって変わる図形でも、横に切れば1つの式で済むことがある。逆関数の積分は「長方形から引く」と図形的に計算できる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 曲線 \(y=\log x\)、\(x\) 軸、\(y\) 軸、直線 \(y=2\) で囲まれた部分の面積を求めよ。<br>(2) \(\displaystyle\int_0^1e^ydy\) を用いて \(\displaystyle\int_1^e\log x\,dx\) を求めよ。</div>
+      <p>(1) \(x=e^y\)。\(0\le y\le2\) で左端は \(x=0\)、右端は \(x=e^y\)。</p>
+      \[ S=\int_0^2e^ydy=e^2-1 \]
+      <p>(2) 長方形 \(0\le x\le e,\ 0\le y\le1\)（面積 \(e\)）は、曲線 \(y=\log x\)（⇔ \(x=e^y\)）によって「曲線の左側」と「曲線の下側」に分かれる。左側の面積は \(\int_0^1e^ydy=e-1\)。</p>
+      <p>よって \(\displaystyle\int_1^e\log x\,dx=e-(e-1)=1\)。</p>
+      <p class="answer">(1) \(e^2-1\)　(2) 1</p>
+      <p class="point">(2) は P1 (2) の答えと一致する（部分積分なしで求まった）。\(\log x\) のような「逆関数の方が簡単」な関数で威力を発揮する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="inta-p5" data-level="1">
+    <h3><span class="pid">P5</span>断面積の積分（立体の体積の基本）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「底面が円 \(x^2+y^2\le1\) で、\(x\) 軸に垂直な平面による断面が正方形である立体の体積」「錐体の体積が \(\frac13Sh\) であることを示せ」</dd>
+      <dt>こう考える</dt><dd>立体を<b>平行な平面で薄くスライス</b>する。断面積 \(S(x)\) が \(x\) の式で書ければ、\(V=\int S(x)dx\)。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>切る向き（どの軸に垂直な平面か）を決める。</li>
+        <li>位置 \(x\) での断面の形と寸法を求め、\(S(x)\) を式にする。</li>
+        <li>\(x\) の範囲で積分。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(V=\int_a^bS(x)dx\)、相似比と面積比</dd>
+      <dt>なぜこの方法？</dt><dd>体積は「断面積 × 厚さ」の和。回転体の公式もこの特別な場合にすぎない。<b>断面積さえ分かればどんな立体にも使える</b>ので、空間図形の体積はすべてこの考えに帰着する。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 底面が円板 \(x^2+y^2\le1\) である立体があり、\(x\) 軸に垂直な平面による断面は、底面上の弦を1辺とする正方形である。この立体の体積を求めよ。<br>(2) 底面積 \(S\)、高さ \(h\) の錐体の体積が \(\frac13Sh\) であることを示せ。</div>
+      <p>(1) 位置 \(x\ (-1\le x\le1)\) での弦の長さは \(2\sqrt{1-x^2}\)。断面積 \(S(x)=4(1-x^2)\)。</p>
+      \[ V=\int_{-1}^14(1-x^2)dx=8\int_0^1(1-x^2)dx=8\cdot\frac23=\frac{16}{3} \]
+      <p>(2) 頂点からの距離が \(t\) の平面による断面は底面と相似で、相似比 \(\frac th\)、面積は \(S\left(\frac th\right)^2\)。</p>
+      \[ V=\int_0^hS\frac{t^2}{h^2}dt=\frac{S}{h^2}\cdot\frac{h^3}{3}=\frac13Sh \]
+      <p class="answer">(1) \(\frac{16}{3}\)　(2) 示された</p>
+      <p class="point">(2) で \(\frac13\) が「\(t^2\) の積分」から出てくることが分かる。錐体の断面積が高さの2乗に比例するから。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="inta-p6" data-level="1">
+    <h3><span class="pid">P6</span>\(x\) 軸のまわりの回転体</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「曲線 \(y=\sin x\ (0\le x\le\pi)\) と \(x\) 軸で囲まれた部分を \(x\) 軸のまわりに1回転してできる立体の体積」「2曲線 \(y=\sqrt x,\ y=x\) で囲まれた部分を回転」</dd>
+      <dt>こう考える</dt><dd>\(x\) 軸に垂直に切ると断面は<b>円</b>（半径 \(|f(x)|\)）。2曲線の間なら<b>ドーナツ型（円環）</b>で、面積は \(\pi(R^2-r^2)\)。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>図を描き、回転する図形と軸の位置関係を確認（軸をまたぐなら P9）。</li>
+        <li>円板：\(V=\pi\int_a^b\{f(x)\}^2dx\)。円環：\(V=\pi\int_a^b(R^2-r^2)dx\)。</li>
+        <li>\(\sin^2\) などは次数下げ（<a href="m3-integral.html">積分法（計算）</a>）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(V=\pi\int f(x)^2dx\)</dd>
+      <dt>なぜこの方法？</dt><dd>P5 の断面積の積分で、断面がたまたま円になる場合。円環の面積を \(\pi(R-r)^2\) とするのは誤り（\(\pi R^2-\pi r^2\)）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 曲線 \(y=\sin x\ (0\le x\le\pi)\) と \(x\) 軸で囲まれた部分を \(x\) 軸のまわりに1回転してできる立体の体積を求めよ。<br>(2) 2曲線 \(y=\sqrt x,\ y=x\) で囲まれた部分を \(x\) 軸のまわりに1回転してできる立体の体積を求めよ。</div>
+      <p>(1) \(\displaystyle V=\pi\int_0^\pi\sin^2x\,dx=\pi\cdot\frac\pi2=\frac{\pi^2}{2}\)</p>
+      <p>(2) 交点は \(x=0,1\)。\(0\le x\le1\) で \(\sqrt x\ge x\ge0\)。断面は外半径 \(\sqrt x\)、内半径 \(x\) の円環。</p>
+      \[ V=\pi\int_0^1\{(\sqrt x)^2-x^2\}dx=\pi\left(\frac12-\frac13\right)=\frac\pi6 \]
+      <p class="answer">(1) \(\dfrac{\pi^2}{2}\)　(2) \(\dfrac\pi6\)</p>
+      <p class="point">(2) で \(\pi\int_0^1(\sqrt x-x)^2dx\) とするのは典型的な誤り（\(\frac{\pi}{30}\) になってしまう）。「外の円板 − 内の円板」と覚える。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="inta-p7" data-level="2">
+    <h3><span class="pid">P7</span>\(y\) 軸のまわりの回転体（\(x\) について解く／置換積分）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「曲線 \(y=\log x\)、\(x\) 軸、直線 \(x=e\) で囲まれた部分を \(y\) 軸のまわりに回転」「\(y=\sin x\ (0\le x\le\pi)\) と \(x\) 軸で囲まれた部分を \(y\) 軸のまわりに回転」</dd>
+      <dt>こう考える</dt><dd>\(y\) 軸に垂直に（横に）切る。断面は \(y\) 軸からの距離を半径とする円・円環なので \(V=\pi\int x^2dy\)。\(x\) を \(y\) で表せれば直接、表せなければ<b>置換 \(y=f(x)\)、\(dy=f'(x)dx\) で \(x\) の積分に戻す</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>高さ \(y\) での断面の外半径 \(R(y)\)、内半径 \(r(y)\) を図から読む。</li>
+        <li>\(V=\pi\int_c^d\{R(y)^2-r(y)^2\}dy\)。</li>
+        <li>\(x\) について解けないときは \(y=f(x)\) と置換：\(\pi\int x^2dy=\pi\int x^2f'(x)dx\)。<b>山の左右2つの枝</b>があれば別々に置換。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(V=\pi\int x^2dy\)、置換積分</dd>
+      <dt>なぜこの方法？</dt><dd>回転軸に垂直に切れば必ず断面は円（環）になる。\(y\) 軸回転なら横に切るしかない。式が \(y=f(x)\) の形で与えられていても、<b>置換積分で \(dy\) を \(dx\) に変えればよい</b>ので、\(x\) について解けなくても困らない。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 曲線 \(y=\log x\)、\(x\) 軸、直線 \(x=e\) で囲まれた部分を \(y\) 軸のまわりに1回転してできる立体の体積を求めよ。<br>(2) 曲線 \(y=\sin x\ (0\le x\le\pi)\) と \(x\) 軸で囲まれた部分を \(y\) 軸のまわりに1回転してできる立体の体積を求めよ。</div>
+      <p>(1) 図形は \(1\le x\le e,\ 0\le y\le\log x\)。高さ \(y\ (0\le y\le1)\) で横に切ると、\(x\) は \(e^y\) から \(e\) まで。断面は外半径 \(e\)、内半径 \(e^y\) の円環。</p>
+      \[ V=\pi\int_0^1(e^2-e^{2y})dy=\pi\left(e^2-\frac{e^2-1}{2}\right)=\frac{\pi(e^2+1)}{2} \]
+      <p>(2) 高さ \(y\ (0\le y\le1)\) で切ると、\(\sin x=y\) の2解 \(x_1\ \left(0\le x_1\le\frac\pi2\right)\) と \(x_2=\pi-x_1\) の間。断面は外半径 \(x_2\)、内半径 \(x_1\) の円環で、</p>
+      \[ x_2^2-x_1^2=(x_2-x_1)(x_2+x_1)=\pi(\pi-2x_1) \]
+      <p>よって \(V=\pi\displaystyle\int_0^1\pi(\pi-2x_1)dy\)。\(y=\sin x_1\) と置換（\(dy=\cos x_1\,dx_1\)、\(y:0\to1\) で \(x_1:0\to\frac\pi2\)）：</p>
+      \[ V=\pi^2\int_0^{\frac\pi2}(\pi-2x)\cos x\,dx=\pi^2\left(\Big[(\pi-2x)\sin x\Big]_0^{\frac\pi2}+2\int_0^{\frac\pi2}\sin x\,dx\right)=\pi^2(0+2)=2\pi^2 \]
+      <p class="answer">(1) \(\dfrac{\pi(e^2+1)}{2}\)　(2) \(2\pi^2\)</p>
+      <p class="point">(2) で \(x_2=\pi-x_1\) という<b>対称性</b>を使って、2つの枝の置換を1回で済ませた。対称性がなければ \(\pi\int x_2^2dy-\pi\int x_1^2dy\) を別々に置換する（\(x_2\) の枝では \(y:0\to1\) のとき \(x_2:\pi\to\frac\pi2\)）。次の P8 の方法なら一瞬で \(2\pi\int_0^\pi x\sin x\,dx=2\pi^2\)。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="inta-p8" data-level="2">
+    <h3><span class="pid">P8</span>バウムクーヘン積分（円筒分割）と答案での正当化</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(0\le x\le1,\ 0\le y\le xe^{-x}\) で表される図形を \(y\) 軸のまわりに回転」のように、\(x\) について解けず置換も面倒な \(y\) 軸回転</dd>
+      <dt>こう考える</dt><dd>縦に切った細い長方形（幅 \(\Delta x\)、高さ \(f(x)\)）を \(y\) 軸のまわりに回すと、<b>薄い円筒（バウムクーヘンの1層）</b>になる。体積 \(\fallingdotseq2\pi x\cdot f(x)\cdot\Delta x\)（周の長さ × 高さ × 厚さ）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(0\le a\le x\le b\)、\(0\le y\le f(x)\) の図形なら \(V=2\pi\displaystyle\int_a^bxf(x)dx\)。</li>
+        <li>答案では次の正当化を一言添える（下の例題参照）：\(V(t)\)＝\(a\le x\le t\) の部分の回転体積とし、\(V'(t)=2\pi tf(t)\) を示す。</li>
+        <li>2曲線の間なら \(f\) を \((\text{上})-(\text{下})\) に替える。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(V=2\pi\int_a^bxf(x)dx\)（教科書外の公式なので<b>正当化を書く</b>のが安全）</dd>
+      <dt>なぜこの方法？</dt><dd>横に切る（P7）と \(x\) を \(y\) で表す必要があるが、縦に切って回せば \(f(x)\) のまま使える。正当化は「\(\Delta t\) だけ増やしたときの体積の増分を、円筒の体積で上下から挟んで、\(\Delta t\to0\) の極限をとる」——<b>微分積分学の基本定理を自分で示す</b>イメージ。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(0\le x\le1,\ 0\le y\le xe^{-x}\) で表される図形 \(D\) を \(y\) 軸のまわりに1回転してできる立体の体積 \(V\) を求めよ。</div>
+      <p><b>公式の正当化</b>：\(f(x)=xe^{-x}\)（\(\ge0\)、連続）。\(0\le t\le1\) に対し、\(D\) のうち \(0\le x\le t\) の部分を回転させた立体の体積を \(V(t)\) とする。\(\Delta t\gt0\) のとき、\(t\le x\le t+\Delta t\) の部分を回転させた立体の体積 \(V(t+\Delta t)-V(t)\) は、\(f\) のこの区間での最小値 \(m\)、最大値 \(M\) を用いて</p>
+      \[ \pi\{(t+\Delta t)^2-t^2\}m\le V(t+\Delta t)-V(t)\le\pi\{(t+\Delta t)^2-t^2\}M \]
+      <p>（高さ \(m\) と \(M\) の円筒の殻で挟んだ）。\(\Delta t\) で割ると \(\pi(2t+\Delta t)m\le\dfrac{\Delta V}{\Delta t}\le\pi(2t+\Delta t)M\)。\(\Delta t\to+0\) で \(m,M\to f(t)\) なので \(V'(t)=2\pi tf(t)\)（\(\Delta t\lt0\) も同様）。\(V(0)=0\) より \(V=V(1)=2\pi\displaystyle\int_0^1xf(x)dx\)。</p>
+      <p><b>計算</b>：</p>
+      \[ V=2\pi\int_0^1x^2e^{-x}dx=2\pi\Big[-(x^2+2x+2)e^{-x}\Big]_0^1=2\pi\left(2-\frac5e\right) \]
+      <p class="answer">\(V=2\pi\left(2-\dfrac5e\right)\)</p>
+      <p class="point">別の正当化：\(f\) が単調なら、P7 の置換 \(\pi\int x^2dy=\pi\int x^2f'(x)dx\) を部分積分すると \(2\pi\int xf(x)dx\) に一致する。数値確認：横に切る方法で数値積分しても \(V\fallingdotseq1.0091\) で一致。阪大の採点では、公式を断りなく使うと減点される可能性があるので、上の3行程度の正当化を書く習慣をつけよう。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="inta-p9" data-level="2">
+    <h3><span class="pid">P9</span>回転軸をまたぐ図形・2つの領域の回転（重なり）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「2曲線 \(y=\sin x,\ y=\cos x\ \left(\frac\pi4\le x\le\frac{5\pi}{4}\right)\) で囲まれた部分を \(x\) 軸のまわりに回転」（図形が \(x\) 軸の上下にまたがる）、\(x\) 軸の上と下に別々の領域がある</dd>
+      <dt>こう考える</dt><dd>\(x\) 軸の下の部分は、回転すると上の部分と<b>重なる</b>。だから<b>下の部分を \(x\) 軸で上に折り返し</b>、上の部分と重ねた図形（合併）を回転させればよい。各 \(x\) で、断面は「軸から最も遠い点」までの円（または円環）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>下にある部分を \(x\) 軸に関して折り返した図を描く。</li>
+        <li>各 \(x\) で、図形の切り口が軸を<b>含む</b>なら断面は円板（半径＝軸からの最大距離）、<b>含まない</b>なら円環（外半径＝最大距離、内半径＝最小距離）。</li>
+        <li>折り返した曲線どうしの交点（\(|\cos x|=\sin x\) など）で区間を分けて積分。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(V=\pi\int(R^2-r^2)dx\)、\(R=\max\{|f|,|g|\}\)</dd>
+      <dt>なぜこの方法？</dt><dd>回転体は「各点が描く円」の集まりなので、軸の上下にある点 \((x,a)\) と \((x,-a)\) は同じ円を描く。上下を別々に回して体積を足すと、重なった部分を2回数えてしまう。<a href="../thinking.html#t-casework">発想：場合分け</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">2曲線 \(y=\sin x,\ y=\cos x\ \left(\dfrac\pi4\le x\le\dfrac{5\pi}{4}\right)\) で囲まれた部分を \(x\) 軸のまわりに1回転してできる立体の体積を求めよ。</div>
+      <p>この区間で \(\cos x\le y\le\sin x\)。各 \(x\) での切り口（線分 \(\cos x\le y\le\sin x\)）と \(x\) 軸の関係で分ける。</p>
+      <ul>
+        <li>\(\frac\pi4\le x\le\frac\pi2\)：\(0\le\cos x\le\sin x\)。円環（外 \(\sin x\)、内 \(\cos x\)）。</li>
+        <li>\(\frac\pi2\le x\le\pi\)：\(\cos x\le0\le\sin x\)（軸をまたぐ）。円板、半径 \(\max\{\sin x,|\cos x|\}\)。\(x\le\frac{3\pi}{4}\) なら \(\sin x\)、\(x\ge\frac{3\pi}{4}\) なら \(|\cos x|\)。</li>
+        <li>\(\pi\le x\le\frac{5\pi}{4}\)：\(\cos x\le\sin x\le0\)。円環（外 \(|\cos x|\)、内 \(|\sin x|\)）。</li>
+      </ul>
+      \[ \frac V\pi=\int_{\frac\pi4}^{\frac\pi2}(\sin^2x-\cos^2x)dx+\int_{\frac\pi2}^{\frac{3\pi}{4}}\sin^2x\,dx+\int_{\frac{3\pi}{4}}^{\pi}\cos^2x\,dx+\int_\pi^{\frac{5\pi}{4}}(\cos^2x-\sin^2x)dx \]
+      <p>第1項 \(=\int-\cos2x\,dx=\left[-\frac{\sin2x}{2}\right]_{\frac\pi4}^{\frac\pi2}=\frac12\)、第4項 \(=\left[\frac{\sin2x}{2}\right]_\pi^{\frac{5\pi}{4}}=\frac12\)。</p>
+      <p>第2項 \(=\left[\frac x2-\frac{\sin2x}{4}\right]_{\frac\pi2}^{\frac{3\pi}{4}}=\frac\pi8+\frac14\)、第3項 \(=\left[\frac x2+\frac{\sin2x}{4}\right]_{\frac{3\pi}{4}}^{\pi}=\frac\pi8+\frac14\)。</p>
+      <p>合計 \(\frac32+\frac\pi4\)。</p>
+      <p class="answer">\(V=\dfrac{3\pi}{2}+\dfrac{\pi^2}{4}\)</p>
+      <p class="point">図形は点 \(\left(\frac{3\pi}{4},0\right)\) に関して点対称なので、第1項と第4項、第2項と第3項が等しいのは自然（検算になる）。数値積分でも \(V\fallingdotseq7.1798\) で一致。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="inta-p10" data-level="3">
+    <h3><span class="pid">P10</span>斜めの軸のまわりの回転体</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「曲線 \(y=x^2\) と直線 \(y=x\) で囲まれた部分を、直線 \(y=x\) のまわりに1回転してできる立体の体積」</dd>
+      <dt>こう考える</dt><dd>回転軸に<b>垂直な平面で切る</b>のが原則。軸に沿った座標 \(t\)（原点からの距離）と、軸からの距離 \(r\) を、曲線上の点の \(x\) 座標で表し、\(V=\pi\int r^2dt\) を<b>\(x\) の積分に置換</b>する。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>曲線上の点 \(P(x,x^2)\) から軸に下ろした垂線の足を \(H\) とする。</li>
+        <li>\(r=PH=\dfrac{|x-x^2|}{\sqrt2}\)（点と直線の距離）、\(t=OH=\dfrac{x+x^2}{\sqrt2}\)（\(\vec{OP}\) の軸方向成分）。</li>
+        <li>\(t\) が \(x\) の増加関数であることを確認し、\(dt=\dfrac{1+2x}{\sqrt2}dx\) で置換。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>点と直線の距離、正射影（内積）、置換積分。別法：座標を \(45^\circ\) 回転する</dd>
+      <dt>なぜこの方法？</dt><dd>回転体の公式 \(\pi\int r^2dt\) は「軸方向の座標 \(t\)」での積分。斜めの軸では \(t\) と \(r\) を直接式にしにくいので、<b>曲線のパラメータ \(x\) を介して</b>両方を表し、置換積分で計算する。<a href="../thinking.html#t-coord">発想：座標を入れる</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">曲線 \(y=x^2\) と直線 \(y=x\) で囲まれた部分を、直線 \(y=x\) のまわりに1回転してできる立体の体積を求めよ。</div>
+      <p>交点は \((0,0),(1,1)\)。\(0\le x\le1\) で \(x^2\le x\)。曲線上の点 \(P(x,x^2)\) から直線 \(y=x\) に下ろした垂線の足を \(H\) とすると</p>
+      \[ r=PH=\frac{|x-x^2|}{\sqrt2}=\frac{x-x^2}{\sqrt2},\qquad t=OH=\frac{(x,x^2)\cdot(1,1)}{\sqrt2}=\frac{x+x^2}{\sqrt2} \]
+      <p>\(t\) は \(0\le x\le1\) で増加し、\(0\) から \(\sqrt2\)（\(=\)線分の長さ）まで動く。軸上の位置 \(t\) で軸に垂直に切った断面は半径 \(r\) の円なので</p>
+      \[ V=\pi\int_0^{\sqrt2}r^2dt=\pi\int_0^1\frac{(x-x^2)^2}{2}\cdot\frac{1+2x}{\sqrt2}dx=\frac{\pi}{2\sqrt2}\int_0^1(x^2-3x^4+2x^5)dx \]
+      <p>\(\displaystyle\int_0^1(x^2-3x^4+2x^5)dx=\frac13-\frac35+\frac13=\frac{1}{15}\)。</p>
+      <p class="answer">\(V=\dfrac{\pi}{30\sqrt2}=\dfrac{\sqrt2\,\pi}{60}\)</p>
+      <p class="point">検算（パップス・ギュルダンの定理）：体積＝面積 \(\frac16\) × 重心 \(\left(\frac12,\frac25\right)\) が描く円周 \(2\pi\cdot\frac{1}{10\sqrt2}\) \(=\frac{\pi}{30\sqrt2}\)。一致する。「\(x\) を介して置換」の際、\(t\) が単調でないと断面が重なるので、単調性の確認は必須。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="inta-p11" data-level="2">
+    <h3><span class="pid">P11</span>立体の切断（どの平面で切るか）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「円柱 \(x^2+y^2\le1\) を、平面 \(z=0\) と平面 \(z=x\) で切り取った部分（\(0\le z\le x\)）の体積」</dd>
+      <dt>こう考える</dt><dd>立体を<b>不等式で表し</b>、断面が簡単な図形（長方形・三角形）になる切り方を選ぶ。\(x=t,\ y=t,\ z=t\) のどれで切るかで、計算の難しさが大きく変わる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>立体を連立不等式で表す：\(x^2+y^2\le1,\ 0\le z\le x\)。</li>
+        <li>候補の平面ごとに、変数を1つ固定したときの残り2変数の不等式（＝断面）を書く。</li>
+        <li>断面が三角形・長方形など面積がすぐ出るものを選んで積分。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(V=\int S(t)dt\)、不等式の表す領域</dd>
+      <dt>なぜこの方法？</dt><dd>立体を「不等式の組」で表せば、平面 \(y=t\) で切った断面は「\(y=t\) を代入した残りの不等式が表す平面図形」として機械的に求まる。図だけに頼ると断面の形を誤りやすい。<a href="../thinking.html#t-fix">発想：1文字固定</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">円柱 \(x^2+y^2\le1\) のうち、\(0\le z\le x\) を満たす部分の体積を求めよ。</div>
+      <p>立体：\(x^2+y^2\le1,\ 0\le z\le x\)（とくに \(x\ge0\)）。</p>
+      <p><b>平面 \(y=t\ (-1\le t\le1)\) で切る</b>：\(0\le x\le\sqrt{1-t^2},\ 0\le z\le x\)。これは \(xz\) 平面で直角二等辺三角形（等辺 \(\sqrt{1-t^2}\)）、面積 \(\frac12(1-t^2)\)。</p>
+      \[ V=\int_{-1}^1\frac{1-t^2}{2}dt=\int_0^1(1-t^2)dt=\frac23 \]
+      <p><b>別解：平面 \(x=t\ (0\le t\le1)\) で切る</b>：\(|y|\le\sqrt{1-t^2},\ 0\le z\le t\)。長方形で面積 \(2t\sqrt{1-t^2}\)。\(\displaystyle V=\int_0^12t\sqrt{1-t^2}dt=\left[-\frac23(1-t^2)^{\frac32}\right]_0^1=\frac23\)</p>
+      <p class="answer">\(\dfrac23\)</p>
+      <p class="point">平面 \(z=t\) で切ると断面は「円の弓形」（\(x\ge t\) かつ \(x^2+y^2\le1\)）で、面積の計算に扇形が必要になり重い。<b>断面が直線で囲まれる切り方</b>を探すのがコツ。Monte Carlo 法（乱数）でも \(V\fallingdotseq0.667\) を確認。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="inta-p12" data-level="3">
+    <h3><span class="pid">P12</span>空間の線分・図形の回転体（\(z=t\) で切る）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「2点 \(A(1,0,0),\ B(0,1,1)\) を結ぶ線分 \(AB\) を \(z\) 軸のまわりに1回転してできる曲面と、平面 \(z=0,\ z=1\) で囲まれた立体の体積」</dd>
+      <dt>こう考える</dt><dd>回転してできる曲面の式は分からなくてよい。<b>回転軸に垂直な平面 \(z=t\) で切る</b>と、元の図形の切り口（点や線分）が回って<b>円や円環</b>になる。必要なのは<b>切り口の点と軸との距離</b>（最大・最小）だけ。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>元の図形と平面 \(z=t\) の共通部分（点または線分）を求める（線分 \(AB\) 上の点は \(\vec{OA}+s\vec{AB}\) と表し \(z=t\) から \(s\) を決める）。</li>
+        <li>その点と \(z\) 軸の距離 \(\sqrt{x^2+y^2}\) を計算（線分なら最大値と最小値）。</li>
+        <li>断面積 \(\pi r^2\)（または \(\pi(R^2-r^2)\)）を \(t\) で積分。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>空間ベクトルによる線分の表示（<a href="mc-vector.html">ベクトル</a>）、\(V=\int S(t)dt\)</dd>
+      <dt>なぜこの方法？</dt><dd>回転体の断面は、回転前の切り口が描く円の集まり。曲面の方程式（一葉双曲面）を求めなくても、<b>「断面＝切り口の回転」</b>と考えれば断面積が直接出る。阪大の空間図形の体積問題の大半はこの考え方で解ける。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(xyz\) 空間の2点 \(A(1,0,0),\ B(0,1,1)\) を結ぶ線分 \(AB\) を \(z\) 軸のまわりに1回転してできる曲面と、2平面 \(z=0,\ z=1\) で囲まれた立体の体積を求めよ。</div>
+      <p>線分 \(AB\) 上の点は \((1-s,\ s,\ s)\ (0\le s\le1)\)。平面 \(z=t\ (0\le t\le1)\) との交点は \(s=t\) の点 \(P(1-t,\ t,\ t)\) の1点。</p>
+      <p>\(P\) と \(z\) 軸の距離の2乗は \((1-t)^2+t^2\)。\(P\) が回転して半径 \(\sqrt{(1-t)^2+t^2}\) の円を描き、立体の断面はその円板。</p>
+      \[ V=\pi\int_0^1\{(1-t)^2+t^2\}dt=\pi\left(\frac13+\frac13\right)=\frac{2\pi}{3} \]
+      <p class="answer">\(\dfrac{2\pi}{3}\)</p>
+      <p class="point">断面の半径は \(t=\frac12\) で最小（\(\frac{1}{\sqrt2}\)）になり、立体は「くびれた鼓形」になる。ねじれた線分を回すと曲面ができることの体験。<b>回転の前に切る</b>のが鉄則。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="inta-p13" data-level="3">
+    <h3><span class="pid">P13</span>回転体でない立体（円柱の共通部分など）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「2つの円柱 \(x^2+y^2\le1\)、\(y^2+z^2\le1\) の共通部分の体積」「不等式 \(\cdots\) で表される立体の体積」</dd>
+      <dt>こう考える</dt><dd>見取り図を描くのは難しいが、<b>不等式の組</b>なら簡単。2つの円柱に<b>共通する文字（ここでは \(y\)）</b>を固定すると、残りの2文字の条件が独立に分かれて、断面が単純な形（正方形）になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>立体を不等式で表す：\(x^2+y^2\le1\) かつ \(y^2+z^2\le1\)。</li>
+        <li>両方に現れる \(y\) を \(y=t\) と固定：\(|x|\le\sqrt{1-t^2}\)、\(|z|\le\sqrt{1-t^2}\)。</li>
+        <li>断面は1辺 \(2\sqrt{1-t^2}\) の正方形。面積を \(t\) で積分。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(V=\int S(t)dt\)、対称性</dd>
+      <dt>なぜこの方法？</dt><dd>共通の文字を固定すると、2つの条件がそれぞれ1文字だけの条件（区間）になり、断面は「区間 × 区間＝長方形」になる。他の文字で切ると、断面が円と帯の共通部分など複雑な形になる。<a href="../thinking.html#t-fix">発想：1文字固定</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">2つの円柱 \(x^2+y^2\le1\)、\(y^2+z^2\le1\) の共通部分の体積を求めよ。</div>
+      <p>平面 \(y=t\ (-1\le t\le1)\) で切ると、断面は \(x^2\le1-t^2\) かつ \(z^2\le1-t^2\)、すなわち \(|x|\le\sqrt{1-t^2},\ |z|\le\sqrt{1-t^2}\)。</p>
+      <p>これは1辺 \(2\sqrt{1-t^2}\) の正方形で、面積は \(4(1-t^2)\)。</p>
+      \[ V=\int_{-1}^14(1-t^2)dt=8\left(1-\frac13\right)=\frac{16}{3} \]
+      <p class="answer">\(\dfrac{16}{3}\)</p>
+      <p class="point">P5 (1) と同じ答え：どちらも断面が「1辺 \(2\sqrt{1-t^2}\) の正方形」なので、断面積が等しく体積も等しい（カヴァリエリの原理）。（発展）3つの円柱 \(x^2+y^2\le1,\ y^2+z^2\le1,\ z^2+x^2\le1\) の共通部分は \(8(2-\sqrt2)\)。阪大では \(z=t\) で切った断面が「正方形と円の共通部分」になる型も出るので、断面図を正確に描く練習を。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="inta-p14" data-level="1">
+    <h3><span class="pid">P14</span>曲線の長さ</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「曲線 \(y=\frac{e^x+e^{-x}}{2}\ (0\le x\le1)\) の長さ」「サイクロイド \(x=t-\sin t,\ y=1-\cos t\ (0\le t\le2\pi)\) の長さ」</dd>
+      <dt>こう考える</dt><dd>公式に入れると \(\sqrt{\ }\) の中が出てくる。<b>根号の中が完全平方になるように問題は作られている</b>ので、平方の形を探す（\(1+\sinh^2=\cosh^2\) 型、半角の公式）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(y=f(x)\) なら \(1+\{f'(x)\}^2\)、媒介変数なら \(\left(\frac{dx}{dt}\right)^2+\left(\frac{dy}{dt}\right)^2\) を計算。</li>
+        <li>完全平方 \((\ \ )^2\) に変形し、根号を外す（<b>絶対値に注意</b>）。</li>
+        <li>積分する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(L=\int\sqrt{1+f'^2}dx\)、\(L=\int\sqrt{\dot x^2+\dot y^2}dt\)、\(1-\cos t=2\sin^2\frac t2\)</dd>
+      <dt>なぜこの方法？</dt><dd>微小な部分を線分と見ると長さは \(\sqrt{\Delta x^2+\Delta y^2}=\sqrt{1+\left(\frac{\Delta y}{\Delta x}\right)^2}\Delta x\)。根号の積分は一般に難しいので、出題される曲線は「根号が外れる」特別なものに限られる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 曲線 \(y=\dfrac{e^x+e^{-x}}{2}\ (0\le x\le1)\) の長さを求めよ。<br>(2) サイクロイド \(x=t-\sin t,\ y=1-\cos t\ (0\le t\le2\pi)\) の長さを求めよ。</div>
+      <p>(1) \(y'=\dfrac{e^x-e^{-x}}{2}\)、\(1+y'^2=\dfrac{4+e^{2x}-2+e^{-2x}}{4}=\left(\dfrac{e^x+e^{-x}}{2}\right)^2\)。</p>
+      \[ L=\int_0^1\frac{e^x+e^{-x}}{2}dx=\left[\frac{e^x-e^{-x}}{2}\right]_0^1=\frac{e-e^{-1}}{2} \]
+      <p>(2) \(\dot x^2+\dot y^2=(1-\cos t)^2+\sin^2t=2-2\cos t=4\sin^2\frac t2\)。\(0\le t\le2\pi\) で \(\sin\frac t2\ge0\)。</p>
+      \[ L=\int_0^{2\pi}2\sin\frac t2\,dt=\Big[-4\cos\frac t2\Big]_0^{2\pi}=8 \]
+      <p class="answer">(1) \(\dfrac12\left(e-\dfrac1e\right)\)　(2) 8</p>
+      <p class="point">(2) で \(t\) の範囲が \(0\le t\le4\pi\) なら \(\sin\frac t2\) が負になる区間があり、\(\left|\sin\frac t2\right|\) として分割が必要（答えは 16）。\(\sqrt{A^2}=|A|\) を忘れない。(1) の曲線はカテナリー（懸垂線）と呼ばれ、ロープを垂らした形。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="inta-p15" data-level="1">
+    <h3><span class="pid">P15</span>区分求積法（基本形）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\displaystyle\lim_{n\to\infty}\left(\frac{1}{n+1}+\frac{1}{n+2}+\cdots+\frac{1}{2n}\right)\)」「\(\displaystyle\lim_{n\to\infty}\sum_{k=1}^n\frac{n}{n^2+k^2}\)」（\(\sum\) の極限で、和が計算できない）</dd>
+      <dt>こう考える</dt><dd>和の公式で計算できない \(\sum\) の極限は、<b>\(\frac1n\sum f\left(\frac kn\right)\) の形</b>を作って積分に変える。各項を \(n\) で割って「\(\frac kn\) だけの式」にするのがコツ。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>各項から \(\frac1n\) をくくり出す（分母・分子を \(n\) や \(n^2\) で割る）。</li>
+        <li>残りが \(\frac kn\) だけの式 \(f\left(\frac kn\right)\) になっていることを確認。</li>
+        <li>\(k=1\sim n\) なら \(\frac kn\) は \(0\) から \(1\) まで動くので \(\int_0^1f(x)dx\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\displaystyle\lim_{n\to\infty}\frac1n\sum_{k=1}^nf\left(\frac kn\right)=\int_0^1f(x)dx\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(\frac1nf\left(\frac kn\right)\) は幅 \(\frac1n\) の長方形の面積。長方形の数を増やす極限が曲線の下の面積＝定積分。<b>和を面積として見る</b>ことで、計算不能な和の極限が積分で求まる。<a href="../thinking.html#t-integral-eval">発想：和を積分で評価</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">次の極限を求めよ。(1) \(\displaystyle\lim_{n\to\infty}\sum_{k=1}^n\frac{1}{n+k}\)　(2) \(\displaystyle\lim_{n\to\infty}\sum_{k=1}^n\frac{n}{n^2+k^2}\)</div>
+      <p>(1) \(\dfrac{1}{n+k}=\dfrac1n\cdot\dfrac{1}{1+\frac kn}\) より</p>
+      \[ \lim_{n\to\infty}\frac1n\sum_{k=1}^n\frac{1}{1+\frac kn}=\int_0^1\frac{dx}{1+x}=\log2 \]
+      <p>(2) \(\dfrac{n}{n^2+k^2}=\dfrac1n\cdot\dfrac{1}{1+\left(\frac kn\right)^2}\) より</p>
+      \[ \lim_{n\to\infty}\frac1n\sum_{k=1}^n\frac{1}{1+\left(\frac kn\right)^2}=\int_0^1\frac{dx}{1+x^2}=\frac\pi4 \]
+      <p class="answer">(1) \(\log2\)　(2) \(\dfrac\pi4\)</p>
+      <p class="point">(2) の積分は \(x=\tan\theta\)（<a href="m3-integral.html">積分法（計算）</a>）。数値確認：\(n=10^5\) で (1) \(0.69314\cdots\)、(2) \(0.78539\cdots\)。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="inta-p16" data-level="3">
+    <h3><span class="pid">P16</span>区分求積法の応用（和の範囲のずれ・積の極限）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\displaystyle\lim\sum_{k=n+1}^{3n}\frac1k\)」（範囲が \(1\sim n\) でない）、「\(\displaystyle\lim_{n\to\infty}\left\{\frac{(2n)!}{n!\,n^n}\right\}^{\frac1n}\)」（積の \(n\) 乗根）</dd>
+      <dt>こう考える</dt><dd>範囲がずれていたら、<b>\(\frac kn\) が動く範囲＝積分区間</b>にする（\(k=n+1\sim3n\) なら \(\frac kn\) は \(1\) から \(3\)）。積の \(n\) 乗根は<b>\(\log\) をとって \(\frac1n\sum\log(\cdots)\)</b> の形にする。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\frac kn\) の最小値・最大値を見て積分区間 \([a,b]\) を決める（項数が \((b-a)n\) 個であることも確認）。</li>
+        <li>積なら \(\log\) をとり、\(\log\) の和を \(\frac1n\sum\log f\left(\frac kn\right)\) の形に。</li>
+        <li>積分を計算し、最後に \(e^{(\ )}\) で戻す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\displaystyle\lim\frac1n\sum_{k=an+1}^{bn}f\left(\frac kn\right)=\int_a^bf(x)dx\)、\(\int\log(1+x)dx\)（部分積分）</dd>
+      <dt>なぜこの方法？</dt><dd>区分求積は「幅 \(\frac1n\) の長方形を、\(x\) 軸上の点 \(\frac kn\) に立てていく」こと。長方形が立つ場所の範囲がそのまま積分区間。積は \(\log\) で和に変えれば同じ枠組みに乗る。<a href="../thinking.html#t-rephrase">発想：同値な言い換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle\lim_{n\to\infty}\sum_{k=n+1}^{3n}\frac1k\)　(2) \(\displaystyle\lim_{n\to\infty}\left\{\frac{(2n)!}{n!\,n^n}\right\}^{\frac1n}\) を求めよ。</div>
+      <p>(1) \(\displaystyle\sum_{k=n+1}^{3n}\frac1k=\frac1n\sum_{k=n+1}^{3n}\frac{1}{\frac kn}\)。\(\frac kn\) は \(\frac{n+1}{n}\) から \(3\) まで、刻み \(\frac1n\) で \(2n\) 個。</p>
+      \[ \to\int_1^3\frac{dx}{x}=\log3 \]
+      <p>(2) \(\dfrac{(2n)!}{n!}=(n+1)(n+2)\cdots(2n)\) なので \(\dfrac{(2n)!}{n!\,n^n}=\displaystyle\prod_{k=1}^n\frac{n+k}{n}=\prod_{k=1}^n\left(1+\frac kn\right)\)。</p>
+      \[ \log\left\{\frac{(2n)!}{n!\,n^n}\right\}^{\frac1n}=\frac1n\sum_{k=1}^n\log\left(1+\frac kn\right)\to\int_0^1\log(1+x)dx \]
+      <p>\(\displaystyle\int_0^1\log(1+x)dx=\Big[(1+x)\log(1+x)-x\Big]_0^1=2\log2-1\)。</p>
+      <p>よって極限は \(e^{2\log2-1}=\dfrac{4}{e}\)。</p>
+      <p class="answer">(1) \(\log3\)　(2) \(\dfrac4e\)</p>
+      <p class="point">(2) で \(n^n\) を \(n\) 個の \(n\) に分けて各因数に1つずつ配るのが鍵。数値確認：\(n=10^5\) で (2) \(\fallingdotseq1.47152\)、\(\frac4e\fallingdotseq1.47152\)。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="inta-p17" data-level="2">
+    <h3><span class="pid">P17</span>積分で和を評価する（\(\sum\frac1k\) と \(\log n\)）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\log(n+1)\lt\displaystyle\sum_{k=1}^n\frac1k\lt1+\log n\) を示せ」「\(\displaystyle\lim_{n\to\infty}\frac{1}{\log n}\sum_{k=1}^n\frac1k\)」「\(\sum\frac1k\) は発散することを示せ」</dd>
+      <dt>こう考える</dt><dd>\(\frac1k\) を「幅1、高さ \(\frac1k\) の長方形の面積」と見て、曲線 \(y=\frac1x\) の下の面積と比べる。減少関数なので、\(k\le x\le k+1\) で \(\frac{1}{k+1}\le\frac1x\le\frac1k\)。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(k\le x\le k+1\) で \(\frac{1}{k+1}\le\frac1x\le\frac1k\)（等号は端点のみ）。</li>
+        <li>\([k,k+1]\) で積分：\(\dfrac{1}{k+1}\lt\displaystyle\int_k^{k+1}\frac{dx}{x}\lt\frac1k\)。</li>
+        <li>\(k\) について足し合わせ、和を積分に置き換える（右側の不等式は \(k=1\sim n\)、左側は \(k=1\sim n-1\) を足して \(1\) を加える）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>積分と不等式、\(\int_1^n\frac{dx}x=\log n\)、はさみうち</dd>
+      <dt>なぜこの方法？</dt><dd>\(\sum\frac1k\) は公式で計算できないが、\(\int\frac{dx}{x}=\log x\) は計算できる。<b>計算できない和を、計算できる積分で上下から挟む</b>。曲線と階段の位置関係を図で確認すれば、不等式の向きを間違えない。<a href="../thinking.html#t-integral-eval">発想：和を積分で評価</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 自然数 \(n\) に対し \(\log(n+1)\lt\displaystyle\sum_{k=1}^n\frac1k\le1+\log n\) を示せ。<br>(2) \(\displaystyle\lim_{n\to\infty}\frac{1}{\log n}\sum_{k=1}^n\frac1k\) を求めよ。</div>
+      <p>(1) \(k\le x\le k+1\) で \(\frac{1}{k+1}\le\frac1x\le\frac1k\)、等号は端点のみなので</p>
+      \[ \frac{1}{k+1}\lt\int_k^{k+1}\frac{dx}{x}\lt\frac1k \]
+      <p>右側を \(k=1,\dots,n\) で足すと \(\displaystyle\int_1^{n+1}\frac{dx}{x}\lt\sum_{k=1}^n\frac1k\)、すなわち \(\log(n+1)\lt\sum_{k=1}^n\frac1k\)。</p>
+      <p>左側を \(k=1,\dots,n-1\) で足すと \(\displaystyle\sum_{k=2}^{n}\frac1k\lt\int_1^n\frac{dx}{x}=\log n\)（\(n\ge2\)）。両辺に 1 を足して \(\displaystyle\sum_{k=1}^n\frac1k\lt1+\log n\)。\(n=1\) では等号。（証明終）</p>
+      <p>(2) \(n\ge2\) で \(\log n\gt0\)。(1) を \(\log n\) で割ると</p>
+      \[ \frac{\log(n+1)}{\log n}\lt\frac{1}{\log n}\sum_{k=1}^n\frac1k\le\frac{1}{\log n}+1 \]
+      <p>\(\dfrac{\log(n+1)}{\log n}=1+\dfrac{\log\left(1+\frac1n\right)}{\log n}\to1\)、右辺 \(\to1\)。はさみうちより</p>
+      <p class="answer">(2) 1</p>
+      <p class="point">(1) の左側から \(\sum\frac1k\to\infty\)（調和級数の発散）も分かる。数値確認：\(n=1000\) で \(6.909\lt7.485\lt7.908\)。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="inta-p18" data-level="3">
+    <h3><span class="pid">P18</span>\(\log n!\) の評価と \(\sqrt[n]{n!}\) の極限</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(n\log n-n+1\le\log n!\le(n+1)\log(n+1)-n\) を示せ」「\(\displaystyle\lim_{n\to\infty}\frac{\log n!}{n\log n}\)」「\(\displaystyle\lim_{n\to\infty}\frac{\sqrt[n]{n!}}{n}\)」</dd>
+      <dt>こう考える</dt><dd>\(\log n!=\sum_{k=1}^n\log k\) は和。\(\log x\) は<b>増加関数</b>なので、P17 と逆向きに \(\int_{k-1}^k\log x\,dx\lt\log k\lt\int_k^{k+1}\log x\,dx\)。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(k-1\le x\le k\) で \(\log x\le\log k\)、\(k\le x\le k+1\) で \(\log k\le\log x\)。積分して挟む。</li>
+        <li>\(k=2\sim n\)（または \(1\sim n\)）で足し、\(\int\log x\,dx=x\log x-x\) で計算。</li>
+        <li>求める極限の形に合わせて割り、はさみうち。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\int\log x\,dx=x\log x-x\)、はさみうち、\(\lim\left(1+\frac1n\right)^n=e\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(n!\) は急激に大きくなり直接扱えないが、\(\log\) をとれば和になり、P17 と同じく積分で挟める。\(\frac{\sqrt[n]{n!}}{n}\) は区分求積で \(\int_0^1\log x\,dx\) を使う方法もあるが、これは高校範囲外の広義積分なので、<b>評価式から攻める方が答案として安全</b>。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(n\ge2\) のとき、\(n\log n-n+1\lt\log n!\lt(n+1)\log(n+1)-n\) を示せ。<br>(2) \(\displaystyle\lim_{n\to\infty}\frac{\sqrt[n]{n!}}{n}\) を求めよ。</div>
+      <p>(1) \(\log x\) は増加関数なので、\(k\ge2\) に対し \(\displaystyle\int_{k-1}^k\log x\,dx\lt\log k\lt\int_k^{k+1}\log x\,dx\)。\(k=2,\dots,n\) で足すと（\(\log1=0\) に注意）</p>
+      \[ \int_1^n\log x\,dx\lt\log n!\lt\int_2^{n+1}\log x\,dx\lt\int_1^{n+1}\log x\,dx \]
+      <p>（最後は \(1\le x\le2\) で \(\log x\ge0\) より）。\(\int_1^n\log x\,dx=n\log n-n+1\)、\(\int_1^{n+1}\log x\,dx=(n+1)\log(n+1)-n\)。（証明終）</p>
+      <p>(2) \(a_n=\log\dfrac{\sqrt[n]{n!}}{n}=\dfrac1n\log n!-\log n\) とおく。(1) を \(n\) で割って \(\log n\) を引くと</p>
+      \[ -1+\frac1n\lt a_n\lt\frac{n+1}{n}\log(n+1)-\log n-1=\log\frac{n+1}{n}+\frac{\log(n+1)}{n}-1 \]
+      <p>\(\log\frac{n+1}{n}\to0\)。また \(\dfrac{\log(n+1)}{n}=\dfrac{\log(n+1)}{n+1}\cdot\dfrac{n+1}{n}\to0\)（\(\frac{\log x}{x}\to0\)、<a href="m3-diff.html">微分法</a>）。はさみうちで \(a_n\to-1\)。</p>
+      <p class="answer">(2) \(\dfrac1e\)</p>
+      <p class="point">(1) から \(\dfrac{\log n!}{n\log n}\to1\) も同様に分かる（「\(\log n!\) はおよそ \(n\log n\)」）。数値確認：\(n=1000\) で \(\frac{\sqrt[n]{n!}}{n}\fallingdotseq0.3695\)、\(\frac1e\fallingdotseq0.3679\)。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="inta-p19" data-level="3">
+    <h3><span class="pid">P19</span>\(\lim\int_0^1x^nf(x)dx\) と \(\lim n\int_0^1x^nf(x)dx\)</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\displaystyle\lim_{n\to\infty}\int_0^1\frac{x^n}{1+x}dx\)」「\(\displaystyle\lim_{n\to\infty}n\int_0^1\frac{x^n}{1+x}dx\)」（積分が直接計算できない）</dd>
+      <dt>こう考える</dt><dd>\(x^n\) は \(n\) が大きいと、\(x=1\) の近く以外ではほぼ 0。だから積分は 0 に行き、\(n\) 倍すると<b>\(x=1\) での値 \(f(1)\)</b> だけが残る。0 に行くことは被積分関数の不等式で、\(n\) 倍の極限は<b>部分積分で \(f(1)\) を取り出して</b>示す。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(0\le x\le1\) で \(f\) の最大値 \(M\) を使い \(0\le\int_0^1x^nf\,dx\le\frac{M}{n+1}\)（\(f\ge0\) のとき）→ 0。</li>
+        <li>\(n\) 倍：\(x^n=\left(\frac{x^{n+1}}{n+1}\right)'\) として部分積分。境界項から \(\frac{f(1)}{n+1}\) が出る。</li>
+        <li>残りの積分 \(\int x^{n+1}f'(x)dx\) を 1. と同様に評価して 0 に。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>積分と不等式、部分積分、はさみうち</dd>
+      <dt>なぜこの方法？</dt><dd>原始関数が求まらない積分でも、<b>極限なら不等式評価で十分</b>。\(n\) 倍の極限は不等式だけでは決まらない（上下の評価がずれる）ので、部分積分で「主要部分 \(\frac{f(1)}{n+1}\)」と「小さい残り」に分ける。<a href="../thinking.html#t-bound">発想：不等式で評価・はさみうち</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(I_n=\displaystyle\int_0^1\frac{x^n}{1+x}dx\) とする。(1) \(\displaystyle\lim_{n\to\infty}I_n\)　(2) \(\displaystyle\lim_{n\to\infty}nI_n\) を求めよ。</div>
+      <p>(1) \(0\le x\le1\) で \(0\le\dfrac{x^n}{1+x}\le x^n\)。積分して \(0\le I_n\le\dfrac{1}{n+1}\)。はさみうちで \(I_n\to0\)。</p>
+      <p>(2) 部分積分：</p>
+      \[ I_n=\left[\frac{x^{n+1}}{n+1}\cdot\frac{1}{1+x}\right]_0^1+\frac{1}{n+1}\int_0^1\frac{x^{n+1}}{(1+x)^2}dx=\frac{1}{2(n+1)}+\frac{J_n}{n+1} \]
+      <p>ここで \(J_n=\displaystyle\int_0^1\frac{x^{n+1}}{(1+x)^2}dx\) は \(0\le J_n\le\displaystyle\int_0^1x^{n+1}dx=\frac{1}{n+2}\to0\)。</p>
+      \[ nI_n=\frac{n}{n+1}\left(\frac12+J_n\right)\to\frac12 \]
+      <p class="answer">(1) 0　(2) \(\dfrac12\)</p>
+      <p class="point">一般に \(f\) が微分可能で \(f'\) が連続なら \(\lim n\int_0^1x^nf(x)dx=f(1)\)。ここでは \(f(1)=\frac12\)。数値確認：\(n=1000\) で \(nI_n\fallingdotseq0.49975\)。(1) の評価だけでは \(\frac{n}{2(n+1)}\le nI_n\le\frac{n}{n+1}\) までしか言えず、極限は決まらない。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="inta-p20" data-level="1">
+    <h3><span class="pid">P20</span>速度と道のり</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「数直線上を動く点の速度が \(v(t)=1-2\sin t\)。\(0\le t\le\pi\) での位置の変化と道のり」「平面上の点 \((e^{-t}\cos t,\ e^{-t}\sin t)\) が動く道のり」</dd>
+      <dt>こう考える</dt><dd><b>位置の変化</b>は \(\int v\,dt\)（行って戻れば打ち消す）、<b>道のり</b>は \(\int|v|\,dt\)（動いた距離の合計）。平面なら道のりは速さ \(|\vec v|\) の積分＝曲線の長さ。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>直線：\(v(t)=0\) となる \(t\) を求め、符号が変わる点で区間を分割。</li>
+        <li>\(\int|v|dt=\int_{v\ge0}v\,dt-\int_{v\lt0}v\,dt\)。</li>
+        <li>平面：\(|\vec v|=\sqrt{\dot x^2+\dot y^2}\) を求めて積分。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(x(b)-x(a)=\int_a^bv\,dt\)、道のり \(\int_a^b|v|dt\)、\(\int_a^b|\vec v|dt\)</dd>
+      <dt>なぜこの方法？</dt><dd>速度は位置の導関数なので、積分すれば位置の変化に戻る（微分積分学の基本定理）。ただし負の速度（後退）は位置を減らすので、移動距離を知りたいときは絶対値をとる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 数直線上を動く点 P の時刻 \(t\) における速度が \(v(t)=1-2\sin t\) である。\(0\le t\le\pi\) における P の位置の変化と、道のりを求めよ。<br>(2) 座標平面上の点 Q の時刻 \(t\) における座標が \((e^{-t}\cos t,\ e^{-t}\sin t)\) である。\(t=0\) から \(t=T\) までに Q が動く道のりを求め、\(T\to\infty\) のときの極限を求めよ。</div>
+      <p>(1) 位置の変化：\(\displaystyle\int_0^\pi(1-2\sin t)dt=\pi-4\)。</p>
+      <p>\(v=0\) ⇔ \(\sin t=\frac12\) ⇔ \(t=\frac\pi6,\frac{5\pi}{6}\)。\(\frac\pi6\lt t\lt\frac{5\pi}{6}\) で \(v\lt0\)、それ以外で \(v\ge0\)。</p>
+      \[ \int_0^{\frac\pi6}(1-2\sin t)dt=\frac\pi6-2+\sqrt3,\quad \int_{\frac\pi6}^{\frac{5\pi}{6}}(2\sin t-1)dt=2\sqrt3-\frac{2\pi}{3} \]
+      <p>\(\left[\frac{5\pi}{6},\pi\right]\) は \(\left[0,\frac\pi6\right]\) と対称で同じ値。道のり \(=2\left(\frac\pi6-2+\sqrt3\right)+2\sqrt3-\frac{2\pi}{3}=4\sqrt3-4-\frac\pi3\)。</p>
+      <p class="answer">(1) 位置の変化 \(\pi-4\)、道のり \(4\sqrt3-4-\dfrac\pi3\)</p>
+      <p>(2) \(\dot x=-e^{-t}(\cos t+\sin t)\)、\(\dot y=e^{-t}(\cos t-\sin t)\)。\(\dot x^2+\dot y^2=e^{-2t}\cdot2\)、\(|\vec v|=\sqrt2e^{-t}\)。</p>
+      \[ L(T)=\int_0^T\sqrt2e^{-t}dt=\sqrt2(1-e^{-T})\to\sqrt2 \]
+      <p class="answer">(2) \(\sqrt2(1-e^{-T})\)、極限 \(\sqrt2\)</p>
+      <p class="point">(2) の点は原点のまわりを無限に回りながら近づく（等角らせん）が、道のりは有限の \(\sqrt2\)。直感に反する結果を計算が保証する例。(1) で \(\pi-4\lt0\) は「全体としては負の向きに進んだ」ことを意味する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="inta-p21" data-level="2">
+    <h3><span class="pid">P21</span>物理的応用（容器への水の流入）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「曲線 \(y=x^4\ (x\ge0)\) を \(y\) 軸のまわりに回転させた容器に、毎秒 \(a\) の割合で水を注ぐ。水の深さが \(h\) のときの水面の上昇速度」</dd>
+      <dt>こう考える</dt><dd>水の体積 \(V\) を<b>深さ \(h\) の関数</b>として積分で表し、\(V\) と \(h\) がともに<b>時刻 \(t\) の関数</b>であることから、合成関数の微分 \(\dfrac{dV}{dt}=\dfrac{dV}{dh}\cdot\dfrac{dh}{dt}\) で結ぶ。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>高さ \(y\) での水面（断面）の面積 \(S(y)\) を求める。</li>
+        <li>\(V(h)=\int_0^hS(y)dy\)、よって \(\frac{dV}{dh}=S(h)\)（水面の面積）。</li>
+        <li>\(\frac{dV}{dt}=a\)（注水速度）と合わせて \(S(h)\frac{dh}{dt}=a\)、\(\frac{dh}{dt}=\frac{a}{S(h)}\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(V=\int S(y)dy\)、微分積分学の基本定理、合成関数の微分</dd>
+      <dt>なぜこの方法？</dt><dd>短い時間 \(\Delta t\) に入る水 \(a\Delta t\) は、水面の上に厚さ \(\Delta h\) の薄い層として積もる：\(a\Delta t\fallingdotseq S(h)\Delta h\)。だから水面が広いほどゆっくり上がる。体積を式で求めなくても、<b>水面の面積だけで上昇速度が分かる</b>のがポイント。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">曲線 \(y=x^4\ (x\ge0)\) を \(y\) 軸のまわりに1回転してできる曲面を内側とする容器がある（単位は cm）。この容器に毎秒 \(a\ \mathrm{cm}^3\) の割合で水を注ぐ。<br>(1) 水の深さが \(h\) のときの水の体積 \(V(h)\) を求めよ。<br>(2) 水の深さが \(h\) になるのは注水開始から何秒後か。<br>(3) 水の深さが \(h\) のときの水面の上昇速度を求めよ。</div>
+      <p>(1) 高さ \(y\) での断面は半径 \(x=y^{\frac14}\) の円、面積 \(S(y)=\pi y^{\frac12}\)。</p>
+      \[ V(h)=\int_0^h\pi y^{\frac12}dy=\frac{2\pi}{3}h^{\frac32} \]
+      <p>(2) \(t\) 秒後の体積は \(at\)。\(at=\frac{2\pi}{3}h^{\frac32}\) より \(t=\dfrac{2\pi h\sqrt h}{3a}\)。</p>
+      <p>(3) \(V(h)=at\) の両辺を \(t\) で微分：\(\dfrac{dV}{dh}\cdot\dfrac{dh}{dt}=a\)。\(\dfrac{dV}{dh}=S(h)=\pi\sqrt h\) より \(\dfrac{dh}{dt}=\dfrac{a}{\pi\sqrt h}\)。</p>
+      <p class="answer">(1) \(\dfrac{2\pi}{3}h\sqrt h\ \mathrm{cm}^3\)　(2) \(\dfrac{2\pi h\sqrt h}{3a}\) 秒後　(3) 毎秒 \(\dfrac{a}{\pi\sqrt h}\) cm</p>
+      <p class="point">(3) は (2) の \(t\) を \(h\) で微分して逆数をとっても出る（\(\frac{dt}{dh}=\frac{\pi\sqrt h}{a}\)）。「水面の面積で割る」の意味を理解しておけば、容器の形が変わっても同じ手順で解ける。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="pitfalls">
+  <h2>よくあるミスと対策</h2>
+  <ul class="pitfalls">
+    <li><b>円環の体積を \(\pi\int(R-r)^2dx\) とする</b>（P6）。→ 正しくは \(\pi\int(R^2-r^2)dx\)。「外の円板 − 内の円板」。</li>
+    <li><b>軸をまたぐ図形を上下別々に回して体積を足す</b>（P9）。→ 下側を折り返して重ね、各 \(x\) で軸から最も遠い点を半径にする。</li>
+    <li><b>交点が求まらないのに無理に数値を探す</b>（P2）。→ \(\alpha\) とおき、関係式で整理する。交点の個数の確認も忘れずに。</li>
+    <li><b>媒介変数の面積で積分区間の向きを間違えて負の値になる</b>（P3）。→ \(x\) の小さい端に対応する \(t\) を下端に。符号が負になったら向きを再確認。</li>
+    <li><b>曲線の長さで \(\sqrt{A^2}=A\) としてしまう</b>（P14）。→ \(\sqrt{A^2}=|A|\)。区間内で \(A\) の符号を確認。</li>
+    <li><b>区分求積で積分区間を常に \([0,1]\) にする</b>（P16）。→ \(\frac kn\) の動く範囲が積分区間。</li>
+    <li><b>和と積分の比較で不等式の向きを逆にする</b>（P17, P18）。→ 減少関数か増加関数かを確認し、必ず階段と曲線の図を描く。</li>
+    <li><b>バウムクーヘン積分を正当化なしで使う</b>（P8）。→ 3行の正当化（\(V'(t)=2\pi tf(t)\)）を添える。</li>
+  </ul>
+</section>
+
+<section id="handai">
+  <h2>阪大レベルへの橋渡し</h2>
+  <p>阪大理系の積分の応用は、次の2系統が柱である。</p>
+  <ul>
+    <li><b>空間図形の体積</b>：回転体（斜め・空間内の図形の回転）や、不等式で表された立体。勝負は「<b>どの平面で切るか</b>」と「<b>断面の形を正確に求めること</b>」（P10〜P13 → 演習1、演習3）。</li>
+    <li><b>積分と和・極限</b>：\(\sum f(k)\) を \(\int f(x)dx\) で挟んで、評価や極限・整数部分を求める（P15〜P19 → 演習2）。</li>
+  </ul>
+  <p>どちらも「計算力」より「立式の正確さ」が問われる。図を描き、断面や長方形を1つ取り出して式にする練習を重ねよう。</p>
+
+  <article class="pattern" id="inta-h1" data-level="3">
+    <h3><span class="pid">演1</span>空間の三角形を軸のまわりに回転した立体</h3>
+    <div class="problem">\(xyz\) 空間の3点 \(A(1,0,0),\ B(0,1,0),\ C(0,0,1)\) を頂点とする三角形 \(ABC\)（周および内部）を、\(z\) 軸のまわりに1回転させてできる立体の体積 \(V\) を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>回転軸（\(z\) 軸）に垂直な平面 \(z=t\) で切る（P12）。三角形の切り口は<b>線分</b>になる。その線分を回転させると、断面は「線分上の点と \(z\) 軸との距離の最小値 \(r\) から最大値 \(R\) まで」の<b>円環</b>になる。最小値は「軸から線分への垂線の足」が線分上にあるかを確認して求める。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>三角形 \(ABC\) は平面 \(x+y+z=1\) 上の \(x,y,z\ge0\) の部分。平面 \(z=t\ (0\le t\le1)\) との共通部分は</p>
+      \[ L_t:\ x+y=1-t,\ x\ge0,\ y\ge0,\ z=t \]
+      <p>という線分（端点 \((1-t,0,t)\)、\((0,1-t,t)\)）。</p>
+      <p>\(L_t\) 上の点と \(z\) 軸との距離は \(\sqrt{x^2+y^2}\)。\(x+y=1-t\) のもとで \(x^2+y^2=\frac{(x+y)^2+(x-y)^2}{2}\) なので、</p>
+      <ul>
+        <li>最大は \(|x-y|\) 最大の端点で \(R=1-t\)、</li>
+        <li>最小は \(x=y=\frac{1-t}{2}\)（線分の中点、線分上にある）で \(r=\frac{1-t}{\sqrt2}\)。</li>
+      </ul>
+      <p>\(L_t\) は連結なので、距離は \(r\) から \(R\) までのすべての値をとる。よって \(L_t\) を回転させた図形は内半径 \(r\)、外半径 \(R\) の円環で、面積は</p>
+      \[ S(t)=\pi(R^2-r^2)=\pi\left\{(1-t)^2-\frac{(1-t)^2}{2}\right\}=\frac\pi2(1-t)^2 \]
+      \[ V=\int_0^1\frac\pi2(1-t)^2dt=\frac\pi2\cdot\frac13=\frac\pi6 \]
+      <p class="answer">\(V=\dfrac\pi6\)</p>
+      <p class="point">採点ポイント：①\(z=t\) で切る方針、②切り口の線分の正確な表示、③最小距離が線分の中点でとられること（垂線の足が線分上にある確認）、④円環の面積、⑤積分。最小距離を端点で考えて「円板」としてしまうと \(\frac\pi3\) になり誤り。Monte Carlo 法でも \(V\fallingdotseq0.5237\)（\(\frac\pi6\fallingdotseq0.5236\)）を確認。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="inta-h2" data-level="3">
+    <h3><span class="pid">演2</span>\(\sum\frac{1}{\sqrt k}\) の評価と整数部分</h3>
+    <div class="problem">(1) 自然数 \(n\) に対し、\(2\sqrt{n+1}-2\lt\displaystyle\sum_{k=1}^n\frac{1}{\sqrt k}\le2\sqrt n-1\) を示せ。<br>(2) \(\displaystyle S=\sum_{k=1}^{10000}\frac{1}{\sqrt k}\) の整数部分を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>\(\frac{1}{\sqrt x}\) は減少関数なので、P17 と全く同じく \(\int_k^{k+1}\frac{dx}{\sqrt x}\lt\frac{1}{\sqrt k}\lt\int_{k-1}^k\frac{dx}{\sqrt x}\)。(2) は (1) で \(n=10000\) とし、上下の評価の幅が 1 未満で、その間に整数がちょうど1つ以下しかないことを確かめる。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) \(k\le x\le k+1\) で \(\frac{1}{\sqrt x}\le\frac{1}{\sqrt k}\)（等号は \(x=k\) のみ）より \(\displaystyle\int_k^{k+1}\frac{dx}{\sqrt x}\lt\frac{1}{\sqrt k}\)。\(k=1,\dots,n\) で足して</p>
+      \[ \sum_{k=1}^n\frac{1}{\sqrt k}\gt\int_1^{n+1}\frac{dx}{\sqrt x}=2\sqrt{n+1}-2 \]
+      <p>また \(k\ge2\) のとき \(k-1\le x\le k\) で \(\frac{1}{\sqrt k}\le\frac{1}{\sqrt x}\) より \(\displaystyle\frac{1}{\sqrt k}\lt\int_{k-1}^k\frac{dx}{\sqrt x}\)。\(k=2,\dots,n\) で足して 1 を加えると（\(n\ge2\)）</p>
+      \[ \sum_{k=1}^n\frac{1}{\sqrt k}\lt1+\int_1^n\frac{dx}{\sqrt x}=1+2\sqrt n-2=2\sqrt n-1 \]
+      <p>\(n=1\) では右側は等号。（証明終）</p>
+      <p>(2) \(n=10000\) とすると \(2\sqrt{10001}-2\lt S\lt2\cdot100-1=199\)。</p>
+      <p>\(\sqrt{10001}\gt\sqrt{10000}=100\) より \(2\sqrt{10001}-2\gt198\)。よって \(198\lt S\lt199\)。</p>
+      <p class="answer">198</p>
+      <p class="point">採点ポイント：(1) の両側の不等式（右側は \(k=1\) の項を別扱いにする理由）、(2) で \(198\lt S\) を厳密に言うこと。数値確認：\(S\fallingdotseq198.545\)。上からの評価が粗く \(S\lt2\sqrt n=200\) 程度しか得られないと、\(198\lt S\lt200\) では整数部分が決まらない（\(k=1\) の項 1 を積分に含めずに別に足したのはこのため）——<b>評価の精度を問題に合わせて選ぶ</b>のが阪大型。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="inta-h3" data-level="3">
+    <h3><span class="pid">演3</span>接線で囲まれた図形の2通りの回転体</h3>
+    <div class="problem">原点から曲線 \(C:\ y=\log x\) に引いた接線を \(\ell\) とする。\(C\)、\(\ell\)、\(x\) 軸で囲まれた図形を \(D\) とする。<br>(1) \(\ell\) の方程式と \(D\) の面積を求めよ。<br>(2) \(D\) を \(x\) 軸のまわりに1回転してできる立体の体積 \(V_x\) を求めよ。<br>(3) \(D\) を \(y\) 軸のまわりに1回転してできる立体の体積 \(V_y\) を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>接線は接点 \((t,\log t)\) とおく（<a href="m3-diff.html">微分法</a> P8）。\(D\) は \(x\) で切ると「\(0\le x\le1\) では三角形部分、\(1\le x\le e\) では直線と曲線の間」と2段になるが、<b>\(y\) で切ると1つの式</b>（左端 \(x=ey\)、右端 \(x=e^y\)）で済む。回転軸ごとに切り方を選ぶ。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) 接点を \((t,\log t)\) とすると接線は \(y=\frac1t(x-t)+\log t\)。原点を通るので \(\log t=1\)、\(t=e\)。\(\ell:\ y=\dfrac xe\)、接点 \((e,1)\)。</p>
+      <p>\(D\) は \(0\le y\le1\)、\(ey\le x\le e^y\)（\(e^y\ge ey\) は \(e^x\ge1+x\) の変形、あるいは接線の下に曲線があることから）。</p>
+      \[ S=\int_0^1(e^y-ey)dy=(e-1)-\frac e2=\frac e2-1 \]
+      <p>(2) \(x\) 軸回転：\(0\le x\le e\) で外側は \(\ell\)、内側は \(1\le x\le e\) で \(C\)（\(0\le x\le1\) では内側なし）。</p>
+      \[ V_x=\pi\int_0^e\frac{x^2}{e^2}dx-\pi\int_1^e(\log x)^2dx \]
+      <p>\(\pi\int_0^e\frac{x^2}{e^2}dx=\frac{\pi e}{3}\)（円錐）。\(\displaystyle\int_1^e(\log x)^2dx=\Big[x(\log x)^2\Big]_1^e-2\int_1^e\log x\,dx=e-2\)。</p>
+      \[ V_x=\frac{\pi e}{3}-\pi(e-2)=\frac{2\pi(3-e)}{3} \]
+      <p>(3) \(y\) 軸回転：高さ \(y\) の断面は外半径 \(e^y\)、内半径 \(ey\) の円環。</p>
+      \[ V_y=\pi\int_0^1(e^{2y}-e^2y^2)dy=\pi\left(\frac{e^2-1}{2}-\frac{e^2}{3}\right)=\frac{\pi(e^2-3)}{6} \]
+      <p class="answer">(1) \(\ell:\ y=\dfrac xe\)、面積 \(\dfrac e2-1\)　(2) \(V_x=\dfrac{2\pi(3-e)}{3}\)　(3) \(V_y=\dfrac{\pi(e^2-3)}{6}\)</p>
+      <p class="point">採点ポイント：接点の決定、\(D\) の正確な把握（\(x\) で見るか \(y\) で見るか）、\(\int(\log x)^2dx\) の部分積分、円錐を引く形の立式。数値確認：\(V_x\fallingdotseq0.5900\)、\(V_y\fallingdotseq2.2981\)。(2) を \(\pi\int_0^e\left(\frac xe-\log x\right)^2dx\) とするのは P6 の典型ミス。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="next">
+  <h2>次に学ぶとつながる単元</h2>
+  <ul>
+    <li><a href="m3-integral.html">積分法（計算）</a>：このページの立式の後はすべて計算勝負。P7〜P9 の体積では置換・部分積分・次数下げが総動員される。</li>
+    <li><a href="m3-diff.html">微分法とその応用</a>：面積・体積を求める前のグラフの概形、P21 の速度、面積や体積を関数とみた最大最小。</li>
+    <li><a href="mc-vector.html">ベクトル</a>：P12、演習1 のような空間図形の切り口は、空間ベクトルで線分・平面を表すと正確に求まる。</li>
+    <li><a href="mb-sequence.html">数列</a>・<a href="m3-limit.html">極限</a>：P15〜P19 は和と極限の問題を積分で解く。逆に、区分求積で積分を和として近似する見方は統計（<a href="mb-stats.html">統計的な推測</a>）の連続型確率分布にもつながる。</li>
+  </ul>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>

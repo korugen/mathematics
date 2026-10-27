@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>数列（数学B）｜解法の地図</title>
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-unit="mb-sequence" data-root="../">
+<main>
+
+<header class="unit-head">
+  <span class="subj-badge">数学B</span>
+  <h1>数列</h1>
+  <p class="lead">阪大理系の最頻出単元。「和を計算する」「漸化式を解く」「数学的帰納法で示す」の3本柱に加え、<b>確率・整数・図形の問題を漸化式に翻訳する力</b>が問われる。型の数は多いが、どの型も「既に解ける形に変形する」という1つの考え方でつながっている。</p>
+  <div class="goal">
+    <strong>このページの到達目標</strong>
+    <ul>
+      <li>【基礎】等差・等比数列、\(\Sigma\) の公式、階差数列、\(S_n\) からの一般項、\(a_{n+1}=pa_n+q\) 型の漸化式、帰納法の基本形を確実に処理できる。</li>
+      <li>【標準】部分分数分解、\(S-rS\)、群数列、格子点、各種漸化式（\(f(n)\) 型・\(q^n\) 型・逆数・対数・3項間・\(S_n\) を含む）を見た瞬間に型を判別して解ける。</li>
+      <li>【阪大】一般項が求まらない漸化式を不等式で評価し、推定→帰納法、連立漸化式、状態遷移で漸化式を立てる問題を答案として完成できる。</li>
+    </ul>
+  </div>
+  <p class="prereq">前提：<a href="m2-explog.html">指数関数・対数関数</a>（指数法則・対数をとる）、<a href="m1-numbers.html">数と式</a>（式の計算）／ 次に進む：<a href="m3-limit.html">極限</a>、<a href="ma-probability.html">確率</a>（確率漸化式）、<a href="mb-stats.html">統計的な推測</a></p>
+</header>
+
+<section id="core">
+  <h2>必ず押さえる基本事項</h2>
+
+  <div class="box theorem">
+    <p><span class="name">等差数列・等比数列</span>：初項 \(a\)、公差 \(d\)／公比 \(r\) とすると</p>
+    \[ a_n=a+(n-1)d,\quad S_n=\frac{n\{2a+(n-1)d\}}{2}=\frac{n(a_1+a_n)}{2} \]
+    \[ a_n=ar^{n-1},\quad S_n=\frac{a(r^n-1)}{r-1}\ (r\ne1),\quad S_n=na\ (r=1) \]
+    <p>なぜ：等差数列の和は、逆順に並べて足すと各組が \(a_1+a_n\) で \(n\) 組。等比数列の和は \(S-rS\) で途中の項がすべて消える（P6 と同じ仕組み）。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">\(\Sigma\) の公式</span></p>
+    \[ \sum_{k=1}^nk=\frac{n(n+1)}2,\quad \sum_{k=1}^nk^2=\frac{n(n+1)(2n+1)}6,\quad \sum_{k=1}^nk^3=\left\{\frac{n(n+1)}2\right\}^2 \]
+    <p>なぜ：\((k+1)^3-k^3=3k^2+3k+1\) を \(k=1\) から \(n\) まで足すと、左辺は途中が消えて \((n+1)^3-1\)。これから \(\sum k^2\) が求まる。「差の形にして和をとると消える」が数列の和の根本原理。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">階差数列と和からの一般項</span></p>
+    \[ b_n=a_{n+1}-a_n\ \text{のとき}\quad a_n=a_1+\sum_{k=1}^{n-1}b_k\quad(n\ge2) \]
+    \[ a_1=S_1,\qquad a_n=S_n-S_{n-1}\quad(n\ge2) \]
+    <p>どちらも<b>\(n\ge2\) でしか使えない</b>（\(\sum_{k=1}^{0}\) や \(S_0\) は意味をもたない）ので、最後に \(n=1\) を別に確かめる。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">漸化式 \(a_{n+1}=pa_n+q\ (p\ne1)\) の解法</span>：\(\alpha=p\alpha+q\) を満たす \(\alpha\)（特性方程式の解）を使うと</p>
+    \[ a_{n+1}-\alpha=p(a_n-\alpha)\quad\Longrightarrow\quad a_n=\alpha+(a_1-\alpha)p^{n-1} \]
+    <p>なぜ：\(a_{n+1}=pa_n+q\) から \(\alpha=p\alpha+q\) を辺々引くと \(q\) が消える。「動かない値 \(\alpha\) からのずれ」は毎回 \(p\) 倍される等比数列である。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">数学的帰納法</span>：自然数 \(n\) に関する命題 \(P(n)\) について</p>
+    <ol>
+      <li>\(P(1)\) が成り立つ。</li>
+      <li>\(P(k)\) が成り立つと仮定すると \(P(k+1)\) も成り立つ。</li>
+    </ol>
+    <p>が示せれば、すべての自然数 \(n\) で \(P(n)\) が成り立つ。なぜ：1 が成り立ち、1 ⇒ 2、2 ⇒ 3、… とドミノ倒しのように次々に成り立つから。</p>
+  </div>
+
+  <div class="box idea">
+    <p><b>この単元を貫く考え方</b>：数列のあらゆる問題は<b>「既に解ける形に変形する」</b>ことで解ける。和は「差の形」にして消し（望遠鏡和）、漸化式は「等差・等比・階差」のどれかに帰着させる（ずらす・割る・逆数・対数）。迷ったら<b>\(n=1,2,3,4\) を書き出して実験</b>し、規則を見つけてから式で確かめよう。<a href="../thinking.html#t-experiment">発想：小さい場合で実験する</a></p>
+  </div>
+</section>
+
+<section id="quick">
+  <h2>早見表：こう来たら → こう解く</h2>
+  <div class="table-wrap"><table class="quick">
+    <tr><th>問題の特徴（こう来たら）</th><th>方針（こう解く）</th><th>使う道具</th><th>詳細</th></tr>
+    <tr data-level="1"><td>第5項が14、第12項が35／第2項6、第4項54</td><td>初項と公差（公比）の連立方程式</td><td>等差・等比の一般項</td><td><a href="#seq-p1">P1</a></td></tr>
+    <tr data-level="1"><td>\(\sum_{k=1}^n(2k-1)^2\) を求めよ</td><td>展開して公式を当てはめる</td><td>\(\Sigma\) の公式</td><td><a href="#seq-p2">P2</a></td></tr>
+    <tr data-level="1"><td>2, 3, 6, 11, 18, … の一般項</td><td>差をとって階差数列を見る</td><td>階差数列</td><td><a href="#seq-p3">P3</a></td></tr>
+    <tr data-level="1"><td>和 \(S_n=n^2+2n+3\) から \(a_n\)</td><td>\(a_n=S_n-S_{n-1}\ (n\ge2)\)、\(a_1=S_1\)</td><td>和と一般項</td><td><a href="#seq-p4">P4</a></td></tr>
+    <tr data-level="2"><td>\(\sum\frac{1}{(2k-1)(2k+1)}\) など分数の和</td><td>部分分数分解して望遠鏡和</td><td>部分分数分解</td><td><a href="#seq-p5">P5</a></td></tr>
+    <tr data-level="2"><td>\(\sum k\cdot2^{k-1}\)（等差×等比）</td><td>\(S-rS\)</td><td>等比数列の和</td><td><a href="#seq-p6">P6</a></td></tr>
+    <tr data-level="2"><td>区切りのある数列（第100項・〇〇は第何項）</td><td>第 \(m\) 群の末項までの項数で群を特定</td><td>群数列</td><td><a href="#seq-p7">P7</a></td></tr>
+    <tr data-level="2"><td>領域内の格子点の個数</td><td>1文字を固定して直線上の個数を足す</td><td>\(\Sigma\)・1文字固定</td><td><a href="#seq-p8">P8</a></td></tr>
+    <tr data-level="1"><td>\(a_{n+1}=3a_n+2\)</td><td>特性方程式 \(\alpha=3\alpha+2\) で等比数列へ</td><td>特性方程式</td><td><a href="#seq-p9">P9</a></td></tr>
+    <tr data-level="2"><td>\(a_{n+1}=2a_n+n\)／\(a_{n+1}=2a_n+3^n\)</td><td>\(n\) の1次式をずらす／\(3^{n+1}\) で割る</td><td>置き換え</td><td><a href="#seq-p10">P10</a></td></tr>
+    <tr data-level="2"><td>\(a_{n+1}=\frac{a_n}{2a_n+1}\)、\(\frac{3a_n-1}{a_n+1}\)</td><td>逆数をとる（不動点をずらしてから）</td><td>逆数・特性方程式</td><td><a href="#seq-p11">P11</a></td></tr>
+    <tr data-level="2"><td>\(a_{n+1}=4a_n^3\)（積・累乗の形）</td><td>両辺の対数をとる</td><td>対数</td><td><a href="#seq-p12">P12</a></td></tr>
+    <tr data-level="2"><td>\(a_{n+2}=5a_{n+1}-6a_n\)</td><td>\(x^2=5x-6\) の解で2通りに変形</td><td>隣接3項間</td><td><a href="#seq-p13">P13</a></td></tr>
+    <tr data-level="3"><td>\(a_n,b_n\) の連立漸化式</td><td>和と差／\(a_n+\alpha b_n\) が等比になる \(\alpha\)</td><td>連立漸化式</td><td><a href="#seq-p14">P14</a></td></tr>
+    <tr data-level="2"><td>\(S_n=2a_n-n\) など \(S_n\) を含む</td><td>\(n\) を \(n+1\) にして引く</td><td>\(S_{n+1}-S_n=a_{n+1}\)</td><td><a href="#seq-p15">P15</a></td></tr>
+    <tr data-level="1"><td>「すべての自然数 \(n\) について〜を示せ」</td><td>\(n=1\) と \(k\to k+1\)</td><td>数学的帰納法</td><td><a href="#seq-p16">P16</a></td></tr>
+    <tr data-level="3"><td>\(n\) と \(n-1\) の両方を使う／前の全部を使う</td><td>2段階の帰納法・強い帰納法</td><td>帰納法の変形</td><td><a href="#seq-p17">P17</a></td></tr>
+    <tr data-level="3"><td>型にはまらない漸化式・「\(a_n\) を推定し証明せよ」</td><td>\(a_1\sim a_4\) を計算 → 推定 → 帰納法</td><td>実験＋帰納法</td><td><a href="#seq-p18">P18</a></td></tr>
+    <tr data-level="3"><td>\(a_{n+1}=\sqrt{a_n+2}\) など一般項が求まらない</td><td>差を評価して等比数列ではさむ</td><td>不等式評価</td><td><a href="#seq-p19">P19</a></td></tr>
+    <tr data-level="3"><td>\(n\) 回後の確率・\(n\) 本の直線で分けられる個数</td><td>\(n\) と \(n+1\) の関係（最後の1手）を見る</td><td>漸化式を立てる</td><td><a href="#seq-p20">P20</a></td></tr>
+  </table></div>
+</section>
+
+<section id="patterns">
+  <h2>パターン別 解法マップ</h2>
+
+  <article class="pattern" id="seq-p1" data-level="1">
+    <h3><span class="pid">P1</span>等差数列・等比数列（一般項と和）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「第5項が14、第12項が35である等差数列の一般項」「初めて和が500を超えるのは第何項までの和か」「第2項が6、第4項が54である等比数列」</dd>
+      <dt>こう考える</dt><dd>等差数列は<b>初項 \(a\) と公差 \(d\)</b>、等比数列は<b>初項 \(a\) と公比 \(r\)</b> の2つの未知数で完全に決まる。条件2つで連立方程式を立てればよい。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>条件を \(a+(n-1)d\) や \(ar^{n-1}\) で式にする。</li>
+        <li>等差は引き算、等比は割り算で1文字を消す。</li>
+        <li>等比で \(r^2=9\) のように偶数乗が出たら \(r=\pm3\) の<b>両方</b>を調べる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>一般項・和の公式</dd>
+      <dt>なぜこの方法？</dt><dd>等差は「足し算で進む」、等比は「掛け算で進む」ので、2つの項の差（比）から公差（公比）がすぐ出る。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 第5項が14、第12項が35である等差数列 \(\{a_n\}\) の一般項と、初項から第 \(n\) 項までの和 \(S_n\) を求めよ。また、\(S_n\gt500\) となる最小の \(n\) を求めよ。<br>(2) 第2項が6、第4項が54である等比数列（公比は実数）の一般項を求めよ。</div>
+      <p>(1) \(a+4d=14,\ a+11d=35\) を引いて \(7d=21\)、\(d=3,\ a=2\)。\(a_n=3n-1\)。</p>
+      <p>\(S_n=\frac{n\{2+(3n-1)\}}2=\frac{n(3n+1)}2\)。\(S_{18}=\frac{18\cdot55}2=495,\ S_{19}=\frac{19\cdot58}2=551\)。\(S_n\) は増加するので</p>
+      <p class="answer">\(a_n=3n-1\)、\(S_n=\frac{n(3n+1)}2\)、最小の \(n\) は 19</p>
+      <p>(2) \(ar=6,\ ar^3=54\)。割って \(r^2=9\)、\(r=\pm3\)。\(r=3\) なら \(a=2\)、\(r=-3\) なら \(a=-2\)。</p>
+      <p class="answer">\(a_n=2\cdot3^{n-1}\) または \(a_n=-2\cdot(-3)^{n-1}\)</p>
+      <p class="point">(2) で \(r=-3\) を落とす誤りが多い。「公比は実数」は2つとも答えよという合図。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="seq-p2" data-level="1">
+    <h3><span class="pid">P2</span>\(\Sigma\) の計算</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\sum_{k=1}^n(2k-1)^2\) を求めよ」「\(1\cdot2+2\cdot3+\cdots+n(n+1)\)」「\(\sum_{k=1}^{n}2\cdot3^{k-1}\)」</dd>
+      <dt>こう考える</dt><dd>\(\Sigma\) は「和」の記号にすぎない。<b>一般項を \(k\) の多項式に展開</b>して \(\sum k^2,\ \sum k,\ \sum1\) に分ければ公式が使える。等比数列の部分は等比数列の和の公式。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>一般項（第 \(k\) 項）を \(k\) の式で表す（「\(1\cdot2+2\cdot3+\cdots\)」なら \(k(k+1)\)）。</li>
+        <li>展開して \(\sum\) を分配する（定数倍は外へ）。</li>
+        <li>公式を代入し、<b>共通因数 \(n\) や \((n+1)\) でくくりながら</b>整理する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\Sigma\) の公式、\(\sum(pa_k+qb_k)=p\sum a_k+q\sum b_k\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(\Sigma\) は線形（足し算と定数倍を分配できる）なので、どんな多項式も基本の3公式に分解できる。最後に \(n=1,2\) を代入して検算する習慣をつけよう。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\sum_{k=1}^n(2k-1)^2\)　(2) \(1\cdot2+2\cdot3+\cdots+n(n+1)\)　(3) \(\sum_{k=1}^n2\cdot3^{k-1}\)</div>
+      <p>(1) \((2k-1)^2=4k^2-4k+1\)。</p>
+      \[ \begin{aligned}\sum_{k=1}^n(4k^2-4k+1)&=\frac{4n(n+1)(2n+1)}6-2n(n+1)+n\\&=\frac n3\{2(n+1)(2n+1)-6(n+1)+3\}=\frac{n(4n^2-1)}3\end{aligned} \]
+      <p class="answer">\(\frac{n(2n-1)(2n+1)}3\)</p>
+      <p>(2) \(\sum_{k=1}^nk(k+1)=\frac{n(n+1)(2n+1)}6+\frac{n(n+1)}2=\frac{n(n+1)}6\{(2n+1)+3\}\)。<span class="answer">\(\frac{n(n+1)(n+2)}3\)</span></p>
+      <p>(3) 初項2、公比3、項数 \(n\) の等比数列の和。\(\frac{2(3^n-1)}{3-1}\)。<span class="answer">\(3^n-1\)</span></p>
+      <p class="point">検算：(1) で \(n=2\) とすると \(1+9=10\)、式は \(\frac{2\cdot3\cdot5}{3}=10\)。展開するより先に共通因数でくくると計算が軽い。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="seq-p3" data-level="1">
+    <h3><span class="pid">P3</span>階差数列（規則を見つける・階差型の漸化式）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「数列 2, 3, 6, 11, 18, 27, … の一般項」「\(a_1=2,\ a_{n+1}=a_n+2n-1\)」</dd>
+      <dt>こう考える</dt><dd>等差でも等比でもないときは、<b>隣り合う項の差</b>をとる。差の数列（階差数列）が等差・等比なら、<b>差を足し上げれば元の数列</b>に戻る。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>階差 \(b_n=a_{n+1}-a_n\) を求める（漸化式 \(a_{n+1}=a_n+f(n)\) なら \(b_n=f(n)\)）。</li>
+        <li>\(n\ge2\) のとき \(a_n=a_1+\sum_{k=1}^{n-1}b_k\)。</li>
+        <li>\(n=1\) のときも成り立つか確認する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>階差数列の公式、\(\sum_{k=1}^{n-1}k=\frac{(n-1)n}2\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(a_n=a_1+(a_2-a_1)+(a_3-a_2)+\cdots+(a_n-a_{n-1})\)。階段を1段ずつ上った高さを足せば、今いる高さになる。和は \(n-1\) 個なので \(\sum_{k=1}^{n-1}\) で、\(n=1\) では和が空になるので別扱い。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">数列 2, 3, 6, 11, 18, 27, … の一般項 \(a_n\) を求めよ。</div>
+      <p>階差数列は 1, 3, 5, 7, 9, … で、\(b_n=2n-1\)。</p>
+      <p>\(n\ge2\) のとき \(a_n=2+\sum_{k=1}^{n-1}(2k-1)=2+(n-1)^2=n^2-2n+3\)。</p>
+      <p>\(n=1\) のとき \(1-2+3=2=a_1\) で成り立つ。</p>
+      <p class="answer">\(a_n=n^2-2n+3\)</p>
+      <p class="point">\(\sum_{k=1}^{n-1}(2k-1)\) は「1から始まる奇数 \(n-1\) 個の和」で \((n-1)^2\)。公式で計算するなら \(2\cdot\frac{(n-1)n}{2}-(n-1)\)。\(\sum\) の上端が \(n-1\) であることに注意。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="seq-p4" data-level="1">
+    <h3><span class="pid">P4</span>和 \(S_n\) から一般項を求める（\(n=1\) の扱い）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「初項から第 \(n\) 項までの和が \(S_n=n^2+2n+3\) で表される数列の一般項」</dd>
+      <dt>こう考える</dt><dd>\(S_n-S_{n-1}\) は「第 \(n\) 項だけ」が残る。ただし \(S_0\) は定義されていないので、<b>この式は \(n\ge2\) 専用</b>。\(a_1=S_1\) と比べて、同じ式で書けるかを確かめる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(a_1=S_1\) を計算。</li>
+        <li>\(n\ge2\) で \(a_n=S_n-S_{n-1}\) を計算。</li>
+        <li>その式に \(n=1\) を代入して \(a_1\) と一致するか確認。一致しなければ<b>分けて答える</b>。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(a_n=S_n-S_{n-1}\ (n\ge2)\)、\(a_1=S_1\)</dd>
+      <dt>なぜこの方法？</dt><dd>和の差で1項を取り出すのは「階差」の逆操作。\(S_n\) に定数項があると、それは \(a_1\) にだけ効くので、\(n=1\) だけ式がずれる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(S_n=n^2+2n+3\)　(2) \(S_n=3^n-1\) のとき、それぞれ一般項 \(a_n\) を求めよ。</div>
+      <p>(1) \(a_1=S_1=6\)。\(n\ge2\) のとき \(a_n=(n^2+2n+3)-\{(n-1)^2+2(n-1)+3\}=2n+1\)。\(n=1\) を代入すると3で \(a_1=6\) と一致しない。</p>
+      <p class="answer">\(a_1=6,\ \ a_n=2n+1\ (n\ge2)\)</p>
+      <p>(2) \(a_1=S_1=2\)。\(n\ge2\) のとき \(a_n=3^n-3^{n-1}=2\cdot3^{n-1}\)。\(n=1\) で2となり一致。</p>
+      <p class="answer">\(a_n=2\cdot3^{n-1}\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="seq-p5" data-level="2">
+    <h3><span class="pid">P5</span>分数の和（部分分数分解・望遠鏡和）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\sum_{k=1}^n\frac{1}{(2k-1)(2k+1)}\)」「\(\sum_{k=1}^n\frac{1}{k(k+2)}\)」「\(\sum\frac{1}{\sqrt k+\sqrt{k+1}}\)」</dd>
+      <dt>こう考える</dt><dd>分数の和に \(\Sigma\) の公式は使えない。<b>各項を「差」の形 \(f(k)-f(k+1)\) に分解</b>すれば、足したとき隣どうしが打ち消し合って両端だけが残る（望遠鏡和）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\frac{1}{A\cdot B}=\frac{1}{B-A}\left(\frac1A-\frac1B\right)\) で分解する（根号なら有理化）。</li>
+        <li>和を \(k=1,2,3,\dots\) と<b>実際に書き並べ</b>、消える項を確認する。</li>
+        <li>残った最初と最後の項を計算する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>部分分数分解 \(\frac1{k(k+1)}=\frac1k-\frac1{k+1}\)、有理化</dd>
+      <dt>なぜこの方法？</dt><dd>\(\sum\{f(k)-f(k+1)\}=f(1)-f(n+1)\) は、階差数列の公式の逆読み。分母の因数の間隔が2なら「2つ先」と消し合うので、両端が2個ずつ残る。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\sum_{k=1}^n\dfrac1{(2k-1)(2k+1)}\)　(2) \(\sum_{k=1}^n\dfrac1{k(k+2)}\) を求めよ。</div>
+      <p>(1) \(\frac1{(2k-1)(2k+1)}=\frac12\left(\frac1{2k-1}-\frac1{2k+1}\right)\)。</p>
+      <p>\(\frac12\left\{\left(1-\frac13\right)+\left(\frac13-\frac15\right)+\cdots+\left(\frac1{2n-1}-\frac1{2n+1}\right)\right\}=\frac12\left(1-\frac1{2n+1}\right)\)。<span class="answer">\(\frac{n}{2n+1}\)</span></p>
+      <p>(2) \(\frac1{k(k+2)}=\frac12\left(\frac1k-\frac1{k+2}\right)\)。書き並べると</p>
+      \[ \frac12\left\{\left(1-\tfrac13\right)+\left(\tfrac12-\tfrac14\right)+\left(\tfrac13-\tfrac15\right)+\cdots+\left(\tfrac1n-\tfrac1{n+2}\right)\right\} \]
+      <p>正の項は \(1,\frac12\) だけ、負の項は \(-\frac1{n+1},-\frac1{n+2}\) だけが残る。</p>
+      \[ \frac12\left(\frac32-\frac1{n+1}-\frac1{n+2}\right)=\frac{n(3n+5)}{4(n+1)(n+2)} \]
+      <p class="answer">\(\dfrac{n(3n+5)}{4(n+1)(n+2)}\)</p>
+      <p class="point">(2) で「最初と最後の1個ずつ」だけ残すと誤答。分母の間隔が2なら2個ずつ残る。迷ったら必ず書き並べる。根号型は \(\frac{1}{\sqrt k+\sqrt{k+1}}=\sqrt{k+1}-\sqrt k\) で和は \(\sqrt{n+1}-1\)。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="seq-p6" data-level="2">
+    <h3><span class="pid">P6</span>（等差）×（等比）の和（\(S-rS\)）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(S_n=1\cdot1+2\cdot2+3\cdot2^2+\cdots+n\cdot2^{n-1}\) を求めよ」</dd>
+      <dt>こう考える</dt><dd>等比数列の和の公式を導いたときと同じく、<b>公比 \(r\) 倍して1つずらして引く</b>。等差部分が「1ずつ増える」ので、引くと等比数列だけが残る。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(S\) と \(rS\) を、<b>同じ累乗 \(r^k\) が縦にそろうように</b>ずらして書く。</li>
+        <li>\(S-rS\) を計算。中央部分は等比数列の和になる。</li>
+        <li>\((1-r)\) で割って整理する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>等比数列の和</dd>
+      <dt>なぜこの方法？</dt><dd>\(k\cdot r^{k-1}\) と \((k-1)\cdot r^{k-1}\) の差は \(r^{k-1}\)。等差数列の「差が一定」という性質を使って、\(k\) を消している。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(S_n=\sum_{k=1}^nk\cdot2^{k-1}\) を求めよ。</div>
+      \[ \begin{aligned}S_n&=1+2\cdot2+3\cdot2^2+\cdots+n\cdot2^{n-1}\\2S_n&=\phantom{1+{}}1\cdot2+2\cdot2^2+\cdots+(n-1)2^{n-1}+n\cdot2^n\end{aligned} \]
+      <p>辺々引くと</p>
+      \[ -S_n=1+2+2^2+\cdots+2^{n-1}-n\cdot2^n=(2^n-1)-n\cdot2^n \]
+      <p class="answer">\(S_n=(n-1)2^n+1\)</p>
+      <p class="point">検算：\(n=2\) で \(1+4=5\)、式は \(1\cdot4+1=5\)。最後の項 \(-n\cdot2^n\) を落とすのが典型的なミス。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="seq-p7" data-level="2">
+    <h3><span class="pid">P7</span>群数列</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\frac11\,\vert\,\frac12,\frac22\,\vert\,\frac13,\frac23,\frac33\,\vert\,\cdots\) の第100項」「\(\frac7{20}\) は第何項か」「初項から第100項までの和」</dd>
+      <dt>こう考える</dt><dd>全体を通し番号で見るのではなく、<b>「第何群の何番目か」</b>という住所で考える。第 \(m\) 群の末項が全体で何番目かを式にすれば、群が特定できる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>第 \(m\) 群の項数を求め、第 \(m\) 群の末項までの項数 \(N(m)\) を計算する。</li>
+        <li>第 \(n\) 項が第 \(m\) 群にある ⇔ \(N(m-1)\lt n\le N(m)\)。これを満たす \(m\) を見つける。</li>
+        <li>群内の番号 \(n-N(m-1)\) から項を求める。和は「群ごとの和」＋「最後の群の途中まで」。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\sum_{k=1}^m k=\frac{m(m+1)}2\)、不等式で群を特定</dd>
+      <dt>なぜこの方法？</dt><dd>群数列は「数列の数列」。群の番号 \(m\) と群内の番号の2つの座標で考えると、規則が単純になる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">分数を約分せずに \(\frac11\,\vert\,\frac12,\frac22\,\vert\,\frac13,\frac23,\frac33\,\vert\,\frac14,\cdots\) と並べる。<br>(1) 第100項を求めよ。(2) \(\frac7{20}\) は第何項か。(3) 初項から第100項までの和を求めよ。</div>
+      <p>第 \(m\) 群は \(\frac1m,\frac2m,\dots,\frac mm\) の \(m\) 項。第 \(m\) 群の末項までの項数は \(\frac{m(m+1)}2\)。</p>
+      <p>(1) \(\frac{13\cdot14}2=91\lt100\le105=\frac{14\cdot15}2\) より、第100項は第14群の \(100-91=9\) 番目。<span class="answer">\(\frac9{14}\)</span></p>
+      <p>(2) 第20群の7番目なので \(\frac{19\cdot20}2+7=197\)。<span class="answer">第197項</span></p>
+      <p>(3) 第 \(m\) 群の和は \(\frac{1+2+\cdots+m}m=\frac{m+1}2\)。第13群までの和は \(\sum_{m=1}^{13}\frac{m+1}2=\frac{91+13}2=52\)。第14群の9番目までは \(\frac{1+2+\cdots+9}{14}=\frac{45}{14}\)。</p>
+      <p class="answer">\(52+\frac{45}{14}=\frac{773}{14}\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="seq-p8" data-level="2">
+    <h3><span class="pid">P8</span>格子点の個数</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x\ge0,\ y\ge0,\ x+2y\le2n\) を満たす格子点の個数」「\(0\le x\le n,\ 0\le y\le x^2\) の格子点の個数」</dd>
+      <dt>こう考える</dt><dd>2次元の個数を一度に数えるのは難しい。<b>1文字を固定</b>すると、その直線上の格子点は「整数がいくつ並ぶか」で数えられる。それを \(\Sigma\) で足す。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>固定する文字を選ぶ（直線上の個数が<b>簡単な式</b>になる方。\(x+2y\le2n\) なら \(y=k\) を固定）。</li>
+        <li>直線 \(y=k\)（または \(x=k\)）上の格子点の個数を \(k\) の式で表す（端点を含むので「\(+1\)」に注意）。</li>
+        <li>\(k\) の範囲で \(\Sigma\) をとる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(a\le x\le b\) を満たす整数 \(x\) は \(b-a+1\) 個、\(\Sigma\) の公式</dd>
+      <dt>なぜこの方法？</dt><dd>予選決勝法と同じで、1文字を止めると1次元の問題になる。どちらを固定するかで計算量が大きく変わるので、\(y=k\) と \(x=k\) の両方を一瞬考えて楽な方を選ぶ。<a href="../thinking.html#t-fix">発想：1文字固定</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(n\) を自然数とする。次の領域に含まれる格子点（\(x,y\) 座標がともに整数の点）の個数を求めよ。<br>(1) \(x\ge0,\ y\ge0,\ x+2y\le2n\)　(2) \(0\le x\le n,\ 0\le y\le x^2\)</div>
+      <p>(1) 直線 \(y=k\ (k=0,1,\dots,n)\) 上では \(0\le x\le2n-2k\) なので \(2n-2k+1\) 個。</p>
+      <p>\(\sum_{k=0}^n(2n-2k+1)=(2n+1)(n+1)-2\cdot\frac{n(n+1)}2=(n+1)^2\)。<span class="answer">\((n+1)^2\) 個</span></p>
+      <p>(2) 直線 \(x=k\ (k=0,1,\dots,n)\) 上では \(0\le y\le k^2\) なので \(k^2+1\) 個。</p>
+      <p>\(\sum_{k=0}^n(k^2+1)=\frac{n(n+1)(2n+1)}6+(n+1)=\frac{(n+1)(2n^2+n+6)}6\)。<span class="answer">\(\frac{(n+1)(2n^2+n+6)}6\) 個</span></p>
+      <p class="point">(1) を \(x=k\) で固定すると \(y\le\frac{2n-k}{2}\) となり、\(k\) の偶奇で場合分けが必要になる。固定する文字の選び方が勝負。\(\sum_{k=0}^n\) は \(k=0\) を含むので項数は \(n+1\)。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="seq-p9" data-level="1">
+    <h3><span class="pid">P9</span>漸化式 \(a_{n+1}=pa_n+q\)（特性方程式）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(a_1=1,\ a_{n+1}=3a_n+2\) で定まる数列の一般項」</dd>
+      <dt>こう考える</dt><dd>\(p=1\) なら等差数列、\(q=0\) なら等比数列。それ以外は、<b>\(a_n\) から定数 \(\alpha\) を引いた数列</b>が等比数列になるように \(\alpha\) を選ぶ。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>特性方程式 \(\alpha=p\alpha+q\) を解く（\(\alpha=\frac{q}{1-p}\)）。</li>
+        <li>\(a_{n+1}-\alpha=p(a_n-\alpha)\) と変形（元の式から \(\alpha=p\alpha+q\) を引く）。</li>
+        <li>\(\{a_n-\alpha\}\) は初項 \(a_1-\alpha\)、公比 \(p\) の等比数列。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>等比数列の一般項</dd>
+      <dt>なぜこの方法？</dt><dd>\(\alpha\) は「\(a_n=\alpha\) なら \(a_{n+1}=\alpha\)」という<b>動かない値（不動点）</b>。そこからのずれは毎回 \(p\) 倍されるだけ。すべての漸化式の解法はこの「等比数列に帰着」の変形版である。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(a_1=1,\ a_{n+1}=3a_n+2\) で定まる数列 \(\{a_n\}\) の一般項を求めよ。</div>
+      <p>\(\alpha=3\alpha+2\) より \(\alpha=-1\)。漸化式は \(a_{n+1}+1=3(a_n+1)\) と変形できる。</p>
+      <p>\(\{a_n+1\}\) は初項 \(a_1+1=2\)、公比3の等比数列なので \(a_n+1=2\cdot3^{n-1}\)。</p>
+      <p class="answer">\(a_n=2\cdot3^{n-1}-1\)</p>
+      <p class="point">答案では特性方程式を書かず、いきなり「\(a_{n+1}+1=3(a_n+1)\) と変形できる」と書いてよい（展開すれば元の式に戻るから）。検算：\(a_2=5,\ a_3=17\)。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="seq-p10" data-level="2">
+    <h3><span class="pid">P10</span>\(a_{n+1}=pa_n+f(n)\)・\(a_{n+1}=pa_n+q^n\)</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(a_1=1,\ a_{n+1}=2a_n+n\)」「\(a_1=1,\ a_{n+1}=2a_n+3^n\)」</dd>
+      <dt>こう考える</dt><dd>定数 \(q\) が \(n\) の式に変わっただけ。
+        <ul>
+          <li>\(f(n)\) が \(n\) の1次式 → 定数 \(\alpha\) の代わりに<b>1次式 \(\alpha n+\beta\)</b> をずらす（または階差をとって P9 に帰着）。</li>
+          <li>\(q^n\) → 両辺を <b>\(q^{n+1}\) で割る</b>と \(b_n=\frac{a_n}{q^n}\) の \(pa+q\) 型になる（\(p^{n+1}\) で割れば階差型）。</li>
+        </ul></dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(f(n)\) 型：\(a_{n+1}+\alpha(n+1)+\beta=p(a_n+\alpha n+\beta)\) とおき、展開して係数比較で \(\alpha,\beta\) を決める。</li>
+        <li>\(q^n\) 型：\(\frac{a_{n+1}}{q^{n+1}}=\frac pq\cdot\frac{a_n}{q^n}+\frac1q\) と変形し、\(b_n=\frac{a_n}{q^n}\) で P9。</li>
+        <li>最後に \(a_n\) に戻す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>係数比較（恒等式）、特性方程式</dd>
+      <dt>なぜこの方法？</dt><dd>「邪魔な項を吸収して等比数列を作る」という P9 と同じ発想。\(q^n\) で割るのは、「邪魔な \(q^n\)」を定数に変えるため。<a href="../thinking.html#t-subst">発想：置き換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(a_1=1,\ a_{n+1}=2a_n+n\)　(2) \(a_1=1,\ a_{n+1}=2a_n+3^n\) の一般項を求めよ。</div>
+      <p>(1) \(a_{n+1}+\alpha(n+1)+\beta=2(a_n+\alpha n+\beta)\) とおくと \(a_{n+1}=2a_n+\alpha n+(\beta-\alpha)\)。元の式と比べて \(\alpha=1,\ \beta-\alpha=0\)、\(\beta=1\)。</p>
+      <p>\(a_{n+1}+(n+1)+1=2(a_n+n+1)\)。\(\{a_n+n+1\}\) は初項3、公比2の等比数列。</p>
+      <p class="answer">\(a_n=3\cdot2^{n-1}-n-1\)</p>
+      <p>(2) 両辺を \(3^{n+1}\) で割る：\(\frac{a_{n+1}}{3^{n+1}}=\frac23\cdot\frac{a_n}{3^n}+\frac13\)。\(b_n=\frac{a_n}{3^n}\) とおくと \(b_{n+1}=\frac23b_n+\frac13\)、\(b_1=\frac13\)。</p>
+      <p>\(\alpha=\frac23\alpha+\frac13\) より \(\alpha=1\)。\(b_{n+1}-1=\frac23(b_n-1)\)、\(b_n-1=\left(\frac13-1\right)\left(\frac23\right)^{n-1}=-\left(\frac23\right)^n\)。</p>
+      <p>\(a_n=3^nb_n=3^n-2^n\)。<span class="answer">\(a_n=3^n-2^n\)</span></p>
+      <p class="point">(2) は \(2^{n+1}\) で割ってもよい：\(c_n=\frac{a_n}{2^n}\) とすると \(c_{n+1}=c_n+\frac12\left(\frac32\right)^n\) の階差型。検算：\(a_2=5,\ a_3=19\)。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="seq-p11" data-level="2">
+    <h3><span class="pid">P11</span>逆数をとる型・分数型の漸化式</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(a_1=1,\ a_{n+1}=\frac{a_n}{2a_n+1}\)」「\(a_1=2,\ a_{n+1}=\frac{3a_n-1}{a_n+1}\)」</dd>
+      <dt>こう考える</dt><dd>
+        <ul>
+          <li>分子が \(a_n\) だけ → <b>逆数をとる</b>と \(\frac1{a_{n+1}}=2+\frac1{a_n}\) の等差型。</li>
+          <li>一般の分数型 \(\frac{pa_n+q}{ra_n+s}\) → 不動点 \(\alpha=\frac{p\alpha+q}{r\alpha+s}\) を求め、\(a_n-\alpha\) の<b>逆数</b>を考える（解が1つ＝重解なら等差型、異なる2解 \(\alpha,\beta\) なら \(\frac{a_n-\alpha}{a_n-\beta}\) が等比型）。</li>
+        </ul></dd>
+      <dt>こう解く</dt><dd><ol>
+        <li><b>\(a_n\ne0\)（または \(a_n\ne\alpha\)）を帰納法で示す</b>（逆数をとるための準備）。</li>
+        <li>逆数をとって \(b_n=\frac1{a_n}\)（または \(\frac1{a_n-\alpha}\)）の漸化式を作る。</li>
+        <li>\(b_n\) を求めて \(a_n\) に戻す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>逆数、特性方程式（不動点）</dd>
+      <dt>なぜこの方法？</dt><dd>分数の形のままでは足し算・掛け算の構造が見えない。逆数にすると分母の和が「分けられる」ので1次の漸化式になる。不動点でずらすのは P9 と同じ理由。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(a_1=1,\ a_{n+1}=\dfrac{a_n}{2a_n+1}\)　(2) \(a_1=2,\ a_{n+1}=\dfrac{3a_n-1}{a_n+1}\) の一般項を求めよ。</div>
+      <p>(1) \(a_1\gt0\) で、\(a_n\gt0\) なら \(a_{n+1}\gt0\)。よって帰納的にすべての \(n\) で \(a_n\gt0\)（特に \(a_n\ne0\)）。</p>
+      <p>逆数をとると \(\frac1{a_{n+1}}=\frac{2a_n+1}{a_n}=\frac1{a_n}+2\)。\(\left\{\frac1{a_n}\right\}\) は初項1、公差2の等差数列で \(\frac1{a_n}=2n-1\)。</p>
+      <p class="answer">\(a_n=\dfrac1{2n-1}\)</p>
+      <p>(2) 不動点：\(\alpha=\frac{3\alpha-1}{\alpha+1}\) より \(\alpha^2-2\alpha+1=0\)、\(\alpha=1\)（重解）。</p>
+      <p>\(a_{n+1}-1=\frac{3a_n-1-(a_n+1)}{a_n+1}=\frac{2(a_n-1)}{a_n+1}\)。\(a_1-1=1\gt0\) で、\(a_n\gt1\) なら右辺 \(\gt0\) なので、帰納的に \(a_n\gt1\)。</p>
+      <p>逆数をとると \(\frac1{a_{n+1}-1}=\frac{a_n+1}{2(a_n-1)}=\frac{(a_n-1)+2}{2(a_n-1)}=\frac12+\frac1{a_n-1}\)。</p>
+      <p>\(b_n=\frac1{a_n-1}\) は初項1、公差 \(\frac12\) の等差数列で \(b_n=\frac{n+1}2\)。\(a_n=1+\frac2{n+1}\)。</p>
+      <p class="answer">\(a_n=\dfrac{n+3}{n+1}\)</p>
+      <p class="point">逆数をとる前に「0でない」ことを示すのが採点ポイント。省略すると減点される。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="seq-p12" data-level="2">
+    <h3><span class="pid">P12</span>対数をとる型の漸化式</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(a_1=2,\ a_{n+1}=4a_n^3\)」「\(a_{n+1}=\sqrt{a_n}\cdot2^n\)」など、積と累乗だけでできた漸化式</dd>
+      <dt>こう考える</dt><dd>積は対数で和に、累乗は係数になる。<b>両辺の \(\log_2\) をとれば</b>、\(b_n=\log_2a_n\) の \(pa+q\) 型になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>すべての \(n\) で \(a_n\gt0\) を示す（帰納法）。</li>
+        <li>係数の底（ここでは2）で対数をとる：\(\log_2a_{n+1}=2+3\log_2a_n\)。</li>
+        <li>\(b_n=\log_2a_n\) を P9 で解き、\(a_n=2^{b_n}\) に戻す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\log MN=\log M+\log N\)、\(\log M^r=r\log M\)（<a href="m2-explog.html">指数関数・対数関数</a>）</dd>
+      <dt>なぜこの方法？</dt><dd>対数は「掛け算の世界」を「足し算の世界」に移す道具。足し算の世界では漸化式の解き方を知っている。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(a_1=2,\ a_{n+1}=4a_n^3\) で定まる数列の一般項を求めよ。</div>
+      <p>\(a_1\gt0\) で、\(a_n\gt0\) なら \(a_{n+1}\gt0\)。よってすべての \(n\) で \(a_n\gt0\)。</p>
+      <p>両辺の \(\log_2\) をとると \(\log_2a_{n+1}=2+3\log_2a_n\)。\(b_n=\log_2a_n\) とおくと \(b_{n+1}=3b_n+2,\ b_1=1\)。</p>
+      <p>\(b_{n+1}+1=3(b_n+1)\) より \(b_n+1=2\cdot3^{n-1}\)、\(b_n=2\cdot3^{n-1}-1\)。</p>
+      <p class="answer">\(a_n=2^{2\cdot3^{n-1}-1}\)</p>
+      <p class="point">検算：\(a_2=4\cdot8=32=2^5\)、式は \(2^{2\cdot3-1}=2^5\)。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="seq-p13" data-level="2">
+    <h3><span class="pid">P13</span>隣接3項間の漸化式</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(a_1=1,\ a_2=4,\ a_{n+2}=5a_{n+1}-6a_n\)」「\(a_{n+2}=4a_{n+1}-4a_n\)」</dd>
+      <dt>こう考える</dt><dd>\(a_{n+2}-\alpha a_{n+1}=\beta(a_{n+1}-\alpha a_n)\) の形にできれば、\(\{a_{n+1}-\alpha a_n\}\) が等比数列。展開して比べると \(\alpha+\beta=5,\ \alpha\beta=6\)、つまり <b>\(\alpha,\beta\) は \(x^2=5x-6\) の2解</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>特性方程式 \(x^2=px+q\)（\(a_{n+2}=pa_{n+1}+qa_n\) に対し）を解く。</li>
+        <li><b>異なる2解 \(\alpha,\beta\)</b>：\(\alpha,\beta\) を入れ替えた2通りの変形で2つの等比数列を作り、連立して \(a_n\) を求める（\(a_{n+1}\) を消去）。</li>
+        <li><b>重解 \(\alpha\)</b>：\(a_{n+1}-\alpha a_n=c\,\alpha^{n-1}\) から、両辺を \(\alpha^{n+1}\) で割って等差型にする。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>解と係数の関係、P10 の \(q^n\) 型</dd>
+      <dt>なぜこの方法？</dt><dd>3項間は「2つ前まで覚えている」漸化式。2項の組 \(a_{n+1}-\alpha a_n\) を1つのかたまりとみれば、2項間の等比数列に落ちる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(a_1=1,\ a_2=4,\ a_{n+2}=5a_{n+1}-6a_n\)　(2) \(a_1=1,\ a_2=4,\ a_{n+2}=4a_{n+1}-4a_n\) の一般項を求めよ。</div>
+      <p>(1) \(x^2-5x+6=0\) の解は \(x=2,3\)。漸化式は次の2通りに変形できる。</p>
+      \[ \begin{aligned}a_{n+2}-2a_{n+1}&=3(a_{n+1}-2a_n)\\a_{n+2}-3a_{n+1}&=2(a_{n+1}-3a_n)\end{aligned} \]
+      <p>\(a_2-2a_1=2,\ a_2-3a_1=1\) より \(a_{n+1}-2a_n=2\cdot3^{n-1},\ a_{n+1}-3a_n=2^{n-1}\)。辺々引いて \(a_n=2\cdot3^{n-1}-2^{n-1}\)。</p>
+      <p class="answer">\(a_n=2\cdot3^{n-1}-2^{n-1}\)</p>
+      <p>(2) \(x^2-4x+4=0\) の解は \(x=2\)（重解）。\(a_{n+2}-2a_{n+1}=2(a_{n+1}-2a_n)\) より \(a_{n+1}-2a_n=(4-2)\cdot2^{n-1}=2^n\)。</p>
+      <p>両辺を \(2^{n+1}\) で割って \(\frac{a_{n+1}}{2^{n+1}}-\frac{a_n}{2^n}=\frac12\)。\(\left\{\frac{a_n}{2^n}\right\}\) は初項 \(\frac12\)、公差 \(\frac12\) の等差数列で \(\frac{a_n}{2^n}=\frac n2\)。</p>
+      <p class="answer">\(a_n=n\cdot2^{n-1}\)</p>
+      <p class="point">検算：(1) \(a_3=5\cdot4-6=14\)、式は \(18-4=14\)。(2) \(a_3=16-4=12\)、式は \(3\cdot4=12\)。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="seq-p14" data-level="3">
+    <h3><span class="pid">P14</span>連立漸化式</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(a_{n+1}=2a_n+b_n,\ b_{n+1}=a_n+2b_n\)」「\(a_{n+1}=a_n+4b_n,\ b_{n+1}=a_n+b_n\)」（2つの数列が互いに影響する）</dd>
+      <dt>こう考える</dt><dd>
+        <ul>
+          <li>係数が対称なら<b>和と差</b>をとるとそれぞれ等比数列になる。</li>
+          <li>一般には \(a_{n+1}+\alpha b_{n+1}=k(a_n+\alpha b_n)\) となる \(\alpha,k\) を探す（2組見つかる）。</li>
+          <li>または一方を消去して<b>隣接3項間</b>（P13）にする。</li>
+        </ul></dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(a_{n+1}+\alpha b_{n+1}\) を計算し、\(k(a_n+\alpha b_n)\) と係数比較して \(\alpha\) の方程式を作る。</li>
+        <li>得られた2つの \(\alpha\) で2つの等比数列を作る。</li>
+        <li>連立して \(a_n,\ b_n\) を求める。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>係数比較、等比数列、隣接3項間</dd>
+      <dt>なぜこの方法？</dt><dd>2つの数列が絡み合っていても、うまい「組み合わせ」を見ると独立に動く（行列の固有ベクトルと同じ考え）。確率漸化式で2状態を追うときに必須の技術。<a href="../thinking.html#t-symmetry">発想：対称性を使う</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(a_1=1,\ b_1=0,\ a_{n+1}=2a_n+b_n,\ b_{n+1}=a_n+2b_n\)<br>(2) \(a_1=1,\ b_1=1,\ a_{n+1}=a_n+4b_n,\ b_{n+1}=a_n+b_n\)<br>で定まる数列 \(\{a_n\},\{b_n\}\) の一般項を求めよ。</div>
+      <p>(1) 和：\(a_{n+1}+b_{n+1}=3(a_n+b_n)\) より \(a_n+b_n=3^{n-1}\)。差：\(a_{n+1}-b_{n+1}=a_n-b_n\) より \(a_n-b_n=1\)。</p>
+      <p class="answer">\(a_n=\dfrac{3^{n-1}+1}2,\ \ b_n=\dfrac{3^{n-1}-1}2\)</p>
+      <p>(2) \(a_{n+1}+\alpha b_{n+1}=(1+\alpha)a_n+(4+\alpha)b_n\)。これが \(k(a_n+\alpha b_n)\) となるには \(k=1+\alpha\) かつ \(4+\alpha=\alpha(1+\alpha)\)、\(\alpha^2=4\)、\(\alpha=\pm2\)。</p>
+      <ul>
+        <li>\(\alpha=2\)：\(a_{n+1}+2b_{n+1}=3(a_n+2b_n)\)、\(a_n+2b_n=3\cdot3^{n-1}=3^n\)。</li>
+        <li>\(\alpha=-2\)：\(a_{n+1}-2b_{n+1}=-(a_n-2b_n)\)、\(a_n-2b_n=(1-2)(-1)^{n-1}=(-1)^n\)。</li>
+      </ul>
+      <p class="answer">\(a_n=\dfrac{3^n+(-1)^n}2,\ \ b_n=\dfrac{3^n-(-1)^n}4\)</p>
+      <p class="point">(2) の別解：第2式から \(a_n=b_{n+1}-b_n\)。これを第1式に代入すると \(b_{n+2}=2b_{n+1}+3b_n\) の3項間漸化式（\(x^2=2x+3\) の解 \(3,-1\) が上の \(k\) と一致する）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="seq-p15" data-level="2">
+    <h3><span class="pid">P15</span>\(S_n\) を含む漸化式</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「数列 \(\{a_n\}\) の初項から第 \(n\) 項までの和 \(S_n\) が \(S_n=2a_n-n\) を満たす」</dd>
+      <dt>こう考える</dt><dd>\(S_n\) と \(a_n\) が混ざっていると解けない。<b>\(n\) を \(n+1\) にした式を作って引けば</b> \(S_{n+1}-S_n=a_{n+1}\) で \(S\) が消え、\(a_n\) だけの漸化式になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(n=1\) を代入して \(a_1\) を求める（\(S_1=a_1\)）。</li>
+        <li>\(S_{n+1}=2a_{n+1}-(n+1)\) から \(S_n=2a_n-n\) を引く。</li>
+        <li>得られた \(a_n\) の漸化式を解く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(S_{n+1}-S_n=a_{n+1}\)</dd>
+      <dt>なぜこの方法？</dt><dd>P4 の「和の差で1項を取り出す」と同じ。\(n\) と \(n-1\) で引くと \(n\ge2\) の制限がつくので、\(n\) と \(n+1\) で引く方が安全。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">数列 \(\{a_n\}\) の初項から第 \(n\) 項までの和 \(S_n\) が \(S_n=2a_n-n\ (n=1,2,3,\dots)\) を満たすとき、一般項 \(a_n\) を求めよ。</div>
+      <p>\(n=1\)：\(a_1=2a_1-1\) より \(a_1=1\)。</p>
+      <p>\(S_{n+1}-S_n=\{2a_{n+1}-(n+1)\}-(2a_n-n)\) より \(a_{n+1}=2a_{n+1}-2a_n-1\)、すなわち \(a_{n+1}=2a_n+1\)。</p>
+      <p>\(a_{n+1}+1=2(a_n+1)\)、\(a_n+1=2\cdot2^{n-1}=2^n\)。</p>
+      <p class="answer">\(a_n=2^n-1\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="seq-p16" data-level="1">
+    <h3><span class="pid">P16</span>数学的帰納法の基本（等式・不等式・整除性）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「すべての自然数 \(n\) について \(1^3+2^3+\cdots+n^3=\left\{\frac{n(n+1)}2\right\}^2\) を示せ」「\(n\ge5\) のとき \(2^n\gt n^2\)」「\(4^n+6n-1\) は9の倍数」</dd>
+      <dt>こう考える</dt><dd>\(n=k\) のときの式（仮定）を<b>どこかで必ず使って</b> \(n=k+1\) の式を作る。等式なら \(k+1\) 番目の項を足す、整除性なら \(4^{k+1}=4\cdot4^k\) と分けて仮定の式を作り出す、不等式なら仮定から出る式と目標の式の差を示す。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>[I] 最初の \(n\)（\(n=1\) や \(n=5\)）で成り立つことを確認。</li>
+        <li>[II] \(n=k\) で成り立つと仮定し、\(n=k+1\) の<b>目標の式を先に書く</b>。</li>
+        <li>仮定を使って目標の式に変形する（不等式は「仮定で一段落とし、残りを差で示す」）。</li>
+        <li>[I][II] よりすべての \(n\) で成り立つ、と結ぶ。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>数学的帰納法</dd>
+      <dt>なぜこの方法？</dt><dd>「\(n\) が自然数のとき〜を示せ」は無限個の命題。1つずつは示せないので、「最初」と「次へのつながり」だけを示す。<a href="../thinking.html#t-induction">発想：数学的帰納法</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) すべての自然数 \(n\) について \(1^3+2^3+\cdots+n^3=\left\{\frac{n(n+1)}2\right\}^2\) を示せ。<br>(2) \(n\ge5\) のすべての整数 \(n\) について \(2^n\gt n^2\) を示せ。<br>(3) すべての自然数 \(n\) について \(4^n+6n-1\) は9の倍数であることを示せ。</div>
+      <p>(1) [I] \(n=1\)：左辺 \(1\)、右辺 \(1\)。成立。</p>
+      <p>[II] \(n=k\) で成立すると仮定すると、</p>
+      \[ \begin{aligned}1^3+\cdots+k^3+(k+1)^3&=\frac{k^2(k+1)^2}4+(k+1)^3\\&=\frac{(k+1)^2(k^2+4k+4)}4=\left\{\frac{(k+1)(k+2)}2\right\}^2\end{aligned} \]
+      <p>\(n=k+1\) でも成立。[I][II] よりすべての自然数 \(n\) で成立する。（証明終）</p>
+      <p>(2) [I] \(n=5\)：\(32\gt25\)。成立。</p>
+      <p>[II] \(k\ge5\) で \(2^k\gt k^2\) と仮定する。\(2^{k+1}=2\cdot2^k\gt2k^2\)。ここで \(2k^2-(k+1)^2=k^2-2k-1=(k-1)^2-2\gt0\)（\(k\ge5\) より \((k-1)^2\ge16\)）。よって \(2^{k+1}\gt2k^2\gt(k+1)^2\)。</p>
+      <p>[I][II] より \(n\ge5\) で成立する。（証明終）</p>
+      <p>(3) [I] \(n=1\)：\(4+6-1=9\)。成立。</p>
+      <p>[II] \(4^k+6k-1=9m\)（\(m\) は整数）と仮定する。</p>
+      \[ \begin{aligned}4^{k+1}+6(k+1)-1&=4\cdot4^k+6k+5=4(9m-6k+1)+6k+5\\&=36m-18k+9=9(4m-2k+1)\end{aligned} \]
+      <p>\(n=k+1\) でも9の倍数。[I][II] よりすべての自然数で成立。（証明終）</p>
+      <p class="point">(3) のコツは「\(4^k=9m-6k+1\) と仮定を \(4^k\) について解いて代入する」こと。(2) は \(n=1\) では成り立つが \(n=2,3,4\) で成り立たない。出発点を問題文どおりにする。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="seq-p17" data-level="3">
+    <h3><span class="pid">P17</span>2段階の帰納法・強い帰納法</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x+\frac1x\) が整数なら \(x^n+\frac1{x^n}\) も整数であることを示せ」「\(a_{n+1}=1+a_1+a_2+\cdots+a_n\)」（\(n+1\) のときに \(n\) と \(n-1\)、または前の全部を使う）</dd>
+      <dt>こう考える</dt><dd>\(P(k+1)\) を示すのに \(P(k)\) だけでは足りないとき、仮定を強める。
+        <ul>
+          <li><b>2段階</b>：[I] \(n=1,2\) で成立、[II] \(n=k,k+1\) で成立 ⇒ \(n=k+2\) で成立。</li>
+          <li><b>強い帰納法（累積帰納法）</b>：[II] \(n\le k\) のすべてで成立 ⇒ \(n=k+1\) で成立。</li>
+        </ul></dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(n=k+1\)（\(k+2\)）のときの式が、それ以前のどの項を使って書けるかを調べる（漸化式を作る）。</li>
+        <li>必要な個数だけ出発点 [I] を確認する（2段階なら \(n=1,2\) の2つ）。</li>
+        <li>仮定の形を明示して [II] を示す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(x^{n+1}+x^{-(n+1)}=\left(x+\frac1x\right)\left(x^n+x^{-n}\right)-\left(x^{n-1}+x^{-(n-1)}\right)\)</dd>
+      <dt>なぜこの方法？</dt><dd>ドミノが「1つ前」だけでなく「2つ前」も押す必要があるなら、最初に2枚倒しておけばよい。3項間漸化式で定まる数の性質を示すときは、ほぼ必ず2段階になる。<a href="../thinking.html#t-induction">発想：数学的帰納法</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(x\ne0\) で \(x+\frac1x\) が整数であるとき、すべての自然数 \(n\) について \(x^n+\frac1{x^n}\) は整数であることを示せ。<br>(2) \(a_1=1,\ a_{n+1}=1+a_1+a_2+\cdots+a_n\ (n\ge1)\) で定まる数列について、\(a_n=2^{n-1}\) を示せ。</div>
+      <p>(1) \(t=x+\frac1x\)（整数）、\(p_n=x^n+\frac1{x^n}\) とおく。</p>
+      <p>\(t\,p_n=x^{n+1}+x^{n-1}+\frac1{x^{n-1}}+\frac1{x^{n+1}}=p_{n+1}+p_{n-1}\) より \(p_{n+1}=tp_n-p_{n-1}\ (n\ge2)\)。</p>
+      <p>[I] \(p_1=t\) は整数、\(p_2=t^2-2\) も整数。</p>
+      <p>[II] \(p_k,\ p_{k+1}\) が整数と仮定すると、\(p_{k+2}=tp_{k+1}-p_k\) も整数。</p>
+      <p>[I][II] より、すべての自然数 \(n\) で \(p_n\) は整数。（証明終）</p>
+      <p>(2) [I] \(a_1=1=2^0\)。</p>
+      <p>[II] \(n\le k\) のすべての \(n\) で \(a_n=2^{n-1}\) と仮定すると \(a_{k+1}=1+(1+2+\cdots+2^{k-1})=1+(2^k-1)=2^k\)。\(n=k+1\) でも成立。（証明終）</p>
+      <p class="point">(1) では [I] で <b>2つ</b>確認するのが必須。\(p_1\) だけでは \(p_2\) を作れない。(2) は \(a_{n+1}-a_n=a_n\)（P15 と同じ引き算）で \(a_{n+1}=2a_n\) を導いても解ける。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="seq-p18" data-level="3">
+    <h3><span class="pid">P18</span>推定してから帰納法で証明する</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(a_1=\frac12,\ a_{n+1}=\frac1{2-a_n}\) の一般項を推定し、それを証明せよ」「\(a_2,a_3,a_4\) を求め、\(a_n\) を推測せよ」</dd>
+      <dt>こう考える</dt><dd>型が分からない漸化式でも、<b>最初の数項を計算すれば規則が見える</b>ことが多い。見えた規則は「予想」にすぎないので、帰納法で証明して初めて答えになる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(a_1,a_2,a_3,a_4\) を<b>約分せずに</b>計算し、分子・分母の規則を探す。</li>
+        <li>一般項を推定する。</li>
+        <li>推定した式を帰納法で証明する（[II] では漸化式に仮定を代入するだけ）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>数学的帰納法</dd>
+      <dt>なぜこの方法？</dt><dd>漸化式は「次の項の作り方」なので、推定した式が漸化式を満たすことを確かめるのは代入1回で済む。<b>作るのは難しくても、確かめるのは簡単</b>という非対称性を利用する。<a href="../thinking.html#t-experiment">発想：小さい場合で実験</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(a_1=\frac12,\ a_{n+1}=\dfrac1{2-a_n}\) で定まる数列の一般項を推定し、それが正しいことを証明せよ。</div>
+      <p>\(a_2=\frac1{2-\frac12}=\frac23,\ a_3=\frac1{2-\frac23}=\frac34,\ a_4=\frac1{2-\frac34}=\frac45\)。よって \(a_n=\dfrac n{n+1}\) と推定できる。</p>
+      <p>[I] \(n=1\)：\(\frac12\)。成立。</p>
+      <p>[II] \(a_k=\frac k{k+1}\) と仮定すると \(2-a_k=\frac{k+2}{k+1}\ (\ne0)\) で、\(a_{k+1}=\frac{k+1}{k+2}\)。\(n=k+1\) でも成立。</p>
+      <p class="answer">\(a_n=\dfrac n{n+1}\)</p>
+      <p class="point">別解：不動点 \(\alpha=\frac1{2-\alpha}\) は \(\alpha=1\)（重解）なので、P11 と同様に \(\frac1{a_n-1}\) が等差数列になる。推定が難しいときはこちら。両方の道具を持っておくと阪大で困らない。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="seq-p19" data-level="3">
+    <h3><span class="pid">P19</span>一般項が求まらない漸化式（不等式で評価する）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(a_1=1,\ a_{n+1}=\sqrt{a_n+2}\) とする。\(1\le a_n\lt2\) を示せ」「\(2-a_{n+1}\lt\frac13(2-a_n)\) を示せ」</dd>
+      <dt>こう考える</dt><dd>一般項は求まらないが、<b>不動点 \(\alpha\)（ここでは2）との差</b> \(2-a_n\) が毎回 \(\frac13\) 倍以下に縮むことは示せる。すると \(2-a_n\le\left(\frac13\right)^{n-1}\) と<b>等比数列ではさめる</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>まず値の範囲（\(1\le a_n\lt2\) など）を帰納法で示す（後の評価で使う）。</li>
+        <li>\(2-a_{n+1}\) を \(2-a_n\) で表す（根号なら有理化：\(2-\sqrt{a_n+2}=\frac{2-a_n}{2+\sqrt{a_n+2}}\)）。</li>
+        <li>分母を範囲で評価して \(2-a_{n+1}\lt r(2-a_n)\) を作り、繰り返し使って \(2-a_n\le r^{n-1}(2-a_1)\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>有理化、帰納法、等比数列による評価</dd>
+      <dt>なぜこの方法？</dt><dd>正確な値が分からなくても、「どれくらい近づくか」は分かる。この評価は数IIIの<a href="m3-limit.html">極限</a>で「はさみうちの原理」と組み合わさり、\(\lim a_n=2\) を示す標準手法になる。<a href="../thinking.html#t-bound">発想：不等式で評価する</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(a_1=1,\ a_{n+1}=\sqrt{a_n+2}\) で定まる数列について、<br>(1) すべての \(n\) で \(1\le a_n\lt2\) を示せ。<br>(2) \(2-a_{n+1}\lt\frac13(2-a_n)\) を示せ。<br>(3) \(2-a_n\le\left(\frac13\right)^{n-1}\) を示せ。</div>
+      <p>(1) [I] \(a_1=1\)。成立。[II] \(1\le a_k\lt2\) なら \(3\le a_k+2\lt4\) より \(\sqrt3\le a_{k+1}\lt2\)、特に \(1\le a_{k+1}\lt2\)。（証明終）</p>
+      <p>(2) \(2-a_{n+1}=2-\sqrt{a_n+2}=\dfrac{4-(a_n+2)}{2+\sqrt{a_n+2}}=\dfrac{2-a_n}{2+\sqrt{a_n+2}}\)。</p>
+      <p>(1) より \(2-a_n\gt0\)、\(\sqrt{a_n+2}\ge\sqrt3\gt1\) なので分母 \(\gt3\)。よって \(2-a_{n+1}\lt\frac13(2-a_n)\)。（証明終）</p>
+      <p>(3) \(n=1\) は \(2-a_1=1\) で等号成立。\(n\ge2\) では (2) をくり返し使って \(2-a_n\lt\frac13(2-a_{n-1})\lt\cdots\lt\left(\frac13\right)^{n-1}(2-a_1)=\left(\frac13\right)^{n-1}\)。（証明終）</p>
+      <p class="point">(2) で「分母 \(\gt3\)」と言うために (1) の \(a_n\ge1\) を使っている。評価の問題では<b>前の小問が次の評価の材料</b>になるので、何を使うかを意識して読む。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="seq-p20" data-level="3">
+    <h3><span class="pid">P20</span>漸化式の立て方（図形・場合の数・確率への応用）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「サイコロを \(n\) 回投げて6の目が偶数回出る確率 \(p_n\)」「\(n\) 本の直線で平面はいくつの部分に分けられるか」「\(n\) 段の階段を1段または2段ずつ上る方法の数」</dd>
+      <dt>こう考える</dt><dd>\(n\) のままでは直接数えにくい。<b>「\(n\) 回目（\(n\) 本目）の状態から \(n+1\) 回目にどう移るか」</b>、または「最後の1手で場合分け」すれば、\(p_{n+1}\) を \(p_n\) で表せる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(n\) 回後の<b>状態</b>を決める（「偶数回」と「奇数回」など、もれなく分類）。</li>
+        <li>状態の移り方を図（遷移図）にし、確率・個数を書き込む。</li>
+        <li>\(p_{n+1}=(\cdots)p_n+(\cdots)(1-p_n)\) のように漸化式を立てて解く。初項（\(p_0\) や \(p_1\)）も求める。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>確率の加法定理・乗法定理、P9・P13 の解法</dd>
+      <dt>なぜこの方法？</dt><dd>全体を一度に数えるのは難しくても、「1歩進める」ことだけなら簡単。複雑さを漸化式に押し込み、あとは機械的に解く。阪大の確率は半分以上がこの型。<a href="../thinking.html#t-recurrence">発想：漸化式を立てる（状態の遷移）</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 1個のサイコロを \(n\) 回投げるとき、6の目が出る回数が偶数（0回を含む）である確率 \(p_n\) を求めよ。<br>(2) どの2本も平行でなく、どの3本も1点で交わらない \(n\) 本の直線によって、平面はいくつの部分に分けられるか。<br>(3) 10段の階段を、1回に1段または2段ずつ上る方法は何通りあるか。</div>
+      <p>(1) \(n+1\) 回後に偶数回となるのは、「\(n\) 回後に偶数回で、次に6以外（確率 \(\frac56\)）」または「\(n\) 回後に奇数回で、次に6（確率 \(\frac16\)）」。</p>
+      <p>\(p_{n+1}=\frac56p_n+\frac16(1-p_n)=\frac23p_n+\frac16\)、\(p_1=\frac56\)。</p>
+      <p>\(\alpha=\frac23\alpha+\frac16\) より \(\alpha=\frac12\)。\(p_n-\frac12=\left(\frac56-\frac12\right)\left(\frac23\right)^{n-1}=\frac12\left(\frac23\right)^n\)。</p>
+      <p class="answer">\(p_n=\frac12+\frac12\left(\frac23\right)^n\)</p>
+      <p>(2) \(n\) 本で \(a_n\) 個に分かれているとする。\(n+1\) 本目の直線は既存の \(n\) 本と \(n\) 点で交わり、\(n+1\) 個の区間に分けられる。各区間が1つの部分を2つに分けるので \(a_{n+1}=a_n+(n+1)\)、\(a_1=2\)。</p>
+      <p>\(n\ge2\) で \(a_n=2+\sum_{k=1}^{n-1}(k+1)=2+\frac{(n-1)n}2+(n-1)=\frac{n^2+n+2}2\)（\(n=1\) でも成立）。</p>
+      <p class="answer">\(\frac{n^2+n+2}2\) 個</p>
+      <p>(3) \(n\) 段の上り方を \(c_n\) 通りとする。最後の1手が1段なら直前は \(n-1\) 段目、2段なら \(n-2\) 段目なので \(c_n=c_{n-1}+c_{n-2}\ (n\ge3)\)、\(c_1=1,\ c_2=2\)。</p>
+      <p>\(c_3=3,\ c_4=5,\ c_5=8,\ c_6=13,\ c_7=21,\ c_8=34,\ c_9=55,\ c_{10}=89\)。<span class="answer">89通り</span></p>
+      <p class="point">(1) の検算：\(n=0\) を代入すると \(p_0=1\)（0回は偶数）で妥当。漸化式を立てたら、小さい \(n\) で直接数えた値と照合する習慣をつける（\(p_2=\frac{25+1}{36}=\frac{13}{18}\) と一致）。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="pitfalls">
+  <h2>よくあるミスと対策</h2>
+  <ul class="pitfalls">
+    <li><b>階差数列・\(S_n\) からの一般項で \(n=1\) の確認を忘れる</b>（P3, P4）。→ 公式は \(n\ge2\) 専用。最後に必ず \(n=1\) を代入して照合する。</li>
+    <li><b>\(\sum_{k=1}^{n-1}\) を \(\sum_{k=1}^n\) の公式でそのまま計算する</b>（P3）。→ 公式の \(n\) を \(n-1\) に置き換える。\(n=2\) で検算する。</li>
+    <li><b>部分分数分解の和で残る項を数え間違える</b>（P5）。→ 最初の3項と最後の3項を実際に書き並べてから消す。</li>
+    <li><b>\(S-rS\) で最後の項 \(-n\cdot r^n\) を落とす</b>（P6）。→ 縦に項をそろえて書く。</li>
+    <li><b>逆数・対数をとる前に「0でない」「正である」を示さない</b>（P11, P12）。→ 帰納法で1行書いてから変形する。</li>
+    <li><b>帰納法で仮定を使っていない／2段階なのに出発点を1つしか確認しない</b>（P16, P17）。→ [II] の中で仮定を使う場所に印をつける。\(p_{k+2}\) を使うなら [I] は2つ。</li>
+    <li><b>確率漸化式で初項を間違える・\(p_0\) と \(p_1\) を混同する</b>（P20）。→ 一般項を出したら \(n=1,2\) を直接計算した値と照合する。</li>
+  </ul>
+</section>
+
+<section id="handai">
+  <h2>阪大レベルへの橋渡し</h2>
+  <p>数列は阪大理系で<b>ほぼ毎年何らかの形で出る</b>最重要単元である。単独の「漸化式を解け」よりも、次のような<b>融合と論証</b>が中心になる。</p>
+  <ul>
+    <li><b>整数との融合</b>：\((1+\sqrt2)^n\) のような無理数の累乗を漸化式で整数の世界に持ち込み、偶奇や整数部分を論じる（演1）。</li>
+    <li><b>確率との融合</b>：対称性で状態を減らし、連立漸化式（和と差）で確率を求める（演2）。</li>
+    <li><b>評価の論証</b>：一般項が求まらない漸化式で \(a_n^2\) を上下からはさみ、具体的な値（整数部分）を決定する（演3）。</li>
+  </ul>
+  <p>どれも「実験 → 予想 → 帰納法 or 評価で証明」という流れで、P17〜P20 が直接の土台になる。</p>
+
+  <article class="pattern" id="seq-h1" data-level="3">
+    <h3><span class="pid">演1</span>\((1+\sqrt2)^n\) の整数部分の偶奇</h3>
+    <div class="problem">\(\alpha=1+\sqrt2,\ \beta=1-\sqrt2\) とし、自然数 \(n\) に対して \(a_n=\alpha^n+\beta^n\) とおく。<br>(1) \(a_{n+2}=2a_{n+1}+a_n\) を示し、すべての \(n\) について \(a_n\) は整数であることを示せ。<br>(2) すべての \(n\) について \(\frac{a_n}2\) は奇数であることを示せ。<br>(3) \((1+\sqrt2)^n\) の整数部分は、\(n\) が奇数なら偶数、\(n\) が偶数なら奇数であることを示せ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>\(\alpha,\beta\) は \(x^2=2x+1\) の2解なので、\(\alpha^{n+2}=2\alpha^{n+1}+\alpha^n\)（\(\beta\) も同様）。漸化式の係数が整数なので<b>2段階の帰納法</b>（P17）で整数性が出る。(2) は \(b_n=\frac{a_n}2\) の漸化式を偶奇で見る。(3) は \(-1\lt\beta\lt0\) なので \(\beta^n\) は絶対値が1未満で、<b>符号が \(n\) の偶奇で入れ替わる</b>ことを使う。<a href="../thinking.html#t-mod">発想：偶奇で分類</a></p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) \(\alpha+\beta=2,\ \alpha\beta=-1\) より \(\alpha,\beta\) は \(x^2-2x-1=0\) の2解。よって \(\alpha^2=2\alpha+1\)、両辺に \(\alpha^n\) をかけて \(\alpha^{n+2}=2\alpha^{n+1}+\alpha^n\)。\(\beta\) も同様で、辺々加えて \(a_{n+2}=2a_{n+1}+a_n\)。</p>
+      <p>\(a_1=\alpha+\beta=2\)、\(a_2=(\alpha+\beta)^2-2\alpha\beta=6\) は整数。\(a_k,\ a_{k+1}\) が整数なら \(a_{k+2}=2a_{k+1}+a_k\) も整数。2段階の帰納法により、すべての \(n\) で \(a_n\) は整数。（証明終）</p>
+      <p>(2) \(b_n=\frac{a_n}2\) とおくと \(b_1=1,\ b_2=3\)、\(b_{n+2}=2b_{n+1}+b_n\)。(1) と同様に \(b_n\) は整数で、\(b_{n+2}-b_n=2b_{n+1}\) は偶数なので、\(b_{n+2}\) と \(b_n\) の偶奇は一致する。\(b_1,\ b_2\) がともに奇数なので、すべての \(n\) で \(b_n\) は奇数。（証明終）</p>
+      <p>(3) \(\sqrt2=1.41\cdots\) より \(-1\lt\beta\lt0\)、したがって \(0\lt\abs{\beta}^n\lt1\)。\(\alpha^n=a_n-\beta^n\) である。</p>
+      <ul>
+        <li>\(n\) が奇数：\(\beta^n\lt0\) より \(\alpha^n=a_n+\abs{\beta}^n\)、\(a_n\lt\alpha^n\lt a_n+1\)。整数部分は \(a_n\) で、(2) より偶数（\(a_n=2b_n\)）。</li>
+        <li>\(n\) が偶数：\(\beta^n\gt0\) より \(\alpha^n=a_n-\beta^n\)、\(a_n-1\lt\alpha^n\lt a_n\)。整数部分は \(a_n-1\) で、奇数。</li>
+      </ul>
+      <p class="answer">（証明終）例：\((1+\sqrt2)^2=5.82\cdots\)（整数部分5）、\((1+\sqrt2)^3=14.07\cdots\)（整数部分14）</p>
+      <p class="point">採点ポイント：(1) 帰納法の出発点を2つ確認する、(3) \(\abs{\beta}\lt1\) と \(\beta^n\) の符号を明記し、「\(a_n\lt\alpha^n\lt a_n+1\)」の形で整数部分を確定させる。(2) を使わずに (3) で「\(a_n\) は偶数」とだけ言うと、\(a_n-1\) が奇数であることは言えても論証のつながりが弱くなる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="seq-h2" data-level="3">
+    <h3><span class="pid">演2</span>正方形の頂点を動く点の確率（対称性と連立漸化式）</h3>
+    <div class="problem">正方形 ABCD の頂点上を点 P が動く。P ははじめ A にあり、1秒ごとに1個のサイコロを投げて、1, 2 の目なら隣の頂点へ時計回りに、3, 4 の目なら隣の頂点へ反時計回りに移動し、5, 6 の目ならその場にとどまる。\(n\) 秒後に P が A にある確率 \(a_n\)、C にある確率 \(c_n\) を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>状態は4つあるが、<b>B と D は A から見て対称</b>なので、B にいる確率と D にいる確率は常に等しい（\(b_n\) とおく）。すると \(a_n+2b_n+c_n=1\)。\(a_{n+1},\ c_{n+1}\) を書くと係数が対称なので、<b>和 \(a_n+c_n\) と差 \(a_n-c_n\)</b> をとる（P14）。<a href="../thinking.html#t-symmetry">発想：対称性を使う</a></p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>\(n\) 秒後に B, D にある確率をそれぞれ \(b_n,\ d_n\) とする。移動の規則は時計回りと反時計回りで対称で、出発点 A も B と D に対して対称な位置にあるので \(b_n=d_n\)。よって \(a_n+2b_n+c_n=1\)。</p>
+      <p>A に来るのは「A でとどまる」「B から移る」「D から移る」の場合で、各確率は \(\frac13\)。C も同様なので</p>
+      \[ a_{n+1}=\frac13a_n+\frac23b_n,\qquad c_{n+1}=\frac13c_n+\frac23b_n \]
+      <p><b>差</b>：\(a_{n+1}-c_{n+1}=\frac13(a_n-c_n)\)、\(a_0-c_0=1\) より \(a_n-c_n=\left(\frac13\right)^n\)。</p>
+      <p><b>和</b>：\(s_n=a_n+c_n\) とおくと \(2b_n=1-s_n\) より</p>
+      \[ s_{n+1}=\frac13s_n+\frac23(1-s_n)=-\frac13s_n+\frac23 \]
+      <p>\(\gamma=-\frac13\gamma+\frac23\) より \(\gamma=\frac12\)。\(s_n-\frac12=\left(-\frac13\right)^n\left(s_0-\frac12\right)=\frac12\left(-\frac13\right)^n\)。</p>
+      <p>和と差から</p>
+      <p class="answer">\(a_n=\dfrac14+\dfrac14\left(-\dfrac13\right)^n+\dfrac12\left(\dfrac13\right)^n,\quad c_n=\dfrac14+\dfrac14\left(-\dfrac13\right)^n-\dfrac12\left(\dfrac13\right)^n\)</p>
+      <p class="point">採点ポイント：(1) \(b_n=d_n\) の理由（対称性）を一言書く、(2) 漸化式の立式、(3) 検算 \(a_1=\frac13,\ c_1=0\)（1秒で C には行けない）、\(a_2=\frac13\)。\(n\to\infty\) で \(a_n,c_n\to\frac14\)（どの頂点も同じ確率）になるのも妥当性のチェックになる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="seq-h3" data-level="3">
+    <h3><span class="pid">演3</span>一般項が求まらない漸化式の評価と整数部分</h3>
+    <div class="problem">\(a_1=1,\ a_{n+1}=a_n+\dfrac1{a_n}\ (n=1,2,3,\dots)\) で定まる数列 \(\{a_n\}\) について、<br>(1) すべての \(n\) について \(a_n\gt0\) かつ \(a_n^2\ge2n-1\) であることを示せ。<br>(2) \(n\ge2\) のとき \(a_n^2\le2n-1+\sum_{k=1}^{n-1}\dfrac1{2k-1}\) を示せ。<br>(3) \(a_{100}\) の整数部分を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>\(a_{n+1}\) のままでは扱いにくいが、<b>2乗する</b>と \(a_{n+1}^2=a_n^2+2+\frac1{a_n^2}\) となり、「毎回ほぼ2ずつ増える」ことが見える。下からは \(\frac1{a_n^2}\gt0\) を捨て、上からは (1) を使って \(\frac1{a_n^2}\le\frac1{2n-1}\) で評価する。(3) では \(\sum\frac1{2k-1}\) を<b>粗く</b>評価すれば十分（\(14^2=196,\ 15^2=225\) の間に入ることが言えればよい）。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) \(a_1=1\gt0\)、\(a_n\gt0\) なら \(a_{n+1}=a_n+\frac1{a_n}\gt0\)。よってすべての \(n\) で \(a_n\gt0\)。</p>
+      <p>両辺を2乗して \(a_{n+1}^2=a_n^2+2+\dfrac1{a_n^2}\gt a_n^2+2\)。\(a_1^2=1=2\cdot1-1\)。\(a_k^2\ge2k-1\) なら \(a_{k+1}^2\gt2k+1=2(k+1)-1\)。帰納法により \(a_n^2\ge2n-1\)。（証明終）</p>
+      <p>(2) (1) より \(\dfrac1{a_k^2}\le\dfrac1{2k-1}\) なので \(a_{k+1}^2\le a_k^2+2+\dfrac1{2k-1}\)。これを \(k=1,2,\dots,n-1\) について辺々加えると</p>
+      \[ a_n^2\le a_1^2+2(n-1)+\sum_{k=1}^{n-1}\frac1{2k-1}=2n-1+\sum_{k=1}^{n-1}\frac1{2k-1} \]
+      <p>（証明終）</p>
+      <p>(3) (1) より \(a_{100}^2\ge199\gt196=14^2\)。</p>
+      <p>(2) の和 \(\sum_{k=1}^{99}\frac1{2k-1}\) を評価する。\(k=1\) の項は1、\(k=2,\dots,5\) の4項はそれぞれ \(\frac13\) 以下、\(k=6,\dots,99\) の94項はそれぞれ \(\frac1{11}\) 以下なので</p>
+      \[ \sum_{k=1}^{99}\frac1{2k-1}\le1+\frac43+\frac{94}{11}\lt1+2+9=12 \]
+      <p>よって \(a_{100}^2\lt199+12=211\lt225=15^2\)。\(a_{100}\gt0\) なので \(14\lt a_{100}\lt15\)。</p>
+      <p class="answer">\(a_{100}\) の整数部分は 14</p>
+      <p class="point">採点ポイント：(1) で2乗する発想と帰納法、(2) で (1) を評価に使うこと、(3) で \(14^2\lt a_{100}^2\lt15^2\) を明示すること。和は精密に計算する必要はなく、<b>答えが決まる精度で粗く</b>評価すればよい（実際の値は \(a_{100}\approx14.21\)）。数IIIでは \(\sum\frac1{2k-1}\) を積分で評価して \(\log n\) 程度の増え方だと分かる。<a href="../thinking.html#t-integral-eval">発想：和を積分で評価する</a></p>
+    </div></details>
+  </article>
+</section>
+
+<section id="next">
+  <h2>次に学ぶとつながる単元</h2>
+  <ul>
+    <li><a href="ma-probability.html">確率</a>：P20 と演2 の確率漸化式は、阪大確率の主力。状態を減らす対称性の使い方が鍵。</li>
+    <li><a href="m3-limit.html">極限</a>：P19 の評価に「はさみうちの原理」を組み合わせると \(\lim a_n\) が求まる。無限等比級数・無限級数は P5 の望遠鏡和の延長。</li>
+    <li><a href="m3-integral-app.html">積分法の応用</a>：区分求積法、和を積分で評価する不等式（演3 の発展）。</li>
+    <li><a href="ma-integer.html">整数の性質</a>：演1 のように漸化式で整数性・偶奇・余りを論じる問題、P16 の整除性の帰納法。</li>
+    <li><a href="mb-stats.html">統計的な推測</a>：期待値の線形性と漸化式を組み合わせて \(n\) 回後の期待値を求める問題。</li>
+  </ul>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>

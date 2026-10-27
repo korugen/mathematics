@@ -1,0 +1,794 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>微分法とその応用（数学III）｜解法の地図</title>
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-unit="m3-diff" data-root="../">
+<main>
+
+<header class="unit-head">
+  <span class="subj-badge">数学III</span>
+  <h1>微分法とその応用</h1>
+  <p class="lead">導関数の計算規則を「なぜそうなるか」から押さえ、接線・増減・凹凸・漸近線でグラフを描き、そのグラフを使って最大最小・方程式の解の個数・不等式の証明を解く単元。阪大理系では毎年のように出題され、極限・積分・数列と融合する最重要分野である。</p>
+  <div class="goal">
+    <strong>このページの到達目標</strong>
+    <ul>
+      <li>【基礎】積・商・合成関数・対数微分法を使って、どんな関数でも正しく微分できる。接線・増減表・凹凸を書ける。</li>
+      <li>【標準】\(\dfrac{\log x}{x}\)、\(xe^{-x}\) などのグラフを極限まで含めて描き、定数分離で解の個数を分類し、差の関数で不等式を証明できる。</li>
+      <li>【阪大】平均値の定理・凸性・\(e^x\ge 1+x\) を道具として使いこなし、2変数の不等式や「不等式 → はさみうち → 極限」の流れを答案として完成できる。</li>
+    </ul>
+  </div>
+  <p class="prereq">前提：<a href="m3-limit.html">極限</a>（\(\lim\frac{\sin x}{x}=1\)、\(e\) の定義、はさみうち）、<a href="m2-calculus.html">微分法・積分法（数II）</a> ／ 次に進む：<a href="m3-integral.html">積分法（計算）</a>、<a href="m3-integral-app.html">積分法の応用</a></p>
+</header>
+
+<section id="core">
+  <h2>必ず押さえる基本事項</h2>
+
+  <div class="box theorem">
+    <p><span class="name">微分係数・導関数の定義</span></p>
+    \[ f'(a)=\lim_{h\to 0}\frac{f(a+h)-f(a)}{h},\qquad f'(x)=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h} \]
+    <p>この極限が存在するとき「\(x=a\) で微分可能」という。<b>微分可能 ⇒ 連続</b>（逆は成り立たない。例：\(|x|\) は \(x=0\) で連続だが微分不可能）。</p>
+    <p>なぜ：\(f(a+h)-f(a)=\dfrac{f(a+h)-f(a)}{h}\cdot h\to f'(a)\cdot 0=0\) だから。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">計算規則</span></p>
+    \[ \begin{aligned} &(fg)'=f'g+fg',\qquad \left(\frac{f}{g}\right)'=\frac{f'g-fg'}{g^2},\\ &\{f(g(x))\}'=f'(g(x))\,g'(x),\qquad \frac{dx}{dy}=\frac{1}{\ \frac{dy}{dx}\ }\end{aligned} \]
+    <p>なぜ：積は \(f(x+h)g(x+h)-f(x)g(x)\) に \(-f(x)g(x+h)+f(x)g(x+h)\) を挟んで分ける。合成関数は \(\dfrac{\Delta y}{\Delta x}=\dfrac{\Delta y}{\Delta u}\cdot\dfrac{\Delta u}{\Delta x}\)（\(u=g(x)\)）と分数のように分解できるから。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">基本関数の導関数</span></p>
+    \[ \begin{aligned} &(x^\alpha)'=\alpha x^{\alpha-1},\quad (\sin x)'=\cos x,\quad (\cos x)'=-\sin x,\quad (\tan x)'=\frac{1}{\cos^2 x},\\ &(\log|x|)'=\frac1x,\quad (\log_a x)'=\frac{1}{x\log a},\quad (e^x)'=e^x,\quad (a^x)'=a^x\log a \end{aligned} \]
+    <p>なぜ：三角関数は \(\displaystyle\lim_{h\to0}\frac{\sin h}{h}=1\)、対数は \(\displaystyle\lim_{h\to0}(1+h)^{\frac1h}=e\) という<b>2つの基本極限</b>に帰着する（P3）。\(\log\) は自然対数（底 \(e\)）。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">平均値の定理</span>：\(f(x)\) が \([a,b]\) で連続、\((a,b)\) で微分可能なら</p>
+    \[ \frac{f(b)-f(a)}{b-a}=f'(c),\qquad a\lt c\lt b \]
+    <p>を満たす \(c\) が存在する。なぜ：2点を結ぶ弦と平行な直線を上下に動かすと、曲線から最後に離れる点で接線になる（弦の傾き＝ある点の接線の傾き）。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">増減・凹凸</span></p>
+    <ul>
+      <li>ある区間で \(f'(x)\gt 0\) ⇒ その区間で増加。\(f'\) が \(x=a\) の前後で <b>符号を変える</b> ⇔ \(x=a\) で極値。</li>
+      <li>\(f''(x)\gt 0\) ⇒ 下に凸（接線の上側に曲線がある）。\(f''\) の符号が変わる点が<b>変曲点</b>。</li>
+    </ul>
+    <p>なぜ：平均値の定理より \(f(x_2)-f(x_1)=f'(c)(x_2-x_1)\)。\(f'\gt0\) なら \(x_1\lt x_2\) ⇒ \(f(x_1)\lt f(x_2)\)。凹凸は「\(f'\) の増減」を \(f''\) で調べているだけ。</p>
+  </div>
+
+  <div class="box idea">
+    <p><b>この単元を貫く考え方</b>：数IIIの微分は<b>「グラフを描くための道具」</b>である。方程式の解の個数・不等式・最大最小は、すべて「適切な関数のグラフ」を描けば見える。だから問題を見たら<b>「どの関数を作ってグラフを描くか」</b>を最初に決める（定数分離するか、差をとるか、\(\log\) をとるか）。そして数IIIでは<b>端の極限</b>（\(x\to\infty\)、\(x\to+0\)）を必ず調べること。</p>
+  </div>
+</section>
+
+<section id="quick">
+  <h2>早見表：こう来たら → こう解く</h2>
+  <div class="table-wrap"><table class="quick">
+    <tr><th>問題の特徴（こう来たら）</th><th>方針（こう解く）</th><th>使う道具</th><th>詳細</th></tr>
+    <tr data-level="2"><td>「\(x=a\) で微分可能か」「微分可能となる \(a,b\)」</td><td>定義の極限に戻り、左右の極限を比べる</td><td>微分係数の定義</td><td><a href="#diff-p1">P1</a></td></tr>
+    <tr data-level="1"><td>次の関数を微分せよ（積・商・\(\sqrt{\ }\)・累乗）</td><td>外側から順に、合成関数の微分</td><td>積・商・合成の公式</td><td><a href="#diff-p2">P2</a></td></tr>
+    <tr data-level="1"><td>三角・指数・対数を含む関数の微分</td><td>基本公式＋合成関数。導出は2つの基本極限</td><td>\(\frac{\sin h}{h}\to1\)、\(e\) の定義</td><td><a href="#diff-p3">P3</a></td></tr>
+    <tr data-level="2"><td>\(\lim\frac{f(a+3h)-f(a-h)}{h}\)、\(\lim\frac{2^x-1}{x}\)</td><td>微分係数の定義の形を作る</td><td>微分係数の定義</td><td><a href="#diff-p4">P4</a></td></tr>
+    <tr data-level="2"><td>\(x^2+y^2=1\) の形・\(x=f(t),y=g(t)\)・逆関数の微分</td><td>\(y\) を \(x\) の関数とみて両辺微分／\(\frac{dy/dt}{dx/dt}\)</td><td>合成関数・逆関数の微分</td><td><a href="#diff-p5">P5</a></td></tr>
+    <tr data-level="1"><td>\(x^x\)、累乗・積・商が入り組んだ式</td><td>両辺の \(\log\) をとってから微分</td><td>対数微分法</td><td><a href="#diff-p6">P6</a></td></tr>
+    <tr data-level="2"><td>第 \(n\) 次導関数を求めよ</td><td>数回微分して予想 → 帰納法</td><td>数学的帰納法</td><td><a href="#diff-p7">P7</a></td></tr>
+    <tr data-level="1"><td>接線・法線の方程式、点から引いた接線</td><td>接点を \((t,f(t))\) とおく</td><td>\(y-f(t)=f'(t)(x-t)\)</td><td><a href="#diff-p8">P8</a></td></tr>
+    <tr data-level="2"><td>2曲線が接する／共通接線</td><td>「値も傾きも一致」or 2本の接線の式を一致</td><td>接線の方程式</td><td><a href="#diff-p9">P9</a></td></tr>
+    <tr data-level="3"><td>\(\log b-\log a\) を挟む不等式／差の形の極限</td><td>差を \(f'(c)(b-a)\) に書き換える</td><td>平均値の定理</td><td><a href="#diff-p10">P10</a></td></tr>
+    <tr data-level="1"><td>極値を求めよ／極値をもつ条件</td><td>\(f'\) を因数分解し符号の変化を表に</td><td>増減表</td><td><a href="#diff-p11">P11</a></td></tr>
+    <tr data-level="1"><td>凹凸を調べよ・変曲点を求めよ</td><td>\(f''\) の符号の変化を調べる</td><td>第2次導関数</td><td><a href="#diff-p12">P12</a></td></tr>
+    <tr data-level="2"><td>漸近線を求めよ</td><td>分母 0 で縦、\(\frac{y}{x}\to a\)、\(y-ax\to b\) で斜め</td><td>極限</td><td><a href="#diff-p13">P13</a></td></tr>
+    <tr data-level="2"><td>グラフの概形をかけ</td><td>定義域・対称性・増減・凹凸・端の極限・漸近線</td><td>増減表（\(f',f''\) 併記）</td><td><a href="#diff-p14">P14</a></td></tr>
+    <tr data-level="2"><td>図形の最大最小・文字を含む区間での最小</td><td>変数を1つ決めて関数化。極値と区間の位置で場合分け</td><td>増減表</td><td><a href="#diff-p15">P15</a></td></tr>
+    <tr data-level="2"><td>方程式 \(\log x=ax\) の実数解の個数</td><td>\(a=\frac{\log x}{x}\) と定数分離</td><td>グラフと水平線、端の極限</td><td><a href="#diff-p16">P16</a></td></tr>
+    <tr data-level="2"><td>\(x\gt0\) のとき 〜\(\gt\)〜 を示せ</td><td>差 \(f(x)\) をとり、\(f(0)=0\) と \(f'\ge0\) を示す（だめなら \(f''\)）</td><td>差の関数</td><td><a href="#diff-p17">P17</a></td></tr>
+    <tr data-level="2"><td>\(e\) を含む評価、\((1+\frac1n)^n\) と \(e\) の大小</td><td>\(e^x\ge1+x\)、\(\log x\le x-1\) を代入</td><td>基本不等式</td><td><a href="#diff-p18">P18</a></td></tr>
+    <tr data-level="3"><td>\(0\lt a\lt b\) のとき \(a,b\) の不等式を示せ</td><td>比 \(t=\frac ba\) をおく／\(a\) を固定して \(b\) の関数に</td><td>1文字固定・同次式</td><td><a href="#diff-p19">P19</a></td></tr>
+    <tr data-level="3"><td>\(e^\pi\) と \(\pi^e\) の大小、\(m^n=n^m\)</td><td>\(\log\) をとって \(\frac{\log x}{x}\) の大小に</td><td>\(\frac{\log x}{x}\) のグラフ</td><td><a href="#diff-p20">P20</a></td></tr>
+    <tr data-level="3"><td>\(\sin A+\sin B+\sin C\le\frac{3\sqrt3}{2}\) 型</td><td>凸関数の接線（または弦）で評価して足す</td><td>凸性・接線の不等式</td><td><a href="#diff-p21">P21</a></td></tr>
+    <tr data-level="1"><td>速度・加速度、近似値を求めよ</td><td>位置を \(t\) で微分／\(f(a+h)\fallingdotseq f(a)+f'(a)h\)</td><td>ベクトルの大きさ、1次近似</td><td><a href="#diff-p22">P22</a></td></tr>
+  </table></div>
+</section>
+
+<section id="patterns">
+  <h2>パターン別 解法マップ</h2>
+
+  <article class="pattern" id="diff-p1" data-level="2">
+    <h3><span class="pid">P1</span>微分可能性と連続性（定義に戻る）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x=1\) で微分可能となるように \(a,b\) を定めよ」「\(f(x)=x|x|\) は \(x=0\) で微分可能か」</dd>
+      <dt>こう考える</dt><dd>つなぎ目や絶対値の折れ目では、公式で微分した式は使えない。<b>定義の極限 \(\lim\frac{f(a+h)-f(a)}{h}\) に戻り</b>、\(h\to+0\) と \(h\to-0\) が一致するかを見る。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>まず<b>連続</b>（左右の極限＝関数値）を確認。連続でなければ微分可能でない。</li>
+        <li>右側微分係数 \(\lim_{h\to+0}\) と左側微分係数 \(\lim_{h\to-0}\) をそれぞれ計算。</li>
+        <li>両者が一致すれば微分可能。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>微分係数の定義、微分可能 ⇒ 連続</dd>
+      <dt>なぜこの方法？</dt><dd>微分可能とは「グラフに角がなく、なめらかに1本の接線が引ける」こと。左右から近づけた傾きが一致するかを調べるのが定義そのもの。「連続」は必要条件なので、先に確かめると答案が整理される。<a href="../thinking.html#t-necessary">発想：必要条件で絞る</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(f(x)=\begin{cases}x^2 & (x\le1)\\ ax+b & (x\gt1)\end{cases}\) が \(x=1\) で微分可能となるように定数 \(a,b\) を定めよ。<br>(2) \(g(x)=x|x|\) は \(x=0\) で微分可能か。</div>
+      <p>(1) 微分可能なら連続なので、\(\displaystyle\lim_{x\to1+0}(ax+b)=f(1)=1\)。よって \(a+b=1\) …①</p>
+      <p>このとき右側微分係数は \(\displaystyle\lim_{h\to+0}\frac{a(1+h)+b-1}{h}=\lim_{h\to+0}\frac{ah}{h}=a\)（①を使った）。</p>
+      <p>左側微分係数は \(\displaystyle\lim_{h\to-0}\frac{(1+h)^2-1}{h}=\lim_{h\to-0}(2+h)=2\)。</p>
+      <p>一致する条件は \(a=2\)。①より \(b=-1\)。</p>
+      <p class="answer">\(a=2,\ b=-1\)</p>
+      <p>(2) \(\displaystyle\frac{g(0+h)-g(0)}{h}=\frac{h|h|}{h}=|h|\to0\ (h\to\pm0)\)。左右とも 0 で一致する。</p>
+      <p class="answer">微分可能で \(g'(0)=0\)</p>
+      <p class="point">(1) で「\(x\le1\) の導関数 \(2x\) と \(x\gt1\) の導関数 \(a\) を \(x=1\) で等しく」としても答えは同じだが、それだけでは不十分（連続条件を落とすと \(b\) が決まらない）。発展：\(h(x)=x^2\sin\frac1x\ (x\ne0),\ h(0)=0\) は \(x=0\) で微分可能（\(|h\sin\frac1h|\le|h|\to0\)）だが、\(h'(x)\) は \(x\to0\) で振動し連続でない。「導関数の極限」と「微分係数」は別物である。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="diff-p2" data-level="1">
+    <h3><span class="pid">P2</span>積・商・合成関数の微分</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「次の関数を微分せよ」：\(x^2\sqrt{1-x^2}\)、\(\dfrac{x-1}{x^2+1}\)、\(\sin^3 2x\) など</dd>
+      <dt>こう考える</dt><dd>式の<b>一番外側の演算</b>（積か、商か、何かの関数に何かを入れたものか）を見抜き、外から内へ順に微分する。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>外側が積なら積の公式、商なら商の公式（分子は「分子の微分×分母 − 分子×分母の微分」）。</li>
+        <li>\(\{\ \}^n\)、\(\sqrt{\ \ }\)、\(\sin(\ )\) のように「中身」があれば、外の関数を微分 × 中身の微分。</li>
+        <li>最後に通分・因数分解して整理（後で符号を調べやすい形に）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\((fg)'=f'g+fg'\)、\(\left(\frac fg\right)'=\frac{f'g-fg'}{g^2}\)、\(\{f(g(x))\}'=f'(g(x))g'(x)\)、\((\sqrt{u})'=\frac{u'}{2\sqrt u}\)</dd>
+      <dt>なぜこの方法？</dt><dd>合成関数の微分は「\(u\) が \(x\) の何倍の速さで変わり、\(y\) が \(u\) の何倍の速さで変わるか」の掛け算。外から順に剥がしていけば、どんなに複雑な式も機械的に処理できる。最後の整理は増減表を書くための準備である。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">次の関数を微分せよ。(1) \(y=x^2\sqrt{1-x^2}\)　(2) \(y=\dfrac{x-1}{x^2+1}\)　(3) \(y=\sin^3 2x\)</div>
+      <p>(1) 積の微分。\((\sqrt{1-x^2})'=\dfrac{-2x}{2\sqrt{1-x^2}}=\dfrac{-x}{\sqrt{1-x^2}}\) なので</p>
+      \[ y'=2x\sqrt{1-x^2}+x^2\cdot\frac{-x}{\sqrt{1-x^2}}=\frac{2x(1-x^2)-x^3}{\sqrt{1-x^2}}=\frac{2x-3x^3}{\sqrt{1-x^2}} \]
+      <p>(2) 商の微分。</p>
+      \[ y'=\frac{1\cdot(x^2+1)-(x-1)\cdot 2x}{(x^2+1)^2}=\frac{-x^2+2x+1}{(x^2+1)^2} \]
+      <p>(3) \(y=u^3,\ u=\sin v,\ v=2x\) の3段の合成。\(y'=3\sin^2 2x\cdot\cos 2x\cdot 2\)。</p>
+      <p class="answer">(1) \(\dfrac{2x-3x^3}{\sqrt{1-x^2}}\)　(2) \(\dfrac{-x^2+2x+1}{(x^2+1)^2}\)　(3) \(6\sin^2 2x\cos 2x\)</p>
+      <p class="point">(3) で最後の「\(\times2\)」を忘れるのが典型ミス。中身が \(x\) そのものでない限り、必ず中身の微分を掛ける。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="diff-p3" data-level="1">
+    <h3><span class="pid">P3</span>三角・指数・対数関数の導関数（定義から導く理由）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">\(e^{2x}\cos x\)、\(\log|\cos x|\)、\(2^x\)、\(\log_2 x\) の微分、「定義に従って \((\sin x)'=\cos x\) を示せ」</dd>
+      <dt>こう考える</dt><dd>公式は暗記でよいが、<b>導出の筋道</b>（基本極限への帰着）は証明問題として出る。\(\sin\) は和積公式で \(\frac{\sin h}{h}\) を作り、\(\log\) は \((1+h)^{1/h}\to e\) を作る。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\((\sin x)'\)：\(\sin(x+h)-\sin x=2\cos\left(x+\frac h2\right)\sin\frac h2\) と変形し、\(\dfrac{\sin(h/2)}{h/2}\to1\)。</li>
+        <li>\((\log x)'\)：\(\dfrac{\log(x+h)-\log x}{h}=\dfrac1x\log\left(1+\dfrac hx\right)^{\frac xh}\to\dfrac1x\log e=\dfrac1x\)。</li>
+        <li>\((e^x)'\)：\(y=e^x\) ⇔ \(x=\log y\)。\(\frac{dx}{dy}=\frac1y\) より \(\frac{dy}{dx}=y=e^x\)。</li>
+        <li>底が \(a\) のときは \(a^x=e^{x\log a}\)、\(\log_a x=\frac{\log x}{\log a}\) と \(e\) に直す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\displaystyle\lim_{h\to0}\frac{\sin h}{h}=1\)、\(\displaystyle\lim_{h\to0}(1+h)^{\frac1h}=e\)、逆関数の微分</dd>
+      <dt>なぜこの方法？</dt><dd>\(\sin\) の導関数が \(\cos\) になるのは<b>角を弧度法で測っている</b>から（度数法だと \(\frac{\pi}{180}\) 倍がつく）。自然対数の底 \(e\) は「\((\log x)'\) が \(\frac1x\) とちょうどになる底」として選ばれている。だから \(e\) 以外の底は \(\log a\) という補正係数がつく。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 定義に従って \((\sin x)'=\cos x\) を示せ。<br>(2) 次の関数を微分せよ。(a) \(e^{2x}\cos x\)　(b) \(\log|\cos x|\)　(c) \(\log\left(x+\sqrt{x^2+1}\right)\)　(d) \(2^x\)</div>
+      <p>(1) 和積公式より</p>
+      \[ \frac{\sin(x+h)-\sin x}{h}=\frac{2\cos\left(x+\frac h2\right)\sin\frac h2}{h}=\cos\left(x+\frac h2\right)\cdot\frac{\sin\frac h2}{\frac h2} \]
+      <p>\(h\to0\) で \(\cos\left(x+\frac h2\right)\to\cos x\)（\(\cos\) の連続性）、\(\dfrac{\sin(h/2)}{h/2}\to1\)。よって \((\sin x)'=\cos x\)。</p>
+      <p>(2)(a) \(2e^{2x}\cos x+e^{2x}(-\sin x)=e^{2x}(2\cos x-\sin x)\)</p>
+      <p>(b) \(\dfrac{(\cos x)'}{\cos x}=\dfrac{-\sin x}{\cos x}=-\tan x\)</p>
+      <p>(c) \(\dfrac{1}{x+\sqrt{x^2+1}}\left(1+\dfrac{x}{\sqrt{x^2+1}}\right)=\dfrac{1}{x+\sqrt{x^2+1}}\cdot\dfrac{\sqrt{x^2+1}+x}{\sqrt{x^2+1}}=\dfrac{1}{\sqrt{x^2+1}}\)</p>
+      <p>(d) \(2^x=e^{x\log2}\) より \((2^x)'=e^{x\log 2}\cdot\log2=2^x\log2\)</p>
+      <p class="answer">(a) \(e^{2x}(2\cos x-\sin x)\)　(b) \(-\tan x\)　(c) \(\dfrac{1}{\sqrt{x^2+1}}\)　(d) \(2^x\log 2\)</p>
+      <p class="point">(b) のように \(\log|f(x)|\) の微分は \(\dfrac{f'(x)}{f(x)}\)。絶対値があっても同じ形（\(f\lt0\) の部分も \(\log(-f)\) を微分すると同じ）。(c) は積分で \(\int\frac{dx}{\sqrt{x^2+1}}\) が出たときの答えになる（<a href="m3-integral.html">積分法（計算）</a>）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="diff-p4" data-level="2">
+    <h3><span class="pid">P4</span>微分係数の定義を使う極限</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(f(x)\) は微分可能とする。\(\displaystyle\lim_{h\to0}\frac{f(a+3h)-f(a-h)}{h}\) を \(f'(a)\) で表せ」「\(\displaystyle\lim_{x\to0}\frac{2^x-1}{x}\) を求めよ」</dd>
+      <dt>こう考える</dt><dd>\(f\) の具体形が分からない、または \(\frac00\) の形がうまく約分できない極限は、<b>「〜の微分係数そのもの」</b>と見る。分子を「\(f(\text{何か})-f(a)\)」に、分母をその「何か\(-a\)」にそろえる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>分子に \(f(a)\) を引いて足し、\(\{f(a+3h)-f(a)\}-\{f(a-h)-f(a)\}\) と分ける。</li>
+        <li>それぞれ分母を \(3h\)、\(-h\) にそろえる（係数を外に出す）。</li>
+        <li>具体的な関数なら「\(g(x)=2^x\) の \(x=0\) での微分係数」のように読み替える。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\displaystyle f'(a)=\lim_{h\to0}\frac{f(a+h)-f(a)}{h}=\lim_{x\to a}\frac{f(x)-f(a)}{x-a}\)</dd>
+      <dt>なぜこの方法？</dt><dd>微分係数の定義自体が「\(\frac00\) 型の極限」である。だから逆に \(\frac00\) 型の極限は、ある関数の微分係数として計算できることが多い。\(h\) が \(3h\) に変わっても、0 に近づく量であることに変わりはない。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(f(x)\) は \(x=a\) で微分可能とする。<br>(1) \(\displaystyle\lim_{h\to0}\frac{f(a+3h)-f(a-h)}{h}\)　(2) \(\displaystyle\lim_{x\to a}\frac{x^2f(a)-a^2f(x)}{x-a}\) を \(a,f(a),f'(a)\) で表せ。<br>(3) \(\displaystyle\lim_{x\to0}\frac{2^x-1}{x}\) を求めよ。</div>
+      <p>(1) \(\displaystyle\frac{f(a+3h)-f(a)}{3h}\cdot3+\frac{f(a-h)-f(a)}{-h}\cdot1\to3f'(a)+f'(a)\)</p>
+      <p>(2) 分子 \(=x^2f(a)-a^2f(a)+a^2f(a)-a^2f(x)=(x^2-a^2)f(a)-a^2\{f(x)-f(a)\}\)。よって</p>
+      \[ \frac{x^2f(a)-a^2f(x)}{x-a}=(x+a)f(a)-a^2\cdot\frac{f(x)-f(a)}{x-a}\to 2af(a)-a^2f'(a) \]
+      <p>(3) \(g(x)=2^x\) とすると \(g(0)=1\) なので、求める極限は \(g'(0)=2^0\log2=\log 2\)。</p>
+      <p class="answer">(1) \(4f'(a)\)　(2) \(2af(a)-a^2f'(a)\)　(3) \(\log 2\)</p>
+      <p class="point">(1) を「\(f'(a)\cdot 3-f'(a)\cdot(-1)\)」と符号で迷ったら、\(f(x)=x\) を代入して検算（分子 \(=4h\) で答え 4）。具体例で確かめる習慣は記号の極限で特に有効。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="diff-p5" data-level="2">
+    <h3><span class="pid">P5</span>逆関数・陰関数・媒介変数表示の微分</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\frac{x^2}{4}+y^2=1\) 上の点における接線」「\(x=t-\sin t,\ y=1-\cos t\) のとき \(\frac{dy}{dx},\frac{d^2y}{dx^2}\)」「\(f(x)=x^3+x\) の逆関数 \(g\) について \(g'(2)\)」</dd>
+      <dt>こう考える</dt><dd>\(y=(\text{x の式})\) と解けなくても微分はできる。<b>\(y\) を「\(x\) の関数」とみなして合成関数の微分</b>をする（\((y^2)'=2y\,y'\)）。媒介変数なら \(t\) を経由する。</dd>
+      <dt>こう解く</dt><dd><ul>
+        <li><b>陰関数</b>：両辺を \(x\) で微分、\(y'\) について解く。</li>
+        <li><b>媒介変数</b>：\(\dfrac{dy}{dx}=\dfrac{dy/dt}{dx/dt}\)。2回微分は \(\dfrac{d^2y}{dx^2}=\dfrac{\frac{d}{dt}\left(\frac{dy}{dx}\right)}{dx/dt}\)（<b>分母の \(\frac{dx}{dt}\) を忘れない</b>）。</li>
+        <li><b>逆関数</b>：\(y=g(x)\) ⇔ \(x=f(y)\)。\(g'(x)=\dfrac{1}{f'(y)}\)。\(g(2)\) は \(f(y)=2\) を解いて求める。</li>
+      </ul></dd>
+      <dt>使う定理・公式</dt><dd>合成関数の微分、\(\frac{dy}{dx}=\frac{1}{dx/dy}\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(\frac{dy}{dx}\) は「\(x\) が少し変わったとき \(y\) が何倍変わるか」。\(t\) が少し変わると \(x\) は \(\frac{dx}{dt}\) 倍、\(y\) は \(\frac{dy}{dt}\) 倍変わるので、その比が \(\frac{dy}{dx}\)。2回微分では「\(\frac{dy}{dx}\) を \(x\) で微分」なので、\(t\) で微分したら \(\frac{dx}{dt}\) で割り直す必要がある。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 楕円 \(\dfrac{x^2}{4}+y^2=1\) 上の点 \(\left(\sqrt2,\dfrac{1}{\sqrt2}\right)\) における接線の方程式を求めよ。<br>(2) \(x=t-\sin t,\ y=1-\cos t\ (0\lt t\lt2\pi)\) のとき、\(\dfrac{dy}{dx}\) と \(\dfrac{d^2y}{dx^2}\) を \(t\) で表せ。<br>(3) \(f(x)=x^3+x\) の逆関数を \(g(x)\) とする。\(g'(2)\) を求めよ。</div>
+      <p>(1) 両辺を \(x\) で微分：\(\dfrac{x}{2}+2y\,y'=0\)、\(y'=-\dfrac{x}{4y}\)。点を代入して \(y'=-\dfrac{\sqrt2}{4/\sqrt2}=-\dfrac12\)。</p>
+      <p>接線 \(y-\dfrac{1}{\sqrt2}=-\dfrac12(x-\sqrt2)\)、整理して <span class="answer">\(y=-\dfrac12x+\sqrt2\)</span></p>
+      <p>(2) \(\dfrac{dx}{dt}=1-\cos t\gt0,\ \dfrac{dy}{dt}=\sin t\) より \(\dfrac{dy}{dx}=\dfrac{\sin t}{1-\cos t}\)。</p>
+      \[ \frac{d}{dt}\left(\frac{\sin t}{1-\cos t}\right)=\frac{\cos t(1-\cos t)-\sin^2t}{(1-\cos t)^2}=\frac{\cos t-1}{(1-\cos t)^2}=-\frac{1}{1-\cos t} \]
+      <p>これを \(\frac{dx}{dt}=1-\cos t\) で割って <span class="answer">\(\dfrac{dy}{dx}=\dfrac{\sin t}{1-\cos t},\quad \dfrac{d^2y}{dx^2}=-\dfrac{1}{(1-\cos t)^2}\)</span></p>
+      <p>(3) \(g(2)=b\) とおくと \(f(b)=2\)、\(b^3+b-2=(b-1)(b^2+b+2)=0\) より \(b=1\)。\(g'(2)=\dfrac{1}{f'(1)}=\dfrac{1}{3+1}\)。<span class="answer">\(\dfrac14\)</span></p>
+      <p class="point">(1) は公式 \(\frac{x_0x}{4}+y_0y=1\) でも確認できる（<a href="mc-curves.html">平面上の曲線</a>）。(2) の \(\frac{d^2y}{dx^2}\lt0\) は「サイクロイドは上に凸」を意味する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="diff-p6" data-level="1">
+    <h3><span class="pid">P6</span>対数微分法</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">\(y=x^x\)、\(y=x^{\sin x}\)（底にも指数にも \(x\)）、\(y=\sqrt{\dfrac{(x+1)^3}{x-2}}\)（累乗・積・商の組合せ）</dd>
+      <dt>こう考える</dt><dd>\(\log\) は「積を和に、商を差に、累乗を係数に」変える。<b>先に \(\log\) をとってから微分</b>すれば、複雑な積・商の微分が足し算になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>両辺の絶対値の自然対数をとる：\(\log|y|=\cdots\)（\(y\gt0\) が明らかなら絶対値不要）。</li>
+        <li>右辺を \(\log\) の性質で和・差に分解。</li>
+        <li>両辺を \(x\) で微分：左辺は \(\dfrac{y'}{y}\)。</li>
+        <li>両辺に \(y\) を掛ける。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\((\log|y|)'=\dfrac{y'}{y}\)、\(\log\) の性質</dd>
+      <dt>なぜこの方法？</dt><dd>\(x^x\) は「べき関数 \(x^a\)」でも「指数関数 \(a^x\)」でもないので、どちらの公式も使えない。\(\log\) をとれば \(x\log x\) という積になり、普通に微分できる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">次の関数を微分せよ。(1) \(y=x^x\ (x\gt0)\)　(2) \(y=\sqrt{\dfrac{(x+1)^3}{x-2}}\ (x\gt2)\)</div>
+      <p>(1) \(y\gt0\) なので \(\log y=x\log x\)。両辺を微分して \(\dfrac{y'}{y}=\log x+x\cdot\dfrac1x=\log x+1\)。</p>
+      <p class="answer">\(y'=x^x(\log x+1)\)</p>
+      <p>(2) \(\log y=\dfrac32\log(x+1)-\dfrac12\log(x-2)\)。微分して</p>
+      \[ \frac{y'}{y}=\frac{3}{2(x+1)}-\frac{1}{2(x-2)}=\frac{3(x-2)-(x+1)}{2(x+1)(x-2)}=\frac{2x-7}{2(x+1)(x-2)} \]
+      <p class="answer">\(y'=\dfrac{2x-7}{2(x+1)(x-2)}\sqrt{\dfrac{(x+1)^3}{x-2}}\)</p>
+      <p class="point">\((x^x)'=x\cdot x^{x-1}\)（べき関数扱い）や \(x^x\log x\)（指数関数扱い）はどちらも誤り。実は正解はこの2つの<b>和</b>になっている（両方の \(x\) を順に動かした効果の和）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="diff-p7" data-level="2">
+    <h3><span class="pid">P7</span>高次導関数（第 \(n\) 次導関数）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(y=xe^x\) の第 \(n\) 次導関数を求めよ」「\(y=e^x\sin x\) は \(y''-2y'+2y=0\) を満たすことを示せ」</dd>
+      <dt>こう考える</dt><dd>\(n\) 回微分の一般形は直接は出ない。<b>3〜4回微分して規則を予想し、数学的帰納法で証明</b>する。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(y',y'',y'''\) を計算し、形の変化（係数・定数の増え方）を観察。</li>
+        <li>\(y^{(n)}\) を予想。</li>
+        <li>\(n=1\) で成立、\(n=k\) で成立と仮定して \(n=k+1\) を示す（\(y^{(k)}\) をもう1回微分するだけ）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>数学的帰納法、\((\sin x)^{(n)}=\sin\left(x+\frac{n\pi}{2}\right)\)、\((e^{ax})^{(n)}=a^ne^{ax}\)</dd>
+      <dt>なぜこの方法？</dt><dd>「次の導関数は前の導関数を微分したもの」という構造そのものが漸化式なので、帰納法と相性が良い。<a href="../thinking.html#t-experiment">発想：小さい場合で実験</a>、<a href="../thinking.html#t-induction">発想：数学的帰納法</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(y=xe^x\) の第 \(n\) 次導関数を求めよ。<br>(2) \(y=e^x\sin x\) は \(y''-2y'+2y=0\) を満たすことを示せ。</div>
+      <p>(1) \(y'=(x+1)e^x,\ y''=(x+2)e^x,\ y'''=(x+3)e^x\)。そこで \(y^{(n)}=(x+n)e^x\) …(*) と予想する。</p>
+      <p>[1] \(n=1\) のとき成立。[2] \(n=k\) で (*) が成り立つとすると、\(y^{(k+1)}=\{(x+k)e^x\}'=e^x+(x+k)e^x=(x+k+1)e^x\)。よって \(n=k+1\) でも成立。</p>
+      <p class="answer">\(y^{(n)}=(x+n)e^x\)</p>
+      <p>(2) \(y'=e^x(\sin x+\cos x)\)、\(y''=e^x(\sin x+\cos x)+e^x(\cos x-\sin x)=2e^x\cos x\)。</p>
+      <p>\(y''-2y'+2y=2e^x\cos x-2e^x(\sin x+\cos x)+2e^x\sin x=0\)。（証明終）</p>
+      <p class="point">予想だけ書いて帰納法を省くと大きく減点される。「\(n\) について」の主張は帰納法で閉じるのが原則。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="diff-p8" data-level="1">
+    <h3><span class="pid">P8</span>接線・法線（曲線上の点／曲線外の点から）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「曲線上の点 \((0,1)\) における接線・法線」「原点から曲線 \(y=\log x\) に引いた接線」</dd>
+      <dt>こう考える</dt><dd>接線の式を作るには<b>接点</b>が必要。接点が分からないときは<b>接点を \((t,f(t))\) とおいて</b>接線の式を作り、通る点の条件から \(t\) を決める。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>接点 \((t,f(t))\) における接線：\(y-f(t)=f'(t)(x-t)\)。法線：\(y-f(t)=-\dfrac{1}{f'(t)}(x-t)\)（\(f'(t)\ne0\)）。</li>
+        <li>曲線外の点 \((p,q)\) を通る条件：\(q-f(t)=f'(t)(p-t)\) を \(t\) の方程式として解く。</li>
+        <li>求めた \(t\) を戻して接線を書く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>接線の方程式、垂直な2直線の傾きの積 \(=-1\)</dd>
+      <dt>なぜこの方法？</dt><dd>「点 \((p,q)\) を通る直線 \(y=m(x-p)+q\) が曲線と接する」と考えると、数IIIの曲線では重解条件が使えない（判別式は2次方程式専用）。接点から出発すれば、どんな曲線でも同じ手順で済む。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 曲線 \(y=e^{2x}\) 上の点 \((0,1)\) における接線と法線の方程式を求めよ。<br>(2) 原点から曲線 \(y=\log x\) に引いた接線の方程式と接点を求めよ。</div>
+      <p>(1) \(y'=2e^{2x}\)、\(x=0\) で傾き 2。接線 \(y=2x+1\)。法線の傾きは \(-\frac12\) なので \(y=-\frac12x+1\)。</p>
+      <p class="answer">接線 \(y=2x+1\)、法線 \(y=-\dfrac12x+1\)</p>
+      <p>(2) 接点を \((t,\log t)\ (t\gt0)\) とおく。\(y'=\frac1x\) より接線は \(y=\dfrac1t(x-t)+\log t\)。</p>
+      <p>原点を通る：\(0=-1+\log t\)、\(t=e\)。接線は \(y=\dfrac1e x\)。</p>
+      <p class="answer">接線 \(y=\dfrac{x}{e}\)、接点 \((e,1)\)</p>
+      <p class="point">「点から引ける接線の本数」は「接点 \(t\) の方程式の実数解の個数」で数える。ただし、異なる2点で接する直線（二重接線）があると対応がずれるので、その有無の確認が必要（阪大演習1）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="diff-p9" data-level="2">
+    <h3><span class="pid">P9</span>2曲線が接する条件・共通接線</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「曲線 \(y=ax^2\) と \(y=\log x\) が接するような \(a\)」「2曲線 \(y=e^x\)、\(y=-e^{-x}\) の共通接線」</dd>
+      <dt>こう考える</dt><dd>2種類ある。<b>同じ点で接する</b>（接点共有）なら「その点で \(y\) 座標も傾きも等しい」。<b>別々の点で同じ直線に接する</b>（共通接線）なら、それぞれの接点で接線の式を作り、<b>傾きと切片を一致</b>させる。</dd>
+      <dt>こう解く</dt><dd><ul>
+        <li>接点共有：\(f(t)=g(t)\) かつ \(f'(t)=g'(t)\) を連立。</li>
+        <li>共通接線：\(y=f'(s)x+\{f(s)-sf'(s)\}\) と \(y=g'(u)x+\{g(u)-ug'(u)\}\) の係数を比較して \(s,u\) を求める。</li>
+      </ul></dd>
+      <dt>使う定理・公式</dt><dd>接線の方程式、恒等式の係数比較</dd>
+      <dt>なぜこの方法？</dt><dd>「接する」とは「共有点で接線が一致する」こと。接線は（点, 傾き）で決まるので、2つの条件が必要十分。共通接線は「直線が同じ」＝「傾きと切片の2つが同じ」。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 2曲線 \(y=ax^2\)、\(y=\log x\) が接するような定数 \(a\) の値と、接点の座標を求めよ。<br>(2) 2曲線 \(y=e^x\)、\(y=-e^{-x}\) の両方に接する直線の方程式を求めよ。</div>
+      <p>(1) 接点の \(x\) 座標を \(t\ (t\gt0)\) とすると \(at^2=\log t\) …①、\(2at=\dfrac1t\) …②。</p>
+      <p>② より \(at^2=\dfrac12\)。①に代入して \(\log t=\dfrac12\)、\(t=\sqrt e\)。\(a=\dfrac{1}{2t^2}=\dfrac{1}{2e}\)。</p>
+      <p class="answer">\(a=\dfrac{1}{2e}\)、接点 \(\left(\sqrt e,\ \dfrac12\right)\)</p>
+      <p>(2) \(y=e^x\) の \(x=s\) での接線：\(y=e^sx+e^s(1-s)\)。</p>
+      <p>\(y=-e^{-x}\) の \(x=u\) での接線：\(y'=e^{-x}\) より \(y=e^{-u}(x-u)-e^{-u}=e^{-u}x-e^{-u}(u+1)\)。</p>
+      <p>傾き：\(e^s=e^{-u}\) より \(u=-s\)。切片：\(e^s(1-s)=-e^{s}(1-s)\) より \(2e^s(1-s)=0\)、\(s=1\)。</p>
+      <p>傾き \(e\)、切片 0。</p>
+      <p class="answer">\(y=ex\)（接点 \((1,e)\) と \((-1,-e)\)）</p>
+      <p class="point">(2) の2曲線は原点に関して対称（\(y=e^x\) を原点対称移動すると \(y=-e^{-x}\)）。だから共通接線が原点を通るのは自然。答えを対称性で確かめよう。<a href="../thinking.html#t-symmetry">発想：対称性</a></p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="diff-p10" data-level="3">
+    <h3><span class="pid">P10</span>平均値の定理（不等式・極限への利用）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(0\lt a\lt b\) のとき \(\dfrac{b-a}{b}\lt\log b-\log a\lt\dfrac{b-a}{a}\) を示せ」「\(\displaystyle\lim_{x\to\infty}x^2\left(e^{\frac1x}-e^{\frac{1}{x+1}}\right)\)」</dd>
+      <dt>こう考える</dt><dd><b>「同じ関数の2点での値の差」\(f(b)-f(a)\)</b> が見えたら平均値の定理。差を \(f'(c)(b-a)\) という積に変えると、\(c\) の範囲から評価できる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>差の形 \(f(b)-f(a)\) の \(f\) を見つける（\(\log b-\log a\) なら \(f=\log x\)）。</li>
+        <li>平均値の定理で \(f(b)-f(a)=f'(c)(b-a),\ a\lt c\lt b\)。</li>
+        <li>不等式なら \(f'(c)\) を \(c\) の範囲で上下から評価。極限なら \(c\to\) どこに行くかを \(c\) を挟んで決める（はさみうち）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>平均値の定理、はさみうちの原理</dd>
+      <dt>なぜこの方法？</dt><dd>差 \(f(b)-f(a)\) は直接評価しにくいが、\(f'(c)\) は \(c\) の範囲さえ分かれば評価できる。「差」を「1点の導関数」に置き換える変換装置が平均値の定理である。<a href="../thinking.html#t-bound">発想：不等式で評価・はさみうち</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(0\lt a\lt b\) のとき、\(\dfrac{b-a}{b}\lt\log b-\log a\lt\dfrac{b-a}{a}\) を示せ。<br>(2) \(\displaystyle\lim_{x\to\infty}x^2\left(e^{\frac1x}-e^{\frac{1}{x+1}}\right)\) を求めよ。</div>
+      <p>(1) \(f(x)=\log x\) に平均値の定理を用いると、\(\log b-\log a=\dfrac1c(b-a)\) となる \(c\ (a\lt c\lt b)\) が存在する。</p>
+      <p>\(a\lt c\lt b\) より \(\dfrac1b\lt\dfrac1c\lt\dfrac1a\)。\(b-a\gt0\) を掛けて示された。（証明終）</p>
+      <p>(2) \(x\gt0\) とする。\(g(u)=e^u\) に区間 \(\left[\frac1{x+1},\frac1x\right]\) で平均値の定理を用いると</p>
+      \[ e^{\frac1x}-e^{\frac1{x+1}}=e^{c}\left(\frac1x-\frac1{x+1}\right)=\frac{e^c}{x(x+1)},\qquad \frac{1}{x+1}\lt c\lt\frac1x \]
+      <p>となる \(c\) が存在する。よって \(x^2\left(e^{\frac1x}-e^{\frac1{x+1}}\right)=\dfrac{x}{x+1}e^c\)。</p>
+      <p>\(x\to\infty\) で \(\frac1{x+1}\to0,\ \frac1x\to0\) なので、はさみうちより \(c\to0\)、\(e^c\to1\)。また \(\frac{x}{x+1}\to1\)。</p>
+      <p class="answer">(2) 1</p>
+      <p class="point">\(c\) は \(x\) によって決まる数（\(x\) の関数）なので、「\(c\to0\)」ははさみうちで言う必要がある。答案で \(c\) の範囲を必ず明記すること。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="diff-p11" data-level="1">
+    <h3><span class="pid">P11</span>増減・極値（極値をもつ条件）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(f(x)=(x^2-3)e^{-x}\) の極値を求めよ」「\(f(x)\) が極値をもつような \(a\) の範囲」</dd>
+      <dt>こう考える</dt><dd>\(f'(x)\) の<b>符号</b>が全て。\(f'\) を「常に正の部分」と「符号が変わる部分」に分けて因数分解し、符号の変わり目を増減表にまとめる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>定義域を確認し、\(f'(x)\) を計算して因数分解（\(e^{-x}\gt0\)、\((x^2+1)\gt0\) などは符号に無関係）。</li>
+        <li>増減表を書く。</li>
+        <li>極値をもつ条件は「\(f'(x)=0\) となる点があり、<b>その前後で \(f'\) の符号が変わる</b>」。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(f'\gt0\) ⇒ 増加、増減表</dd>
+      <dt>なぜこの方法？</dt><dd>\(f'(a)=0\) は極値の必要条件にすぎない（\(y=x^3\) は \(x=0\) で \(f'=0\) だが極値でない）。極値は「増加から減少（または逆）に切り替わる点」なので、<b>符号変化</b>で判定する。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(f(x)=(x^2-3)e^{-x}\) の極値を求めよ。<br>(2) \(g(x)=ax-\log(x^2+1)\) が極値をもつような定数 \(a\) の範囲を求めよ。</div>
+      <p>(1) \(f'(x)=2xe^{-x}-(x^2-3)e^{-x}=-(x^2-2x-3)e^{-x}=-(x-3)(x+1)e^{-x}\)。</p>
+      <div class="table-wrap"><table>
+        <tr><th>\(x\)</th><td>\(\cdots\)</td><td>\(-1\)</td><td>\(\cdots\)</td><td>\(3\)</td><td>\(\cdots\)</td></tr>
+        <tr><th>\(f'\)</th><td>\(-\)</td><td>0</td><td>\(+\)</td><td>0</td><td>\(-\)</td></tr>
+        <tr><th>\(f\)</th><td>↘</td><td>\(-2e\)</td><td>↗</td><td>\(6e^{-3}\)</td><td>↘</td></tr>
+      </table></div>
+      <p class="answer">極小値 \(-2e\)（\(x=-1\)）、極大値 \(\dfrac{6}{e^3}\)（\(x=3\)）</p>
+      <p>(2) \(g'(x)=a-\dfrac{2x}{x^2+1}\)。\(h(x)=\dfrac{2x}{x^2+1}\) とおくと、\(g'(x)\) の符号は \(a\) と \(h(x)\) の大小で決まる（定数分離）。</p>
+      <p>\(h'(x)=\dfrac{2(1-x^2)}{(x^2+1)^2}\) より \(h\) は \(x=-1\) で最小値 \(-1\)、\(x=1\) で最大値 \(1\)、\(x\to\pm\infty\) で \(h\to0\)。</p>
+      <ul>
+        <li>\(-1\lt a\lt1\)：水平線 \(y=a\) が \(y=h(x)\) を横切る点があり、その前後で \(a-h(x)\) の符号が変わる → 極値をもつ。</li>
+        <li>\(a\ge1\)：\(g'(x)=a-h(x)\ge0\)（等号は \(a=1,x=1\) のみ）で単調増加 → 極値なし。\(a\le-1\) も同様に単調減少。</li>
+      </ul>
+      <p class="answer">(2) \(-1\lt a\lt1\)</p>
+      <p class="point">\(a=1\) のとき \(g'(x)=\dfrac{(x-1)^2}{x^2+1}\) は \(x=1\) で 0 になるが、符号は変わらない。「\(g'=0\) の解がある」だけで答えると \(a=\pm1\) を含めてしまう。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="diff-p12" data-level="1">
+    <h3><span class="pid">P12</span>凹凸・変曲点</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「曲線の凹凸を調べ、変曲点を求めよ」「グラフの概形をかけ（変曲点も示せ）」</dd>
+      <dt>こう考える</dt><dd>凹凸は「接線の傾き \(f'\) が増えているか減っているか」。それを調べるのが \(f''\)。<b>\(f''\) の符号が変わる点が変曲点</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(f''(x)\) を計算して因数分解。</li>
+        <li>\(f''\gt0\) の区間は下に凸、\(f''\lt0\) の区間は上に凸。</li>
+        <li>符号が変わる点の \((x,f(x))\) が変曲点。増減表に \(f''\) の行を加えて1つの表にまとめる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(f''\gt0\) ⇒ 下に凸</dd>
+      <dt>なぜこの方法？</dt><dd>下に凸とは、左から右へ進むと曲がり方が反時計回り、つまり接線の傾きが増え続けること。\(f''\gt0\) は「\(f'\) が増加」そのもの。極値と同じく、\(f''=0\) だけでは変曲点と言えない（\(y=x^4\) の原点）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(y=e^{-x^2}\) の凹凸を調べ、変曲点を求めよ。</div>
+      <p>\(y'=-2xe^{-x^2}\)、\(y''=-2e^{-x^2}+4x^2e^{-x^2}=2(2x^2-1)e^{-x^2}\)。</p>
+      <p>\(y''=0\) ⇔ \(x=\pm\dfrac{1}{\sqrt2}\)。\(|x|\gt\frac1{\sqrt2}\) で \(y''\gt0\)（下に凸）、\(|x|\lt\frac1{\sqrt2}\) で \(y''\lt0\)（上に凸）。</p>
+      <p class="answer">\(x\lt-\frac{1}{\sqrt2},\ \frac{1}{\sqrt2}\lt x\) で下に凸、\(-\frac{1}{\sqrt2}\lt x\lt\frac{1}{\sqrt2}\) で上に凸。変曲点 \(\left(\pm\dfrac{1}{\sqrt2},\ \dfrac{1}{\sqrt e}\right)\)</p>
+      <p class="point">この関数は偶関数なので、\(x\ge0\) だけ調べて \(y\) 軸対称に描けば半分の手間で済む。正規分布の曲線（<a href="mb-stats.html">統計的な推測</a>）の形そのもの。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="diff-p13" data-level="2">
+    <h3><span class="pid">P13</span>漸近線</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「曲線 \(y=\dfrac{2x^2+x}{x-1}\) の漸近線を求めよ」「\(y=\sqrt{x^2+2x}\) の漸近線」</dd>
+      <dt>こう考える</dt><dd>漸近線は3種類。<b>縦</b>（分母 \(=0\) で \(y\to\pm\infty\)）、<b>横</b>（\(x\to\pm\infty\) で \(y\to b\)）、<b>斜め</b>（\(y-(ax+b)\to0\)）。\(x\to+\infty\) と \(x\to-\infty\) は<b>別々に</b>調べる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>縦：定義域の端・分母が 0 になる点で \(\lim y=\pm\infty\) か確認。</li>
+        <li>分数関数なら割り算して「多項式＋真分数」に。多項式部分が斜め（横）漸近線。</li>
+        <li>一般には \(a=\lim\frac{y}{x}\)、\(b=\lim(y-ax)\) で求める（\(\sqrt{\ }\) は有理化）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>極限、分子の有理化</dd>
+      <dt>なぜこの方法？</dt><dd>\(y=ax+b+(\text{0 に近づく部分})\) と分解できれば、遠くでは直線 \(y=ax+b\) と見分けがつかなくなる。\(a,b\) を順に取り出すのが \(\lim\frac yx\) と \(\lim(y-ax)\)。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">次の曲線の漸近線を求めよ。(1) \(y=\dfrac{2x^2+x}{x-1}\)　(2) \(y=\sqrt{x^2+2x}\)</div>
+      <p>(1) \(2x^2+x=(x-1)(2x+3)+3\) より \(y=2x+3+\dfrac{3}{x-1}\)。</p>
+      <p>\(x\to1\pm0\) で \(y\to\pm\infty\)、\(x\to\pm\infty\) で \(y-(2x+3)=\frac{3}{x-1}\to0\)。</p>
+      <p class="answer">\(x=1,\ y=2x+3\)</p>
+      <p>(2) 定義域は \(x\le-2,\ x\ge0\)。</p>
+      <p>\(x\to\infty\)：\(\dfrac yx=\sqrt{1+\frac2x}\to1\)、\(y-x=\dfrac{2x}{\sqrt{x^2+2x}+x}=\dfrac{2}{\sqrt{1+\frac2x}+1}\to1\)。漸近線 \(y=x+1\)。</p>
+      <p>\(x\to-\infty\)：\(x=-s\ (s\to\infty)\) とおくと \(y=\sqrt{s^2-2s}\)。\(\dfrac{y}{x}=-\sqrt{1-\frac2s}\to-1\)、</p>
+      \[ y+x=\sqrt{s^2-2s}-s=\frac{-2s}{\sqrt{s^2-2s}+s}=\frac{-2}{\sqrt{1-\frac2s}+1}\to-1 \]
+      <p>漸近線 \(y=-x-1\)。</p>
+      <p class="answer">\(y=x+1\)（\(x\to\infty\)）、\(y=-x-1\)（\(x\to-\infty\)）</p>
+      <p class="point">\(x\to-\infty\) で \(\sqrt{x^2}=x\) と書くのは誤り（\(\sqrt{x^2}=|x|=-x\)）。負の方向は \(x=-s\) と置き換えるのが安全。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="diff-p14" data-level="2">
+    <h3><span class="pid">P14</span>グラフの概形（典型関数）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(y=\dfrac{x^2}{x-1}\) のグラフの概形をかけ」「\(y=\dfrac{\log x}{x}\)、\(y=xe^{-x}\) の増減・極値・凹凸・漸近線を調べてグラフをかけ」</dd>
+      <dt>こう考える</dt><dd>グラフは<b>チェックリスト</b>で描く：①定義域 ②対称性 ③\(f'\)（増減・極値）④\(f''\)（凹凸・変曲点）⑤端の極限・漸近線 ⑥座標軸との交点。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>上の①〜⑥を順に調べ、\(f',f''\) を1つの増減表にまとめる（↗ が下に凸なら ⤴ のように曲がり方を描く）。</li>
+        <li>極限で端の振る舞いを決める（\(x\to\infty\) で \(\frac{\log x}{x}\to0\)、\(xe^{-x}\to0\) は既知として使ってよい）。</li>
+        <li>漸近線を先に描き、それに沿わせて曲線を描く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>増減表、\(\displaystyle\lim_{x\to\infty}\frac{\log x}{x}=0\)、\(\displaystyle\lim_{x\to\infty}\frac{x}{e^x}=0\)（「\(e^x\) は \(x\) のどんなべきより速く増大」）</dd>
+      <dt>なぜこの方法？</dt><dd>数IIの3次関数と違い、数IIIの関数は<b>端の振る舞い</b>（無限遠でどこに行くか、定義域の端でどうなるか）が千差万別。ここを極限で押さえないと、方程式の解の個数などを誤る。<a href="../thinking.html#t-graph">発想：グラフにする</a></dd>
+    </dl>
+    <div class="box note">
+      <p><b>典型グラフの要点</b>（阪大でも「既知」として使う形。導出できるようにしておく）</p>
+      <div class="table-wrap"><table>
+        <tr><th>関数</th><th>極値</th><th>変曲点</th><th>端の極限</th></tr>
+        <tr><td>\(\dfrac{\log x}{x}\ (x\gt0)\)</td><td>極大 \(\frac1e\)（\(x=e\)）</td><td>\(x=e^{\frac32}\)</td><td>\(x\to+0\) で \(-\infty\)、\(x\to\infty\) で \(+0\)</td></tr>
+        <tr><td>\(xe^{-x}\)</td><td>極大 \(\frac1e\)（\(x=1\)）</td><td>\(x=2\)</td><td>\(x\to-\infty\) で \(-\infty\)、\(x\to\infty\) で \(+0\)</td></tr>
+        <tr><td>\(\dfrac{x^2}{x-1}\)</td><td>極大 0（\(x=0\)）、極小 4（\(x=2\)）</td><td>なし</td><td>漸近線 \(x=1,\ y=x+1\)</td></tr>
+      </table></div>
+    </div>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(y=\dfrac{x^2}{x-1}\) のグラフの概形をかけ。</div>
+      <p>定義域 \(x\ne1\)。\(y=x+1+\dfrac{1}{x-1}\) と変形しておく。</p>
+      <p>\(y'=1-\dfrac{1}{(x-1)^2}=\dfrac{x(x-2)}{(x-1)^2}\)、\(y''=\dfrac{2}{(x-1)^3}\)。</p>
+      <div class="table-wrap"><table>
+        <tr><th>\(x\)</th><td>\(\cdots\)</td><td>0</td><td>\(\cdots\)</td><td>(1)</td><td>\(\cdots\)</td><td>2</td><td>\(\cdots\)</td></tr>
+        <tr><th>\(y'\)</th><td>\(+\)</td><td>0</td><td>\(-\)</td><td></td><td>\(-\)</td><td>0</td><td>\(+\)</td></tr>
+        <tr><th>\(y''\)</th><td>\(-\)</td><td>\(-\)</td><td>\(-\)</td><td></td><td>\(+\)</td><td>\(+\)</td><td>\(+\)</td></tr>
+        <tr><th>\(y\)</th><td>上に凸 ↗</td><td>極大 0</td><td>上に凸 ↘</td><td></td><td>下に凸 ↘</td><td>極小 4</td><td>下に凸 ↗</td></tr>
+      </table></div>
+      <p>漸近線：\(x\to1-0\) で \(y\to-\infty\)、\(x\to1+0\) で \(y\to+\infty\) より \(x=1\)。\(y-(x+1)=\frac{1}{x-1}\to0\ (x\to\pm\infty)\) より \(y=x+1\)。</p>
+      <p class="answer">原点で極大値 0、\((2,4)\) で極小値 4。\(x\lt1\) で上に凸、\(x\gt1\) で下に凸。漸近線 \(x=1,\ y=x+1\)（グラフは点 \((1,2)\) に関して対称）</p>
+      <p class="point">\(y=x+1+\frac{1}{x-1}\) は「直線＋双曲線」なので、点 \((1,2)\) に関して対称。対称性に気づくと片側の計算で済み、検算にもなる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="diff-p15" data-level="2">
+    <h3><span class="pid">P15</span>最大・最小（図形への応用・文字を含む）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「半径1の球に内接する円柱の体積の最大値」「\(a\gt0\) とする。\(0\le x\le1\) における \(e^x-ax\) の最小値」</dd>
+      <dt>こう考える</dt><dd>図形の問題は<b>何を変数にするか</b>が勝負（長さ \(h\)、角 \(\theta\) など、他の量を1変数で表せるもの）。文字を含む場合は、<b>極値をとる点が区間の内か外か</b>で場合分け（2次関数の「軸と区間」と同じ発想）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>変数を決め、その<b>変域</b>を書く。目的の量を1変数関数にする。</li>
+        <li>微分して増減表。区間の端の値も比較。</li>
+        <li>文字があれば、\(f'(x)=0\) となる \(x\)（例：\(x=\log a\)）と区間 \([0,1]\) の位置関係で場合分け。境目で値がつながるか検算。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>増減表、三平方の定理、<a href="m1-quadratic.html">2次関数</a>の場合分けの発想</dd>
+      <dt>なぜこの方法？</dt><dd>最大最小は「1変数関数のグラフの一番高い／低いところ」なので、まず1変数にしないと始まらない。極値が1つしかなく、それが区間内にあれば、それが最大（最小）であることが増減表から言える。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 半径 1 の球に内接する直円柱の体積の最大値を求めよ。<br>(2) \(a\gt0\) とする。\(f(x)=e^x-ax\ (0\le x\le1)\) の最小値 \(m(a)\) を求めよ。</div>
+      <p>(1) 円柱の高さを \(h\ (0\lt h\lt2)\)、底面の半径を \(r\) とすると \(r^2+\left(\frac h2\right)^2=1\)。体積 \(V=\pi r^2h=\pi\left(h-\dfrac{h^3}{4}\right)\)。</p>
+      <p>\(V'=\pi\left(1-\dfrac{3h^2}{4}\right)\)、\(h=\dfrac{2}{\sqrt3}\) の前後で正から負。よって最大値 \(\pi\cdot\dfrac{2}{\sqrt3}\left(1-\dfrac13\right)=\dfrac{4\pi}{3\sqrt3}\)。</p>
+      <p class="answer">(1) \(\dfrac{4\sqrt3}{9}\pi\)（\(h=\dfrac{2\sqrt3}{3}\)）</p>
+      <p>(2) \(f'(x)=e^x-a\)。\(f'(x)=0\) ⇔ \(x=\log a\)。\(f'\) は増加関数で、\(x\lt\log a\) で負、\(x\gt\log a\) で正。</p>
+      <ul>
+        <li>\(\log a\le0\)（\(0\lt a\le1\)）：区間で \(f'\ge0\)、増加。\(m=f(0)=1\)</li>
+        <li>\(0\lt\log a\lt1\)（\(1\lt a\lt e\)）：\(x=\log a\) で最小。\(m=a-a\log a\)</li>
+        <li>\(\log a\ge1\)（\(a\ge e\)）：区間で \(f'\le0\)、減少。\(m=f(1)=e-a\)</li>
+      </ul>
+      <p class="answer">(2) \(m(a)=\begin{cases}1 & (0\lt a\le1)\\ a-a\log a & (1\lt a\lt e)\\ e-a & (a\ge e)\end{cases}\)</p>
+      <p class="point">境目の検算：\(a=1\) で \(1-0=1\)、\(a=e\) で \(e-e=0=e-e\)。つながっている。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="diff-p16" data-level="2">
+    <h3><span class="pid">P16</span>方程式の実数解の個数（定数分離・極限の確認）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「方程式 \(\log x=ax\) の異なる実数解の個数を \(a\) の値で分類せよ」「\(e^x=ax\) が実数解をもつ \(a\) の範囲」</dd>
+      <dt>こう考える</dt><dd>文字 \(a\) を片側に分離して \(a=g(x)\) とし、<b>動かない曲線 \(y=g(x)\) と水平線 \(y=a\)</b> の共有点を数える。数IIIでは \(g(x)\) の<b>端の極限</b>が個数を左右する。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(a=g(x)\) の形に変形（両辺を \(x\) で割るなら \(x\ne0\) や \(x\gt0\) を確認）。</li>
+        <li>\(g'(x)\) で増減を調べ、<b>定義域の両端の極限</b>を求める。</li>
+        <li>水平線を下から上に動かして共有点を数える。極限値そのもの（例：0）が「到達しない値」であることに注意。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>定数分離、\(\displaystyle\lim_{x\to\infty}\frac{\log x}{x}=0\) の証明（下の例題）</dd>
+      <dt>なぜこの方法？</dt><dd>\(y=\log x\) と直線 \(y=ax\) の交点を、直線を回して数えることもできるが、接する瞬間の判定が面倒。分離すれば「動くのは水平線だけ」になり、場合分けが図から読める。<a href="../thinking.html#t-separate">発想：定数分離</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">方程式 \(\log x=ax\) の異なる実数解の個数を、実数 \(a\) の値によって分類せよ。ただし \(\displaystyle\lim_{x\to\infty}\frac{\log x}{x}=0\) は証明してから用いよ。</div>
+      <p>\(x\gt0\) なので、方程式は \(a=\dfrac{\log x}{x}\) と同値。\(g(x)=\dfrac{\log x}{x}\) とおく。</p>
+      <p>\(g'(x)=\dfrac{1-\log x}{x^2}\)。\(0\lt x\lt e\) で増加、\(x\gt e\) で減少、極大値 \(g(e)=\dfrac1e\)。</p>
+      <p><b>端の極限</b>：\(x\to+0\) で \(\log x\to-\infty,\ \frac1x\to+\infty\) より \(g\to-\infty\)。</p>
+      <p>\(x\to\infty\)：\(k(x)=\sqrt x-\log x\) とすると \(k'(x)=\dfrac{\sqrt x-2}{2x}\)、\(k\) は \(x=4\) で最小値 \(2-\log4=2(1-\log 2)\gt0\)。よって \(x\gt1\) で \(0\lt\log x\lt\sqrt x\)、\(0\lt g(x)\lt\dfrac{1}{\sqrt x}\to0\)。はさみうちで \(g\to0\)。</p>
+      <p>また \(x\gt1\) で \(g(x)\gt0\)、\(0\lt x\lt1\) で \(g(x)\lt0\)。</p>
+      <svg viewBox="0 0 320 175" width="100%" style="max-width:420px" role="img" aria-label="y=log x / x のグラフ">
+        <line x1="10" y1="90" x2="315" y2="90" stroke="currentColor" stroke-width="1"/>
+        <line x1="20" y1="10" x2="20" y2="172" stroke="currentColor" stroke-width="1"/>
+        <polyline fill="none" stroke="var(--accent)" stroke-width="2" points="40.3,166.4 42.6,137.8 44.9,116.3 47.3,99.9 49.6,87.1 51.9,77.0 54.2,69.0 56.5,62.5 58.9,57.2 61.2,53.0 63.5,49.5 65.8,46.6 68.1,44.2 70.5,42.3 72.8,40.6 75.1,39.3 77.4,38.3 79.7,37.4 82.1,36.7 84.4,36.1 86.7,35.7 89.0,35.4 91.3,35.1 93.7,35.0 96.0,34.9 98.3,34.8 100.6,34.8 102.9,34.9 105.3,35.0 107.6,35.1 114.8,35.7 122.1,36.4 129.3,37.2 136.6,38.1 143.8,39.0 151.1,39.9 158.3,40.9 165.6,41.8 172.8,42.7 180.1,43.6 187.3,44.4 194.6,45.3 201.8,46.1 209.1,46.9 216.3,47.6 223.6,48.4 230.8,49.1 238.1,49.8 245.3,50.4 252.6,51.1 259.8,51.7 267.1,52.3 274.3,52.9 281.6,53.4 288.8,54.0 296.1,54.5 303.3,55.0"/>
+        <line x1="20" y1="34.8" x2="98.8" y2="34.8" stroke="currentColor" stroke-dasharray="3 3" stroke-width="0.8"/>
+        <line x1="98.8" y1="34.8" x2="98.8" y2="90" stroke="currentColor" stroke-dasharray="3 3" stroke-width="0.8"/>
+        <line x1="20" y1="62" x2="315" y2="62" stroke="currentColor" stroke-width="0.8" opacity="0.6"/>
+        <text x="96" y="104" font-size="11" fill="currentColor">e</text>
+        <text x="47" y="104" font-size="11" fill="currentColor">1</text>
+        <text x="0" y="38" font-size="11" fill="currentColor">1/e</text>
+        <text x="270" y="74" font-size="11" fill="currentColor">y=a</text>
+        <text x="200" y="30" font-size="12" fill="currentColor">y = log x / x</text>
+      </svg>
+      <p>水平線 \(y=a\) との共有点を数えて</p>
+      <p class="answer">\(a\le0\)：1個、\(0\lt a\lt\dfrac1e\)：2個、\(a=\dfrac1e\)：1個、\(a\gt\dfrac1e\)：0個</p>
+      <p class="point">\(a=0\) のとき解は \(x=1\) の1個（\(g\to0\) だが \(x\gt1\) で \(g\gt0\) なので、右側では 0 に到達しない）。極限の値と「とる値」を区別すること。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="diff-p17" data-level="2">
+    <h3><span class="pid">P17</span>不等式の証明（差の関数・2回微分）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x\gt0\) のとき、\(\log(1+x)\gt x-\dfrac{x^2}{2}\) を示せ」「\(x\gt0\) のとき \(e^x\gt1+x+\dfrac{x^2}{2}\) を示せ」</dd>
+      <dt>こう考える</dt><dd>\(A\gt B\) を示すには<b>差 \(f(x)=A-B\) の最小値が正</b>（または \(f(0)=0\) で増加）を示す。\(f'\) の符号が分からなければ、<b>もう1回微分</b>して \(f'\) の増減を調べる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(f(x)=(\text{左辺})-(\text{右辺})\) とおく。端点 \(f(0)\) を計算（多くは 0）。</li>
+        <li>\(f'(x)\) の符号が分かれば、\(f\) は増加 → \(f(x)\gt f(0)=0\)。</li>
+        <li>分からなければ \(f''(x)\gt0\) → \(f'\) は増加 → \(f'(x)\gt f'(0)=0\) → \(f\) は増加、と<b>2段階</b>で戻る。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(f'\gt0\) ⇒ 増加、増減表</dd>
+      <dt>なぜこの方法？</dt><dd>2つの関数の大小比較より、1つの関数の符号判定の方がずっと簡単。微分するたびに式が単純になる（\(\log\) や \(e^x\) が多項式や分数式に変わる）ことを利用している。<a href="../thinking.html#t-difffunc">発想：差をとって微分</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(x\gt0\) のとき、次の不等式を証明せよ。(1) \(\log(1+x)\gt x-\dfrac{x^2}{2}\)　(2) \(e^x\gt1+x+\dfrac{x^2}{2}\)</div>
+      <p>(1) \(f(x)=\log(1+x)-x+\dfrac{x^2}{2}\ (x\ge0)\) とおく。\(f(0)=0\)。</p>
+      <p>\(f'(x)=\dfrac{1}{1+x}-1+x=\dfrac{1-(1+x)+x(1+x)}{1+x}=\dfrac{x^2}{1+x}\gt0\ (x\gt0)\)。</p>
+      <p>よって \(f\) は \(x\ge0\) で増加し、\(x\gt0\) で \(f(x)\gt f(0)=0\)。（証明終）</p>
+      <p>(2) \(g(x)=e^x-1-x-\dfrac{x^2}{2}\) とおく。\(g'(x)=e^x-1-x\) の符号はすぐには分からない。</p>
+      <p>\(g''(x)=e^x-1\gt0\ (x\gt0)\) より \(g'\) は \(x\ge0\) で増加、\(g'(x)\gt g'(0)=0\)。</p>
+      <p>よって \(g\) は増加、\(g(x)\gt g(0)=0\)。（証明終）</p>
+      <p class="point">答案では「\(g''\gt0\) より \(g'\) は増加、\(g'(0)=0\) より \(g'\gt0\)、よって \(g\) は増加、\(g(0)=0\) より \(g\gt0\)」と<b>鎖を1つずつ</b>書く。(1) と \(\log(1+x)\lt x\) を合わせた評価は、極限の計算（阪大演習2）で活躍する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="diff-p18" data-level="2">
+    <h3><span class="pid">P18</span>基本不等式 \(e^x\ge1+x\)、\(\log x\le x-1\) の利用</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\left(1+\frac1n\right)^n\lt e\lt\left(1+\frac1n\right)^{n+1}\) を示せ」、\(e\) や \(\log\) を含む評価で「既に示した不等式を用いて」</dd>
+      <dt>こう考える</dt><dd>\(e^x\ge1+x\)（等号 \(x=0\)）は「\(y=e^x\) は接線 \(y=1+x\) の上にある」、\(\log x\le x-1\)（等号 \(x=1\)）は「\(y=\log x\) は接線 \(y=x-1\) の下にある」。<b>\(x\) に何を代入するか</b>を工夫すると、さまざまな評価が一瞬で出る。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>基本不等式を（必要なら）差の関数で証明しておく。</li>
+        <li>目標の式から逆算して、\(x=\frac1n\)、\(x=-\frac{1}{n+1}\) などを代入。</li>
+        <li>両辺を累乗したり \(\log\) をとったりして目標の形へ。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(e^x\ge1+x\)、\(\log x\le x-1\)（\(x\gt0\)）、凸関数と接線（P21）</dd>
+      <dt>なぜこの方法？</dt><dd>毎回差の関数を微分するより、「証明済みの部品」を代入する方が速く、ミスもない。阪大では前の小問の不等式に「うまい値」を代入させる流れが定番。<a href="../thinking.html#t-goal">発想：ゴールから逆算</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) すべての実数 \(x\) について \(e^x\ge1+x\) を示せ。<br>(2) 自然数 \(n\) に対し \(\left(1+\dfrac1n\right)^n\lt e\lt\left(1+\dfrac1n\right)^{n+1}\) を示せ。</div>
+      <p>(1) \(f(x)=e^x-1-x\)、\(f'(x)=e^x-1\)。\(x\lt0\) で減少、\(x\gt0\) で増加、最小値 \(f(0)=0\)。よって \(f(x)\ge0\)（等号は \(x=0\) のみ）。</p>
+      <p>(2) 左側：(1) で \(x=\frac1n\) とすると \(e^{\frac1n}\gt1+\frac1n\)（\(x\ne0\) なので等号なし）。両辺正なので \(n\) 乗して \(e\gt\left(1+\frac1n\right)^n\)。</p>
+      <p>右側：(1) で \(x=-\frac{1}{n+1}\) とすると \(e^{-\frac{1}{n+1}}\gt1-\frac{1}{n+1}=\frac{n}{n+1}\gt0\)。逆数をとって \(e^{\frac{1}{n+1}}\lt\frac{n+1}{n}=1+\frac1n\)。\(n+1\) 乗して \(e\lt\left(1+\frac1n\right)^{n+1}\)。（証明終）</p>
+      <p class="point">(2) から \(\dfrac{n}{n+1}e\lt\left(1+\frac1n\right)^n\lt e\) が出るので、はさみうちで \(\left(1+\frac1n\right)^n\to e\) も分かる（<a href="m3-limit.html">極限</a>）。右側の評価で「\(-\frac{1}{n+1}\) を代入」は逆算で見つける：欲しいのは \(e^{\frac1{n+1}}\lt\frac{n+1}{n}\)、逆数にすると \(e^{-\frac1{n+1}}\gt\frac{n}{n+1}=1-\frac1{n+1}\)。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="diff-p19" data-level="3">
+    <h3><span class="pid">P19</span>2変数の不等式（比をおく・1文字固定）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(0\lt a\lt b\) のとき \(\sqrt{ab}\lt\dfrac{b-a}{\log b-\log a}\lt\dfrac{a+b}{2}\) を示せ」</dd>
+      <dt>こう考える</dt><dd>2変数のままでは微分できない。2つの手：(i) 式が<b>同次</b>（\(a,b\) を同じ倍率にしても変わらない）なら <b>比 \(t=\frac ba\)</b> をおいて1変数に。(ii) <b>\(a\) を定数とみて \(b\) の関数</b>として微分（1文字固定）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>同次性を確認し、\(t=\frac ba\gt1\) とおいて全体を \(a\) で割る。</li>
+        <li>分母を払い、\(\log t\) を孤立させた形 \(\log t\gt(\text{t の式})\) にする（\(\log\) を微分すると分数になり扱いやすい）。</li>
+        <li>差の関数 \(h(t)\)、\(h(1)=0\)、\(h'(t)\gt0\ (t\gt1)\) を示す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>差の関数、\(\log b-\log a=\log\frac ba\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(\frac{b-a}{\log b-\log a}\) は \(a,b\) を両方2倍しても値が2倍になるだけ（1次の同次式）。だから本質的な変数は比 \(\frac ba\) の1つだけ。<b>\(\log\) を孤立させる</b>のは、\(\log t\) を微分すると \(\frac1t\) になり、\(h'\) が有理式になって符号判定できるから。<a href="../thinking.html#t-fix">発想：1文字固定</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(0\lt a\lt b\) のとき、\(\sqrt{ab}\lt\dfrac{b-a}{\log b-\log a}\lt\dfrac{a+b}{2}\) を示せ。</div>
+      <p>\(t=\dfrac ba\ (t\gt1)\) とおき、各辺を \(a\) で割ると、示すべき式は \(\sqrt t\lt\dfrac{t-1}{\log t}\lt\dfrac{t+1}{2}\)。\(\log t\gt0\) なので</p>
+      <p><b>右側</b> ⇔ \(\log t\gt\dfrac{2(t-1)}{t+1}\)。\(h(t)=\log t-\dfrac{2(t-1)}{t+1}\) とおくと \(h(1)=0\)、</p>
+      \[ h'(t)=\frac1t-\frac{4}{(t+1)^2}=\frac{(t+1)^2-4t}{t(t+1)^2}=\frac{(t-1)^2}{t(t+1)^2}\gt0\quad(t\gt1) \]
+      <p>よって \(t\gt1\) で \(h(t)\gt0\)。</p>
+      <p><b>左側</b> ⇔ \(\log t\lt\dfrac{t-1}{\sqrt t}\)。\(s=\sqrt t\ (s\gt1)\) とおくと \(2\log s\lt s-\dfrac1s\)。\(k(s)=s-\dfrac1s-2\log s\) とおくと \(k(1)=0\)、</p>
+      \[ k'(s)=1+\frac{1}{s^2}-\frac2s=\left(1-\frac1s\right)^2\gt0\quad(s\gt1) \]
+      <p>よって \(k(s)\gt0\)。以上で示された。（証明終）</p>
+      <p class="point">真ん中の量は「対数平均」と呼ばれ、相乗平均と相加平均の間にある。左側の評価で \(\sqrt t\) を \(s\) とおき直すのは、根号を消して微分を楽にするため。別解：\(a\) を固定し \(b\) を変数 \(x\ (x\gt a)\) とみて \(\log x-\log a-\frac{2(x-a)}{x+a}\) を微分しても同じ計算になる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="diff-p20" data-level="3">
+    <h3><span class="pid">P20</span>累乗の大小（\(e^\pi\) と \(\pi^e\)、\(\log\) をとる）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(e^\pi\) と \(\pi^e\) の大小を比較せよ」「\(m^n=n^m\ (m\lt n)\) を満たす自然数の組」「\(3^\pi\) と \(\pi^3\)」</dd>
+      <dt>こう考える</dt><dd>\(a^b\) と \(b^a\) の比較は、\(\log\) をとると \(b\log a\) と \(a\log b\)、両辺を \(ab\) で割ると <b>\(\dfrac{\log a}{a}\) と \(\dfrac{\log b}{b}\)</b> の比較。つまり<b>関数 \(\frac{\log x}{x}\) の2点での値</b>の比較になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\log\) をとり、変数を分離して \(\dfrac{\log a}{a}\) vs \(\dfrac{\log b}{b}\) に。</li>
+        <li>\(g(x)=\dfrac{\log x}{x}\) は \(0\lt x\le e\) で増加、\(x\ge e\) で減少（P16）。</li>
+        <li>\(a,b\) が \(e\) の同じ側なら単調性で比較。\(e\) 自身なら最大値で比較。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\log\) の単調性、\(\frac{\log x}{x}\) の増減</dd>
+      <dt>なぜこの方法？</dt><dd>\(e^\pi\) と \(\pi^e\) は数値計算では決着しにくい（\(23.14\) と \(22.46\)）。\(\log\) をとって「底と指数を分離」すると、1つの関数の値の比較という<b>グラフの問題</b>になる。<a href="../thinking.html#t-rephrase">発想：同値な言い換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(e^\pi\) と \(\pi^e\) の大小、および \(3^\pi\) と \(\pi^3\) の大小を比較せよ。<br>(2) \(m^n=n^m,\ m\lt n\) を満たす自然数の組 \((m,n)\) をすべて求めよ。</div>
+      <p>\(g(x)=\dfrac{\log x}{x}\) は \(0\lt x\le e\) で増加、\(x\ge e\) で減少し、\(x=e\) で最大値 \(\frac1e\) をとる（P16）。</p>
+      <p>(1) \(\pi\ne e\) より \(g(\pi)\lt g(e)\)：\(\dfrac{\log\pi}{\pi}\lt\dfrac1e\)。\(e\pi\) を掛けて \(e\log\pi\lt\pi\)、すなわち \(\log\pi^e\lt\log e^\pi\)。</p>
+      <p>また \(e\lt3\lt\pi\) で \(g\) は減少なので \(g(3)\gt g(\pi)\)：\(\pi\log3\gt3\log\pi\)、\(3^\pi\gt\pi^3\)。</p>
+      <p class="answer">\(e^\pi\gt\pi^e\)、\(3^\pi\gt\pi^3\)</p>
+      <p>(2) \(\log\) をとり \(mn\) で割ると \(g(m)=g(n)\)。\(g\) は \((0,e]\) と \([e,\infty)\) でそれぞれ単調（1対1）なので、\(m\lt n\) で値が等しいなら \(m\lt e\lt n\)。よって \(m=1\) または \(2\)。</p>
+      <ul>
+        <li>\(m=1\)：\(g(1)=0\)。一方 \(n\gt e\) では \(g(n)\gt0\) なので不適。</li>
+        <li>\(m=2\)：\(g(n)=g(2)=\dfrac{\log2}{2}=\dfrac{\log4}{4}=g(4)\)。\(g\) は \([e,\infty)\) で1対1なので \(n=4\)。</li>
+      </ul>
+      <p class="answer">\((m,n)=(2,4)\)</p>
+      <p class="point">(2) は整数問題に見えて、実は「\(\frac{\log x}{x}\) のグラフと水平線の交点」の問題。「\(m\lt e\lt n\)」で \(m\) を絞り込むのが核心（<a href="ma-integer.html">整数の性質</a>の「範囲を絞る」と同じ発想）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="diff-p21" data-level="3">
+    <h3><span class="pid">P21</span>凸不等式（イェンセン的な考え・接線で評価）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「三角形 ABC で \(\sin A+\sin B+\sin C\le\dfrac{3\sqrt3}{2}\) を示せ」「\(x+y+z=1\) のとき \(f(x)+f(y)+f(z)\) の最大値」</dd>
+      <dt>こう考える</dt><dd>\(f''\le0\)（上に凸）なら、<b>曲線は接線の下にある</b>：\(f(x)\le f(p)+f'(p)(x-p)\)。和の制約がある変数に使うと、右辺の1次の部分が足し合わせて消える。\(p\) は<b>等号成立の予想値</b>（対称な点）にとる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>等号が成り立ちそうな点 \(p\)（\(A=B=C=\frac\pi3\) など）を予想。</li>
+        <li>その点での接線の不等式 \(f(x)\le f(p)+f'(p)(x-p)\) を、定義域全体で証明（差の関数、または凸性）。</li>
+        <li>\(x=A,B,C\) を代入して足す。和の条件で1次の項が消える。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>上に凸 ⇒ 曲線は接線の下（下に凸なら上）。一般形：\(f\left(\frac{x_1+\cdots+x_n}{n}\right)\ge\frac{f(x_1)+\cdots+f(x_n)}{n}\)（上に凸、イェンセンの不等式）</dd>
+      <dt>なぜこの方法？</dt><dd>上に凸な関数では「平均の値 \(\ge\) 値の平均」。これを直接証明するより、<b>接線という1次関数で上から押さえる</b>方が答案は短く厳密。1次関数なら和の条件がそのまま使える。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">三角形 ABC において、\(\sin A+\sin B+\sin C\le\dfrac{3\sqrt3}{2}\) を示せ。</div>
+      <p>\(f(x)=\sin x\ (0\le x\le\pi)\)、\(p=\dfrac\pi3\) における接線を \(\ell(x)=\dfrac{\sqrt3}{2}+\dfrac12\left(x-\dfrac\pi3\right)\) とする。</p>
+      <p><b>主張</b>：\(0\le x\le\pi\) で \(\sin x\le\ell(x)\)。</p>
+      <p>\(k(x)=\ell(x)-\sin x\) とおくと \(k'(x)=\dfrac12-\cos x\)。\(\cos x\) は \([0,\pi]\) で減少なので、\(k'\) は \(x\lt\frac\pi3\) で負、\(x\gt\frac\pi3\) で正。よって \(k\) は \(x=\frac\pi3\) で最小値 \(k\left(\frac\pi3\right)=0\)。主張が示された。</p>
+      <p>\(A,B,C\in(0,\pi)\) を代入して足すと</p>
+      \[ \sin A+\sin B+\sin C\le\frac{3\sqrt3}{2}+\frac12\left(A+B+C-\pi\right)=\frac{3\sqrt3}{2} \]
+      <p>（\(A+B+C=\pi\)）。等号は \(A=B=C=\frac\pi3\)（正三角形）。（証明終）</p>
+      <p class="point">接線の傾き \(\frac12\) の項が「\(A+B+C=\pi\)」でちょうど消えるのがこの方法の要。等号成立の予想が外れていると1次の項が消えない（または不等式が逆になる）ので、予想は対称な点で行う。<a href="../thinking.html#t-symmetry">発想：対称性</a></p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="diff-p22" data-level="1">
+    <h3><span class="pid">P22</span>速度・加速度と近似式</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「時刻 \(t\) における点 P の座標が \((t-\sin t,1-\cos t)\)。速さ・加速度の大きさ」「\(\sqrt{4.02}\)、\(\sin31^\circ\) の近似値」</dd>
+      <dt>こう考える</dt><dd>速度は位置の \(t\) での微分、加速度は速度の微分。平面では<b>成分ごとに微分</b>してベクトルにし、大きさは \(\sqrt{(\ )^2+(\ )^2}\)。近似は「接線で代用」：\(f(a+h)\fallingdotseq f(a)+f'(a)h\)。</dd>
+      <dt>こう解く</dt><dd><ul>
+        <li>直線上：\(v=\dfrac{dx}{dt}\)、\(\alpha=\dfrac{dv}{dt}\)。</li>
+        <li>平面上：\(\vec v=\left(\dfrac{dx}{dt},\dfrac{dy}{dt}\right)\)、速さ \(|\vec v|\)、\(\vec\alpha=\left(\dfrac{d^2x}{dt^2},\dfrac{d^2y}{dt^2}\right)\)。</li>
+        <li>近似：\(a\) を「値の分かる点」に、\(h\) を小さなずれにとる（角度は弧度法に直す）。</li>
+      </ul></dd>
+      <dt>使う定理・公式</dt><dd>導関数の定義、\(f(a+h)\fallingdotseq f(a)+f'(a)h\)、\((1+x)^n\fallingdotseq1+nx\)</dd>
+      <dt>なぜこの方法？</dt><dd>速度は「単位時間あたりの位置の変化」の極限＝導関数そのもの。近似式は \(\frac{f(a+h)-f(a)}{h}\fallingdotseq f'(a)\) を変形しただけで、\(h\) が小さいほど曲線と接線の差が小さいことを使っている。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 時刻 \(t\) における点 P の座標が \(x=t-\sin t,\ y=1-\cos t\) で与えられる。P の速さと加速度の大きさを求めよ。また、速さが最大となる \(t\ (0\le t\le2\pi)\) を求めよ。<br>(2) 1次の近似式を用いて \(\sqrt{4.02}\)、\(\sin 31^\circ\) の近似値を小数第4位まで求めよ（\(\sqrt3=1.732,\ \pi=3.1416\)）。</div>
+      <p>(1) \(\vec v=(1-\cos t,\ \sin t)\)。</p>
+      <p>\(|\vec v|^2=(1-\cos t)^2+\sin^2t=2-2\cos t=4\sin^2\frac t2\) より \(|\vec v|=2\left|\sin\frac t2\right|\)。</p>
+      <p>\(\vec\alpha=(\sin t,\ \cos t)\)、\(|\vec\alpha|=1\)。</p>
+      <p class="answer">速さ \(2\left|\sin\dfrac t2\right|\)、加速度の大きさ 1、速さ最大は \(t=\pi\)（速さ 2）</p>
+      <p>(2) \(f(x)=\sqrt x\)、\(f'(x)=\dfrac{1}{2\sqrt x}\)。\(\sqrt{4.02}\fallingdotseq\sqrt4+\dfrac{1}{4}\times0.02=2.005\)。</p>
+      <p>\(31^\circ=\dfrac\pi6+\dfrac{\pi}{180}\)。\(\sin\left(\frac\pi6+h\right)\fallingdotseq\sin\frac\pi6+h\cos\frac\pi6=\dfrac12+\dfrac{\sqrt3}{2}\cdot\dfrac{\pi}{180}\fallingdotseq0.5+0.866\times0.017453\fallingdotseq0.5151\)。</p>
+      <p class="answer">\(\sqrt{4.02}\fallingdotseq2.0050\)、\(\sin31^\circ\fallingdotseq0.5151\)</p>
+      <p class="point">(1) の点 P は半径 1 の円が転がるときの円周上の点（サイクロイド）。速さが 0 になる \(t=0,2\pi\) は「地面に接している瞬間」。(2) で \(h=1^\circ\) のまま代入するのは誤り。微分の公式は弧度法が前提（P3）。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="pitfalls">
+  <h2>よくあるミスと対策</h2>
+  <ul class="pitfalls">
+    <li><b>合成関数の「中身の微分」を掛け忘れる</b>（P2）。→ \(\sin 2x\)、\(e^{-x^2}\)、\(\log(x^2+1)\) は必ず「中身」を確認してから微分する。</li>
+    <li><b>\(f'(a)=0\) だけで極値・\(f''(a)=0\) だけで変曲点と判断する</b>（P11, P12）。→ 必ず<b>前後の符号変化</b>を増減表で確認する。</li>
+    <li><b>端の極限を調べずにグラフを描き、解の個数を誤る</b>（P14, P16）。→ \(x\to+0\)、\(x\to\pm\infty\) の極限を答案に明記。「0 に近づく」と「0 をとる」を区別する。</li>
+    <li><b>\(x\to-\infty\) で \(\sqrt{x^2}=x\) としてしまう</b>（P13）。→ \(x=-s\) と置き換えてから計算する。</li>
+    <li><b>媒介変数の2回微分で \(\frac{dx}{dt}\) で割り忘れる</b>（P5）。→ \(\frac{d^2y}{dx^2}\ne\frac{d^2y/dt^2}{d^2x/dt^2}\)。「\(\frac{dy}{dx}\) を \(t\) で微分して \(\frac{dx}{dt}\) で割る」と唱える。</li>
+    <li><b>平均値の定理の \(c\) の範囲を書かない</b>（P10）。→ 「\(a\lt c\lt b\) を満たす \(c\) が存在して」までが定理の主張。極限では \(c\) をはさみうちで扱う。</li>
+    <li><b>不等式の証明で、\(f'\gt0\) だけ示して \(f(0)=0\)（出発点）を書き忘れる</b>（P17）。→ 「増加」＋「出発点の値」の2点セットで初めて符号が決まる。</li>
+    <li><b>微分の公式を度数法で使う</b>（P3, P22）。→ \((\sin x)'=\cos x\) は弧度法でのみ成立。</li>
+  </ul>
+</section>
+
+<section id="handai">
+  <h2>阪大レベルへの橋渡し</h2>
+  <p>阪大理系では微分法が<b>毎年複数題</b>の主役になる。単独の計算問題はほぼ出ず、次のような「微分で道具を作り、別の分野で使う」形が定番である。</p>
+  <ul>
+    <li><b>接線の本数・2曲線の位置関係</b>：接点 \(t\) の方程式の実数解の個数に帰着し、P16 の定数分離やグラフで数える（演習1）。</li>
+    <li><b>不等式 → 極限</b>：前の小問で示した不等式（P17, P18）に \(\frac kn\) などを代入し、和をとってはさみうち（演習2）。<a href="m3-integral-app.html">積分法の応用</a>の「積分で評価」とも組み合わされる。</li>
+    <li><b>\(\frac{\log x}{x}\) 型の関数</b>：累乗の大小・「すべての \(x\) で成立」条件・整数解の絞り込みに使われる（演習3）。</li>
+  </ul>
+
+  <article class="pattern" id="diff-h1" data-level="3">
+    <h3><span class="pid">演1</span>曲線外の点から引ける接線の本数</h3>
+    <div class="problem">曲線 \(C:\ y=xe^{-x}\) について、次の問いに答えよ。<br>(1) \(C\) 上の異なる2点で \(C\) に接する直線は存在しないことを示せ。<br>(2) 点 \((a,0)\) から \(C\) に引ける接線の本数を、実数 \(a\) の値によって分類せよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>(2) は接点を \((t,te^{-t})\) とおき、「接線が \((a,0)\) を通る」条件を \(t\) の方程式にする（P8）。ただし「\(t\) の解の個数＝接線の本数」と言うには、<b>異なる接点が同じ接線を与えない</b>こと、つまり (1) が必要。(1) は、もし2点で接する直線 \(y=mx+n\) があれば、\(h(x)=xe^{-x}-mx-n\) が2つの重解をもつことになり、\(h''\) の零点の個数と矛盾する（ロルの定理＝平均値の定理の特別な場合）。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>\(f(x)=xe^{-x}\) とする。\(f'(x)=(1-x)e^{-x}\)、\(f''(x)=(x-2)e^{-x}\)。</p>
+      <p>(1) 直線 \(y=mx+n\) が \(C\) と異なる2点 \(x=p,q\ (p\lt q)\) で接すると仮定する。\(h(x)=f(x)-mx-n\) とおくと \(h(p)=h(q)=0,\ h'(p)=h'(q)=0\)。</p>
+      <p>\(h(p)=h(q)\) より平均値の定理から \(h'(r)=0\) となる \(r\ (p\lt r\lt q)\) がある。すると \(h'\) は \(p\lt r\lt q\) の3点で 0 になり、再び平均値の定理より \(h''\) は \((p,r)\) と \((r,q)\) にそれぞれ零点をもつ。</p>
+      <p>しかし \(h''(x)=f''(x)=(x-2)e^{-x}\) の零点は \(x=2\) の1つだけ。矛盾。よってそのような直線は存在しない。</p>
+      <p>(2) \(C\) 上の点 \((t,te^{-t})\) における接線は \(y=(1-t)e^{-t}(x-t)+te^{-t}\)。これが \((a,0)\) を通る条件は</p>
+      \[ 0=e^{-t}\{(1-t)(a-t)+t\}\iff t^2-at+a=0\quad\cdots(*) \]
+      <p>(1) より、接点が異なれば接線も異なるので、接線の本数は (*) の異なる実数解 \(t\) の個数に等しい。判別式 \(D=a^2-4a=a(a-4)\)。</p>
+      <p class="answer">\(a\lt0\) または \(a\gt4\)：2本、\(a=0\) または \(a=4\)：1本、\(0\lt a\lt4\)：0本</p>
+      <p class="point">採点ポイント：(*) を導いた段階で部分点。(1) の「異なる接点 → 異なる接線」に言及しないと、本数の議論に論理の穴が残る（阪大はここを見る）。\(a=4\) のときの接点 \(t=2\) は変曲点で、接線は曲線を横切る。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="diff-h2" data-level="3">
+    <h3><span class="pid">演2</span>不等式から積の極限へ</h3>
+    <div class="problem">(1) \(x\gt0\) のとき、\(x-\dfrac{x^2}{2}\lt\log(1+x)\lt x\) を示せ。<br>(2) \(\displaystyle P_n=\prod_{k=1}^{n}\left(1+\frac{k}{n^2}\right)=\left(1+\frac{1}{n^2}\right)\left(1+\frac{2}{n^2}\right)\cdots\left(1+\frac{n}{n^2}\right)\) とする。\(\displaystyle\lim_{n\to\infty}P_n\) を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>積の極限は <b>\(\log\) をとって和にする</b>。\(\log P_n=\sum\log\left(1+\frac{k}{n^2}\right)\) の各項に (1) を \(x=\frac{k}{n^2}\) として使えば、上下から \(\sum\frac{k}{n^2}\) 型の計算できる和で挟める。誤差項 \(\sum\frac{k^2}{2n^4}\) が 0 に行くことを確かめる。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) 左側は P17 の例題 (1)。右側：\(u(x)=x-\log(1+x)\) とおくと \(u(0)=0\)、\(u'(x)=1-\dfrac{1}{1+x}=\dfrac{x}{1+x}\gt0\ (x\gt0)\) より \(u(x)\gt0\)。</p>
+      <p>(2) \(\displaystyle\log P_n=\sum_{k=1}^{n}\log\left(1+\frac{k}{n^2}\right)\)。(1) で \(x=\dfrac{k}{n^2}\gt0\) として \(k=1,\dots,n\) について足すと</p>
+      \[ \sum_{k=1}^n\frac{k}{n^2}-\sum_{k=1}^n\frac{k^2}{2n^4}\lt\log P_n\lt\sum_{k=1}^n\frac{k}{n^2} \]
+      <p>ここで \(\displaystyle\sum_{k=1}^n\frac{k}{n^2}=\frac{n(n+1)}{2n^2}=\frac{n+1}{2n}\to\frac12\)、</p>
+      \[ \sum_{k=1}^n\frac{k^2}{2n^4}=\frac{n(n+1)(2n+1)}{12n^4}\to0 \]
+      <p>はさみうちの原理より \(\log P_n\to\dfrac12\)。指数関数の連続性より \(P_n\to e^{\frac12}\)。</p>
+      <p class="answer">\(\sqrt e\)</p>
+      <p class="point">採点ポイント：(1) の証明、\(\log\) をとって和にする方針、上下の評価式、各極限の計算、はさみうちの明記。誤差項が 0 に行く理由（分母 \(n^4\)、分子 \(n^3\) 程度）を式で示すこと。「\(\log(1+x)\fallingdotseq x\)」と近似で済ませる答案は 0 点に近い。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="diff-h3" data-level="3">
+    <h3><span class="pid">演3</span>「すべての \(x\) で \(a^x\ge x^a\)」と \(2^x=x^2\)</h3>
+    <div class="problem">\(a\) を正の定数とする。<br>(1) すべての正の実数 \(x\) に対して \(a^x\ge x^a\) が成り立つような \(a\) の値を求めよ。<br>(2) 方程式 \(2^x=x^2\) の正の解をすべて求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>両辺正なので \(\log\) をとれば \(x\log a\ge a\log x\)、\(ax\) で割ると \(\dfrac{\log a}{a}\ge\dfrac{\log x}{x}\)。「<b>すべての \(x\) で \(g(x)\le\) 定数</b>」⇔「\(g\) の最大値 \(\le\) 定数」（P20 の \(g(x)=\frac{\log x}{x}\)）。<a href="../thinking.html#t-forall">発想：∀と∃の言い換え</a></p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>\(g(x)=\dfrac{\log x}{x}\ (x\gt0)\) は \(0\lt x\le e\) で増加、\(x\ge e\) で減少し、最大値 \(g(e)=\dfrac1e\)。</p>
+      <p>(1) \(a^x\gt0,\ x^a\gt0\) より、\(a^x\ge x^a\) ⇔ \(x\log a\ge a\log x\) ⇔ \(g(x)\le g(a)\)（\(ax\gt0\) で割った）。</p>
+      <p>これがすべての \(x\gt0\) で成り立つ ⇔ \(g\) の最大値 \(\le g(a)\) ⇔ \(\dfrac1e\le g(a)\)。\(g(a)\le\frac1e\) は常に成り立つので \(g(a)=\frac1e\)、等号成立は \(a=e\) のみ。</p>
+      <p class="answer">(1) \(a=e\)</p>
+      <p>(2) \(x\gt0\) で \(2^x=x^2\) ⇔ \(x\log2=2\log x\) ⇔ \(g(x)=\dfrac{\log2}{2}\)。</p>
+      <p>\(0\lt\dfrac{\log2}{2}\lt\dfrac1e\)（\(2\ne e\)）であり、\(g\) は \((0,e]\) で \(-\infty\) から \(\frac1e\) まで増加、\([e,\infty)\) で \(\frac1e\) から（0 に近づきながら）減少するので、方程式 \(g(x)=\frac{\log 2}{2}\) の正の解は \((0,e)\) と \((e,\infty)\) に1つずつ、ちょうど2個（P16）。</p>
+      <p>\(g(2)=\dfrac{\log2}{2}\)、\(g(4)=\dfrac{\log4}{4}=\dfrac{\log2}{2}\) で、\(2\lt e\lt4\)。よってこの2つがすべて。</p>
+      <p class="answer">(2) \(x=2,\ 4\)</p>
+      <p class="point">採点ポイント：(1) は「最大値で言い換える」ことと「等号成立条件 \(a=e\)」の両方が必要。(2) は解を2つ見つけるだけでは不十分で、<b>「ちょうど2個」であることの根拠</b>（単調性と極限）を書いて初めて「すべて」と言える。なお \(2^x=x^2\) には負の解も1つある（問われていない）。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="next">
+  <h2>次に学ぶとつながる単元</h2>
+  <ul>
+    <li><a href="m3-integral.html">積分法（計算）</a>：微分の公式を逆に読むのが積分。P2〜P3 の「合成関数の微分」を逆にたどるのが置換積分、「積の微分」を逆にたどるのが部分積分。</li>
+    <li><a href="m3-integral-app.html">積分法の応用</a>：P14 で描いたグラフで囲まれた面積・体積を求める。P17〜P18 の不等式を積分すると新しい不等式が得られ、区分求積・\(\sum\frac1k\) の評価につながる。</li>
+    <li><a href="m3-limit.html">極限</a>：P10（平均値の定理）、P18（\(e\) の評価）、演習2（はさみうち）は極限の単元と表裏一体。</li>
+    <li><a href="mc-curves.html">平面上の曲線</a>：P5 の媒介変数・陰関数の微分で、2次曲線やサイクロイドの接線を扱う。</li>
+  </ul>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>

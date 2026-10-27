@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>図形と方程式（数学II）｜解法の地図</title>
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-unit="m2-coord" data-root="../">
+<main>
+
+<header class="unit-head">
+  <span class="subj-badge">数学II</span>
+  <h1>図形と方程式</h1>
+  <p class="lead">図形を座標で「式」に、式を「図形」に翻訳する単元。点・直線・円の基本計算から、軌跡・領域・通過領域まで一本の道でつながっている。阪大理系では<b>軌跡と通過領域</b>が頻出で、「\(k\) を固定する」「存在条件に言い換える」という答案の書き方そのものが問われる。</p>
+  <div class="goal">
+    <strong>このページの到達目標</strong>
+    <ul>
+      <li>【基礎】内分点・直線の方程式・点と直線の距離・円の方程式を正確に計算し、不等式の表す領域を図示できる。</li>
+      <li>【標準】円と直線・接線・2円の交点を通る図形を処理し、軌跡を「条件を式に → 文字を消去 → 範囲・除外点の確認」の手順で求め、領域の最大最小を \(=k\) とおいて解ける。</li>
+      <li>【阪大】通過領域を「逆像法（パラメータの存在条件）」と「1文字固定（ファクシミリ論法）」の両方で答案にでき、除外点・端点まで正確に書ける。</li>
+    </ul>
+  </div>
+  <p class="prereq">前提：<a href="m1-quadratic.html">2次関数</a>（解の配置・実数条件）、<a href="m2-proof.html">式と証明</a>（恒等式）／ 次に進む：<a href="m2-calculus.html">微分法・積分法（数II）</a>、<a href="mc-vector.html">ベクトル</a>、<a href="mc-curves.html">平面上の曲線</a></p>
+</header>
+
+<section id="core">
+  <h2>必ず押さえる基本事項</h2>
+
+  <div class="box theorem">
+    <p><span class="name">内分点・外分点・重心</span>：\(A(x_1,y_1),\ B(x_2,y_2)\) を \(m:n\) に</p>
+    \[ \text{内分する点}\ \left(\frac{nx_1+mx_2}{m+n},\ \frac{ny_1+my_2}{m+n}\right),\qquad \text{外分する点}\ \left(\frac{-nx_1+mx_2}{m-n},\ \frac{-ny_1+my_2}{m-n}\right) \]
+    <p>三角形 \(ABC\) の重心は \(\left(\frac{x_1+x_2+x_3}{3},\ \frac{y_1+y_2+y_3}{3}\right)\)。なぜ：\(A\) から \(B\) へ全体の \(\frac{m}{m+n}\) だけ進んだ点だから（外分は \(n\) を \(-n\) に変える）。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">直線</span>：点 \((x_1,y_1)\) を通り傾き \(m\)：\(y-y_1=m(x-x_1)\)。一般形 \(ax+by+c=0\)（法線ベクトル \((a,b)\)）。</p>
+    <p>2直線 \(a_1x+b_1y+c_1=0,\ a_2x+b_2y+c_2=0\) は　平行 \(\iff a_1b_2-a_2b_1=0\)、垂直 \(\iff a_1a_2+b_1b_2=0\)。</p>
+    <p>なぜ：平行は法線ベクトルが平行、垂直は法線ベクトルが垂直（内積 0）。傾きで言えば平行 \(m_1=m_2\)、垂直 \(m_1m_2=-1\)。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">点と直線の距離</span>：点 \((x_1,y_1)\) と直線 \(ax+by+c=0\) の距離は</p>
+    \[ d=\frac{\abs{ax_1+by_1+c}}{\sqrt{a^2+b^2}} \]
+    <p>なぜ：点から法線方向 \((a,b)\) に \(t\) だけ進んで直線に着くとすると \(a(x_1+at)+b(y_1+bt)+c=0\)、\(t=-\frac{ax_1+by_1+c}{a^2+b^2}\)。距離は \(\abs t\sqrt{a^2+b^2}\)。</p>
+    <p>\(O,\ A(x_1,y_1),\ B(x_2,y_2)\) の三角形の面積は \(\frac12\abs{x_1y_2-x_2y_1}\)。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">円</span>：中心 \((a,b)\)、半径 \(r\)：\((x-a)^2+(y-b)^2=r^2\)。一般形 \(x^2+y^2+lx+my+n=0\)。</p>
+    <ul>
+      <li>円と直線：中心と直線の距離 \(d\) と半径 \(r\) で、\(d\lt r\)（2点で交わる）、\(d=r\)（接する）、\(d\gt r\)（共有点なし）。</li>
+      <li>円 \(x^2+y^2=r^2\) 上の点 \((x_1,y_1)\) における接線：\(x_1x+y_1y=r^2\)（なぜ：接線は半径 \((x_1,y_1)\) に垂直）。</li>
+      <li>2円の中心間の距離 \(d\)：\(\abs{r_1-r_2}\lt d\lt r_1+r_2\) なら2点で交わる。</li>
+    </ul>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">曲線の束</span>：\(f(x,y)=0\) と \(g(x,y)=0\) が交わるとき、\(f(x,y)+k\,g(x,y)=0\) は（\(k\) によらず）<b>すべての交点を通る</b>図形。</p>
+    <p>なぜ：交点では \(f=0,\ g=0\) なので \(k\) が何であっても成り立つ。ただし \(g=0\) 自身は表せない。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">軌跡と領域の基本</span></p>
+    <ul>
+      <li>軌跡：条件を満たす点 \(P(x,y)\) の全体。<b>「条件 \(\Rightarrow\) 方程式」と「方程式 \(\Rightarrow\) 条件」の両方</b>（逆の確認・除外点）が必要。</li>
+      <li>\(y\gt f(x)\) は曲線 \(y=f(x)\) の上側、\((x-a)^2+(y-b)^2\lt r^2\) は円の内部。</li>
+      <li><b>通過領域</b>：パラメータ \(t\) を含む図形が通る範囲は「点 \((x,y)\) を固定したとき、\(t\) の方程式が条件を満たす解をもつ」\((x,y)\) の集合。</li>
+    </ul>
+  </div>
+
+  <div class="box idea">
+    <p><b>この単元を貫く考え方</b>：「点 \((x,y)\) が図形上にある」とは「\((x,y)\) を代入した式が成り立つ」ということ。そして軌跡・領域・通過領域はすべて<b>「その点にたどり着ける（そうなるパラメータが存在する）か？」</b>という<b>存在の問題</b>として言い換えられる。図形の問題を「方程式の解の存在」に翻訳できれば、2次関数の解の配置などの道具がすべて使える。</p>
+  </div>
+</section>
+
+<section id="quick">
+  <h2>早見表：こう来たら → こう解く</h2>
+  <div class="table-wrap"><table class="quick">
+    <tr><th>問題の特徴（こう来たら）</th><th>方針（こう解く）</th><th>使う道具</th><th>詳細</th></tr>
+    <tr data-level="1"><td>内分点・外分点・重心の座標</td><td>公式に代入（外分は \(-n\)）</td><td>分点公式</td><td><a href="#crd-p1">P1</a></td></tr>
+    <tr data-level="1"><td>平行・垂直な直線、2直線が平行となる \(a\)</td><td>法線ベクトル／傾きで条件</td><td>\(a_1b_2-a_2b_1=0,\ a_1a_2+b_1b_2=0\)</td><td><a href="#crd-p2">P2</a></td></tr>
+    <tr data-level="1"><td>点と直線の距離、三角形の面積</td><td>距離公式／\(\frac12\abs{x_1y_2-x_2y_1}\)</td><td>点と直線の距離</td><td><a href="#crd-p3">P3</a></td></tr>
+    <tr data-level="2"><td>直線に関する対称点、\(AP+PB\) の最小</td><td>中点が直線上・垂直の2条件／対称点で折れ線をまっすぐに</td><td>対称移動</td><td><a href="#crd-p4">P4</a></td></tr>
+    <tr data-level="2"><td>「\(k\) の値にかかわらず定点を通る」</td><td>\(k\) について整理して恒等式</td><td>\(f+kg=0\)</td><td><a href="#crd-p5">P5</a></td></tr>
+    <tr data-level="1"><td>3点を通る円、円を表す条件</td><td>一般形に代入／平方完成して \(r^2\gt0\)</td><td>円の方程式</td><td><a href="#crd-p6">P6</a></td></tr>
+    <tr data-level="2"><td>円と直線が交わる・接する、弦の長さ</td><td>中心と直線の距離 \(d\) と半径 \(r\) を比べる</td><td>点と直線の距離・三平方</td><td><a href="#crd-p7">P7</a></td></tr>
+    <tr data-level="2"><td>円外の点から引いた接線</td><td>接点を \((x_1,y_1)\) とおく／距離＝半径</td><td>接線の公式・極線</td><td><a href="#crd-p8">P8</a></td></tr>
+    <tr data-level="2"><td>2円の交点を通る直線・円</td><td>\(f+kg=0\)（\(k=-1\) で共通弦）</td><td>曲線の束</td><td><a href="#crd-p9">P9</a></td></tr>
+    <tr data-level="2"><td>「\(AP:BP=2:1\) となる点 \(P\) の軌跡」</td><td>\(P(x,y)\) とおき条件を式に</td><td>距離の公式</td><td><a href="#crd-p10">P10</a></td></tr>
+    <tr data-level="2"><td>「交点の中点の軌跡」（\(m\) が動く）</td><td>\(x,y\) を \(m\) で表して \(m\) を消去、\(x\) の範囲</td><td>解と係数の関係・判別式</td><td><a href="#crd-p11">P11</a></td></tr>
+    <tr data-level="3"><td>\(m\) を含む2直線の交点の軌跡</td><td>2式から \(m\) を消去し、除外点を調べる</td><td>同値変形・除外点</td><td><a href="#crd-p12">P12</a></td></tr>
+    <tr data-level="3"><td>点 \((s+t,\ st)\) の動く範囲</td><td>\(s,t\) が実数として存在する条件</td><td>判別式（実数条件）</td><td><a href="#crd-p13">P13</a></td></tr>
+    <tr data-level="1"><td>不等式の表す領域を図示せよ</td><td>境界線を描き、上下・内外を判定</td><td>正領域・負領域</td><td><a href="#crd-p14">P14</a></td></tr>
+    <tr data-level="2"><td>領域内の点で \(2x+y\) の最大・最小</td><td>\(2x+y=k\) とおき直線を動かす</td><td>接する条件・頂点</td><td><a href="#crd-p15">P15</a></td></tr>
+    <tr data-level="2"><td>原料・時間の制約で利益最大（文章題）</td><td>不等式で領域 → 頂点で評価</td><td>線形計画法</td><td><a href="#crd-p16">P16</a></td></tr>
+    <tr data-level="3"><td>「\(t\) が動くとき直線 \(\ell_t\) が通過する領域」</td><td>\(t\) の方程式が条件を満たす解をもつ条件</td><td>逆像法・解の配置</td><td><a href="#crd-p17">P17</a></td></tr>
+    <tr data-level="3"><td>同上（\(t\) の範囲が区間、直線・線分）</td><td>\(x\) を固定して \(y\) の動く範囲を求める</td><td>ファクシミリ論法・包絡線</td><td><a href="#crd-p18">P18</a></td></tr>
+  </table></div>
+</section>
+
+<section id="patterns">
+  <h2>パターン別 解法マップ</h2>
+
+  <article class="pattern" id="crd-p1" data-level="1">
+    <h3><span class="pid">P1</span>内分点・外分点・重心</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「線分 \(AB\) を \(3:1\) に内分する点・外分する点」「三角形の重心の座標」</dd>
+      <dt>こう考える</dt><dd>内分点は「\(A\) から \(B\) へ向かって \(\frac{m}{m+n}\) 進んだ点」。外分は「\(n\) を \(-n\)」に変えるだけで同じ式。<b>重みは相手側の比</b>（\(A\) には \(n\)、\(B\) には \(m\)）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(m:n\) を確認し、\(\frac{nA+mB}{m+n}\) に \(x\) 座標・\(y\) 座標それぞれ代入。</li>
+        <li>外分は \(\frac{-nA+mB}{m-n}\)。</li>
+        <li>重心は3点の平均。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>分点公式、重心の公式</dd>
+      <dt>なぜこの方法？</dt><dd>\(x\) 座標だけ見れば数直線上の内分。<a href="mc-vector.html">ベクトル</a>では \(\vec{OP}=\frac{n\vec{OA}+m\vec{OB}}{m+n}\) と同じ式になる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(A(1,2),\ B(5,-2),\ C(0,3)\) とする。線分 \(AB\) を \(3:1\) に内分する点 \(P\)、外分する点 \(Q\)、三角形 \(ABC\) の重心 \(G\) の座標を求めよ。</div>
+      <p>\(P\left(\frac{1\cdot1+3\cdot5}{4},\ \frac{1\cdot2+3\cdot(-2)}{4}\right)=(4,-1)\)。</p>
+      <p>\(Q\left(\frac{-1\cdot1+3\cdot5}{3-1},\ \frac{-1\cdot2+3\cdot(-2)}{2}\right)=(7,-4)\)。</p>
+      <p>\(G\left(\frac{1+5+0}{3},\ \frac{2-2+3}{3}\right)=(2,1)\)。</p>
+      <p class="answer">\(P(4,-1),\ Q(7,-4),\ G(2,1)\)</p>
+      <p class="point">検算：\(3:1\) の外分点 \(Q\) は \(B\) の外側（\(A\) から見て \(B\) より先）にある。\(x\) 座標が \(5\) より大きい \(7\) なので妥当。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crd-p2" data-level="1">
+    <h3><span class="pid">P2</span>直線の方程式・2直線の平行と垂直</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「点 \((2,1)\) を通り直線 \(2x+3y=5\) に平行（垂直）な直線」「2直線 \(ax+2y+1=0,\ x+(a+1)y+3=0\) が平行となる \(a\)」</dd>
+      <dt>こう考える</dt><dd>\(ax+by+c=0\) の係数 \((a,b)\) は直線に<b>垂直なベクトル（法線ベクトル）</b>。平行な直線は同じ \((a,b)\)、垂直な直線は \((b,-a)\) を使う。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>平行：\(a(x-x_1)+b(y-y_1)=0\)。垂直：\(b(x-x_1)-a(y-y_1)=0\)。</li>
+        <li>文字を含む2直線は \(a_1b_2-a_2b_1=0\)（平行）、\(a_1a_2+b_1b_2=0\)（垂直）。</li>
+        <li>平行条件で求めた値は、<b>2直線が一致しないか</b>確認する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>法線ベクトル、平行・垂直条件</dd>
+      <dt>なぜこの方法？</dt><dd>傾き \(m\) を使うと \(y\) 軸に平行な直線（\(b=0\)）で場合分けが必要になる。一般形の係数で条件を書けば場合分けが不要。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 点 \((2,1)\) を通り、直線 \(2x+3y=5\) に平行な直線と垂直な直線の方程式を求めよ。<br>(2) 2直線 \(ax+2y+1=0,\ x+(a+1)y+3=0\) が平行になる \(a\)、垂直になる \(a\) を求めよ。</div>
+      <p>(1) 平行：\(2(x-2)+3(y-1)=0\)。垂直：\(3(x-2)-2(y-1)=0\)。</p>
+      <p class="answer">平行 \(2x+3y-7=0\)、垂直 \(3x-2y-4=0\)</p>
+      <p>(2) 平行：\(a(a+1)-2\cdot1=0\)、\((a+2)(a-1)=0\)。\(a=1\) のとき \(x+2y+1=0\) と \(x+2y+3=0\)、\(a=-2\) のとき \(-2x+2y+1=0\) と \(x-y+3=0\) で、いずれも一致しない。</p>
+      <p>垂直：\(a\cdot1+2(a+1)=0\) より \(a=-\frac23\)。</p>
+      <p class="answer">平行 \(a=1,\ -2\)、垂直 \(a=-\dfrac23\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crd-p3" data-level="1">
+    <h3><span class="pid">P3</span>点と直線の距離・三角形の面積</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「点 \((1,2)\) と直線 \(3x+4y-1=0\) の距離」「3点 \(A,B,C\) を頂点とする三角形の面積」</dd>
+      <dt>こう考える</dt><dd>距離は公式一発。面積は「底辺×高さ」の高さを点と直線の距離で出すか、1つの頂点を原点に平行移動して \(\frac12\abs{x_1y_2-x_2y_1}\)。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>直線を \(ax+by+c=0\) の形にしてから公式に代入。</li>
+        <li>面積：\(\vec{AB}=(x_1,y_1),\ \vec{AC}=(x_2,y_2)\) を求めて \(\frac12\abs{x_1y_2-x_2y_1}\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>点と直線の距離、三角形の面積公式</dd>
+      <dt>なぜこの方法？</dt><dd>面積公式は \(\frac12\abs{\vec a}\abs{\vec b}\sin\theta\) を成分で書いたもの（<a href="m1-trig.html">図形と計量</a>・<a href="mc-vector.html">ベクトル</a>）。頂点を原点に移しても面積は変わらない。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 点 \((1,2)\) と直線 \(3x+4y-1=0\) の距離を求めよ。<br>(2) \(A(1,1),\ B(4,2),\ C(2,5)\) を頂点とする三角形の面積を求めよ。</div>
+      <p>(1) \(\dfrac{\abs{3+8-1}}{\sqrt{9+16}}=\dfrac{10}{5}=2\)。<span class="answer">2</span></p>
+      <p>(2) \(A\) が原点に来るように平行移動すると \(B'(3,1),\ C'(1,4)\)。面積 \(\frac12\abs{3\cdot4-1\cdot1}=\frac{11}{2}\)。<span class="answer">\(\dfrac{11}{2}\)</span></p>
+      <p class="point">別解：直線 \(BC\) は \(3x+2y-16=0\)、\(BC=\sqrt{13}\)、\(A\) との距離 \(\frac{11}{\sqrt{13}}\)。\(\frac12\cdot\sqrt{13}\cdot\frac{11}{\sqrt{13}}=\frac{11}2\) で一致。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crd-p4" data-level="2">
+    <h3><span class="pid">P4</span>直線に関する対称点と折れ線の最短経路</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「直線 \(\ell\) に関して点 \(A\) と対称な点」「\(\ell\) 上を動く点 \(P\) に対して \(AP+PB\) の最小値」</dd>
+      <dt>こう考える</dt><dd>対称点 \(A'\) は2条件で決まる：<b>①\(AA'\) の中点が \(\ell\) 上</b>、<b>②\(AA'\perp\ell\)</b>。最短経路は、\(A\) を \(A'\) に折り返すと \(AP=A'P\) なので、\(A'P+PB\) が<b>一直線になるとき最小</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(A'(p,q)\) とおき、中点条件と垂直条件の連立方程式を解く。</li>
+        <li>\(A,B\) が \(\ell\) の同じ側にあることを確認（\(ax+by+c\) の符号が同じ）。</li>
+        <li>\(AP+PB=A'P+PB\ge A'B\)。等号は \(P\) が線分 \(A'B\) と \(\ell\) の交点のとき。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>中点、垂直条件、三角不等式（2点間は線分が最短）</dd>
+      <dt>なぜこの方法？</dt><dd>折れ線は長さを比べにくいが、片方を折り返すと「2点を結ぶ道のり」になり、まっすぐが最短。<a href="../thinking.html#t-symmetry">発想：対称性を使う</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">直線 \(\ell:\ 2x+y-5=0\) と2点 \(A(5,0),\ B(4,2)\) がある。<br>(1) \(\ell\) に関して \(A\) と対称な点 \(A'\) の座標を求めよ。<br>(2) 点 \(P\) が \(\ell\) 上を動くとき、\(AP+PB\) の最小値とそのときの \(P\) の座標を求めよ。</div>
+      <p>(1) \(A'(p,q)\) とおく。中点 \(\left(\frac{p+5}{2},\frac q2\right)\) が \(\ell\) 上：\((p+5)+\frac q2-5=0\)、すなわち \(2p+q=0\)。</p>
+      <p>\(AA'\perp\ell\)：\(\ell\) の傾きは \(-2\) なので \(\frac{q}{p-5}\cdot(-2)=-1\)、すなわち \(p-2q=5\)。連立して \(p=1,\ q=-2\)。<span class="answer">\(A'(1,-2)\)</span></p>
+      <p>(2) \(2x+y-5\) に代入すると \(A\) で \(5\)、\(B\) で \(5\)：同じ側にある。\(AP=A'P\) なので</p>
+      <p>\(AP+PB=A'P+PB\ge A'B=\sqrt{3^2+4^2}=5\)。</p>
+      <p>等号は \(P\) が線分 \(A'B\) 上のとき。直線 \(A'B\)：\(y=\frac43(x-1)-2\) と \(\ell\) の交点は \(2x+\frac43x-\frac{10}{3}=5\) より \(x=\frac52,\ y=0\)。</p>
+      <p class="answer">最小値 5、\(P\left(\dfrac52,\ 0\right)\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crd-p5" data-level="2">
+    <h3><span class="pid">P5</span>定点を通る直線・2直線の交点を通る直線</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「直線 \((k+2)x+(1-k)y-5k-1=0\) は \(k\) の値にかかわらず定点を通る」「2直線の交点と点 \((3,1)\) を通る直線」</dd>
+      <dt>こう考える</dt><dd>「\(k\) にかかわらず」＝「\(k\) についての恒等式」。<b>\(k\) について整理</b>して \(k\,g(x,y)+f(x,y)=0\) とすれば、\(f=g=0\) の点が定点。逆に、交点を通る直線は \(f+kg=0\) とおける。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(k\) を含む項と含まない項に分けて \(k(\ \ )+(\ \ )=0\)。</li>
+        <li>両方のかっこ \(=0\) を連立 → 定点。</li>
+        <li>交点を通る直線は \(f(x,y)+k\,g(x,y)=0\) に通る点を代入して \(k\) を決める（交点そのものを求めなくてよい）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>恒等式（<a href="m2-proof.html">式と証明</a>）、曲線の束</dd>
+      <dt>なぜこの方法？</dt><dd>\(k\,g+f=0\) がすべての \(k\) で成り立つのは \(g=0\) かつ \(f=0\) のときだけ（\(k\) の1次式が恒等的に 0）。<a href="../thinking.html#t-forall">発想：∀と∃の言い換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 直線 \((k+2)x+(1-k)y-5k-1=0\) は、\(k\) の値にかかわらず定点を通る。その座標を求めよ。<br>(2) 2直線 \(x+y-3=0,\ 2x-y=0\) の交点と、点 \((3,1)\) を通る直線の方程式を求めよ。</div>
+      <p>(1) \(k\) について整理：\(k(x-y-5)+(2x+y-1)=0\)。これがすべての \(k\) で成り立つ条件は \(x-y-5=0,\ 2x+y-1=0\)。</p>
+      <p>足して \(3x=6\)、\(x=2,\ y=-3\)。<span class="answer">\((2,-3)\)</span></p>
+      <p>(2) 求める直線を \((x+y-3)+k(2x-y)=0\) とおく。\((3,1)\) を通るので \(1+5k=0\)、\(k=-\frac15\)。</p>
+      <p>\(5(x+y-3)-(2x-y)=0\) より \(3x+6y-15=0\)。<span class="answer">\(x+2y-5=0\)</span></p>
+      <p class="point">この形では直線 \(2x-y=0\) 自身は表せない。求める直線が \(2x-y=0\) でないことは \((3,1)\) を代入して確認できる（\(5\neq0\)）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crd-p6" data-level="1">
+    <h3><span class="pid">P6</span>円の方程式（3点を通る円・円を表す条件）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「3点を通る円の方程式」「\(x^2+y^2-4x+6y+k=0\) が円を表す \(k\) の範囲」「中心と半径を求めよ」</dd>
+      <dt>こう考える</dt><dd>中心・半径が分かるなら標準形、3点だけなら一般形 \(x^2+y^2+lx+my+n=0\)（未知数3つ）。一般形は<b>平方完成</b>すれば中心と半径が読める。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>3点を一般形に代入して \(l,m,n\) の連立方程式を解く。</li>
+        <li>平方完成して \((x-a)^2+(y-b)^2=(\text{右辺})\)。</li>
+        <li>円を表す条件は「右辺 \(\gt0\)」。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>円の方程式、平方完成</dd>
+      <dt>なぜこの方法？</dt><dd>一般形は \(l,m,n\) について1次なので、代入すると連立1次方程式になり確実に解ける。右辺 \(=0\) は1点、負なら図形なし。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 3点 \((1,3),\ (-3,1),\ (5,1)\) を通る円の方程式を求め、中心と半径を答えよ。<br>(2) \(x^2+y^2-4x+6y+k=0\) が円を表すような \(k\) の範囲を求めよ。</div>
+      <p>(1) \(x^2+y^2+lx+my+n=0\) に代入：</p>
+      \[ \begin{aligned} 10+l+3m+n&=0\\ 10-3l+m+n&=0\\ 26+5l+m+n&=0 \end{aligned} \]
+      <p>2式目と3式目の差から \(8l+16=0\)、\(l=-2\)。1式目と2式目の差から \(4l+2m=0\)、\(m=4\)。よって \(n=-20\)。</p>
+      <p>\(x^2+y^2-2x+4y-20=0\iff(x-1)^2+(y+2)^2=25\)。</p>
+      <p class="answer">\(x^2+y^2-2x+4y-20=0\)、中心 \((1,-2)\)、半径 5</p>
+      <p>(2) \((x-2)^2+(y+3)^2=13-k\)。円を表すのは \(13-k\gt0\)。<span class="answer">\(k\lt13\)</span></p>
+      <p class="point">(1) の別解：\((-3,1)\) と \((5,1)\) の垂直二等分線 \(x=1\) 上に中心がある、と図形的に考えると速い。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crd-p7" data-level="2">
+    <h3><span class="pid">P7</span>円と直線の位置関係・弦の長さ</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「円 \(x^2+y^2=5\) と直線 \(y=2x+k\) が異なる2点で交わる \(k\) の範囲」「弦の長さが4となる \(k\)」</dd>
+      <dt>こう考える</dt><dd>2つの方法：①<b>中心と直線の距離 \(d\) と半径 \(r\) の比較</b>、②連立して判別式。弦の長さは \(d\) と \(r\) から<b>三平方の定理</b>で出るので、①が圧倒的に速い。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>中心と直線の距離 \(d\) を求める。</li>
+        <li>\(d\lt r\)（2点）、\(d=r\)（接する）、\(d\gt r\)（共有点なし）。</li>
+        <li>弦の長さ \(=2\sqrt{r^2-d^2}\)（中心から弦に下ろした垂線は弦を2等分）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>点と直線の距離、三平方の定理、判別式</dd>
+      <dt>なぜこの方法？</dt><dd>判別式は交点の \(x\) 座標の情報しか使わないので、弦の長さを出すには解の差の計算が必要になる。距離を使えば図形の対称性（垂線が弦を2等分）をそのまま使える。<a href="../thinking.html#t-graph">発想：図にする</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">円 \(C:\ x^2+y^2=5\) と直線 \(\ell:\ y=2x+k\) について、<br>(1) 共有点の個数を \(k\) の値で分類せよ。<br>(2) \(C\) が \(\ell\) から切り取る弦の長さが4となる \(k\) の値を求めよ。</div>
+      <p>(1) \(\ell:\ 2x-y+k=0\)。中心 \((0,0)\) との距離は \(d=\dfrac{\abs k}{\sqrt5}\)、半径 \(\sqrt5\)。</p>
+      <p>\(d\lt\sqrt5\iff\abs k\lt5\)。</p>
+      <p class="answer">\(-5\lt k\lt5\)：2個、\(k=\pm5\)：1個、\(k\lt-5,\ 5\lt k\)：0個</p>
+      <p>(2) 弦の長さ \(2\sqrt{5-d^2}=4\) より \(d^2=1\)、\(\frac{k^2}{5}=1\)。<span class="answer">\(k=\pm\sqrt5\)</span></p>
+      <p class="point">判別式で確かめると、\(x^2+(2x+k)^2=5\) の判別式は \(-4(k-5)(k+5)\) となり、(1) と一致する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crd-p8" data-level="2">
+    <h3><span class="pid">P8</span>円の接線（接線の公式・距離・極線）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「円 \(x^2+y^2=5\) に点 \((3,1)\) から引いた接線の方程式」「円上の点における接線」</dd>
+      <dt>こう考える</dt><dd>①<b>接点を \((x_1,y_1)\) とおく</b>：接線は \(x_1x+y_1y=5\)、これが \((3,1)\) を通る＋接点は円上、の2式で決まる。②<b>傾きを \(m\) とおく</b>：中心との距離＝半径。①は接点も同時に求まり、②は傾きのない直線（\(x=\)一定）を見落とす危険がある。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>接点 \((x_1,y_1)\) とおき、\(x_1^2+y_1^2=5\)、\(3x_1+y_1=5\)（接線が \((3,1)\) を通る）。</li>
+        <li>連立して接点を求め、接線 \(x_1x+y_1y=5\) を書く。</li>
+        <li>中心が原点でない円 \((x-a)^2+(y-b)^2=r^2\) では \((x_1-a)(x-a)+(y_1-b)(y-b)=r^2\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>接線の公式、点と直線の距離</dd>
+      <dt>なぜこの方法？</dt><dd>接線は「接点の半径に垂直な直線」。接点を主役にすれば垂直条件が公式に組み込まれている。<b>発展（極線）</b>：①の2本目の式 \(3x_1+y_1=5\) は「2つの接点がともに直線 \(3x+y=5\) 上にある」ことを意味する。この直線を点 \((3,1)\) の<b>極線</b>といい、接点を結ぶ直線（接点弦）になる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">点 \(A(3,1)\) から円 \(x^2+y^2=5\) に引いた2本の接線の方程式と、接点の座標を求めよ。</div>
+      <p>接点を \((x_1,y_1)\) とすると、接線は \(x_1x+y_1y=5\)。これが \(A\) を通るので \(3x_1+y_1=5\)。また \(x_1^2+y_1^2=5\)。</p>
+      <p>\(y_1=5-3x_1\) を代入して \(10x_1^2-30x_1+20=0\)、\(x_1^2-3x_1+2=0\)、\(x_1=1,\ 2\)。</p>
+      <p>\((x_1,y_1)=(1,2),\ (2,-1)\)。</p>
+      <p class="answer">接線 \(x+2y=5\)（接点 \((1,2)\)）、\(2x-y=5\)（接点 \((2,-1)\)）</p>
+      <p class="point">傾き \(m\) とおく解法：\(mx-y-3m+1=0\) と原点の距離 \(\frac{\abs{1-3m}}{\sqrt{m^2+1}}=\sqrt5\) より \(2m^2-3m-2=0\)、\(m=2,\ -\frac12\)。同じ結果になる。2接点を結ぶ直線は \(3x+y=5\)（極線）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crd-p9" data-level="2">
+    <h3><span class="pid">P9</span>2円の位置関係・2円の交点を通る図形</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「2円の交点を通る直線（共通弦）の方程式」「2円の交点と原点を通る円」「2円が接する条件」</dd>
+      <dt>こう考える</dt><dd>交点を求めずに、<b>\(f+kg=0\)（束）</b>で交点を通る図形を一網打尽にする。\(k=-1\) なら \(x^2+y^2\) が消えて<b>直線（共通弦）</b>、それ以外は円。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>2円が交わることを中心間距離 \(d\) と \(\abs{r_1-r_2}\lt d\lt r_1+r_2\) で確認。</li>
+        <li>\(f(x,y)+k\,g(x,y)=0\) とおき、通る点を代入して \(k\) を決める。</li>
+        <li>共通弦は \(f-g=0\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>曲線の束、2円の位置関係</dd>
+      <dt>なぜこの方法？</dt><dd>交点では \(f=g=0\) なので \(f+kg=0\) は必ず成り立つ。交点の座標が汚い数でも、この方法なら計算が楽。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">2円 \(C_1:\ x^2+y^2=5\)、\(C_2:\ x^2+y^2-6x-2y+5=0\) について、<br>(1) 2円は2点で交わることを示し、2交点を通る直線の方程式を求めよ。<br>(2) 2交点と原点を通る円の方程式を求めよ。</div>
+      <p>(1) \(C_2:\ (x-3)^2+(y-1)^2=5\)。中心間距離 \(d=\sqrt{10}\)、半径はともに \(\sqrt5\)。\(0\lt\sqrt{10}\lt2\sqrt5\) なので2点で交わる。</p>
+      <p>辺々引いて \(6x+2y-10=0\)。<span class="answer">\(3x+y-5=0\)</span></p>
+      <p>(2) \((x^2+y^2-5)+k(x^2+y^2-6x-2y+5)=0\) とおく。原点を通るので \(-5+5k=0\)、\(k=1\)。</p>
+      <p>\(2x^2+2y^2-6x-2y=0\)。<span class="answer">\(x^2+y^2-3x-y=0\)</span></p>
+      <p class="point">確認：交点は \((1,2),\ (2,-1)\)。どちらも \(x^2+y^2-3x-y=0\) を満たす。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crd-p10" data-level="2">
+    <h3><span class="pid">P10</span>軌跡の基本（アポロニウスの円）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(AP:BP=2:1\) を満たす点 \(P\) の軌跡を求めよ」「2点から等距離」「\(AP^2+BP^2=\)一定」</dd>
+      <dt>こう考える</dt><dd>動く点を <b>\(P(x,y)\) とおき</b>、条件をそのまま \(x,y\) の式にする。距離の条件は2乗して根号を外す。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(P(x,y)\) とおく。</li>
+        <li>条件を式にする（\(AP:BP=2:1\iff AP^2=4BP^2\)）。</li>
+        <li>整理して図形を特定する。</li>
+        <li>逆に、その図形上のすべての点が条件を満たすことを確認する（同値変形なら一言でよい）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>2点間の距離、円の方程式</dd>
+      <dt>なぜこの方法？</dt><dd>\(AP:BP=2:1\iff AP=2BP\iff AP^2=4BP^2\)（どちらも 0 以上なので2乗は同値）。同値変形だけで進めれば逆も自動的に成り立つ。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">2点 \(A(0,0),\ B(3,0)\) からの距離の比が \(AP:BP=2:1\) である点 \(P\) の軌跡を求めよ。</div>
+      <p>\(P(x,y)\) とおく。\(AP=2BP\iff AP^2=4BP^2\) なので</p>
+      \[ x^2+y^2=4\{(x-3)^2+y^2\}\iff x^2+y^2-8x+12=0\iff(x-4)^2+y^2=4 \]
+      <p>すべて同値変形なので、この円上の点はすべて条件を満たす。</p>
+      <p class="answer">中心 \((4,0)\)、半径 2 の円</p>
+      <p class="point">この円の直径の両端 \((2,0),\ (6,0)\) は、\(AB\) を \(2:1\) に内分する点と外分する点。アポロニウスの円の一般的な性質で、検算に使える。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crd-p11" data-level="2">
+    <h3><span class="pid">P11</span>つなぎの文字を消去する軌跡（範囲に注意）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「放物線 \(y=x^2\) と直線 \(y=mx-1\) が異なる2点で交わるとき、2交点の中点の軌跡」（\(m\) が動く）</dd>
+      <dt>こう考える</dt><dd>動点の座標が<b>パラメータ \(m\)（つなぎの文字）で表される</b>。\(x=f(m),\ y=g(m)\) から \(m\) を消去すれば \(x,y\) の関係式。ただし <b>\(m\) の範囲が \(x\) の範囲に化ける</b>ので、それを必ず引き継ぐ。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(m\) の条件（交わる条件など）を求める。</li>
+        <li>動点 \((X,Y)\) を \(m\) で表す（解と係数の関係を使うと楽）。</li>
+        <li>\(m\) を消去して \(X,Y\) の関係式を作る。</li>
+        <li>\(m\) の範囲から \(X\) の範囲を求め、軌跡を「〜の \(\cdots\) の部分」と答える。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>解と係数の関係、判別式</dd>
+      <dt>なぜこの方法？</dt><dd>「\((X,Y)\) が軌跡上にある \(\iff\) その点を与える \(m\) が存在する」。\(m=2X\) と逆に解けるので、\(m\) が存在する条件は「\(2X\) が \(m\) の条件を満たす」こと。ここで範囲が決まる。<a href="../thinking.html#t-inverse">発想：逆像法</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">放物線 \(y=x^2\) と直線 \(y=mx-1\) が異なる2点で交わるとき、2交点を結ぶ線分の中点 \(M\) の軌跡を求めよ。</div>
+      <p>連立して \(x^2-mx+1=0\)。異なる2実数解をもつ条件は \(m^2-4\gt0\)、すなわち \(\abs m\gt2\)。</p>
+      <p>2解を \(\alpha,\beta\) とすると \(\alpha+\beta=m\)。中点 \(M(X,Y)\) は \(X=\frac{m}{2}\)、\(Y=mX-1\)（直線上）。</p>
+      <p>\(m=2X\) を代入して \(Y=2X^2-1\)。また \(\abs m\gt2\iff\abs X\gt1\)。</p>
+      <p class="answer">放物線 \(y=2x^2-1\) の \(x\lt-1,\ 1\lt x\) の部分</p>
+      <p class="point">\(\abs x\gt1\) を書き忘れると、放物線全体と答えてしまう。例えば \(x=0\)（\(m=0\)）では直線 \(y=-1\) と放物線は交わらない。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crd-p12" data-level="3">
+    <h3><span class="pid">P12</span>パラメータを含む2直線の交点の軌跡（除外点）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(m\) が実数全体を動くとき、2直線 \(mx-y=0\) と \(x+my-2=0\) の交点の軌跡」</dd>
+      <dt>こう考える</dt><dd>交点の座標を求めて \(m\) を消去してもよいが、<b>2式から直接 \(m\) を消去する</b>方が速い。ただし \(m=\frac yx\) と割り算をするので、\(x=0\) の場合を別に調べる必要がある。そこに<b>除外点</b>が隠れている。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>「点 \((x,y)\) が軌跡上 \(\iff\) 2式を同時に満たす実数 \(m\) が存在する」と言い換える。</li>
+        <li>\(x\neq0\) のとき：1式目から \(m=\frac yx\)、2式目に代入して \(x,y\) の式を得る。</li>
+        <li>\(x=0\) のとき：2式を満たす \(m\) が存在するか直接調べる。</li>
+        <li>まとめて「〜から点〜を除いたもの」と答える。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>同値な言い換え、円の方程式</dd>
+      <dt>なぜこの方法？</dt><dd>軌跡は「その点を与える \(m\) が存在するか」で決まる。割り算・代入のたびに「同値か？」を確認すると除外点を見落とさない。図形的には、\(mx-y=0\) は原点を通り、\(x+my-2=0\) は \((2,0)\) を通り、両者は常に垂直なので交点は \(OA\)（\(A(2,0)\)）を直径とする円上にある。<a href="../thinking.html#t-rephrase">発想：同値な言い換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(m\) が実数全体を動くとき、2直線 \(\ell_1:\ mx-y=0\)、\(\ell_2:\ x+my-2=0\) の交点 \(P\) の軌跡を求めよ。</div>
+      <p>点 \((x,y)\) が軌跡上にある \(\iff\) \(mx-y=0\) …① かつ \(x+my-2=0\) …② を満たす実数 \(m\) が存在する。</p>
+      <p>[1] \(x\neq0\) のとき：①\(\iff m=\frac yx\)。これを②に代入して \(x+\frac{y^2}{x}-2=0\iff x^2+y^2-2x=0\)。このとき \(m=\frac yx\) は実数として存在する。</p>
+      <p>[2] \(x=0\) のとき：①より \(y=0\)。②に代入すると \(-2=0\) となり不成立。よって \(x=0\) となる点は軌跡に含まれない。</p>
+      <p>円 \(x^2+y^2-2x=0\) 上で \(x=0\) となる点は原点のみ。</p>
+      <p class="answer">円 \((x-1)^2+y^2=1\) から原点 \((0,0)\) を除いたもの</p>
+      <p class="point">原点が除かれる理由：原点を通るには \(\ell_2\) が原点を通る必要があるが、\(\ell_2\) は \(m\) によらず \((0,0)\) を通らない（\(-2\neq0\)）。点 \((2,0)\) は \(m=0\) で実現される。採点では「除外点の根拠」が問われる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crd-p13" data-level="3">
+    <h3><span class="pid">P13</span>パラメータ表示の点の軌跡・動く範囲（実数条件）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「点 \(P(t+1,\ t^2-2t)\ (0\le t\le2)\) の軌跡」「実数 \(s,t\) が \(s^2+t^2\le1\) を満たすとき点 \((s+t,\ st)\) の動く範囲」</dd>
+      <dt>こう考える</dt><dd>1パラメータなら \(t\) を消去して範囲を引き継ぐ（P11 と同じ）。2パラメータ \((s,t)\) で \((s+t,st)\) なら、<b>\(X=s+t,\ Y=st\) となる実数 \(s,t\) が存在する条件</b>を考える。\(s,t\) は \(u^2-Xu+Y=0\) の2解なので、実数であるには判別式 \(\ge0\)。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(X=s+t,\ Y=st\) とおく。</li>
+        <li>\(s,t\) が実数 \(\iff X^2-4Y\ge0\)（これを<b>忘れると範囲が広がりすぎる</b>）。</li>
+        <li>\(s,t\) の条件を \(X,Y\) で書き直す（\(s^2+t^2=X^2-2Y\)）。</li>
+        <li>2つの条件の共通部分を図示する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>解と係数の関係、判別式</dd>
+      <dt>なぜこの方法？</dt><dd>\((X,Y)\) が範囲に入る \(\iff\) その \((X,Y)\) を実現する \((s,t)\) が存在する。\(s,t\) を2次方程式の解とみなせば、存在条件は判別式で書ける。<a href="m1-quadratic.html">2次関数</a>の「対称式と実数条件」の図形版。<a href="../thinking.html#t-inverse">発想：逆像法</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(t\) が \(0\le t\le2\) を動くとき、点 \(P(t+1,\ t^2-2t)\) の軌跡を求めよ。<br>(2) 実数 \(s,t\) が \(s^2+t^2\le1\) を満たしながら動くとき、点 \(Q(s+t,\ st)\) の動く範囲を図示せよ。</div>
+      <p>(1) \(x=t+1,\ y=t^2-2t\)。\(t=x-1\) を代入して \(y=(x-1)^2-2(x-1)=x^2-4x+3\)。\(0\le t\le2\iff1\le x\le3\)。</p>
+      <p class="answer">(1) 放物線 \(y=x^2-4x+3\) の \(1\le x\le3\) の部分</p>
+      <p>(2) \(X=s+t,\ Y=st\) とおく。\((X,Y)\) が範囲に入る \(\iff\) 「\(s+t=X,\ st=Y,\ s^2+t^2\le1\) を満たす実数 \(s,t\) が存在する」。</p>
+      <p>\(s,t\) は \(u^2-Xu+Y=0\) の2解なので、実数である条件は \(X^2-4Y\ge0\)。また \(s^2+t^2=X^2-2Y\le1\)。</p>
+      \[ \frac{X^2-1}{2}\le Y\le\frac{X^2}{4} \]
+      <p>2つの放物線は \(\frac{X^2-1}{2}=\frac{X^2}{4}\)、すなわち \(X=\pm\sqrt2\)（\(Y=\frac12\)）で交わる。</p>
+      <p class="answer">(2) 放物線 \(y=\frac{x^2}{4}\) と \(y=\frac{x^2-1}{2}\) で挟まれた部分（\(-\sqrt2\le x\le\sqrt2\)、境界を含む）</p>
+      <p class="point">実数条件 \(X^2-4Y\ge0\) を落とすと、\(Y\ge\frac{X^2-1}{2}\) 全体（上に無限に広がる領域）と答えてしまう。例えば \((0,1)\) は \(s+t=0,\ st=1\) で \(s,t\) が虚数になり不適。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crd-p14" data-level="1">
+    <h3><span class="pid">P14</span>不等式の表す領域</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「不等式 \(y\gt2x-1\)、\(x^2+y^2\le4\) の表す領域を図示せよ」「\((x+y-2)(x^2+y^2-4)\lt0\) の表す領域」</dd>
+      <dt>こう考える</dt><dd>まず<b>境界（等号の図形）</b>を描く。境界で平面がいくつかの部分に分かれ、各部分で式の符号は一定。<b>1点代入</b>（原点など）で符号を判定するのが確実。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(y\gt f(x)\) は曲線の上側、\(y\lt f(x)\) は下側。円は \(\lt r^2\) が内部。</li>
+        <li>連立不等式は共通部分。</li>
+        <li>積 \(AB\lt0\) は「\(A\gt0\) かつ \(B\lt0\)」または「\(A\lt0\) かつ \(B\gt0\)」。境界をまたぐたびに符号が変わる。</li>
+        <li>境界を含むか（\(\le\)）含まないか（\(\lt\)）を明記する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>正領域・負領域</dd>
+      <dt>なぜこの方法？</dt><dd>\(f(x,y)\) は連続なので、境界 \(f=0\) をまたがない限り符号は変わらない。だから各部分から1点ずつ代入すれば全体が分かる。<a href="../thinking.html#t-graph">発想：図にする</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">不等式 \((x+y-2)(x^2+y^2-4)\lt0\) の表す領域を求めよ。</div>
+      <p>境界は直線 \(x+y=2\) と円 \(x^2+y^2=4\)。直線は円と \((2,0),\ (0,2)\) で交わる。</p>
+      <p>与式 \(\iff\)「\(x+y-2\gt0\) かつ \(x^2+y^2\lt4\)」または「\(x+y-2\lt0\) かつ \(x^2+y^2\gt4\)」。</p>
+      <p>原点を代入すると \((-2)\cdot(-4)=8\gt0\) なので、原点を含む部分（円の内部で直線の下側）は含まれない。境界をまたぐごとに符号が入れかわる。</p>
+      <p class="answer">円の内部で直線 \(x+y=2\) より上側の部分（弓形）と、円の外部で直線より下側の部分。境界は含まない</p>
+      <p class="point">確認：\((1.2,\ 1.2)\) は \(0.4\cdot(-1.12)\lt0\) で領域内（弓形の中）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crd-p15" data-level="2">
+    <h3><span class="pid">P15</span>領域と最大・最小（\(=k\) とおく）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「点 \((x,y)\) が領域 \(D\) を動くとき、\(2x+y\) の最大値・最小値」（他に \(\frac{y}{x+1}\)、\(x^2+y^2\) なども）</dd>
+      <dt>こう考える</dt><dd>\(2x+y=k\) とおくと、これは傾き \(-2\) の<b>直線</b>。「\(k\) がとりうる値」＝「直線が領域 \(D\) と共有点をもつような \(k\)」。直線を平行移動して、\(D\) に触れる最初と最後を探す。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>領域 \(D\) を図示する。</li>
+        <li>\(2x+y=k\iff y=-2x+k\)（\(y\) 切片が \(k\)）として、\(D\) と共有点をもつ範囲で直線を動かす。</li>
+        <li>最大・最小は「頂点を通るとき」か「円弧に接するとき」。接する場合は接点が \(D\) の境界上にあるか必ず確認。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>点と直線の距離（接する条件）</dd>
+      <dt>なぜこの方法？</dt><dd>2変数の式の値を「図形（直線）の位置」に置き換えると、最大最小が目で見える。\(\frac{y-b}{x-a}=k\) は点 \((a,b)\) を通る直線の傾き、\(x^2+y^2=k\) は円の半径の2乗と読む。<a href="../thinking.html#t-inverse">発想：逆像法（\(k\) となる点が存在する条件）</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">点 \((x,y)\) が領域 \(D:\ x^2+y^2\le5,\ y\ge0\) を動くとき、\(2x+y\) の最大値と最小値を求めよ。</div>
+      <p>\(D\) は原点中心、半径 \(\sqrt5\) の円の上半分（境界を含む）。\(2x+y=k\) は傾き \(-2\)、\(y\) 切片 \(k\) の直線。</p>
+      <p><b>最大</b>：直線が円弧に接するとき。\(\frac{\abs k}{\sqrt5}=\sqrt5\) より \(k=5\)（\(k\gt0\) 側）。接点は原点からの垂線の足 \((2,1)\) で、\(y\ge0\) を満たす。</p>
+      <p><b>最小</b>：\(k=-5\) の接点 \((-2,-1)\) は \(y\lt0\) で \(D\) の外。そこで直線を下げていくと、最後に触れるのは端点 \((-\sqrt5,0)\)。\(k=-2\sqrt5\)。</p>
+      <p class="answer">最大値 5（\(x=2,\ y=1\)）、最小値 \(-2\sqrt5\)（\(x=-\sqrt5,\ y=0\)）</p>
+      <p class="point">「接するとき最小」と機械的に答えると \(-5\) という誤答になる。<b>接点が領域内か</b>を毎回確認する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crd-p16" data-level="2">
+    <h3><span class="pid">P16</span>線形計画法（文章題）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「製品 A を1個作るには原料1kg と2時間、B は原料3kg と1時間が必要…利益を最大にするには」</dd>
+      <dt>こう考える</dt><dd>個数を \(x,y\) とおけば、制約は1次不等式、利益は1次式。領域は多角形になり、<b>最大・最小は必ず頂点</b>でとる（P15 の直線版）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>変数を定め、制約条件を不等式にする（\(x\ge0,\ y\ge0\) を忘れない）。</li>
+        <li>領域（多角形）を描き、頂点を求める。</li>
+        <li>目的の式 \(=k\) の直線の傾きと、辺の傾きを比べて最適な頂点を決める（または頂点で値を比較）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>領域と最大最小、連立1次方程式</dd>
+      <dt>なぜこの方法？</dt><dd>1次式 \(=k\) の直線を平行移動すると、多角形に最後に触れるのは頂点（または辺全体）。だから頂点の値を比べれば十分。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">製品 A を1個作るには原料1kg と作業2時間、製品 B を1個作るには原料3kg と作業1時間が必要で、利益は A が1個3万円、B が1個4万円である。原料は15kg、作業時間は10時間まで使える。利益を最大にするには A, B をそれぞれ何個作ればよいか。</div>
+      <p>A を \(x\) 個、B を \(y\) 個とすると、\(x\ge0,\ y\ge0,\ x+3y\le15,\ 2x+y\le10\)。利益 \(k=3x+4y\)（万円）。</p>
+      <p>領域は \((0,0),\ (5,0),\ (3,4),\ (0,5)\) を頂点とする四角形（\((3,4)\) は \(x+3y=15,\ 2x+y=10\) の交点）。</p>
+      <p>直線 \(3x+4y=k\) の傾き \(-\frac34\) は、辺の傾き \(-2\)（\(2x+y=10\)）と \(-\frac13\)（\(x+3y=15\)）の間にあるので、頂点 \((3,4)\) で最大。</p>
+      <p>頂点での値：\(0,\ 15,\ 25,\ 20\)。最大は \(25\)。</p>
+      <p class="answer">A を3個、B を4個作るとき、利益は最大で25万円</p>
+      <p class="point">頂点が整数でない場合は、近くの格子点（整数の組）を調べ直す必要がある。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crd-p17" data-level="3">
+    <h3><span class="pid">P17</span>通過領域①：逆像法（パラメータの存在条件）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(t\) が \(t\ge0\) の範囲を動くとき、直線 \(\ell_t:\ y=2tx-t^2\) が通過する領域を求めよ」</dd>
+      <dt>こう考える</dt><dd>視点を逆にする。「直線がどこを通るか」ではなく、<b>「点 \((x,y)\) を1つ固定したとき、その点を通る \(\ell_t\) があるか」</b>を考える。それは「\(t\) の方程式 \(t^2-2xt+y=0\) が \(t\ge0\) の解をもつか」という<b>解の配置</b>の問題になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>点 \((x,y)\) を固定し、式を \(t\) の方程式 \(g(t)=0\) とみる。</li>
+        <li>「\(g(t)=0\) が条件（\(t\ge0\) など）を満たす実数解をもつ」条件を、判別式・軸・端点の値で書く（<a href="m1-quadratic.html">2次関数</a>の解の配置）。</li>
+        <li>得られた \(x,y\) の不等式を図示する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>解の配置（判別式・軸・端点の符号）</dd>
+      <dt>なぜこの方法？</dt><dd>通過領域＝\(\{(x,y)\mid\ (x,y)\text{ を通る }\ell_t\text{ が存在する}\}\)。「存在する」は方程式の解の存在条件に言い換えられる。\(t\) について2次なら解の配置の道具がすべて使える。<a href="../thinking.html#t-inverse">発想：逆像法</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(t\) が \(t\ge0\) の範囲を動くとき、直線 \(\ell_t:\ y=2tx-t^2\) が通過する領域を求め、図示せよ。</div>
+      <p>点 \((x,y)\) が求める領域に含まれる \(\iff\) \(t\) の2次方程式 \(g(t)=t^2-2xt+y=0\) が \(t\ge0\) の実数解を少なくとも1つもつ。</p>
+      <p>\(g(t)\) は下に凸、軸 \(t=x\)、\(g(0)=y\)、判別式 \(D/4=x^2-y\)。</p>
+      <p>[1] \(g(0)\le0\)（\(y\le0\)）のとき：\(g(0)\le0\) と \(t\to\infty\) で \(g\to\infty\) より、\(t\ge0\) に必ず解をもつ。</p>
+      <p>[2] \(g(0)\gt0\)（\(y\gt0\)）のとき：2解の積 \(y\gt0\) なので2解は同符号。\(t\ge0\) の解をもつ条件は「実数解をもち、軸が正」：\(x^2-y\ge0\) かつ \(x\gt0\)。</p>
+      <p>以上より、求める領域は「\(y\le0\)」または「\(x\gt0\) かつ \(0\lt y\le x^2\)」。</p>
+      <p class="answer">\(y\le0\) の部分と、\(x\gt0\) で放物線 \(y=x^2\) 以下の部分を合わせた領域（境界を含む）</p>
+      <p class="point">図形的意味：\(\ell_t\) は放物線 \(y=x^2\) の点 \((t,t^2)\) における接線。\(t\ge0\) の接線全体が掃く範囲が答え。境界の放物線（\(x\gt0\) の部分）は接点として含まれる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crd-p18" data-level="3">
+    <h3><span class="pid">P18</span>通過領域②：\(x\) を固定して動かす（ファクシミリ論法）・包絡線</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(0\le t\le1\) のとき直線 \(y=2tx-t^2\) が通過する領域」（パラメータの範囲が区間）、線分の通過領域</dd>
+      <dt>こう考える</dt><dd><b>直線 \(x=k\)（縦の線）を1本固定</b>し、その上で \(y\) がどの範囲を動くかを調べる。\(y=f(t)\) は \(t\) の関数なので、<b>\(t\) の関数としての値域</b>を求めればよい。それを \(k\) を動かして並べれば領域になる（ファックスが1行ずつ読み取るイメージ）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(x\) を固定し、\(y=f(t)\) を \(t\) の関数とみる。</li>
+        <li>\(t\) の範囲での最大値・最小値を求める（軸と区間の位置で場合分け＝<a href="m1-quadratic.html">2次関数</a>P4型）。連続なのでその間のすべての値をとる。</li>
+        <li>\(x\) の範囲ごとに「最小値 \(\le y\le\) 最大値」を書き並べ、図示する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>2次関数の最大最小、（発展）包絡線</dd>
+      <dt>なぜこの方法？</dt><dd>\(y\) が \(t\) について解ける形（\(y=f(t)\)）なら、逆像法より場合分けが少ない。パラメータが区間を動くとき特に有効。<b>包絡線の考え方</b>：\(\ell_t\) は放物線 \(y=x^2\) の接線（\(x^2-(2tx-t^2)=(x-t)^2\ge0\)）で、領域の曲線部分の境界は接点の集まり（包絡線 \(y=x^2\)）になる。答えの検算に使えるが、答案の根拠には「固定して動かす」論法を書く。<a href="../thinking.html#t-fix">発想：1文字固定</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(t\) が \(0\le t\le1\) の範囲を動くとき、直線 \(\ell_t:\ y=2tx-t^2\) が通過する領域を求めよ。</div>
+      <p>\(x\) を固定して \(f(t)=-t^2+2xt=-(t-x)^2+x^2\ (0\le t\le1)\) の値域を求める。\(f(0)=0,\ f(1)=2x-1\)。</p>
+      <p><b>最大値</b>（上に凸、軸 \(t=x\)）：\(x\lt0\) なら \(f(0)=0\)、\(0\le x\le1\) なら \(f(x)=x^2\)、\(x\gt1\) なら \(f(1)=2x-1\)。</p>
+      <p><b>最小値</b>（端点の小さい方）：\(f(1)-f(0)=2x-1\) より、\(x\le\frac12\) なら \(2x-1\)、\(x\ge\frac12\) なら \(0\)。</p>
+      <p>\(f\) は連続なので最小値から最大値まですべての値をとる。よって求める領域は</p>
+      \[ \begin{cases} 2x-1\le y\le0 & (x\lt0)\\ 2x-1\le y\le x^2 & (0\le x\le\frac12)\\ 0\le y\le x^2 & (\frac12\le x\le1)\\ 0\le y\le2x-1 & (x\gt1) \end{cases} \]
+      <p class="answer">上の4つの不等式で表される領域（境界を含む）。直線 \(y=0\)（\(t=0\)）、直線 \(y=2x-1\)（\(t=1\)）、放物線 \(y=x^2\ (0\le x\le1)\) で囲まれた2つの部分</p>
+      <p class="point">包絡線での検算：\(\ell_t\) は \(y=x^2\) 上の \((t,t^2)\) での接線なので、\(t=0\) から \(1\) まで接点が動くと、接線 \(y=0\) と \(y=2x-1\) の間を放物線に沿って掃いていく。境界の形が一致する。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="pitfalls">
+  <h2>よくあるミスと対策</h2>
+  <ul class="pitfalls">
+    <li><b>軌跡で \(x\) の範囲・除外点を書き忘れる</b>（P11, P12, P13）。→ 消去したパラメータに条件がないか、割り算した箇所で 0 の場合がないか、最後に必ずチェック。</li>
+    <li><b>2つのパラメータ \(s,t\) の実数条件を落とす</b>（P13）。→ \(s+t,\ st\) を使ったら「\(s,t\) は \(u^2-Xu+Y=0\) の実数解」と書く。</li>
+    <li><b>領域の最大最小で、接点が領域外なのに「接するとき」と答える</b>（P15）。→ 接点の座標を求めて領域に入るか確認する。</li>
+    <li><b>傾き \(m\) で接線を立てて \(x=a\) 型を見落とす</b>（P8）。→ 接点を \((x_1,y_1)\) とおく方法を優先する。</li>
+    <li><b>平行条件で一致する場合を除き忘れる</b>（P2）。→ 求めた値を戻して2直線が同じでないか確認。</li>
+    <li><b>束 \(f+kg=0\) で \(g=0\) 自身を見落とす</b>（P5, P9）。→ 求める図形が \(g=0\) でないことを一言確認。</li>
+    <li><b>通過領域で、\(t\) の範囲を無視して判別式だけで答える</b>（P17, P18）。→ \(t\) に範囲があれば「解の配置」または「固定して値域」を使う。</li>
+  </ul>
+</section>
+
+<section id="handai">
+  <h2>阪大レベルへの橋渡し</h2>
+  <p>阪大理系では、図形と方程式は<b>軌跡・通過領域・領域の面積</b>として、微分・積分と融合して頻出する（求めた領域の面積を積分で出す、など）。答案では次の3点が採点の中心になる。</p>
+  <ul>
+    <li>「点 \((x,y)\) が求める範囲にある \(\iff\) 〜を満たす \(t\) が存在する」という<b>同値な言い換えを最初に宣言</b>する。</li>
+    <li>逆像法なら解の配置の<b>場合分けの網羅性</b>、固定法なら<b>値域の連続性（間の値をすべてとる）</b>に触れる。</li>
+    <li>端点・境界・除外点を含むかどうかを最後に明記する。</li>
+  </ul>
+
+  <article class="pattern" id="crd-h1" data-level="3">
+    <h3><span class="pid">演1</span>線分の通過領域</h3>
+    <div class="problem">\(0\le t\le1\) を満たす実数 \(t\) に対し、2点 \(A(t,0),\ B(0,1-t)\) を結ぶ線分 \(AB\) を考える。\(t\) が \(0\le t\le1\) の範囲を動くとき、線分 \(AB\) が通過する領域を求め、図示せよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>直線でなく<b>線分</b>なので、\(x\) 座標の範囲にも制限がある（線分上の点は \(0\le x\le t\)）。逆像法だと線分の制限が扱いにくい。そこで <b>\(x=k\) を固定</b>し、その縦線と線分 \(AB\) の交点の \(y\) 座標が \(t\) とともにどう動くかを調べる。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>線分 \(AB\) 上の点は、\(0\le s\le1\) を用いて \((x,y)=(st,\ (1-s)(1-t))\) と表せる。\(x\ge0,\ y\ge0\)、\(x=st\le1\) なので、\(0\le x\le1\) の範囲で考えればよい。\(x=k\) を固定する。</p>
+      <p>[1] \(k=0\) のとき：\(t=0\) の線分は \(y\) 軸上の \(0\le y\le1\) の部分なので、\(0\le y\le1\) のすべてが通過される。また線分は第1象限の外に出ないので \(y\) はこの範囲に限られる。</p>
+      <p>[2] \(0\lt k\le1\) のとき：線分 \(AB\) が直線 \(x=k\) と交わるのは \(k\le t\le1\) のとき（\(A\) の \(x\) 座標が \(k\) 以上）。直線 \(AB:\ \frac xt+\frac{y}{1-t}=1\)（\(0\lt t\lt1\)）に \(x=k\) を代入して</p>
+      \[ y=\varphi(t)=(1-t)\left(1-\frac kt\right)=1+k-\left(t+\frac kt\right)\qquad(k\le t\le1) \]
+      <p>（\(t=1\) のとき線分は \(x\) 軸上で交点は \((k,0)\)、これも \(\varphi(1)=0\) に含まれる。）</p>
+      <p>相加相乗より \(t+\frac kt\ge2\sqrt k\)、等号は \(t=\sqrt k\) で、\(k\le\sqrt k\le1\) より範囲内。よって \(\varphi(t)\) の最大値は \(1+k-2\sqrt k=(1-\sqrt k)^2\)。最小値は \(\varphi(k)=\varphi(1)=0\)。\(\varphi\) は連続なので、\(0\le y\le(1-\sqrt k)^2\) のすべての値をとる。</p>
+      <p>[1] は \(k=0\) のとき \((1-\sqrt k)^2=1\) と一致する。よって求める領域は</p>
+      <p class="answer">\(0\le x\le1,\ 0\le y\le(1-\sqrt x)^2\)（すなわち \(x\ge0,\ y\ge0,\ \sqrt x+\sqrt y\le1\)）。境界を含む</p>
+      <svg viewBox="-20 -22 260 245" width="260" style="max-width:100%;display:block;margin:8px auto" role="img" aria-label="通過領域の図：座標軸と曲線 √x+√y=1 で囲まれた部分">
+        <path d="M0,0 L0,200 L200,200 Q0,200 0,0 Z" fill="var(--accent-soft)" stroke="none"/>
+        <path d="M0,0 Q0,200 200,200" fill="none" stroke="var(--accent)" stroke-width="2.5"/>
+        <line x1="-10" y1="200" x2="225" y2="200" stroke="currentColor" stroke-width="1"/>
+        <line x1="0" y1="215" x2="0" y2="-15" stroke="currentColor" stroke-width="1"/>
+        <line x1="0" y1="80" x2="80" y2="200" stroke="var(--trigger)" stroke-width="1.2" stroke-dasharray="4 3"/>
+        <line x1="0" y1="140" x2="140" y2="200" stroke="var(--trigger)" stroke-width="1.2" stroke-dasharray="4 3"/>
+        <line x1="0" y1="180" x2="180" y2="200" stroke="var(--trigger)" stroke-width="1.2" stroke-dasharray="4 3"/>
+        <text x="204" y="214" font-size="13" fill="currentColor">1</text>
+        <text x="-14" y="6" font-size="13" fill="currentColor">1</text>
+        <text x="-14" y="214" font-size="13" fill="currentColor">O</text>
+        <text x="228" y="204" font-size="13" fill="currentColor">x</text>
+        <text x="4" y="-8" font-size="13" fill="currentColor">y</text>
+      </svg>
+      <p class="point">採点ポイント：①\(x=k\) を固定すると宣言、②線分と交わる \(t\) の範囲 \(k\le t\le1\) を明記（直線と線分の違い）、③最大値の根拠（相加相乗または微分）と等号の \(t\) が範囲内であること、④連続性から間の値をすべてとること、⑤\(k=0\) の扱い。点線は \(t=0.4,\ 0.7,\ 0.9\) の線分（図は \(y\) を上向きに描いている）。この領域の面積は \(\int_0^1(1-\sqrt x)^2dx=\frac16\)（<a href="m2-calculus.html">積分</a>との融合で問われやすい）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crd-h2" data-level="3">
+    <h3><span class="pid">演2</span>放物線の通過領域（逆像法と固定法の両方で）</h3>
+    <div class="problem">\(t\) が \(0\le t\le1\) の範囲を動くとき、放物線 \(C_t:\ y=x^2-2tx+2t^2\) が通過する領域を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>点 \((x,y)\) を固定すると、\(t\) の2次方程式 \(2t^2-2xt+x^2-y=0\) が \(0\le t\le1\) に解をもつ条件になる（逆像法）。区間の両端があるので「端点で符号が変わる」か「区間内に2解（重解含む）」かで場合分けする。\(y\) が \(t\) の式で書けているので、\(x\) を固定して \(t\) の2次関数の値域を求めてもよい（固定法）。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p><b>解答1（逆像法）</b>　点 \((x,y)\) が求める領域にある \(\iff\) \(g(t)=2t^2-2xt+x^2-y=0\) が \(0\le t\le1\) に実数解をもつ。</p>
+      <p>\(g(0)=x^2-y,\ g(1)=x^2-2x+2-y\)、軸 \(t=\frac x2\)、\(D/4=x^2-2(x^2-y)=2y-x^2\)。\(g\) は下に凸なので、\(0\le t\le1\) に解をもつのは次の (i) または (ii) のときで、それに限る。</p>
+      <p>(i) \(g(0)g(1)\le0\)：中間値の定理より区間内に解をもつ。</p>
+      <p>(ii) \(g(0)\gt0,\ g(1)\gt0\) で、区間内に2解（重解を含む）をもつ：\(D\ge0\) かつ \(0\lt\frac x2\lt1\)。</p>
+      <p>（\(g(0),g(1)\) がともに負なら、下に凸より区間全体で \(g\lt0\) となり解はない。）</p>
+      <p>(i) \(\iff\) \(y\) が \(x^2\) と \(x^2-2x+2\) の間（両端を含む）。(ii) \(\iff\) \(\frac{x^2}{2}\le y\lt\min(x^2,\ x^2-2x+2)\) かつ \(0\lt x\lt2\)。</p>
+      <p>\(x^2\) と \(x^2-2x+2\) の大小は \(x=1\) で入れかわり、\(\frac{x^2}{2}\le x^2-2x+2\iff(x-2)^2\ge0\) は常に成立。(i)(ii) を合わせて</p>
+      \[ \begin{cases} x^2\le y\le x^2-2x+2 & (x\le0)\\ \frac{x^2}{2}\le y\le x^2-2x+2 & (0\le x\le1)\\ \frac{x^2}{2}\le y\le x^2 & (1\le x\le2)\\ x^2-2x+2\le y\le x^2 & (x\ge2) \end{cases} \]
+      <p><b>解答2（固定法）</b>　\(x\) を固定し \(f(t)=2\left(t-\frac x2\right)^2+\frac{x^2}{2}\ (0\le t\le1)\) の値域を求める。最小値は軸の位置で \(x\lt0\)：\(f(0)=x^2\)、\(0\le x\le2\)：\(\frac{x^2}2\)、\(x\gt2\)：\(f(1)=x^2-2x+2\)。最大値は \(f(1)-f(0)=2-2x\) の符号で \(x\le1\)：\(f(1)\)、\(x\ge1\)：\(f(0)\)。連続なので間の値をすべてとり、解答1と同じ結果を得る。</p>
+      <p class="answer">上の4つの不等式で表される領域（境界を含む）。曲線部分の境界は \(y=x^2\)（\(t=0\)）、\(y=x^2-2x+2\)（\(t=1\)）、\(y=\frac{x^2}{2}\ (0\le x\le2)\)</p>
+      <p class="point">採点ポイント：①同値な言い換えの宣言、②(i)(ii) で場合が尽きていることの説明、③不等式の整理（\(x=0,1,2\) で境界がつながることを確認）。下側の境界 \(y=\frac{x^2}{2}\) は \(C_t\) 全体の包絡線（\(f(t)\) の最小値の軌跡）で、\(t=0\) のとき \(x=0\)、\(t=1\) のとき \(x=2\) でそれぞれ \(C_0,\ C_1\) に接する。<a href="../thinking.html#t-inverse">発想：逆像法</a>・<a href="../thinking.html#t-fix">発想：1文字固定</a></p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crd-h3" data-level="3">
+    <h3><span class="pid">演3</span>直交する2接線の交点の軌跡</h3>
+    <div class="problem">放物線 \(C:\ y=x^2\) に、点 \(P\) から引いた2本の接線が直交するとする。2つの接点を \(A,B\) とする。<br>(1) 点 \(P\) の軌跡を求めよ。<br>(2) 線分 \(AB\) の中点 \(M\) の軌跡を求めよ。<br>(3) 直線 \(AB\) は \(P\) によらない定点を通ることを示せ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>接点を \((p,p^2)\) とおくと接線は \(y=2px-p^2\)。点 \(P(X,Y)\) を通る条件は \(p^2-2Xp+Y=0\)。この2解 \(p,q\) が2接点に対応する。直交条件 \((2p)(2q)=-1\) を<b>解と係数の関係</b>で \(X,Y\) の式にする。「\(P\) から2本の接線が引ける」＝「異なる2実数解」も忘れずに。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) \(C\) 上の点 \((u,u^2)\) における接線は \(y=2ux-u^2\)。これが \(P(X,Y)\) を通る条件は \(u^2-2Xu+Y=0\) …①。</p>
+      <p>\(P\) から2本の接線が引け、それらが直交する \(\iff\) ①が異なる2実数解 \(p,q\) をもち、\(2p\cdot2q=-1\)。</p>
+      <p>解と係数の関係より \(pq=Y\) なので、直交条件は \(Y=-\frac14\)。このとき①の判別式 \(D/4=X^2+\frac14\gt0\) なので、どんな \(X\) でも異なる2実数解をもつ。</p>
+      <p class="answer">(1) 直線 \(y=-\dfrac14\)（全体）</p>
+      <p>(2) \(A(p,p^2),\ B(q,q^2)\) で、\(p+q=2X,\ pq=-\frac14\)。中点 \(M(x,y)\) は</p>
+      \[ x=\frac{p+q}{2}=X,\qquad y=\frac{p^2+q^2}{2}=\frac{(p+q)^2-2pq}{2}=2X^2+\frac14 \]
+      <p>\(X\) はすべての実数をとるので、\(y=2x^2+\frac14\) 全体。</p>
+      <p class="answer">(2) 放物線 \(y=2x^2+\dfrac14\)（全体）</p>
+      <p>(3) 直線 \(AB\) の傾きは \(\frac{q^2-p^2}{q-p}=p+q\) なので、\(AB:\ y=(p+q)(x-p)+p^2=(p+q)x-pq=2Xx+\frac14\)。これは \(X\) によらず点 \(\left(0,\frac14\right)\) を通る。（証明終）</p>
+      <p class="answer">(3) 定点 \(\left(0,\dfrac14\right)\)</p>
+      <p class="point">採点ポイント：①接線の方程式と「\(P\) を通る」\(\iff\)①、②異なる2実数解の確認（\(D\gt0\)）、③\(X\) が全実数を動くことの根拠。\(y=-\frac14\) は放物線の準線、\(\left(0,\frac14\right)\) は焦点（<a href="mc-curves.html">平面上の曲線</a>）。<a href="../thinking.html#t-rephrase">発想：同値な言い換え</a></p>
+    </div></details>
+  </article>
+</section>
+
+<section id="next">
+  <h2>次に学ぶとつながる単元</h2>
+  <ul>
+    <li><a href="m2-calculus.html">微分法・積分法（数II）</a>：P17・P18・演1 の通過領域や領域の面積は、積分で面積を求める問題に直結する。P8 の接線は微分の接線と同じもの。</li>
+    <li><a href="mc-vector.html">ベクトル</a>：P1 の分点、P2 の法線ベクトル、P3 の面積公式はベクトルで統一的に扱える。</li>
+    <li><a href="mc-curves.html">平面上の曲線</a>：演3 の焦点・準線、P13 のパラメータ表示が、2次曲線と媒介変数表示につながる。</li>
+    <li><a href="m2-trig.html">三角関数</a>：円上の点を \((\cos\theta,\sin\theta)\) とおくと、P15 の最大最小は合成の問題にもなる。2直線のなす角は \(\tan\) の加法定理。</li>
+    <li><a href="mc-complex.html">複素数平面</a>：P10 のアポロニウスの円や軌跡は、複素数でも頻出。</li>
+  </ul>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>

@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>図形の性質（数学A）｜解法の地図</title>
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-unit="ma-geometry" data-root="../">
+<main>
+
+<header class="unit-head">
+  <span class="subj-badge">数学A</span>
+  <h1>図形の性質</h1>
+  <p class="lead">「比を運ぶ（チェバ・メネラウス・面積比）」「角を運ぶ（円周角・接弦定理）」「長さの積を運ぶ（方べき）」の3つの道具で、三角形と円の問題を計算に持ち込む単元。座標やベクトルで力ずくで解く前に、図の性質で一瞬で片づく場面を見抜く力をつける。</p>
+  <div class="goal">
+    <strong>このページの到達目標</strong>
+    <ul>
+      <li>【基礎】角の二等分線の比、五心の定義と性質、円周角・接弦定理を使って長さ・角を求められる。</li>
+      <li>【標準】チェバ・メネラウスで「どの三角形とどの直線」を選ぶか判断し、方べき・四点共円・空間の位置関係を使える。</li>
+      <li>【阪大】初等幾何・三角比・座標・ベクトルのどれで解くかを図から選択し、証明を答案として書ける。</li>
+    </ul>
+  </div>
+  <p class="prereq">前提：<a href="m1-trig.html">図形と計量</a>（正弦定理・余弦定理）／ 次に進む：<a href="mc-vector.html">ベクトル</a>、<a href="m2-coord.html">図形と方程式</a></p>
+</header>
+
+<section id="core">
+  <h2>必ず押さえる基本事項</h2>
+
+  <div class="box theorem">
+    <p><span class="name">三角形の辺と角</span>：\(\triangle\)ABC で \(a=\)BC、\(b=\)CA、\(c=\)AB とする。</p>
+    <ul>
+      <li>成立条件：\(\abs{b-c}\lt a\lt b+c\)（最大辺 \(\lt\) 他の2辺の和、で十分）。</li>
+      <li>大小：\(a\gt b\) ⇔ \(\angle A\gt\angle B\)（大きい辺の向かいに大きい角）。</li>
+    </ul>
+    <p>なぜ：2点を結ぶ最短の道は線分なので、遠回り（他の2辺）の方が長い。大小関係は、長い辺の上に短い辺の長さをとって二等辺三角形を作ると示せる。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">角の二等分線と比</span>：\(\angle A\) の二等分線と辺 BC の交点を D とすると \(\text{BD}:\text{DC}=\text{AB}:\text{AC}\)。外角の二等分線と直線 BC の交点 E についても \(\text{BE}:\text{EC}=\text{AB}:\text{AC}\)（外分）。</p>
+    <p>なぜ：\(\triangle\)ABD と \(\triangle\)ACD は高さ（A から BC への距離）が共通なので面積比＝底辺比 BD:DC。一方、D から AB, AC への距離は等しい（二等分線上の点）ので面積比＝AB:AC。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">三角形の五心</span></p>
+    <div class="table-wrap"><table>
+      <tr><th>名前</th><th>定義（交点）</th><th>性質</th></tr>
+      <tr><td>重心 G</td><td>3本の中線</td><td>中線を頂点から \(2:1\) に内分</td></tr>
+      <tr><td>外心 O</td><td>3辺の垂直二等分線</td><td>OA＝OB＝OC（外接円の中心）、\(\angle\text{BOC}=2\angle A\)（A が鋭角のとき）</td></tr>
+      <tr><td>内心 I</td><td>3つの内角の二等分線</td><td>3辺までの距離が等しい（内接円の中心）、\(\angle\text{BIC}=90^\circ+\frac{A}{2}\)</td></tr>
+      <tr><td>垂心 H</td><td>3頂点から対辺への垂線</td><td>\(\angle\text{BHC}=180^\circ-A\)（鋭角三角形）</td></tr>
+      <tr><td>傍心 \(\text{I}_A\)</td><td>\(\angle A\) の二等分線と B, C の外角の二等分線</td><td>辺 BC と AB, AC の延長に接する円の中心、\(\angle\text{BI}_A\text{C}=90^\circ-\frac{A}{2}\)</td></tr>
+    </table></div>
+    <p>なぜ（3本が1点で交わる理由）：例えば外心は「AB の垂直二等分線上の点は A, B から等距離、BC のものは B, C から等距離。その交点は A, C からも等距離だから AC の垂直二等分線上にもある」。内心・傍心は「角の二等分線上の点は2辺から等距離」で同様。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">チェバの定理・メネラウスの定理</span>：\(\triangle\)ABC の辺（またはその延長）上に P（BC 上）、Q（CA 上）、R（AB 上）があるとき</p>
+    \[ \frac{\text{AR}}{\text{RB}}\cdot\frac{\text{BP}}{\text{PC}}\cdot\frac{\text{CQ}}{\text{QA}}=1 \]
+    <p>チェバ：AP, BQ, CR が1点で交わるとき成立。メネラウス：P, Q, R が一直線上にあるとき成立。</p>
+    <p>なぜ：チェバは交点を O として \(\frac{\text{AR}}{\text{RB}}=\frac{\triangle\text{OCA}}{\triangle\text{OBC}}\) などの面積比を3つ掛けると約分されて1。メネラウスは C を通り直線 PQR に平行な線を引き、比を1本の直線上に集めると示せる。<b>頂点→分点→頂点→分点…と一周する</b>順に書けば、どちらも同じ形で覚えられる。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">円の性質</span></p>
+    <ul>
+      <li><b>円周角の定理</b>：同じ弧に対する円周角は等しく、中心角の半分。直径に対する円周角は \(90^\circ\)。</li>
+      <li><b>接弦定理</b>：接線と弦のつくる角は、その角の内部にある弧に対する円周角に等しい。</li>
+      <li><b>円に内接する四角形</b>：対角の和が \(180^\circ\)、1つの外角はその内対角に等しい。</li>
+      <li><b>四点が同一円周上にある条件</b>：上の逆（対角の和 \(180^\circ\)／同じ側から見込む角が等しい）。</li>
+      <li><b>方べきの定理</b>：点 P を通る2直線が円と A, B および C, D で交わるとき \(\text{PA}\cdot\text{PB}=\text{PC}\cdot\text{PD}\)。接線なら \(\text{PA}\cdot\text{PB}=\text{PT}^2\)。</li>
+    </ul>
+    <p>なぜ（方べき）：\(\triangle\)PAC と \(\triangle\)PDB は、P の角が共通（または対頂角）で、円周角の定理（または内接四角形の外角）からもう1つの角も等しく、相似。相似比から \(\frac{\text{PA}}{\text{PD}}=\frac{\text{PC}}{\text{PB}}\)。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">空間図形</span></p>
+    <ul>
+      <li>2直線の位置関係：交わる／平行／<b>ねじれの位置</b>（同一平面上にない）。なす角は、一方を平行移動して交わらせて測る。</li>
+      <li>直線 \(\ell\) と平面 \(\alpha\) が垂直 ⇔ \(\ell\) が \(\alpha\) 上の<b>交わる2直線</b>に垂直。</li>
+      <li><b>三垂線の定理</b>（P15）、<b>オイラーの多面体定理</b> \(v-e+f=2\)（凸多面体）、正多面体は5種類（P16）。</li>
+    </ul>
+  </div>
+
+  <div class="box idea">
+    <p><b>この単元を貫く考え方</b>：図形の問題は「<b>何を運ぶか</b>」で道具が決まる。<b>比</b>を運ぶならチェバ・メネラウス・面積比、<b>角</b>を運ぶなら円周角・接弦定理・平行線、<b>長さの積</b>を運ぶなら方べき・相似。どれも使えないほど条件が数値的なら、<a href="mc-vector.html">ベクトル</a>や座標に切り替える。まず<b>正確な図を大きく描く</b>ことが全ての出発点。</p>
+  </div>
+</section>
+
+<section id="quick">
+  <h2>早見表：こう来たら → こう解く</h2>
+  <div class="table-wrap"><table class="quick">
+    <tr><th>問題の特徴（こう来たら）</th><th>方針（こう解く）</th><th>使う道具</th><th>詳細</th></tr>
+    <tr data-level="1"><td>3辺が文字式、三角形ができる条件</td><td>最大辺 \(\lt\) 他の2辺の和（全組で確認）</td><td>成立条件・辺と角の大小</td><td><a href="#geo-p1">P1</a></td></tr>
+    <tr data-level="1"><td>角の二等分線と辺の交点</td><td>BD:DC＝AB:AC（外角なら外分）</td><td>角の二等分線の定理</td><td><a href="#geo-p2">P2</a></td></tr>
+    <tr data-level="1"><td>重心・外心・内心の角や長さ</td><td>定義（何の交点か）に戻る</td><td>五心の性質</td><td><a href="#geo-p3">P3</a></td></tr>
+    <tr data-level="2"><td>垂心・傍心が出てくる</td><td>直角を探す／外角の二等分線</td><td>垂心・傍心の性質</td><td><a href="#geo-p4">P4</a></td></tr>
+    <tr data-level="2"><td>内接円と辺の接点までの長さ</td><td>接線の長さが等しいことで未知数を置く</td><td>接線の長さ \(s-a\)</td><td><a href="#geo-p5">P5</a></td></tr>
+    <tr data-level="2"><td>辺の比が与えられ、交点で線分の比を問う</td><td>3頂点と3分点で三角形・直線を選ぶ</td><td>チェバ・メネラウス</td><td><a href="#geo-p6">P6</a></td></tr>
+    <tr data-level="2"><td>三角形の面積の比</td><td>高さ共通→底辺比、角共通→2辺の積の比</td><td>面積比</td><td><a href="#geo-p7">P7</a></td></tr>
+    <tr data-level="1"><td>円と角度、接線と角度</td><td>同じ弧を見込む角を探す</td><td>円周角・接弦定理</td><td><a href="#geo-p8">P8</a></td></tr>
+    <tr data-level="2"><td>「4点が同一円周上にあることを示せ」</td><td>対角の和 \(180^\circ\)／同じ弧を見込む角</td><td>四点共円の条件</td><td><a href="#geo-p9">P9</a></td></tr>
+    <tr data-level="2"><td>円と2直線（割線・接線・弦）の長さ</td><td>点から2つの交点までの長さの積</td><td>方べきの定理</td><td><a href="#geo-p10">P10</a></td></tr>
+    <tr data-level="2"><td>2円の位置関係・共通接線の長さ</td><td>中心間距離と半径の和・差を比較、直角三角形</td><td>2円の位置関係</td><td><a href="#geo-p11">P11</a></td></tr>
+    <tr data-level="3"><td>円に内接する四角形の対角線</td><td>対角線の積＝向かい合う辺の積の和</td><td>トレミーの定理</td><td><a href="#geo-p12">P12</a></td></tr>
+    <tr data-level="2"><td>定規とコンパスで作図せよ</td><td>平行線で比、直角三角形・方べきで平方根</td><td>作図の基本</td><td><a href="#geo-p13">P13</a></td></tr>
+    <tr data-level="1"><td>立方体などの辺・面の位置関係</td><td>平行移動して交わらせる／面への垂直</td><td>ねじれの位置・なす角</td><td><a href="#geo-p14">P14</a></td></tr>
+    <tr data-level="3"><td>空間で点から直線・平面への距離</td><td>平面への垂線の足から直線へ垂線</td><td>三垂線の定理</td><td><a href="#geo-p15">P15</a></td></tr>
+    <tr data-level="1"><td>多面体の頂点・辺・面の数</td><td>面ごとに数えて重複で割る、\(v-e+f=2\)</td><td>オイラーの多面体定理</td><td><a href="#geo-p16">P16</a></td></tr>
+    <tr data-level="3"><td>角の二等分線の長さ</td><td>外接円まで延長し、相似と方べき</td><td>\(\text{AD}^2=\text{AB}\cdot\text{AC}-\text{BD}\cdot\text{DC}\)</td><td><a href="#geo-p17">P17</a></td></tr>
+  </table></div>
+</section>
+
+<section id="patterns">
+  <h2>パターン別 解法マップ</h2>
+
+  <article class="pattern" id="geo-p1" data-level="1">
+    <h3><span class="pid">P1</span>三角形の成立条件・辺と角の大小</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「3辺の長さが \(x,\ 2x-1,\ 5\) である三角形が存在する \(x\) の範囲」「最大の角はどれか」</dd>
+      <dt>こう考える</dt><dd>どれが最大辺か分からないので、<b>3つの不等式すべて</b>（各辺 \(\lt\) 他の2辺の和）を書く。角の大小は、向かいの辺の大小で決まる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>各辺が正であることを確認する。</li>
+        <li>「各辺 \(\lt\) 残り2辺の和」を3つ書いて連立する。</li>
+        <li>角の大小：最大辺の対角が最大角。具体的な角度が要るなら余弦定理（<a href="m1-trig.html">図形と計量</a>）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>三角形の成立条件 \(\abs{b-c}\lt a\lt b+c\)、辺と角の大小関係</dd>
+      <dt>なぜこの方法？</dt><dd>最大辺が分かっていれば1つの不等式で済むが、文字を含むと最大辺が \(x\) の値で入れ替わる。3つすべて書けば<b>場合分けなしで</b>必要十分になる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 3辺の長さが \(x,\ 2x-1,\ 5\) である三角形が存在するような \(x\) の範囲を求めよ。<br>(2) \(\triangle\)ABC で AB＝5、BC＝6、CA＝4 のとき、最大の角と最小の角を答えよ。</div>
+      <p>(1) 辺が正：\(x\gt\frac12\)。成立条件：</p>
+      <ul>
+        <li>\(5\lt x+(2x-1)\) より \(x\gt2\)</li>
+        <li>\(x\lt(2x-1)+5\) より \(x\gt-4\)</li>
+        <li>\(2x-1\lt x+5\) より \(x\lt6\)</li>
+      </ul>
+      <p class="answer">(1) \(2\lt x\lt6\)</p>
+      <p>(2) 最大辺 BC の対角 \(\angle A\) が最大、最小辺 CA の対角 \(\angle B\) が最小。</p>
+      <p class="answer">(2) 最大 \(\angle A\)、最小 \(\angle B\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="geo-p2" data-level="1">
+    <h3><span class="pid">P2</span>角の二等分線と比（内角・外角・内心）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\angle A\) の二等分線と辺 BC の交点を D とする。BD を求めよ」「外角の二等分線と直線 BC の交点」「内心 I について AI:ID」</dd>
+      <dt>こう考える</dt><dd>二等分線は<b>辺の比を対辺に写す</b>。内心は2本の二等分線の交点なので、この定理を2回使えば AI:ID も出る。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>BD:DC＝AB:AC から BD を出す（内分）。</li>
+        <li>外角の二等分線なら BE:EC＝AB:AC の外分（短い辺の側の延長上に E がある）。</li>
+        <li>内心 I：\(\triangle\)ABD で \(\angle B\) の二等分線 BI を使い、AI:ID＝BA:BD。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>角の二等分線の定理（内分・外分）</dd>
+      <dt>なぜこの方法？</dt><dd>二等分線上の点は2辺から等距離なので、2つの三角形の面積比が「辺の比」になる。面積比は「底辺の比」でもあるので、2つが等しくなる。<b>面積を経由して比を運ぶ</b>のがこの単元の基本技。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\triangle\)ABC で AB＝6、BC＝5、CA＝4 とする。\(\angle A\) の二等分線と辺 BC の交点を D、\(\angle A\) の外角の二等分線と直線 BC の交点を E、内心を I とする。BD、CE、AI:ID を求めよ。</div>
+      <p>BD:DC＝6:4＝3:2 より BD＝\(5\times\frac35=3\)、DC＝2。</p>
+      <p>BE:EC＝6:4（外分）。AB＞AC なので E は C 側の延長上にあり、BE－EC＝BC＝5。BE:EC＝3:2 より EC＝10。</p>
+      <p>\(\triangle\)ABD で BI は \(\angle B\) の二等分線なので AI:ID＝BA:BD＝6:3＝2:1。</p>
+      <p class="answer">BD＝3、CE＝10、AI:ID＝2:1</p>
+      <p class="point">AI:ID＝(AB＋AC):BC＝10:5 という公式も、この2回使いから出る。外分点の位置（どちら側の延長か）は、必ず図で確認する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="geo-p3" data-level="1">
+    <h3><span class="pid">P3</span>重心・外心・内心の性質</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\triangle\)ABC の内心を I とする。\(\angle\text{BIC}\) を求めよ」「外心 O について \(\angle\text{BOC}\)」「重心 G と中線」</dd>
+      <dt>こう考える</dt><dd>五心は<b>「何の交点か」</b>という定義に戻れば性質が出る。内心→角の二等分線、外心→等距離（二等辺三角形が3つ）、重心→中線の 2:1。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>内心：\(\angle\text{IBC}=\frac{B}{2},\ \angle\text{ICB}=\frac C2\) を使い、\(\triangle\)IBC の内角の和。</li>
+        <li>外心：OA＝OB＝OC から二等辺三角形を作る。または円周角と中心角の関係。</li>
+        <li>重心：AG:GM＝2:1（M は BC の中点）。面積は6等分される。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>内角の和、円周角の定理（中心角＝2×円周角）、中線の 2:1</dd>
+      <dt>なぜこの方法？</dt><dd>五心の問題で「公式」を覚えるより、定義から角を追う方が応用が利く。\(\angle\text{BIC}=180^\circ-\frac{B+C}{2}=180^\circ-\frac{180^\circ-A}{2}=90^\circ+\frac A2\)。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\triangle\)ABC で \(\angle A=70^\circ\) とする。内心を I、外心を O とするとき、\(\angle\text{BIC}\) と \(\angle\text{BOC}\) を求めよ。</div>
+      <p>\(\angle B+\angle C=110^\circ\)。\(\angle\text{IBC}+\angle\text{ICB}=\frac{110^\circ}{2}=55^\circ\) より \(\angle\text{BIC}=180^\circ-55^\circ=125^\circ\)。</p>
+      <p>O は外接円の中心で、\(\angle A\) は弧 BC に対する円周角（\(\angle A\) は鋭角なので O と A は BC の同じ側）。中心角 \(\angle\text{BOC}=2\times70^\circ=140^\circ\)。</p>
+      <p class="answer">\(\angle\text{BIC}=125^\circ,\ \angle\text{BOC}=140^\circ\)</p>
+      <p class="point">\(\angle A\) が鈍角だと \(\angle\text{BOC}=360^\circ-2A\)（O が BC に関して A と反対側）。図を描いて O の位置を確かめる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="geo-p4" data-level="2">
+    <h3><span class="pid">P4</span>垂心・傍心</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「垂心 H について \(\angle\text{BHC}\)」「\(\angle A\) 内の傍心 \(\text{I}_A\) について \(\angle\text{BI}_A\text{C}\)」「傍接円」</dd>
+      <dt>こう考える</dt><dd>垂心は<b>直角が3つ</b>できる点。直角が2つ向かい合う四角形は円に内接する（P9）。傍心は<b>外角の二等分線</b>の交点で、内心と「90° ずれた」関係にある。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>垂心：BH⊥CA、CH⊥AB の垂線の足を E, F とすると、四角形 AFHE は対角が \(90^\circ+90^\circ\) で、\(\angle\text{FHE}=180^\circ-A\)。\(\angle\text{BHC}\) はその対頂角。</li>
+        <li>傍心：\(\angle\text{I}_A\text{BC}=\frac{180^\circ-B}{2}\)、\(\angle\text{I}_A\text{CB}=\frac{180^\circ-C}{2}\) を内角の和に入れる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>四角形の内角の和、外角の二等分線</dd>
+      <dt>なぜこの方法？</dt><dd>内角と外角の二等分線は直交するので、内心 I と傍心 \(\text{I}_A\) について \(\angle\text{IBI}_A=\angle\text{ICI}_A=90^\circ\)。B, C, I, \(\text{I}_A\) は線分 \(\text{II}_A\) を直径とする円の上にある。こうした<b>直角の発見</b>が垂心・傍心の問題の鍵。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\angle A=70^\circ\) の鋭角三角形 ABC の垂心を H、\(\angle A\) 内の傍心を \(\text{I}_A\) とする。\(\angle\text{BHC}\)、\(\angle\text{BI}_A\text{C}\) を求めよ。</div>
+      <p>BH, CH と辺 CA, AB の交点を E, F とすると \(\angle\text{AFH}=\angle\text{AEH}=90^\circ\)。四角形 AFHE の内角の和から \(\angle\text{FHE}=360^\circ-90^\circ-90^\circ-70^\circ=110^\circ\)。\(\angle\text{BHC}=\angle\text{FHE}\)（対頂角）\(=110^\circ\)。</p>
+      <p>\(\angle\text{I}_A\text{BC}+\angle\text{I}_A\text{CB}=\frac{(180^\circ-B)+(180^\circ-C)}{2}=\frac{360^\circ-110^\circ}{2}=125^\circ\)。よって \(\angle\text{BI}_A\text{C}=55^\circ\)。</p>
+      <p class="answer">\(\angle\text{BHC}=110^\circ,\ \angle\text{BI}_A\text{C}=55^\circ\)</p>
+      <p class="point">一般に \(\angle\text{BHC}=180^\circ-A\)、\(\angle\text{BI}_A\text{C}=90^\circ-\frac A2\)。外心 O・重心 G・垂心 H は一直線上（オイラー線）にあり OG:GH＝1:2 であることも、ベクトルで示せる（<a href="mc-vector.html">ベクトル</a>）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="geo-p5" data-level="2">
+    <h3><span class="pid">P5</span>接線の長さ（内接円・円外の点）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\triangle\)ABC の内接円が辺 BC, CA, AB と接する点を P, Q, R とする。AR, BP の長さ」「円に外接する四角形」</dd>
+      <dt>こう考える</dt><dd>円外の点から引いた2本の<b>接線の長さは等しい</b>。頂点ごとに未知数を1つずつ置けば、各辺の長さは2つの未知数の和になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>AR＝AQ＝\(x\)、BR＝BP＝\(y\)、CP＝CQ＝\(z\) とおく。</li>
+        <li>\(x+y=c,\ y+z=a,\ z+x=b\) を解く（全部足すと \(x+y+z=s\)：半周長）。</li>
+        <li>\(x=s-a,\ y=s-b,\ z=s-c\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>接線の長さは等しい（合同な直角三角形）、\(s=\frac{a+b+c}{2}\)</dd>
+      <dt>なぜこの方法？</dt><dd>中心 I と接点を結ぶと直角三角形 AIR と AIQ ができ、斜辺 AI 共通・IR＝IQ で合同。だから AR＝AQ。<b>未知数を頂点ごとに置く</b>と、3つの式が対称にきれいに並ぶ。円に外接する四角形では「向かい合う辺の和が等しい」も同じ理由。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">AB＝7、BC＝8、CA＝5 の \(\triangle\)ABC の内接円が、辺 BC, CA, AB とそれぞれ P, Q, R で接する。AR、BP、CQ の長さを求めよ。</div>
+      <p>AR＝AQ＝\(x\)、BR＝BP＝\(y\)、CP＝CQ＝\(z\) とおくと \(x+y=7,\ y+z=8,\ z+x=5\)。足して \(2(x+y+z)=20\)、\(x+y+z=10\)。</p>
+      <p>\(x=10-8=2,\ y=10-5=5,\ z=10-7=3\)。</p>
+      <p class="answer">AR＝2、BP＝5、CQ＝3</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="geo-p6" data-level="2">
+    <h3><span class="pid">P6</span>チェバ・メネラウス（どの三角形と直線を選ぶか）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「BP:PC＝3:2、CQ:QA＝1:2 で、AP と BQ の交点を O とし、CO と AB の交点を R とする。AR:RB、AO:OP を求めよ」</dd>
+      <dt>こう考える</dt><dd>辺上の比が欲しい（AR:RB）→ <b>チェバ</b>（3本の線が1点に集まる）。線分の途中の点の比が欲しい（AO:OP）→ <b>メネラウス</b>：<b>求めたい線分 AP を1辺に含む三角形</b>と、それを横切る直線を選ぶ。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>求めたい比の線分（AO:OP なら AP）を含む三角形を探す：\(\triangle\)ABP または \(\triangle\)APC。</li>
+        <li>その三角形の3辺（の延長）を横切り、O を通る直線を選ぶ：\(\triangle\)APC に対しては直線 BQ（B は辺 PC の延長上、O は AP 上、Q は CA 上）。</li>
+        <li>頂点→分点→頂点→分点…と一周する順に比を書く：\(\frac{\text{AO}}{\text{OP}}\cdot\frac{\text{PB}}{\text{BC}}\cdot\frac{\text{CQ}}{\text{QA}}=1\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>チェバの定理、メネラウスの定理</dd>
+      <dt>なぜこの方法？</dt><dd>メネラウスの式は「三角形の3辺それぞれの比」を掛けたもの。求めたい比がその3つのうちの1つに入るように三角形を選べば、残り2つは既知になる。<b>三角形は「求めたい線分＋既知の比が載っている辺」で決まる</b>と覚える。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\triangle\)ABC の辺 BC を \(3:2\) に内分する点を P、辺 CA を \(1:2\) に内分する点を Q とする。AP と BQ の交点を O、直線 CO と辺 AB の交点を R とする。AR:RB と AO:OP を求めよ。</div>
+      <svg viewBox="0 0 240 210" width="240" role="img" aria-label="三角形ABCと点P,Q,R,O">
+        <g fill="none" stroke="currentColor" stroke-width="1.6">
+          <polygon points="113.3,30 20,190 220,190"/>
+          <line x1="113.3" y1="30" x2="140" y2="190"/>
+          <line x1="20" y1="190" x2="184.4" y2="136.7"/>
+          <line x1="220" y1="190" x2="60" y2="121.4"/>
+        </g>
+        <g fill="currentColor" font-size="14">
+          <text x="107" y="22">A</text><text x="4" y="200">B</text><text x="224" y="200">C</text>
+          <text x="136" y="206">P</text><text x="189" y="134">Q</text><text x="44" y="120">R</text><text x="128" y="148">O</text>
+        </g>
+      </svg>
+      <p><b>AR:RB</b>：AP, BQ, CR は O で交わるのでチェバの定理より</p>
+      <p>\(\dfrac{\text{AR}}{\text{RB}}\cdot\dfrac{3}{2}\cdot\dfrac{1}{2}=1\) より \(\dfrac{\text{AR}}{\text{RB}}=\dfrac43\)。</p>
+      <p><b>AO:OP</b>：\(\triangle\)APC と直線 BQ にメネラウスの定理（A→O→P→B→C→Q→A）。PB:BC＝3:5 なので</p>
+      <p>\(\dfrac{\text{AO}}{\text{OP}}\cdot\dfrac{3}{5}\cdot\dfrac{1}{2}=1\) より \(\dfrac{\text{AO}}{\text{OP}}=\dfrac{10}{3}\)。</p>
+      <p class="answer">AR:RB＝4:3、AO:OP＝10:3</p>
+      <p class="point">メネラウスで B は辺 PC の<b>延長上</b>の点なので、比は PB:BC＝3:5（PB:PC ではない）。分点が延長上のときこそ、一周の順に機械的に書くとミスが減る。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="geo-p7" data-level="2">
+    <h3><span class="pid">P7</span>面積比</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\triangle\)OBC の面積は \(\triangle\)ABC の何倍か」「\(\triangle\)ADE と \(\triangle\)ABC の面積比」</dd>
+      <dt>こう考える</dt><dd>面積比は2つの型で処理する。<b>高さが共通 → 底辺の比</b>、<b>1つの角が共通 → その角をはさむ2辺の積の比</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>比べる2つの三角形が、同じ頂点・同じ直線上の底辺をもつか探す（高さ共通）。</li>
+        <li>角を共有するなら \(\dfrac{\triangle\text{ADE}}{\triangle\text{ABC}}=\dfrac{\text{AD}\cdot\text{AE}}{\text{AB}\cdot\text{AC}}\)。</li>
+        <li>大きい三角形から小さい三角形へ、比を順に掛けていく。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(S=\frac12\times\text{底辺}\times\text{高さ}\)、\(S=\frac12bc\sin A\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(\frac12bc\sin A\) で \(\sin A\) が共通なら約分されて辺の積だけが残る。チェバの定理の証明も面積比なので、P6 と行き来できる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) P6 の図で、\(\triangle\)OBC、\(\triangle\)OCA、\(\triangle\)OAB の面積はそれぞれ \(\triangle\)ABC の何倍か。<br>(2) \(\triangle\)ABC の辺 AB を \(2:3\) に内分する点を D、辺 AC を \(3:1\) に内分する点を E とする。\(\triangle\)ADE は \(\triangle\)ABC の何倍か。</div>
+      <p>(1) \(\triangle\)OBC と \(\triangle\)ABC は底辺 BC が共通で、高さの比は OP:AP＝3:13。よって \(\frac{3}{13}\)。</p>
+      <p>\(\triangle\)OAB と \(\triangle\)OCA は底辺 OA が共通で、高さの比は BP:PC＝3:2。合計は \(1-\frac3{13}=\frac{10}{13}\) なので \(\triangle\text{OAB}=\frac{10}{13}\cdot\frac35=\frac{6}{13}\)、\(\triangle\text{OCA}=\frac{4}{13}\)。</p>
+      <p class="answer">(1) \(\triangle\text{OBC}=\frac{3}{13},\ \triangle\text{OCA}=\frac{4}{13},\ \triangle\text{OAB}=\frac{6}{13}\)（倍）</p>
+      <p>(2) \(\angle A\) が共通なので \(\dfrac{\text{AD}\cdot\text{AE}}{\text{AB}\cdot\text{AC}}=\dfrac25\cdot\dfrac34=\dfrac{3}{10}\)。</p>
+      <p class="answer">(2) \(\dfrac{3}{10}\) 倍</p>
+      <p class="point">(1) の検算：\(\triangle\text{OBC}:\triangle\text{OCA}:\triangle\text{OAB}=3:4:6\) から AR:RB＝\(\triangle\)OCA:\(\triangle\)OBC＝4:3 となり、P6 のチェバの結果と一致する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="geo-p8" data-level="1">
+    <h3><span class="pid">P8</span>円周角・接弦定理で角を求める</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「円周上に4点 A, B, C, D がある。\(\angle\)ACD を求めよ」「点 A における接線と直線 BC の交点を T とする。\(\angle\)ATB を求めよ」</dd>
+      <dt>こう考える</dt><dd>求めたい角が<b>どの弧を見込んでいるか</b>を確認し、同じ弧を見込む別の角を探す。接線が出てきたら接弦定理で「円の中の角」に移す。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>求める角の両端（弦の端点）を確認する。</li>
+        <li>同じ弦を同じ側から見込む円周角を探す（等しい）。反対側なら \(180^\circ\) から引く。</li>
+        <li>接線と弦の角は、その弦を見込む反対側の円周角に等しい。</li>
+        <li>三角形の内角の和・外角で仕上げる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>円周角の定理、接弦定理、三角形の内角の和</dd>
+      <dt>なぜこの方法？</dt><dd>円の中の角はすべて「弧の大きさ」で決まる。だから<b>弧を共有する角は全部同じ</b>。接弦定理は「円周角の頂点を弦の端まで動かした極限」と見ると覚えやすい。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 円周上に4点 A, B, C, D がこの順にあり、AC と BD の交点を P とする。\(\angle\text{BAC}=35^\circ,\ \angle\text{APB}=80^\circ\) のとき、\(\angle\text{ACD}\) と \(\angle\text{BDC}\) を求めよ。<br>(2) 円に内接する \(\triangle\)ABC で \(\angle B=70^\circ,\ \angle C=50^\circ\) とする。点 A における接線と直線 BC の交点を T とするとき、\(\angle\text{ATB}\) を求めよ。</div>
+      <p>(1) \(\triangle\)ABP で \(\angle\text{ABP}=180^\circ-35^\circ-80^\circ=65^\circ\)。\(\angle\text{ACD}=\angle\text{ABD}=65^\circ\)（弧 AD に対する円周角）。\(\angle\text{BDC}=\angle\text{BAC}=35^\circ\)（弧 BC）。</p>
+      <p class="answer">(1) \(\angle\text{ACD}=65^\circ,\ \angle\text{BDC}=35^\circ\)</p>
+      <p>(2) AB＜AC（\(\angle C\lt\angle B\)）なので、T は辺 CB の B 側の延長上にある。接弦定理より \(\angle\text{TAB}=\angle\text{ACB}=50^\circ\)。\(\angle\text{ABT}=180^\circ-70^\circ=110^\circ\)。\(\triangle\)ABT で \(\angle\text{ATB}=180^\circ-50^\circ-110^\circ=20^\circ\)。</p>
+      <p class="answer">(2) \(20^\circ\)</p>
+      <p class="point">(1) の検算：\(\triangle\)PCD で \(80^\circ+65^\circ+35^\circ=180^\circ\)。(2) は T の位置を誤ると全く違う答えになる。図を正確に描くこと。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="geo-p9" data-level="2">
+    <h3><span class="pid">P9</span>四点が同一円周上にある条件（内接四角形）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「4点 B, C, E, F は同一円周上にあることを示せ」「\(\angle\text{AEF}=\angle\text{ABC}\) を示せ」（垂線の足が2つある図）</dd>
+      <dt>こう考える</dt><dd><b>直角が2つ</b>あれば円が見える：同じ線分を見込む角がともに \(90^\circ\)（その線分が直径）、または向かい合う角が \(90^\circ\) ずつ（対角の和 \(180^\circ\)）。円が見えたら円周角で角を運べる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>四点共円の条件のどれかを確認する：①対角の和が \(180^\circ\)、②1つの外角が内対角に等しい、③線分の同じ側から見込む角が等しい。</li>
+        <li>円が分かったら、その円の円周角・内接四角形の性質で角を運ぶ。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>円周角の定理の逆、内接四角形の条件</dd>
+      <dt>なぜこの方法？</dt><dd>図に円が描かれていなくても、<b>隠れた円を見つける</b>と角の関係が一気に増える。垂心の図（P4）は隠れた円の宝庫で、阪大の証明問題でも頻出（演2）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">鋭角三角形 ABC の頂点 B, C から対辺 CA, AB に下ろした垂線の足を E, F とする。(1) 4点 B, C, E, F は同一円周上にあることを示せ。(2) \(\angle\text{AEF}=\angle\text{ABC}\) を示せ。</div>
+      <p>(1) \(\angle\text{BEC}=\angle\text{BFC}=90^\circ\)。E, F は直線 BC に関して同じ側（A の側）にあり、線分 BC を同じ角 \(90^\circ\) で見込むので、4点 B, C, E, F は BC を直径とする円周上にある。</p>
+      <p>(2) 四角形 BCEF は円に内接するので、外角 \(\angle\text{AEF}\)（頂点 E の外角）は内対角 \(\angle\text{FBC}\) に等しい。\(\angle\text{FBC}=\angle\text{ABC}\) なので \(\angle\text{AEF}=\angle\text{ABC}\)。（証明終）</p>
+      <p class="point">(2) から \(\triangle\text{AEF}\sim\triangle\text{ABC}\)（\(\angle A\) 共通）が出る。「垂線の足を結ぶと、元の三角形と相似な三角形ができる」は覚えておく価値がある。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="geo-p10" data-level="2">
+    <h3><span class="pid">P10</span>方べきの定理</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「点 P を通る2直線が円と A, B および C, D で交わる。PA＝3、AB＝5、PC＝4 のとき CD を求めよ」「接線 PT の長さ」「2つの弦の交点」</dd>
+      <dt>こう考える</dt><dd>円と、1点 P を通る直線たち → <b>「P から2つの交点までの長さの積」は直線によらず一定</b>。接線なら2つの交点が重なって \(\text{PT}^2\)。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>P が円の外か内かを確認する。</li>
+        <li>PA, PB を<b>P からの長さ</b>で書く（PB＝PA＋AB）。AB をそのまま使わない。</li>
+        <li>\(\text{PA}\cdot\text{PB}=\text{PC}\cdot\text{PD}\ (=\text{PT}^2)\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>方べきの定理（とその逆：積が等しければ4点は同一円周上）</dd>
+      <dt>なぜこの方法？</dt><dd>\(\triangle\text{PAC}\sim\triangle\text{PDB}\) の相似比を、毎回書かずに済ませる公式。円と長さの積の関係は、座標では計算が重いが方べきなら一瞬。阪大でも「長さを1つ求める」小問でよく効く。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 円の外部の点 P を通る2直線が、円とそれぞれ A, B（PA＜PB）および C, D（PC＜PD）で交わる。PA＝3、AB＝5、PC＝4 のとき、CD の長さを求めよ。また P から円に引いた接線の接点を T とするとき、PT を求めよ。<br>(2) 円の2つの弦 AB, CD が点 P で交わり、PA＝4、PB＝3、PC＝2 のとき、PD を求めよ。</div>
+      <p>(1) PB＝3＋5＝8。\(3\cdot8=4\cdot\text{PD}\) より PD＝6、CD＝6－4＝2。\(\text{PT}^2=\text{PA}\cdot\text{PB}=24\) より PT＝\(2\sqrt6\)。</p>
+      <p class="answer">(1) CD＝2、PT＝\(2\sqrt6\)</p>
+      <p>(2) \(\text{PA}\cdot\text{PB}=\text{PC}\cdot\text{PD}\) より \(12=2\,\text{PD}\)。</p>
+      <p class="answer">(2) PD＝6</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="geo-p11" data-level="2">
+    <h3><span class="pid">P11</span>2円の位置関係・共通接線</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「半径 5 と 3 の2円の中心間の距離が 10 のとき、共通接線は何本か。共通外接線の2接点間の距離は」</dd>
+      <dt>こう考える</dt><dd>位置関係は<b>中心間の距離 \(d\) と、半径の和 \(r+r'\)・差 \(\abs{r-r'}\) の大小</b>で決まる。共通接線の長さは、接線に平行に中心を通る線を引いて<b>直角三角形</b>を作る。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(d\) と \(r+r',\ \abs{r-r'}\) を比べる（下の表）。</li>
+        <li>共通外接線：2つの半径（接線に垂直）の差 \(\abs{r-r'}\) を1辺とする直角三角形 → \(\sqrt{d^2-(r-r')^2}\)。</li>
+        <li>共通内接線：半径の和 \(r+r'\) を1辺とする直角三角形 → \(\sqrt{d^2-(r+r')^2}\)。</li>
+      </ol>
+      <div class="table-wrap"><table>
+        <tr><th>条件</th><th>位置関係</th><th>共通接線</th></tr>
+        <tr><td>\(d\gt r+r'\)</td><td>外部にある（離れている）</td><td>4本</td></tr>
+        <tr><td>\(d=r+r'\)</td><td>外接する</td><td>3本</td></tr>
+        <tr><td>\(\abs{r-r'}\lt d\lt r+r'\)</td><td>2点で交わる</td><td>2本</td></tr>
+        <tr><td>\(d=\abs{r-r'}\)</td><td>内接する</td><td>1本</td></tr>
+        <tr><td>\(d\lt\abs{r-r'}\)</td><td>一方が他方の内部</td><td>0本</td></tr>
+      </table></div></dd>
+      <dt>使う定理・公式</dt><dd>三平方の定理、接線は接点を通る半径に垂直</dd>
+      <dt>なぜこの方法？</dt><dd>2円の共有点は「両方の円周上の点」で、三角形の成立条件（P1：\(\abs{r-r'}\lt d\lt r+r'\)）がそのまま「2点で交わる」条件になる。接線の長さは、<b>半径が接線に垂直</b>という1つの事実から直角三角形が作れる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">半径 5 の円 O と半径 3 の円 O′ があり、OO′＝10 である。(1) 2円の位置関係と共通接線の本数を答えよ。(2) 共通外接線の2つの接点間の距離、共通内接線の2つの接点間の距離を求めよ。</div>
+      <p>(1) \(10\gt5+3\) なので、互いに外部にあり、共通接線は4本。</p>
+      <p>(2) 外接線：接点を A, A′ とすると OA⊥AA′、O′A′⊥AA′。O′ から OA に垂線 O′H を下ろすと AA′＝O′H、OH＝5－3＝2。\(\text{AA}'=\sqrt{10^2-2^2}=\sqrt{96}=4\sqrt6\)。</p>
+      <p>内接線：同様に半径の和 5＋3＝8 を使って \(\sqrt{10^2-8^2}=6\)。</p>
+      <p class="answer">(1) 外部にある、4本　(2) 外接線 \(4\sqrt6\)、内接線 6</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="geo-p12" data-level="3">
+    <h3><span class="pid">P12</span>トレミーの定理</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「円に内接する四角形 ABCD で AC・BD を求めよ」「正五角形の対角線の長さ」「\(\cos36^\circ\) の値」</dd>
+      <dt>こう考える</dt><dd>円に内接する四角形で、<b>対角線の積＝向かい合う辺の積の和</b>：\(\text{AC}\cdot\text{BD}=\text{AB}\cdot\text{CD}+\text{AD}\cdot\text{BC}\)。辺と対角線が等しい長さで現れる正多角形と相性がよい。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>円に内接する四角形を見つける（正多角形なら任意の4頂点）。</li>
+        <li>トレミーの等式を書く。</li>
+        <li>出てきた方程式を解く（正の解を選ぶ）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>トレミーの定理（証明：BD 上に \(\angle\text{BAE}=\angle\text{CAD}\) となる点 E をとり、\(\triangle\text{ABE}\sim\triangle\text{ACD}\)、\(\triangle\text{ADE}\sim\triangle\text{ACB}\) から BE, ED を求めて足す）</dd>
+      <dt>なぜこの方法？</dt><dd>余弦定理でも求まるが、角度の未知数が増える。トレミーは<b>円に内接する</b>という条件を長さだけの式に一発で変換する。教科書では発展扱いだが、証明の「相似な三角形を作る補助線」は他の問題でも使える。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">1辺の長さが 1 の正五角形 ABCDE の対角線の長さ \(x\) を求めよ。また、\(\cos36^\circ\) の値を求めよ。</div>
+      <p>正五角形の頂点は同一円周上にある。四角形 ABCD は円に内接し、AB＝BC＝CD＝1、AC＝BD＝AD＝\(x\)。トレミーの定理より</p>
+      <p>\(\text{AC}\cdot\text{BD}=\text{AB}\cdot\text{CD}+\text{AD}\cdot\text{BC}\) より \(x^2=1+x\)。\(x\gt0\) より \(x=\frac{1+\sqrt5}{2}\)。</p>
+      <p>\(\triangle\)ABC は AB＝BC＝1、\(\angle\text{ABC}=108^\circ\)（正五角形の内角）の二等辺三角形なので \(\angle\text{BAC}=36^\circ\)。B から AC に垂線を下ろすと、その足は AC の中点になるから \(\cos36^\circ=\dfrac{x/2}{1}\)。</p>
+      <p class="answer">\(x=\dfrac{1+\sqrt5}{2}\)、\(\cos36^\circ=\dfrac{x}{2}=\dfrac{1+\sqrt5}{4}\)</p>
+      <p class="point">\(x=\frac{1+\sqrt5}{2}\) は黄金比。正五角形では「対角線：辺＝黄金比」であり、\(\cos72^\circ=\frac{\sqrt5-1}{4}\) なども同じ図から出る（<a href="m2-trig.html">三角関数</a>の \(\cos5\theta\) を使う方法と比べてみよう）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="geo-p13" data-level="2">
+    <h3><span class="pid">P13</span>作図（平行線で比、直角で平方根）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「長さ 1, \(a\), \(b\) の線分が与えられたとき、長さ \(ab\)、\(\frac ab\)、\(\sqrt{ab}\) の線分を作図せよ」「線分を \(m:n\) に内分する点を作図せよ」</dd>
+      <dt>こう考える</dt><dd>定規とコンパスでできるのは「直線を引く」「円を描く」だけ。<b>比は平行線（相似）で、平方根は直角（方べき・相似）で</b>作る。基本作図（垂直二等分線、角の二等分線、垂線、平行線）を組み合わせる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>積・商：点 O から2本の半直線を引き、比例式 \(1:a=b:x\) を平行線で実現する。</li>
+        <li>平方根：長さ \(a+b\) の線分を直径とする円を描き、分点で立てた垂線と円の交点までの長さ。</li>
+        <li>作図の手順と、<b>なぜその長さになるか（証明）</b>を答案に書く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>平行線と比（三角形の相似）、方べきの定理、直径に対する円周角は直角</dd>
+      <dt>なぜこの方法？</dt><dd>平行線は比をそのまま別の直線に写す（P2 と同じ「比を運ぶ」考え）。直径の上の点 C で垂線を立て、円との交点を D とすると \(\text{CD}^2=\text{AC}\cdot\text{CB}\)（方べき、または直角三角形の相似）なので平方根が作れる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">長さ 1, \(a\), \(b\) の線分が与えられている。(1) 長さ \(ab\) の線分 (2) 長さ \(\sqrt{ab}\) の線分 の作図方法を述べ、その長さになる理由を示せ。</div>
+      <p>(1) 点 O から2本の半直線 \(\ell,\ m\) を引く。\(\ell\) 上に OE＝1、OA＝\(a\)、\(m\) 上に OB＝\(b\) となる点をとる。A を通り直線 EB に平行な直線を引き、\(m\) との交点を X とする。</p>
+      <p>EB∥AX より \(\triangle\text{OEB}\sim\triangle\text{OAX}\) で、OE:OA＝OB:OX、すなわち \(1:a=b:\text{OX}\)。よって OX＝\(ab\)。</p>
+      <p>(2) 直線上に AC＝\(a\)、CB＝\(b\) となるよう A, C, B をこの順にとり、AB を直径とする円を描く。C を通り AB に垂直な直線と円の交点の1つを D とする。</p>
+      <p>AB は直径なので \(\angle\text{ADB}=90^\circ\)。\(\triangle\text{ACD}\sim\triangle\text{DCB}\)（ともに直角三角形で \(\angle\text{DAC}=\angle\text{BDC}\)）より AC:CD＝CD:CB、\(\text{CD}^2=ab\)。よって CD＝\(\sqrt{ab}\)。</p>
+      <p class="answer">(1) OX＝\(ab\)　(2) CD＝\(\sqrt{ab}\)（作図と証明は上の通り）</p>
+      <p class="point">(1) で OE＝1 と OB＝\(b\) を入れ替えると \(\frac ab\) も作れる。(2) で \(b=1\) とすれば \(\sqrt a\) が作れる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="geo-p14" data-level="1">
+    <h3><span class="pid">P14</span>空間の直線・平面の位置関係とねじれの位置</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「立方体 ABCD-EFGH で、辺 AB とねじれの位置にある辺はどれか」「直線 AC と BG のなす角を求めよ」</dd>
+      <dt>こう考える</dt><dd>ねじれの位置＝<b>平行でもなく交わりもしない</b>。なす角は、一方を<b>平行移動して他方と交わらせ</b>、できた三角形で測る。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>ねじれ：「平行な辺」「交わる辺」を先に除き、残りがねじれ。</li>
+        <li>なす角：一方の直線と平行な線分を、他方の端点を通るように立体の中で探す。</li>
+        <li>できた三角形の3辺（面の対角線など）を求め、角を出す（正三角形・直角三角形になることが多い）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>平行線の性質、三平方の定理、余弦定理</dd>
+      <dt>なぜこの方法？</dt><dd>交わらない2直線の「角」は、平行移動しても変わらない向きどうしの角として定義される。だから<b>平行移動で交わらせる</b>のが定義そのもの。ベクトルで \(\cos\theta=\frac{\vec{u}\cdot\vec{v}}{\abs{\vec u}\abs{\vec v}}\) とする方法も同じことを計算でやっている。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">立方体 ABCD-EFGH（ABCD が底面、E, F, G, H はそれぞれ A, B, C, D の真上）がある。(1) 辺 AB とねじれの位置にある辺をすべて答えよ。(2) 直線 AC と直線 BG のなす角を求めよ。</div>
+      <p>(1) AB と平行：DC, EF, HG。AB と交わる：AD, AE, BC, BF。残りの CG, DH, EH, FG がねじれの位置。</p>
+      <p class="answer">(1) CG, DH, EH, FG の4本</p>
+      <p>(2) AB∥HG かつ AB＝HG なので四角形 ABGH は平行四辺形で、BG∥AH。よって AC と BG のなす角は \(\angle\text{CAH}\)。AC, AH, CH はいずれも正方形の面の対角線で長さが等しいので、\(\triangle\)ACH は正三角形。</p>
+      <p class="answer">(2) \(60^\circ\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="geo-p15" data-level="3">
+    <h3><span class="pid">P15</span>三垂線の定理（空間の距離・面積）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「OA, OB, OC が互いに垂直な四面体で、\(\triangle\)ABC の面積と、O から平面 ABC までの距離を求めよ」「点から空間内の直線までの距離」</dd>
+      <dt>こう考える</dt><dd>平面 \(\alpha\) 外の点 P、\(\alpha\) への垂線の足 O、\(\alpha\) 上の直線 \(\ell\) と点 A について、<b>PO⊥\(\alpha\)、OA⊥\(\ell\) ならば PA⊥\(\ell\)</b>（三垂線の定理）。空間の垂直を、平面上の垂直に落として扱える。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>平面への垂線（PO）を見つける。</li>
+        <li>平面内で、O から直線 \(\ell\) へ垂線 OA を下ろす（平面図形の計算）。</li>
+        <li>三垂線の定理より PA⊥\(\ell\)。PA は三平方の定理 \(\text{PA}^2=\text{PO}^2+\text{OA}^2\)。</li>
+        <li>体積を2通りに表すと、平面までの距離が出る。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>三垂線の定理、直線と平面の垂直、体積 \(=\frac13\times\text{底面積}\times\text{高さ}\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(\ell\) は PO（平面への垂線）にも OA にも垂直なので、交わる2直線 PO, OA を含む平面 POA に垂直。よって平面 POA 内の PA にも垂直。<b>「直線が平面に垂直 ⇔ 平面内の交わる2直線に垂直」</b>を2回使っているだけ。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">四面体 OABC で OA, OB, OC は互いに垂直で、OA＝1、OB＝OC＝2 である。(1) \(\triangle\)ABC の面積を求めよ。(2) O から平面 ABC に下ろした垂線の長さを求めよ。</div>
+      <p>(1) \(\triangle\)OBC で O から BC に垂線 OM を下ろす。BC＝\(2\sqrt2\)、OM＝\(\frac{\text{OB}\cdot\text{OC}}{\text{BC}}=\frac{4}{2\sqrt2}=\sqrt2\)。</p>
+      <p>OA⊥OB、OA⊥OC より OA⊥平面 OBC。OM⊥BC なので、三垂線の定理より AM⊥BC。</p>
+      <p>\(\text{AM}=\sqrt{\text{OA}^2+\text{OM}^2}=\sqrt{1+2}=\sqrt3\)。\(\triangle\text{ABC}=\frac12\cdot2\sqrt2\cdot\sqrt3=\sqrt6\)。</p>
+      <p>(2) 体積 \(V=\frac13\cdot\triangle\text{OBC}\cdot\text{OA}=\frac13\cdot2\cdot1=\frac23\)。求める距離を \(h\) とすると \(\frac13\cdot\sqrt6\cdot h=\frac23\) より \(h=\frac{2}{\sqrt6}=\frac{\sqrt6}{3}\)。</p>
+      <p class="answer">(1) \(\sqrt6\)　(2) \(\dfrac{\sqrt6}{3}\)</p>
+      <p class="point">(2) の別解：BC⊥平面 OAM なので平面 ABC⊥平面 OAM。O から AM に下ろした垂線が求める垂線で、直角三角形 OAM の高さ \(\frac{\text{OA}\cdot\text{OM}}{\text{AM}}=\frac{\sqrt2}{\sqrt3}=\frac{\sqrt6}3\)。2通りで一致する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="geo-p16" data-level="1">
+    <h3><span class="pid">P16</span>オイラーの多面体定理・正多面体</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「正五角形 12 枚と正六角形 20 枚でできた多面体の頂点と辺の数」「正多面体が5種類しかない理由」</dd>
+      <dt>こう考える</dt><dd>辺の数は「各面の辺の合計」を2で割る（1本の辺は2つの面に共有）。頂点の数は「各面の頂点の合計」を、1頂点に集まる面の数で割る。最後に \(v-e+f=2\) で検算。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(e=\dfrac{(\text{各面の辺数の合計})}{2}\)。</li>
+        <li>\(v=\dfrac{(\text{各面の頂点数の合計})}{(\text{1頂点に集まる面の数})}\)。</li>
+        <li>\(v-e+f=2\) を確認（または未知の1つをこれで求める）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>オイラーの多面体定理 \(v-e+f=2\)（凸多面体）</dd>
+      <dt>なぜこの方法？</dt><dd>面ごとに数えると、辺は2回、頂点は（集まる面の数）回ずつ重複して数えられる。重複の回数で割るのは<a href="ma-counting.html">場合の数</a>の「同じものを割る」と同じ発想。正多面体は、1頂点に集まる正多角形の角の和が \(360^\circ\) 未満でなければならないので、(正三角形 3, 4, 5 枚)(正方形 3 枚)(正五角形 3 枚) の5通りしかない。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 正五角形 12 枚と正六角形 20 枚で囲まれ、各頂点に3つの面が集まる凸多面体の頂点の数と辺の数を求めよ。<br>(2) 正二十面体の頂点の数と辺の数を求めよ（各面は正三角形で、各頂点に5つの面が集まる）。</div>
+      <p>(1) \(e=\frac{12\cdot5+20\cdot6}{2}=90\)、\(v=\frac{12\cdot5+20\cdot6}{3}=60\)。検算：\(60-90+32=2\)。</p>
+      <p class="answer">(1) 頂点 60、辺 90</p>
+      <p>(2) \(e=\frac{20\cdot3}{2}=30\)、\(v=\frac{20\cdot3}{5}=12\)。検算：\(12-30+20=2\)。</p>
+      <p class="answer">(2) 頂点 12、辺 30</p>
+      <div class="table-wrap"><table>
+        <tr><th>正多面体</th><th>面の形</th><th>\(v\)</th><th>\(e\)</th><th>\(f\)</th></tr>
+        <tr><td>正四面体</td><td>正三角形</td><td>4</td><td>6</td><td>4</td></tr>
+        <tr><td>正六面体</td><td>正方形</td><td>8</td><td>12</td><td>6</td></tr>
+        <tr><td>正八面体</td><td>正三角形</td><td>6</td><td>12</td><td>8</td></tr>
+        <tr><td>正十二面体</td><td>正五角形</td><td>20</td><td>30</td><td>12</td></tr>
+        <tr><td>正二十面体</td><td>正三角形</td><td>12</td><td>30</td><td>20</td></tr>
+      </table></div>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="geo-p17" data-level="3">
+    <h3><span class="pid">P17</span>角の二等分線の長さ（相似＋方べき）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\angle A\) の二等分線と BC の交点を D とする。AD の長さを求めよ」「AD を外接円まで延長した点 E」</dd>
+      <dt>こう考える</dt><dd>二等分線 AD を<b>外接円との交点 E まで延長</b>すると、相似な三角形と方べきが同時に現れる。そこから \(\text{AD}^2=\text{AB}\cdot\text{AC}-\text{BD}\cdot\text{DC}\) が出る。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>P2 で BD, DC を求める。</li>
+        <li>\(\triangle\text{ABD}\sim\triangle\text{AEC}\)（\(\angle\text{BAD}=\angle\text{EAC}\)、\(\angle\text{ABD}=\angle\text{AEC}\)：弧 AC）より \(\text{AB}\cdot\text{AC}=\text{AD}\cdot\text{AE}\)。</li>
+        <li>\(\text{AD}\cdot\text{AE}=\text{AD}(\text{AD}+\text{DE})=\text{AD}^2+\text{AD}\cdot\text{DE}\)、方べきで \(\text{AD}\cdot\text{DE}=\text{BD}\cdot\text{DC}\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>円周角、相似、方べきの定理（余弦定理で確かめてもよい）</dd>
+      <dt>なぜこの方法？</dt><dd>余弦定理で \(\cos B\) を出して \(\triangle\)ABD に使っても解けるが、この方法は<b>補助線1本で3つの道具（円周角・相似・方べき）がつながる</b>ので、図形問題全般の補助線の練習になる。阪大の演1 でもこの図を使う。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">AB＝6、BC＝5、CA＝4 の \(\triangle\)ABC で、\(\angle A\) の二等分線と BC の交点を D とする。AD の長さを求めよ。</div>
+      <p>P2 より BD＝3、DC＝2。AD の延長と外接円の交点を E とする。</p>
+      <p>\(\angle\text{BAD}=\angle\text{EAC}\)、\(\angle\text{ABD}=\angle\text{ABC}=\angle\text{AEC}\)（弧 AC に対する円周角）より \(\triangle\text{ABD}\sim\triangle\text{AEC}\)。よって AB:AE＝AD:AC、\(\text{AB}\cdot\text{AC}=\text{AD}\cdot\text{AE}\)。</p>
+      <p>方べきの定理より \(\text{AD}\cdot\text{DE}=\text{BD}\cdot\text{DC}\)。したがって</p>
+      <p>\(\text{AB}\cdot\text{AC}=\text{AD}(\text{AD}+\text{DE})=\text{AD}^2+\text{BD}\cdot\text{DC}\)</p>
+      <p>\(\text{AD}^2=24-6=18\)。</p>
+      <p class="answer">AD＝\(3\sqrt2\)</p>
+      <p class="point">検算（余弦定理）：\(\cos B=\frac{36+25-16}{2\cdot6\cdot5}=\frac34\)、\(\text{AD}^2=36+9-2\cdot6\cdot3\cdot\frac34=18\)。一致する。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="pitfalls">
+  <h2>よくあるミスと対策</h2>
+  <ul class="pitfalls">
+    <li><b>メネラウスで比の順番がばらばら、延長上の点の比を取り違える</b>（P6）。→ 頂点→分点→頂点→…と一周する順に書く。延長上の分点は「頂点からその点まで」の長さで比をとる。</li>
+    <li><b>メネラウスで使う三角形の選び方が分からない</b>（P6）。→ 求めたい比の線分を1辺にもつ三角形を選ぶ。</li>
+    <li><b>外分点・接線の交点の位置を逆に描く</b>（P2, P8）。→ 辺の大小（短い辺の側に外分点、短い辺の側に接線の交点）を確認してから図を描く。</li>
+    <li><b>方べきで AB（弦の長さ）をそのまま使う</b>（P10）。→ 必ず「P からの距離」PA, PB で書く。</li>
+    <li><b>外心の中心角で、鈍角三角形の場合を考えない</b>（P3）。→ 外心が三角形の内か外かを図で確認する。</li>
+    <li><b>四点共円を「見た目」で使う</b>（P9）。→ 答案では条件（対角の和 \(180^\circ\)、見込む角が等しい）を明記してから使う。</li>
+    <li><b>空間のなす角を、交わらない2直線のまま測ろうとする</b>（P14）。→ 平行移動して交わらせ、三角形を作ってから測る。</li>
+  </ul>
+</section>
+
+<section id="handai">
+  <h2>阪大レベルへの橋渡し</h2>
+  <p>阪大理系で「図形の性質」が単独の大問になることは少ない。しかし、<b>ベクトル・座標・三角比の大問の途中</b>で、初等幾何の性質に気づくと計算が数分の1になる場面が多い。逆に、図形の性質にこだわって解けなくなることもある。大切なのは<b>選択の判断</b>である。</p>
+  <div class="table-wrap"><table>
+    <tr><th>図の特徴</th><th>向いている方法</th></tr>
+    <tr><td>角の二等分線、円周上の点、接線、比が主役</td><td>初等幾何（P2, P6, P8, P10）＋三角比</td></tr>
+    <tr><td>直角が多い、対称軸がある、長さの計算が中心</td><td>座標（<a href="m2-coord.html">図形と方程式</a>）</td></tr>
+    <tr><td>交点の位置・内積・空間図形・一般の三角形</td><td>ベクトル（<a href="mc-vector.html">ベクトル</a>）</td></tr>
+    <tr><td>回転・正多角形・角度の和</td><td>複素数平面（<a href="mc-complex.html">複素数平面</a>）</td></tr>
+  </table></div>
+  <p>迷ったら、<b>最初の2〜3行で初等幾何の性質（円・相似・比）が使えるか試し、使えなければ座標・ベクトルに切り替える</b>。どの方法でも、答えが出たら別の方法で一部を検算できると強い。<a href="../thinking.html#t-coord">発想：座標を入れる</a>、<a href="../thinking.html#t-vector">発想：ベクトル・複素数で表す</a></p>
+
+  <article class="pattern" id="geo-h1" data-level="3">
+    <h3><span class="pid">演1</span>二等分線・外接円・方べき（解法の選択）</h3>
+    <div class="problem">\(\triangle\)ABC において AB＝3、AC＝2、\(\angle\text{BAC}=60^\circ\) とする。\(\angle\text{BAC}\) の二等分線と辺 BC の交点を D、直線 AD と \(\triangle\)ABC の外接円の A 以外の交点を E とする。<br>(1) BC と AD の長さを求めよ。<br>(2) DE の長さを求めよ。<br>(3) BE の長さを求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>座標を入れて外接円の方程式を立てることもできるが、<b>角の二等分線・外接円・交点</b>と、P2・P10・P17 の道具がそろっている図。初等幾何を選ぶ。</p>
+      <ul>
+        <li>BC は余弦定理、AD は「面積の和」または P17 の公式。</li>
+        <li>DE は方べき（\(\text{AD}\cdot\text{DE}=\text{BD}\cdot\text{DC}\)）。</li>
+        <li>E は二等分線と外接円の交点 → <b>弧 BC の中点</b>。\(\angle\text{EBC}=\angle\text{EAC}=30^\circ\) が使える。</li>
+      </ul>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) 余弦定理より \(\text{BC}^2=9+4-2\cdot3\cdot2\cos60^\circ=7\)、BC＝\(\sqrt7\)。</p>
+      <p>\(\triangle\text{ABC}=\triangle\text{ABD}+\triangle\text{ADC}\) より、AD＝\(t\) として</p>
+      <p>\(\frac12\cdot3\cdot2\sin60^\circ=\frac12\cdot3t\sin30^\circ+\frac12\cdot2t\sin30^\circ\)</p>
+      <p>\(\frac{3\sqrt3}{2}=\frac{5t}{4}\) より \(t=\frac{6\sqrt3}{5}\)。</p>
+      <p class="answer">(1) BC＝\(\sqrt7\)、AD＝\(\dfrac{6\sqrt3}{5}\)</p>
+      <p>(2) BD:DC＝AB:AC＝3:2 より BD＝\(\frac{3\sqrt7}{5}\)、DC＝\(\frac{2\sqrt7}{5}\)。方べきの定理より \(\text{AD}\cdot\text{DE}=\text{BD}\cdot\text{DC}=\frac{42}{25}\)。</p>
+      <p>\(\text{DE}=\frac{42}{25}\cdot\frac{5}{6\sqrt3}=\frac{7}{5\sqrt3}=\frac{7\sqrt3}{15}\)</p>
+      <p class="answer">(2) \(\dfrac{7\sqrt3}{15}\)</p>
+      <p>(3) 円周角の定理より \(\angle\text{EBC}=\angle\text{EAC}=30^\circ\)、\(\angle\text{ECB}=\angle\text{EAB}=30^\circ\)。よって \(\triangle\)EBC は EB＝EC の二等辺三角形で、E から BC に下ろした垂線の足は BC の中点。</p>
+      <p>\(\text{BE}\cos30^\circ=\frac{\sqrt7}{2}\) より \(\text{BE}=\frac{\sqrt7}{2}\cdot\frac{2}{\sqrt3}=\frac{\sqrt{21}}{3}\)。</p>
+      <p class="answer">(3) \(\dfrac{\sqrt{21}}{3}\)</p>
+      <p class="point">採点ポイント：(2) で方べきを使う根拠（A, B, E, C が同一円周上、D は弦 AE と弦 BC の交点）を書く。検算：P17 の公式で \(\text{AD}^2=3\cdot2-\frac{42}{25}=\frac{108}{25}\)、AD＝\(\frac{6\sqrt3}{5}\) と一致。また外接円の半径は正弦定理で \(\frac{\sqrt7}{2\sin60^\circ}=\frac{\sqrt{21}}{3}\) で、BE と等しい（\(\angle\text{BOE}=60^\circ\) なので \(\triangle\)OBE は正三角形）。座標で解くと外接円の方程式と直線の交点計算が必要で、時間が数倍かかる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="geo-h2" data-level="3">
+    <h3><span class="pid">演2</span>垂心の対称点（隠れた円と証明）</h3>
+    <div class="problem">鋭角三角形 ABC の垂心を H とし、直線 AH と辺 BC の交点を D、直線 AD と \(\triangle\)ABC の外接円の A 以外の交点を E とする。<br>(1) HD＝DE であることを証明せよ。<br>(2) BD＝2、DC＝3、AD＝6 のとき、HD と AH の長さを求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>HD＝DE を示すには、BD を共通辺とする2つの直角三角形 \(\triangle\)HBD と \(\triangle\)EBD の合同を示せばよい。そのためには \(\angle\text{HBD}=\angle\text{EBD}\) が必要。<b>どちらも \(90^\circ-\angle C\) に等しい</b>ことを、円周角と垂線から示す。(2) は (1) と方べきの組合せ。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) 直線 BH と辺 CA の交点を F とする（H は垂心なので BF⊥CA）。\(\triangle\)ABC は鋭角三角形なので、H は三角形の内部、E は直線 BC に関して A と反対側にある。</p>
+      <ul>
+        <li>\(\triangle\)BFC は \(\angle\text{BFC}=90^\circ\) の直角三角形なので \(\angle\text{HBD}=\angle\text{FBC}=90^\circ-\angle C\)。</li>
+        <li>円周角の定理より \(\angle\text{EBC}=\angle\text{EAC}\)（弧 EC）。\(\triangle\)ADC は \(\angle\text{ADC}=90^\circ\) の直角三角形なので \(\angle\text{EAC}=\angle\text{DAC}=90^\circ-\angle C\)。よって \(\angle\text{EBD}=90^\circ-\angle C\)。</li>
+      </ul>
+      <p>\(\triangle\)HBD と \(\triangle\)EBD において、BD は共通、\(\angle\text{HBD}=\angle\text{EBD}\)、\(\angle\text{HDB}=\angle\text{EDB}=90^\circ\)。1辺とその両端の角がそれぞれ等しいので \(\triangle\text{HBD}\equiv\triangle\text{EBD}\)。よって HD＝ED。（証明終）</p>
+      <p>(2) 方べきの定理（弦 AE と弦 BC の交点 D）より \(\text{AD}\cdot\text{DE}=\text{BD}\cdot\text{DC}\)、\(6\cdot\text{DE}=6\)、DE＝1。(1) より HD＝1、AH＝6－1＝5。</p>
+      <p class="answer">(2) HD＝1、AH＝5</p>
+      <p class="point">採点ポイント：(1) では「鋭角三角形なので E は BC について A と反対側にあり、\(\angle\text{EBD}\) と \(\angle\text{HBD}\) は BD の両側にある」という位置関係への言及があると完全。合同条件（1辺両端角）を明記。検算（座標）：D(0,0)、B(−2,0)、C(3,0)、A(0,6) とすると H(0,1)、外接円と \(y\) 軸の交点は \(y=6,\ -1\) で E(0,−1)。HD＝DE＝1 が確かめられる。<b>証明は初等幾何、数値の検算は座標</b>という使い分けの好例。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="geo-h3" data-level="3">
+    <h3><span class="pid">演3</span>正四面体のねじれの位置にある辺（初等幾何 vs ベクトル）</h3>
+    <div class="problem">1辺の長さが1の正四面体 OABC において、辺 OA の中点を M、辺 BC の中点を N とする。<br>(1) MN⊥OA かつ MN⊥BC であることを示せ。<br>(2) MN の長さを求めよ。<br>(3) 正四面体 OABC の体積を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>(1) <b>二等辺三角形の中線は底辺に垂直</b>。\(\triangle\)MBC が MB＝MC の二等辺三角形なら MN⊥BC。MB, MC はどちらも正三角形の中線。同様に \(\triangle\)NOA も NO＝NA。</p>
+      <p>(3) BC⊥ON、BC⊥AN から BC⊥平面 OAN（P15 の考え方）。四面体を平面 OAN で2つに切ると、どちらも底面 \(\triangle\)OAN、高さ BN（CN）。</p>
+      <p>ベクトルなら \(\vec{\text{MN}}=\frac12(\vec b+\vec c-\vec a)\)（O 基準）として内積を計算する方法もある。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) \(\triangle\)OAB, \(\triangle\)OAC は1辺1の正三角形なので、その中線 MB, MC はともに \(\frac{\sqrt3}{2}\)。よって \(\triangle\)MBC は MB＝MC の二等辺三角形で、N は底辺 BC の中点だから MN⊥BC。</p>
+      <p>同様に \(\triangle\)OBC, \(\triangle\)ABC の中線 ON, AN はともに \(\frac{\sqrt3}{2}\) なので、\(\triangle\)NOA は NO＝NA の二等辺三角形で、M は OA の中点だから MN⊥OA。（証明終）</p>
+      <p>(2) \(\triangle\)MBN は \(\angle\text{MNB}=90^\circ\) の直角三角形なので \(\text{MN}^2=\text{MB}^2-\text{BN}^2=\frac34-\frac14=\frac12\)。</p>
+      <p class="answer">(2) MN＝\(\dfrac{\sqrt2}{2}\)</p>
+      <p>(3) BC⊥ON、BC⊥AN で、ON と AN は N で交わるので BC⊥平面 OAN。\(\triangle\text{OAN}=\frac12\cdot\text{OA}\cdot\text{MN}=\frac12\cdot1\cdot\frac{\sqrt2}{2}=\frac{\sqrt2}{4}\)。</p>
+      <p>四面体 OABC は、平面 OAN によって四面体 BOAN と COAN に分かれ、それぞれ底面 \(\triangle\)OAN、高さ BN＝CN＝\(\frac12\)。</p>
+      <p>\(V=2\cdot\frac13\cdot\frac{\sqrt2}{4}\cdot\frac12=\frac{\sqrt2}{12}\)</p>
+      <p class="answer">(3) \(\dfrac{\sqrt2}{12}\)</p>
+      <p class="point">採点ポイント：(1) では「二等辺三角形の頂点と底辺の中点を結ぶ線は底辺に垂直」を根拠として明記。(3) では「交わる2直線に垂直 ⇒ 平面に垂直」を書く。<b>ベクトルでの検算</b>：O を始点に \(\vec a,\vec b,\vec c\)（\(\abs{\vec a}=1\)、\(\vec a\cdot\vec b=\frac12\) など）とすると \(\vec{\text{MN}}=\frac12(\vec b+\vec c-\vec a)\)、\(\vec{\text{MN}}\cdot\vec a=\frac12\left(\frac12+\frac12-1\right)=0\)、\(\abs{\vec{\text{MN}}}^2=\frac14\left(1+1+1+2\cdot\frac12-2\cdot\frac12-2\cdot\frac12\right)=\frac12\)。正四面体のように対称性が高い立体は初等幾何が速く、辺の長さがばらばらな四面体ではベクトルが確実。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="next">
+  <h2>次に学ぶとつながる単元</h2>
+  <ul>
+    <li><a href="m1-trig.html">図形と計量</a>：P1, P17, 演1 で余弦定理・正弦定理と組み合わせる。図形の性質で「形」を、三角比で「数値」を決める。</li>
+    <li><a href="mc-vector.html">ベクトル</a>：P6・P7 の交点の比はベクトルの「係数比較」でも求まる。演3 のように、空間図形はベクトルで検算・解答できる。</li>
+    <li><a href="m2-coord.html">図形と方程式</a>：P10 の方べき、P11 の2円の位置関係は、円の方程式で計算的に扱える。演2 の検算のように座標は強力な確認手段。</li>
+    <li><a href="mc-complex.html">複素数平面</a>：回転や正多角形（P12 の正五角形）は複素数で扱うと見通しがよい。</li>
+  </ul>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>

@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>極限（数学III）｜解法の地図</title>
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-unit="m3-limit" data-root="../">
+<main>
+
+<header class="unit-head">
+  <span class="subj-badge">数学III</span>
+  <h1>極限</h1>
+  <p class="lead">極限の計算は「不定形（\(\frac\infty\infty,\ \infty-\infty,\ \frac00\)）を、形を変えて不定形でなくする」技術。証明問題は「直接求められない値を、求められる2つで挟む」技術。阪大では漸化式・方程式の解・和の評価と組み合わさり、<b>はさみうちの答案力</b>が問われる。</p>
+  <div class="goal">
+    <strong>このページの到達目標</strong>
+    <ul>
+      <li>【基礎】最高次で割る・有理化・\(r^n\) の場合分けで数列の極限を求め、無限等比級数の和と収束条件が分かる。</li>
+      <li>【標準】\(\frac{\sin x}{x}\)、\(e\) に関する極限を使いこなし、極限値から係数を決定（必要条件 → 十分性）でき、中間値の定理で解の存在を示せる。</li>
+      <li>【阪大】一般項が求まらない漸化式や方程式の解の極限を、不等式評価とはさみうちで論証できる。</li>
+    </ul>
+  </div>
+  <p class="prereq">前提：<a href="mb-sequence.html">数列</a>（漸化式・和の計算）、<a href="m2-explog.html">指数関数・対数関数</a>、<a href="m2-trig.html">三角関数</a> ／ 次に進む：<a href="m3-diff.html">微分法とその応用</a>、<a href="m3-integral-app.html">積分法の応用</a>（区分求積）</p>
+</header>
+
+<section id="core">
+  <h2>必ず押さえる基本事項</h2>
+
+  <div class="box theorem">
+    <p><span class="name">はさみうちの原理・追い出しの原理</span></p>
+    <ul>
+      <li>\(a_n\le c_n\le b_n\) で \(\lim a_n=\lim b_n=\alpha\) なら \(\lim c_n=\alpha\)。</li>
+      <li>\(a_n\le b_n\) で \(\lim a_n=\infty\) なら \(\lim b_n=\infty\)。</li>
+    </ul>
+    <p>なぜ：\(c_n\) は \(\alpha\) に近づく2つの数列の間に閉じ込められ、逃げ場がない。<b>直接計算できない量を、計算できる量で挟む</b>のが極限の証明の基本形。<a href="../thinking.html#t-bound">発想：不等式で評価・はさみうち</a></p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">\(r^n\) の極限</span></p>
+    \[ \lim_{n\to\infty}r^n=\begin{cases}\infty & (r\gt1)\\ 1 & (r=1)\\ 0 & (|r|\lt1)\\ \text{振動（極限なし）} & (r\le-1)\end{cases} \]
+    <p>なぜ（\(r\gt1\)）：\(r=1+h\ (h\gt0)\) とおくと二項定理より \(r^n=(1+h)^n\ge1+nh\to\infty\)。\(|r|\lt1\) なら \(\frac1{|r|}\gt1\) にこれを使う。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">無限級数</span></p>
+    <ul>
+      <li>\(\displaystyle\sum_{n=1}^\infty a_n\) が収束 \(\Longrightarrow\ \lim a_n=0\)（対偶：\(a_n\not\to0\) なら発散）。逆は成り立たない（\(\sum\frac1n\) は発散）。</li>
+      <li>無限等比級数 \(\displaystyle\sum_{n=1}^{\infty}ar^{n-1}\) が収束 \(\iff a=0\) または \(|r|\lt1\)。和は \(\dfrac{a}{1-r}\)（\(a=0\) なら 0）。</li>
+    </ul>
+    <p>なぜ：部分和 \(S_n=\dfrac{a(1-r^n)}{1-r}\ (r\neq1)\) に \(r^n\) の極限を使う。前半は \(a_n=S_n-S_{n-1}\to S-S=0\)。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">重要な関数の極限</span></p>
+    \[ \lim_{x\to0}\frac{\sin x}{x}=1,\quad \lim_{x\to\pm\infty}\left(1+\frac1x\right)^x=\lim_{h\to0}(1+h)^{\frac1h}=e,\quad \lim_{x\to0}\frac{\log(1+x)}{x}=1,\quad \lim_{x\to0}\frac{e^x-1}{x}=1 \]
+    <p>なぜ：\(0\lt x\lt\frac\pi2\) で面積を比べると \(\sin x\lt x\lt\tan x\)（三角形 \(\lt\) 扇形 \(\lt\) 三角形）。逆数をとり \(\sin x\) を掛けて \(\cos x\lt\frac{\sin x}{x}\lt1\)、はさみうち。\(e\) の極限は \(e\) の定義。\(\frac{\log(1+x)}{x}=\log(1+x)^{\frac1x}\to\log e=1\)。\(t=e^x-1\) とおくと \(\frac{e^x-1}{x}=\frac{t}{\log(1+t)}\to1\)。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">発散の速さの比較</span>（\(n\) は自然数）</p>
+    \[ \lim_{x\to\infty}\frac{x^n}{e^x}=0,\qquad \lim_{x\to\infty}\frac{\log x}{x}=0,\qquad \lim_{x\to+0}x\log x=0 \]
+    <p>なぜ：\(x\gt0\) で \(e^x\gt\dfrac{x^{n+1}}{(n+1)!}\)（微分を繰り返して示せる）から \(0\lt\dfrac{x^n}{e^x}\lt\dfrac{(n+1)!}{x}\to0\)。\(\log x\) の方は \(x=e^t\) とおけば前者に帰着。<b>入試では誘導がなければ「既知」として使ってよいことが多いが、問題文に「示せ」とあれば証明が必要</b>（P19）。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">連続性と中間値の定理</span></p>
+    <ul>
+      <li>\(f(x)\) が \(x=a\) で連続 \(\iff\displaystyle\lim_{x\to a}f(x)=f(a)\)（左右の極限が一致し、それが関数値に等しい）。</li>
+      <li>\(f(x)\) が閉区間 \([a,b]\) で連続で \(f(a)f(b)\lt0\) なら、\(f(c)=0\) となる \(c\) が \(a\lt c\lt b\) に少なくとも1つ存在する。</li>
+    </ul>
+    <p>なぜ：連続なグラフは「切れ目なく」つながっているので、\(x\) 軸の下から上へ移るには必ず \(x\) 軸を横切る。</p>
+  </div>
+
+  <div class="box idea">
+    <p><b>この単元を貫く考え方</b>：計算問題は<b>「不定形を見抜き、形を変えて確定形にする」</b>（割る・有理化・置き換え・有名な極限の形を作る）。証明問題は<b>「求めたい量 \(c_n\) を、極限の分かる量で上下から挟む」</b>。挟むための不等式を作るのが答案の本体である。</p>
+  </div>
+</section>
+
+<section id="quick">
+  <h2>早見表：こう来たら → こう解く</h2>
+  <div class="table-wrap"><table class="quick">
+    <tr><th>問題の特徴（こう来たら）</th><th>方針（こう解く）</th><th>使う道具</th><th>詳細</th></tr>
+    <tr data-level="1"><td>分数式の極限（\(\frac\infty\infty\)）</td><td>分母の最高次で分母分子を割る</td><td>\(\frac1n\to0\)</td><td><a href="#lim-p1">P1</a></td></tr>
+    <tr data-level="1"><td>\(\sqrt{n^2+3n}-n\)（\(\infty-\infty\)）</td><td>分子の有理化</td><td>\((a-b)(a+b)=a^2-b^2\)</td><td><a href="#lim-p2">P2</a></td></tr>
+    <tr data-level="1"><td>\(r^n\) を含む極限、\(r\) で分類</td><td>\(|r|\lt1,\ r=\pm1,\ |r|\gt1\) で場合分け</td><td>\(r^n\) の極限</td><td><a href="#lim-p3">P3</a></td></tr>
+    <tr data-level="2"><td>\(\sin n\)、\((2^n+3^n)^{\frac1n}\) など直接計算できない</td><td>上下から簡単な式で挟む</td><td>はさみうち</td><td><a href="#lim-p4">P4</a></td></tr>
+    <tr data-level="3"><td>\(\frac{n}{2^n}\to0\)、\(\sqrt[n]{n}\to1\) を示せ</td><td>\((1+h)^n\) を二項定理で下から評価</td><td>二項定理</td><td><a href="#lim-p5">P5</a></td></tr>
+    <tr data-level="2"><td>\(a_{n+1}=pa_n+q\) で定まる数列の極限</td><td>一般項を求めてから極限</td><td>特性方程式</td><td><a href="#lim-p6">P6</a></td></tr>
+    <tr data-level="3"><td>\(a_{n+1}=\sqrt{a_n+2}\)（一般項が求まらない）</td><td>\(|a_{n+1}-\alpha|\le r|a_n-\alpha|\) を示す</td><td>はさみうち・帰納法</td><td><a href="#lim-p7">P7</a></td></tr>
+    <tr data-level="1"><td>\(\sum\frac{1}{n(n+2)}\) などの無限級数</td><td>部分和を部分分数で計算（望遠鏡和）</td><td>部分分数分解</td><td><a href="#lim-p8">P8</a></td></tr>
+    <tr data-level="1"><td>無限等比級数の和・収束条件</td><td>初項0 または \(|r|\lt1\)</td><td>\(\frac{a}{1-r}\)</td><td><a href="#lim-p9">P9</a></td></tr>
+    <tr data-level="2"><td>無限級数が発散することを示せ</td><td>項 \(\not\to0\) を示す／\(\sum\frac1n\) と比較</td><td>収束の必要条件</td><td><a href="#lim-p10">P10</a></td></tr>
+    <tr data-level="2"><td>図形を次々に作る → 面積・長さの総和</td><td>相似比 → 公比を求めて無限等比級数</td><td>相似・等比数列</td><td><a href="#lim-p11">P11</a></td></tr>
+    <tr data-level="1"><td>\(x\to a\) の \(\frac00\)、\(x\to-\infty\) の根号</td><td>約分／\(x=-t\) と置き換えて有理化</td><td>因数分解・有理化</td><td><a href="#lim-p12">P12</a></td></tr>
+    <tr data-level="1"><td>絶対値・\(\frac1x\) を含む \(x\to a\) の極限</td><td>右側極限・左側極限を別々に</td><td>片側極限</td><td><a href="#lim-p13">P13</a></td></tr>
+    <tr data-level="2"><td>三角関数を含む \(\frac00\)</td><td>\(\frac{\sin\square}{\square}\) の形を作る</td><td>\(\frac{\sin x}{x}\to1\)</td><td><a href="#lim-p14">P14</a></td></tr>
+    <tr data-level="2"><td>\((1+\square)^{\frac{1}{\square}}\)、\(\frac{e^x-1}{x}\) 型</td><td>\(e\) の定義の形に合わせる</td><td>\(e\) の極限</td><td><a href="#lim-p15">P15</a></td></tr>
+    <tr data-level="2"><td>極限値が与えられ、係数を決定</td><td>分母 \(\to0\) なら分子 \(\to0\)（必要条件）→ 十分性</td><td>極限の性質</td><td><a href="#lim-p16">P16</a></td></tr>
+    <tr data-level="2"><td>\(\displaystyle\lim_{n\to\infty}\frac{x^{2n+2}+\cdots}{x^{2n}+1}\) で定義された関数の連続性</td><td>\(|x|\) と1の大小で場合分け</td><td>連続の定義</td><td><a href="#lim-p17">P17</a></td></tr>
+    <tr data-level="2"><td>方程式が区間内に解をもつことを示せ</td><td>端点の符号が異なることを確認</td><td>中間値の定理</td><td><a href="#lim-p18">P18</a></td></tr>
+    <tr data-level="2"><td>\(\frac{\log x}{x}\)、\(\frac{x}{e^x}\)、\(x\log x\) の極限</td><td>既知として使う／不等式を示して挟む</td><td>発散の速さの比較</td><td><a href="#lim-p19">P19</a></td></tr>
+    <tr data-level="3"><td>ガウス記号 \([x]\) を含む極限、\(\frac1n\sum f\left(\frac kn\right)\)</td><td>\(x-1\lt[x]\le x\) で挟む／区分求積</td><td>はさみうち・定積分</td><td><a href="#lim-p20">P20</a></td></tr>
+  </table></div>
+</section>
+
+<section id="patterns">
+  <h2>パターン別 解法マップ</h2>
+
+  <article class="pattern" id="lim-p1" data-level="1">
+    <h3><span class="pid">P1</span>\(\frac\infty\infty\) 型：最高次で割る</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\displaystyle\lim_{n\to\infty}\frac{3n^2-n+1}{2n^2+5}\)」のように、分母分子がともに \(\infty\) に発散する分数式</dd>
+      <dt>こう考える</dt><dd>\(n\) が大きいと、多項式は<b>最高次の項だけが効く</b>。分母の最高次 \(n^k\) で分母分子を割れば、\(\frac{1}{n}\to0\) が使える形になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>分母の最高次の項で分母・分子を割る。</li>
+        <li>\(\frac{c}{n^p}\to0\ (p\gt0)\) を使って各項の極限をとる。</li>
+        <li>分子の次数が高ければ \(\pm\infty\)、低ければ 0、等しければ最高次の係数の比。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\lim\frac1n=0\)、極限の四則（各項が収束するときだけ使える）</dd>
+      <dt>なぜこの方法？</dt><dd>「\(\infty\div\infty\)」は値が決まらない（不定形）。割ることで分母が<b>0でない定数に収束する形</b>になり、極限の四則演算が使えるようになる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">次の極限を求めよ。(1) \(\displaystyle\lim_{n\to\infty}\frac{3n^2-n+1}{2n^2+5}\)　(2) \(\displaystyle\lim_{n\to\infty}\frac{n^2+1}{n+2}\)　(3) \(\displaystyle\lim_{n\to\infty}\frac{(n+1)(2n-1)}{n^3+1}\)</div>
+      <p>(1) \(n^2\) で割る：\(\dfrac{3-\frac1n+\frac1{n^2}}{2+\frac5{n^2}}\to\dfrac32\)。<span class="answer">\(\dfrac32\)</span></p>
+      <p>(2) \(n\) で割る：\(\dfrac{n+\frac1n}{1+\frac2n}\)。分子 \(\to\infty\)、分母 \(\to1\)。<span class="answer">\(\infty\)（正の無限大に発散）</span></p>
+      <p>(3) \(n^3\) で割る：\(\dfrac{\left(\frac1n+\frac1{n^2}\right)\left(2-\frac1n\right)}{1+\frac1{n^3}}\to\dfrac{0\cdot2}{1}=0\)。<span class="answer">0</span></p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="lim-p2" data-level="1">
+    <h3><span class="pid">P2</span>\(\infty-\infty\) 型：有理化</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\displaystyle\lim_{n\to\infty}\left(\sqrt{n^2+3n}-n\right)\)」「\(\displaystyle\lim_{n\to\infty}n\left(\sqrt{n^2+2}-n\right)\)」</dd>
+      <dt>こう考える</dt><dd>\(\sqrt{\ }\) どうしの差は打ち消し合いが起きていて、そのままでは分からない。<b>分子の有理化で差を分数の形に</b>変え、P1 に持ち込む。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\sqrt A-B=\dfrac{A-B^2}{\sqrt A+B}\) と変形（分母は \(\infty+\infty\) で不定形でない）。</li>
+        <li>分子の打ち消しを計算。</li>
+        <li>分母の最高次で割って極限（P1）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\((a-b)(a+b)=a^2-b^2\)、\(\sqrt{n^2}=n\ (n\gt0)\)</dd>
+      <dt>なぜこの方法？</dt><dd>差 \(\sqrt A-B\) は「ほぼ同じ大きさの2数の差」で、どちらも \(\infty\) なので情報が消える。有理化で<b>差を和に変える</b>と、和は素直に大きくなるので計算できる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle\lim_{n\to\infty}\left(\sqrt{n^2+3n}-n\right)\)　(2) \(\displaystyle\lim_{n\to\infty}n\left(\sqrt{n^2+2}-n\right)\)</div>
+      <p>(1) \(\sqrt{n^2+3n}-n=\dfrac{3n}{\sqrt{n^2+3n}+n}=\dfrac{3}{\sqrt{1+\frac3n}+1}\to\dfrac32\)。<span class="answer">\(\dfrac32\)</span></p>
+      <p>(2) \(n\left(\sqrt{n^2+2}-n\right)=\dfrac{2n}{\sqrt{n^2+2}+n}=\dfrac{2}{\sqrt{1+\frac2{n^2}}+1}\to1\)。<span class="answer">1</span></p>
+      <p class="point">(1) を「\(\sqrt{n^2+3n}\approx n\) だから 0」とするのは誤り。打ち消し合いの「残り」が \(\frac32\) という有限の値になる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="lim-p3" data-level="1">
+    <h3><span class="pid">P3</span>\(r^n\) を含む極限（\(r\) で場合分け）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\displaystyle\lim_{n\to\infty}\frac{3^n-2^n}{3^n+2^n}\)」「\(\displaystyle\lim_{n\to\infty}\frac{r^{2n+1}+1}{r^{2n}+1}\) を \(r\) の値で分類して求めよ」</dd>
+      <dt>こう考える</dt><dd>\(r^n\) の振る舞いは \(|r|\lt1\)（消える）、\(|r|\gt1\)（爆発する）、\(r=\pm1\)（そのまま）で全く違う。<b>爆発する項で割って、消える形を作る</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>複数の指数があれば、底の絶対値が最大のもので割る（\(3^n\) で割る）。</li>
+        <li>文字 \(r\) なら \(|r|\lt1,\ r=1,\ r=-1,\ |r|\gt1\) の4通りに分ける。</li>
+        <li>\(|r|\gt1\) では \(r^n\)（または \(r^{2n}\)）で割って \(\left(\frac1r\right)^n\to0\) を使う。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(r^n\) の極限（基本事項）</dd>
+      <dt>なぜこの方法？</dt><dd>境目 \(|r|=1\) で極限の値が飛ぶので、場合分けの境界は \(r=\pm1\)。割り算は P1 と同じ「一番強い項で割る」発想。<a href="../thinking.html#t-casework">発想：場合分け</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle\lim_{n\to\infty}\frac{3^n-2^n}{3^n+2^n}\) を求めよ。(2) \(\displaystyle f(r)=\lim_{n\to\infty}\frac{r^{2n+1}+1}{r^{2n}+1}\) を求めよ。</div>
+      <p>(1) \(3^n\) で割る：\(\dfrac{1-\left(\frac23\right)^n}{1+\left(\frac23\right)^n}\to1\)。<span class="answer">1</span></p>
+      <p>(2) \(r^{2n}=(r^2)^n\) に注目する。</p>
+      <ul>
+        <li>\(|r|\lt1\)：\(r^{2n}\to0,\ r^{2n+1}\to0\) より \(f(r)=1\)。</li>
+        <li>\(r=1\)：\(\frac{2}{2}=1\)。　\(r=-1\)：\(\frac{-1+1}{1+1}=0\)。</li>
+        <li>\(|r|\gt1\)：\(r^{2n}\) で割って \(\dfrac{r+\frac{1}{r^{2n}}}{1+\frac1{r^{2n}}}\to r\)。</li>
+      </ul>
+      <p class="answer">(2) \(|r|\lt1\) または \(r=1\) のとき 1、\(r=-1\) のとき 0、\(|r|\gt1\) のとき \(r\)</p>
+      <p class="point">\(r=-1\) を \(|r|\lt1\) や \(|r|\gt1\) の式に含めると誤り。境界は必ず個別に代入する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="lim-p4" data-level="2">
+    <h3><span class="pid">P4</span>はさみうちの原理</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\displaystyle\lim_{n\to\infty}\frac{n\sin n}{n^2+1}\)」「\(\displaystyle\lim_{n\to\infty}(2^n+3^n)^{\frac1n}\)」のように、式変形だけでは計算できない極限</dd>
+      <dt>こう考える</dt><dd>\(\sin n\) は振動、\((\ )^{\frac1n}\) は扱いにくい。<b>扱いにくい部分を「最大のとき」「最小のとき」で置き換えた2つの式</b>で挟めば、両方の極限が同じなら答えが決まる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>扱いにくい部分の範囲を不等式で書く（\(-1\le\sin n\le1\)、\(3^n\le2^n+3^n\le2\cdot3^n\) など）。</li>
+        <li>それを使って目的の式を上下から挟む。</li>
+        <li>両端の極限が一致することを確認して結論。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>はさみうちの原理、\(\lim a^{\frac1n}=1\ (a\gt0)\)</dd>
+      <dt>なぜこの方法？</dt><dd>「正確な値は分からないが、範囲は分かる」量の極限をとる唯一の正攻法。挟む式は<b>粗すぎると極限が一致しない</b>ので、主要な部分は残して余分な部分だけを粗くする。<a href="../thinking.html#t-bound">発想：はさみうち</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle\lim_{n\to\infty}\frac{n\sin n}{n^2+1}\)　(2) \(\displaystyle\lim_{n\to\infty}(2^n+3^n)^{\frac1n}\)</div>
+      <p>(1) \(\left|\dfrac{n\sin n}{n^2+1}\right|\le\dfrac{n}{n^2+1}\to0\)。よって \(-\dfrac{n}{n^2+1}\le\dfrac{n\sin n}{n^2+1}\le\dfrac{n}{n^2+1}\) で、はさみうちより 0。<span class="answer">0</span></p>
+      <p>(2) \(3^n\lt2^n+3^n\lt2\cdot3^n\) の各辺を \(\frac1n\) 乗して \(3\lt(2^n+3^n)^{\frac1n}\lt2^{\frac1n}\cdot3\)。\(2^{\frac1n}\to1\) なので右辺 \(\to3\)。<span class="answer">3</span></p>
+      <p class="point">(2) では \(2^n\) を「捨てて」も「\(3^n\) に格上げして」も、どちらも主要部 \(3^n\) は残っている。これが挟み方のコツ。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="lim-p5" data-level="3">
+    <h3><span class="pid">P5</span>二項定理による評価（\(\frac{n}{2^n}\to0\)、\(\sqrt[n]{n}\to1\)）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\displaystyle\lim_{n\to\infty}\frac{n}{2^n}=0\) を示せ」「\(\displaystyle\lim_{n\to\infty}n^{\frac1n}=1\) を示せ」（ロピタル等を使わずに）</dd>
+      <dt>こう考える</dt><dd>指数 \((1+h)^n\) は二項展開すると<b>全項が正</b>なので、途中の項を取り出すだけで下からの評価になる：\((1+h)^n\ge1+nh+\dfrac{n(n-1)}{2}h^2\)。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(2^n=(1+1)^n\ge\dfrac{n(n-1)}{2}\)（\(n\ge2\)）のように、必要な次数の項を1つ取り出す。</li>
+        <li>逆数をとって \(0\lt\dfrac{n}{2^n}\le\dfrac{2}{n-1}\) と上から押さえる。</li>
+        <li>\(\sqrt[n]{n}=1+h_n\ (h_n\ge0)\) とおくなら、\(n=(1+h_n)^n\ge\dfrac{n(n-1)}{2}h_n^2\) から \(h_n\) を挟む。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>二項定理、はさみうち</dd>
+      <dt>なぜこの方法？</dt><dd>\(\frac{n}{2^n}\) を倒すには、分母が \(n\) より<b>1段階速く</b>大きくなることを示せばよい。\(n^2\) の項を取り出せば十分。\(n\) 次式に勝つには \(n+1\) 次の項を取り出す、という使い分けを覚える。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle\lim_{n\to\infty}\frac{n}{2^n}=0\) を示せ。(2) \(\displaystyle\lim_{n\to\infty}n^{\frac1n}=1\) を示せ。</div>
+      <p>(1) \(n\ge2\) で二項定理より \(2^n=(1+1)^n=\sum_{k=0}^{n}\C{n}{k}\ge\C{n}{2}=\dfrac{n(n-1)}{2}\)。よって</p>
+      \[ 0\lt\frac{n}{2^n}\le\frac{n}{\frac{n(n-1)}{2}}=\frac{2}{n-1}\to0 \]
+      <p>はさみうちより \(\lim\frac{n}{2^n}=0\)。（証明終）</p>
+      <p>(2) \(n\ge2\) で \(n^{\frac1n}\gt1\) なので \(n^{\frac1n}=1+h_n\ (h_n\gt0)\) とおく。</p>
+      \[ n=(1+h_n)^n\ge\C{n}{2}h_n^{\,2}=\frac{n(n-1)}{2}h_n^{\,2}\quad\text{より}\quad 0\lt h_n\le\sqrt{\frac{2}{n-1}}\to0 \]
+      <p>よって \(h_n\to0\)、\(n^{\frac1n}\to1\)。（証明終）</p>
+      <p class="point">(2) で1次の項 \(nh_n\) を取り出すと \(n\ge nh_n\)、\(h_n\le1\) しか言えず失敗する。<b>どの項を取り出せば挟めるか</b>を目標（\(h_n\to0\)）から逆算する（<a href="../thinking.html#t-goal">発想：ゴールから逆算</a>）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="lim-p6" data-level="2">
+    <h3><span class="pid">P6</span>漸化式で定まる数列の極限（一般項が求まる型）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(a_1=1,\ a_{n+1}=\frac12a_n+3\) で定まる数列の極限」</dd>
+      <dt>こう考える</dt><dd>1次漸化式は一般項が求まるので、まず一般項 → \(r^n\) の極限（P3）。極限値 \(\alpha\) は<b>特性方程式 \(\alpha=\frac12\alpha+3\) の解</b>と一致する。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\alpha=p\alpha+q\) を解いて \(\alpha\) を得る。</li>
+        <li>\(a_{n+1}-\alpha=p(a_n-\alpha)\) より \(a_n-\alpha=p^{n-1}(a_1-\alpha)\)。</li>
+        <li>\(|p|\lt1\) なら \(a_n\to\alpha\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>1次漸化式の解法（<a href="mb-sequence.html">数列</a>）、\(r^n\) の極限</dd>
+      <dt>なぜこの方法？</dt><dd>\(a_n-\alpha\)（極限からのずれ）は毎回 \(p\) 倍になる。\(|p|\lt1\) ならずれは等比数列的に縮む。この「ずれが縮む」という見方を、一般項が求まらない場合に一般化したのが P7。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(a_1=1,\ a_{n+1}=\dfrac12a_n+3\) で定まる数列 \(\{a_n\}\) の一般項と極限を求めよ。</div>
+      <p>\(\alpha=\frac12\alpha+3\) より \(\alpha=6\)。\(a_{n+1}-6=\frac12(a_n-6)\)、\(a_n-6=\left(\frac12\right)^{n-1}(1-6)\)。</p>
+      <p class="answer">\(a_n=6-5\left(\dfrac12\right)^{n-1}\)、\(\displaystyle\lim_{n\to\infty}a_n=6\)</p>
+      <p class="point">「極限を \(\alpha\) とおいて \(\alpha=\frac12\alpha+3\) から \(\alpha=6\)」だけでは不十分。<b>極限が存在することを示していない</b>から。極限が存在すれば6、という必要条件にすぎない。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="lim-p7" data-level="3">
+    <h3><span class="pid">P7</span>一般項が求まらない漸化式の極限（\(|a_{n+1}-\alpha|\le r|a_n-\alpha|\) 型）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(a_1=1,\ a_{n+1}=\sqrt{a_n+2}\) とする。(1) \(1\le a_n\lt2\) を示せ (2) \(2-a_{n+1}\le\frac13(2-a_n)\) を示せ (3) \(\lim a_n\) を求めよ」</dd>
+      <dt>こう考える</dt><dd>極限の候補 \(\alpha\) を \(\alpha=\sqrt{\alpha+2}\) から先に求め（\(\alpha=2\)）、<b>「ずれ \(|a_n-\alpha|\) が毎回 \(r\) 倍以下に縮む」</b>ことを示す。すると \(0\le|a_n-\alpha|\le r^{n-1}|a_1-\alpha|\to0\)。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>極限の候補 \(\alpha\) を求める。</li>
+        <li>\(a_n\) の範囲を<a href="../thinking.html#t-induction">数学的帰納法</a>で示す（評価に必要）。</li>
+        <li>\(a_{n+1}-\alpha\) を \(a_n-\alpha\) で表す（有理化・通分）。範囲を使って係数を \(r\ (0\lt r\lt1)\) 以下に押さえる。</li>
+        <li>繰り返し使って \(|a_n-\alpha|\le r^{n-1}|a_1-\alpha|\)、はさみうち。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>有理化、数学的帰納法、はさみうち</dd>
+      <dt>なぜこの方法？</dt><dd>一般項がなくても、「ずれ」の漸化式不等式なら等比数列で上から押さえられる。<b>阪大の極限で最頻出の型</b>。(1)(2) の誘導が付かない場合も、この流れを自分で組み立てる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(a_1=1,\ a_{n+1}=\sqrt{a_n+2}\ (n=1,2,\dots)\) とする。(1) すべての \(n\) で \(1\le a_n\lt2\) を示せ。(2) \(2-a_{n+1}\le\dfrac13(2-a_n)\) を示せ。(3) \(\displaystyle\lim_{n\to\infty}a_n\) を求めよ。</div>
+      <p>(1) \(n=1\) で成立。\(1\le a_k\lt2\) と仮定すると \(a_{k+1}=\sqrt{a_k+2}\) で \(\sqrt3\le a_{k+1}\lt\sqrt4=2\)、特に \(1\le a_{k+1}\lt2\)。帰納法により成立。（証明終）</p>
+      <p>(2) 有理化して</p>
+      \[ 2-a_{n+1}=2-\sqrt{a_n+2}=\frac{4-(a_n+2)}{2+\sqrt{a_n+2}}=\frac{2-a_n}{2+\sqrt{a_n+2}} \]
+      <p>(1) より \(2-a_n\gt0\)、\(\sqrt{a_n+2}\ge\sqrt3\gt1\) なので分母 \(\gt3\)。よって \(2-a_{n+1}\le\frac13(2-a_n)\)。（証明終）</p>
+      <p>(3) (2) を繰り返して \(0\lt2-a_n\le\left(\frac13\right)^{n-1}(2-a_1)=\left(\frac13\right)^{n-1}\to0\)。はさみうちより</p>
+      <p class="answer">\(\displaystyle\lim_{n\to\infty}a_n=2\)</p>
+      <p class="point">採点ポイント：(2) の係数 \(\frac13\) を出すのに (1) の下限 \(a_n\ge1\) が必要。範囲の証明は「何のために必要か」を意識すると、自分で設定できるようになる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="lim-p8" data-level="1">
+    <h3><span class="pid">P8</span>無限級数の部分和（望遠鏡和）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「無限級数 \(\displaystyle\sum_{n=1}^{\infty}\frac{1}{n(n+2)}\) の和」「\(\displaystyle\sum_{n=1}^{\infty}\frac{1}{\sqrt{n+1}+\sqrt n}\) の収束・発散を調べよ」</dd>
+      <dt>こう考える</dt><dd>無限級数の和＝<b>部分和 \(S_n\) の極限</b>。いきなり無限個を足さず、まず有限の \(S_n\) を計算する。部分分数分解すると隣どうしが打ち消し合う（望遠鏡和）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>一般項を差の形 \(f(n)-f(n+k)\) に分解（部分分数・有理化）。</li>
+        <li>部分和 \(S_n\) を書き並べ、打ち消し合いで残る項を確認。</li>
+        <li>\(n\to\infty\) の極限をとる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\dfrac{1}{n(n+2)}=\dfrac12\left(\dfrac1n-\dfrac{1}{n+2}\right)\)、有理化</dd>
+      <dt>なぜこの方法？</dt><dd>無限個の和には「順番を変えてよい」などの有限和のルールが使えないことがある。<b>有限の部分和で計算してから極限</b>が唯一安全な手順。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle\sum_{n=1}^{\infty}\frac{1}{n(n+2)}\) の和を求めよ。(2) \(\displaystyle\sum_{n=1}^{\infty}\frac{1}{\sqrt{n+1}+\sqrt n}\) の収束・発散を調べよ。</div>
+      <p>(1) \(S_n=\dfrac12\sum_{k=1}^{n}\left(\dfrac1k-\dfrac1{k+2}\right)=\dfrac12\left(1+\dfrac12-\dfrac{1}{n+1}-\dfrac{1}{n+2}\right)\to\dfrac12\cdot\dfrac32\)。</p>
+      <p class="answer">(1) \(\dfrac34\)</p>
+      <p>(2) \(\dfrac{1}{\sqrt{k+1}+\sqrt k}=\sqrt{k+1}-\sqrt k\) より \(S_n=\sqrt{n+1}-1\to\infty\)。</p>
+      <p class="answer">(2) 正の無限大に発散する</p>
+      <p class="point">(2) の項は \(0\) に収束するのに級数は発散する。「項 \(\to0\)」は収束の必要条件にすぎない（P10）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="lim-p9" data-level="1">
+    <h3><span class="pid">P9</span>無限等比級数の和と収束条件</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\displaystyle\sum_{n=1}^\infty\left(\frac23\right)^n\) の和」「無限級数 \(x+x(1-x)+x(1-x)^2+\cdots\) が収束する \(x\) の範囲と和」</dd>
+      <dt>こう考える</dt><dd>初項 \(a\)、公比 \(r\) を読み取る。収束条件は <b>\(a=0\) または \(|r|\lt1\)</b>。初項が文字のときは \(a=0\) の場合を忘れない。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>初項 \(a\)、公比 \(r\) を確認。</li>
+        <li>収束条件 \(a=0\) または \(-1\lt r\lt1\) を解く。</li>
+        <li>和は \(a\neq0\) なら \(\dfrac{a}{1-r}\)、\(a=0\) なら 0。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>無限等比級数の収束条件と和（基本事項）</dd>
+      <dt>なぜこの方法？</dt><dd>部分和 \(\frac{a(1-r^n)}{1-r}\) の中の \(r^n\) が収束するかどうかで決まる（P3）。初項0なら公比に関係なく全項0なので収束する。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle\sum_{n=1}^\infty\left(\frac23\right)^n\) を求めよ。(2) 無限級数 \(x+x(1-x)+x(1-x)^2+\cdots\) が収束するような実数 \(x\) の範囲を求め、そのときの和 \(S(x)\) を求めよ。</div>
+      <p>(1) 初項 \(\frac23\)、公比 \(\frac23\)：\(\dfrac{\frac23}{1-\frac23}=2\)。<span class="answer">2</span></p>
+      <p>(2) 初項 \(x\)、公比 \(1-x\)。収束 ⇔ \(x=0\) または \(|1-x|\lt1\) ⇔ \(x=0\) または \(0\lt x\lt2\)。</p>
+      <p>\(x=0\) のとき和は 0。\(0\lt x\lt2\) のとき \(\dfrac{x}{1-(1-x)}=1\)。</p>
+      <p class="answer">(2) \(0\le x\lt2\)。\(S(x)=0\ (x=0)\)、\(S(x)=1\ (0\lt x\lt2)\)</p>
+      <p class="point">\(S(x)\) は \(x=0\) で不連続になる。「各項は連続関数なのに和が不連続」という有名な例で、P17 の連続性の問題と同じ構造。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="lim-p10" data-level="2">
+    <h3><span class="pid">P10</span>無限級数の発散（項が0に近づかない／\(\sum\frac1n\)）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\displaystyle\sum_{n=1}^\infty\frac{n}{2n+1}\) は発散することを示せ」「\(\displaystyle\sum_{n=1}^\infty\frac1n\) は発散することを示せ」</dd>
+      <dt>こう考える</dt><dd>まず<b>項の極限</b>を見る。\(a_n\not\to0\) なら即座に発散。\(a_n\to0\) なら部分和を評価する必要がある（\(\sum\frac1n\) のように発散する場合がある）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\lim a_n\neq0\) なら「収束するなら \(a_n\to0\) のはず」の対偶で発散。</li>
+        <li>\(\sum\frac1n\)：項を \(2^k\) 個ずつまとめて下から評価する（または積分で比較：<a href="m3-integral-app.html">積分法の応用</a>）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>収束 ⇒ \(a_n\to0\)（の対偶）、追い出しの原理</dd>
+      <dt>なぜこの方法？</dt><dd>\(\frac1n\) は0に近づくがゆっくりすぎて、まとめると \(\frac12\) ずつの塊が無限にできる。<b>「項 \(\to0\)」と「和が収束」は別物</b>という感覚をここで掴む。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle\sum_{n=1}^\infty\frac{n}{2n+1}\) は発散することを示せ。(2) \(\displaystyle\sum_{n=1}^\infty\frac1n\) は発散することを示せ。</div>
+      <p>(1) \(\dfrac{n}{2n+1}\to\dfrac12\neq0\)。もし級数が収束すれば項は0に収束するはずなので、発散する。（証明終）</p>
+      <p>(2) 部分和 \(S_{2^m}\) を考える。\(\frac1{2^{k-1}+1}+\cdots+\frac1{2^k}\)（\(2^{k-1}\) 個）の各項は \(\frac{1}{2^k}\) 以上なので、この塊は \(\frac12\) 以上。</p>
+      \[ S_{2^m}=1+\frac12+\left(\frac13+\frac14\right)+\left(\frac15+\cdots+\frac18\right)+\cdots\ge1+\frac m2 \]
+      <p>\(S_n\) は増加数列なので、\(n\ge2^m\) で \(S_n\ge1+\frac m2\)。\(m\) はいくらでも大きくとれるので \(S_n\to\infty\)。（証明終）</p>
+      <p class="point">阪大型演習2で、積分を使ってもっと精密に \(S_n\approx\log n\) を示す。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="lim-p11" data-level="2">
+    <h3><span class="pid">P11</span>無限等比級数と図形</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「正三角形に内接円をかき、その円に内接する正三角形をかき…と限りなく続けるとき、円の面積の総和」「折れ線の長さの総和」</dd>
+      <dt>こう考える</dt><dd>同じ操作の繰り返し → 図形は<b>相似</b>で縮んでいく。1回の操作での<b>相似比 \(k\)</b> を求めれば、長さの公比は \(k\)、面積の公比は \(k^2\)。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>最初の図形と次の図形の関係（1回の操作）だけを図にする。</li>
+        <li>相似比 \(k\) を求める。</li>
+        <li>初項（最初の面積・長さ）と公比（\(k\) または \(k^2\)）で無限等比級数の和。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>相似比と面積比、無限等比級数</dd>
+      <dt>なぜこの方法？</dt><dd>無限に続く操作でも、<b>1回分の関係が分かれば全部分かる</b>。これは漸化式の考え方（<a href="../thinking.html#t-recurrence">発想：漸化式を立てる</a>）と同じ。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">1辺の長さ1の正三角形 \(T_1\) の内接円を \(C_1\)、\(C_1\) に内接する正三角形を \(T_2\)、\(T_2\) の内接円を \(C_2\)、…と限りなく続ける。円 \(C_1,C_2,\dots\) の面積の総和を求めよ。</div>
+      <p>1辺 \(a\) の正三角形の内接円の半径は \(\frac{a}{2\sqrt3}=\frac{\sqrt3}{6}a\)。半径 \(r\) の円に内接する正三角形の1辺は \(\sqrt3r\)。よって \(T_{k+1}\) の1辺は \(\sqrt3\cdot\frac{\sqrt3}6a=\frac a2\)。相似比 \(\frac12\)、面積の公比 \(\frac14\)。</p>
+      <p>\(C_1\) の面積は \(\pi\left(\frac{\sqrt3}{6}\right)^2=\frac{\pi}{12}\)。総和 \(=\dfrac{\frac\pi{12}}{1-\frac14}=\dfrac{\pi}{9}\)。</p>
+      <p class="answer">\(\dfrac{\pi}{9}\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="lim-p12" data-level="1">
+    <h3><span class="pid">P12</span>関数の極限の基本（\(\frac00\) の約分、\(x\to-\infty\) の注意）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\displaystyle\lim_{x\to2}\frac{x^3-8}{x-2}\)」「\(\displaystyle\lim_{x\to-\infty}\left(\sqrt{x^2+x}+x\right)\)」</dd>
+      <dt>こう考える</dt><dd>\(\frac00\) は<b>0になる原因の因数 \((x-a)\) を約分</b>。\(x\to-\infty\) で根号があるときは <b>\(x=-t\) とおいて \(t\to\infty\) に直す</b>（\(\sqrt{x^2}=|x|=-x\) の符号ミスを防ぐ）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\frac00\)：因数分解または有理化して \(x-a\) を約分 → 代入。</li>
+        <li>\(x\to-\infty\)：\(x=-t\) と置換し、P2 と同様に有理化。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>因数定理、有理化、\(\sqrt{t^2}=t\ (t\gt0)\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(x\to a\) では \(x\neq a\) なので \(x-a\neq0\) で約分してよい。\(x\to-\infty\) で直接 \(\sqrt{x^2}=x\) とすると符号を間違える。<b>置き換えて正の世界で考える</b>のが確実（<a href="../thinking.html#t-subst">発想：置き換え</a>）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle\lim_{x\to2}\frac{x^3-8}{x-2}\)　(2) \(\displaystyle\lim_{x\to-\infty}\left(\sqrt{x^2+x}+x\right)\)</div>
+      <p>(1) \(\dfrac{(x-2)(x^2+2x+4)}{x-2}=x^2+2x+4\to12\)。<span class="answer">12</span></p>
+      <p>(2) \(x=-t\) とおくと \(t\to\infty\)。</p>
+      \[ \sqrt{t^2-t}-t=\frac{-t}{\sqrt{t^2-t}+t}=\frac{-1}{\sqrt{1-\frac1t}+1}\to-\frac12 \]
+      <p class="answer">(2) \(-\dfrac12\)</p>
+      <p class="point">(2) を \(x\) のまま有理化すると \(\dfrac{x}{\sqrt{x^2+x}-x}\)。ここで分母分子を \(x\) で割るとき、\(x\lt0\) なので \(\dfrac{\sqrt{x^2+x}}{x}=-\sqrt{1+\frac1x}\) となる。これを \(+\sqrt{1+\frac1x}\) としてしまうと分母が0に近づき「発散」と誤答する。置き換えればこの符号の罠を避けられる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="lim-p13" data-level="1">
+    <h3><span class="pid">P13</span>片側極限（右側極限・左側極限）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\displaystyle\lim_{x\to1}\frac{|x-1|}{x^2-1}\) は存在するか」「\(\displaystyle\lim_{x\to+0}2^{\frac1x}\)、\(\displaystyle\lim_{x\to-0}2^{\frac1x}\)」</dd>
+      <dt>こう考える</dt><dd>絶対値・\(\frac1x\)・ガウス記号などは、<b>\(a\) の右と左で式の形や符号が変わる</b>。右側極限と左側極限を別々に求め、一致すれば極限が存在する。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(x\to a+0\)（\(x\gt a\) から近づく）と \(x\to a-0\)（\(x\lt a\) から）に分ける。</li>
+        <li>それぞれで絶対値を外す・\(\frac1x\) の符号を決めるなどして極限を計算。</li>
+        <li>一致すればその値が極限、一致しなければ「極限は存在しない」。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\lim_{x\to a}f(x)=\alpha\iff\lim_{x\to a+0}f(x)=\lim_{x\to a-0}f(x)=\alpha\)</dd>
+      <dt>なぜこの方法？</dt><dd>極限は「どの方向から近づいても同じ値に近づく」こと。片方だけ調べて答えると、存在しない極限を「ある」と言ってしまう。連続性（P17）や微分可能性の判定の基礎。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle\lim_{x\to1}\frac{|x-1|}{x^2-1}\) を調べよ。(2) \(\displaystyle\lim_{x\to+0}2^{\frac1x}\)、\(\displaystyle\lim_{x\to-0}2^{\frac1x}\) を求めよ。</div>
+      <p>(1) \(x\gt1\)：\(\dfrac{x-1}{(x-1)(x+1)}=\dfrac{1}{x+1}\to\dfrac12\)。\(x\lt1\)：\(\dfrac{-(x-1)}{(x-1)(x+1)}=-\dfrac1{x+1}\to-\dfrac12\)。</p>
+      <p class="answer">(1) 右側極限 \(\frac12\)、左側極限 \(-\frac12\) で一致しないので、極限は存在しない</p>
+      <p>(2) \(x\to+0\) で \(\frac1x\to\infty\)、\(2^{\frac1x}\to\infty\)。\(x\to-0\) で \(\frac1x\to-\infty\)、\(2^{\frac1x}\to0\)。</p>
+      <p class="answer">(2) \(\displaystyle\lim_{x\to+0}2^{\frac1x}=\infty\)、\(\displaystyle\lim_{x\to-0}2^{\frac1x}=0\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="lim-p14" data-level="2">
+    <h3><span class="pid">P14</span>\(\frac{\sin x}{x}\to1\) の利用</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\displaystyle\lim_{x\to0}\frac{\sin3x}{\sin5x}\)」「\(\displaystyle\lim_{x\to0}\frac{1-\cos x}{x^2}\)」「\(\displaystyle\lim_{x\to\pi}\frac{\sin x}{x-\pi}\)」「\(\displaystyle\lim_{x\to\infty}x\sin\frac1x\)」</dd>
+      <dt>こう考える</dt><dd>目標は<b>\(\dfrac{\sin\square}{\square}\)（\(\square\to0\)）の形</b>を作ること。\(\sin\) の中身と分母をそろえる。\(\cos\) は \(1-\cos x=\frac{\sin^2x}{1+\cos x}\) で \(\sin\) に変える。\(x\to\pi\) や \(x\to\infty\) は \(\square\to0\) となる変数に置き換える。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\sin ax\) には \(ax\) で割って掛ける：\(\sin3x=\frac{\sin3x}{3x}\cdot3x\)。</li>
+        <li>\(1-\cos x\) は分母分子に \(1+\cos x\) を掛ける。</li>
+        <li>\(x\to a\ (a\neq0)\) なら \(t=x-a\)、\(x\to\infty\) なら \(t=\frac1x\) とおく。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\displaystyle\lim_{x\to0}\frac{\sin x}{x}=1\)（基本事項に証明）、\(\sin(t+\pi)=-\sin t\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(\frac{\sin x}{x}\to1\) は「0の近くでは \(\sin x\approx x\)」ということ。この1つの事実だけを使えるよう、式を合わせに行く。この極限は \((\sin x)'=\cos x\) の証明の核心でもある（<a href="m3-diff.html">微分法</a>）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle\lim_{x\to0}\frac{\sin3x}{\sin5x}\)　(2) \(\displaystyle\lim_{x\to0}\frac{1-\cos x}{x^2}\)　(3) \(\displaystyle\lim_{x\to\pi}\frac{\sin x}{x-\pi}\)　(4) \(\displaystyle\lim_{x\to\infty}x\sin\frac1x\)</div>
+      <p>(1) \(\dfrac{\sin3x}{3x}\cdot\dfrac{5x}{\sin5x}\cdot\dfrac35\to1\cdot1\cdot\dfrac35\)。<span class="answer">\(\dfrac35\)</span></p>
+      <p>(2) \(\dfrac{1-\cos^2x}{x^2(1+\cos x)}=\left(\dfrac{\sin x}{x}\right)^2\cdot\dfrac{1}{1+\cos x}\to\dfrac12\)。<span class="answer">\(\dfrac12\)</span></p>
+      <p>(3) \(t=x-\pi\) とおくと \(t\to0\)、\(\sin x=\sin(t+\pi)=-\sin t\)。\(\dfrac{-\sin t}{t}\to-1\)。<span class="answer">\(-1\)</span></p>
+      <p>(4) \(t=\frac1x\) とおくと \(x\to\infty\) で \(t\to+0\)。\(\dfrac{\sin t}{t}\to1\)。<span class="answer">1</span></p>
+      <p class="point">(4) を「\(x\to\infty\) で \(\sin\frac1x\to0\) だから \(\infty\times0\)…」と止まらないこと。置き換えて \(\frac{\sin t}{t}\) の形を作る。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="lim-p15" data-level="2">
+    <h3><span class="pid">P15</span>\(e\) に関する極限</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\displaystyle\lim_{n\to\infty}\left(1+\frac2n\right)^n\)」「\(\displaystyle\lim_{x\to0}(1+3x)^{\frac1x}\)」「\(\displaystyle\lim_{x\to0}\frac{e^{2x}-1}{x}\)」「\(\displaystyle\lim_{x\to0}\frac{\log(1+x)}{x}\)」</dd>
+      <dt>こう考える</dt><dd>\(1^\infty\) 型は<b>\((1+h)^{\frac1h}\ (h\to0)\) の形</b>を作る。指数を「\(h\) の逆数」×（残り）に分ける。\(\frac{e^{\square}-1}{\square}\)、\(\frac{\log(1+\square)}{\square}\) も同様に中身と分母をそろえる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\left(1+\frac2n\right)^n=\left\{\left(1+\frac2n\right)^{\frac n2}\right\}^2\) のように指数を調整。</li>
+        <li>\(\frac{e^{2x}-1}{x}=\frac{e^{2x}-1}{2x}\cdot2\)。</li>
+        <li>\(\frac{\log(1+x)}{x}=\log(1+x)^{\frac1x}\) と変形し、\(\log\) の連続性を使う。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\displaystyle\lim_{h\to0}(1+h)^{\frac1h}=e\)、\(\log,\ \exp\) の連続性</dd>
+      <dt>なぜこの方法？</dt><dd>\(1^\infty\) は「1に近いものを何回も掛ける」ので、1との差と回数のつり合いで値が決まる。その<b>基準が \(e\)</b>。差 \(h\) と回数 \(\frac1h\) がぴったり逆数ならちょうど \(e\)。\(\frac{e^x-1}{x}\to1\) は \((e^x)'=e^x\) の証明そのもの。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle\lim_{n\to\infty}\left(1+\frac2n\right)^n\)　(2) \(\displaystyle\lim_{x\to0}(1+3x)^{\frac1x}\)　(3) \(\displaystyle\lim_{x\to0}\frac{e^{2x}-1}{x}\)　(4) \(\displaystyle\lim_{n\to\infty}\left(1-\frac1n\right)^n\)</div>
+      <p>(1) \(\left\{\left(1+\frac2n\right)^{\frac n2}\right\}^2\to e^2\)。<span class="answer">\(e^2\)</span></p>
+      <p>(2) \(\left\{(1+3x)^{\frac1{3x}}\right\}^3\to e^3\)。<span class="answer">\(e^3\)</span></p>
+      <p>(3) \(\dfrac{e^{2x}-1}{2x}\cdot2\to1\cdot2\)。<span class="answer">2</span></p>
+      <p>(4) \(h=-\frac1n\to0\) とおくと \(\left(1-\frac1n\right)^n=\left\{(1+h)^{\frac1h}\right\}^{-1}\to e^{-1}\)。<span class="answer">\(\dfrac1e\)</span></p>
+      <p class="point">「\(1+\frac2n\to1\) だから \(1^n=1\)」は典型的な誤り。底と指数が同時に動くので、別々に極限をとってはいけない。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="lim-p16" data-level="2">
+    <h3><span class="pid">P16</span>極限値から係数を決定（分母 \(\to0\) なら分子 \(\to0\)）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\displaystyle\lim_{x\to2}\frac{a\sqrt{x+2}+b}{x-2}=1\) となるような定数 \(a,b\) を求めよ」</dd>
+      <dt>こう考える</dt><dd>分母 \(\to0\) なのに極限が有限 ⇒ 分子も \(\to0\) でなければならない（そうでなければ \(\pm\infty\) に発散）。これは<b>必要条件</b>なので、最後に実際にその値になることを確かめる（十分性）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>分子 \(=\dfrac{\text{分子}}{\text{分母}}\times\text{分母}\to1\times0=0\) より、分子 \(\to0\) から \(a,b\) の関係式。</li>
+        <li>関係式で \(b\) を消去し、約分（有理化）して極限を計算。</li>
+        <li>極限 \(=1\) から \(a\) を決め、そのとき確かに極限が1になる（十分）ことを確認。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>極限の積の性質、有理化</dd>
+      <dt>なぜこの方法？</dt><dd>「分子 \(\to0\)」は極限から導いた<b>必要条件</b>。逆に「分子 \(\to0\) なら極限が1」とは限らないので、十分性の確認が答案に必須。<a href="../thinking.html#t-necessary">発想：必要条件で絞って十分性を確認</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle\lim_{x\to2}\frac{a\sqrt{x+2}+b}{x-2}=1\) となるような定数 \(a,b\) を求めよ。(2) \(\displaystyle\lim_{x\to1}\frac{x^2+ax+b}{x-1}=3\) となる \(a,b\) を求めよ。</div>
+      <p>(1) \(\displaystyle\lim_{x\to2}(x-2)=0\) なので、\(\displaystyle\lim_{x\to2}\left(a\sqrt{x+2}+b\right)=\lim\frac{a\sqrt{x+2}+b}{x-2}\cdot(x-2)=1\cdot0=0\)。よって \(2a+b=0\)、\(b=-2a\)（必要条件）。</p>
+      <p>このとき \(\dfrac{a(\sqrt{x+2}-2)}{x-2}=\dfrac{a(x-2)}{(x-2)(\sqrt{x+2}+2)}=\dfrac{a}{\sqrt{x+2}+2}\to\dfrac a4\)。\(\frac a4=1\) より \(a=4\)、\(b=-8\)。逆にこのとき極限は確かに1。</p>
+      <p class="answer">(1) \(a=4,\ b=-8\)</p>
+      <p>(2) 同様に \(1+a+b=0\)、\(b=-1-a\)。\(x^2+ax-1-a=(x-1)(x+1+a)\) より極限は \(2+a=3\)、\(a=1\)、\(b=-2\)。</p>
+      <p class="answer">(2) \(a=1,\ b=-2\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="lim-p17" data-level="2">
+    <h3><span class="pid">P17</span>関数の連続性（極限で定義された関数）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\displaystyle f(x)=\lim_{n\to\infty}\frac{x^{2n+2}+ax+b}{x^{2n}+1}\) がすべての実数 \(x\) で連続となるように \(a,b\) を定めよ」</dd>
+      <dt>こう考える</dt><dd>\(x^{2n}\) の極限は \(|x|\lt1,\ |x|=1,\ |x|\gt1\) で変わる（P3）。まず \(f(x)\) を<b>場合分けした式</b>で書き、つなぎ目 \(x=\pm1\) で「左の極限＝右の極限＝関数値」を要求する。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(|x|\lt1\)、\(|x|\gt1\)、\(x=1\)、\(x=-1\) で \(f(x)\) を求める。</li>
+        <li>各区間の内部では多項式なので連続。</li>
+        <li>\(x=\pm1\) で \(\lim_{x\to\pm1\pm0}f(x)=f(\pm1)\) を連立して \(a,b\) を決める。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>連続の定義、\(r^n\) の極限</dd>
+      <dt>なぜこの方法？</dt><dd>関数が「つながっている」かどうかは、式が切り替わるつなぎ目でしか問題にならない。<b>つなぎ目で3つの値（左極限・右極限・関数値）をそろえる</b>のが連続性の判定のすべて。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\displaystyle f(x)=\lim_{n\to\infty}\frac{x^{2n+2}+ax+b}{x^{2n}+1}\) がすべての実数 \(x\) で連続となるような定数 \(a,b\) を求めよ。</div>
+      <ul>
+        <li>\(|x|\lt1\)：\(x^{2n}\to0\) より \(f(x)=ax+b\)。</li>
+        <li>\(|x|\gt1\)：\(x^{2n}\) で割ると \(\dfrac{x^2+\frac{ax+b}{x^{2n}}}{1+\frac1{x^{2n}}}\to x^2\)。</li>
+        <li>\(x=1\)：\(f(1)=\dfrac{1+a+b}{2}\)。\(x=-1\)：\(f(-1)=\dfrac{1-a+b}{2}\)。</li>
+      </ul>
+      <p>\(x=1\) で連続：左極限 \(a+b\)、右極限 \(1\)、値 \(\frac{1+a+b}2\) が一致 ⇔ \(a+b=1\)。</p>
+      <p>\(x=-1\) で連続：左極限 \(1\)、右極限 \(-a+b\)、値 \(\frac{1-a+b}{2}\) が一致 ⇔ \(-a+b=1\)。</p>
+      <p>連立して \(a=0,\ b=1\)。このとき \(f(x)=1\ (|x|\le1)\)、\(f(x)=x^2\ (|x|\gt1)\) で、すべての実数で連続。</p>
+      <p class="answer">\(a=0,\ b=1\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="lim-p18" data-level="2">
+    <h3><span class="pid">P18</span>中間値の定理（解の存在証明）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「方程式 \(x=\cos x\) は \(0\lt x\lt\frac\pi2\) の範囲に実数解をもつことを示せ」「\(e^x=3x\) は少なくとも2つの実数解をもつことを示せ」</dd>
+      <dt>こう考える</dt><dd>\(f(x)=(\text{左辺})-(\text{右辺})\) とおき、<b>連続であること</b>と<b>区間の両端で符号が異なること</b>を示す。解を具体的に求める必要はない。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(f(x)\) を定め、考える閉区間で連続であることを述べる。</li>
+        <li>端点（や途中の点）の値を計算して符号を確認。必要なら \(e\approx2.718\)、\(\pi\approx3.14\) などで評価。</li>
+        <li>中間値の定理より、符号が変わる区間ごとに解が存在。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>中間値の定理</dd>
+      <dt>なぜこの方法？</dt><dd>解けない方程式でも「解がある」ことはグラフの連続性だけで言える。<b>個数をちょうど決める</b>には、さらに単調性（微分）が要る（<a href="m3-diff.html">微分法とその応用</a>）。<a href="../thinking.html#t-graph">発想：グラフにする</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 方程式 \(x=\cos x\) は \(0\lt x\lt\dfrac\pi2\) に少なくとも1つの実数解をもつことを示せ。(2) 方程式 \(e^x=3x\) は少なくとも2つの実数解をもつことを示せ。</div>
+      <p>(1) \(f(x)=x-\cos x\) は連続。\(f(0)=-1\lt0\)、\(f\left(\frac\pi2\right)=\frac\pi2\gt0\)。中間値の定理より \(0\lt x\lt\frac\pi2\) に \(f(x)=0\) の解が存在する。（証明終）</p>
+      <p>(2) \(g(x)=e^x-3x\) は連続。\(g(0)=1\gt0\)、\(g(1)=e-3\lt0\)（\(e\lt3\)）、\(g(2)=e^2-6\gt0\)（\(e^2\gt2.7^2=7.29\)）。</p>
+      <p>中間値の定理より \(0\lt x\lt1\) と \(1\lt x\lt2\) にそれぞれ解があり、これらは異なる。（証明終）</p>
+      <p class="point">(2) で \(e^2\gt6\) を示すのに \(e\gt2.7\) を使った。数値評価の根拠（\(e=2.718\cdots\)）を答案に1行書く。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="lim-p19" data-level="2">
+    <h3><span class="pid">P19</span>\(\frac{\log x}{x}\to0\)、\(\frac{x^n}{e^x}\to0\) の扱い</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x\gt0\) で \(e^x\gt1+x+\frac{x^2}{2}\) を示し、\(\displaystyle\lim_{x\to\infty}\frac{x}{e^x}\) を求めよ」「\(\displaystyle\lim_{x\to+0}x\log x\)」「\(\displaystyle\lim_{x\to\infty}\frac{\log x}{x}\)」</dd>
+      <dt>こう考える</dt><dd>指数関数は多項式より、多項式は対数より<b>速く大きくなる</b>。誘導がなければ既知として使い、誘導（「\(e^x\gt\cdots\) を示せ」）があれば、その不等式ではさみうちする。\(\log\) の極限は \(x=e^t\) などの置き換えで指数の極限に帰着。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>不等式 \(e^x\gt1+x+\frac{x^2}2\) は、差 \(h(x)\) を2回微分して示す（<a href="../thinking.html#t-difffunc">発想：差をとって微分</a>）。</li>
+        <li>\(0\lt\dfrac{x}{e^x}\lt\dfrac{x}{x^2/2}=\dfrac2x\to0\)。</li>
+        <li>\(\frac{\log x}{x}\)：\(x=e^t\) とおくと \(\frac{t}{e^t}\)。\(x\log x\ (x\to+0)\)：\(x=e^{-t}\) とおくと \(-\frac{t}{e^t}\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>微分による不等式の証明、はさみうち、置き換え</dd>
+      <dt>なぜこの方法？</dt><dd>\(e^x\) を2次式で下から押さえれば、1次式 \(x\) との比は \(\frac2x\) で潰せる（P5 と同じ「1段階上の次数で押さえる」発想）。3つの極限は置き換えで全部同じものになる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(x\gt0\) のとき \(e^x\gt1+x+\dfrac{x^2}{2}\) を示せ。(2) \(\displaystyle\lim_{x\to\infty}\frac{x}{e^x}\) を求めよ。(3) \(\displaystyle\lim_{x\to\infty}\frac{\log x}{x}\)、\(\displaystyle\lim_{x\to+0}x\log x\) を求めよ。</div>
+      <p>(1) \(h(x)=e^x-1-x-\frac{x^2}2\) とする。\(h'(x)=e^x-1-x\)、\(h''(x)=e^x-1\gt0\ (x\gt0)\)。\(h'(0)=0\) で \(h'\) は増加なので \(h'(x)\gt0\ (x\gt0)\)。\(h(0)=0\) で \(h\) は増加なので \(h(x)\gt0\)。（証明終）</p>
+      <p>(2) (1) より \(x\gt0\) で \(e^x\gt\frac{x^2}{2}\)、\(0\lt\dfrac{x}{e^x}\lt\dfrac{2}{x}\to0\)。<span class="answer">0</span></p>
+      <p>(3) \(x=e^t\) とおくと \(x\to\infty\iff t\to\infty\)。\(\dfrac{\log x}{x}=\dfrac{t}{e^t}\to0\)。また \(x=e^{-t}\) とおくと \(x\to+0\iff t\to\infty\)、\(x\log x=-\dfrac{t}{e^t}\to0\)。</p>
+      <p class="answer">(3) どちらも 0</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="lim-p20" data-level="3">
+    <h3><span class="pid">P20</span>ガウス記号を含む極限と区分求積への接続</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\displaystyle\lim_{n\to\infty}\frac1{n^2}\sum_{k=1}^n\left[\frac k2\right]\)（\([x]\) は \(x\) を超えない最大の整数）」「\(\displaystyle\lim_{n\to\infty}\frac1n\sum_{k=1}^n\frac{1}{1+\frac kn}\)」</dd>
+      <dt>こう考える</dt><dd>ガウス記号は扱いにくいが、<b>\(x-1\lt[x]\le x\)</b> で必ず挟める。挟んだ両側は普通の和なので計算できる。\(\frac1n\sum f\left(\frac kn\right)\) の形は<b>区分求積</b>で定積分になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\([x]\) を \(x-1\lt[x]\le x\) で置き換えて上下から挟む。</li>
+        <li>両側の和を \(\sum k=\frac{n(n+1)}2\) などで計算し極限をとる。</li>
+        <li>区分求積：\(\displaystyle\lim_{n\to\infty}\frac1n\sum_{k=1}^{n}f\left(\frac kn\right)=\int_0^1f(x)\,dx\)（詳しくは<a href="m3-integral-app.html">積分法の応用</a>）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(x-1\lt[x]\le x\)、はさみうち、区分求積法</dd>
+      <dt>なぜこの方法？</dt><dd>ガウス記号のずれは高々1。和の中でずれが \(n\) 個たまっても \(n\) 程度で、\(n^2\) で割れば消える。<b>「誤差がどれくらいたまるか」を見積もる</b>のが評価の核心。区分求積は和を長方形の面積の和とみて、極限で面積（定積分）にする。<a href="../thinking.html#t-integral-eval">発想：和を積分で評価する</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle\lim_{n\to\infty}\frac1{n^2}\sum_{k=1}^n\left[\frac k2\right]\) を求めよ。(2) \(\displaystyle\lim_{n\to\infty}\frac1n\sum_{k=1}^n\frac{1}{1+\frac kn}\) を求めよ。</div>
+      <p>(1) \(\frac k2-1\lt\left[\frac k2\right]\le\frac k2\) を \(k=1,\dots,n\) で足すと</p>
+      \[ \frac{n(n+1)}{4}-n\lt\sum_{k=1}^n\left[\frac k2\right]\le\frac{n(n+1)}{4} \]
+      <p>\(n^2\) で割ると、両端とも \(\frac14\) に収束する（\(\frac{n(n+1)}{4n^2}\to\frac14,\ \frac{n}{n^2}\to0\)）。はさみうちより</p>
+      <p class="answer">(1) \(\dfrac14\)</p>
+      <p>(2) \(f(x)=\frac1{1+x}\) の区分求積：\(\displaystyle\int_0^1\frac{dx}{1+x}=\Bigl[\log(1+x)\Bigr]_0^1=\log2\)。</p>
+      <p class="answer">(2) \(\log2\)</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="pitfalls">
+  <h2>よくあるミスと対策</h2>
+  <ul class="pitfalls">
+    <li><b>不定形を「打ち消して0」「\(1^n=1\)」と決めつける</b>（P2, P15）。→ \(\infty-\infty,\ \frac\infty\infty,\ \frac00,\ 1^\infty,\ 0\times\infty\) は<b>形を変えないと値が分からない</b>。</li>
+    <li><b>\(r^n\) の場合分けで \(r=-1\) を落とす</b>（P3, P17）。→ \(r=1\) と \(r=-1\) は必ず個別に代入。</li>
+    <li><b>漸化式の極限で「極限を \(\alpha\) とおく」だけで答える</b>（P6, P7）。→ それは「収束するなら」の必要条件。収束の証明（はさみうち）が本体。</li>
+    <li><b>\(x\to-\infty\) で \(\sqrt{x^2}=x\) とする</b>（P12）。→ \(x=-t\) と置き換えて正の世界で計算。</li>
+    <li><b>極限から係数を決める問題で十分性を確認しない</b>（P16）。→ 求めた値を代入して、実際にその極限値になることを1行で示す。</li>
+    <li><b>無限級数で、部分和を作らずに無限個の項を並べ替えたり、括弧を勝手に外す</b>（P8, P10）。→ まず有限の \(S_n\) を計算してから極限。</li>
+    <li><b>はさみうちで両端の極限が一致しない粗い評価をする</b>（P4, P5）。→ 主要部は残し、余分な項だけを粗くする。</li>
+  </ul>
+</section>
+
+<section id="handai">
+  <h2>阪大レベルへの橋渡し</h2>
+  <p>阪大の極限は単独の計算問題より、<b>漸化式・方程式の解・和の評価</b>の「最後の一歩」として出る。そこで問われるのは計算力ではなく、<b>はさみうちのための不等式をどう作るか</b>という発想と、その論証を答案に書き切る力。</p>
+  <ul>
+    <li>一般項が求まらない漸化式 → 極限の候補とのずれが縮むことを示す（演習1）。</li>
+    <li>和 \(\sum\frac1k\) のような計算できない和 → 積分で上下から挟む（演習2）。</li>
+    <li>方程式の解 \(a_n\) の極限 → 具体的な値を代入して符号を見て、解の位置を挟む（演習3）。</li>
+  </ul>
+
+  <article class="pattern" id="lim-h1" data-level="3">
+    <h3><span class="pid">演1</span>振動しながら収束する漸化式（黄金比）</h3>
+    <div class="problem">\(a_1=1,\ a_{n+1}=1+\dfrac{1}{a_n}\ (n=1,2,\dots)\) で定まる数列 \(\{a_n\}\) について、<br>(1) すべての \(n\) で \(a_n\ge1\) であることを示せ。<br>(2) \(\alpha=\dfrac{1+\sqrt5}{2}\) とするとき、\(|a_{n+1}-\alpha|\le\dfrac1\alpha|a_n-\alpha|\) を示せ。<br>(3) \(\displaystyle\lim_{n\to\infty}a_n\) を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>数列は \(1,2,1.5,1.67,1.6,\dots\) と<b>上下に振動</b>するので、「単調で有界」では処理しにくい。極限の候補 \(\alpha\) は \(\alpha=1+\frac1\alpha\) の正の解。\(\alpha\) もこの式を満たすことを使って \(a_{n+1}-\alpha=\frac1{a_n}-\frac1\alpha\) と差をとれば、ずれの比が \(\frac{1}{a_n\alpha}\) と分かる。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) \(a_1=1\)。\(a_k\ge1\) とすると \(a_k\gt0\) より \(a_{k+1}=1+\frac{1}{a_k}\gt1\)。帰納法により全ての \(n\) で \(a_n\ge1\)。（証明終）</p>
+      <p>(2) \(\alpha^2-\alpha-1=0\) より \(\alpha=1+\frac1\alpha\)。よって</p>
+      \[ a_{n+1}-\alpha=\frac{1}{a_n}-\frac1\alpha=\frac{\alpha-a_n}{a_n\alpha} \]
+      <p>(1) より \(a_n\ge1\) なので \(|a_{n+1}-\alpha|=\dfrac{|a_n-\alpha|}{a_n\alpha}\le\dfrac{1}{\alpha}|a_n-\alpha|\)。（証明終）</p>
+      <p>(3) (2) を繰り返して \(0\le|a_n-\alpha|\le\left(\dfrac1\alpha\right)^{n-1}|a_1-\alpha|\)。\(\alpha\gt1\) より \(0\lt\frac1\alpha\lt1\) で右辺 \(\to0\)。はさみうちより \(a_n\to\alpha\)。</p>
+      <p class="answer">(3) \(\displaystyle\lim_{n\to\infty}a_n=\frac{1+\sqrt5}{2}\)</p>
+      <p class="point">採点ポイント：(2) で \(\alpha=1+\frac1\alpha\) を使って<b>同じ形の式どうしを引く</b>のが定石。係数 \(\frac{1}{a_n\alpha}\) を定数 \(\frac1\alpha\) で押さえるために (1) の \(a_n\ge1\) が必要になる。絶対値を付けるのは \(a_n-\alpha\) の符号が交互に変わるから。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="lim-h2" data-level="3">
+    <h3><span class="pid">演2</span>調和級数と \(\log n\)（和を積分で挟む）</h3>
+    <div class="problem">\(H_n=\displaystyle\sum_{k=1}^{n}\frac1k\) とする。<br>(1) \(n\ge2\) のとき \(\log(n+1)\lt H_n\lt1+\log n\) を示せ。<br>(2) \(\displaystyle\lim_{n\to\infty}\frac{H_n}{\log n}\) を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>\(\sum\frac1k\) は計算できないが、\(\int\frac{dx}{x}=\log x\) は計算できる。\(k\le x\le k+1\) で \(\frac{1}{k+1}\le\frac1x\le\frac1k\)（等号は端点のみ）を積分すると、1項ずつ積分と比べられる。図では「階段（長方形の和）と曲線 \(y=\frac1x\) の下の面積」の比較。<a href="../thinking.html#t-integral-eval">発想：和を積分で評価</a></p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) 自然数 \(k\) について、\(k\le x\le k+1\) で \(\frac1{k+1}\le\frac1x\le\frac1k\)、等号は端点のみ。積分して</p>
+      \[ \frac{1}{k+1}\lt\int_k^{k+1}\frac{dx}{x}\lt\frac1k \]
+      <p>右側の不等式を \(k=1,\dots,n\) で足すと \(\displaystyle\int_1^{n+1}\frac{dx}{x}\lt H_n\)、すなわち \(\log(n+1)\lt H_n\)。</p>
+      <p>左側の不等式を \(k=1,\dots,n-1\) で足すと \(\displaystyle H_n-1\lt\int_1^{n}\frac{dx}{x}=\log n\)、すなわち \(H_n\lt1+\log n\)。（証明終）</p>
+      <p>(2) \(n\ge2\) で \(\log n\gt0\) なので各辺を \(\log n\) で割って</p>
+      \[ \frac{\log(n+1)}{\log n}\lt\frac{H_n}{\log n}\lt\frac{1}{\log n}+1 \]
+      <p>右辺 \(\to1\)。左辺は \(\dfrac{\log n+\log\left(1+\frac1n\right)}{\log n}=1+\dfrac{\log\left(1+\frac1n\right)}{\log n}\to1+0=1\)。はさみうちより</p>
+      <p class="answer">(2) 1</p>
+      <p class="point">採点ポイント：(1) の2つの不等式で<b>足す範囲が違う</b>（\(k=1\sim n\) と \(k=1\sim n-1\)）ことを明記。(1) から特に \(H_n\to\infty\)（P10 の別証明）も分かる。左辺の極限で \(\log(n+1)\) を \(\log n+\log\left(1+\frac1n\right)\) と分けるのが小さなコツ。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="lim-h3" data-level="3">
+    <h3><span class="pid">演3</span>方程式の解がつくる数列の極限</h3>
+    <div class="problem">自然数 \(n\) に対し、方程式 \(x^n+x-1=0\) を考える。<br>(1) この方程式は \(0\lt x\lt1\) の範囲にただ1つの実数解をもつことを示せ。その解を \(a_n\) とする。<br>(2) \(x\ge0\) のとき \(1-x\le e^{-x}\) であることを用いて、\(a_n\gt1-\dfrac{1}{\sqrt n}\) を示せ。<br>(3) \(\displaystyle\lim_{n\to\infty}a_n\) および \(\displaystyle\lim_{n\to\infty}(a_n)^n\) を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>\(a_n\) は具体的に求められない。そこで \(f_n(x)=x^n+x-1\) が増加関数であることを使い、「\(f_n(c)\lt0\) なら \(c\lt a_n\)」と<b>符号から解の位置を挟む</b>（中間値の定理の応用）。(2) は \(c=1-\frac1{\sqrt n}\) を代入して \(f_n(c)\lt0\) を示せばよい。\((1-c)^n\) を \(e^{-nc}\) で上から押さえる。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) \(f_n(x)=x^n+x-1\) は \(0\le x\le1\) で連続かつ狭義単調増加（\(x^n\) と \(x\) がともに増加）。\(f_n(0)=-1\lt0\)、\(f_n(1)=1\gt0\)。中間値の定理より \(0\lt x\lt1\) に解が存在し、単調増加なのでただ1つ。（証明終）</p>
+      <p>(2) \(c=1-\dfrac{1}{\sqrt n}\) とおく（\(0\le c\lt1\)）。\(t=\frac{1}{\sqrt n}\) とすると \(0\lt t\le1\) で、与えられた不等式より \(0\le1-t\le e^{-t}\)。各辺を \(n\) 乗して</p>
+      \[ c^n=(1-t)^n\le e^{-nt}=e^{-\sqrt n} \]
+      <p>また \(e^{u}\gt u\ (u\gt0)\) より \(e^{\sqrt n}\gt\sqrt n\)、すなわち \(e^{-\sqrt n}\lt\frac{1}{\sqrt n}\)。よって</p>
+      \[ f_n(c)=c^n+c-1=c^n-\frac1{\sqrt n}\le e^{-\sqrt n}-\frac{1}{\sqrt n}\lt0 \]
+      <p>\(f_n\) は増加関数で \(f_n(a_n)=0\gt f_n(c)\) だから \(a_n\gt c=1-\dfrac1{\sqrt n}\)。（証明終）</p>
+      <p>(3) (1)(2) より \(1-\dfrac1{\sqrt n}\lt a_n\lt1\)。両端 \(\to1\) なので、はさみうちより \(a_n\to1\)。</p>
+      <p>また \(a_n\) は解なので \((a_n)^n=1-a_n\to0\)。</p>
+      <p class="answer">(3) \(\displaystyle\lim_{n\to\infty}a_n=1\)、\(\displaystyle\lim_{n\to\infty}(a_n)^n=0\)</p>
+      <p class="point">採点ポイント：「\(f_n(c)\lt0\) ⇒ \(c\lt a_n\)」は単調増加性が根拠（書き忘れ注意）。(3) の後半は、\(a_n\to1\) なのに \((a_n)^n\to0\) という一見意外な結論を、方程式そのもの（\(a_n^n=1-a_n\)）を使って一瞬で出す。不等式 \(1-x\le e^{-x}\) は \(g(x)=e^{-x}-1+x\) を微分すれば示せる（\(g'(x)=1-e^{-x}\ge0\)、\(g(0)=0\)）。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="next">
+  <h2>次に学ぶとつながる単元</h2>
+  <ul>
+    <li><a href="m3-diff.html">微分法とその応用</a>：P14・P15 の極限が導関数の公式 \((\sin x)'=\cos x,\ (e^x)'=e^x\) の証明になる。P18 の解の存在に単調性を加えると個数が決まる。</li>
+    <li><a href="m3-integral-app.html">積分法の応用</a>：P20 の区分求積、演習2の「和を積分で挟む」評価が本格的に登場する。</li>
+    <li><a href="mb-sequence.html">数列</a>：P6・P7 の漸化式と<a href="../thinking.html#t-induction">数学的帰納法</a>は、極限の証明の土台。</li>
+    <li><a href="mc-complex.html">複素数平面</a>：点列 \(z_n\) の極限、折れ線の長さの総和が無限等比級数になる。</li>
+  </ul>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>

@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>式と証明（数学II）｜解法の地図</title>
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-unit="m2-proof" data-root="../">
+<main>
+
+<header class="unit-head">
+  <span class="subj-badge">数学II</span>
+  <h1>式と証明</h1>
+  <p class="lead">「式を変形して、言いたい形に持ち込む」技術を集めた単元。展開・二項定理・整式の割り算・恒等式は数学II以降の計算の土台であり、不等式の証明（特に相加平均・相乗平均と等号成立条件）は阪大の最大最小・評価問題で何度も使う。</p>
+  <div class="goal">
+    <strong>このページの到達目標</strong>
+    <ul>
+      <li>【基礎】3次の公式で展開・因数分解し、整式の割り算・分数式の計算を正確にできる。差をとって平方完成し、簡単な不等式を証明できる。</li>
+      <li>【標準】二項定理で係数や和を求め、恒等式の係数を決定（数値代入法なら十分性も確認）できる。相加・相乗平均、コーシー・シュワルツを等号成立条件まで書いて使える。</li>
+      <li>【阪大】次数の比較で整式を決定し、等号が成立しない「落とし穴」を見抜いて置き換え＋単調性で最小値を求め、文字の多い不等式を答案として完成できる。</li>
+    </ul>
+  </div>
+  <p class="prereq">前提：<a href="m1-numbers.html">数と式</a>（展開・因数分解）、<a href="m1-quadratic.html">2次関数</a>（平方完成）／ 次に進む：<a href="m2-complex-eq.html">複素数と方程式</a>、<a href="m2-calculus.html">微分法・積分法（数II）</a></p>
+</header>
+
+<section id="core">
+  <h2>必ず押さえる基本事項</h2>
+
+  <div class="box theorem">
+    <p><span class="name">3次の乗法公式・因数分解の公式</span></p>
+    \[ \begin{aligned} (a\pm b)^3&=a^3\pm 3a^2b+3ab^2\pm b^3\\ a^3+b^3&=(a+b)(a^2-ab+b^2)\\ a^3-b^3&=(a-b)(a^2+ab+b^2) \end{aligned} \]
+    \[ a^3+b^3+c^3-3abc=(a+b+c)(a^2+b^2+c^2-ab-bc-ca) \]
+    <p>なぜ：右辺を展開すると左辺になる（\(a^3+b^3\) は \(a=-b\) を代入すると 0 になるので \(a+b\) で割り切れる、と覚えてもよい）。最後の式の第2因数は \(\frac12\{(a-b)^2+(b-c)^2+(c-a)^2\}\) と等しく、不等式の証明で効く。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">二項定理</span>：</p>
+    \[ (a+b)^n=\sum_{r=0}^{n}\C{n}{r}\,a^{n-r}b^{r} \quad\text{（一般項 } \C{n}{r}a^{n-r}b^r\text{）} \]
+    <p>なぜ：\((a+b)(a+b)\cdots(a+b)\)（\(n\) 個）を展開するとき、\(n\) 個のかっこのうち \(b\) を選ぶ \(r\) 個の決め方が \(\C{n}{r}\) 通りあるから。同じ理由で \((a+b+c)^n\) の \(a^pb^qc^r\)（\(p+q+r=n\)）の係数は \(\dfrac{n!}{p!\,q!\,r!}\)（多項定理）。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">整式の除法</span>：整式 \(A\) を整式 \(B\ (\neq 0)\) で割った商を \(Q\)、余りを \(R\) とすると</p>
+    \[ A=BQ+R,\qquad (R\text{ の次数})\lt(B\text{ の次数})\ \ \text{または}\ R=0 \]
+    <p>\(Q,R\) はただ1組に決まる。この「等式＋次数の条件」が、剰余の定理や余りの決定問題（<a href="m2-complex-eq.html">複素数と方程式</a>）の出発点になる。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">恒等式の性質</span>：\(ax^2+bx+c=a'x^2+b'x+c'\) が \(x\) についての恒等式 \(\iff\) \(a=a',\ b=b',\ c=c'\)</p>
+    <p>さらに、<b>両辺が \(n\) 次以下の整式で、異なる \(n+1\) 個の \(x\) の値で等しいなら恒等式</b>である。</p>
+    <p>なぜ：差 \(P(x)=(\text{左辺})-(\text{右辺})\) は \(n\) 次以下だが \(n+1\) 個の解をもつ。0 でない \(n\) 次以下の整式の解は高々 \(n\) 個なので、\(P(x)\) はすべての係数が 0 の式に限る。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">不等式の基本道具</span>（すべて「差 \(\ge 0\)」から出る）</p>
+    <ul>
+      <li>実数の平方：\(A^2\ge0\)、\(A^2+B^2\ge0\)（等号は \(A=B=0\)）</li>
+      <li>平方の比較：\(A\ge0,\ B\ge0\) のとき \(A\ge B\iff A^2\ge B^2\)（\(A^2-B^2=(A+B)(A-B)\) で \(A+B\ge0\) だから）</li>
+      <li>三角不等式：\(\abs{a}-\abs{b}\le\abs{a+b}\le\abs{a}+\abs{b}\)（\((\abs a+\abs b)^2-\abs{a+b}^2=2(\abs{ab}-ab)\ge0\)）</li>
+      <li><b>相加平均と相乗平均</b>：\(a\gt0,\ b\gt0\) のとき \(\dfrac{a+b}{2}\ge\sqrt{ab}\)、等号は \(a=b\)（\(a+b-2\sqrt{ab}=(\sqrt a-\sqrt b)^2\ge0\)）</li>
+      <li>3数版：\(a,b,c\gt0\) のとき \(\dfrac{a+b+c}{3}\ge\sqrt[3]{abc}\)、等号は \(a=b=c\)（上の \(a^3+b^3+c^3-3abc\) の因数分解から）</li>
+      <li><b>コーシー・シュワルツ</b>：\((a^2+b^2)(x^2+y^2)\ge(ax+by)^2\)、等号は \(ay=bx\)（差が \((ay-bx)^2\) になる）</li>
+    </ul>
+  </div>
+
+  <div class="box idea">
+    <p><b>この単元を貫く考え方</b>：証明したい式は、まず<b>「（左辺）−（右辺）」をつくり</b>、それが 0（等式）や 0 以上（不等式）であることを示す形に直す。差を<b>平方の和</b>か<b>符号の分かる因数の積</b>に変形できれば勝ち。恒等式・係数決定も「差が恒等的に 0」と読めば同じ発想である。</p>
+  </div>
+</section>
+
+<section id="quick">
+  <h2>早見表：こう来たら → こう解く</h2>
+  <div class="table-wrap"><table class="quick">
+    <tr><th>問題の特徴（こう来たら）</th><th>方針（こう解く）</th><th>使う道具</th><th>詳細</th></tr>
+    <tr data-level="1"><td>3乗の式を展開・因数分解せよ</td><td>\(A^3\pm B^3\) の形を見つける</td><td>3次の公式</td><td><a href="#prf-p1">P1</a></td></tr>
+    <tr data-level="2"><td>展開式の \(x^k\) の係数・定数項</td><td>一般項を書いて指数を合わせる</td><td>二項定理・多項定理</td><td><a href="#prf-p2">P2</a></td></tr>
+    <tr data-level="2"><td>\(\C{n}{0}+\C{n}{1}+\cdots\) の和、\(11^{10}\) の余り</td><td>\((1+x)^n\) に \(x=\pm1\) 等を代入／\((1+10)^{10}\) と分解</td><td>二項定理</td><td><a href="#prf-p3">P3</a></td></tr>
+    <tr data-level="3"><td>\(\left(1+\frac1n\right)^n\lt3\) などの評価</td><td>展開して最初の数項で下から、各項を上から評価</td><td>二項定理・等比数列の和</td><td><a href="#prf-p4">P4</a></td></tr>
+    <tr data-level="1"><td>整式を整式で割れ／割る式を求めよ</td><td>筆算。\(A=BQ+R\) を書く</td><td>除法の等式</td><td><a href="#prf-p5">P5</a></td></tr>
+    <tr data-level="1"><td>分数式を計算・簡単にせよ</td><td>因数分解して約分、通分、部分分数</td><td>分数式の性質</td><td><a href="#prf-p6">P6</a></td></tr>
+    <tr data-level="2"><td>「\(x\) についての恒等式となるように」</td><td>係数比較 or 数値代入（＋十分性）</td><td>恒等式の性質</td><td><a href="#prf-p7">P7</a></td></tr>
+    <tr data-level="2"><td>「\(x+y=1\) を満たすすべての \(x,y\) で」</td><td>条件で1文字消去 → 恒等式</td><td>係数比較</td><td><a href="#prf-p8">P8</a></td></tr>
+    <tr data-level="1"><td>「\(a+b+c=0\) のとき〜を証明せよ」</td><td>1文字消去／因数に条件式をつくる</td><td>差をとる</td><td><a href="#prf-p9">P9</a></td></tr>
+    <tr data-level="2"><td>\(\frac ab=\frac cd\)、\(\frac{x+y}{3}=\frac{y+z}{4}=\cdots\)</td><td>\(=k\) とおいて文字を \(k\) で表す</td><td>比例式</td><td><a href="#prf-p10">P10</a></td></tr>
+    <tr data-level="1"><td>「\(A\ge B\) を証明せよ」（整式）</td><td>差をとって平方完成</td><td>実数の平方 \(\ge0\)</td><td><a href="#prf-p11">P11</a></td></tr>
+    <tr data-level="2"><td>\(\sqrt{\ }\) や \(\abs{\ }\) を含む不等式</td><td>両辺 \(\ge0\) を確認して2乗の差</td><td>平方の比較・三角不等式</td><td><a href="#prf-p12">P12</a></td></tr>
+    <tr data-level="2"><td>\(x\gt0\) で \(x+\frac{9}{x}\) の最小値、「正の数」</td><td>積が一定になる2数の和に</td><td>相加・相乗平均</td><td><a href="#prf-p13">P13</a></td></tr>
+    <tr data-level="3"><td>相加相乗を2回使う／等号の \(x\) が範囲外</td><td>等号の同時成立を確認 → ダメなら展開・置き換え＋単調性</td><td>等号成立条件</td><td><a href="#prf-p14">P14</a></td></tr>
+    <tr data-level="2"><td>\(x^2+y^2+z^2=1\) のとき \(ax+by+cz\) の最大</td><td>コーシー・シュワルツ</td><td>\((\sum a^2)(\sum x^2)\ge(\sum ax)^2\)</td><td><a href="#prf-p15">P15</a></td></tr>
+    <tr data-level="3"><td>3項の和の最小値、\(\frac{a}{b+c}+\cdots\) 型</td><td>積が一定になるよう項を分割／分母を置き換え</td><td>3数の相加相乗</td><td><a href="#prf-p16">P16</a></td></tr>
+  </table></div>
+</section>
+
+<section id="patterns">
+  <h2>パターン別 解法マップ</h2>
+
+  <article class="pattern" id="prf-p1" data-level="1">
+    <h3><span class="pid">P1</span>3次の展開・因数分解</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(27x^3-8\) を因数分解せよ」「\(x^6-64\) を因数分解せよ」「\((2x+3y)^3\) を展開せよ」</dd>
+      <dt>こう考える</dt><dd>各項が「何かの3乗」になっていないかを探す。\(27x^3=(3x)^3\)、\(8=2^3\) のように<b>カタマリの3乗</b>に見えたら公式の出番。4項で係数が \(1,3,3,1\) の比なら \((A+B)^3\) を疑う。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>各項を \(A^3,\ B^3\) の形に書き直す。</li>
+        <li>\(A^3+B^3=(A+B)(A^2-AB+B^2)\) などに当てはめる。</li>
+        <li>\(x^6\) のように「2乗でも3乗でもある」ものは、<b>先に2乗の差</b>で分けると最後まで分解できる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>3次の乗法公式・因数分解の公式</dd>
+      <dt>なぜこの方法？</dt><dd>公式は「展開したらこうなる」の逆向き。項の形から公式を逆算できるよう、\(1,8,27,64,125\) と \(x^3,\ 8x^3,\ 27x^3\) は見た瞬間に3乗と分かるようにしておく。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">次の式を因数分解せよ。(1) \(27x^3-8\)　(2) \(x^6-64\)　(3) \(8x^3+36x^2y+54xy^2+27y^3\)</div>
+      <p>(1) \(27x^3-8=(3x)^3-2^3=(3x-2)\{(3x)^2+3x\cdot2+2^2\}\)。<span class="answer">\((3x-2)(9x^2+6x+4)\)</span></p>
+      <p>(2) 2乗の差として \(x^6-64=(x^3)^2-8^2=(x^3-8)(x^3+8)\)。それぞれ3次の公式で</p>
+      <p class="answer">\((x-2)(x+2)(x^2+2x+4)(x^2-2x+4)\)</p>
+      <p>(3) \(8x^3=(2x)^3,\ 27y^3=(3y)^3\)、\(36x^2y=3\cdot(2x)^2\cdot3y,\ 54xy^2=3\cdot2x\cdot(3y)^2\)。<span class="answer">\((2x+3y)^3\)</span></p>
+      <p class="point">(2) を先に3乗の差 \((x^2)^3-4^3=(x^2-4)(x^4+4x^2+16)\) とすると、\(x^4+4x^2+16=(x^2+4)^2-4x^2\) とさらに分ける必要があり遠回り。「2乗の差を先に」が鉄則。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prf-p2" data-level="2">
+    <h3><span class="pid">P2</span>二項定理・多項定理で特定の項の係数を求める</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\left(2x^2-\frac1x\right)^6\) の展開式の定数項」「\((x+2y-z)^6\) の \(x^2y^3z\) の係数」</dd>
+      <dt>こう考える</dt><dd>全部展開する必要はない。<b>一般項を1つ書けば</b>、どの項も「\(r\) を決めれば決まる」。欲しい項の指数条件から \(r\) を逆算する。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>一般項 \(\C{n}{r}a^{n-r}b^r\) を、符号や係数を \(b\) の中に含めたまま書く。</li>
+        <li>\(x\) の指数を \(r\) の式にまとめる（\(\frac1x=x^{-1}\) として計算）。</li>
+        <li>指数条件から \(r\) を求め、係数を計算する。3項なら \(\dfrac{n!}{p!q!r!}\) を使う。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>二項定理、多項定理、指数法則</dd>
+      <dt>なぜこの方法？</dt><dd>二項定理の本質は「各かっこからどちらを選ぶか」の数え上げ。一般項は<b>すべての項を代表する式</b>なので、条件を満たす \(r\) を探すだけで済む。場合の数の考え方は <a href="ma-counting.html">場合の数</a> と共通。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\left(2x^2-\dfrac1x\right)^6\) の展開式における定数項を求めよ。<br>(2) \((x+2y-z)^6\) の展開式における \(x^2y^3z\) の係数を求めよ。</div>
+      <p>(1) 一般項は \(\C{6}{r}(2x^2)^{6-r}\left(-\dfrac1x\right)^r=\C{6}{r}\,2^{6-r}(-1)^r\,x^{12-2r-r}=\C{6}{r}\,2^{6-r}(-1)^r\,x^{12-3r}\)。</p>
+      <p>定数項は \(12-3r=0\)、\(r=4\)。\(\C{6}{4}\cdot2^2\cdot(-1)^4=15\cdot4=60\)。<span class="answer">60</span></p>
+      <p>(2) \(x^2(2y)^3(-z)^1\) の項を考える。この項の係数は \(\dfrac{6!}{2!\,3!\,1!}\cdot2^3\cdot(-1)=60\cdot8\cdot(-1)\)。<span class="answer">\(-480\)</span></p>
+      <p class="point">\(2y\) や \(-z\) を「ひとかたまり」として扱い、係数 \(2^3\)、符号 \((-1)^1\) を最後に掛け忘れないこと。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prf-p3" data-level="2">
+    <h3><span class="pid">P3</span>二項定理に値を代入する（係数の和・余り）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\C{n}{0}+\C{n}{2}+\C{n}{4}+\cdots\) を求めよ」「\(\sum k\,\C{n}{k}\)」「\(11^{10}\) を \(1000\) で割った余り」</dd>
+      <dt>こう考える</dt><dd>\((1+x)^n=\sum\C{n}{k}x^k\) は<b>すべての \(x\) で成り立つ恒等式</b>。\(x=1,\ -1\) などを代入すれば係数の和が出る。余りの問題は、\(11=1+10\) のように「割る数の倍数＋小さい数」に分けて展開する。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(x=1\) で \(\sum\C nk=2^n\)、\(x=-1\) で \(\sum(-1)^k\C nk=0\)。足す・引くで偶数番目・奇数番目の和。</li>
+        <li>\(k\,\C{n}{k}=n\,\C{n-1}{k-1}\) を使うと \(\sum k\,\C nk=n2^{n-1}\)（または \((1+x)^n\) を微分して \(x=1\)）。</li>
+        <li>余りは \((1+10)^{10}\) を展開し、割る数の倍数になる項を捨てる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>二項定理、\(k\,\C nk=n\,\C{n-1}{k-1}\)</dd>
+      <dt>なぜこの方法？</dt><dd>恒等式は「どの値を入れても成立」するので、<b>都合のよい値</b>を入れて欲しい和を取り出せる。余りでは \(10^3\) 以上を含む項がすべて 1000 の倍数になるので、最初の数項だけ計算すればよい。<a href="../thinking.html#t-mod">発想：余り・偶奇で分類</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\C{10}{0}+\C{10}{2}+\C{10}{4}+\cdots+\C{10}{10}\) を求めよ。<br>(2) \(11^{10}\) を \(1000\) で割った余りを求めよ。</div>
+      <p>(1) \((1+x)^{10}=\sum_{k=0}^{10}\C{10}{k}x^k\) に \(x=1\)、\(x=-1\) を代入すると</p>
+      \[ \begin{aligned} \C{10}{0}+\C{10}{1}+\C{10}{2}+\cdots+\C{10}{10}&=2^{10}\\ \C{10}{0}-\C{10}{1}+\C{10}{2}-\cdots+\C{10}{10}&=0 \end{aligned} \]
+      <p>辺々足すと奇数番目が消え、\(2(\C{10}{0}+\C{10}{2}+\cdots+\C{10}{10})=2^{10}\)。<span class="answer">\(2^9=512\)</span></p>
+      <p>(2) \(11^{10}=(1+10)^{10}=1+\C{10}{1}\cdot10+\C{10}{2}\cdot10^2+\sum_{k=3}^{10}\C{10}{k}10^k\)。</p>
+      <p>\(k\ge3\) の項はすべて \(1000\) の倍数。残りは \(1+100+45\cdot100=4601\)。\(4601=4\cdot1000+601\)。<span class="answer">601</span></p>
+      <p class="point">実際 \(11^{10}=25937424601\)。最後に「残りを1000で割る」のを忘れて 4601 と答えないこと。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prf-p4" data-level="3">
+    <h3><span class="pid">P4</span>二項定理で不等式を評価する</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(n\ge2\) のとき \(\left(1+\frac1n\right)^n\lt3\) を示せ」「\((1+h)^n\gt\frac{n(n-1)}{2}h^2\)（\(h\gt0\)）」</dd>
+      <dt>こう考える</dt><dd>\((1+h)^n\) は展開すると<b>正の項の和</b>。だから「一部の項だけ残す」と下からの評価、「各項を簡単な数で上から押さえる」と上からの評価ができる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>二項定理で展開する。</li>
+        <li>下から：\(h\gt0\) なら、最初の2〜3項だけ残して残りを捨てる（捨てた分は正）。</li>
+        <li>上から：一般項を \(\dfrac{1}{k!}\) や \(\dfrac{1}{2^{k-1}}\) のような和の計算できる数で押さえ、等比数列の和で上限を出す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>二項定理、\(k!\ge2^{k-1}\)、等比数列の和</dd>
+      <dt>なぜこの方法？</dt><dd>\(a^n\) の形は直接評価しにくいが、展開すれば「足し算」に変わり、項ごとに大小を比べられる。数IIIの極限（\(\lim\frac{n}{2^n}=0\) の証明など）で必ず使う評価の型。<a href="../thinking.html#t-bound">発想：不等式で評価して絞る</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(n\) を2以上の整数とするとき、\(2\lt\left(1+\dfrac1n\right)^n\lt3\) を示せ。</div>
+      <p>二項定理より</p>
+      \[ \left(1+\frac1n\right)^n=\sum_{k=0}^{n}\C{n}{k}\frac{1}{n^k}=1+1+\sum_{k=2}^{n}\C{n}{k}\frac{1}{n^k} \]
+      <p><b>左側</b>：\(n\ge2\) なので \(k=2\) の項 \(\C n2\frac{1}{n^2}=\frac{n-1}{2n}\gt0\) が存在し、残りの項も正。よって \(\left(1+\frac1n\right)^n\gt2\)。</p>
+      <p><b>右側</b>：\(1\le k\le n\) のとき</p>
+      \[ \C{n}{k}\frac{1}{n^k}=\frac{1}{k!}\cdot\frac{n}{n}\cdot\frac{n-1}{n}\cdots\frac{n-k+1}{n}\le\frac{1}{k!}\le\frac{1}{2^{k-1}} \]
+      <p>（\(k!=1\cdot2\cdot3\cdots k\ge1\cdot2\cdot2\cdots2=2^{k-1}\)）。\(k=2\) では \(\frac{n-1}{n}\lt1\) なので最初の不等号は厳密に成り立つ。よって</p>
+      \[ \left(1+\frac1n\right)^n\lt1+\sum_{k=1}^{n}\frac{1}{2^{k-1}}=1+2\left(1-\frac{1}{2^n}\right)\lt3 \]
+      <p class="answer">\(2\lt\left(1+\frac1n\right)^n\lt3\)（証明終）</p>
+      <p class="point">この数列は増加して \(e=2.718\cdots\) に近づく（<a href="m3-limit.html">極限</a>）。「どこで \(\lt\) が厳密になるか」を1か所示すのが答案のポイント。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prf-p5" data-level="1">
+    <h3><span class="pid">P5</span>整式の除法（割り算の筆算と \(A=BQ+R\)）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(A\) を \(B\) で割った商と余りを求めよ」「\(A\) をある整式 \(B\) で割ると商が〜、余りが〜。\(B\) を求めよ」</dd>
+      <dt>こう考える</dt><dd>整式の割り算は数の割り算と同じ。結果は必ず <b>\(A=BQ+R\)（\(R\) の次数 \(\lt\) \(B\) の次数）</b>という等式で表せる。未知のものが \(B\) なら、この等式を \(B\) について解く。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>降べきの順に並べ、抜けている次数は 0 で場所を空けて筆算。</li>
+        <li>割られる式の最高次の項を割る式の最高次の項で割って商を立て、掛けて引く、を繰り返す。</li>
+        <li>余りの次数が割る式より小さくなったら終了。\(A=BQ+R\) で検算。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>除法の等式 \(A=BQ+R\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(A=BQ+R\) は「割り算の結果」をすべて含む等式。剰余の定理（<a href="m2-complex-eq.html">複素数と方程式</a>）や次数下げの計算はすべてこの等式に値を代入して使う。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(2x^3-3x^2+4x-5\) を \(x^2-x+1\) で割った商と余りを求めよ。<br>(2) \(x^3+2x^2+3x+1\) をある整式 \(B\) で割ると、商が \(x+1\)、余りが \(3x+2\) である。\(B\) を求めよ。</div>
+      <p>(1) 最高次どうし \(2x^3\div x^2=2x\)。\(2x(x^2-x+1)=2x^3-2x^2+2x\) を引くと \(-x^2+2x-5\)。</p>
+      <p>次に \(-x^2\div x^2=-1\)。\(-1\cdot(x^2-x+1)=-x^2+x-1\) を引くと \(x-4\)（1次なので終了）。</p>
+      <p class="answer">商 \(2x-1\)、余り \(x-4\)</p>
+      <p>(2) \(x^3+2x^2+3x+1=B(x+1)+3x+2\) より \(B(x+1)=x^3+2x^2-1\)。右辺を \(x+1\) で割ると割り切れて</p>
+      <p class="answer">\(B=x^2+x-1\)</p>
+      <p class="point">(2) で \(B\) は2次になり、余り \(3x+2\)（1次）より次数が大きいので条件に合う。この確認まで書けると丁寧。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prf-p6" data-level="1">
+    <h3><span class="pid">P6</span>分数式の計算（約分・通分・部分分数・繁分数）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「次の式を計算せよ」で分母・分子が整式／\(\frac{1}{x(x+1)}+\frac{1}{(x+1)(x+2)}+\cdots\)／分数の中に分数（繁分数）</dd>
+      <dt>こう考える</dt><dd>分数式は分数と同じルール。<b>まず分母・分子を因数分解</b>すれば、約分も通分も見通しがよくなる。連続する積の和は<b>部分分数に分けて打ち消し合わせる</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>分母・分子を因数分解する。</li>
+        <li>乗除は約分してから掛ける。加減は最小の公分母で通分。</li>
+        <li>\(\dfrac{1}{(x+a)(x+b)}=\dfrac{1}{b-a}\left(\dfrac{1}{x+a}-\dfrac{1}{x+b}\right)\) で分けると和が打ち消し合う。</li>
+        <li>繁分数は分母・分子に同じ式（中の分母）を掛ける。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\dfrac{A}{B}=\dfrac{AC}{BC}\ (C\neq0)\)、部分分数分解</dd>
+      <dt>なぜこの方法？</dt><dd>因数分解すると共通因数が見え、通分の手間と計算ミスが減る。部分分数は「差の形にして途中を消す」技で、<a href="mb-sequence.html">数列</a>の和で再登場する。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">次の式を簡単にせよ。<br>(1) \(\dfrac{x^2-4}{x^2+x-6}\times\dfrac{x^2+2x-3}{x^2+4x+4}\)　(2) \(\dfrac{1}{x(x+1)}+\dfrac{1}{(x+1)(x+2)}+\dfrac{1}{(x+2)(x+3)}\)　(3) \(\dfrac{1-\frac1x}{x-\frac1x}\)</div>
+      <p>(1) \(\dfrac{(x+2)(x-2)}{(x+3)(x-2)}\times\dfrac{(x+3)(x-1)}{(x+2)^2}\)。約分して <span class="answer">\(\dfrac{x-1}{x+2}\)</span></p>
+      <p>(2) 各項を \(\dfrac1x-\dfrac1{x+1}\)、\(\dfrac1{x+1}-\dfrac1{x+2}\)、\(\dfrac1{x+2}-\dfrac1{x+3}\) に分けると途中が消え、\(\dfrac1x-\dfrac1{x+3}\)。<span class="answer">\(\dfrac{3}{x(x+3)}\)</span></p>
+      <p>(3) 分母・分子に \(x\) を掛けて \(\dfrac{x-1}{x^2-1}=\dfrac{x-1}{(x-1)(x+1)}\)。<span class="answer">\(\dfrac{1}{x+1}\)</span></p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prf-p7" data-level="2">
+    <h3><span class="pid">P7</span>恒等式の係数決定（係数比較法・数値代入法）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「等式が \(x\) についての恒等式となるように定数 \(a,b,c\) の値を定めよ」「\(\frac{3x+1}{(x-1)(x+1)^2}=\frac{a}{x-1}+\frac{b}{x+1}+\frac{c}{(x+1)^2}\)」</dd>
+      <dt>こう考える</dt><dd>方法は2つ。<b>係数比較法</b>：両辺を展開して同じ次数の係数を等しくする（必要十分）。<b>数値代入法</b>：計算が楽になる \(x\) を代入して連立する。ただし代入して得られるのは<b>必要条件</b>なので、最後に十分性（恒等式になること）を確認する。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>分数式なら両辺に分母を掛けて整式の恒等式にする。</li>
+        <li>因数が 0 になる値（\(x=1,-1\) など）を代入して未知数を決める（数値代入法）。</li>
+        <li>十分性：次数 \(n\) 以下の両辺が \(n+1\) 個の値で一致したことを述べる、または展開して確かめる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>恒等式の性質（基本事項）</dd>
+      <dt>なぜこの方法？</dt><dd>「すべての \(x\) で成立」するなら当然特定の \(x\) でも成立（必要）。逆に、2次以下の式が3つの値で一致すれば、差は2次以下で3つの解をもつので恒等的に 0（十分）。<a href="../thinking.html#t-necessary">発想：必要条件で絞って十分性を確認</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(x^3-2x^2+3=a(x-1)^3+b(x-1)^2+c(x-1)+d\) が \(x\) についての恒等式となるように \(a,b,c,d\) を定めよ。<br>(2) \(\dfrac{3x+1}{(x-1)(x+1)^2}=\dfrac{a}{x-1}+\dfrac{b}{x+1}+\dfrac{c}{(x+1)^2}\) が恒等式となるように \(a,b,c\) を定めよ。</div>
+      <p>(1) \(t=x-1\) とおくと \(x=t+1\)。左辺は \((t+1)^3-2(t+1)^2+3=t^3+t^2-t+2\)。これが \(at^3+bt^2+ct+d\) と恒等的に等しいので係数を比較して</p>
+      <p class="answer">\(a=1,\ b=1,\ c=-1,\ d=2\)</p>
+      <p>(2) 両辺に \((x-1)(x+1)^2\) を掛けて \(3x+1=a(x+1)^2+b(x-1)(x+1)+c(x-1)\) …①</p>
+      <p>\(x=1\)：\(4=4a\) より \(a=1\)。\(x=-1\)：\(-2=-2c\) より \(c=1\)。\(x=0\)：\(1=a-b-c\) より \(b=-1\)。</p>
+      <p>十分性：このとき①の両辺はともに2次以下の整式で、異なる3つの値 \(x=1,-1,0\) で一致するので①は恒等式。分母を払う前の式も \(x\neq\pm1\) で成り立つ。</p>
+      <p class="answer">\(a=1,\ b=-1,\ c=1\)</p>
+      <p class="point">(1) は「\(x=a\) を中心に並べかえる」型。\(x-1=t\) と置き換えると展開1回で済む（数IIIのテイラー展開の素朴版）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prf-p8" data-level="2">
+    <h3><span class="pid">P8</span>条件つきの恒等式</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x+y=1\) を満たすすべての実数 \(x,y\) について〜が成り立つように」「\(k\) がどんな値でも成り立つ」</dd>
+      <dt>こう考える</dt><dd>\(x,y\) は自由に動けない（条件で縛られている）。<b>条件式で1文字を消せば、残りの1文字は自由に動ける</b>ので、普通の恒等式になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>条件式から \(y=1-x\) などと表して代入する。</li>
+        <li>\(x\) について整理し、「\(x\) についての恒等式」として係数比較する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>恒等式の性質、1文字消去</dd>
+      <dt>なぜこの方法？</dt><dd>「条件を満たすすべての \((x,y)\)」は、\(y=1-x\) と書けば「すべての \(x\)」と同じことになる。自由に動ける変数に<b>言い換える</b>のが要点。「\(k\) の値にかかわらず」も「\(k\) についての恒等式」と読めば同じ（<a href="m2-coord.html">図形と方程式</a>の定点通過）。<a href="../thinking.html#t-rephrase">発想：同値な言い換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(x+y=1\) を満たすすべての実数 \(x,y\) に対して \(ax^2+bxy+cy^2=1\) が成り立つように、定数 \(a,b,c\) の値を定めよ。</div>
+      <p>\(y=1-x\) を代入すると、すべての実数 \(x\) に対して</p>
+      \[ ax^2+bx(1-x)+c(1-x)^2=1 \iff (a-b+c)x^2+(b-2c)x+c-1=0 \]
+      <p>これが \(x\) の恒等式なので \(a-b+c=0,\ b-2c=0,\ c-1=0\)。よって \(c=1,\ b=2,\ a=1\)。</p>
+      <p class="answer">\(a=1,\ b=2,\ c=1\)</p>
+      <p class="point">確認：\(x^2+2xy+y^2=(x+y)^2=1\)。答えの意味が分かると検算になる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prf-p9" data-level="1">
+    <h3><span class="pid">P9</span>等式の証明（条件つき）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(a+b+c=0\) のとき、\(a^2-bc=b^2-ca\) を証明せよ」「〜のとき、次の等式が成り立つことを示せ」</dd>
+      <dt>こう考える</dt><dd>等式 \(A=B\) の証明は「\(A-B=0\) を示す」のが基本。条件式は<b>1文字を消去</b>するか、\(A-B\) を因数分解して<b>条件式の形の因数</b>（\(a+b+c\) など）を作る。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(A-B\) を計算して因数分解する（または \(A,B\) を別々に同じ式に変形）。</li>
+        <li>条件 \(a+b+c=0\) が使える形にする。消去する場合は \(c=-(a+b)\) を代入。</li>
+        <li>0 になることを示して結論を書く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>因数分解、\(a^3+b^3+c^3-3abc\) の公式</dd>
+      <dt>なぜこの方法？</dt><dd>両辺を同時にいじると論理が混乱する（示したい式を使ってしまう）。「差が 0」なら一方向の計算だけで済み、答案として安全。<a href="../thinking.html#t-goal">発想：ゴールから逆算する</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(a+b+c=0\) のとき、次の等式を証明せよ。<br>(1) \(a^2-bc=b^2-ca\)　(2) \(a^3+b^3+c^3=3abc\)</div>
+      <p>(1) \((a^2-bc)-(b^2-ca)=(a^2-b^2)+c(a-b)=(a-b)(a+b+c)=0\)。よって \(a^2-bc=b^2-ca\)。</p>
+      <p>(2) \(c=-(a+b)\) を代入すると</p>
+      \[ \begin{aligned} a^3+b^3+c^3-3abc&=a^3+b^3-(a+b)^3+3ab(a+b)\\&=-3a^2b-3ab^2+3a^2b+3ab^2=0 \end{aligned} \]
+      <p class="answer">(1)(2) とも成り立つ（証明終）</p>
+      <p class="point">(2) の別解：公式 \(a^3+b^3+c^3-3abc=(a+b+c)(a^2+b^2+c^2-ab-bc-ca)\) で、第1因数が 0。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prf-p10" data-level="2">
+    <h3><span class="pid">P10</span>比例式の条件は「\(=k\)」とおく</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\frac ab=\frac cd\) のとき〜を示せ」「\(\frac{x+y}{3}=\frac{y+z}{4}=\frac{z+x}{5}\ (\neq0)\) のとき〜の値を求めよ」</dd>
+      <dt>こう考える</dt><dd>比例式は等号が2つ以上つながっていて扱いにくい。<b>共通の値を \(k\) とおけば</b>、すべての文字を \(k\) と少数の文字で表せて、代入するだけの問題になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\frac ab=\frac cd=k\) とおき、\(a=bk,\ c=dk\) と表す。</li>
+        <li>示す式・求める式の両辺に代入して \(k\) で整理する。</li>
+        <li>分母が 0 でないことを確認する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>比例式、連立1次方程式</dd>
+      <dt>なぜこの方法？</dt><dd>比例式は「比が等しい」という情報しかないので、文字の自由度が1つ減る。その自由度を \(k\) という1つのパラメータに集約する。<a href="../thinking.html#t-subst">発想：置き換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\dfrac ab=\dfrac cd\) のとき、\(\dfrac{a^2+c^2}{b^2+d^2}=\dfrac{ac}{bd}\) を証明せよ。<br>(2) \(\dfrac{x+y}{3}=\dfrac{y+z}{4}=\dfrac{z+x}{5}\neq0\) のとき、\(\dfrac{xy+yz+zx}{x^2+y^2+z^2}\) の値を求めよ。</div>
+      <p>(1) \(\frac ab=\frac cd=k\) とおくと \(a=bk,\ c=dk\)。</p>
+      <p>左辺 \(=\dfrac{b^2k^2+d^2k^2}{b^2+d^2}=k^2\)、右辺 \(=\dfrac{bk\cdot dk}{bd}=k^2\)。よって等しい。</p>
+      <p>(2) 共通の値を \(k\ (\neq0)\) とおくと \(x+y=3k,\ y+z=4k,\ z+x=5k\)。3式を足して \(x+y+z=6k\)。</p>
+      <p>これから \(z=3k,\ x=2k,\ y=k\)。</p>
+      \[ \frac{xy+yz+zx}{x^2+y^2+z^2}=\frac{(2+3+6)k^2}{(4+1+9)k^2}=\frac{11}{14} \]
+      <p class="answer">(2) \(\dfrac{11}{14}\)</p>
+      <p class="point">\(k\neq0\) なので \(x^2+y^2+z^2=14k^2\neq0\)、分母が 0 にならない。「\(\neq0\)」の条件はここで使う。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prf-p11" data-level="1">
+    <h3><span class="pid">P11</span>不等式の証明（差をとって平方完成）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(a^2+b^2+c^2\ge ab+bc+ca\) を証明せよ。また、等号が成り立つのはどのようなときか」</dd>
+      <dt>こう考える</dt><dd>\(A\ge B\) の証明は \(A-B\ge0\) の証明。整式なら \(A-B\) を<b>（実数）\(^2\) の和</b>に変形できれば、0 以上は明らか。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(A-B\) をつくる。</li>
+        <li>1つの文字について平方完成する（2文字以上なら順番に。<a href="m1-quadratic.html">2次関数</a>の予選決勝法と同じ）。</li>
+        <li>「\(\ge0\)」と結論し、<b>等号成立条件</b>（各平方が同時に 0）を書く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>実数 \(A\) について \(A^2\ge0\)、平方完成</dd>
+      <dt>なぜこの方法？</dt><dd>実数の2乗が 0 以上というのは、不等式の唯一の「原点」。どんな不等式も最後はここに帰着させる。等号条件は答案で必ず問われるので、平方の中身が 0 になる条件をセットで書く。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 実数 \(a,b,c\) について \(a^2+b^2+c^2\ge ab+bc+ca\) を証明し、等号成立条件を求めよ。<br>(2) 実数 \(x,y\) について \(x^2-4xy+5y^2+2y+1\ge0\) を証明し、等号成立条件を求めよ。</div>
+      <p>(1) \(2\{(a^2+b^2+c^2)-(ab+bc+ca)\}=(a-b)^2+(b-c)^2+(c-a)^2\ge0\)。</p>
+      <p>等号は \(a-b=b-c=c-a=0\) のとき。<span class="answer">等号は \(a=b=c\) のとき</span></p>
+      <p>(2) \(x\) について平方完成：\(x^2-4xy+5y^2+2y+1=(x-2y)^2+y^2+2y+1=(x-2y)^2+(y+1)^2\ge0\)。</p>
+      <p>等号は \(x-2y=0\) かつ \(y+1=0\)。<span class="answer">等号は \(x=-2,\ y=-1\) のとき</span></p>
+      <p class="point">(1) は「2倍して3つの平方に分ける」が定石。対称な式は対称な形の平方の和になる。<a href="../thinking.html#t-symmetry">発想：対称性を使う</a></p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prf-p12" data-level="2">
+    <h3><span class="pid">P12</span>根号・絶対値を含む不等式（平方の差・三角不等式）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(a\ge0,\ b\ge0\) のとき \(\sqrt{2(a+b)}\ge\sqrt a+\sqrt b\)」「\(\abs a-\abs b\le\abs{a+b}\) を証明せよ」</dd>
+      <dt>こう考える</dt><dd>\(\sqrt{\ }\) や \(\abs{\ }\) は差をとっても扱いにくい。<b>両辺が 0 以上なら、2乗して比べてよい</b>。2乗すれば根号・絶対値が外れる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>両辺が 0 以上であることを確認する（負になりうる側があれば場合分け）。</li>
+        <li>（左辺）\(^2-\)（右辺）\(^2\ge0\) を示す。\(\abs{a}^2=a^2\)、\(\abs{ab}\ge ab\) を使う。</li>
+        <li>結論と等号成立条件を書く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(A,B\ge0\) のとき \(A\ge B\iff A^2\ge B^2\)、\(\abs{a}^2=a^2\)、\(\abs{a}\ge a\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(A^2-B^2=(A+B)(A-B)\) で \(A+B\ge0\) なので、\(A^2-B^2\) と \(A-B\) は同符号。負の数が混ざると \(-3\lt2\) なのに \(9\gt4\) のように逆転するので、<b>符号確認が必須</b>。<a href="../thinking.html#t-casework">発想：場合分け</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(a\ge0,\ b\ge0\) のとき、\(\sqrt{2(a+b)}\ge\sqrt a+\sqrt b\) を証明せよ。<br>(2) 実数 \(a,b\) について、\(\abs a-\abs b\le\abs{a+b}\) を証明せよ。</div>
+      <p>(1) 両辺とも 0 以上。</p>
+      \[ \left(\sqrt{2(a+b)}\right)^2-(\sqrt a+\sqrt b)^2=a+b-2\sqrt{ab}=(\sqrt a-\sqrt b)^2\ge0 \]
+      <p>よって \(\sqrt{2(a+b)}\ge\sqrt a+\sqrt b\)。等号は \(a=b\) のとき。</p>
+      <p>(2) [1] \(\abs a-\abs b\lt0\) のとき：右辺 \(\abs{a+b}\ge0\) なので成り立つ。</p>
+      <p>[2] \(\abs a-\abs b\ge0\) のとき：両辺 0 以上なので2乗の差を見る。</p>
+      \[ \abs{a+b}^2-(\abs a-\abs b)^2=(a^2+2ab+b^2)-(a^2-2\abs{ab}+b^2)=2(ab+\abs{ab})\ge0 \]
+      <p>（\(\abs{ab}\ge-ab\) より）。よって成り立つ。</p>
+      <p class="answer">(1)(2) とも成立。(2) の等号は \(\abs a\ge\abs b\) かつ \(ab\le0\) のとき（証明終）</p>
+      <p class="point">(2) の [1] を書き忘れると、負の数を2乗比較したことになり減点される。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prf-p13" data-level="2">
+    <h3><span class="pid">P13</span>相加平均・相乗平均の関係で最小値を求める</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x\gt0\) のとき \(x+\frac9x\) の最小値」「\(x\gt1\) のとき \(x+\frac{4}{x-1}\) の最小値」「正の数 \(a,b\) について〜を証明せよ」</dd>
+      <dt>こう考える</dt><dd>「正の数」＋「和」＋「掛けると文字が消える（積が一定）」がそろったら相加相乗。<b>和 \(\ge 2\sqrt{\text{積}}\)</b> で、積が定数なら右辺が定数になり、和の下限が分かる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>2つの項がともに正であることを確認する。</li>
+        <li>積が一定になるように式を変形する（\(x=(x-1)+1\) など）。</li>
+        <li>\(A+B\ge2\sqrt{AB}\) を使い、<b>等号成立条件 \(A=B\) を満たす \(x\) が範囲内に存在する</b>ことを確認してから「最小値」と書く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(a,b\gt0\) で \(a+b\ge2\sqrt{ab}\)（等号 \(a=b\)）</dd>
+      <dt>なぜこの方法？</dt><dd>\(x\) を大きくすると \(x\) が増え \(\frac9x\) が減る。この「シーソー」のつり合う点 \(x=\frac9x\) が最小。相加相乗は微分を使わずにつり合いの点と値を一気に出す道具。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(x\gt0\) のとき \(x+\dfrac9x\) の最小値を求めよ。<br>(2) \(x\gt1\) のとき \(x+\dfrac{4}{x-1}\) の最小値を求めよ。</div>
+      <p>(1) \(x\gt0,\ \frac9x\gt0\) より \(x+\frac9x\ge2\sqrt{x\cdot\frac9x}=6\)。等号は \(x=\frac9x\)、\(x=3\)（\(x\gt0\) を満たす）。<span class="answer">最小値 6（\(x=3\)）</span></p>
+      <p>(2) \(x-1\gt0\) なので \(x+\dfrac4{x-1}=(x-1)+\dfrac4{x-1}+1\ge2\sqrt{4}+1=5\)。</p>
+      <p>等号は \(x-1=\frac{4}{x-1}\)、\((x-1)^2=4\)、\(x-1\gt0\) より \(x=3\)。<span class="answer">最小値 5（\(x=3\)）</span></p>
+      <p class="point">(2) をそのまま \(x\) と \(\frac4{x-1}\) で相加相乗すると、右辺 \(2\sqrt{\frac{4x}{x-1}}\) に \(x\) が残って最小値が出ない。<b>積が定数になるまで変形</b>するのが要点。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prf-p14" data-level="3">
+    <h3><span class="pid">P14</span>相加相乗の落とし穴（等号が成立しない）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">相加相乗を<b>2回以上</b>使う式（\(\left(a+\frac1b\right)\left(b+\frac4a\right)\) など）／等号条件の \(x\) が範囲外（\(x^2+3+\frac{1}{x^2+3}\) など）</dd>
+      <dt>こう考える</dt><dd>「\(\ge m\)」が示せても、<b>\(=m\) となる場合が存在しなければ \(m\) は最小値ではない</b>（単なる下界）。2回使うときは等号が<b>同時に</b>成り立つか、範囲内で成り立つかを必ず確認する。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>相加相乗を使う前に、等号条件を書き出して両立するかチェック。</li>
+        <li>両立しないなら、<b>展開して</b>1回の相加相乗で済む形にする。</li>
+        <li>等号の値が範囲外なら、\(t\) とおいて関数 \(t+\frac1t\) の<b>増減（単調性）</b>で最小値を出す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>相加相乗の等号成立条件、\(t+\frac1t\) は \(t\ge1\) で増加</dd>
+      <dt>なぜこの方法？</dt><dd>不等式 \(f\ge m\) は「\(f\) は \(m\) より下に行かない」というだけ。最小値は「実際にその値をとる」ことまで含む。等号の確認は<b>最小値であることの証明そのもの</b>である。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(a\gt0,\ b\gt0\) のとき、\(\left(a+\dfrac1b\right)\left(b+\dfrac4a\right)\) の最小値を求めよ。<br>(2) 実数 \(x\) に対し、\(f(x)=x^2+3+\dfrac{1}{x^2+3}\) の最小値を求めよ。</div>
+      <p>(1) <b>誤答例</b>：\(a+\frac1b\ge2\sqrt{\frac ab}\)、\(b+\frac4a\ge2\sqrt{\frac{4b}a}\) を掛けて \(\ge 2\sqrt{\frac ab}\cdot2\sqrt{\frac{4b}{a}}=8\)。しかし等号は \(ab=1\) かつ \(ab=4\) で、同時には成り立たない。</p>
+      <p><b>正答</b>：展開すると \(ab+4+1+\dfrac{4}{ab}=ab+\dfrac{4}{ab}+5\ge2\sqrt4+5=9\)。等号は \(ab=\frac{4}{ab}\)、つまり \(ab=2\)（例えば \(a=1,\ b=2\)）で成立。</p>
+      <p class="answer">(1) 最小値 9</p>
+      <p>(2) 相加相乗で \(f\ge2\) だが、等号は \(x^2+3=1\) のときで、実数 \(x\) では起こらない。</p>
+      <p>\(t=x^2+3\) とおくと \(t\ge3\)。\(g(t)=t+\frac1t\) は \(3\le t_1\lt t_2\) のとき</p>
+      \[ g(t_2)-g(t_1)=(t_2-t_1)\left(1-\frac{1}{t_1t_2}\right)\gt0 \]
+      <p>なので \(t\ge3\) で増加。よって \(t=3\)（\(x=0\)）で最小。</p>
+      <p class="answer">(2) 最小値 \(\dfrac{10}{3}\)（\(x=0\)）</p>
+      <p class="point">(2) は<a href="m2-calculus.html">微分</a>で増減を調べてもよい。「\(t\) の範囲」を求めるのは<a href="m1-quadratic.html">2次関数</a>の置き換えと同じ注意。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prf-p15" data-level="2">
+    <h3><span class="pid">P15</span>コーシー・シュワルツの不等式</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x^2+y^2+z^2=1\) のとき \(x+2y+2z\) の最大値・最小値」「\((a^2+b^2)(x^2+y^2)\ge(ax+by)^2\) を証明せよ」</dd>
+      <dt>こう考える</dt><dd>「2乗の和が一定」で「1次式の最大最小」なら、<b>2乗の和の積 \(\ge\) 1次式の2乗</b>で一発。ベクトルで言えば「内積 \(\le\) 長さの積」。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\((a^2+b^2+c^2)(x^2+y^2+z^2)\ge(ax+by+cz)^2\) に当てはめる。</li>
+        <li>\((\text{1次式})^2\le(\text{定数})\) から範囲を出す。</li>
+        <li>等号条件 \(x:y:z=a:b:c\) から、最大・最小を与える点を具体的に求める。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>コーシー・シュワルツ（証明は差 \(=\sum(ay-bx)^2\)、または \(t\) の2次式の判別式）</dd>
+      <dt>なぜこの方法？</dt><dd>\(\sum(at-x)^2\ge0\) がすべての実数 \(t\) で成り立つので、\(t\) の2次式として判別式 \(\le0\)。これがそのままコーシー・シュワルツになる。図形的には \(\vec{a}\cdot\vec{x}\le\abs{\vec a}\abs{\vec x}\)（<a href="mc-vector.html">ベクトル</a>）。<a href="../thinking.html#t-vector">発想：ベクトルで表す</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">実数 \(x,y,z\) が \(x^2+y^2+z^2=1\) を満たすとき、\(x+2y+2z\) の最大値と最小値を求めよ。</div>
+      <p>コーシー・シュワルツより \((1^2+2^2+2^2)(x^2+y^2+z^2)\ge(x+2y+2z)^2\)、すなわち \((x+2y+2z)^2\le9\)。</p>
+      <p>よって \(-3\le x+2y+2z\le3\)。等号は \(x:y:z=1:2:2\) のとき。\(x=s,\ y=z=2s\) を条件に代入して \(9s^2=1\)、\(s=\pm\frac13\)。</p>
+      <p>\(s=\frac13\) で \(x+2y+2z=3\)、\(s=-\frac13\) で \(-3\)。</p>
+      <p class="answer">最大値 3（\(x=\frac13,\ y=z=\frac23\)）、最小値 \(-3\)（\(x=-\frac13,\ y=z=-\frac23\)）</p>
+      <p class="point">証明（2項版）：\((a^2+b^2)(x^2+y^2)-(ax+by)^2=a^2y^2-2abxy+b^2x^2=(ay-bx)^2\ge0\)。この1行は答案に書けるようにしておく。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prf-p16" data-level="3">
+    <h3><span class="pid">P16</span>3数の相加相乗・項の分割</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x\gt0\) のとき \(x^2+\frac2x\) の最小値」（2項では積が一定にならない）／「\(a,b,c\gt0\) のとき〜\(\ge\)〜」</dd>
+      <dt>こう考える</dt><dd>\(x^2\cdot\frac2x=2x\) は一定でない。そこで \(\frac2x=\frac1x+\frac1x\) と<b>分割</b>すれば、\(x^2\cdot\frac1x\cdot\frac1x=1\) で3つの積が一定になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>積が定数になるように項を分ける（次数のつり合いを見る：\(2=1+1\)）。</li>
+        <li>\(A+B+C\ge3\sqrt[3]{ABC}\) を使う。</li>
+        <li>等号条件 \(A=B=C\) を解いて、範囲内にあることを確認する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>3数の相加相乗（\(a^3+b^3+c^3-3abc=\frac12(a+b+c)\{(a-b)^2+(b-c)^2+(c-a)^2\}\ge0\)）</dd>
+      <dt>なぜこの方法？</dt><dd>相加相乗が使えるのは積が定数のときだけ。分割は「定数にするための調整」。微分で求めると \(f'(x)=2x-\frac{2}{x^2}=0\) から \(x=1\) と一致し、検算になる（<a href="m2-calculus.html">微分法・積分法</a>）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(x\gt0\) のとき、\(x^2+\dfrac{2}{x}\) の最小値を求めよ。</div>
+      <p>\(x^2,\ \frac1x,\ \frac1x\) はすべて正なので、3数の相加相乗より</p>
+      \[ x^2+\frac2x=x^2+\frac1x+\frac1x\ge3\sqrt[3]{x^2\cdot\frac1x\cdot\frac1x}=3 \]
+      <p>等号は \(x^2=\frac1x\)、すなわち \(x^3=1\)、\(x=1\)（\(x\gt0\) を満たす）。</p>
+      <p class="answer">最小値 3（\(x=1\)）</p>
+      <p class="point">3数の相加相乗の証明：\(a,b,c\gt0\) を \(p^3,q^3,r^3\) とおくと、\(p^3+q^3+r^3-3pqr=\frac12(p+q+r)\{(p-q)^2+(q-r)^2+(r-p)^2\}\ge0\)。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="pitfalls">
+  <h2>よくあるミスと対策</h2>
+  <ul class="pitfalls">
+    <li><b>等号成立条件を確かめずに「最小値」と書く</b>（P13, P14）。→ 「\(\ge m\)」の直後に「等号は〜のとき成立し、そのような \(x\) は存在する」と必ず書く。</li>
+    <li><b>相加相乗を2回使って等号が同時に成り立たない</b>（P14）。→ 等号条件を並べて矛盾しないか確認。ダメなら展開して1回で済ませる。</li>
+    <li><b>負の数を含むのに2乗して比較する</b>（P12）。→ 2乗する前に「両辺 \(\ge0\)」を一言書く。負になりうるなら場合分け。</li>
+    <li><b>数値代入法で十分性を書かない</b>（P7）。→ 「\(n\) 次以下の両辺が \(n+1\) 個の値で一致するので恒等式」と1行添える。</li>
+    <li><b>二項定理の一般項で係数・符号を落とす</b>（P2）。→ \((-\frac1x)^r\) や \((2y)^3\) はかっこごと \(r\) 乗する。</li>
+    <li><b>割り算で抜けた次数を詰めて筆算する</b>（P5）。→ \(x^3+1\) は \(x^3+0x^2+0x+1\) と書いてから割る。</li>
+    <li><b>比例式で分母が 0 になる場合を見落とす</b>（P10）。→ 「\(\neq0\)」の条件がどこで必要かを答案に書く。</li>
+  </ul>
+</section>
+
+<section id="handai">
+  <h2>阪大レベルへの橋渡し</h2>
+  <p>阪大理系では「式と証明」が単独の大問になることは少ないが、<b>整式の決定（次数の議論）</b>、<b>相加相乗・置き換えによる最小値</b>、<b>文字の多い不等式の証明</b>が、微積分・数列・図形問題の中で必ず顔を出す。特に次の2点で差がつく。</p>
+  <ul>
+    <li>「最小値」と書くために<b>等号成立を確認</b>する。成立しないなら置き換え＋単調性に切り替える（P14 → 演2）。</li>
+    <li>整式の問題では、まず<b>次数を比べて決める</b>。係数をいきなり置くと未知数が多すぎて手が止まる（演1）。</li>
+  </ul>
+
+  <article class="pattern" id="prf-h1" data-level="3">
+    <h3><span class="pid">演1</span>関数方程式をみたす整式の決定（次数の比較）</h3>
+    <div class="problem">整式 \(f(x)\) が、すべての実数 \(x\) について<br>\(\qquad f(x^2)=x\,f(x+1)+x^4-x^3-2x^2+x\)<br>を満たすとき、\(f(x)\) を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>\(f(x)\) の次数を \(n\) とおくと、左辺は \(2n\) 次、右辺の \(x\,f(x+1)\) は \(n+1\) 次。「\(2n\) と \(n+1\) と \(4\)」の大小で場合分けすれば \(n\) が決まる。次数が決まってから係数を置く。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>\(f(x)=0\)（恒等的に 0）とすると、左辺は 0、右辺は 4 次式になり不適。よって \(f(x)\) の次数を \(n\ (\ge0)\) とおける。左辺 \(f(x^2)\) は \(2n\) 次。</p>
+      <p>[1] \(n\ge3\) のとき：右辺の \(x\,f(x+1)\) は \(n+1\) 次、残りは 4 次なので、右辺の次数は \(\max(n+1,4)\) 以下。ところが \(n+1\lt2n\)、\(4\lt6\le2n\) なので左辺の次数 \(2n\) と一致しない。不適。</p>
+      <p>[2] \(n\le1\) のとき：左辺は 2 次以下。右辺は \(x\,f(x+1)\) が 2 次以下、\(x^4\) の項は打ち消されずに残るので 4 次。不適。</p>
+      <p>よって \(n=2\)。\(f(x)=ax^2+bx+c\ (a\neq0)\) とおくと</p>
+      \[ \begin{aligned} f(x^2)&=ax^4+bx^2+c\\ x\,f(x+1)&=ax^3+(2a+b)x^2+(a+b+c)x \end{aligned} \]
+      <p>右辺 \(=x^4+(a-1)x^3+(2a+b-2)x^2+(a+b+c+1)x\)。両辺の係数を比較して</p>
+      <p>\(x^4\)：\(a=1\)、\(x^3\)：\(0=a-1\)、\(x^2\)：\(b=2a+b-2\)、\(x\)：\(0=a+b+c+1\)、定数：\(c=0\)。</p>
+      <p>これらより \(a=1,\ c=0,\ b=-2\)（すべての式を満たす）。</p>
+      <p class="answer">\(f(x)=x^2-2x\)</p>
+      <p class="point">採点ポイント：①恒等的に 0 の場合の排除、②\(n\ge3\) と \(n\le1\) の否定（次数の比較）、③係数比較で全条件を満たすことの確認。次数決定の議論だけで部分点が大きい。検算：\(f(x^2)=x^4-2x^2\)、\(x\,f(x+1)=x(x^2-1)=x^3-x\) で、右辺 \(=x^3-x+x^4-x^3-2x^2+x=x^4-2x^2\)。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prf-h2" data-level="3">
+    <h3><span class="pid">演2</span>条件つきの最小値（相加相乗の落とし穴と置き換え）</h3>
+    <div class="problem">正の実数 \(x,y\) が \(x+y=1\) を満たすとき、\(\left(x+\dfrac1x\right)\left(y+\dfrac1y\right)\) の最小値を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>\(x+\frac1x\ge2,\ y+\frac1y\ge2\) を掛けて「最小値 4」は誤り（等号は \(x=y=1\) だが \(x+y=1\) に反する）。展開すると \(xy\) と \(\frac1{xy}\) と \(\frac{x^2+y^2}{xy}\) が出る。\(x+y=1\) を使えば全部 \(t=xy\) で書ける。\(t\) の範囲を求めて単調性で処理。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>展開して \(x+y=1\) を使う。\(x^2+y^2=(x+y)^2-2xy=1-2xy\) なので</p>
+      \[ \begin{aligned} \left(x+\frac1x\right)\left(y+\frac1y\right)&=xy+\frac{x^2+y^2+1}{xy}\\&=xy+\frac{2-2xy}{xy}=xy+\frac{2}{xy}-2 \end{aligned} \]
+      <p>\(t=xy\) とおく。\(x,y\gt0\) より \(t\gt0\)、相加相乗より \(1=x+y\ge2\sqrt{xy}\) なので \(t\le\frac14\)（等号 \(x=y=\frac12\)）。逆に \(0\lt t\le\frac14\) の各 \(t\) に対して、\(u^2-u+t=0\) は正の2解をもつ（判別式 \(1-4t\ge0\)、解の和 \(1\gt0\)、積 \(t\gt0\)）ので、\(t\) の範囲は \(0\lt t\le\frac14\) である。</p>
+      <p>\(g(t)=t+\frac2t-2\) は、\(0\lt t_1\lt t_2\le\frac14\) のとき</p>
+      \[ g(t_1)-g(t_2)=(t_2-t_1)\left(\frac{2}{t_1t_2}-1\right)\gt0 \]
+      <p>（\(t_1t_2\lt\frac1{16}\) より \(\frac{2}{t_1t_2}\gt32\)）なので減少。よって \(t=\frac14\) で最小：\(g\left(\frac14\right)=\frac14+8-2=\frac{25}{4}\)。</p>
+      <p class="answer">最小値 \(\dfrac{25}{4}\)（\(x=y=\dfrac12\)）</p>
+      <p class="point">採点ポイント：①誤った相加相乗（最小値 4）を書かない、②\(t=xy\) の範囲 \(0\lt t\le\frac14\) を根拠つきで出す、③\(g(t)\) の単調性の根拠。\(t+\frac2t\) に相加相乗を使うと等号は \(t=\sqrt2\) で範囲外になる（これも落とし穴）。<a href="../thinking.html#t-subst">発想：置き換え</a></p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prf-h3" data-level="3">
+    <h3><span class="pid">演3</span>文字の多い分数式の不等式</h3>
+    <div class="problem">\(a,b,c\) を正の実数とする。次の不等式を証明し、等号が成り立つ条件を求めよ。<br>\(\qquad \dfrac{a}{b+c}+\dfrac{b}{c+a}+\dfrac{c}{a+b}\ge\dfrac32\)</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>分母がばらばらで扱いにくい。<b>分母を新しい文字</b> \(p=b+c,\ q=c+a,\ r=a+b\) にすると、分子は \(a=\frac{q+r-p}{2}\) などで表せ、各項が「\(\frac{q}{p}+\frac{p}{q}\)」の組に分かれる。そこで相加相乗。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>\(p=b+c,\ q=c+a,\ r=a+b\) とおく（\(p,q,r\gt0\)）。\(p+q+r=2(a+b+c)\) より</p>
+      \[ a=\frac{q+r-p}{2},\quad b=\frac{r+p-q}{2},\quad c=\frac{p+q-r}{2} \]
+      <p>よって</p>
+      \[ \begin{aligned} (\text{左辺})&=\frac12\left(\frac{q+r}{p}+\frac{r+p}{q}+\frac{p+q}{r}-3\right)\\&=\frac12\left\{\left(\frac qp+\frac pq\right)+\left(\frac rq+\frac qr\right)+\left(\frac pr+\frac rp\right)-3\right\} \end{aligned} \]
+      <p>各かっこは相加相乗により 2 以上（例：\(\frac qp+\frac pq\ge2\sqrt{\frac qp\cdot\frac pq}=2\)）。よって</p>
+      \[ (\text{左辺})\ge\frac12(2+2+2-3)=\frac32 \]
+      <p>等号は \(\frac qp=\frac pq,\ \frac rq=\frac qr,\ \frac pr=\frac rp\)、つまり \(p=q=r\) のとき。これは \(a=b=c\) と同値。</p>
+      <p class="answer">成り立つ。等号は \(a=b=c\) のとき（証明終）</p>
+      <p class="point">採点ポイント：①置き換えと逆変換（\(a,b,c\) を \(p,q,r\) で表す）、②相加相乗を使う前に各項が正であることの確認、③等号条件が3つ同時に成り立つ（\(a=b=c\) で実現）ことの確認。別解：\((p+q+r)\left(\frac1p+\frac1q+\frac1r\right)\ge9\)（コーシー・シュワルツ）を使うと、左辺 \(=\frac{a+b+c}{p}+\cdots-3=\frac12(p+q+r)\left(\frac1p+\frac1q+\frac1r\right)-3\ge\frac92-3\)。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="next">
+  <h2>次に学ぶとつながる単元</h2>
+  <ul>
+    <li><a href="m2-complex-eq.html">複素数と方程式</a>：P5 の \(A=BQ+R\) から剰余の定理・因数定理へ。余りの決定問題はすべてこの等式への代入。</li>
+    <li><a href="m2-calculus.html">微分法・積分法（数II）</a>・<a href="m3-diff.html">微分法とその応用</a>：P11〜P16 で示せない不等式は「差の関数を微分」して示す。相加相乗で出した最小値の検算にも使える。</li>
+    <li><a href="ma-counting.html">場合の数</a>：P2・P3 の二項係数を「選び方の数」として読むと、\(\sum\C nk=2^n\) などに組合せの意味がつく。</li>
+    <li><a href="m3-limit.html">極限</a>：P4 の二項定理による評価が、はさみうちの原理の材料になる。</li>
+    <li><a href="mc-vector.html">ベクトル</a>：P15 のコーシー・シュワルツは内積の不等式 \(\abs{\vec a\cdot\vec b}\le\abs{\vec a}\abs{\vec b}\) と同じもの。</li>
+  </ul>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>

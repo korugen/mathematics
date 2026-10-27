@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>確率（数学A）｜解法の地図</title>
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-unit="ma-probability" data-root="../">
+<main>
+
+<header class="unit-head">
+  <span class="subj-badge">数学A</span>
+  <h1>確率</h1>
+  <p class="lead">阪大理系で毎年のように出る最重要単元。「同様に確からしいものを数える」「否定で数える」「状態を決めて遷移を追う」の3本柱で、基本問題から確率漸化式・極限との融合までつながっている。</p>
+  <div class="goal">
+    <strong>このページの到達目標</strong>
+    <ul>
+      <li>【基礎】区別して数えて「同様に確からしい」根元事象を作り、余事象・和事象・独立試行を正しく使える。</li>
+      <li>【標準】反復試行・最大値最小値・条件付き確率・期待値を、型を見て選んで処理できる。</li>
+      <li>【阪大】一般の \(n\) 回の試行を、状態の遷移（確率漸化式）・確率の比・極限まで含めて答案にできる。</li>
+    </ul>
+  </div>
+  <p class="prereq">前提：<a href="ma-counting.html">場合の数</a>（順列・組合せ・包除原理）／ 次に進む：<a href="mb-sequence.html">数列</a>（漸化式）、<a href="mb-stats.html">統計的な推測</a>、<a href="m3-limit.html">極限</a></p>
+</header>
+
+<section id="core">
+  <h2>必ず押さえる基本事項</h2>
+
+  <div class="box theorem">
+    <p><span class="name">確率の定義（同様に確からしい場合）</span>：全事象 \(U\) の根元事象がどれも同じ程度に起こりやすいとき</p>
+    \[ P(A)=\frac{n(A)}{n(U)} \]
+    <p>なぜ：この式が使えるのは<b>根元事象の起こりやすさがすべて等しい</b>ときだけ。さいころや玉は、見た目が同じでも<b>区別して</b>数えると等しくなる（P1）。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">加法定理・余事象</span></p>
+    \[ P(A\cup B)=P(A)+P(B)-P(A\cap B) \]
+    \[ P(\overline{A})=1-P(A) \]
+    <p>なぜ：場合の数の包除原理と補集合の個数を \(n(U)\) で割ったもの。\(A,B\) が排反（同時に起こらない）なら \(P(A\cap B)=0\)。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">独立試行・反復試行</span>：互いに影響しない試行の結果が同時に起こる確率は積。確率 \(p\) の事象が \(n\) 回中ちょうど \(r\) 回起こる確率は</p>
+    \[ \C{n}{r}\,p^r(1-p)^{n-r} \]
+    <p>なぜ：「何回目に起こるか」の選び方が \(\C{n}{r}\) 通りあり、それぞれの確率が \(p^r(1-p)^{n-r}\) で等しい（和の法則）。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">条件付き確率・乗法定理</span></p>
+    \[ P_A(B)=\frac{P(A\cap B)}{P(A)} \]
+    \[ P(A\cap B)=P(A)\,P_A(B) \]
+    <p>なぜ：「\(A\) が起こった」と分かったら、全体を \(A\) に縮めて、その中で \(B\) が占める割合を見る。乗法定理は「1回目の結果ごとに2回目の確率が変わる」ときの積の法則。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">期待値</span>：値 \(x_1,\ldots,x_n\) をとる確率が \(p_1,\ldots,p_n\) のとき \(E=\sum x_kp_k\)。和の期待値は期待値の和：</p>
+    \[ E(X+Y)=E(X)+E(Y) \]
+    <p>なぜ：\(\sum(x+y)p=\sum xp+\sum yp\) と分配できるから。<b>\(X,Y\) が独立でなくても成り立つ</b>のが強み（P11）。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">確率漸化式の基本形</span>：\(p_{n+1}=ap_n+b\ (a\ne1)\) は、\(\alpha=a\alpha+b\) を満たす \(\alpha\) を使って</p>
+    \[ \begin{aligned} &p_{n+1}-\alpha=a(p_n-\alpha)\\ &\Longrightarrow\ p_n=\alpha+a^{n}(p_0-\alpha) \end{aligned} \]
+    <p>なぜ：2式を引くと定数 \(b\) が消え、\(p_n-\alpha\) が公比 \(a\) の等比数列になる。\(\abs{a}\lt1\) なら \(p_n\to\alpha\)（極限は「止まった状態」の確率）。</p>
+  </div>
+
+  <div class="box idea">
+    <p><b>この単元を貫く考え方</b>：確率は<b>「何を1つの根元事象とするか」</b>を決めた瞬間に半分解けている。複雑な事象は、<b>否定（余事象）</b>にするか、<b>排反な場合に分けて足す</b>か、<b>時間の流れに沿って状態を追う（漸化式）</b>か、の3つから選ぶ。答えが出たら、小さい場合や極端な場合（確率が 0 や 1 になるか）で必ず検算する。</p>
+  </div>
+</section>
+
+<section id="quick">
+  <h2>早見表：こう来たら → こう解く</h2>
+  <div class="table-wrap"><table class="quick">
+    <tr><th>問題の特徴（こう来たら）</th><th>方針（こう解く）</th><th>使う道具</th><th>詳細</th></tr>
+    <tr data-level="1"><td>同じ色の玉・同じ目が出る</td><td>すべて区別して数える</td><td>同様に確からしい</td><td><a href="#prob-p1">P1</a></td></tr>
+    <tr data-level="1"><td>「少なくとも1回」「積が偶数」</td><td>余事象（1回も〜ない／すべて奇数）</td><td>\(1-P(\overline{A})\)</td><td><a href="#prob-p2">P2</a></td></tr>
+    <tr data-level="1"><td>「〜または〜」</td><td>重なりを引く</td><td>加法定理</td><td><a href="#prob-p3">P3</a></td></tr>
+    <tr data-level="1"><td>別々の人・袋・さいころの結果</td><td>独立なら掛ける、排反な場合は足す</td><td>独立試行</td><td><a href="#prob-p4">P4</a></td></tr>
+    <tr data-level="2"><td>\(n\) 回中ちょうど \(r\) 回／\(n\) 回目に \(r\) 回目</td><td>何回目に起こるかを選ぶ</td><td>反復試行 \(\C{n}{r}p^rq^{n-r}\)</td><td><a href="#prob-p5">P5</a></td></tr>
+    <tr data-level="2"><td>最大値が \(k\)、最小値が \(k\)</td><td>「\(\le k\)」から「\(\le k-1\)」を引く</td><td>差をとる</td><td><a href="#prob-p6">P6</a></td></tr>
+    <tr data-level="1"><td>くじを順に引く（戻さない）</td><td>何番目でも当たる確率は同じ</td><td>くじ引きの公平性</td><td><a href="#prob-p7">P7</a></td></tr>
+    <tr data-level="2"><td>「〜であったとき、〜である確率」</td><td>全体を条件の事象に縮める</td><td>条件付き確率</td><td><a href="#prob-p8">P8</a></td></tr>
+    <tr data-level="2"><td>結果から原因を推定（検査・工場）</td><td>原因ごとに枝分けして割合をとる</td><td>原因の確率（ベイズ）</td><td><a href="#prob-p9">P9</a></td></tr>
+    <tr data-level="2"><td>期待値を求めよ</td><td>分布表／和に分けて線形性</td><td>期待値の定義・線形性</td><td><a href="#prob-p10">P10</a></td></tr>
+    <tr data-level="3"><td>「出る目の種類の数」「一致する個数」の期待値</td><td>1つ1つが起こるかの和に分解</td><td>指示関数・線形性</td><td><a href="#prob-p11">P11</a></td></tr>
+    <tr data-level="3"><td>確率 \(p_n\) を最大にする \(n\)</td><td>\(\dfrac{p_{n+1}}{p_n}\) と 1 の大小</td><td>比をとる</td><td><a href="#prob-p12">P12</a></td></tr>
+    <tr data-level="3"><td>\(n\) 回後に〜にいる確率（2状態）</td><td>直前の状態で分けて漸化式</td><td>確率漸化式</td><td><a href="#prob-p13">P13</a></td></tr>
+    <tr data-level="3"><td>和を3で割った余り・3状態以上</td><td>対称性で状態をまとめる／和の条件で1つ減らす</td><td>確率漸化式</td><td><a href="#prob-p14">P14</a></td></tr>
+    <tr data-level="2"><td>点の移動・数直線上の移動</td><td>各向きの回数を決めて反復試行</td><td>反復試行・最短経路</td><td><a href="#prob-p15">P15</a></td></tr>
+    <tr data-level="2"><td>目の積が4の倍数・6の倍数</td><td>素因数で分類し、余事象・包除</td><td>素因数分解・包除</td><td><a href="#prob-p16">P16</a></td></tr>
+    <tr data-level="2"><td>\(n\) 人でじゃんけん</td><td>出た手の種類（1・2・3種類）で分類</td><td>場合の数</td><td><a href="#prob-p17">P17</a></td></tr>
+    <tr data-level="3"><td>\(n\) 回投げて〜の確率の極限</td><td>一般項を求め \(r^n\to0\) を使う</td><td>二項定理・漸化式・極限</td><td><a href="#prob-p18">P18</a></td></tr>
+  </table></div>
+</section>
+
+<section id="patterns">
+  <h2>パターン別 解法マップ</h2>
+
+  <article class="pattern" id="prob-p1" data-level="1">
+    <h3><span class="pid">P1</span>同様に確からしい（区別して数える）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「2個のさいころを投げて目の和が4」「赤玉3個、白玉2個から2個取り出す」</dd>
+      <dt>こう考える</dt><dd>同じに見えるさいころや玉も、<b>大・小、\(R_1,R_2,R_3\) と名前を付けて区別</b>する。そうすると根元事象がどれも同じ確率になり、\(\dfrac{n(A)}{n(U)}\) が使える。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>すべてのさいころ・玉に名前を付ける。</li>
+        <li>全事象の個数を数える（順序を考えるか考えないかは、分母と分子で揃える）。</li>
+        <li>条件を満たすものを同じルールで数え、割る。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>確率の定義、順列・組合せ</dd>
+      <dt>なぜこの方法？</dt><dd>区別しないと「和が4」の組は \(\{1,3\},\{2,2\}\) の2つだが、\(\{1,3\}\) は（大1,小3）と（大3,小1）の2通りで起こり、\(\{2,2\}\) は1通り。<b>起こりやすさが違うものを1個ずつ数えると間違える</b>。名前を付ければどの組も確率 \(\frac1{36}\) で平等になる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 2個のさいころを同時に投げるとき、目の和が4になる確率を求めよ。<br>(2) 赤玉3個、白玉2個が入った袋から同時に2個取り出す。2個とも赤玉である確率、赤玉と白玉が1個ずつである確率を求めよ。</div>
+      <p>(1) 2個を大・小と区別すると全部で \(36\) 通りで同様に確からしい。和が4は (大,小) \(=(1,3),(2,2),(3,1)\) の3通り。</p>
+      <p class="answer">(1) \(\dfrac{3}{36}=\dfrac{1}{12}\)</p>
+      <p>(2) 5個の玉をすべて区別すると、取り出し方は \(\C{5}{2}=10\) 通りで同様に確からしい。2個とも赤：\(\C{3}{2}=3\) 通り。赤白1個ずつ：\(3\times2=6\) 通り。</p>
+      <p class="answer">(2) 2個とも赤 \(\dfrac{3}{10}\)、1個ずつ \(\dfrac{3}{5}\)</p>
+      <p class="point">「同時に取り出す」は組合せ、「1個ずつ順に取り出す」は順列で数えても、分母と分子で揃えれば同じ答えになる（順列なら \(\frac{3\cdot2}{5\cdot4}=\frac{3}{10}\)）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prob-p2" data-level="1">
+    <h3><span class="pid">P2</span>余事象（「少なくとも」）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「少なくとも1個は6の目」「目の積が偶数」「少なくとも1回出る確率が 0.9 以上となる最小の \(n\)」</dd>
+      <dt>こう考える</dt><dd>「少なくとも1回」の否定は「1回も〜ない」で、こちらは<b>全部が同じ条件</b>なので積1つで書ける。「積が偶数」の否定は「すべて奇数」。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>求める事象の否定を言葉で書く（「少なくとも1つ偶数」↔「すべて奇数」）。</li>
+        <li>否定の確率を求める。</li>
+        <li>1 から引く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(P(A)=1-P(\overline{A})\)、常用対数（回数を求めるとき）</dd>
+      <dt>なぜこの方法？</dt><dd>「少なくとも1回」を直接やると「ちょうど1回、2回、…」と場合が多い。否定は1通りの場合で済む。<a href="../thinking.html#t-complement">発想：余事象・否定</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 3個のさいころを投げるとき、少なくとも1個は6の目が出る確率を求めよ。<br>(2) 3個のさいころを投げるとき、目の積が偶数になる確率を求めよ。<br>(3) 1個のさいころを \(n\) 回投げるとき、6の目が少なくとも1回出る確率が 0.9 以上となる最小の \(n\) を求めよ。ただし \(\log_{10}2=0.3010,\ \log_{10}3=0.4771\) とする。</div>
+      <p>(1) 余事象「3個とも6以外」の確率は \(\left(\frac56\right)^3=\frac{125}{216}\)。\(1-\frac{125}{216}=\frac{91}{216}\)。</p>
+      <p>(2) 余事象「積が奇数」＝「3個とも奇数」：\(\left(\frac12\right)^3=\frac18\)。\(1-\frac18=\frac78\)。</p>
+      <p>(3) \(1-\left(\frac56\right)^n\ge0.9\) ⇔ \(\left(\frac56\right)^n\le\frac1{10}\)。両辺の常用対数をとって \(n\log_{10}\frac56\le-1\)。</p>
+      <p>\(\log_{10}\frac56=\log_{10}10-\log_{10}2-\log_{10}6=1-2(0.3010)-0.4771=-0.0791\)</p>
+      <p>よって \(n\ge\frac{1}{0.0791}=12.6\cdots\)。</p>
+      <p class="answer">(1) \(\dfrac{91}{216}\)　(2) \(\dfrac78\)　(3) \(n=13\)</p>
+      <p class="point">(3) で \(\log_{10}\frac56\lt0\) で割るので不等号の向きが逆になる。対数の扱いは<a href="m2-explog.html">指数関数・対数関数</a>。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prob-p3" data-level="1">
+    <h3><span class="pid">P3</span>和事象（加法定理・排反）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「2の倍数または3の倍数である確率」「A または B が起こる確率」</dd>
+      <dt>こう考える</dt><dd>2つの事象が<b>同時に起こりうるか（排反か）</b>をまず判定。排反なら足すだけ、そうでなければ重なりを引く。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(A\cap B\) が何かを言葉で書く（2の倍数かつ3の倍数＝6の倍数）。</li>
+        <li>\(P(A)+P(B)-P(A\cap B)\) を計算する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>加法定理、包除原理（<a href="ma-counting.html">場合の数</a> P1）</dd>
+      <dt>なぜこの方法？</dt><dd>重なり部分は \(P(A)\) にも \(P(B)\) にも入っているので、足すと2回分になる。1回分引けばちょうどよい。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">1 から 100 までの番号札が1枚ずつある。1枚引くとき、番号が2の倍数または3の倍数である確率を求めよ。</div>
+      <p>2の倍数 50 枚、3の倍数 33 枚、6の倍数 16 枚。</p>
+      <p>\(\dfrac{50}{100}+\dfrac{33}{100}-\dfrac{16}{100}=\dfrac{67}{100}\)</p>
+      <p class="answer">\(\dfrac{67}{100}\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prob-p4" data-level="1">
+    <h3><span class="pid">P4</span>独立試行（別々の試行の積）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「A, B の2人が的を射る。A が当てる確率は \(\frac23\)、B は \(\frac35\)」「袋 A と袋 B から1個ずつ取り出す」</dd>
+      <dt>こう考える</dt><dd>互いの結果に影響しない試行は<b>独立</b>なので、同時に起こる確率は積。「ちょうど1人」のように場合が複数あるなら、排反な場合に分けて足す。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>各人（各試行）の「成功」「失敗」の確率を書き出す。</li>
+        <li>求める事象を、各試行の結果の組合せ（排反な場合）に分解する。</li>
+        <li>各場合は積、場合どうしは和。「少なくとも」は余事象。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>独立試行の確率 \(P(A)P(B)\)、和の法則</dd>
+      <dt>なぜこの方法？</dt><dd>独立なら「A の結果ごとに B の確率が変わらない」ので、樹形図の枝の確率を掛けてよい（確率版の積の法則）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">A, B の2人が1回ずつ的を射る。的に当てる確率は A が \(\frac23\)、B が \(\frac35\) で、2人の結果は互いに影響しない。(1) 少なくとも1人が当てる確率 (2) ちょうど1人が当てる確率 を求めよ。</div>
+      <p>(1) 余事象「2人とも外す」：\(\frac13\cdot\frac25=\frac{2}{15}\)。\(1-\frac2{15}=\frac{13}{15}\)。</p>
+      <p>(2) 「A だけ当てる」と「B だけ当てる」は排反：\(\frac23\cdot\frac25+\frac13\cdot\frac35=\frac{4}{15}+\frac{3}{15}=\frac{7}{15}\)。</p>
+      <p class="answer">(1) \(\dfrac{13}{15}\)　(2) \(\dfrac{7}{15}\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prob-p5" data-level="2">
+    <h3><span class="pid">P5</span>反復試行（\(n\) 回中 \(r\) 回、\(n\) 回目に \(r\) 回目）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「さいころを5回投げて1の目がちょうど2回出る確率」「5回目に2回目の1の目が出る確率」</dd>
+      <dt>こう考える</dt><dd>同じ試行の繰り返しで、各回は独立。<b>何回目に起こるかの選び方</b> \(\C{n}{r}\) と、1つの並びの確率 \(p^rq^{n-r}\) の積。「\(n\) 回目にちょうど \(r\) 回目」は、<b>最後が成功と決まっている</b>ので選ぶのは前の \(n-1\) 回の中だけ。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>1回の成功確率 \(p\)、失敗確率 \(q=1-p\) を確認。</li>
+        <li>ちょうど \(r\) 回：\(\C{n}{r}p^rq^{n-r}\)。</li>
+        <li>\(n\) 回目に \(r\) 回目の成功：\(\C{n-1}{r-1}p^{r-1}q^{n-r}\times p\)。</li>
+        <li>「\(r\) 回以上」は和、または余事象。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>反復試行の確率</dd>
+      <dt>なぜこの方法？</dt><dd>「1回目と2回目に1」「1回目と3回目に1」…はどれも確率 \(p^2q^3\) で等しく、互いに排反。だから「並びの数×1つの並びの確率」になる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">1個のさいころを5回投げる。(1) 1の目がちょうど2回出る確率 (2) 5回目に、2回目の1の目が出る確率 (3) 1の目が3回以上出る確率 を求めよ。</div>
+      <p>(1) \(\C{5}{2}\left(\frac16\right)^2\left(\frac56\right)^3=10\cdot\frac{125}{7776}=\frac{625}{3888}\)</p>
+      <p>(2) 4回目までに1の目がちょうど1回、5回目に1の目：\(\C{4}{1}\cdot\frac16\left(\frac56\right)^3\times\frac16=\frac{4\cdot125}{7776}=\frac{125}{1944}\)</p>
+      <p>(3) \(\displaystyle\sum_{r=3}^{5}\C{5}{r}\left(\tfrac16\right)^r\left(\tfrac56\right)^{5-r}=\frac{10\cdot25+5\cdot5+1}{7776}=\frac{276}{7776}=\frac{23}{648}\)</p>
+      <p class="answer">(1) \(\dfrac{625}{3888}\)　(2) \(\dfrac{125}{1944}\)　(3) \(\dfrac{23}{648}\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prob-p6" data-level="2">
+    <h3><span class="pid">P6</span>最大値・最小値の確率</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「3個のさいころの目の最大値が4である確率」「最小値が2」「最大値が4かつ最小値が2」</dd>
+      <dt>こう考える</dt><dd>「最大値がちょうど \(k\)」は数えにくいが、<b>「最大値 \(\le k\)」＝「全部 \(k\) 以下」</b>なら独立で \(\left(\frac{k}{6}\right)^n\)。ちょうど \(k\) は差をとる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(P(\max=k)=P(\max\le k)-P(\max\le k-1)\)。</li>
+        <li>\(P(\min=k)=P(\min\ge k)-P(\min\ge k+1)\)。</li>
+        <li>両方の条件：「全部が \([2,4]\) 内」から「\(4\) を含まない」「\(2\) を含まない」を引き、両方含まないを足す（包除）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(P(\max=k)=\dfrac{k^n-(k-1)^n}{6^n}\)、包除原理</dd>
+      <dt>なぜこの方法？</dt><dd>「最大値が \(k\)」＝「全部 \(k\) 以下」かつ「少なくとも1つは \(k\)」。後半の「少なくとも」を否定にすると「全部 \(k-1\) 以下」で、その分を引けばよい。<a href="../thinking.html#t-complement">発想：余事象</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">3個のさいころを投げる。(1) 目の最大値が4である確率 (2) 目の最小値が2である確率 (3) 最大値が4かつ最小値が2である確率 を求めよ。</div>
+      <p>(1) \(\dfrac{4^3-3^3}{6^3}=\dfrac{64-27}{216}=\dfrac{37}{216}\)</p>
+      <p>(2) 最小値 \(\ge2\)：全部 2〜6 で \(5^3\)。最小値 \(\ge3\)：\(4^3\)。\(\dfrac{125-64}{216}=\dfrac{61}{216}\)</p>
+      <p>(3) 全部 2〜4 の中：\(3^3=27\)。そこから「4 を含まない（全部 2〜3）」\(2^3\)、「2 を含まない（全部 3〜4）」\(2^3\) を引き、「どちらも含まない（全部 3）」\(1\) を足す。\(27-8-8+1=12\)。</p>
+      <p class="answer">(1) \(\dfrac{37}{216}\)　(2) \(\dfrac{61}{216}\)　(3) \(\dfrac{12}{216}=\dfrac{1}{18}\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prob-p7" data-level="1">
+    <h3><span class="pid">P7</span>くじ引きの公平性</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「10本中3本の当たりくじを A, B, C の順に1本ずつ引く（戻さない）。B が当たる確率」</dd>
+      <dt>こう考える</dt><dd>引いたくじを戻さなくても、<b>何番目に引く人も当たる確率は同じ</b>（\(\frac{3}{10}\)）。10 本のくじを1列に並べて、A, B, C が前から順に受け取ると考えればよい。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>「B が当たる」だけなら、答えは \(\frac{\text{当たりの本数}}{\text{全本数}}\)。</li>
+        <li>「A がはずれて B が当たる」など前の人の結果も指定されたら、乗法定理で順に掛ける。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>乗法定理、対称性</dd>
+      <dt>なぜこの方法？</dt><dd>10 本の並べ方はどれも同様に確からしく、2番目の位置に当たりが来る並べ方は、1番目に来る並べ方と同じ数だけある（位置を入れ替えれば対応する）。計算でも \(\frac3{10}\cdot\frac29+\frac7{10}\cdot\frac39=\frac{27}{90}=\frac3{10}\)。<a href="../thinking.html#t-symmetry">発想：対称性</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">10 本中3本が当たりのくじを、A, B, C の順に1本ずつ引く（引いたくじは戻さない）。(1) B が当たる確率 (2) C が当たる確率 (3) A がはずれて B が当たる確率 を求めよ。</div>
+      <p>(1)(2) くじ引きの公平性により、何番目でも \(\frac{3}{10}\)。（(1) の計算：\(\frac3{10}\cdot\frac29+\frac7{10}\cdot\frac39=\frac{6+21}{90}=\frac3{10}\)。）</p>
+      <p>(3) 乗法定理：\(\frac{7}{10}\cdot\frac{3}{9}=\frac{7}{30}\)。</p>
+      <p class="answer">(1) \(\dfrac{3}{10}\)　(2) \(\dfrac{3}{10}\)　(3) \(\dfrac{7}{30}\)</p>
+      <p class="point">「B が当たる」と「A がはずれて B が当たる」は別の事象。問題文が前の人の結果を指定しているかを必ず確認する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prob-p8" data-level="2">
+    <h3><span class="pid">P8</span>条件付き確率・乗法定理</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「目の和が8であったとき、少なくとも一方が偶数である確率」「2回目が赤であったとき、1回目も赤であった確率」</dd>
+      <dt>こう考える</dt><dd>「〜であったとき」が<b>新しい全体</b>。全体を条件の事象 \(A\) に縮め、その中で \(B\) が占める割合を求める。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>条件の事象 \(A\)（「であったとき」の部分）と、求める事象 \(B\) をはっきり分ける。</li>
+        <li>\(P(A)\) と \(P(A\cap B)\) を求める（数え上げで済むなら \(\frac{n(A\cap B)}{n(A)}\)）。</li>
+        <li>\(P_A(B)=\dfrac{P(A\cap B)}{P(A)}\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>条件付き確率、乗法定理 \(P(A\cap B)=P(A)P_A(B)\)</dd>
+      <dt>なぜこの方法？</dt><dd>時間の順序（1回目→2回目）と条件の向き（2回目→1回目）が逆でも、定義の式は同じ。「後の結果から前を推測する」ときも、<b>分子・分母を時間順の乗法定理で計算</b>すればよい（P9 につながる）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 2個のさいころを投げる。目の和が8であったとき、少なくとも一方の目が偶数である確率を求めよ。<br>(2) 赤玉3個、白玉2個の袋から1個ずつ2回取り出す（戻さない）。2回目が赤玉であったとき、1回目も赤玉であった条件付き確率を求めよ。</div>
+      <p>(1) 和が8：\((2,6),(3,5),(4,4),(5,3),(6,2)\) の5通り。このうち偶数を含むもの \((2,6),(4,4),(6,2)\) の3通り。\(\frac35\)。</p>
+      <p>(2) \(A\)：2回目が赤、\(B\)：1回目が赤。</p>
+      <p>\(P(A\cap B)=\frac35\cdot\frac24=\frac{3}{10}\)、\(P(A)=\frac35\cdot\frac24+\frac25\cdot\frac34=\frac{3}{10}+\frac{3}{10}=\frac35\)（P7 の公平性とも一致）。</p>
+      <p>\(P_A(B)=\dfrac{3/10}{3/5}=\dfrac12\)</p>
+      <p class="answer">(1) \(\dfrac35\)　(2) \(\dfrac12\)</p>
+      <p class="point">(1) は和が8の5通りが同様に確からしい（大小区別）ので個数の比でよい。条件付き確率でも「区別して数える」原則は同じ。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prob-p9" data-level="2">
+    <h3><span class="pid">P9</span>原因の確率（ベイズ）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「検査で陽性と判定された人が実際に病気である確率」「不良品であったとき、それが工場 A の製品である確率」</dd>
+      <dt>こう考える</dt><dd>原因（病気か健康か）→ 結果（陽性か陰性か）の順に<b>樹形図</b>を描く。「陽性」という結果になった枝だけを集め、その中で「病気」の枝が占める割合を求める。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>原因ごとに枝を分け、結果の確率を掛ける（乗法定理）。</li>
+        <li>観測された結果に至る枝の確率をすべて足す（分母）。</li>
+        <li>その中で、問われている原因を通る枝（分子）の割合をとる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(P_E(A)=\dfrac{P(A)P_A(E)}{P(A)P_A(E)+P(\overline{A})P_{\overline{A}}(E)}\)</dd>
+      <dt>なぜこの方法？</dt><dd>与えられるのは「原因→結果」の確率だが、聞かれるのは「結果→原因」。条件付き確率の定義に戻り、分子・分母を<b>与えられている向き（時間順）</b>の乗法定理で計算する。病気の人がもともと少ないと、陽性でも病気である確率は意外に小さい。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">ある病気にかかっている人の割合は 1% である。ある検査は、病気の人を 95% の確率で陽性と判定し、病気でない人を 5% の確率で（誤って）陽性と判定する。この検査で陽性と判定された人が、実際に病気である確率を求めよ。</div>
+      <p>病気である事象を \(A\)、陽性を \(E\) とする。</p>
+      <p>\(P(A\cap E)=\frac{1}{100}\cdot\frac{95}{100}=\frac{95}{10000}\)、\(P(\overline{A}\cap E)=\frac{99}{100}\cdot\frac{5}{100}=\frac{495}{10000}\)</p>
+      <p>\(P_E(A)=\dfrac{95}{95+495}=\dfrac{95}{590}=\dfrac{19}{118}\)</p>
+      <p class="answer">\(\dfrac{19}{118}\)（約 16%）</p>
+      <p class="point">「95% 当たる検査なのに 16%？」と驚くのが普通。健康な人 99% の 5% が陽性になる数（495）が、病気の人の陽性（95）より多いからである。直感でなく<b>枝の確率を比べる</b>習慣をつけよう。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prob-p10" data-level="2">
+    <h3><span class="pid">P10</span>期待値（定義と線形性）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「2個のさいころの目の大きい方を \(X\) とする。\(X\) の期待値」「3個のさいころの目の和の期待値」「このゲームは参加すべきか」</dd>
+      <dt>こう考える</dt><dd>まず<b>値と確率の表（確率分布）</b>を作り、\(\sum x_kp_k\)。和の形をしている量は、<b>1つずつの期待値を足す</b>（線形性）だけでよい。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(X\) のとりうる値をすべて書き出す。</li>
+        <li>各値の確率を求める（確率の合計が1になるか検算）。</li>
+        <li>\(E(X)=\sum x_kp_k\)。和の量なら \(E(X_1+\cdots+X_n)=E(X_1)+\cdots+E(X_n)\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>期待値の定義、\(E(aX+b)=aE(X)+b\)、\(E(X+Y)=E(X)+E(Y)\)</dd>
+      <dt>なぜこの方法？</dt><dd>期待値は「何回も繰り返したときの1回あたりの平均」。値ごとに「値×起こる割合」を足すのが定義そのもの。和に分解すれば、複雑な分布を作らずに済む（\(\frac72\times3=\frac{21}2\)）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 2個のさいころを投げ、出た目の大きい方（同じなら その目）を \(X\) とする。\(X\) の期待値を求めよ。<br>(2) 3個のさいころを投げるとき、出た目の和の期待値を求めよ。</div>
+      <p>(1) P6 より \(P(X=k)=\dfrac{k^2-(k-1)^2}{36}=\dfrac{2k-1}{36}\)。</p>
+      <div class="table-wrap"><table>
+        <tr><th>\(X\)</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td></tr>
+        <tr><th>確率 \(\times36\)</th><td>1</td><td>3</td><td>5</td><td>7</td><td>9</td><td>11</td></tr>
+      </table></div>
+      \[ \begin{aligned} E(X)&=\sum_{k=1}^{6}k\cdot\frac{2k-1}{36}\\ &=\frac{1+6+15+28+45+66}{36}\\ &=\frac{161}{36} \end{aligned} \]
+      <p>(2) 1個の目の期待値は \(\frac{1+2+\cdots+6}{6}=\frac72\)。和の期待値は \(3\times\frac72=\frac{21}{2}\)。</p>
+      <p class="answer">(1) \(\dfrac{161}{36}\)　(2) \(\dfrac{21}{2}\)</p>
+      <p class="point">確率の和の検算：\(1+3+5+7+9+11=36\)。表を作ったら必ずやる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prob-p11" data-level="3">
+    <h3><span class="pid">P11</span>期待値を「1つずつ起こるか」の和に分ける（指示関数）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「さいころを \(n\) 回投げたとき、出る目の種類の数の期待値」「\(n\) 人がプレゼントを交換し、自分のものを受け取る人数の期待値」</dd>
+      <dt>こう考える</dt><dd>「種類の数」を、<b>1の目が出たら1・出なければ0、2の目が出たら1…という6つの 0/1 の和</b>に分ける。0/1 の量の期待値は「1になる確率」そのもの。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(X=I_1+I_2+\cdots+I_m\)（\(I_k\) は「\(k\) 番目のことが起これば 1」）と分解する。</li>
+        <li>\(E(I_k)=1\cdot P(\text{起こる})+0\cdot P(\text{起こらない})=P(\text{起こる})\)。</li>
+        <li>線形性で足す。対称性があれば \(m\times P\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>期待値の線形性（独立でなくてよい）</dd>
+      <dt>なぜこの方法？</dt><dd>種類の数がちょうど \(k\) になる確率は包除原理が必要で大変。しかし期待値だけなら、<b>各目が「出るか出ないか」だけ</b>を見ればよい。\(I_1,\ldots,I_6\) は独立ではないが、線形性は独立性を必要としない。<a href="../thinking.html#t-rephrase">発想：同値な言い換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) さいころを \(n\) 回投げるとき、出る目の種類の数の期待値を求めよ。また \(n=6\) のときの値を求めよ。<br>(2) 5人がプレゼントを1つずつ持ち寄り、でたらめに1つずつ受け取る。自分のプレゼントを受け取る人数の期待値を求めよ。</div>
+      <p>(1) 目 \(k\ (k=1,\ldots,6)\) が少なくとも1回出たら \(I_k=1\)、出なければ \(I_k=0\) とすると、種類の数は \(X=I_1+\cdots+I_6\)。</p>
+      <p>\(E(I_k)=P(\text{目 }k\text{ が少なくとも1回出る})=1-\left(\frac56\right)^n\)</p>
+      <p>\(E(X)=6\left\{1-\left(\frac56\right)^n\right\}\)。\(n=6\) では \(6-\dfrac{6\cdot5^6}{6^6}=6-\dfrac{15625}{7776}=\dfrac{31031}{7776}\)（約 3.99）。</p>
+      <p class="answer">(1) \(6\left\{1-\left(\frac56\right)^n\right\}\)、\(n=6\) で \(\dfrac{31031}{7776}\)</p>
+      <p>(2) \(k\) 番目の人が自分のものを受け取れば \(J_k=1\)。\(P(J_k=1)=\frac15\)（公平性）。人数の期待値は \(5\times\frac15=1\)。</p>
+      <p class="answer">(2) 1</p>
+      <p class="point">(2) の答えは人数 \(n\) によらず常に 1。分布を作ると完全順列（<a href="ma-counting.html">場合の数</a> P3）が必要になるが、期待値は一瞬。検算：\(n=2\) では種類の数は1か2で \(1\cdot\frac16+2\cdot\frac56=\frac{11}{6}\)、式も \(6\left(1-\frac{25}{36}\right)=\frac{11}6\)。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prob-p12" data-level="3">
+    <h3><span class="pid">P12</span>確率の最大（\(\dfrac{p_{n+1}}{p_n}\) と 1 の比較）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「確率 \(p_n\) を最大にする \(n\) を求めよ」「\(k\) 回出る確率が最大となる \(k\)」</dd>
+      <dt>こう考える</dt><dd>\(p_n\) は階乗や累乗を含むので微分できない。<b>隣どうしの比</b> \(\dfrac{p_{n+1}}{p_n}\) は約分でシンプルになり、1 より大きければ増加、小さければ減少。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(p_n\) を式で書く。</li>
+        <li>\(\dfrac{p_{n+1}}{p_n}\) を約分して \(n\) の分数式にする。</li>
+        <li>\(\dfrac{p_{n+1}}{p_n}\gt1\)、\(=1\)、\(\lt1\) となる \(n\) の範囲を求める。</li>
+        <li>増減を \(p_a\lt p_{a+1}\lt\cdots\) と書き並べ、最大を決める（\(=1\) のときは2つの \(n\) で最大）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\dfrac{\C{n+1}{r}}{\C{n}{r}}=\dfrac{n+1}{n+1-r}\)、差の符号でもよい</dd>
+      <dt>なぜこの方法？</dt><dd>\(p_n\) はすべて正なので、\(p_{n+1}\gt p_n\) ⇔ \(\frac{p_{n+1}}{p_n}\gt1\)。比をとると共通の因数がすべて消え、1次不等式に落ちる。数列の増減を調べる一般的な方法（<a href="mb-sequence.html">数列</a>）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">さいころを \(n\) 回（\(n\ge3\)）投げるとき、1の目がちょうど3回出る確率を \(p_n\) とする。\(p_n\) を最大にする \(n\) を求めよ。</div>
+      <p>\(p_n=\C{n}{3}\left(\frac16\right)^3\left(\frac56\right)^{n-3}\)。</p>
+      \[ \begin{aligned} \frac{p_{n+1}}{p_n}&=\frac{\C{n+1}{3}}{\C{n}{3}}\cdot\frac56\\ &=\frac{n+1}{n-2}\cdot\frac56=\frac{5(n+1)}{6(n-2)} \end{aligned} \]
+      <p>\(n-2\gt0\) なので \(\frac{p_{n+1}}{p_n}\gt1\) ⇔ \(5n+5\gt6n-12\) ⇔ \(n\lt17\)。同様に \(=1\) ⇔ \(n=17\)、\(\lt1\) ⇔ \(n\gt17\)。</p>
+      <p>よって \(p_3\lt p_4\lt\cdots\lt p_{17}=p_{18}\gt p_{19}\gt\cdots\)。</p>
+      <p class="answer">\(n=17,\ 18\)</p>
+      <p class="point">等号 \(n=17\) で \(p_{17}=p_{18}\) となり、最大を与える \(n\) が2つある。「\(\gt1\)」だけ調べて「\(n=17\)」と答えるのは典型的な失点。直感的には、1の目が3回出るのに平均 \(3\times6=18\) 回かかることと合っている。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prob-p13" data-level="3">
+    <h3><span class="pid">P13</span>確率漸化式（2状態・対称性で状態を減らす）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「正四面体の頂点を移動する点が \(n\) 秒後に頂点 A にいる確率 \(p_n\)」「\(n\) 回目に〜である確率を \(p_n\) とする」</dd>
+      <dt>こう考える</dt><dd>\(n\) 回目の様子を直接数えるのは無理。<b>\(n\) 回目の状態 → \(n+1\) 回目の状態</b>の移り方（遷移）を書く。対称な頂点（B, C, D）は1つの状態「A 以外」にまとめると2状態になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>状態を決める（A にいる：\(p_n\)、A 以外：\(1-p_n\)）。</li>
+        <li>\(n+1\) 回目に A にいるのは、どの状態から何の確率で来るかを書く。</li>
+        <li>\(p_{n+1}=ap_n+b\) を、\(\alpha=a\alpha+b\) で変形して解く。</li>
+        <li>\(n=1,2\) を直接計算して検算する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>確率漸化式、\(p_{n+1}-\alpha=a(p_n-\alpha)\)</dd>
+      <dt>なぜこの方法？</dt><dd>各回の動きは「今いる場所」だけで決まり、それ以前の経路によらない。だから「直前の状態」で場合分けすれば、排反な場合の和として次の確率が書ける。B, C, D は A から見て対称なので、どれにいても A へ行く確率は同じ \(\frac13\)。<a href="../thinking.html#t-recurrence">発想：漸化式を立てる</a>、<a href="../thinking.html#t-symmetry">発想：対称性</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">正四面体 ABCD の頂点上を点 P が動く。P は1秒ごとに、今いる頂点以外の3頂点のいずれかへ、それぞれ確率 \(\frac13\) で移る。最初 P は A にいる。\(n\) 秒後に P が A にいる確率 \(p_n\) を求めよ。</div>
+      <p>\(n+1\) 秒後に A にいるのは、\(n\) 秒後に A 以外（確率 \(1-p_n\)）にいて、そこから A へ移る（確率 \(\frac13\)）ときに限る。\(n\) 秒後に A にいれば次は必ず A 以外。</p>
+      <p>\(p_{n+1}=\frac13(1-p_n)=-\frac13p_n+\frac13\)、\(p_0=1\)。</p>
+      <p>\(\alpha=-\frac13\alpha+\frac13\) より \(\alpha=\frac14\)。\(p_{n+1}-\frac14=-\frac13\left(p_n-\frac14\right)\)。</p>
+      <p>\(p_n-\frac14=\left(-\frac13\right)^n\left(p_0-\frac14\right)=\frac34\left(-\frac13\right)^n\)</p>
+      <p class="answer">\(p_n=\dfrac14+\dfrac34\left(-\dfrac13\right)^n\)</p>
+      <p class="point">検算：\(p_1=\frac14-\frac14=0\)（1秒後は A にいない）、\(p_2=\frac14+\frac1{12}=\frac13\)。\(n\to\infty\) で \(\frac14\)（4頂点に均等）に近づくのも自然。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prob-p14" data-level="3">
+    <h3><span class="pid">P14</span>確率漸化式（3状態を減らす：余りの問題）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「合計点を3で割った余りが0である確率」「\(n\) 回後の和が3の倍数である確率」</dd>
+      <dt>こう考える</dt><dd>状態は余り 0, 1, 2 の3つだが、<b>3つの確率の和は1</b>。さらに「余り0にいる確率」の遷移だけを見ると、余り1と2の確率の<b>和</b>しか現れないことが多く、2状態に帰着する。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>余り0, 1, 2 の確率を \(p_n,q_n,r_n\) とする（\(p_n+q_n+r_n=1\)）。</li>
+        <li>\(p_{n+1}\) を \(p_n,q_n,r_n\) で表す。</li>
+        <li>\(q_n+r_n=1-p_n\) を使って \(p_n\) だけの漸化式にする。</li>
+        <li>まとまらないときは、\(q_n-r_n\) や \(p_n-r_n\) など差を考える（演1）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>確率漸化式、確率の和 \(=1\)</dd>
+      <dt>なぜこの方法？</dt><dd>3つの未知数の連立漸化式は重いが、「和が1」という関係が1つあるので、実質2つで済む。<b>どの量の組合せが自分自身だけで閉じるか</b>を探すのがコツ。<a href="../thinking.html#t-mod">発想：余りで分類</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">硬貨を投げ、表が出たら1点、裏が出たら2点を得る。\(n\) 回投げた後の合計点が3の倍数である確率 \(p_n\) を求めよ。</div>
+      <p>\(n\) 回後の合計を3で割った余りが 0, 1, 2 である確率を \(p_n,q_n,r_n\) とする。</p>
+      <p>\(n+1\) 回後に余り0になるのは、余り1から2点（確率 \(\frac12\)）、余り2から1点（確率 \(\frac12\)）のとき。余り0からは0にならない。</p>
+      <p>\(p_{n+1}=\frac12q_n+\frac12r_n=\frac12(1-p_n)\)、\(p_0=1\)（0点は3の倍数）。</p>
+      <p>\(\alpha=\frac12(1-\alpha)\) より \(\alpha=\frac13\)。\(p_{n+1}-\frac13=-\frac12\left(p_n-\frac13\right)\)。</p>
+      <p class="answer">\(p_n=\dfrac13+\dfrac23\left(-\dfrac12\right)^n\)</p>
+      <p class="point">検算：\(p_1=0\)、\(p_2=\frac12\)（表裏・裏表で3点）。P13 と同じ形になるのは偶然ではなく、「今が状態Xなら次は必ずX以外、X以外からは確率 \(c\) でXへ」という構造が共通だから。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prob-p15" data-level="2">
+    <h3><span class="pid">P15</span>点の移動・ランダムウォーク</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「さいころを投げて1, 2 なら \(x\) 方向に1、それ以外は \(y\) 方向に1進む。6回後に点 \((2,4)\) にいる確率」「途中で点 \((1,1)\) を通らない」</dd>
+      <dt>こう考える</dt><dd>到達点が決まれば、<b>各方向に進んだ回数</b>が決まる。回数が決まれば反復試行。「途中で〜を通る／通らない」は<b>経路の数え上げ</b>（最短経路）と組み合わせる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>到達点から、各方向の回数を連立方程式で求める（解がなければ確率0）。</li>
+        <li>回数の並べ方（経路の数）× 1つの経路の確率。</li>
+        <li>途中の点を通る／通らないは、経路を数えて「通る経路の数」を掛ける・引く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>反復試行、最短経路（<a href="ma-counting.html">場合の数</a> P12）</dd>
+      <dt>なぜこの方法？</dt><dd>どの経路も「\(x\) 方向2回・\(y\) 方向4回」なら確率は同じ \(\left(\frac13\right)^2\left(\frac23\right)^4\)。だから<b>経路の数を数える問題</b>に変わる。数直線上の \(\pm1\) の移動も「右へ \(a\) 回、左へ \(b\) 回」と考えれば同じ。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">座標平面上の点 P は原点から出発し、さいころを投げて1または2の目が出れば \(x\) 軸方向に \(+1\)、3以上の目が出れば \(y\) 軸方向に \(+1\) 進む。(1) さいころを6回投げた後に P が点 \((2,4)\) にいる確率 (2) 6回投げた後に \((2,4)\) にいて、途中で点 \((1,1)\) を通らない確率 を求めよ。</div>
+      <p>(1) \(x\) 方向2回、\(y\) 方向4回。\(\C{6}{2}\left(\frac13\right)^2\left(\frac23\right)^4=15\cdot\frac{16}{729}=\frac{80}{243}\)。</p>
+      <p>(2) \((2,4)\) への経路 15 通りのうち、\((1,1)\) を通るもの：\((0,0)\to(1,1)\) が 2 通り、\((1,1)\to(2,4)\) が \(\C{4}{1}=4\) 通りで 8 通り。通らないものは \(15-8=7\) 通り。各経路の確率は \(\frac{16}{729}\)。</p>
+      <p class="answer">(1) \(\dfrac{80}{243}\)　(2) \(\dfrac{112}{729}\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prob-p16" data-level="2">
+    <h3><span class="pid">P16</span>目の積・和の条件（倍数・素因数で分類）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「3個のさいころの目の積が4の倍数になる確率」「積が6の倍数になる確率」</dd>
+      <dt>こう考える</dt><dd>さいころの目を<b>素因数で分類</b>する。2 の因数：{1,3,5} は0個、{2,6} は1個、{4} は2個。3 の因数：{3,6} が持つ。「4の倍数」＝2の因数が合計2個以上。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>関係する素因数ごとに、目をグループ分けする。</li>
+        <li>4の倍数：余事象「2の因数が0個または1個」を数える。</li>
+        <li>6の倍数：「2の倍数を含む かつ 3の倍数を含む」→ 余事象は「2の倍数を含まない または 3の倍数を含まない」で包除。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>素因数分解、余事象、加法定理</dd>
+      <dt>なぜこの方法？</dt><dd>積の倍数条件は「素因数の個数の合計」の条件に言い換えられる。各目の素因数の個数だけを見れば、6種類の目が3〜4種類のグループに減る。<a href="ma-integer.html">整数の性質</a>の考え方。<a href="../thinking.html#t-mod">発想：余り・偶奇で分類</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">3個のさいころを投げる。(1) 目の積が4の倍数になる確率 (2) 目の積が6の倍数になる確率 を求めよ。</div>
+      <p>(1) 余事象は「積の2の因数が0個または1個」。</p>
+      <ul>
+        <li>0個：3個とも奇数。\(\left(\frac12\right)^3=\frac18\)</li>
+        <li>1個：1個だけが 2 または 6、残り2個は奇数。\(3\cdot\frac26\cdot\left(\frac12\right)^2=\frac14\)</li>
+      </ul>
+      <p>\(1-\frac18-\frac14=\frac58\)</p>
+      <p>(2) \(A\)：2の倍数が1つもない、\(B\)：3の倍数が1つもない とすると、求める確率は \(1-P(A\cup B)\)。</p>
+      <p>\(P(A)=\left(\frac36\right)^3=\frac18\)、\(P(B)=\left(\frac46\right)^3=\frac8{27}\)、\(P(A\cap B)\)：目が 1, 5 のみ \(\left(\frac26\right)^3=\frac1{27}\)。</p>
+      <p>\(1-\left(\frac18+\frac8{27}-\frac1{27}\right)=1-\frac{27+56}{216}=\frac{133}{216}\)</p>
+      <p class="answer">(1) \(\dfrac58\)　(2) \(\dfrac{133}{216}\)</p>
+      <p class="point">(1) で 4 の目が1個あれば他は何でもよい。「2の倍数が2個以上」と考えると、4 の目1個だけの場合を落とす。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prob-p17" data-level="2">
+    <h3><span class="pid">P17</span>じゃんけん</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「4人で1回じゃんけんをするとき、1人だけが勝つ確率」「あいこになる確率」「\(n\) 人でじゃんけん」</dd>
+      <dt>こう考える</dt><dd>全員の手の出し方 \(3^n\) 通りが同様に確からしい。結果は<b>出た手の種類の数</b>で決まる：2種類なら勝負がつき、1種類または3種類ならあいこ。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>勝者が \(k\) 人：誰が勝つか \(\C{n}{k}\) × 何の手で勝つか 3 通り（負ける手は自動的に決まる）。</li>
+        <li>あいこ：余事象「勝負がつく」＝「ちょうど2種類」を引く。2種類の手の選び方 3 通り × \((2^n-2)\)。</li>
+        <li>何回も続ける問題は、人数を状態とする漸化式（P13）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>重複順列、余事象</dd>
+      <dt>なぜこの方法？</dt><dd>「グーとチョキだけ」が出れば必ずグーの人が勝つので、<b>手の種類が2種類 ⇔ 勝負がつく</b>。あいこを直接（全員同じ／3種類全部）数えるより、勝負がつく方が数えやすい。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 4人で1回じゃんけんをするとき、1人だけが勝つ確率と、あいこになる確率を求めよ。<br>(2) \(n\) 人（\(n\ge2\)）で1回じゃんけんをするとき、あいこになる確率を求めよ。</div>
+      <p>(1) 1人だけ勝つ：勝つ人 4 通り × 勝つ手 3 通り。\(\frac{12}{81}=\frac4{27}\)。</p>
+      <p>勝負がつく：2種類の手の選び方 \(\C{3}{2}=3\)、その2種類を4人に割り当てて両方とも使う \(2^4-2=14\)。\(\frac{3\cdot14}{81}=\frac{14}{27}\)。あいこは \(1-\frac{14}{27}=\frac{13}{27}\)。</p>
+      <p class="answer">(1) 1人だけ勝つ \(\dfrac{4}{27}\)、あいこ \(\dfrac{13}{27}\)</p>
+      <p>(2) 勝負がつく確率は \(\dfrac{3(2^n-2)}{3^n}=\dfrac{2^n-2}{3^{n-1}}\)。</p>
+      <p class="answer">(2) \(1-\dfrac{2^n-2}{3^{n-1}}\)</p>
+      <p class="point">検算：\(n=2\) で \(1-\frac23=\frac13\)、\(n=3\) で \(1-\frac69=\frac13\)。\(n\to\infty\) では \(\left(\frac23\right)^{n-1}\to0\) よりあいこの確率は 1 に近づく（人数が多いとほぼ必ずあいこ）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prob-p18" data-level="3">
+    <h3><span class="pid">P18</span>\(n\) 回の試行と極限（一般項から \(n\to\infty\) へ）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「さいころを \(n\) 回投げて、1の目が奇数回出る確率を \(p_n\) とする。\(p_n\) と \(\displaystyle\lim_{n\to\infty}p_n\) を求めよ」</dd>
+      <dt>こう考える</dt><dd>2通りの道がある。(A) <b>漸化式</b>：\(n\) 回目までの偶奇という2状態を追う。(B) <b>二項定理</b>：奇数回の項だけを取り出すため、\((q+p)^n\) と \((q-p)^n\) の差をとる。どちらも答えは \(r^n\) を含む形になり、\(\abs{r}\lt1\) なら \(r^n\to0\)。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>(A) \(p_{n+1}=p_n\cdot\frac56+(1-p_n)\cdot\frac16\) を解く。</li>
+        <li>(B) \((q+p)^n-(q-p)^n\) を展開すると、\(p\) の奇数乗の項だけが2倍で残る。</li>
+        <li>\(\abs{r}\lt1\) のとき \(\displaystyle\lim_{n\to\infty}r^n=0\) を使う。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>確率漸化式、二項定理、等比数列の極限（<a href="m3-limit.html">極限</a>）</dd>
+      <dt>なぜこの方法？</dt><dd>「奇数回」は \(\C{n}{1}+\C{n}{3}+\cdots\) と和が長く、直接は計算できない。\((-1)^k\) が奇数番目の項だけ符号を変えることを使えば、引き算で偶数番目の項が消える。阪大では最後に極限を聞いて「答えの意味（長く続けると偶奇は半々）」を確かめさせる形が多い。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">1個のさいころを \(n\) 回投げるとき、1の目が奇数回出る確率を \(p_n\) とする。\(p_n\) を求め、\(\displaystyle\lim_{n\to\infty}p_n\) を求めよ。</div>
+      <p><b>解法A（漸化式）</b>：\(n+1\) 回目までに奇数回となるのは、「\(n\) 回目まで奇数回で \(n+1\) 回目が1以外」または「\(n\) 回目まで偶数回で \(n+1\) 回目が1」。</p>
+      <p>\(p_{n+1}=\frac56p_n+\frac16(1-p_n)=\frac23p_n+\frac16\)、\(p_0=0\)。</p>
+      <p>\(\alpha=\frac23\alpha+\frac16\) より \(\alpha=\frac12\)。\(p_n-\frac12=\left(\frac23\right)^n\left(0-\frac12\right)\)。</p>
+      <p><b>解法B（二項定理）</b>：1の目が \(k\) 回の確率は \(\C{n}{k}\left(\frac16\right)^k\left(\frac56\right)^{n-k}\)。</p>
+      \[ \begin{aligned} \left(\tfrac56+\tfrac16\right)^n&=\textstyle\sum_k\C{n}{k}\left(\frac16\right)^k\left(\frac56\right)^{n-k}\\ \left(\tfrac56-\tfrac16\right)^n&=\textstyle\sum_k(-1)^k\C{n}{k}\\ &\qquad\times\left(\frac16\right)^k\left(\frac56\right)^{n-k} \end{aligned} \]
+      <p>辺々引くと \(k\) が奇数の項だけが2倍で残るので \(1-\left(\frac23\right)^n=2p_n\)。</p>
+      <p class="answer">\(p_n=\dfrac12\left\{1-\left(\dfrac23\right)^n\right\}\)、\(\displaystyle\lim_{n\to\infty}p_n=\frac12\)</p>
+      <p class="point">検算：\(p_1=\frac16\)（1回で1の目）、式も \(\frac12\cdot\frac13=\frac16\)。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="pitfalls">
+  <h2>よくあるミスと対策</h2>
+  <ul class="pitfalls">
+    <li><b>同じ色・同じ目を区別せずに数える</b>（P1）。→ 玉やさいころにはいつも名前を付ける。「\(\{2,2\}\) と \(\{1,3\}\) は確率が違う」を思い出す。</li>
+    <li><b>分母と分子で数え方（順列・組合せ）が違う</b>（P1, P8）。→ 分母を数えた方法を書いておき、分子も同じ方法で数える。</li>
+    <li><b>最大値・最小値で「ちょうど」を直接数えて漏れる</b>（P6）。→ 「\(\le k\)」の差。両方の条件は包除。</li>
+    <li><b>条件付き確率で、条件と求める事象を逆にする</b>（P8, P9）。→ 「〜であったとき」の部分を分母にする、と下線を引いて確認。</li>
+    <li><b>確率の最大で等号の場合を落とす</b>（P12）。→ \(\frac{p_{n+1}}{p_n}=1\) となる \(n\) があるかを必ず調べる。</li>
+    <li><b>確率漸化式の初期値・添え字のずれ</b>（P13, P14）。→ \(p_0\) か \(p_1\) かを明記し、\(n=1,2\) を直接計算した値と照合する。</li>
+    <li><b>独立でない試行に積を使う</b>（P7, P8）。→ 戻さない取り出しは、前の結果で次の確率が変わる。乗法定理で条件付き確率を掛ける。</li>
+  </ul>
+</section>
+
+<section id="handai">
+  <h2>阪大レベルへの橋渡し</h2>
+  <p>阪大理系の確率は、<b>\(n\) 回の試行の一般項 → 漸化式または数え上げ → 極限や最大</b>という流れの大問が中心である。題材は点の移動、さいころの目の最大最小、袋からの取り出しなど基本的だが、次の力が問われる。</p>
+  <ul>
+    <li>状態を<b>対称性でまとめ</b>、それでも残る3状態は和と差をとって解く（演1）。</li>
+    <li>「最大値と最小値」のような2つの条件を、<b>包除原理で正確に</b>処理する（演2）。</li>
+    <li>条件付き確率を \(n\) の式で表し、<b>極限の意味</b>まで説明する（演3）。</li>
+  </ul>
+  <p>答案では「\(n+1\) 回目に〜となるのは、\(n\) 回目に〜で…のときであるから」と遷移の理由を必ず言葉で書く。式だけの答案は採点者に伝わらず、部分点も取りにくい。</p>
+
+  <article class="pattern" id="prob-h1" data-level="3">
+    <h3><span class="pid">演1</span>正方形の頂点を動く点（3状態の確率漸化式）</h3>
+    <div class="problem">正方形 ABCD の頂点上を点 P が動く。P は1秒ごとに、確率 \(\frac13\) でその場にとどまり、確率 \(\frac13\) ずつで隣り合う2つの頂点のどちらかへ移る。最初 P は A にいる。\(n\) 秒後に P が A, C にいる確率をそれぞれ \(a_n,\ c_n\) とする。<br>(1) \(n\) 秒後に P が B または D にいる確率を \(b_n\) とする。\(a_{n+1},\ c_{n+1}\) を \(a_n,b_n,c_n\) で表せ。<br>(2) \(a_n+c_n\) および \(a_n-c_n\) を求めよ。<br>(3) \(a_n\) を求め、\(\displaystyle\lim_{n\to\infty}a_n\) を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>B と D は A から見て対称なので1つの状態にまとめる（P13）。すると状態は A, {B,D}, C の3つ。3つの漸化式を連立するのは重いが、<b>和 \(a_n+c_n\)</b>（\(b_n=1-(a_n+c_n)\) で閉じる）と<b>差 \(a_n-c_n\)</b>（\(b_n\) が消える）をとると、それぞれ単独の漸化式になる。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) A に来るのは「A にとどまる」または「B, D から A へ移る」とき。B（または D）にいるとき A へ移る確率は \(\frac13\) なので</p>
+      <p>\(a_{n+1}=\frac13a_n+\frac13b_n\)。同様に \(c_{n+1}=\frac13c_n+\frac13b_n\)。</p>
+      <p class="answer">(1) \(a_{n+1}=\dfrac13a_n+\dfrac13b_n,\quad c_{n+1}=\dfrac13c_n+\dfrac13b_n\)</p>
+      <p>(2) 2式を辺々引くと \(a_{n+1}-c_{n+1}=\frac13(a_n-c_n)\)。\(a_0-c_0=1\) より \(a_n-c_n=\left(\frac13\right)^n\)。</p>
+      <p>辺々足して \(b_n=1-(a_n+c_n)\) を使うと、\(s_n=a_n+c_n\) とおいて</p>
+      <p>\(s_{n+1}=\frac13s_n+\frac23(1-s_n)=-\frac13s_n+\frac23\)。</p>
+      <p>\(\alpha=-\frac13\alpha+\frac23\) より \(\alpha=\frac12\)。\(s_n-\frac12=\left(-\frac13\right)^n\left(s_0-\frac12\right)=\frac12\left(-\frac13\right)^n\)。</p>
+      <p class="answer">(2) \(a_n+c_n=\dfrac12+\dfrac12\left(-\dfrac13\right)^n,\quad a_n-c_n=\left(\dfrac13\right)^n\)</p>
+      <p>(3) 2式を足して2で割る。</p>
+      \[ a_n=\frac14+\frac14\left(-\frac13\right)^n+\frac12\left(\frac13\right)^n \]
+      <p>\(n\to\infty\) で \(\left(\pm\frac13\right)^n\to0\) なので \(a_n\to\frac14\)。</p>
+      <p class="answer">(3) \(a_n=\dfrac14+\dfrac14\left(-\dfrac13\right)^n+\dfrac12\left(\dfrac13\right)^n\)、極限は \(\dfrac14\)</p>
+      <p class="point">採点ポイント：(1) で「どの状態からどの確率で来るか」を言葉で説明すること。(2) で初期値 \(a_0=1,\ c_0=0\) を明記。検算：\(a_1=\frac14-\frac1{12}+\frac16=\frac13\) は「とどまる確率」と一致、\(a_2=\frac14+\frac1{36}+\frac1{18}=\frac13\) も直接計算（\(\frac19+\frac29\)）と一致する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prob-h2" data-level="3">
+    <h3><span class="pid">演2</span>目の最大値と最小値の差</h3>
+    <div class="problem">\(n\) を2以上の整数とする。1個のさいころを \(n\) 回投げ、出た目の最大値を \(M\)、最小値を \(m\) とする。<br>(1) \(M-m=5\) となる確率 \(p_n\) を求めよ。<br>(2) \(M-m=4\) となる確率 \(q_n\) を求めよ。<br>(3) \(\displaystyle\lim_{n\to\infty}\left(\frac65\right)^nq_n\) を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>(1) \(M-m=5\) ⇔ \(m=1\) かつ \(M=6\) ⇔ 「1 が出る」かつ「6 が出る」。否定は「1 が出ない」または「6 が出ない」で、和事象なので包除（P6）。</p>
+      <p>(2) \((m,M)=(1,5)\) または \((2,6)\)。「全部が \([1,5]\) 内」から、「5 が出ない」「1 が出ない」を引いて重なりを足す。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) \(M-m=5\) ⇔ \(m=1,\ M=6\) ⇔ 1 の目と 6 の目がともに少なくとも1回出る。</p>
+      <p>\(A\)：1 の目が出ない、\(B\)：6 の目が出ない とすると \(P(A)=P(B)=\left(\frac56\right)^n\)、\(P(A\cap B)=\left(\frac46\right)^n\)。</p>
+      \[ \begin{aligned} p_n&=1-P(A\cup B)\\ &=1-2\left(\frac56\right)^n+\left(\frac23\right)^n \end{aligned} \]
+      <p class="answer">(1) \(p_n=1-2\left(\dfrac56\right)^n+\left(\dfrac23\right)^n\)</p>
+      <p>(2) \(M-m=4\) ⇔ \((m,M)=(1,5)\) または \((2,6)\)（排反）。</p>
+      <p>\((m,M)=(1,5)\) となるのは、全部が 1〜5 で、1 と 5 がともに出るとき。全部 1〜5 の \(5^n\) 通りから、「5 が出ない（全部 1〜4）」\(4^n\)、「1 が出ない（全部 2〜5）」\(4^n\) を引き、「両方出ない（全部 2〜4）」\(3^n\) を足して \(5^n-2\cdot4^n+3^n\) 通り。\((2,6)\) も同数。</p>
+      \[ q_n=\frac{2(5^n-2\cdot4^n+3^n)}{6^n} \]
+      <p class="answer">(2) \(q_n=\dfrac{2(5^n-2\cdot4^n+3^n)}{6^n}\)</p>
+      <p>(3) \(\left(\frac65\right)^nq_n=2\left\{1-2\left(\frac45\right)^n+\left(\frac35\right)^n\right\}\to2\)。</p>
+      <p class="answer">(3) 2</p>
+      <p class="point">採点ポイント：(1) で「\(M-m=5\) ⇔ \(m=1,\ M=6\)」の言い換え、(2) で \((1,5)\) と \((2,6)\) が排反であることを書く。検算：\(n=2\) で \(p_2=\frac2{36}\)（(1,6),(6,1)）、\(q_2=\frac4{36}\)、式も \(1-\frac{50}{36}+\frac{16}{36}=\frac{2}{36}\)、\(\frac{2(25-32+9)}{36}=\frac4{36}\) で一致。(3) は「\(q_n\) が \(2\left(\frac56\right)^n\) と同じ速さで 0 に近づく」という意味。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="prob-h3" data-level="3">
+    <h3><span class="pid">演3</span>結果から袋を推定する（条件付き確率と極限）</h3>
+    <div class="problem">袋 A には赤玉2個と白玉1個、袋 B には赤玉1個と白玉2個が入っている。硬貨を投げて表なら袋 A、裏なら袋 B を選び、以後はその袋から「1個取り出して色を見て戻す」ことを繰り返す。<br>(1) 最初の \(n\) 回がすべて赤玉である確率を求めよ。<br>(2) 最初の \(n\) 回がすべて赤玉であったとき、選んだ袋が A である条件付き確率を求めよ。<br>(3) 最初の \(n\) 回がすべて赤玉であったとき、\(n+1\) 回目も赤玉である条件付き確率 \(r_n\) を求め、\(\displaystyle\lim_{n\to\infty}r_n\) を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>袋の選択（原因）→ 取り出しの結果、の順に樹形図を描く（P9）。袋が決まれば各回は独立な反復試行だが、<b>袋が分からない状態では各回は独立でない</b>（赤が続くほど A らしくなる）。(3) は「\(n\) 回赤」を条件として、分子に「\(n+1\) 回赤」をとる。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) 袋 A を選び \(n\) 回赤：\(\frac12\left(\frac23\right)^n\)。袋 B を選び \(n\) 回赤：\(\frac12\left(\frac13\right)^n\)。これらは排反なので</p>
+      \[ \begin{aligned} P(R_n)&=\frac12\left\{\left(\frac23\right)^n+\left(\frac13\right)^n\right\}\\ &=\frac{2^n+1}{2\cdot3^n} \end{aligned} \]
+      <p class="answer">(1) \(\dfrac{2^n+1}{2\cdot3^n}\)</p>
+      <p>(2) \(\dfrac{\frac12\left(\frac23\right)^n}{P(R_n)}=\dfrac{2^n}{2^n+1}\)</p>
+      <p class="answer">(2) \(\dfrac{2^n}{2^n+1}\)</p>
+      <p>(3) 「\(n\) 回赤 かつ \(n+1\) 回目も赤」＝「\(n+1\) 回すべて赤」なので、その確率は (1) で \(n\) を \(n+1\) にしたもの。</p>
+      \[ \begin{aligned} r_n&=\frac{P(R_{n+1})}{P(R_n)}\\ &=\frac{2^{n+1}+1}{2\cdot3^{n+1}}\cdot\frac{2\cdot3^n}{2^n+1}\\ &=\frac{2^{n+1}+1}{3(2^n+1)} \end{aligned} \]
+      <p>分母分子を \(2^n\) で割ると \(r_n=\dfrac{2+2^{-n}}{3(1+2^{-n})}\to\dfrac23\)。</p>
+      <p class="answer">(3) \(r_n=\dfrac{2^{n+1}+1}{3(2^n+1)}\)、極限は \(\dfrac23\)</p>
+      <p class="point">採点ポイント：(3) で「\(n\) 回赤かつ \(n+1\) 回目赤」を「\(n+1\) 回赤」と言い換える一言が大切。極限の意味：赤が続くほど袋 A である確率は 1 に近づき（(2)）、次も赤の確率は袋 A の赤の割合 \(\frac23\) に近づく。検算：\(n=1\) で \(r_1=\frac59\)（直接：\(\frac{\frac12\cdot\frac49+\frac12\cdot\frac19}{\frac12}=\frac59\)）。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="next">
+  <h2>次に学ぶとつながる単元</h2>
+  <ul>
+    <li><a href="mb-sequence.html">数列</a>：P13・P14・演1 の確率漸化式は、隣接2項間・連立漸化式の解法そのもの。3項間漸化式が出ることもある。</li>
+    <li><a href="m3-limit.html">極限</a>：P18・演2・演3 の \(r^n\to0\)。阪大では確率の最後の小問として頻出。</li>
+    <li><a href="mb-stats.html">統計的な推測</a>：P10・P11 の期待値は確率変数の平均・分散へ。反復試行（P5）は二項分布になる。</li>
+    <li><a href="ma-integer.html">整数の性質</a>：P16 の素因数で分類、P14 の余りで分類は整数分野と共通の発想。</li>
+  </ul>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>

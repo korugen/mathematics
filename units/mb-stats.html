@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>統計的な推測（数学B）｜解法の地図</title>
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-unit="mb-stats" data-root="../">
+<main>
+
+<header class="unit-head">
+  <span class="subj-badge">数学B</span>
+  <h1>統計的な推測</h1>
+  <p class="lead">確率変数の期待値・分散から、二項分布・正規分布、そして「標本から母集団を推し量る」推定と仮説検定までを扱う単元。阪大の個別試験ではほぼ出ないが、<b>共通テストの選択問題</b>として満点を狙える得点源であり、<b>期待値の線形性</b>は阪大の確率・数列の問題でも強力な武器になる。</p>
+  <div class="goal">
+    <strong>このページの到達目標</strong>
+    <ul>
+      <li>【基礎】確率分布表から期待値・分散・標準偏差を求め、\(aX+b\) や二項分布の平均・分散を公式で即答できる。正規分布表を引いて確率を求められる。</li>
+      <li>【標準】標本平均の分布、正規近似、母平均・母比率の信頼区間、両側・片側の仮説検定を、共通テストの誘導に沿って素早く正確に処理できる。</li>
+      <li>【阪大】期待値の線形性（指示変数）や期待値の漸化式を使い、確率・数列と融合した問題で期待値・分散を論証的に求められる。</li>
+    </ul>
+  </div>
+  <p class="prereq">前提：<a href="ma-probability.html">確率</a>（反復試行・条件付き確率）、<a href="m1-data.html">データの分析</a>（平均・分散）、<a href="mb-sequence.html">数列</a>（\(\Sigma\) の計算）、<a href="m2-calculus.html">微分法・積分法（数II）</a>（確率密度関数の積分）／ 次に進む：<a href="m3-integral-app.html">積分法の応用</a></p>
+</header>
+
+<section id="core">
+  <h2>必ず押さえる基本事項</h2>
+
+  <div class="box theorem">
+    <p><span class="name">期待値・分散・標準偏差</span>：確率変数 \(X\) が値 \(x_1,\dots,x_n\) をとる確率が \(p_1,\dots,p_n\)（\(\sum p_i=1\)）のとき</p>
+    \[ E(X)=\sum_{i=1}^nx_ip_i=m,\qquad V(X)=\sum_{i=1}^n(x_i-m)^2p_i=E(X^2)-\{E(X)\}^2,\qquad \sigma(X)=\sqrt{V(X)} \]
+    <p>なぜ \(V=E(X^2)-m^2\)：\((x_i-m)^2=x_i^2-2mx_i+m^2\) を展開して \(p_i\) をかけて足すと \(E(X^2)-2m\cdot m+m^2\)。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">変換・和・積の公式</span>（\(a,b\) は定数）</p>
+    \[ E(aX+b)=aE(X)+b,\quad V(aX+b)=a^2V(X),\quad \sigma(aX+b)=\abs{a}\sigma(X) \]
+    \[ E(X+Y)=E(X)+E(Y)\quad(\text{独立でなくても成立}) \]
+    \[ X,Y\ \text{が独立なら}\quad E(XY)=E(X)E(Y),\quad V(X+Y)=V(X)+V(Y) \]
+    <p>なぜ：\(V(aX+b)\) は「ばらつき」なので平行移動 \(b\) には無関係で、\(a\) 倍すると偏差が \(a\) 倍、2乗して \(a^2\) 倍。\(V(X+Y)=V(X)+V(Y)+2\{E(XY)-E(X)E(Y)\}\) で、独立なら最後の項が0になる。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">二項分布 \(B(n,p)\)</span>：1回の試行で事象 \(A\) が起こる確率が \(p\)、\(q=1-p\) とする。\(n\) 回の反復試行で \(A\) が起こる回数 \(X\) は</p>
+    \[ P(X=k)=\C{n}{k}p^kq^{n-k},\qquad E(X)=np,\qquad V(X)=npq \]
+    <p>なぜ：\(i\) 回目に \(A\) が起これば1、起こらなければ0となる \(X_i\) を考えると \(X=X_1+\cdots+X_n\)。\(E(X_i)=p,\ V(X_i)=p-p^2=pq\) で、\(X_i\) は独立だから和の公式でそれぞれ \(n\) 倍。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">正規分布と標準化</span>：\(X\) が正規分布 \(N(m,\sigma^2)\) に従うとき、\(Z=\dfrac{X-m}{\sigma}\) は標準正規分布 \(N(0,1)\) に従う。</p>
+    <p>正規分布表は \(P(0\le Z\le z)=p(z)\) を与える。よく使う値：</p>
+    <div class="table-wrap"><table>
+      <tr><th>\(z\)</th><td>0.5</td><td>1.0</td><td>1.5</td><td>1.64</td><td>1.96</td><td>2.0</td><td>2.58</td></tr>
+      <tr><th>\(p(z)\)</th><td>0.1915</td><td>0.3413</td><td>0.4332</td><td>0.4495</td><td>0.4750</td><td>0.4772</td><td>0.4951</td></tr>
+    </table></div>
+    <p>\(n\) が大きいとき、二項分布 \(B(n,p)\) は近似的に \(N(np,\ npq)\) に従う。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">標本平均の分布・推定</span>：母平均 \(m\)、母標準偏差 \(\sigma\) の母集団から大きさ \(n\) の無作為標本をとると、標本平均 \(\overline{X}\) は</p>
+    \[ E(\overline X)=m,\qquad \sigma(\overline X)=\frac{\sigma}{\sqrt n} \]
+    <p>で、\(n\) が大きければ近似的に \(N\!\left(m,\ \frac{\sigma^2}n\right)\) に従う。よって母平均 \(m\) の<b>信頼度95%の信頼区間</b>は</p>
+    \[ \overline X-1.96\frac{\sigma}{\sqrt n}\le m\le\overline X+1.96\frac{\sigma}{\sqrt n} \]
+    <p>母比率 \(p\) の信頼区間は、標本比率 \(R\) を用いて \(R\pm1.96\sqrt{\frac{R(1-R)}n}\)。99%なら 1.96 を 2.58 に変える。</p>
+  </div>
+
+  <div class="box idea">
+    <p><b>この単元を貫く考え方</b>：確率変数の計算は<b>「分解して足す」</b>（期待値の線形性・独立な和の分散）で劇的に楽になる。推定・検定はすべて<b>「標準化して \(Z\) の世界で考える」</b>。\(Z\) に直せば、正規分布表という1枚の表ですべての確率が分かる。</p>
+  </div>
+
+  <div class="box tip">
+    <p><b>共通テストで満点を取るための実戦手順</b>（数学II・B・C の選択問題として出題）</p>
+    <ol>
+      <li><b>最初に「何の分布か」を決める</b>：「\(n\) 回中の回数」なら二項分布 → \(np,\ npq\) を即答。「標本平均」なら \(m,\ \frac{\sigma}{\sqrt n}\)。「標本比率」なら \(p,\ \sqrt{\frac{pq}n}\)。</li>
+      <li><b>標準化の式を必ず書く</b>：\(Z=\frac{X-(\text{平均})}{(\text{標準偏差})}\)。分散と標準偏差の取り違え（\(\sqrt{\ }\) の付け忘れ）が最大の失点源。</li>
+      <li><b>正規分布表は「0から \(z\) まで」</b>：\(P(Z\ge z)=0.5-p(z)\)、\(P(\abs{Z}\le z)=2p(z)\)。図を描いて面積で考える。</li>
+      <li><b>推定は「1.96」「2.58」と「\(\sqrt n\)」</b>：区間の幅は \(2\times1.96\frac{\sigma}{\sqrt n}\)。「幅を半分にするには \(n\) を4倍」は頻出。</li>
+      <li><b>検定は型どおり4行</b>：帰無仮説 → 帰無仮説のもとでの分布 → \(z\) を計算し棄却域（両側5%は \(\abs z\gt1.96\)、片側5%は \(z\gt1.64\) 程度）と比較 → 結論を「〜といえる／〜とはいえない」と書く。</li>
+      <li><b>小数の計算は選択肢から逆算</b>：\(\sqrt{0.21}\approx0.458\) などは選択肢の桁を見てから計算する。四捨五入の指示（小数第何位）を最初に確認する。</li>
+      <li><b>時間配分</b>：誘導が長いので、先に最後の設問まで目を通し、「何を求めさせたいか」をつかんでから解く。</li>
+    </ol>
+  </div>
+</section>
+
+<section id="quick">
+  <h2>早見表：こう来たら → こう解く</h2>
+  <div class="table-wrap"><table class="quick">
+    <tr><th>問題の特徴（こう来たら）</th><th>方針（こう解く）</th><th>使う道具</th><th>詳細</th></tr>
+    <tr data-level="1"><td>確率分布を求め期待値を求めよ</td><td>とりうる値を列挙し確率分布表を作る</td><td>期待値の定義</td><td><a href="#stat-p1">P1</a></td></tr>
+    <tr data-level="1"><td>分散・標準偏差を求めよ</td><td>\(E(X^2)-\{E(X)\}^2\)</td><td>分散の公式</td><td><a href="#stat-p2">P2</a></td></tr>
+    <tr data-level="1"><td>\(Y=5X-2\)、得点・金額への変換</td><td>\(aE+b,\ a^2V,\ \abs a\sigma\)</td><td>変換の公式</td><td><a href="#stat-p3">P3</a></td></tr>
+    <tr data-level="2"><td>和 \(X+Y\) の期待値（取り出して戻さない等）</td><td>分布を作らず \(E(X)+E(Y)\)</td><td>期待値の線形性</td><td><a href="#stat-p4">P4</a></td></tr>
+    <tr data-level="2"><td>独立な \(X,Y\) の \(E(XY)\)、\(V(X+Y)\)</td><td>積・和の公式</td><td>独立性</td><td><a href="#stat-p5">P5</a></td></tr>
+    <tr data-level="1"><td>「\(n\) 回中 \(A\) が起こる回数」の平均・分散</td><td>\(np,\ npq\)</td><td>二項分布</td><td><a href="#stat-p6">P6</a></td></tr>
+    <tr data-level="2"><td>確率密度関数 \(f(x)\) が与えられる</td><td>面積＝確率、\(\int xf(x)dx\)</td><td>定積分</td><td><a href="#stat-p7">P7</a></td></tr>
+    <tr data-level="1"><td>\(N(50,10^2)\) で \(P(45\le X\le70)\)</td><td>標準化して正規分布表</td><td>標準化</td><td><a href="#stat-p8">P8</a></td></tr>
+    <tr data-level="2"><td>720回投げて〜が140回以上の確率</td><td>\(N(np,npq)\) で近似して標準化</td><td>正規近似</td><td><a href="#stat-p9">P9</a></td></tr>
+    <tr data-level="2"><td>標本平均が〜以上となる確率</td><td>\(\overline X\sim N(m,\frac{\sigma^2}n)\)</td><td>標本平均の分布</td><td><a href="#stat-p10">P10</a></td></tr>
+    <tr data-level="2"><td>母平均を信頼度95%で推定せよ</td><td>\(\overline X\pm1.96\frac{\sigma}{\sqrt n}\)</td><td>信頼区間</td><td><a href="#stat-p11">P11</a></td></tr>
+    <tr data-level="2"><td>支持率・不良品率を推定せよ</td><td>\(R\pm1.96\sqrt{\frac{R(1-R)}n}\)</td><td>母比率の推定</td><td><a href="#stat-p12">P12</a></td></tr>
+    <tr data-level="2"><td>「偏りがあると判断してよいか」</td><td>両側検定（\(\abs z\gt1.96\) で棄却）</td><td>仮説検定</td><td><a href="#stat-p13">P13</a></td></tr>
+    <tr data-level="2"><td>「効果がある（増えた）といえるか」</td><td>片側検定（\(z\gt1.64\) で棄却）</td><td>仮説検定</td><td><a href="#stat-p14">P14</a></td></tr>
+    <tr data-level="3"><td>出る目の種類の数・一致する個数の期待値</td><td>指示変数の和に分解</td><td>期待値の線形性</td><td><a href="#stat-p15">P15</a></td></tr>
+    <tr data-level="3"><td>\(n\) 回後の得点の期待値</td><td>\(E_{n+1}\) を \(E_n\) で表す</td><td>期待値の漸化式</td><td><a href="#stat-p16">P16</a></td></tr>
+  </table></div>
+</section>
+
+<section id="patterns">
+  <h2>パターン別 解法マップ</h2>
+
+  <article class="pattern" id="stat-p1" data-level="1">
+    <h3><span class="pid">P1</span>確率分布と期待値</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「赤玉3個、白玉2個の袋から2個取り出すとき、赤玉の個数 \(X\) の確率分布と期待値を求めよ」</dd>
+      <dt>こう考える</dt><dd>確率変数は「結果によって値が決まる変数」。まず<b>とりうる値をすべて挙げ</b>、それぞれの確率を求めて表（確率分布表）にする。期待値は「値×確率」の和。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(X\) のとりうる値を列挙する（もれなく）。</li>
+        <li>各値の確率を求め、<b>確率の合計が1</b>になることを確認する。</li>
+        <li>\(E(X)=\sum x_ip_i\) を計算する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>組合せ \(\C{n}{r}\)、期待値の定義</dd>
+      <dt>なぜこの方法？</dt><dd>期待値は「何度もくり返したときの平均」。値ごとに「その値が出る割合」で重みをつけて平均している。確率の合計チェックで計算ミスを早期に発見できる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">赤玉3個、白玉2個が入った袋から同時に2個取り出す。取り出した赤玉の個数を \(X\) とするとき、\(X\) の確率分布と期待値を求めよ。</div>
+      <p>全体は \(\C52=10\) 通り。\(P(X=0)=\frac{\C22}{10}=\frac1{10},\ P(X=1)=\frac{\C31\C21}{10}=\frac6{10},\ P(X=2)=\frac{\C32}{10}=\frac3{10}\)（合計1）。</p>
+      <div class="table-wrap"><table>
+        <tr><th>\(X\)</th><td>0</td><td>1</td><td>2</td><th>計</th></tr>
+        <tr><th>\(P\)</th><td>\(\frac1{10}\)</td><td>\(\frac6{10}\)</td><td>\(\frac3{10}\)</td><td>1</td></tr>
+      </table></div>
+      <p>\(E(X)=0\cdot\frac1{10}+1\cdot\frac6{10}+2\cdot\frac3{10}=\frac{12}{10}\)。<span class="answer">\(E(X)=\frac65\)</span></p>
+      <p class="point">別解（P4）：1個目・2個目が赤である確率はどちらも \(\frac35\) なので \(E(X)=\frac35+\frac35=\frac65\)。分布を作らずに期待値だけ求められる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="stat-p2" data-level="1">
+    <h3><span class="pid">P2</span>分散・標準偏差（\(E(X^2)-\{E(X)\}^2\)）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(X\) の分散と標準偏差を求めよ」</dd>
+      <dt>こう考える</dt><dd>定義 \(\sum(x_i-m)^2p_i\) は \(m\) が分数だと計算が重い。<b>\(E(X^2)\) を先に計算して \(m^2\) を引く</b>方が速く、ミスも少ない。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(E(X)=m\) を求める。</li>
+        <li>\(E(X^2)=\sum x_i^2p_i\) を求める。</li>
+        <li>\(V(X)=E(X^2)-m^2\)、\(\sigma(X)=\sqrt{V(X)}\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(V(X)=E(X^2)-\{E(X)\}^2\)</dd>
+      <dt>なぜこの方法？</dt><dd>偏差の2乗を展開すると \(E(X^2)-m^2\) になる（基本事項）。<a href="m1-data.html">データの分析</a>の「分散＝2乗の平均−平均の2乗」と同じ式。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">P1 の \(X\) の分散と標準偏差を求めよ。</div>
+      <p>\(E(X^2)=0^2\cdot\frac1{10}+1^2\cdot\frac6{10}+2^2\cdot\frac3{10}=\frac{18}{10}=\frac95\)。</p>
+      <p>\(V(X)=\frac95-\left(\frac65\right)^2=\frac{45-36}{25}=\frac9{25}\)、\(\sigma(X)=\frac35\)。</p>
+      <p class="answer">\(V(X)=\frac9{25},\ \sigma(X)=\frac35\)</p>
+      <p class="point">\(V(X)\) は必ず0以上。負になったら計算ミス。また \(\sigma\) を求め忘れて \(V\) を答えるミスに注意（共通テストではマークの桁数でも気づける）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="stat-p3" data-level="1">
+    <h3><span class="pid">P3</span>\(aX+b\) の期待値・分散</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(Y=5X-2\) の期待値・標準偏差」「1個につき100円もらい、参加費50円を払うときの利益の期待値」</dd>
+      <dt>こう考える</dt><dd>\(Y\) の分布を作り直す必要はない。<b>期待値は \(a\) 倍して \(b\) 足す、分散は \(a^2\) 倍、標準偏差は \(\abs a\) 倍</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(Y=aX+b\) の形に書き、\(a,b\) を読む。</li>
+        <li>\(E(Y)=aE(X)+b,\ V(Y)=a^2V(X),\ \sigma(Y)=\abs a\sigma(X)\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>変換の公式</dd>
+      <dt>なぜこの方法？</dt><dd>全員の点数に5点足しても平均は5点上がるが、ばらつきは変わらない。全員を2倍すれば、平均もばらつき（標準偏差）も2倍になる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">P1 の \(X\) に対し、\(Y=5X-2\) の期待値、分散、標準偏差を求めよ。</div>
+      <p>\(E(Y)=5\cdot\frac65-2=4\)、\(V(Y)=25\cdot\frac9{25}=9\)、\(\sigma(Y)=5\cdot\frac35=3\)。</p>
+      <p class="answer">\(E(Y)=4,\ V(Y)=9,\ \sigma(Y)=3\)</p>
+      <p class="point">\(V(Y)=5V(X)\) や \(V(Y)=25V(X)-2\) とする誤りが多い。定数 \(b\) は分散に影響しない。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="stat-p4" data-level="2">
+    <h3><span class="pid">P4</span>和の期待値（独立でなくても成り立つ）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「1〜5のカードから1枚ずつ2枚取り出す（戻さない）。2枚の数の和の期待値」「サイコロ10個の目の和の期待値」</dd>
+      <dt>こう考える</dt><dd>和の分布を作るのは大変。<b>\(E(X+Y)=E(X)+E(Y)\) は独立でなくても成り立つ</b>ので、1つずつの期待値を足すだけでよい。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>求めたい量を、扱いやすい確率変数の和 \(X_1+X_2+\cdots\) に分解する。</li>
+        <li>各 \(E(X_i)\) を求める（対称性で同じ値になることが多い）。</li>
+        <li>足す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(E(X+Y)=E(X)+E(Y)\)</dd>
+      <dt>なぜこの方法？</dt><dd>期待値は \(\sum(\text{値})\times(\text{確率})\) という「足し算」なので、足し算の順序を入れ替えるだけで和に分配できる。独立性は不要。これが期待値の最大の武器（P15）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">1, 2, 3, 4, 5 の数字が書かれた5枚のカードから1枚ずつ2枚を取り出す（取り出したカードは戻さない）。1枚目の数を \(X\)、2枚目の数を \(Y\) とするとき、\(E(X+Y)\) を求めよ。</div>
+      <p>\(X\) は1〜5を等確率でとるので \(E(X)=3\)。2枚目も、どのカードが2枚目になる確率も \(\frac15\) で等しい（対称性）ので \(E(Y)=3\)。</p>
+      <p>\(X,Y\) は独立ではないが、和の期待値は \(E(X+Y)=E(X)+E(Y)=6\)。</p>
+      <p class="answer">\(E(X+Y)=6\)</p>
+      <p class="point">検算：2枚の組 10 通りの和の平均を直接計算しても \(\frac{60}{10}=6\)。ただし \(E(XY)=E(X)E(Y)\) や \(V(X+Y)=V(X)+V(Y)\) は独立でないと使えない（P5）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="stat-p5" data-level="2">
+    <h3><span class="pid">P5</span>独立な確率変数の積の期待値・和の分散</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「サイコロの目 \(X\) と硬貨の表裏 \(Y\)（表1、裏0）について \(E(XY),\ V(X+Y),\ V(2X-3Y)\)」</dd>
+      <dt>こう考える</dt><dd>別々の試行で決まる確率変数は独立。独立なら<b>積の期待値は期待値の積、和（差）の分散は分散の和</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>独立かどうかを確認する（別々の試行か、戻すか戻さないか）。</li>
+        <li>\(E(XY)=E(X)E(Y)\)、\(V(aX+bY)=a^2V(X)+b^2V(Y)\)。</li>
+        <li>差でも分散は<b>足す</b>（\(b^2\gt0\)）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>独立な確率変数の公式、\(V(aX+b)=a^2V(X)\)</dd>
+      <dt>なぜこの方法？</dt><dd>独立なら \(P(X=x,Y=y)=P(X=x)P(Y=y)\) と確率が積に分かれるので、\(\sum xy\,P\) も積に分かれる。分散の公式の「余分な項」\(2\{E(XY)-E(X)E(Y)\}\) がちょうど0になる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">サイコロを1回投げて出た目を \(X\)、硬貨を1回投げて表なら \(Y=1\)、裏なら \(Y=0\) とする。\(E(XY),\ V(X+Y),\ V(2X-3Y)\) を求めよ。</div>
+      <p>\(E(X)=\frac72\)、\(E(X^2)=\frac{91}6\) より \(V(X)=\frac{91}6-\frac{49}4=\frac{35}{12}\)。\(E(Y)=\frac12,\ V(Y)=\frac12-\frac14=\frac14\)。\(X,Y\) は独立。</p>
+      <p>\(E(XY)=\frac72\cdot\frac12=\frac74\)、\(V(X+Y)=\frac{35}{12}+\frac14=\frac{19}6\)、\(V(2X-3Y)=4\cdot\frac{35}{12}+9\cdot\frac14=\frac{167}{12}\)。</p>
+      <p class="answer">\(E(XY)=\frac74,\ V(X+Y)=\frac{19}6,\ V(2X-3Y)=\frac{167}{12}\)</p>
+      <p class="point">\(V(2X-3Y)=4V(X)-9V(Y)\) と引いてしまうのが典型的な誤り。ばらつきは足し合わさる一方で、打ち消し合わない。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="stat-p6" data-level="1">
+    <h3><span class="pid">P6</span>二項分布の平均・分散</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「サイコロを180回投げて1の目が出る回数 \(X\) の期待値と標準偏差」「二項分布で平均12、分散8のとき \(n,p\)」</dd>
+      <dt>こう考える</dt><dd>「独立な同じ試行を \(n\) 回くり返し、ある事象が起こる回数」は二項分布 \(B(n,p)\)。分布表を作らず<b>\(np,\ npq\)</b> で即答。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(n\)（回数）と \(p\)（1回の確率）を読み取る。</li>
+        <li>\(E=np,\ V=np(1-p),\ \sigma=\sqrt{np(1-p)}\)。</li>
+        <li>逆に \(E,V\) から \(n,p\) を求めるなら \(\frac VE=1-p\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>二項分布の平均・分散</dd>
+      <dt>なぜこの方法？</dt><dd>回数 \(X\) は「各回で起これば1」の和（基本事項）。独立な和なので期待値も分散も \(n\) 倍になる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) サイコロを180回投げるとき、1の目が出る回数 \(X\) の期待値と標準偏差を求めよ。<br>(2) 確率変数 \(X\) が二項分布 \(B(n,p)\) に従い、期待値が12、分散が8であるとき、\(n,p\) を求めよ。</div>
+      <p>(1) \(X\) は \(B\left(180,\frac16\right)\) に従う。\(E(X)=30\)、\(V(X)=180\cdot\frac16\cdot\frac56=25\)。<span class="answer">期待値30、標準偏差5</span></p>
+      <p>(2) \(np=12,\ np(1-p)=8\) より \(1-p=\frac23\)、\(p=\frac13\)、\(n=36\)。<span class="answer">\(n=36,\ p=\frac13\)</span></p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="stat-p7" data-level="2">
+    <h3><span class="pid">P7</span>連続型確率変数と確率密度関数</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「確率密度関数が \(f(x)=ax\ (0\le x\le2)\) のとき \(a\) の値、\(P(1\le X\le2)\)、\(E(X),\ V(X)\)」</dd>
+      <dt>こう考える</dt><dd>連続型では<b>確率＝グラフと \(x\) 軸の間の面積</b>。全体の面積が1。期待値・分散は \(\Sigma\) を \(\int\) に、確率 \(p_i\) を \(f(x)dx\) に置き換えるだけ。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\int f(x)dx=1\)（全区間）で定数を決める。</li>
+        <li>\(P(a\le X\le b)=\int_a^bf(x)dx\)。</li>
+        <li>\(E(X)=\int xf(x)dx,\ V(X)=\int x^2f(x)dx-\{E(X)\}^2\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>定積分（<a href="m2-calculus.html">微分法・積分法（数II）</a>）</dd>
+      <dt>なぜこの方法？</dt><dd>連続な量（身長・時間）は「ちょうど170.000…cm」となる確率は0で、区間に入る確率しか意味をもたない。区間の確率を面積で表すのが確率密度関数。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">確率変数 \(X\) の確率密度関数が \(f(x)=ax\ (0\le x\le2)\)（それ以外では0）であるとき、定数 \(a\)、\(P(1\le X\le2)\)、\(E(X)\)、\(V(X)\) を求めよ。</div>
+      <p>\(\int_0^2ax\,dx=2a=1\) より \(a=\frac12\)。</p>
+      <p>\(P(1\le X\le2)=\int_1^2\frac x2dx=\frac{4-1}4=\frac34\)。</p>
+      <p>\(E(X)=\int_0^2\frac{x^2}2dx=\frac43\)、\(E(X^2)=\int_0^2\frac{x^3}2dx=2\)、\(V(X)=2-\frac{16}9=\frac29\)。</p>
+      <p class="answer">\(a=\frac12,\ P(1\le X\le2)=\frac34,\ E(X)=\frac43,\ V(X)=\frac29\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="stat-p8" data-level="1">
+    <h3><span class="pid">P8</span>正規分布と標準化</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(X\) が \(N(50,10^2)\) に従うとき \(P(45\le X\le70)\)」「上位何%か」</dd>
+      <dt>こう考える</dt><dd>正規分布は平均と標準偏差で形が決まる。<b>\(Z=\frac{X-m}\sigma\)</b> で標準正規分布に直せば、正規分布表1枚で読める。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(Z=\frac{X-m}\sigma\) で範囲を変換する（\(\sigma^2\) ではなく \(\sigma\) で割る）。</li>
+        <li>図を描き、\(0\) をまたぐなら左右に分ける。</li>
+        <li>表の \(p(z)=P(0\le Z\le z)\) を足し引きする（\(P(Z\ge z)=0.5-p(z)\)）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>標準化、正規分布表、\(N(0,1)\) の左右対称性</dd>
+      <dt>なぜこの方法？</dt><dd>どんな正規分布も、平行移動と拡大縮小で標準正規分布に重なる。だから表は \(N(0,1)\) の1つだけで足りる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">ある試験の得点 \(X\) は正規分布 \(N(50,10^2)\) に従うとする。(1) \(P(45\le X\le70)\) を求めよ。(2) 70点以上の人は全体の約何%か。</div>
+      <p>(1) \(Z=\frac{X-50}{10}\) とすると \(45\le X\le70\iff-0.5\le Z\le2\)。</p>
+      <p>\(P=p(0.5)+p(2)=0.1915+0.4772=0.6687\)。<span class="answer">0.6687</span></p>
+      <p>(2) \(P(X\ge70)=P(Z\ge2)=0.5-0.4772=0.0228\)。<span class="answer">約2.3%</span></p>
+      <p class="point">\(Z\) の値は<a href="m1-data.html">データの分析</a>の偏差値と同じ発想：偏差値 \(=50+10Z\)。(2) は「偏差値70以上は約2.3%」という有名な事実。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="stat-p9" data-level="2">
+    <h3><span class="pid">P9</span>二項分布の正規近似</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「サイコロを720回投げて、1の目が140回以上出る確率を求めよ」（\(n\) が大きい二項分布の確率）</dd>
+      <dt>こう考える</dt><dd>\(\C{720}{k}\) を足すのは不可能。\(n\) が大きいとき二項分布は<b>正規分布 \(N(np,npq)\) で近似</b>できるので、標準化して表を引く。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(m=np,\ \sigma=\sqrt{npq}\) を計算。</li>
+        <li>\(Z=\frac{X-m}\sigma\) で標準化。</li>
+        <li>正規分布表で確率を求める。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>二項分布の正規近似、標準化</dd>
+      <dt>なぜこの方法？</dt><dd>独立な小さな「0か1か」をたくさん足すと、和の分布は釣鐘型（正規分布）に近づく（中心極限定理）。平均と分散さえ合わせれば近似できる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">1個のサイコロを720回投げるとき、1の目が140回以上出る確率を、正規分布で近似して求めよ。</div>
+      <p>1の目の回数 \(X\) は \(B\left(720,\frac16\right)\) に従い、\(m=120,\ \sigma=\sqrt{720\cdot\frac16\cdot\frac56}=\sqrt{100}=10\)。</p>
+      <p>\(X\) は近似的に \(N(120,10^2)\) に従う。\(P(X\ge140)=P\left(Z\ge\frac{140-120}{10}\right)=P(Z\ge2)=0.5-0.4772\)。</p>
+      <p class="answer">約 0.0228</p>
+      <p class="point">これはあくまで近似（正確な値は約0.027）。高校の範囲では補正をせずにそのまま近似する。共通テストでは「近似値を求めよ」と指示される。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="stat-p10" data-level="2">
+    <h3><span class="pid">P10</span>標本平均の分布</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「母平均60、母標準偏差12の母集団から大きさ36の標本をとるとき、標本平均が63以上となる確率」</dd>
+      <dt>こう考える</dt><dd>標本平均 \(\overline X\) も確率変数で、平均は母平均 \(m\) のまま、<b>標準偏差は \(\frac{\sigma}{\sqrt n}\) に縮む</b>。\(n\) が大きければ正規分布とみてよい。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(E(\overline X)=m,\ \sigma(\overline X)=\frac\sigma{\sqrt n}\) を計算。</li>
+        <li>\(\overline X\) は近似的に \(N\left(m,\frac{\sigma^2}n\right)\) に従うとして標準化。</li>
+        <li>表を引く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(V(\overline X)=\frac{\sigma^2}n\)（独立な和の分散）</dd>
+      <dt>なぜこの方法？</dt><dd>\(\overline X=\frac1n(X_1+\cdots+X_n)\) で、独立な和の分散は \(n\sigma^2\)、それを \(\frac1{n^2}\) 倍するので \(\frac{\sigma^2}n\)。たくさん平均すると偶然のばらつきが打ち消し合う（大数の法則）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">母平均60、母標準偏差12の母集団から大きさ36の無作為標本を抽出する。標本平均 \(\overline X\) が63以上となる確率を求めよ。</div>
+      <p>\(E(\overline X)=60,\ \sigma(\overline X)=\frac{12}{\sqrt{36}}=2\)。\(\overline X\) は近似的に \(N(60,2^2)\) に従う。</p>
+      <p>\(P(\overline X\ge63)=P\left(Z\ge\frac{63-60}2\right)=P(Z\ge1.5)=0.5-0.4332\)。</p>
+      <p class="answer">約 0.0668</p>
+      <p class="point">\(\sigma(\overline X)=\frac{12}{36}\) と \(\sqrt{\ }\) を忘れる誤りが多い。\(n\) の平方根で割る。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="stat-p11" data-level="2">
+    <h3><span class="pid">P11</span>母平均の推定（信頼区間）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「標本平均52.3、母標準偏差10、標本の大きさ100のとき、母平均を信頼度95%で推定せよ」「区間の幅を2以下にするには標本をいくつ以上にすればよいか」</dd>
+      <dt>こう考える</dt><dd>\(\overline X\) は95%の確率で \(m\pm1.96\frac\sigma{\sqrt n}\) の範囲に入る。これを<b>\(m\) について解き直した</b>ものが信頼区間。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\frac{\sigma}{\sqrt n}\) を計算（母標準偏差が不明なら標本標準偏差で代用）。</li>
+        <li>\(\overline X\pm1.96\frac\sigma{\sqrt n}\)（99%なら2.58）。</li>
+        <li>幅の条件は \(2\times1.96\frac\sigma{\sqrt n}\le(\text{幅})\) を \(n\) について解く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(P(\abs Z\le1.96)=0.95\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(\abs{\overline X-m}\le1.96\frac\sigma{\sqrt n}\) は「\(\overline X\) から見て \(m\) がその範囲にある」と読み替えられる。「95%」は「この方法で区間を作ると、100回中95回程度は真の \(m\) を含む」という意味。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">ある模試の受験者から100人を無作為に選んだところ、数学の得点の平均は52.3点であった。母標準偏差を10点として、(1) 全受験者の平均点 \(m\) を信頼度95%で推定せよ。(2) 信頼区間の幅を2点以下にするには、何人以上を調べればよいか。</div>
+      <p>(1) \(\frac{10}{\sqrt{100}}=1\)。\(52.3\pm1.96\times1\) より \(50.34\le m\le54.26\)。</p>
+      <p class="answer">\(50.34\le m\le54.26\)</p>
+      <p>(2) 幅は \(2\times1.96\times\frac{10}{\sqrt n}\le2\)。\(\sqrt n\ge19.6\)、\(n\ge384.16\)。</p>
+      <p class="answer">385人以上</p>
+      <p class="point">幅は \(\frac1{\sqrt n}\) に比例するので、幅を半分にするには \(n\) を4倍にする必要がある。共通テスト頻出の考え方。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="stat-p12" data-level="2">
+    <h3><span class="pid">P12</span>母比率の推定</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「400人を調べたら120人が賛成。賛成者の母比率を信頼度95%で推定せよ」</dd>
+      <dt>こう考える</dt><dd>標本の中の賛成者数は \(B(n,p)\) に従い、標本比率 \(R=\frac Xn\) は平均 \(p\)、標準偏差 \(\sqrt{\frac{p(1-p)}n}\)。未知の \(p\) を<b>\(R\) で代用</b>して区間を作る。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(R=\frac{(\text{該当数})}{n}\) を計算。</li>
+        <li>\(\sqrt{\frac{R(1-R)}n}\) を計算。</li>
+        <li>\(R\pm1.96\sqrt{\frac{R(1-R)}n}\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>二項分布の平均・分散を \(\frac1n\) 倍、正規近似</dd>
+      <dt>なぜこの方法？</dt><dd>比率は「回数 \(\div n\)」なので、二項分布の公式を \(\frac1n\) 倍（分散は \(\frac1{n^2}\) 倍）すればよい。\(p\) が未知なので、\(n\) が大きいとき \(p\approx R\) とする。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">ある市の有権者から400人を無作為に選んで調査したところ、120人がある政策に賛成した。この市の有権者全体の賛成率 \(p\) を、信頼度95%で推定せよ（小数第3位まで）。</div>
+      <p>\(R=\frac{120}{400}=0.3\)。\(\sqrt{\frac{0.3\times0.7}{400}}=\frac{\sqrt{0.21}}{20}\approx\frac{0.4583}{20}\approx0.0229\)。</p>
+      <p>\(1.96\times0.0229\approx0.0449\)。\(0.3\pm0.0449\)。</p>
+      <p class="answer">\(0.255\le p\le0.345\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="stat-p13" data-level="2">
+    <h3><span class="pid">P13</span>仮説検定（両側検定）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「硬貨を400回投げたら表が220回出た。この硬貨は表と裏の出やすさに偏りがあると判断してよいか。有意水準5%で検定せよ」</dd>
+      <dt>こう考える</dt><dd>「偏りがある」を直接示すのは難しいので、<b>否定したい仮説（帰無仮説：偏りがない、\(p=\frac12\)）</b>を立て、そのもとで今回の結果が「めったに起こらない（5%未満）」なら帰無仮説を棄却する。「偏りがある」は多い方・少ない方の両方を含むので<b>両側</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>帰無仮説 \(H_0\)：\(p=\frac12\)、対立仮説 \(H_1\)：\(p\ne\frac12\)。</li>
+        <li>\(H_0\) のもとで \(X\sim B(400,\frac12)\approx N(200,10^2)\)。</li>
+        <li>\(z=\frac{220-200}{10}=2\) を計算し、棄却域 \(\abs z\gt1.96\) と比較。</li>
+        <li>結論：「棄却される → 偏りがあるといえる」「棄却されない → 偏りがあるとはいえない」。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>正規近似、\(P(\abs Z\gt1.96)=0.05\)</dd>
+      <dt>なぜこの方法？</dt><dd>背理法の確率版。「仮説が正しいとすると、ほとんど起こりえないことが起きた」から仮説を疑う。棄却されないときは「仮説が正しい」とは言えず、<b>「否定する根拠がない」</b>だけ。<a href="../thinking.html#t-contradiction">発想：背理法</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">ある硬貨を400回投げたところ、表が220回出た。この硬貨は表と裏の出やすさに偏りがあると判断してよいか。有意水準5%で検定せよ。</div>
+      <p>表の出る確率を \(p\) とする。帰無仮説 \(H_0\)：\(p=\frac12\)、対立仮説 \(H_1\)：\(p\ne\frac12\)。</p>
+      <p>\(H_0\) のもとで、表の回数 \(X\) は \(B\left(400,\frac12\right)\) に従い、\(m=200,\ \sigma=\sqrt{400\cdot\frac12\cdot\frac12}=10\)。近似的に \(N(200,10^2)\) に従う。</p>
+      <p>\(z=\frac{220-200}{10}=2.0\)。有意水準5%の両側検定の棄却域は \(\abs z\gt1.96\) で、\(2.0\) は棄却域に入る。</p>
+      <p class="answer">\(H_0\) は棄却される。偏りがあると判断してよい。</p>
+      <p class="point">有意水準1%（棄却域 \(\abs z\gt2.58\)）なら棄却されず、「偏りがあるとはいえない」となる。有意水準によって結論が変わることがある。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="stat-p14" data-level="2">
+    <h3><span class="pid">P14</span>仮説検定（片側検定）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「従来の治癒率は60%。新薬を100人に使ったら70人が治癒した。新薬は従来より効果があるといえるか。有意水準5%で検定せよ」</dd>
+      <dt>こう考える</dt><dd>知りたいのが「<b>増えた（効果がある）</b>」という一方向だけなので、棄却域を片側（大きい側）に5%すべて置く。境目は \(P(Z\gt z)=0.05\)、つまり \(p(z)=0.45\) となる \(z\approx1.64\)（表で1.64と1.65の間、約1.645）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(H_0\)：\(p=0.6\)、\(H_1\)：\(p\gt0.6\)。</li>
+        <li>\(H_0\) のもとで \(X\sim B(100,0.6)\approx N(60,24)\)。</li>
+        <li>\(z=\frac{70-60}{\sqrt{24}}\) を計算し、棄却域 \(z\gt1.64\) と比較。</li>
+        <li>結論を書く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>正規近似、片側の棄却域</dd>
+      <dt>なぜこの方法？</dt><dd>「効果がない（減った）」側に極端な結果が出ても、「効果がある」の根拠にはならない。だから棄却域は興味のある片側だけに置く。両側より境目が小さく（1.96 → 1.64）なり、効果を検出しやすい。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">ある病気の従来の治療法による治癒率は60%である。新しい治療法を100人に試したところ、70人が治癒した。新しい治療法は従来より効果があるといえるか。有意水準5%で検定せよ。</div>
+      <p>新治療法の治癒率を \(p\) とする。\(H_0\)：\(p=0.6\)、\(H_1\)：\(p\gt0.6\)。</p>
+      <p>\(H_0\) のもとで治癒者数 \(X\) は \(B(100,0.6)\) に従い、\(m=60,\ \sigma=\sqrt{100\times0.6\times0.4}=\sqrt{24}\approx4.90\)。近似的に \(N(60,4.90^2)\)。</p>
+      <p>\(z=\frac{70-60}{4.90}\approx2.04\)。片側検定の棄却域 \(z\gt1.64\) に入る。</p>
+      <p class="answer">\(H_0\) は棄却される。新しい治療法は従来より効果があるといえる。</p>
+      <p class="point">もし両側検定にしても \(2.04\gt1.96\) で棄却されるが、ぎりぎり。問題文が「効果がある（大きい）」なら片側、「異なる（偏りがある）」なら両側、と<b>対立仮説の向きを問題文の言葉から決める</b>。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="stat-p15" data-level="3">
+    <h3><span class="pid">P15</span>指示変数で期待値を求める（線形性の威力）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「サイコロを \(n\) 回投げるとき、出る目の種類の数の期待値」「\(n\) 人のプレゼント交換で自分のものを受け取る人数の期待値」</dd>
+      <dt>こう考える</dt><dd>分布を求めるのは絶望的。<b>「\(k\) の目が少なくとも1回出たら1、出なければ0」という確率変数 \(I_k\)</b>（指示変数）を作れば、種類の数は \(I_1+\cdots+I_6\)。\(E(I_k)=P(\text{その事象})\) なので、確率を足すだけ。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>数えたいものを「1個ずつ」に分け、各々について「条件を満たせば1」の \(I_k\) を定義する。</li>
+        <li>\(E(I_k)=P(I_k=1)\) を計算（余事象が楽なことが多い）。</li>
+        <li>\(E(\sum I_k)=\sum E(I_k)\)（独立でなくてよい）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>期待値の線形性、余事象</dd>
+      <dt>なぜこの方法？</dt><dd>\(I_k\) どうしは独立でないので分布は複雑だが、期待値の和の公式には独立性が不要（P4）。「全体を個に分解する」ことで、難しい分布を一切求めずに済む。阪大の確率でも、期待値を問われたらまずこれを考える。<a href="../thinking.html#t-complement">発想：余事象</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">1個のサイコロを \(n\) 回投げるとき、出た目の種類の数を \(X\) とする（例：1, 3, 1 なら \(X=2\)）。\(E(X)\) を求めよ。</div>
+      <p>\(k=1,\dots,6\) に対し、\(k\) の目が少なくとも1回出れば \(I_k=1\)、1回も出なければ \(I_k=0\) とする。\(X=I_1+I_2+\cdots+I_6\)。</p>
+      <p>\(E(I_k)=P(k\text{ が少なくとも1回出る})=1-\left(\frac56\right)^n\)（余事象）。</p>
+      <p>\(E(X)=\sum_{k=1}^6E(I_k)=6\left\{1-\left(\frac56\right)^n\right\}\)。</p>
+      <p class="answer">\(E(X)=6\left\{1-\left(\frac56\right)^n\right\}\)</p>
+      <p class="point">検算：\(n=1\) で \(E=1\)（必ず1種類）、\(n=2\) で \(6\cdot\frac{11}{36}=\frac{11}6\)（2回とも同じ目なら1、違えば2：\(1\cdot\frac16+2\cdot\frac56=\frac{11}6\)）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="stat-p16" data-level="3">
+    <h3><span class="pid">P16</span>期待値の漸化式（確率・数列との融合）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(n\) 回の操作の後の得点の期待値 \(E_n\) を求めよ」（操作のたびに得点が状態に応じて変わる）</dd>
+      <dt>こう考える</dt><dd>\(n\) 回後の分布を全部求めなくても、<b>「\(n\) 回後の値が \(k\) のとき、\(n+1\) 回後の値の期待値」が \(k\) の1次式</b>なら、それを \(P(X_n=k)\) で重みづけして足すことで \(E_{n+1}\) が \(E_n\) の1次式になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(X_n=k\) のときの \(X_{n+1}\) の値と確率を書く。</li>
+        <li>\(E_{n+1}=\sum_kP(X_n=k)\times(X_n=k\text{ のときの }X_{n+1}\text{ の平均})\) を計算し、\(E_n\) で表す。</li>
+        <li>\(E_{n+1}=pE_n+q\) 型の漸化式を解く（<a href="mb-sequence.html">数列</a> P9）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>期待値の定義、\(\sum_kP(X_n=k)=1\)、\(\sum_kk\,P(X_n=k)=E_n\)</dd>
+      <dt>なぜこの方法？</dt><dd>確率漸化式は「確率」を追うが、期待値も同じように1歩ずつ追える。分布は複雑でも、期待値は線形な関係だけで閉じることが多い。<a href="../thinking.html#t-recurrence">発想：漸化式を立てる</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">得点は最初0点である。1個のサイコロを投げ、1または2の目が出れば得点を1点増やし、それ以外の目が出れば得点を0点に戻す。この操作を \(n\) 回行った後の得点の期待値 \(E_n\) を求めよ。</div>
+      <p>\(n\) 回後の得点を \(X_n\) とする。\(X_n=k\) のとき、\(X_{n+1}\) は確率 \(\frac13\) で \(k+1\)、確率 \(\frac23\) で \(0\)。</p>
+      \[ \begin{aligned}E_{n+1}&=\sum_kP(X_n=k)\left\{\frac13(k+1)+\frac23\cdot0\right\}\\&=\frac13\sum_kk\,P(X_n=k)+\frac13\sum_kP(X_n=k)=\frac13E_n+\frac13\end{aligned} \]
+      <p>\(E_0=0\)。\(\alpha=\frac13\alpha+\frac13\) より \(\alpha=\frac12\)。\(E_n-\frac12=\left(-\frac12\right)\left(\frac13\right)^n\)。</p>
+      <p class="answer">\(E_n=\dfrac12\left\{1-\left(\dfrac13\right)^n\right\}\)</p>
+      <p class="point">検算：\(E_1=\frac13\)（1点の確率 \(\frac13\)）、\(E_2=\frac49\)（2点の確率 \(\frac19\)、1点の確率 \(\frac23\cdot\frac13=\frac29\) で \(\frac29+\frac29=\frac49\)）。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="pitfalls">
+  <h2>よくあるミスと対策</h2>
+  <ul class="pitfalls">
+    <li><b>分散と標準偏差の取り違え（\(\sqrt{\ }\) の付け忘れ）</b>（P2, P8, P10）。→ 標準化の分母は必ず標準偏差。\(N(m,\sigma^2)\) の2番目は分散。</li>
+    <li><b>\(V(aX+b)=aV(X)+b\) としてしまう</b>（P3）。→ 分散は \(a^2\) 倍で \(b\) は無関係。</li>
+    <li><b>独立でないのに \(V(X+Y)=V(X)+V(Y)\) や \(E(XY)=E(X)E(Y)\) を使う</b>（P4, P5）。→ 独立性が要らないのは和の期待値だけ。</li>
+    <li><b>\(V(X-Y)=V(X)-V(Y)\) とする</b>（P5）。→ 差でも分散は足す。</li>
+    <li><b>標本平均の標準偏差を \(\frac\sigma n\) とする</b>（P10, P11）。→ \(\frac{\sigma}{\sqrt n}\)。</li>
+    <li><b>両側・片側の取り違え</b>（P13, P14）。→ 「偏り・異なる」は両側（1.96）、「大きい・効果がある・増えた」は片側（1.64）。</li>
+    <li><b>検定で棄却されないとき「帰無仮説は正しい」と結論する</b>（P13）。→ 「〜とはいえない（判断できない）」と書く。</li>
+  </ul>
+</section>
+
+<section id="handai">
+  <h2>阪大レベルへの橋渡し</h2>
+  <p>阪大の個別試験で「推定・検定」が出題されることはほぼない。しかし<b>確率変数の期待値・分散</b>の考え方は、確率・数列の問題で次のように効いてくる。</p>
+  <ul>
+    <li>複雑な確率変数を<b>指示変数の和</b>に分解し、期待値だけでなく分散も \(E(X^2)\) を経由して求める（演1）。</li>
+    <li><b>漸化式と帰納法</b>で分布や期待値を追い、期待値・分散を論証的に求める（演2）。</li>
+  </ul>
+  <p>「分布を全部求める」より「線形性で分解する」方が圧倒的に速い場面が多い。阪大の確率で期待値を問われたら、まずこのページの P15・P16 を思い出そう。</p>
+
+  <article class="pattern" id="stat-h1" data-level="3">
+    <h3><span class="pid">演1</span>並べたときに番号が一致する個数の期待値と分散</h3>
+    <div class="problem">\(n\) を2以上の整数とする。1から \(n\) までの番号が1つずつ書かれた \(n\) 個の玉を袋に入れ、1個ずつすべて取り出して左から順に並べる。左から \(k\) 番目の玉の番号が \(k\) であるとき「一致」と呼び、一致の個数を \(X\) とする。<br>(1) \(X\) の期待値 \(E(X)\) を求めよ。<br>(2) \(X\) の分散 \(V(X)\) を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>\(X\) の分布（ちょうど \(r\) 個一致する確率）は包除原理が必要で大変。<b>\(k\) 番目が一致なら \(I_k=1\)</b> とおくと \(X=I_1+\cdots+I_n\)。期待値は線形性で一発。分散は \(E(X^2)\) を求めるが、\(X^2=\sum I_k^2+2\sum_{j\lt k}I_jI_k\) と展開し、\(I_k^2=I_k\)、\(E(I_jI_k)=P(j\text{ と }k\text{ がともに一致})\) を使う。\(I_j\) と \(I_k\) は独立でないので \(V(X)=\sum V(I_k)\) とはできない点に注意。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>\(k=1,\dots,n\) に対し、\(k\) 番目が一致すれば \(I_k=1\)、しなければ \(I_k=0\) とする。\(X=\sum_{k=1}^nI_k\)。</p>
+      <p>(1) \(n\) 個の並べ方 \(n!\) 通りは同様に確からしい。\(k\) 番目に番号 \(k\) が来る並べ方は \((n-1)!\) 通りなので \(E(I_k)=P(I_k=1)=\frac{(n-1)!}{n!}=\frac1n\)。</p>
+      <p>\(E(X)=\sum_{k=1}^nE(I_k)=n\cdot\frac1n=1\)。<span class="answer">\(E(X)=1\)</span></p>
+      <p>(2) \(I_k\) は0か1なので \(I_k^2=I_k\)。また \(j\ne k\) のとき、\(j\) 番目と \(k\) 番目がともに一致する並べ方は \((n-2)!\) 通りなので</p>
+      \[ E(I_jI_k)=\frac{(n-2)!}{n!}=\frac1{n(n-1)} \]
+      <p>よって</p>
+      \[ \begin{aligned}E(X^2)&=E\Big(\sum_kI_k^2+2\sum_{j\lt k}I_jI_k\Big)=\sum_kE(I_k)+2\sum_{j\lt k}E(I_jI_k)\\&=1+2\cdot\C{n}{2}\cdot\frac1{n(n-1)}=1+1=2\end{aligned} \]
+      <p>\(V(X)=E(X^2)-\{E(X)\}^2=2-1=1\)。<span class="answer">\(V(X)=1\)</span></p>
+      <p class="point">採点ポイント：(1) 指示変数の定義と \(E(I_k)=\frac1n\) の根拠、(2) \(I_j,I_k\) が独立でないため \(E(I_jI_k)\) を直接数えること、\(\C n2\) 組あることの明示。\(n\) によらず期待値も分散も1になるという美しい結論。小さい \(n\)（\(n=3\) で6通りを全部書く：一致数は 3,1,1,0,0,1）で検算できる。<a href="../thinking.html#t-experiment">発想：小さい場合で実験</a></p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="stat-h2" data-level="3">
+    <h3><span class="pid">演2</span>玉を増やしていく袋（帰納法で分布を決定する）</h3>
+    <div class="problem">袋の中に赤玉1個と白玉1個が入っている。袋から玉を1個取り出し、その玉と同じ色の玉を1個加えて、取り出した玉とともに袋に戻す。この操作を \(n\) 回くり返した後の袋の中の赤玉の個数を \(X_n\) とする（\(X_0=1\)）。<br>(1) \(E(X_{n+1})\) を \(E(X_n)\) で表し、\(E(X_n)\) を求めよ。<br>(2) \(k=1,2,\dots,n+1\) に対して \(P(X_n=k)=\dfrac1{n+1}\) であることを数学的帰納法で示せ。<br>(3) \(V(X_n)\) を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>\(n\) 回後の玉の総数は \(n+2\) 個。\(X_n=k\) のとき、次に赤を取り出す確率は \(\frac k{n+2}\)。(1) は P16 と同じく「\(X_n=k\) のときの次の期待値」が \(k\) の1次式になることを使う。(2) は小さい \(n\) で実験すると \(X_1\) は1,2が \(\frac12\) ずつ、\(X_2\) は1,2,3が \(\frac13\) ずつ…と<b>一様分布</b>になっていることが見える。\(X_{n+1}=k\) となるのは「\(X_n=k\) で白を取る」か「\(X_n=k-1\) で赤を取る」の2通り。<a href="../thinking.html#t-induction">発想：数学的帰納法</a></p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>\(n\) 回の操作後、袋の中の玉は \(n+2\) 個である。</p>
+      <p>(1) \(X_n=k\) のとき、\(n+1\) 回目に赤を取り出す確率は \(\frac k{n+2}\) で、そのとき \(X_{n+1}=k+1\)、白なら \(X_{n+1}=k\)。よって</p>
+      \[ \begin{aligned}E(X_{n+1})&=\sum_kP(X_n=k)\left\{(k+1)\frac k{n+2}+k\left(1-\frac k{n+2}\right)\right\}\\&=\sum_kP(X_n=k)\left(k+\frac{k}{n+2}\right)=\frac{n+3}{n+2}E(X_n)\end{aligned} \]
+      <p>\(E(X_0)=1\) より \(E(X_n)=\dfrac32\cdot\dfrac43\cdots\dfrac{n+2}{n+1}\cdot E(X_0)=\dfrac{n+2}2\)。</p>
+      <p class="answer">\(E(X_{n+1})=\dfrac{n+3}{n+2}E(X_n)\)、\(E(X_n)=\dfrac{n+2}2\)</p>
+      <p>(2) [I] \(n=0\)：\(X_0=1\) で \(P(X_0=1)=1=\frac1{0+1}\)。成立。</p>
+      <p>[II] ある \(n\) で \(P(X_n=k)=\frac1{n+1}\ (k=1,\dots,n+1)\) と仮定する。\(X_{n+1}\) のとりうる値は \(1,\dots,n+2\) である。</p>
+      <ul>
+        <li>\(2\le k\le n+1\)：\(P(X_{n+1}=k)=P(X_n=k)\cdot\frac{n+2-k}{n+2}+P(X_n=k-1)\cdot\frac{k-1}{n+2}=\frac{(n+2-k)+(k-1)}{(n+1)(n+2)}=\frac1{n+2}\)</li>
+        <li>\(k=1\)：\(P(X_n=1)\cdot\frac{n+1}{n+2}=\frac1{n+2}\)</li>
+        <li>\(k=n+2\)：\(P(X_n=n+1)\cdot\frac{n+1}{n+2}=\frac1{n+2}\)</li>
+      </ul>
+      <p>よって \(n+1\) でも成立。[I][II] より、すべての \(n\ge0\) で成立する。（証明終）</p>
+      <p>(3) (2) より \(E(X_n^2)=\frac1{n+1}\sum_{k=1}^{n+1}k^2=\frac{(n+2)(2n+3)}6\)。</p>
+      \[ V(X_n)=\frac{(n+2)(2n+3)}6-\frac{(n+2)^2}4=\frac{(n+2)\{2(2n+3)-3(n+2)\}}{12}=\frac{n(n+2)}{12} \]
+      <p class="answer">\(V(X_n)=\dfrac{n(n+2)}{12}\)</p>
+      <p class="point">採点ポイント：(1) 条件ごとの期待値を確率で重みづけする式を省略せずに書く、(2) 端の \(k=1,\ n+2\) を別に扱う、(3) (2) の結果を \(\Sigma\) の公式で使う。(1) は (2) の一様分布からも \(\frac{1+(n+1)}2\) と確かめられる（検算）。<a href="mb-sequence.html">数列</a>の帰納法と \(\Sigma\) の総合問題になっている。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="next">
+  <h2>次に学ぶとつながる単元</h2>
+  <ul>
+    <li><a href="ma-probability.html">確率</a>：P15 の指示変数、P16 の期待値の漸化式は、阪大の確率問題の「期待値を求めよ」で直接使える。</li>
+    <li><a href="mb-sequence.html">数列</a>：期待値の漸化式（P16、演2）は \(a_{n+1}=pa_n+q\) 型や積の形の漸化式になる。</li>
+    <li><a href="m3-integral-app.html">積分法の応用</a>：P7 の確率密度関数の計算は定積分そのもの。数IIIの積分で扱える関数が増える。</li>
+    <li><a href="m1-data.html">データの分析</a>：平均・分散・標準化（偏差値）の考え方は P2・P8 と共通。</li>
+  </ul>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>

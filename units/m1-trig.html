@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>図形と計量（数学I）｜解法の地図</title>
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-unit="m1-trig" data-root="../">
+<main>
+
+<header class="unit-head">
+  <span class="subj-badge">数学I</span>
+  <h1>図形と計量</h1>
+  <p class="lead">三角比を使って、辺の長さ・角の大きさ・面積・体積を「計算で」求める単元。図形問題を見たら、<b>どの三角形に注目し、正弦定理と余弦定理のどちらを使うか</b>を決めるのが全て。阪大では空間図形や最大最小と融合して出題される。</p>
+  <div class="goal">
+    <strong>このページの到達目標</strong>
+    <ul>
+      <li>【基礎】三角比の値（\(0^\circ\)〜\(180^\circ\)）を単位円で求め、正弦定理・余弦定理・面積公式を正しく使える。</li>
+      <li>【標準】「何が分かっていて何を求めるか」から定理を選び、三角形の決定（解が2つの場合を含む）、内接円・外接円、角の二等分線、円に内接する四角形、正四面体を処理できる。</li>
+      <li>【阪大】空間図形を平面の三角形に切り出し、体積を経由して距離を求め、辺と角の関係式から形状決定・最大最小まで答案として書ける。</li>
+    </ul>
+  </div>
+  <p class="prereq">前提：<a href="m1-numbers.html">数と式</a>（平方根の計算）、<a href="m1-quadratic.html">2次関数</a>（2次方程式・置き換え）／ 次に進む：<a href="m2-trig.html">三角関数</a>、<a href="ma-geometry.html">図形の性質</a>、<a href="mc-vector.html">ベクトル</a></p>
+</header>
+
+<section id="core">
+  <h2>必ず押さえる基本事項</h2>
+
+  <div class="box theorem">
+    <p><span class="name">三角比の定義（単位円）</span>：原点を中心とする半径 \(r\) の円周上の点 \(P(x,y)\) について、\(x\) 軸の正の向きから測った角を \(\theta\ (0^\circ\le\theta\le180^\circ)\) とすると</p>
+    \[ \sin\theta=\frac yr,\quad \cos\theta=\frac xr \]
+    \[ \tan\theta=\frac yx\ \ (\theta\neq90^\circ) \]
+    <svg viewBox="0 0 300 160" width="300" role="img" aria-label="半円上の点Pと角θ">
+      <line x1="20" y1="140" x2="280" y2="140" stroke="currentColor" stroke-width="1"/>
+      <line x1="150" y1="20" x2="150" y2="150" stroke="currentColor" stroke-width="1"/>
+      <path d="M 260 140 A 110 110 0 0 0 40 140" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <line x1="150" y1="140" x2="95" y2="44.7" stroke="var(--accent)" stroke-width="2"/>
+      <line x1="95" y1="44.7" x2="95" y2="140" stroke="var(--accent)" stroke-dasharray="4 3"/>
+      <circle cx="95" cy="44.7" r="3.5" fill="var(--accent)"/>
+      <text x="40" y="36" fill="var(--accent)" font-size="14">P(x, y)</text>
+      <path d="M 175 140 A 25 25 0 0 0 137.5 118.3" fill="none" stroke="currentColor"/>
+      <text x="160" y="120" fill="currentColor" font-size="13">θ</text>
+      <text x="152" y="155" fill="currentColor" font-size="12">O</text>
+      <text x="262" y="155" fill="currentColor" font-size="12">r</text>
+    </svg>
+    <p>\(r=1\)（単位円）なら \(P=(\cos\theta,\ \sin\theta)\)。鈍角では \(x\lt0\) なので <b>\(\cos\theta\lt0,\ \tan\theta\lt0\)、\(\sin\theta\gt0\)</b>。鋭角では直角三角形の「対辺/斜辺」などと一致する。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">相互関係と角の変換</span></p>
+    \[ \sin^2\theta+\cos^2\theta=1,\quad \tan\theta=\frac{\sin\theta}{\cos\theta} \]
+    \[ 1+\tan^2\theta=\frac{1}{\cos^2\theta} \]
+    <p>\(\sin(180^\circ-\theta)=\sin\theta,\ \cos(180^\circ-\theta)=-\cos\theta,\ \tan(180^\circ-\theta)=-\tan\theta\)</p>
+    <p>\(\sin(90^\circ-\theta)=\cos\theta,\ \cos(90^\circ-\theta)=\sin\theta\)</p>
+    <p>なぜ：単位円上の点 \((x,y)\) は \(x^2+y^2=1\) を満たす（三平方の定理）。\(180^\circ-\theta\) の点は \(y\) 軸について対称な点 \((-x,y)\)、\(90^\circ-\theta\) の点は直線 \(y=x\) について対称な点 \((y,x)\)。3つ目の式は1つ目を \(\cos^2\theta\) で割ったもの。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">正弦定理</span>：\(\triangle ABC\) の外接円の半径を \(R\) とすると</p>
+    \[ \frac{a}{\sin A}=\frac{b}{\sin B}=\frac{c}{\sin C}=2R \]
+    <p>なぜ：\(B\) を通る直径 \(BA'\) をとると、円周角の定理より \(\angle A'=\angle A\)（\(A\) が鈍角なら \(180^\circ-A\)）、\(\angle BCA'=90^\circ\)。直角三角形 \(A'BC\) で \(a=2R\sin A\)。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">余弦定理</span></p>
+    \[ a^2=b^2+c^2-2bc\cos A \]
+    \[ \cos A=\frac{b^2+c^2-a^2}{2bc} \]
+    <p>なぜ：\(A\) を原点、\(AB\) を \(x\) 軸にとると \(B(c,0),\ C(b\cos A,\ b\sin A)\)。\(BC^2=(b\cos A-c)^2+(b\sin A)^2\) を展開して \(\sin^2A+\cos^2A=1\) を使う。\(A=90^\circ\) なら三平方の定理になる（三平方の定理の一般化）。</p>
+    <p>角の判定：\(a^2\lt b^2+c^2\iff A\) は鋭角、\(a^2=b^2+c^2\iff A=90^\circ\)、\(a^2\gt b^2+c^2\iff A\) は鈍角。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">三角形の面積</span>：\(s=\dfrac{a+b+c}{2}\)、内接円の半径を \(r\) とすると</p>
+    \[ S=\frac12bc\sin A,\qquad S=rs \]
+    \[ S=\sqrt{s(s-a)(s-b)(s-c)} \]
+    <p>（最後の式はヘロンの公式）</p>
+    <p>なぜ：底辺 \(b\) に対する高さは \(c\sin A\)。\(S=rs\) は内心 \(I\) と各頂点を結んで3つの三角形（高さ \(r\)）に分けた和 \(\frac12r(a+b+c)\)。ヘロンの公式は \(\cos A\) を余弦定理で表し \(\sin A=\sqrt{1-\cos^2A}\) を代入して因数分解したもの。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">正弦定理か余弦定理か（判断基準）</span></p>
+    <div class="table-wrap"><table>
+      <tr><th>分かっているもの</th><th>使う定理</th></tr>
+      <tr><td>2辺とその間の角（2辺夾角）</td><td>余弦定理で残りの辺</td></tr>
+      <tr><td>3辺</td><td>余弦定理で角（cos）</td></tr>
+      <tr><td>1辺と2角</td><td>正弦定理（残りの角は \(180^\circ\) から）</td></tr>
+      <tr><td>外接円の半径 \(R\) が出てくる</td><td>正弦定理</td></tr>
+      <tr><td>2辺と、その間でない角</td><td>余弦定理で残りの辺の2次方程式（解が2つの場合あり）</td></tr>
+    </table></div>
+    <p>要点：<b>「向かい合う辺と角のペア」が1組そろっていれば正弦定理、そろっていなければ余弦定理</b>。角を求めるときは、\(\sin\) だと鋭角・鈍角の2通りが出るので、<b>余弦定理で \(\cos\) を出す方が一意に決まって安全</b>。</p>
+  </div>
+
+  <div class="box idea">
+    <p><b>この単元を貫く考え方</b>：どんな図形の問題も、最後は<b>「1つの三角形の中で、3つの情報から残りを求める」</b>問題に分解できる。四角形なら対角線で、空間図形なら断面や垂線で、三角形を切り出す。次に「その三角形で何が分かっているか」を確認し、上の表で定理を選ぶ。<b>同じ量を2通りに表して等式を作る</b>（面積、対角線の長さ、体積）のが、行き詰まったときの決め手になる。</p>
+  </div>
+</section>
+
+<section id="quick">
+  <h2>早見表：こう来たら → こう解く</h2>
+  <div class="table-wrap"><table class="quick">
+    <tr><th>問題の特徴（こう来たら）</th><th>方針（こう解く）</th><th>使う道具</th><th>詳細</th></tr>
+    <tr data-level="1"><td>直角三角形で \(\sin A,\cos A,\tan A\) を求めよ</td><td>対辺・隣辺・斜辺を確認</td><td>三角比の定義</td><td><a href="#tri1-p1">P1</a></td></tr>
+    <tr data-level="1"><td>\(\sin135^\circ\)、\(\sin20^\circ+\cos110^\circ\) の値</td><td>単位円／\(180^\circ-\theta\)、\(90^\circ-\theta\) で鋭角に</td><td>角の変換公式</td><td><a href="#tri1-p2">P2</a></td></tr>
+    <tr data-level="1"><td>\(\sin\theta=\frac13\) のとき \(\cos\theta,\tan\theta\)</td><td>相互関係。鈍角の可能性で符号を分ける</td><td>\(\sin^2+\cos^2=1\)</td><td><a href="#tri1-p3">P3</a></td></tr>
+    <tr data-level="2"><td>三角比を含む方程式・不等式（\(0^\circ\le\theta\le180^\circ\)）</td><td>単位円上の点を探す／1種類にそろえて置き換え</td><td>単位円・置き換え</td><td><a href="#tri1-p4">P4</a></td></tr>
+    <tr data-level="2"><td>「\(\sin\theta+\cos\theta=\frac12\) のとき」</td><td>2乗して \(\sin\theta\cos\theta\) を出す</td><td>対称式</td><td><a href="#tri1-p5">P5</a></td></tr>
+    <tr data-level="1"><td>1辺と2角、外接円の半径</td><td>正弦定理</td><td>\(\frac{a}{\sin A}=2R\)</td><td><a href="#tri1-p6">P6</a></td></tr>
+    <tr data-level="1"><td>2辺とその間の角、または3辺</td><td>余弦定理</td><td>\(a^2=b^2+c^2-2bc\cos A\)</td><td><a href="#tri1-p7">P7</a></td></tr>
+    <tr data-level="2"><td>「三角形 ABC の残りの辺と角を求めよ」</td><td>余弦定理で辺→余弦定理で角（sin は避ける）</td><td>定理の使い分け</td><td><a href="#tri1-p8">P8</a></td></tr>
+    <tr data-level="2"><td>2辺とその間でない角が与えられた</td><td>余弦定理で辺の2次方程式 → 解の個数＝三角形の個数</td><td>あいまいな場合</td><td><a href="#tri1-p9">P9</a></td></tr>
+    <tr data-level="2"><td>3辺が文字式、「三角形が存在」「鈍角三角形」</td><td>三角形の成立条件＋最大辺の角の判定</td><td>余弦定理の符号</td><td><a href="#tri1-p10">P10</a></td></tr>
+    <tr data-level="1"><td>三角形の面積を求めよ</td><td>2辺夾角の \(\frac12bc\sin A\)、3辺なら cos→sin</td><td>面積公式</td><td><a href="#tri1-p11">P11</a></td></tr>
+    <tr data-level="2"><td>内接円・外接円の半径</td><td>\(S=rs\)、\(2R=\frac{a}{\sin A}\)、ヘロン</td><td>面積の2通り表示</td><td><a href="#tri1-p12">P12</a></td></tr>
+    <tr data-level="2"><td>角の二等分線 AD の長さ</td><td>面積を2通りに表す</td><td>\(\frac12bc\sin A\)</td><td><a href="#tri1-p13">P13</a></td></tr>
+    <tr data-level="2"><td>円に内接する四角形の対角線・面積</td><td>対角の和 \(180^\circ\)、対角線を余弦定理で2通りに</td><td>\(\cos(180^\circ-\theta)=-\cos\theta\)</td><td><a href="#tri1-p14">P14</a></td></tr>
+    <tr data-level="2"><td>仰角・俯角、2地点からの測量</td><td>直角三角形を作り、高さを未知数にする</td><td>\(\tan\)、正弦定理</td><td><a href="#tri1-p15">P15</a></td></tr>
+    <tr data-level="2"><td>正四面体の高さ・体積・内接球</td><td>頂点から底面への垂線の足は重心（外心）</td><td>三平方・体積</td><td><a href="#tri1-p16">P16</a></td></tr>
+    <tr data-level="3"><td>\(OA=OB=OC\) の四面体の体積</td><td>垂線の足が底面の外心であることを示し、\(R\) を使う</td><td>正弦定理・三平方</td><td><a href="#tri1-p17">P17</a></td></tr>
+    <tr data-level="3"><td>立体の断面積・点から平面までの距離</td><td>断面の三角形を切り出す／体積を2通りに表す</td><td>余弦定理・体積</td><td><a href="#tri1-p18">P18</a></td></tr>
+    <tr data-level="3"><td>「\(a\cos A=b\cos B\) を満たす三角形はどんな形か」</td><td>角を辺に直す（正弦・余弦定理）→ 因数分解</td><td>辺だけの式にする</td><td><a href="#tri1-p19">P19</a></td></tr>
+    <tr data-level="3"><td>「1辺と対角が一定のとき面積・周の最大」</td><td>余弦定理の関係式＋\(b^2+c^2\ge2bc\)</td><td>不等式・実数条件</td><td><a href="#tri1-p20">P20</a></td></tr>
+  </table></div>
+</section>
+
+<section id="patterns">
+  <h2>パターン別 解法マップ</h2>
+
+  <article class="pattern" id="tri1-p1" data-level="1">
+    <h3><span class="pid">P1</span>直角三角形で三角比を求める</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\angle C=90^\circ\) の直角三角形 ABC で \(\sin A,\ \cos A,\ \tan A\) を求めよ」</dd>
+      <dt>こう考える</dt><dd>角 \(A\) から見て、<b>斜辺（直角の向かい）・対辺（\(A\) の向かい）・隣辺（\(A\) を挟む直角でない方）</b>を確認する。\(\sin=\frac{\text{対辺}}{\text{斜辺}},\ \cos=\frac{\text{隣辺}}{\text{斜辺}},\ \tan=\frac{\text{対辺}}{\text{隣辺}}\)。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>足りない辺は三平方の定理で求める。</li>
+        <li>角 \(A\) を左下、直角を右下に置いた図を描き直すと、定義と一致して迷わない。</li>
+        <li>\(30^\circ,45^\circ,60^\circ\) は辺の比 \(1:\sqrt3:2\)、\(1:1:\sqrt2\) から値を出す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>三角比の定義、三平方の定理</dd>
+      <dt>なぜこの方法？</dt><dd>三角比は「角が同じなら、三角形の大きさによらず辺の比が同じ」（相似）ことを利用した比の名前。図の向きを定義と同じにそろえれば、どの比かを取り違えない。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\angle C=90^\circ,\ BC=5,\ AC=12\) の直角三角形 ABC について、\(\sin A,\ \cos A,\ \tan A\) および \(\sin B\) を求めよ。</div>
+      <p>\(AB=\sqrt{5^2+12^2}=13\)。\(A\) から見て対辺は \(BC=5\)、隣辺は \(AC=12\)。</p>
+      <p class="answer">\(\sin A=\dfrac5{13},\ \cos A=\dfrac{12}{13},\ \tan A=\dfrac5{12},\ \sin B=\dfrac{12}{13}\)</p>
+      <p class="point">\(\sin B=\cos A\) になっている。\(B=90^\circ-A\) だから \(\sin(90^\circ-A)=\cos A\)（P2）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="tri1-p2" data-level="1">
+    <h3><span class="pid">P2</span>鈍角の三角比・角の変換</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\sin135^\circ,\ \cos150^\circ,\ \tan120^\circ\) の値」「\(\sin20^\circ+\cos110^\circ\) の値を求めよ」</dd>
+      <dt>こう考える</dt><dd>鈍角は<b>単位円上の点の座標</b>で読む。式の値の問題は、\(180^\circ-\theta\)、\(90^\circ-\theta\) の公式で<b>すべて同じ鋭角の三角比</b>にそろえる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>鈍角 \(\theta\) は \(180^\circ-\theta\) を使い鋭角に直す：\(\sin\) はそのまま、\(\cos,\tan\) は符号が逆。</li>
+        <li>\(70^\circ\) と \(20^\circ\) のように<b>和が \(90^\circ\)</b> の組は \(\sin\leftrightarrow\cos\) を入れかえる。</li>
+        <li>同じ角の三角比にそろったら、\(\sin^2+\cos^2=1\) などでまとめる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\sin(180^\circ-\theta)=\sin\theta,\ \cos(180^\circ-\theta)=-\cos\theta\)、\(\sin(90^\circ-\theta)=\cos\theta\)</dd>
+      <dt>なぜこの方法？</dt><dd>公式は丸暗記しなくても、単位円で \(y\) 軸について折り返すと \(x\) 座標（\(\cos\)）だけ符号が変わる、と図で再現できる。角をそろえるのは、異なる角の三角比どうしは一般に計算できないから。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\sin135^\circ,\ \cos150^\circ,\ \tan120^\circ\) の値を求めよ。<br>(2) \(\sin20^\circ+\cos110^\circ\)　(3) \(\sin^220^\circ+\sin^270^\circ\)　(4) \(\cos160^\circ+\cos20^\circ\) の値を求めよ。</div>
+      <p>(1) \(\sin135^\circ=\sin45^\circ=\dfrac{\sqrt2}2\)、\(\cos150^\circ=-\cos30^\circ=-\dfrac{\sqrt3}2\)、\(\tan120^\circ=-\tan60^\circ=-\sqrt3\)。</p>
+      <p>(2) \(\cos110^\circ=-\cos70^\circ=-\sin20^\circ\)。よって \(0\)。</p>
+      <p>(3) \(\sin70^\circ=\cos20^\circ\) なので \(\sin^220^\circ+\cos^220^\circ=1\)。</p>
+      <p>(4) \(\cos160^\circ=-\cos20^\circ\)。よって \(0\)。</p>
+      <p class="answer">(1) \(\dfrac{\sqrt2}2,\ -\dfrac{\sqrt3}2,\ -\sqrt3\)　(2) 0　(3) 1　(4) 0</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="tri1-p3" data-level="1">
+    <h3><span class="pid">P3</span>相互関係で残りの三角比を求める</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(0^\circ\le\theta\le180^\circ\)、\(\sin\theta=\frac13\) のとき \(\cos\theta,\ \tan\theta\) の値」「\(\tan\theta=-2\) のとき」</dd>
+      <dt>こう考える</dt><dd>1つ分かれば相互関係で残りが出る。ただし <b>\(\sin\theta\gt0\) からは鋭角か鈍角か決まらない</b>ので、\(\cos\theta\) は \(\pm\) の2通り。\(\tan\theta\) や \(\cos\theta\) が与えられれば符号から角の範囲が決まる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>与えられた値の符号から、\(\theta\) が鋭角・鈍角・どちらもありうる、のどれかを判断する。</li>
+        <li>\(\sin\) から \(\cos\)：\(\cos^2\theta=1-\sin^2\theta\)。\(\tan\) から \(\cos\)：\(\cos^2\theta=\dfrac{1}{1+\tan^2\theta}\)。</li>
+        <li>符号を決めて答える（2通りなら両方）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\sin^2\theta+\cos^2\theta=1\)、\(1+\tan^2\theta=\dfrac1{\cos^2\theta}\)</dd>
+      <dt>なぜこの方法？</dt><dd>単位円で \(y=\frac13\) となる点は第1象限と第2象限に1つずつある。図を描けば「2通り」が自然に見える。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(0^\circ\le\theta\le180^\circ\) とする。(1) \(\sin\theta=\frac13\) のとき \(\cos\theta,\ \tan\theta\) を求めよ。(2) \(\tan\theta=-2\) のとき \(\sin\theta,\ \cos\theta\) を求めよ。</div>
+      <p>(1) \(\cos^2\theta=1-\frac19=\frac89\)、\(\cos\theta=\pm\frac{2\sqrt2}{3}\)。</p>
+      <p class="answer">(1) \(\theta\) が鋭角のとき \(\cos\theta=\dfrac{2\sqrt2}3,\ \tan\theta=\dfrac{1}{2\sqrt2}=\dfrac{\sqrt2}4\)；鈍角のとき \(\cos\theta=-\dfrac{2\sqrt2}3,\ \tan\theta=-\dfrac{\sqrt2}4\)</p>
+      <p>(2) \(\tan\theta\lt0\) なので \(\theta\) は鈍角、\(\cos\theta\lt0\)。\(\cos^2\theta=\frac{1}{1+4}=\frac15\)、\(\cos\theta=-\frac1{\sqrt5}\)。\(\sin\theta=\tan\theta\cos\theta=\frac{2}{\sqrt5}\)。</p>
+      <p class="answer">(2) \(\sin\theta=\dfrac{2\sqrt5}5,\ \cos\theta=-\dfrac{\sqrt5}5\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="tri1-p4" data-level="2">
+    <h3><span class="pid">P4</span>三角比を含む方程式・不等式</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(0^\circ\le\theta\le180^\circ\) のとき \(\cos\theta\lt-\frac1{\sqrt2}\) を解け」「\(2\cos^2\theta+3\sin\theta-3=0\) を解け」</dd>
+      <dt>こう考える</dt><dd>\(\sin\theta=k\) は単位円と<b>水平線 \(y=k\)</b>、\(\cos\theta=k\) は<b>垂直線 \(x=k\)</b>、\(\tan\theta=k\) は<b>傾き \(k\) の直線</b>との交点。種類が混ざっていたら、\(\sin^2+\cos^2=1\) で<b>1種類にそろえて置き換え</b>る。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>2種類以上の三角比があれば、\(\cos^2\theta=1-\sin^2\theta\) などで1種類にする。</li>
+        <li>\(t=\sin\theta\) とおき、<b>\(t\) の範囲</b>（\(0\le\theta\le180^\circ\) なら \(0\le\sin\theta\le1\)、\(-1\le\cos\theta\le1\)）を書く。</li>
+        <li>\(t\) の方程式・不等式を解き、範囲内のものだけ残す。</li>
+        <li>単位円で \(\theta\) に戻す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>単位円による定義、相互関係、2次方程式</dd>
+      <dt>なぜこの方法？</dt><dd>三角比のままでは「解く」操作ができないので、1文字の代数の問題にする。\(t\) の範囲を書くのは <a href="m1-quadratic.html">2次関数</a> の置き換え（quad-p8）と同じ理由。<a href="../thinking.html#t-subst">発想：置き換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(0^\circ\le\theta\le180^\circ\) のとき、次を解け。<br>(1) \(\cos\theta\lt-\dfrac1{\sqrt2}\)　(2) \(\tan\theta\ge-\sqrt3\)　(3) \(2\cos^2\theta+3\sin\theta-3=0\)</div>
+      <p>(1) 垂直線 \(x=-\frac1{\sqrt2}\) より左側の単位円の部分。\(\cos135^\circ=-\frac1{\sqrt2}\)。<span class="answer">\(135^\circ\lt\theta\le180^\circ\)</span></p>
+      <p>(2) \(\tan120^\circ=-\sqrt3\)。\(0^\circ\le\theta\lt90^\circ\) では \(\tan\theta\ge0\) で成立。\(90^\circ\lt\theta\le180^\circ\) では \(\tan\theta\) は \(-\infty\) から 0 へ増加するので \(120^\circ\le\theta\le180^\circ\)。\(\theta=90^\circ\) では \(\tan\) が定義されない。</p>
+      <p class="answer">(2) \(0^\circ\le\theta\lt90^\circ,\ 120^\circ\le\theta\le180^\circ\)</p>
+      <p>(3) \(2(1-\sin^2\theta)+3\sin\theta-3=0\)、\(2\sin^2\theta-3\sin\theta+1=0\)。\(t=\sin\theta\ (0\le t\le1)\) とおくと \((2t-1)(t-1)=0\)、\(t=\frac12,\ 1\)（どちらも範囲内）。</p>
+      <p class="answer">(3) \(\theta=30^\circ,\ 90^\circ,\ 150^\circ\)</p>
+      <p class="point">\(\sin\theta=\frac12\) は \(30^\circ\) と \(150^\circ\) の2つ。鈍角側を忘れるのが最頻出のミス。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="tri1-p5" data-level="2">
+    <h3><span class="pid">P5</span>\(\sin\theta+\cos\theta\) の値から他の値を求める</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\sin\theta+\cos\theta=\frac12\ (0^\circ\lt\theta\lt180^\circ)\) のとき、\(\sin\theta\cos\theta,\ \sin\theta-\cos\theta,\ \sin^3\theta+\cos^3\theta\) の値」</dd>
+      <dt>こう考える</dt><dd>\(\sin\theta,\ \cos\theta\) の<b>対称式</b>なので、和 \(\sin\theta+\cos\theta\) と積 \(\sin\theta\cos\theta\) で表せる（<a href="m1-numbers.html">数と式</a> の対称式と同じ）。積は和を2乗すれば \(\sin^2+\cos^2=1\) で出る。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\((\sin\theta+\cos\theta)^2=1+2\sin\theta\cos\theta\) から積を求める。</li>
+        <li>\(\sin\theta-\cos\theta\) は2乗して \(1-2\sin\theta\cos\theta\)。<b>符号は \(\theta\) の範囲から決める</b>。</li>
+        <li>3乗の和などは \(x^3+y^3=(x+y)^3-3xy(x+y)\) で。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\sin^2\theta+\cos^2\theta=1\)、対称式の変形</dd>
+      <dt>なぜこの方法？</dt><dd>\(\sin\theta\) と \(\cos\theta\) を個別に求めると2次方程式を解く必要があり計算が重い。対称式なら和と積だけで済む。<a href="../thinking.html#t-symmetry">発想：対称性を使う</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(0^\circ\lt\theta\lt180^\circ\)、\(\sin\theta+\cos\theta=\frac12\) のとき、次の値を求めよ。<br>(1) \(\sin\theta\cos\theta\)　(2) \(\sin\theta-\cos\theta\)　(3) \(\sin^3\theta+\cos^3\theta\)　(4) \(\tan\theta+\dfrac1{\tan\theta}\)</div>
+      <p>(1) 2乗して \(1+2\sin\theta\cos\theta=\frac14\)、\(\sin\theta\cos\theta=-\frac38\)。</p>
+      <p>(2) \((\sin\theta-\cos\theta)^2=1+\frac34=\frac74\)。\(0^\circ\lt\theta\lt180^\circ\) で \(\sin\theta\gt0\)、(1) より \(\cos\theta\lt0\)。よって \(\sin\theta-\cos\theta\gt0\)、値は \(\frac{\sqrt7}2\)。</p>
+      <p>(3) \(\left(\frac12\right)^3-3\cdot\left(-\frac38\right)\cdot\frac12=\frac18+\frac9{16}=\frac{11}{16}\)。</p>
+      <p>(4) \(\dfrac{\sin\theta}{\cos\theta}+\dfrac{\cos\theta}{\sin\theta}=\dfrac{\sin^2\theta+\cos^2\theta}{\sin\theta\cos\theta}=\dfrac{1}{-3/8}=-\dfrac83\)。</p>
+      <p class="answer">(1) \(-\dfrac38\)　(2) \(\dfrac{\sqrt7}2\)　(3) \(\dfrac{11}{16}\)　(4) \(-\dfrac83\)</p>
+      <p class="point">(2) の符号決定が採点ポイント。「積が負 → \(\sin\) と \(\cos\) は異符号 → \(\sin\gt0\) なので \(\cos\lt0\)」と根拠を書く。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="tri1-p6" data-level="1">
+    <h3><span class="pid">P6</span>正弦定理（1辺と2角・外接円の半径）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(a=4,\ A=45^\circ,\ B=60^\circ\) のとき \(b\) と外接円の半径 \(R\) を求めよ」</dd>
+      <dt>こう考える</dt><dd>辺 \(a\) と角 \(A\) という<b>向かい合うペア</b>が1組そろっている → 正弦定理。外接円の半径 \(R\) が登場したら必ず正弦定理。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>そろっているペアで \(\dfrac{a}{\sin A}=2R\) を計算する。</li>
+        <li>求めたい辺 \(b\) は \(b=2R\sin B\)（または \(\frac{b}{\sin B}=\frac{a}{\sin A}\) から）。</li>
+        <li>3つ目の角は \(C=180^\circ-A-B\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>正弦定理 \(\dfrac{a}{\sin A}=\dfrac{b}{\sin B}=\dfrac{c}{\sin C}=2R\)</dd>
+      <dt>なぜこの方法？</dt><dd>正弦定理は「辺と向かいの角の \(\sin\) の比が一定（\(2R\)）」という主張。だから1ペアで比の値が決まり、他のペアに使い回せる。<b>\(a:b:c=\sin A:\sin B:\sin C\)</b> の形でもよく使う。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\triangle ABC\) で \(a=4,\ A=45^\circ,\ B=60^\circ\) のとき、\(b\) と外接円の半径 \(R\) を求めよ。</div>
+      <p>\(2R=\dfrac{4}{\sin45^\circ}=\dfrac{4}{1/\sqrt2}=4\sqrt2\)、\(R=2\sqrt2\)。</p>
+      <p>\(b=2R\sin60^\circ=4\sqrt2\cdot\dfrac{\sqrt3}2=2\sqrt6\)。</p>
+      <p class="answer">\(b=2\sqrt6,\ R=2\sqrt2\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="tri1-p7" data-level="1">
+    <h3><span class="pid">P7</span>余弦定理（2辺夾角・3辺）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(b=3,\ c=5,\ A=120^\circ\) のとき \(a\) を求めよ」「3辺が \(5,7,8\) の三角形の最も……な角を求めよ」</dd>
+      <dt>こう考える</dt><dd>向かい合うペアがない → 余弦定理。<b>辺を求めるときは \(a^2=\cdots\)、角を求めるときは \(\cos A=\cdots\)</b> の形を使う。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>求めたい辺（角）を \(a\)（\(A\)）の位置にして公式を書く。</li>
+        <li>\(\cos120^\circ=-\frac12\) などの符号に注意して代入する（\(-2bc\cos A\) のマイナスと打ち消し合う）。</li>
+        <li>角は \(\cos\) の値から単位円で決める（\(0^\circ\lt A\lt180^\circ\) で一意）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(a^2=b^2+c^2-2bc\cos A\)、\(\cos A=\dfrac{b^2+c^2-a^2}{2bc}\)</dd>
+      <dt>なぜこの方法？</dt><dd>2辺とその間の角が決まれば三角形は1つに決まる（合同条件）。だから残りの辺を1つの式で出せるはず、というのが余弦定理。3辺から角を出すときも、\(\cos\) は \(0^\circ\)〜\(180^\circ\) で1対1なので角が一意に決まる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\triangle ABC\) で \(b=3,\ c=5,\ A=120^\circ\) のとき \(a\) を求めよ。<br>(2) \(a=5,\ b=7,\ c=8\) の \(\triangle ABC\) で \(B\) を求めよ。</div>
+      <p>(1) \(a^2=9+25-2\cdot3\cdot5\cdot\left(-\frac12\right)=49\)。<span class="answer">\(a=7\)</span></p>
+      <p>(2) \(\cos B=\dfrac{a^2+c^2-b^2}{2ac}=\dfrac{25+64-49}{80}=\dfrac12\)。<span class="answer">\(B=60^\circ\)</span></p>
+      <p class="point">(2) で「\(b\) は中くらいの辺だから \(B\) は中くらいの角」というチェックもできる。辺の大小と向かいの角の大小は一致する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="tri1-p8" data-level="2">
+    <h3><span class="pid">P8</span>三角形を解く：定理の使い分け</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(b=\sqrt6,\ c=\sqrt3+1,\ A=45^\circ\) のとき、残りの辺と角を求めよ」</dd>
+      <dt>こう考える</dt><dd>2辺夾角 → まず余弦定理で \(a\)。次に角 \(B\) を求めるとき、正弦定理だと \(\sin B=\frac{\sqrt3}{2}\) から \(60^\circ\) と \(120^\circ\) の<b>2候補</b>が出て判定が必要になる。<b>余弦定理で \(\cos B\) を出せば一発で決まる</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>余弦定理で未知の辺を求める。</li>
+        <li>角は余弦定理で \(\cos\) を求める（3辺がそろっているので常に可能）。</li>
+        <li>最後の角は \(180^\circ\) から引く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>余弦定理、正弦定理、内角の和</dd>
+      <dt>なぜこの方法？</dt><dd>\(\sin\) は鋭角と鈍角で同じ値をとるので、\(\sin\) から角を決めると情報が足りない。\(\cos\) は符号で鋭角・鈍角を区別できる。正弦定理を使う場合は「大きい辺の向かいの角が大きい」などで候補を絞る論証が要る。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\triangle ABC\) で \(b=\sqrt6,\ c=\sqrt3+1,\ A=45^\circ\) のとき、\(a,\ B,\ C\) を求めよ。</div>
+      <p>余弦定理：\(a^2=6+(4+2\sqrt3)-2\sqrt6(\sqrt3+1)\cdot\frac{\sqrt2}2=10+2\sqrt3-2\sqrt3(\sqrt3+1)=4\)。\(a=2\)。</p>
+      <p>\(\cos B=\dfrac{a^2+c^2-b^2}{2ac}=\dfrac{4+(4+2\sqrt3)-6}{4(\sqrt3+1)}=\dfrac{2(1+\sqrt3)}{4(\sqrt3+1)}=\dfrac12\)。\(B=60^\circ\)。</p>
+      <p>\(C=180^\circ-45^\circ-60^\circ=75^\circ\)。</p>
+      <p class="answer">\(a=2,\ B=60^\circ,\ C=75^\circ\)</p>
+      <p class="point">正弦定理なら \(\sin B=\frac{b\sin A}{a}=\frac{\sqrt3}2\) で \(B=60^\circ,120^\circ\)。\(B=120^\circ\) だと \(C=15^\circ\lt B\) なのに \(c\gt b\) となり矛盾、と除外する必要がある。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="tri1-p9" data-level="2">
+    <h3><span class="pid">P9</span>三角形の決定：解が2つある場合（あいまいな場合）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(b=2,\ c=\sqrt6,\ B=45^\circ\) のとき \(a\) と \(C\) を求めよ」（2辺と、その間でない角）</dd>
+      <dt>こう考える</dt><dd>2辺とその間でない角では、三角形が<b>2つできることがある</b>。求めたい辺 \(a\) を未知数にして余弦定理を書くと <b>\(a\) の2次方程式</b>になり、正の解の個数＝三角形の個数。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>既知の角 \(B\) について余弦定理：\(b^2=a^2+c^2-2ac\cos B\)。これは \(a\) の2次方程式。</li>
+        <li>正の解をすべて求める（2つあれば三角形は2つ）。</li>
+        <li>それぞれの \(a\) に対して、余弦定理で角を決める。</li>
+      </ol>
+      <p>（参考：\(A\) が鋭角で \(a,b\) が与えられたとき、三角形の個数は \(a\lt b\sin A\) で0個、\(a=b\sin A\) で1個、\(b\sin A\lt a\lt b\) で2個、\(a\ge b\) で1個。）</p></dd>
+      <dt>使う定理・公式</dt><dd>余弦定理、2次方程式</dd>
+      <dt>なぜこの方法？</dt><dd>コンパスで「\(A\) から距離 \(b\) の点」を描くと、角 \(B\) の辺と2点で交わることがある。この「2点」が2次方程式の2解に対応する。正弦定理で角から攻めると、どの角とどの辺が対応するかの整理が面倒になる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\triangle ABC\) で \(b=2,\ c=\sqrt6,\ B=45^\circ\) のとき、\(a\) と \(C\) を求めよ。</div>
+      <p>余弦定理：\(4=a^2+6-2\sqrt6\,a\cdot\frac{\sqrt2}2\)、すなわち \(a^2-2\sqrt3\,a+2=0\)。</p>
+      <p>\(a=\sqrt3\pm\sqrt{3-2}=\sqrt3\pm1\)（どちらも正）。</p>
+      <ul>
+        <li>\(a=\sqrt3+1\)：\(\cos C=\dfrac{a^2+b^2-c^2}{2ab}=\dfrac{(4+2\sqrt3)+4-6}{4(\sqrt3+1)}=\dfrac12\)、\(C=60^\circ\)</li>
+        <li>\(a=\sqrt3-1\)：\(\cos C=\dfrac{(4-2\sqrt3)+4-6}{4(\sqrt3-1)}=\dfrac{2(1-\sqrt3)}{4(\sqrt3-1)}=-\dfrac12\)、\(C=120^\circ\)</li>
+      </ul>
+      <p class="answer">\(a=\sqrt3+1,\ C=60^\circ\) または \(a=\sqrt3-1,\ C=120^\circ\)</p>
+      <p class="point">\(a\) と \(C\) の組を正しく対応させて答える。「\(a=\sqrt3\pm1,\ C=60^\circ,120^\circ\)」とばらばらに書くと、どれとどれが組か分からず減点。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="tri1-p10" data-level="2">
+    <h3><span class="pid">P10</span>三角形の成立条件と鋭角・鈍角の判定</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「3辺の長さが \(x,\ x+1,\ x+2\) の三角形が鈍角三角形となる \(x\) の範囲」</dd>
+      <dt>こう考える</dt><dd>2段階：①<b>三角形ができる</b>（最大辺 \(\lt\) 他の2辺の和）、②<b>最大辺の向かいの角</b>が鈍角（鋭角三角形なら最大角が鋭角）。最大の角は最大の辺の向かいにある。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>最大辺を確定する（文字式なら大小を確認）。</li>
+        <li>成立条件：最大辺 \(\lt\) 残り2辺の和（これだけでよい）。</li>
+        <li>鈍角：(最大辺)\(^2\gt\)(他の辺)\(^2\)の和。鋭角三角形：(最大辺)\(^2\lt\)(他の辺)\(^2\)の和。</li>
+        <li>①②の共通部分をとる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>三角形の成立条件 \(\abs{b-c}\lt a\lt b+c\)、余弦定理の符号</dd>
+      <dt>なぜこの方法？</dt><dd>\(\cos A=\frac{b^2+c^2-a^2}{2bc}\) の分母は正なので、角の種類は分子の符号だけで決まる。三角形は「最大角が鋭角か」で全体が鋭角三角形かが決まる（他の角は自動的に鋭角）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">3辺の長さが \(x,\ x+1,\ x+2\) である三角形が鈍角三角形となるような \(x\) の値の範囲を求めよ。</div>
+      <p>\(x\gt0\) で、最大辺は \(x+2\)。</p>
+      <p>成立条件：\(x+2\lt x+(x+1)\) より \(x\gt1\)。</p>
+      <p>鈍角条件：\((x+2)^2\gt x^2+(x+1)^2\)、\(x^2-2x-3\lt0\)、\((x-3)(x+1)\lt0\)、\(-1\lt x\lt3\)。</p>
+      <p class="answer">\(1\lt x\lt3\)</p>
+      <p class="point">\(x=3\) のとき 3, 4, 5 の直角三角形になる。境界の値を代入して「直角」になることを確かめると安心。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="tri1-p11" data-level="1">
+    <h3><span class="pid">P11</span>三角形の面積</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\triangle ABC\) の面積を求めよ」（2辺と間の角、または3辺が分かっている）</dd>
+      <dt>こう考える</dt><dd>面積の基本は <b>\(S=\frac12\times(\text{2辺})\times\sin(\text{間の角})\)</b>。3辺しか分からなければ、余弦定理で \(\cos\) → 相互関係で \(\sin\) → 面積、の3ステップ。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>2辺夾角が分かれば \(S=\frac12bc\sin A\) に代入。</li>
+        <li>3辺なら、計算が楽な角を選んで \(\cos\) を出し、\(\sin=\sqrt{1-\cos^2}\)（三角形の角なので \(\sin\gt0\)）。</li>
+        <li>ヘロンの公式で検算するとよい。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(S=\frac12bc\sin A\)、余弦定理、ヘロンの公式</dd>
+      <dt>なぜこの方法？</dt><dd>\(c\sin A\) は \(AB\) を斜辺とする直角三角形の高さ。「底辺×高さ÷2」の高さを三角比で書いただけ。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(a=5,\ b=7,\ c=8\) の \(\triangle ABC\) の面積 \(S\) を求めよ。</div>
+      <p>P7 より \(\cos B=\frac12\)、\(\sin B=\frac{\sqrt3}2\)。</p>
+      <p>\(S=\frac12ac\sin B=\frac12\cdot5\cdot8\cdot\frac{\sqrt3}2=10\sqrt3\)。</p>
+      <p class="answer">\(S=10\sqrt3\)</p>
+      <p class="point">ヘロンの公式で検算：\(s=10\)、\(\sqrt{10\cdot5\cdot3\cdot2}=\sqrt{300}=10\sqrt3\)。一致。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="tri1-p12" data-level="2">
+    <h3><span class="pid">P12</span>内接円・外接円の半径</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\triangle ABC\) の内接円の半径 \(r\)、外接円の半径 \(R\) を求めよ」</dd>
+      <dt>こう考える</dt><dd>内接円は <b>\(S=rs\)</b>（面積経由）、外接円は <b>\(2R=\frac{a}{\sin A}\)</b>（正弦定理）。どちらも先に面積や角の \(\sin\) を求めておく。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>面積 \(S\) を求める（P11、ヘロンでもよい）。</li>
+        <li>\(r=\dfrac{S}{s}\)（\(s\) は周の半分）。</li>
+        <li>\(R=\dfrac{a}{2\sin A}\)（\(\sin\) が分かっている角とその対辺で）。\(R=\dfrac{abc}{4S}\) も使える。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(S=rs\)、正弦定理、ヘロンの公式</dd>
+      <dt>なぜこの方法？</dt><dd>内心から各辺までの距離はすべて \(r\)。三角形を内心で3つに分けると、高さ \(r\) の三角形3つになるので \(S=\frac12r(a+b+c)\)。「<b>面積を2通りに表す</b>」の代表例。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(a=5,\ b=7,\ c=8\) の \(\triangle ABC\) の内接円の半径 \(r\) と外接円の半径 \(R\) を求めよ。</div>
+      <p>P11 より \(S=10\sqrt3\)、\(s=10\)。\(r=\dfrac{10\sqrt3}{10}=\sqrt3\)。</p>
+      <p>\(\sin B=\frac{\sqrt3}2\)、\(b=7\) より \(2R=\dfrac{7}{\sqrt3/2}=\dfrac{14}{\sqrt3}\)、\(R=\dfrac7{\sqrt3}=\dfrac{7\sqrt3}3\)。</p>
+      <p class="answer">\(r=\sqrt3,\ R=\dfrac{7\sqrt3}3\)</p>
+      <p class="point">検算：\(R=\dfrac{abc}{4S}=\dfrac{280}{40\sqrt3}=\dfrac{7}{\sqrt3}\)。一致。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="tri1-p13" data-level="2">
+    <h3><span class="pid">P13</span>角の二等分線の長さ</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\angle A\) の二等分線と辺 BC の交点を D とする。AD の長さを求めよ」</dd>
+      <dt>こう考える</dt><dd>\(\triangle ABC=\triangle ABD+\triangle ADC\) と<b>面積を2通りに表す</b>。どちらの小三角形も「2辺と間の角 \(\frac A2\)」が分かっているので、AD を未知数にした1次方程式になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\frac12bc\sin A=\frac12c\cdot AD\sin\frac A2+\frac12b\cdot AD\sin\frac A2\) を立てる。</li>
+        <li>\(\sin\frac A2\) が分かる角（\(A=120^\circ,\ 60^\circ,\ 90^\circ\)）ならそのまま解く。</li>
+        <li>分からない角なら、別解：\(BD:DC=c:b\) で BD を出し、\(\triangle ABD\) で余弦定理（\(\cos B\) は \(\triangle ABC\) から）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(S=\frac12bc\sin A\)、角の二等分線の定理 \(BD:DC=AB:AC\)</dd>
+      <dt>なぜこの方法？</dt><dd>線分 AD を直接含む三角形の情報が足りないとき、<b>全体を分割した面積の和</b>なら必ず等式が立つ。面積は「求めたい長さを含む式」を作る万能の道具。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(AB=3,\ AC=6,\ \angle A=120^\circ\) の \(\triangle ABC\) で、\(\angle A\) の二等分線と辺 BC の交点を D とする。AD の長さを求めよ。</div>
+      <p>\(AD=x\) とおく。\(\angle BAD=\angle DAC=60^\circ\)。\(\triangle ABC=\triangle ABD+\triangle ADC\) より</p>
+      <p>\(\frac12\cdot3\cdot6\sin120^\circ=\frac12\cdot3x\sin60^\circ+\frac12\cdot6x\sin60^\circ\)</p>
+      <p>\(\sin120^\circ=\sin60^\circ\) なので両辺を \(\frac12\sin60^\circ\) で割って \(18=9x\)。</p>
+      <p class="answer">\(AD=2\)</p>
+      <p class="point">別解（確認）：\(BC^2=9+36+18=63\)、\(BC=3\sqrt7\)。\(BD=\frac13BC=\sqrt7\)。\(\cos B=\frac{9+63-36}{2\cdot3\cdot3\sqrt7}=\frac{2}{\sqrt7}\)。\(AD^2=9+7-2\cdot3\sqrt7\cdot\frac2{\sqrt7}=4\)。一致する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="tri1-p14" data-level="2">
+    <h3><span class="pid">P14</span>円に内接する四角形（対角の和 \(180^\circ\) と余弦定理2回）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「円に内接する四角形 ABCD で \(AB=1,BC=2,CD=3,DA=4\) のとき、\(\cos B\)、対角線 AC、面積を求めよ」</dd>
+      <dt>こう考える</dt><dd>対角線 AC で2つの三角形に分ける。AC は<b>両方の三角形の辺</b>なので、余弦定理で2通りに表せる。円に内接するから <b>\(D=180^\circ-B\)、\(\cos D=-\cos B\)</b> で未知数が1つに減る。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\triangle ABC\) と \(\triangle ACD\) で \(AC^2\) を余弦定理で表す。</li>
+        <li>\(\cos D=-\cos B\) を代入し、2式を等しいとおいて \(\cos B\) を求める。</li>
+        <li>\(AC^2\) を計算。\(\sin B=\sin D\) なので面積は \(\frac12(AB\cdot BC+CD\cdot DA)\sin B\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>円に内接する四角形の対角の和は \(180^\circ\)、余弦定理、\(\cos(180^\circ-\theta)=-\cos\theta\)、\(\sin(180^\circ-\theta)=\sin\theta\)</dd>
+      <dt>なぜこの方法？</dt><dd>4辺だけでは四角形は決まらない（ぐにゃぐにゃ動く）が、「円に内接」という条件で形が1つに決まる。その条件を式にしたのが \(\cos D=-\cos B\)。<b>同じ線分を2通りに表して方程式を作る</b>のが鍵。トレミーの定理（<a href="ma-geometry.html">図形の性質</a>）で検算できる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">円に内接する四角形 ABCD で \(AB=1,\ BC=2,\ CD=3,\ DA=4\) とする。\(\cos B\)、対角線 AC の長さ、四角形 ABCD の面積を求めよ。</div>
+      <p>\(\triangle ABC\)：\(AC^2=1+4-4\cos B=5-4\cos B\)。</p>
+      <p>\(\triangle ACD\)：\(AC^2=9+16-24\cos D=25+24\cos B\)（\(\cos D=-\cos B\)）。</p>
+      <p>\(5-4\cos B=25+24\cos B\) より \(\cos B=-\dfrac57\)。\(AC^2=5+\dfrac{20}7=\dfrac{55}7\)、\(AC=\sqrt{\dfrac{55}{7}}=\dfrac{\sqrt{385}}{7}\)。</p>
+      <p>\(\sin B=\sqrt{1-\frac{25}{49}}=\frac{2\sqrt6}7=\sin D\)。面積 \(=\frac12(1\cdot2+3\cdot4)\cdot\frac{2\sqrt6}7=2\sqrt6\)。</p>
+      <p class="answer">\(\cos B=-\dfrac57,\ AC=\dfrac{\sqrt{385}}7,\ \text{面積}\ 2\sqrt6\)</p>
+      <p class="point">\(\cos D=-\cos B\) の符号を落とすと全部崩れる。面積は「ブラーマグプタの公式」\(\sqrt{(s-a)(s-b)(s-c)(s-d)}=\sqrt{4\cdot3\cdot2\cdot1}=2\sqrt6\)（\(s=5\)）でも検算できる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="tri1-p15" data-level="2">
+    <h3><span class="pid">P15</span>測量（仰角・2地点からの観測）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「地点 A から塔の先端を見上げた角（仰角）は \(30^\circ\)、塔に向かって 10 m 進んだ地点 B からは \(45^\circ\) であった。塔の高さは」</dd>
+      <dt>こう考える</dt><dd>求めたい高さを <b>\(h\) とおき</b>、直角三角形ごとに水平距離を \(h\) で表す。「2地点の距離の差＝10」が方程式になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>塔の根元を H、先端を T とし、横から見た図を描く。</li>
+        <li>\(\triangle TAH,\ \triangle TBH\) で \(AH=\dfrac{h}{\tan30^\circ},\ BH=\dfrac{h}{\tan45^\circ}\)。</li>
+        <li>\(AH-BH=10\) を解く。</li>
+      </ol>
+      <p>（水平面上の2地点と角が与えられる問題では、まず水平面の三角形で正弦定理を使って距離を出し、次に鉛直面の直角三角形で \(\tan\) を使う。）</p></dd>
+      <dt>使う定理・公式</dt><dd>\(\tan\) の定義、正弦定理</dd>
+      <dt>なぜこの方法？</dt><dd>実際の測量では「角は測れるが、高さや遠くの距離は直接測れない」。測れる量（角と地上の距離）と測れない量（\(h\)）を三角比で結び、方程式で \(h\) を割り出す。立体を「水平面」と「鉛直面」の三角形に分けて考える練習にもなる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">水平な地面に垂直に立つ塔がある。地点 A から塔の先端の仰角は \(30^\circ\)、A から塔に向かってまっすぐ 10 m 進んだ地点 B からの仰角は \(45^\circ\) であった。塔の高さを求めよ（目の高さは無視する）。</div>
+      <p>塔の高さを \(h\) m、根元を H とする。\(BH=\dfrac{h}{\tan45^\circ}=h\)、\(AH=\dfrac{h}{\tan30^\circ}=\sqrt3h\)。</p>
+      <p>\(AH-BH=10\) より \((\sqrt3-1)h=10\)、\(h=\dfrac{10}{\sqrt3-1}=5(\sqrt3+1)\)。</p>
+      <p class="answer">\(5(\sqrt3+1)\) m（約 13.7 m）</p>
+      <p class="point">別解：\(\triangle TAB\) で \(\angle TAB=30^\circ,\ \angle ATB=45^\circ-30^\circ=15^\circ\)。正弦定理で TB を出し、\(h=TB\sin45^\circ\)。\(\sin15^\circ\) が必要になるので、この問題では上の方法の方が楽。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="tri1-p16" data-level="2">
+    <h3><span class="pid">P16</span>正四面体の高さ・体積・内接球</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「1辺の長さ6の正四面体の高さ、体積、内接球の半径を求めよ」</dd>
+      <dt>こう考える</dt><dd>頂点 A から底面 BCD に下ろした垂線の足 H は、<b>底面の正三角形の重心（＝外心）</b>。BH は外接円の半径なので、\(\triangle ABH\) で三平方の定理。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(AB=AC=AD\) と \(AH\) 共通から \(\triangle ABH\equiv\triangle ACH\equiv\triangle ADH\)、よって \(BH=CH=DH\) で H は外心。</li>
+        <li>\(BH=R=\dfrac{a}{2\sin60^\circ}=\dfrac{a}{\sqrt3}\)、高さ \(AH=\sqrt{a^2-\frac{a^2}3}=\sqrt{\frac23}\,a\)。</li>
+        <li>体積 \(V=\frac13\cdot\frac{\sqrt3}4a^2\cdot AH=\dfrac{\sqrt2}{12}a^3\)。</li>
+        <li>内接球の半径 \(r\)：中心と4面で4つの四面体に分けて \(V=\frac13r\cdot(\text{表面積})\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>三平方の定理、正弦定理、体積 \(=\frac13\times\text{底面積}\times\text{高さ}\)</dd>
+      <dt>なぜこの方法？</dt><dd>内接球の求め方は、三角形の \(S=rs\)（P12）を立体にしたもの。<b>体積を2通りに表す</b>だけで、中心の位置を探さずに半径が出る。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">1辺の長さが6の正四面体 ABCD について、高さ \(h\)、体積 \(V\)、内接球の半径 \(r\) を求めよ。</div>
+      <p>底面 BCD の外接円の半径は \(BH=\dfrac{6}{2\sin60^\circ}=2\sqrt3\)。\(h=\sqrt{36-12}=2\sqrt6\)。</p>
+      <p>底面積 \(\frac{\sqrt3}4\cdot36=9\sqrt3\)、\(V=\frac13\cdot9\sqrt3\cdot2\sqrt6=6\sqrt{18}=18\sqrt2\)。</p>
+      <p>表面積 \(4\cdot9\sqrt3=36\sqrt3\)。\(V=\frac13r\cdot36\sqrt3\) より \(r=\dfrac{18\sqrt2}{12\sqrt3}=\dfrac{\sqrt6}2\)。</p>
+      <p class="answer">\(h=2\sqrt6,\ V=18\sqrt2,\ r=\dfrac{\sqrt6}2\)</p>
+      <p class="point">\(r=\frac h4\) になっている（正四面体の内接球の中心は高さを \(3:1\) に分ける）。外接球の半径は \(\frac34h=\frac{3\sqrt6}2\)。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="tri1-p17" data-level="3">
+    <h3><span class="pid">P17</span>\(OA=OB=OC\) の四面体：垂線の足は外心</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「四面体 OABC で \(OA=OB=OC=7\)、\(AB=8,\ BC=5,\ CA=7\) のとき、体積を求めよ」</dd>
+      <dt>こう考える</dt><dd>O から平面 ABC に下ろした垂線の足を H とすると、\(\triangle OAH,\triangle OBH,\triangle OCH\) は<b>斜辺と1辺が等しい直角三角形</b>で合同 → \(HA=HB=HC\)、<b>H は \(\triangle ABC\) の外心</b>。\(HA=R\) は正弦定理で出る。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>H が外心であることを、合同を使って示す（答案に書く）。</li>
+        <li>\(\triangle ABC\) で余弦定理 → \(\sin\) → 正弦定理で \(R\)、面積も求める。</li>
+        <li>\(OH=\sqrt{OA^2-R^2}\)、体積 \(=\frac13\cdot\triangle ABC\cdot OH\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>直角三角形の合同、正弦定理、余弦定理、三平方の定理</dd>
+      <dt>なぜこの方法？</dt><dd>空間の高さは直接測れないが、「垂線の足がどこか」が分かれば、平面の三角形 \(OAH\) で三平方の定理が使える。\(OA=OB=OC\) という<b>対称性が垂線の足の位置を決める</b>。<a href="../thinking.html#t-symmetry">発想：対称性を使う</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">四面体 OABC で \(OA=OB=OC=7,\ AB=8,\ BC=5,\ CA=7\) である。四面体 OABC の体積 \(V\) を求めよ。</div>
+      <p>O から平面 ABC に下ろした垂線の足を H とする。\(\triangle OAH,\ \triangle OBH,\ \triangle OCH\) は \(\angle OHA=\angle OHB=\angle OHC=90^\circ\)、斜辺 \(OA=OB=OC\)、OH 共通の直角三角形なので合同。よって \(HA=HB=HC\) となり、H は \(\triangle ABC\) の外心で、\(HA\) は外接円の半径 \(R\) に等しい。</p>
+      <p>\(\triangle ABC\) で \(\cos B=\dfrac{8^2+5^2-7^2}{2\cdot8\cdot5}=\dfrac12\)、\(B=60^\circ\)。</p>
+      <p>\(2R=\dfrac{CA}{\sin B}=\dfrac{7}{\sqrt3/2}\)、\(R=\dfrac7{\sqrt3}\)。\(\triangle ABC=\frac12\cdot8\cdot5\cdot\frac{\sqrt3}2=10\sqrt3\)。</p>
+      <p>\(OH=\sqrt{49-\frac{49}3}=\sqrt{\frac{98}3}=\dfrac{7\sqrt6}3\)。</p>
+      <p>\(V=\frac13\cdot10\sqrt3\cdot\dfrac{7\sqrt6}{3}=\dfrac{70\sqrt{18}}{9}=\dfrac{70\sqrt2}{3}\)。</p>
+      <p class="answer">\(V=\dfrac{70\sqrt2}3\)</p>
+      <p class="point">採点ポイント：「H が外心である理由」を合同で説明すること。いきなり「H は外心なので」と書くと根拠不足で減点されうる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="tri1-p18" data-level="3">
+    <h3><span class="pid">P18</span>立体の切断面と、点から平面までの距離</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「直方体 ABCD-EFGH で、3点 B, D, E を通る平面で切った断面の面積」「頂点 A から平面 BDE までの距離を求めよ」</dd>
+      <dt>こう考える</dt><dd>断面 \(\triangle BDE\) の3辺は、<b>それぞれ直方体の面上の対角線</b>なので三平方で出る。3辺 → 余弦定理 → 面積。距離は、四面体 ABDE の体積を<b>「底面 ABD」と「底面 BDE」の2通り</b>で表して求める。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>断面の各辺を、それを含む面の直角三角形で求める。</li>
+        <li>断面の三角形で余弦定理 → \(\sin\) → 面積（二等辺なら高さを直接出してもよい）。</li>
+        <li>四面体の体積を、求めやすい底面で計算する（直角の頂点を使う）。</li>
+        <li>\(V=\frac13\times(\text{断面積})\times d\) から距離 \(d\) を求める。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>三平方の定理、余弦定理、面積公式、体積の2通り表示</dd>
+      <dt>なぜこの方法？</dt><dd>点から平面への垂線の足の位置は分かりにくいが、体積は別の底面から簡単に計算できる。<b>「位置が分からない高さ」を「体積 ÷ 底面積」で求める</b>のが空間図形の定石。<a href="mc-vector.html">ベクトル</a>でも同じ問題を解けるので比べてみよう。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(AB=AD=2,\ AE=1\) の直方体 ABCD-EFGH がある（E は A の真上の頂点）。<br>(1) \(\cos\angle BED\) を求めよ。(2) \(\triangle BDE\) の面積を求めよ。(3) 頂点 A から平面 BDE までの距離 \(d\) を求めよ。</div>
+      <p>(1) \(BD=\sqrt{4+4}=2\sqrt2\)、\(EB=\sqrt{4+1}=\sqrt5\)、\(ED=\sqrt{4+1}=\sqrt5\)。</p>
+      <p>\(\cos\angle BED=\dfrac{5+5-8}{2\cdot\sqrt5\cdot\sqrt5}=\dfrac15\)。<span class="answer">\(\dfrac15\)</span></p>
+      <p>(2) \(\sin\angle BED=\sqrt{1-\frac1{25}}=\frac{2\sqrt6}5\)。面積 \(=\frac12\cdot\sqrt5\cdot\sqrt5\cdot\frac{2\sqrt6}5=\sqrt6\)。<span class="answer">\(\sqrt6\)</span></p>
+      <p>(3) 四面体 ABDE の体積を、底面 \(\triangle ABD\)（直角二等辺、面積2）、高さ \(AE=1\) で計算すると \(V=\frac13\cdot2\cdot1=\frac23\)。</p>
+      <p>底面を \(\triangle BDE\) と見ると \(V=\frac13\cdot\sqrt6\cdot d\)。よって \(d=\dfrac{2}{\sqrt6}=\dfrac{\sqrt6}3\)。</p>
+      <p class="answer">(3) \(d=\dfrac{\sqrt6}3\)</p>
+      <p class="point">(2) は二等辺三角形なので、E から BD の中点への長さ \(\sqrt{5-2}=\sqrt3\) を高さとして \(\frac12\cdot2\sqrt2\cdot\sqrt3=\sqrt6\) とも計算できる。2通りで一致を確認しよう。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="tri1-p19" data-level="3">
+    <h3><span class="pid">P19</span>辺と角の関係式から三角形の形状を決定する</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(a\cos A=b\cos B\) を満たす \(\triangle ABC\) はどのような三角形か」「\(\sin A=2\cos B\sin C\) のとき」</dd>
+      <dt>こう考える</dt><dd>辺と角が混ざった式は扱えないので、<b>すべて辺だけ（または角だけ）の式に統一</b>する。数学Iでは辺に統一するのが基本：\(\sin A=\frac{a}{2R}\)、\(\cos A=\frac{b^2+c^2-a^2}{2bc}\)。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\sin\) は正弦定理、\(\cos\) は余弦定理で辺の式に置き換える。</li>
+        <li>分母を払い、整理して<b>因数分解</b>する。</li>
+        <li>「積＝0」から \(a=b\)（二等辺）や \(c^2=a^2+b^2\)（直角）を読み取る。「または」でつなぐ。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>正弦定理、余弦定理、因数分解</dd>
+      <dt>なぜこの方法？</dt><dd>形状（二等辺・直角）は辺の関係 \(a=b\)、\(c^2=a^2+b^2\) で表される。だからゴールの形に合わせて<b>辺の式に統一</b>する。整理した式は辺について対称・交代的になりやすく、<a href="m1-numbers.html">数と式</a>の因数分解（1文字について整理）が効く。<a href="../thinking.html#t-goal">発想：ゴールから逆算する</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\triangle ABC\) において \(a\cos A=b\cos B\) が成り立つとき、この三角形はどのような三角形か。</div>
+      <p>余弦定理を代入すると</p>
+      \[ \begin{aligned} &a\cdot\frac{b^2+c^2-a^2}{2bc}\\ &=b\cdot\frac{c^2+a^2-b^2}{2ca} \end{aligned} \]
+      <p>両辺に \(2abc\) をかけて \(a^2(b^2+c^2-a^2)=b^2(c^2+a^2-b^2)\)。展開して整理すると</p>
+      <p>\(a^2c^2-a^4-b^2c^2+b^4=0\)</p>
+      <p>\(c^2(a^2-b^2)-(a^2-b^2)(a^2+b^2)=0\)</p>
+      <p>\((a^2-b^2)(c^2-a^2-b^2)=0\)</p>
+      <p>よって \(a^2=b^2\) または \(c^2=a^2+b^2\)。\(a,b\gt0\) より \(a=b\) または \(C=90^\circ\)。</p>
+      <p class="answer">\(a=b\) の二等辺三角形、または \(C=90^\circ\) の直角三角形</p>
+      <p class="point">\(a^2-b^2\) で両辺を割って「\(c^2=a^2+b^2\)」だけを答えるのは誤り（\(a=b\) の場合が抜ける）。文字式で割るときは0でないか確認する（<a href="m1-numbers.html">数と式</a> P15）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="tri1-p20" data-level="3">
+    <h3><span class="pid">P20</span>1辺と対角が一定の三角形の面積・周の最大</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(BC=6,\ \angle A=120^\circ\) の三角形 ABC の面積の最大値」「\(AB+AC\) の取りうる値の範囲」</dd>
+      <dt>こう考える</dt><dd>余弦定理で \(b,c\) の関係式（\(36=b^2+c^2+bc\)）が1本得られる。面積は \(bc\) で、周は \(b+c\) で決まるので、<b>対称式 \(b+c,\ bc\) の関係</b>に直し、\(b^2+c^2\ge2bc\) や実数条件で範囲を押さえる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>余弦定理で \(a^2=b^2+c^2-2bc\cos A\) を書く。</li>
+        <li>面積の最大：\(b^2+c^2\ge2bc\)（等号 \(b=c\)）を使って \(bc\) の上限を出す。</li>
+        <li>\(b+c\) の範囲：\(b^2+c^2=(b+c)^2-2bc\) と書き換え、\(bc\le\frac{(b+c)^2}{4}\) で上限を、三角形の成立条件 \(b+c\gt a\) で下限を出す。</li>
+        <li>等号が成立する（または範囲の値がすべて実現する）ことを確認する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>余弦定理、\(b^2+c^2\ge2bc\)、\(bc\le\left(\frac{b+c}{2}\right)^2\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(b\) と \(c\) は自由に動けず、余弦定理の関係で縛られている。その縛りを「和と積」に直すと、相加相乗平均型の不等式がそのまま使える。図形的には「A は BC を見込む角が \(120^\circ\) の円弧上を動き、BC の垂直二等分線上（\(b=c\)）で最も高くなる」。<a href="../thinking.html#t-bound">発想：不等式で評価する</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(BC=6,\ \angle A=120^\circ\) の \(\triangle ABC\) について、(1) 面積 \(S\) の最大値を求めよ。(2) \(AB+AC\) の取りうる値の範囲を求めよ。</div>
+      <p>\(b=CA,\ c=AB\) とおく。余弦定理より \(36=b^2+c^2-2bc\cos120^\circ=b^2+c^2+bc\ \cdots①\)</p>
+      <p>(1) \(b^2+c^2\ge2bc\) より \(36\ge3bc\)、\(bc\le12\)。等号は \(b=c=2\sqrt3\) のとき成立（① を満たす）。</p>
+      <p>\(S=\frac12bc\sin120^\circ=\frac{\sqrt3}4bc\le3\sqrt3\)。<span class="answer">最大値 \(3\sqrt3\)（\(b=c=2\sqrt3\)）</span></p>
+      <p>(2) \(t=b+c\) とおくと ① は \(36=t^2-bc\)、つまり \(bc=t^2-36\)。</p>
+      <p>\(b,c\) は \(u^2-tu+(t^2-36)=0\) の2つの正の解であるから、判別式 \(t^2-4(t^2-36)\ge0\) より \(t^2\le48\)、また \(bc=t^2-36\gt0\)、\(t\gt0\) より \(t\gt6\)。</p>
+      <p>逆に \(6\lt t\le4\sqrt3\) なら、2解は実数で和も積も正なのでともに正。① を満たす正の \(b,c\) に対しては \(a=6\) との三角形が作れ（\(\cos A=-\frac12\) となるので \(A=120^\circ\)）、条件を満たす。</p>
+      <p class="answer">(2) \(6\lt AB+AC\le4\sqrt3\)</p>
+      <p class="point">\(t\gt6\) は三角形の成立条件 \(b+c\gt a\) と一致する。「\(t\) の範囲を出したら、その \(t\) を実現する \(b,c\) が本当にあるか」を確認するのが阪大答案のポイント（<a href="m1-quadratic.html">2次関数</a> の実数条件と同じ）。<a href="../thinking.html#t-inverse">発想：逆像法</a></p>
+    </div></details>
+  </article>
+</section>
+
+<section id="pitfalls">
+  <h2>よくあるミスと対策</h2>
+  <ul class="pitfalls">
+    <li><b>\(\sin\theta=k\) で鈍角の解を落とす</b>（P3, P4）。→ \(0^\circ\)〜\(180^\circ\) では単位円で水平線を引き、交点を2つとも拾う。</li>
+    <li><b>\(\sin B\) から角を決めて、ありえない方を残す</b>（P8, P9）。→ 角は余弦定理の \(\cos\) で決める。正弦定理なら辺の大小で候補を検討する。</li>
+    <li><b>余弦定理の符号ミス</b>（P7）。\(\cos120^\circ=-\frac12\) を代入すると \(-2bc\cos A=+bc\)。→ 代入前に \(\cos\) の値を別に書く。</li>
+    <li><b>あいまいな場合で、辺と角の組を対応させずに答える</b>（P9）。→ 「\(a=\cdots\) のとき \(C=\cdots\)」と組で書く。</li>
+    <li><b>円に内接する四角形で \(\cos D=-\cos B\) を忘れる</b>（P14）。→ 「対角の和 \(180^\circ\)」を図に書き込む。</li>
+    <li><b>空間図形で垂線の足の位置を根拠なく決める</b>（P16, P17）。→ 合同な直角三角形を指摘してから「外心」と書く。</li>
+    <li><b>形状決定で文字式で割って場合を落とす</b>（P19）。→ 割らずに因数分解して「積＝0」にする。</li>
+    <li><b>最大値で等号成立の確認を忘れる</b>（P20）。→ 等号が成り立つ \(b,c\) を具体的に書く。</li>
+  </ul>
+</section>
+
+<section id="handai">
+  <h2>阪大レベルへの橋渡し</h2>
+  <p>阪大理系では「図形と計量」は単独よりも、<b>空間図形（四面体・正四面体の切断）</b>、<b>円に内接する多角形</b>、<b>三角関数・微分と組み合わせた最大最小</b>として出る。共通する武器は次の3つ。</p>
+  <ul>
+    <li>図形を<b>三角形に切り出し</b>、定理の使い分け（P8）で着実に量を求める。</li>
+    <li><b>同じ量を2通りに表して等式を作る</b>（P12〜P14, P16〜P18：面積・対角線・体積）。</li>
+    <li>辺の関係式を<b>対称式・実数条件</b>で処理し、最大最小や範囲を論証する（P20、演3）。</li>
+  </ul>
+
+  <article class="pattern" id="tri1-h1" data-level="3">
+    <h3><span class="pid">演1</span>円に内接する四角形の対角線と交点の分ける比</h3>
+    <div class="problem">円に内接する四角形 ABCD において、\(AB=3,\ BC=5,\ CD=3,\ \angle ABC=120^\circ\) とする。<br>(1) 対角線 AC の長さと辺 DA の長さを求めよ。<br>(2) 四角形 ABCD の面積を求めよ。<br>(3) 対角線 BD の長さを求めよ。<br>(4) 対角線 AC と BD の交点を E とするとき、\(AE:EC\) を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>(1) \(\triangle ABC\) は2辺夾角 → 余弦定理で AC。円に内接するので \(\angle ADC=60^\circ\)、\(\triangle ACD\) で DA を未知数にした余弦定理（2次方程式）。(3) BD は \(\triangle ABD\) と \(\triangle CBD\) の<b>両方の辺</b>：\(\angle BAD+\angle BCD=180^\circ\) を使って余弦定理を2本立てる（P14）。(4) AE:EC は「BD を共通の底辺とする2つの三角形の高さの比」＝<b>面積比</b>。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) \(\triangle ABC\) で余弦定理：\(AC^2=9+25-2\cdot3\cdot5\cos120^\circ=49\)、\(AC=7\)。</p>
+      <p>円に内接するので \(\angle ADC=180^\circ-120^\circ=60^\circ\)。\(DA=x\ (x\gt0)\) とおき、\(\triangle ACD\) で余弦定理：</p>
+      <p>\(49=x^2+9-2\cdot3x\cos60^\circ=x^2-3x+9\)、\(x^2-3x-40=0\)、\((x-8)(x+5)=0\)。\(x\gt0\) より \(x=8\)。</p>
+      <p class="answer">(1) \(AC=7,\ DA=8\)</p>
+      <p>(2) \(\triangle ABC=\frac12\cdot3\cdot5\sin120^\circ=\frac{15\sqrt3}4\)、\(\triangle ACD=\frac12\cdot8\cdot3\sin60^\circ=6\sqrt3\)。</p>
+      <p class="answer">(2) \(\dfrac{15\sqrt3}{4}+6\sqrt3=\dfrac{39\sqrt3}{4}\)</p>
+      <p>(3) \(\angle BAD=\theta\) とおくと \(\angle BCD=180^\circ-\theta\)。</p>
+      <p>\(\triangle ABD\)：\(BD^2=9+64-48\cos\theta=73-48\cos\theta\)。</p>
+      <p>\(\triangle CBD\)：\(BD^2=25+9-30\cos(180^\circ-\theta)=34+30\cos\theta\)。</p>
+      <p>\(73-48\cos\theta=34+30\cos\theta\) より \(\cos\theta=\frac12\)。\(BD^2=73-24=49\)。</p>
+      <p class="answer">(3) \(BD=7\)</p>
+      <p>(4) A, C から直線 BD までの距離を \(h_A,\ h_C\) とすると、\(AE:EC=h_A:h_C=\triangle ABD:\triangle CBD\)。</p>
+      <p>\(\triangle ABD=\frac12\cdot3\cdot8\sin60^\circ=6\sqrt3\)、\(\triangle CBD=\frac12\cdot5\cdot3\sin120^\circ=\frac{15\sqrt3}4\)。</p>
+      <p class="answer">(4) \(AE:EC=6\sqrt3:\dfrac{15\sqrt3}4=8:5\)</p>
+      <p class="point">検算：トレミーの定理 \(AC\cdot BD=AB\cdot CD+BC\cdot DA\) は \(49=9+40\) で成立。\(\triangle ABD+\triangle CBD=\frac{39\sqrt3}4\) も (2) と一致。採点ポイント：(1) で \(\angle ADC=60^\circ\) の根拠（円に内接）、(3) で \(\cos(180^\circ-\theta)=-\cos\theta\) の使用、(4) で面積比＝高さの比の説明。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="tri1-h2" data-level="3">
+    <h3><span class="pid">演2</span>正四面体の切断と、頂点から断面までの距離</h3>
+    <div class="problem">1辺の長さが3の正四面体 ABCD において、辺 AB, AC, AD 上にそれぞれ点 P, Q, R を \(AP=1,\ AQ=2,\ AR=2\) となるようにとる。<br>(1) \(\triangle PQR\) の3辺の長さと面積を求めよ。<br>(2) 四面体 APQR の体積 \(V\) を求めよ。<br>(3) 頂点 A から平面 PQR までの距離 \(d\) を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>(1) PQ, PR, QR はそれぞれ正三角形の面（\(\angle PAQ=60^\circ\) など）の上にあるので、<b>余弦定理</b>で出る。(2) 四面体 ABCD を「底面 ABC、頂点 D」と見ると、APQR は底面積も高さも縮んだ立体。<b>底面積比×高さの比</b>で体積比が出る。(3) は体積を2通りに表す（P18）。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) \(\angle PAQ=\angle PAR=\angle QAR=60^\circ\) なので、余弦定理より</p>
+      <p>\(PQ^2=1+4-2\cdot1\cdot2\cdot\frac12=3\)、\(PR^2=3\)（同様）、\(QR^2=4+4-2\cdot2\cdot2\cdot\frac12=4\)。</p>
+      <p>\(PQ=PR=\sqrt3,\ QR=2\)。P から QR の中点 M までの長さは \(\sqrt{3-1}=\sqrt2\)（\(PM\perp QR\)）。面積 \(=\frac12\cdot2\cdot\sqrt2=\sqrt2\)。</p>
+      <p class="answer">(1) \(PQ=PR=\sqrt3,\ QR=2\)、面積 \(\sqrt2\)</p>
+      <p>(2) 正四面体 ABCD の体積は P16 より \(\frac{\sqrt2}{12}\cdot27=\frac{9\sqrt2}4\)。</p>
+      <p>\(\triangle APQ\) と \(\triangle ABC\) の面積比は \(\dfrac{\frac12\cdot AP\cdot AQ\sin60^\circ}{\frac12\cdot AB\cdot AC\sin60^\circ}=\dfrac{1\cdot2}{3\cdot3}=\dfrac29\)。</p>
+      <p>R, D から平面 ABC までの距離の比は \(AR:AD=2:3\)（A を通る直線上の点の、平面 ABC からの距離は A からの距離に比例する）。</p>
+      <p>よって \(V=\dfrac29\cdot\dfrac23\cdot\dfrac{9\sqrt2}4=\dfrac{\sqrt2}3\)。</p>
+      <p class="answer">(2) \(V=\dfrac{\sqrt2}{3}\)</p>
+      <p>(3) \(V=\frac13\cdot\triangle PQR\cdot d\) より \(\dfrac{\sqrt2}3=\dfrac13\cdot\sqrt2\cdot d\)。</p>
+      <p class="answer">(3) \(d=1\)</p>
+      <p class="point">一般に \(\dfrac{V(APQR)}{V(ABCD)}=\dfrac{AP}{AB}\cdot\dfrac{AQ}{AC}\cdot\dfrac{AR}{AD}\)。答案ではこの公式の根拠（底面積比と高さの比）を1〜2行で書くこと。座標を入れて検算すると、確かに \(d=1\) になる（<a href="mc-vector.html">ベクトル</a> で平面の方程式を学ぶと直接確認できる）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="tri1-h3" data-level="3">
+    <h3><span class="pid">演3</span>内接円の半径の取りうる範囲</h3>
+    <div class="problem">\(BC=3,\ \angle A=60^\circ\) の \(\triangle ABC\) について、\(b=CA,\ c=AB\)、\(t=b+c\) とおく。<br>(1) \(bc\) を \(t\) で表せ。<br>(2) \(t\) の取りうる値の範囲を求めよ。<br>(3) 内接円の半径 \(r\) を \(t\) で表し、\(r\) の取りうる値の範囲を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>\(r\) は \(S=rs\) から \(r=\dfrac{2S}{a+b+c}\)。\(S\) は \(bc\) で、周は \(t\) で決まるので、<b>余弦定理で \(bc\) を \(t\) で表せば、\(r\) は \(t\) の1変数関数</b>になる。\(t\) の範囲は「\(b,c\) が正の実数として存在する条件」（2次方程式の実数解条件）で決める。<a href="../thinking.html#t-inverse">発想：逆像法</a></p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) 余弦定理：\(9=b^2+c^2-2bc\cos60^\circ=b^2+c^2-bc=(b+c)^2-3bc\)。</p>
+      <p class="answer">(1) \(bc=\dfrac{t^2-9}{3}\)</p>
+      <p>(2) \(b,c\) は2次方程式 \(u^2-tu+\frac{t^2-9}3=0\) の2つの正の解である。</p>
+      <ul>
+        <li>実数解をもつ：判別式 \(t^2-\frac43(t^2-9)\ge0\) より \(t^2\le36\)。</li>
+        <li>2解がともに正：和 \(t\gt0\)、積 \(\frac{t^2-9}{3}\gt0\) より \(t\gt3\)。</li>
+      </ul>
+      <p>よって \(3\lt t\le6\)。逆にこのとき正の \(b,c\) が存在し、それらは \(9=b^2+c^2-bc\) を満たすので、\(BC=3\) とあわせて余弦定理から \(\cos A=\frac12\)、すなわち \(\angle A=60^\circ\) の三角形ができる。</p>
+      <p class="answer">(2) \(3\lt t\le6\)</p>
+      <p>(3) \(S=\frac12bc\sin60^\circ=\dfrac{\sqrt3}{4}\cdot\dfrac{t^2-9}{3}=\dfrac{\sqrt3(t-3)(t+3)}{12}\)。周の半分は \(s=\dfrac{3+t}2\)。</p>
+      <p>\(r=\dfrac{S}{s}=\dfrac{\sqrt3(t-3)(t+3)}{12}\cdot\dfrac{2}{t+3}=\dfrac{\sqrt3}{6}(t-3)\)。</p>
+      <p>\(3\lt t\le6\) で \(r\) は \(t\) の増加関数なので \(0\lt r\le\dfrac{\sqrt3}2\)（最大は \(t=6\)、すなわち \(b=c=3\) の正三角形）。</p>
+      <p class="answer">(3) \(r=\dfrac{\sqrt3}{6}(t-3)\)、\(0\lt r\le\dfrac{\sqrt3}{2}\)</p>
+      <p class="point">採点ポイント：(2) で「\(b,c\) が正の実数として存在する」ことを2次方程式の解の条件で示すこと（判別式だけでなく、正の解の条件も必要）。\(t\gt3\) だけ、\(t\le6\) だけでは片方の評価が欠ける。正三角形の内接円の半径 \(\frac{3}{2\sqrt3}=\frac{\sqrt3}{2}\) と一致することで検算できる。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="next">
+  <h2>次に学ぶとつながる単元</h2>
+  <ul>
+    <li><a href="m2-trig.html">三角関数</a>：単位円の定義（P2）を一般角に拡張し、加法定理で \(\sin15^\circ\) なども扱えるようになる。P4・P5 の置き換えがそのまま発展する。</li>
+    <li><a href="ma-geometry.html">図形の性質</a>：円に内接する四角形（P14）、角の二等分線の定理（P13）、方べきの定理、トレミーの定理。計量と性質を組み合わせると図形問題が速く解ける。</li>
+    <li><a href="mc-vector.html">ベクトル</a>：P17・P18・演2 の空間図形を、座標とベクトルで機械的に処理できるようになる（距離・体積・平面の方程式）。</li>
+    <li><a href="m2-coord.html">図形と方程式</a>：余弦定理の証明で使った「座標を入れる」発想（<a href="../thinking.html#t-coord">発想：座標を入れる</a>）。</li>
+    <li><a href="m3-diff.html">微分法とその応用</a>：P20・演3 の最大最小で、角を変数にした関数を微分して処理する問題へ。</li>
+  </ul>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>

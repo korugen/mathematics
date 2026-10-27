@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>データの分析（数学I）｜解法の地図</title>
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-unit="m1-data" data-root="../">
+<main>
+
+<header class="unit-head">
+  <span class="subj-badge">数学I</span>
+  <h1>データの分析</h1>
+  <p class="lead">データの「真ん中」と「散らばり」と「2つの量の関係」を数値で表す単元。計算自体は単純だが、<b>定義を正確に覚えているか</b>と、<b>「必ずそうなると言えるか」を論証できるか</b>が共通テストで差がつくポイント。阪大二次ではほぼ出題されないが、数学Bの統計の土台になる。</p>
+  <div class="goal">
+    <strong>このページの到達目標</strong>
+    <ul>
+      <li>【基礎】平均値・中央値・四分位数・分散・標準偏差を定義どおりに計算し、箱ひげ図・散布図を読める。</li>
+      <li>【標準】\(\overline{x^2}-(\bar x)^2\)、変量変換、共分散・相関係数、データの修正・追加による変化、仮説検定の判断を素早く処理できる。</li>
+      <li>【共テ高得点】箱ひげ図や要約値から「必ず正しいと言えるか」を、定義に基づく論証と反例で判定できる。</li>
+    </ul>
+  </div>
+  <p class="prereq">前提：<a href="m1-numbers.html">数と式</a>（文字式の計算・絶対値）／ 次に進む：<a href="mb-stats.html">統計的な推測</a>、<a href="ma-probability.html">確率</a></p>
+</header>
+
+<section id="core">
+  <h2>必ず押さえる基本事項</h2>
+
+  <div class="box theorem">
+    <p><span class="name">代表値</span>：データ \(x_1,x_2,\dots,x_n\) について</p>
+    <ul>
+      <li>平均値 \(\bar x=\dfrac{x_1+x_2+\cdots+x_n}{n}\)</li>
+      <li>中央値（メジアン）：小さい順に並べたときの真ん中の値（\(n\) が偶数なら真ん中2つの平均）</li>
+      <li>最頻値（モード）：最も個数の多い値（度数分布表では度数最大の階級の階級値）</li>
+    </ul>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">四分位数と箱ひげ図</span>：小さい順に並べ、中央値 \(Q_2\) で前半と後半に分ける（\(n\) が奇数なら中央値そのものはどちらにも入れない）。前半の中央値が第1四分位数 \(Q_1\)、後半の中央値が第3四分位数 \(Q_3\)。</p>
+    <ul>
+      <li>四分位範囲 \(=Q_3-Q_1\)（真ん中の約半数のデータが入る幅）</li>
+      <li>外れ値の目安：\(Q_1-1.5(Q_3-Q_1)\) 以下、または \(Q_3+1.5(Q_3-Q_1)\) 以上の値（基準は問題文の指示に従う）</li>
+      <li>箱ひげ図：最小値・\(Q_1\)・\(Q_2\)・\(Q_3\)・最大値の5つの値（5数要約）を図にしたもの</li>
+    </ul>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">分散・標準偏差</span>：偏差 \(x_k-\bar x\) の2乗の平均が分散 \(s^2\)、その正の平方根が標準偏差 \(s\)。</p>
+    \[ s^2=\frac1n\sum_{k=1}^{n}(x_k-\bar x)^2=\overline{x^2}-(\bar x)^2 \]
+    <p>なぜ2つ目の式が成り立つか：\((x_k-\bar x)^2=x_k^2-2\bar x\,x_k+(\bar x)^2\) を平均すると、\(\overline{x^2}-2\bar x\cdot\bar x+(\bar x)^2=\overline{x^2}-(\bar x)^2\)。「<b>2乗の平均 − 平均の2乗</b>」と覚える。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">変量変換</span>：\(y_k=ax_k+b\)（\(a,b\) は定数）とすると</p>
+    \[ \bar y=a\bar x+b \]
+    \[ s_y^2=a^2s_x^2,\qquad s_y=\abs a\,s_x \]
+    <p>なぜ：偏差は \(y_k-\bar y=a(x_k-\bar x)\) となり、\(b\) は消えて \(a\) 倍になる。分散は偏差の2乗の平均なので \(a^2\) 倍。<b>全体をずらしても（\(+b\)）散らばりは変わらない</b>。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">共分散・相関係数</span>：2つの変量 \(x,y\) のデータ \((x_k,y_k)\) について</p>
+    \[ \begin{aligned} s_{xy}&=\frac1n\sum_{k=1}^{n}(x_k-\bar x)(y_k-\bar y)\\ &=\overline{xy}-\bar x\,\bar y \end{aligned} \]
+    \[ r=\frac{s_{xy}}{s_x\,s_y} \]
+    <p>\(-1\le r\le1\)。\(r\) が1に近いほど強い正の相関（右上がりの直線に近い）、\(-1\) に近いほど強い負の相関、0に近いと直線的な相関は弱い。</p>
+    <p>なぜ符号で傾向が分かるか：右上がりの傾向なら、\(x\) が平均より大きい点は \(y\) も平均より大きいことが多く、偏差の積 \((x_k-\bar x)(y_k-\bar y)\) が正になりやすい。\(r\) は共分散を単位や散らばりの大きさで割って、\(-1\) から1の範囲に「規格化」したもの。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">仮説検定の考え方</span>：「主張」が正しいかを判断するため、その反対の「偶然にすぎない」という仮説を立てる。その仮説のもとで、<b>実際の結果以上に極端なことが起こる確率</b>を求め（シミュレーション等）、基準（ふつう 5%）より小さければ「偶然とは考えにくい」として主張は正しいと判断する。基準以上なら「<b>主張が正しいとは判断できない</b>」（誤りと判断するわけではない）。</p>
+  </div>
+
+  <div class="box idea">
+    <p><b>この単元を貫く考え方</b>：統計量はすべて<b>定義式</b>から出発する。公式を覚えるより、「偏差」「偏差の2乗の平均」「偏差の積の平均」という定義に戻れば、変量変換やデータの追加・修正にも対応できる。そして「必ず〜と言えるか」と問われたら、<b>定義から論証するか、条件をすべて満たす反例を1つ作る</b>（<a href="m1-logic.html">集合と命題</a> の命題の真偽と同じ）。</p>
+  </div>
+</section>
+
+<section id="quick">
+  <h2>早見表：こう来たら → こう解く</h2>
+  <div class="table-wrap"><table class="quick">
+    <tr><th>問題の特徴（こう来たら）</th><th>方針（こう解く）</th><th>使う道具</th><th>詳細</th></tr>
+    <tr data-level="1"><td>平均値・中央値・最頻値を求めよ</td><td>小さい順に並べてから数える</td><td>代表値の定義</td><td><a href="#data-p1">P1</a></td></tr>
+    <tr data-level="1"><td>四分位数・四分位範囲・箱ひげ図</td><td>中央値で前半・後半に分け、それぞれの中央値</td><td>四分位数の定義</td><td><a href="#data-p2">P2</a></td></tr>
+    <tr data-level="2"><td>外れ値はどれか／箱ひげ図とヒストグラムの対応</td><td>\(Q_1-1.5\times\text{IQR}\)、\(Q_3+1.5\times\text{IQR}\) と比較</td><td>外れ値の基準</td><td><a href="#data-p3">P3</a></td></tr>
+    <tr data-level="1"><td>分散・標準偏差を求めよ（平均が整数）</td><td>偏差の表を作り、2乗の平均</td><td>分散の定義</td><td><a href="#data-p4">P4</a></td></tr>
+    <tr data-level="2"><td>平均が分数、または \(\sum x^2\) が与えられた</td><td>\(\overline{x^2}-(\bar x)^2\)</td><td>分散の公式</td><td><a href="#data-p5">P5</a></td></tr>
+    <tr data-level="2"><td>得点を \(y=ax+b\) と変換、大きな数のデータ</td><td>\(\bar y=a\bar x+b,\ s_y=\abs a s_x\)、仮平均</td><td>変量変換</td><td><a href="#data-p6">P6</a></td></tr>
+    <tr data-level="2"><td>共分散・相関係数を求めよ</td><td>偏差の積の表を作る</td><td>共分散・相関係数</td><td><a href="#data-p7">P7</a></td></tr>
+    <tr data-level="1"><td>散布図と相関係数の対応</td><td>右上がり／右下がり、直線への集まり具合</td><td>相関の読み取り</td><td><a href="#data-p8">P8</a></td></tr>
+    <tr data-level="2"><td>2つの変量をそれぞれ1次式で変換した後の相関係数</td><td>係数の符号だけが残る</td><td>共分散の変換</td><td><a href="#data-p9">P9</a></td></tr>
+    <tr data-level="2"><td>「1つの値が誤っていた」「1人追加した」</td><td>合計 \(\sum x\) と \(\sum x^2\) を修正して再計算</td><td>\(\sum x^2=n(s^2+\bar x^2)\)</td><td><a href="#data-p10">P10</a></td></tr>
+    <tr data-level="3"><td>2つのグループを合わせた平均・分散</td><td>各グループの \(\sum x,\ \sum x^2\) を復元して合計</td><td>分散の公式</td><td><a href="#data-p11">P11</a></td></tr>
+    <tr data-level="2"><td>「〜と判断してよいか。基準となる確率を5%とする」</td><td>偶然と仮定 → 極端な結果の相対度数を基準と比較</td><td>仮説検定</td><td><a href="#data-p12">P12</a></td></tr>
+    <tr data-level="3"><td>\(\sum(x_k-t)^2\) や \(\sum\abs{x_k-t}\) を最小にする \(t\)</td><td>平方完成（平均）／折れ線（中央値）</td><td>偏差平方和の分解</td><td><a href="#data-p13">P13</a></td></tr>
+    <tr data-level="3"><td>平均・分散が与えられ、未知のデータの値を求めよ</td><td>\(\sum x\) と \(\sum x^2\) の2式 → 対称式</td><td>連立・対称式</td><td><a href="#data-p14">P14</a></td></tr>
+  </table></div>
+</section>
+
+<section id="patterns">
+  <h2>パターン別 解法マップ</h2>
+
+  <article class="pattern" id="data-p1" data-level="1">
+    <h3><span class="pid">P1</span>代表値（平均値・中央値・最頻値）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「次のデータの平均値・中央値・最頻値を求めよ」「度数分布表から平均値を求めよ」</dd>
+      <dt>こう考える</dt><dd>まず<b>小さい順に並べ替える</b>。中央値・最頻値はそれだけで読める。度数分布表では、各階級のデータがすべて<b>階級値</b>（階級の真ん中）にあるとみなす。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>データを小さい順に並べ、個数 \(n\) を数える。</li>
+        <li>平均値：合計 ÷ \(n\)。度数分布表なら \(\sum(\text{階級値}\times\text{度数})\div n\)。</li>
+        <li>中央値：\(n\) が奇数なら \(\frac{n+1}2\) 番目、偶数なら \(\frac n2\) 番目と \(\frac n2+1\) 番目の平均。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>代表値の定義</dd>
+      <dt>なぜこの方法？</dt><dd>平均値は極端な値（外れ値）に引っ張られるが、中央値は順番だけで決まるので影響を受けにくい。データの形によって使い分けるために、3つとも正確に出せるようにする。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) データ \(3,\ 7,\ 8,\ 5,\ 9,\ 7,\ 4,\ 7,\ 10,\ 6\) の平均値・中央値・最頻値を求めよ。<br>(2) 階級 0以上10未満、10〜20、20〜30、30〜40 の度数がそれぞれ 5, 8, 5, 2 である度数分布表から、平均値を求めよ。</div>
+      <p>(1) 並べ替えると \(3,4,5,6,7,7,7,8,9,10\)（\(n=10\)）。合計は66。中央値は5番目と6番目の平均 \(\frac{7+7}2\)。</p>
+      <p class="answer">(1) 平均値 6.6、中央値 7、最頻値 7</p>
+      <p>(2) 階級値は 5, 15, 25, 35。\(\dfrac{5\cdot5+15\cdot8+25\cdot5+35\cdot2}{20}=\dfrac{340}{20}\)。</p>
+      <p class="answer">(2) 17</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="data-p2" data-level="1">
+    <h3><span class="pid">P2</span>四分位数と箱ひげ図</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「第1四分位数・第3四分位数・四分位範囲を求めよ」「箱ひげ図をかけ」</dd>
+      <dt>こう考える</dt><dd>四分位数は「<b>中央値の中央値</b>」。全体の中央値で前半・後半に分け、それぞれの中央値をとる。<b>個数が奇数なら全体の中央値は前半にも後半にも入れない</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>小さい順に並べ、中央値 \(Q_2\) を求める。</li>
+        <li>\(Q_2\) より前（奇数なら \(Q_2\) 自身を除く）を前半、後ろを後半とする。</li>
+        <li>前半の中央値が \(Q_1\)、後半の中央値が \(Q_3\)。</li>
+        <li>箱ひげ図は、箱が \(Q_1\)〜\(Q_3\)、箱の中の線が \(Q_2\)、ひげの端が最小値・最大値。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>四分位数の定義</dd>
+      <dt>なぜこの方法？</dt><dd>データを4等分する境目が四分位数。箱には真ん中の約半数のデータが入るので、<b>箱の長さ（四分位範囲）は外れ値に左右されにくい散らばりの指標</b>になる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(2,4,5,7,8,10,12,13,15,18,20\)（11個）の \(Q_1,Q_2,Q_3\) と四分位範囲を求め、箱ひげ図をかけ。<br>(2) \(1,3,4,6,7,9,10,12,15,16\)（10個）の \(Q_1,Q_2,Q_3\) を求めよ。</div>
+      <p>(1) \(Q_2\) は6番目の 10。前半 \(2,4,5,7,8\) の中央値 \(Q_1=5\)、後半 \(12,13,15,18,20\) の中央値 \(Q_3=15\)。四分位範囲 \(15-5=10\)。</p>
+      <svg viewBox="0 0 320 70" width="320" role="img" aria-label="箱ひげ図：最小2、Q1 5、中央値10、Q3 15、最大20">
+        <line x1="20" y1="55" x2="300" y2="55" stroke="currentColor" stroke-width="1"/>
+        <g fill="currentColor" font-size="10" text-anchor="middle">
+          <text x="34" y="68">2</text><text x="76" y="68">5</text><text x="146" y="68">10</text><text x="216" y="68">15</text><text x="286" y="68">20</text>
+        </g>
+        <line x1="34" y1="28" x2="76" y2="28" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="216" y1="28" x2="286" y2="28" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="34" y1="20" x2="34" y2="36" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="286" y1="20" x2="286" y2="36" stroke="currentColor" stroke-width="1.5"/>
+        <rect x="76" y="14" width="140" height="28" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
+        <line x1="146" y1="14" x2="146" y2="42" stroke="var(--accent)" stroke-width="2.5"/>
+      </svg>
+      <p class="answer">(1) \(Q_1=5,\ Q_2=10,\ Q_3=15\)、四分位範囲 10</p>
+      <p>(2) \(Q_2=\frac{7+9}2=8\)。前半 \(1,3,4,6,7\) より \(Q_1=4\)、後半 \(9,10,12,15,16\) より \(Q_3=12\)。</p>
+      <p class="answer">(2) \(Q_1=4,\ Q_2=8,\ Q_3=12\)</p>
+      <p class="point">平均値は箱ひげ図には描かれない（＋印で別に書き込むことはある）。「箱ひげ図から平均値を読む」ことはできない。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="data-p3" data-level="2">
+    <h3><span class="pid">P3</span>外れ値の判定と、箱ひげ図・ヒストグラムの対応</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「外れ値をすべて答えよ（\(Q_1-1.5\times\)四分位範囲 以下 または \(Q_3+1.5\times\)四分位範囲 以上）」「ヒストグラムに対応する箱ひげ図を選べ」</dd>
+      <dt>こう考える</dt><dd>外れ値は<b>箱の長さの1.5倍よりさらに外</b>にある値。ヒストグラムとの対応は、<b>累積度数から \(Q_1,Q_2,Q_3\) がどの階級に入るか</b>を数えて判定する。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(Q_1,Q_3\) と四分位範囲 \(R=Q_3-Q_1\) を求める。</li>
+        <li>下限 \(Q_1-1.5R\)、上限 \(Q_3+1.5R\) を計算し、その外側の値を拾う。</li>
+        <li>ヒストグラムとの対応：\(n\) 個なら \(Q_1\) は \(\frac n4\) 番目付近、\(Q_2\) は \(\frac n2\) 番目付近。累積度数で何番目がどの階級かを確認し、最小値・最大値の階級も照合する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>四分位数、外れ値の基準</dd>
+      <dt>なぜこの方法？</dt><dd>外れ値は「入力ミスや特殊な事情」を疑うべき値で、平均値や分散を大きくゆがめる。基準を四分位範囲で決めるのは、四分位範囲自体が外れ値の影響を受けにくいから。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">データ \(12,15,16,18,19,20,21,23,24,41\) について、\(Q_1-1.5(Q_3-Q_1)\) 以下または \(Q_3+1.5(Q_3-Q_1)\) 以上の値を外れ値とする。外れ値をすべて求めよ。</div>
+      <p>\(n=10\)、前半 \(12,15,16,18,19\) より \(Q_1=16\)、後半 \(20,21,23,24,41\) より \(Q_3=23\)。四分位範囲 7。</p>
+      <p>下限 \(16-10.5=5.5\)、上限 \(23+10.5=33.5\)。33.5 以上の値は 41 のみ。</p>
+      <p class="answer">外れ値は 41</p>
+      <p class="point">41 を除くと平均値は 20.9 から 18.7 に大きく下がるが、中央値は 19.5 から 19 にしか変わらない。外れ値があるデータでは中央値・四分位範囲を使う理由がここにある。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="data-p4" data-level="1">
+    <h3><span class="pid">P4</span>分散・標準偏差（定義どおりに）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「次のデータの分散と標準偏差を求めよ」（平均がきれいな値）</dd>
+      <dt>こう考える</dt><dd>分散は「<b>偏差の2乗の平均</b>」。偏差の表（値・偏差・偏差の2乗）を作れば機械的に出る。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>平均値 \(\bar x\) を求める。</li>
+        <li>各データの偏差 \(x_k-\bar x\) を書く（<b>偏差の和が0になること</b>で検算）。</li>
+        <li>偏差の2乗を合計して \(n\) で割る → 分散。正の平方根 → 標準偏差。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(s^2=\frac1n\sum(x_k-\bar x)^2\)</dd>
+      <dt>なぜこの方法？</dt><dd>偏差をそのまま平均すると必ず0になる（プラスとマイナスが打ち消す）。2乗すれば全部正になり、「平均からの離れ具合」の大きさを測れる。標準偏差は2乗した単位を元に戻したもので、データと同じ単位で散らばりを表す。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">データ \(4,\ 6,\ 7,\ 9,\ 9\) の分散と標準偏差を求めよ。</div>
+      <p>平均値 \(\bar x=\frac{35}5=7\)。偏差は \(-3,-1,0,2,2\)（和は0で検算OK）。</p>
+      <p>偏差の2乗は \(9,1,0,4,4\)、合計 18。分散 \(s^2=\frac{18}5=3.6\)。</p>
+      <p class="answer">分散 3.6、標準偏差 \(\sqrt{3.6}=\dfrac{3\sqrt{10}}{5}\ (\approx1.90)\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="data-p5" data-level="2">
+    <h3><span class="pid">P5</span>分散の公式 \(\overline{x^2}-(\bar x)^2\)</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">平均値が分数・小数になるデータ、「\(\sum x_k=\cdots,\ \sum x_k^2=\cdots\) のとき分散は」</dd>
+      <dt>こう考える</dt><dd>平均が汚いと偏差の2乗の計算が地獄になる。<b>データそのものの2乗の平均から、平均の2乗を引く</b>方が速い。また \(\sum x^2\) が与えられた問題は、ほぼこの公式の出番。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\bar x=\frac1n\sum x_k\)、\(\overline{x^2}=\frac1n\sum x_k^2\) を計算。</li>
+        <li>\(s^2=\overline{x^2}-(\bar x)^2\)。</li>
+        <li>逆に、分散と平均から \(\sum x_k^2=n\{s^2+(\bar x)^2\}\) を復元できる（P10, P11 で使う）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(s^2=\overline{x^2}-(\bar x)^2\)</dd>
+      <dt>なぜこの方法？</dt><dd>定義式を展開しただけ（基本事項を参照）なので、どちらで計算しても結果は同じ。整数のまま計算できるので分数の誤差やミスが減る。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">データ \(1,\ 2,\ 4,\ 6\) の分散を求めよ。</div>
+      <p>\(\bar x=\frac{13}4\)。\(\overline{x^2}=\frac{1+4+16+36}4=\frac{57}4\)。</p>
+      <p>\(s^2=\frac{57}4-\frac{169}{16}=\frac{228-169}{16}=\frac{59}{16}\)。</p>
+      <p class="answer">\(\dfrac{59}{16}\)</p>
+      <p class="point">分散は必ず0以上。\(\overline{x^2}-(\bar x)^2\) が負になったら計算ミス。分散が0になるのはすべての値が等しいときだけ。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="data-p6" data-level="2">
+    <h3><span class="pid">P6</span>変量変換 \(y=ax+b\)（仮平均）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「得点 \(x\) を \(y=1.5x+10\) で換算したときの平均と標準偏差」「\(1003,1007,1008,\dots\) の分散を求めよ」</dd>
+      <dt>こう考える</dt><dd>平均は式どおり変わる（\(a\bar x+b\)）。散らばりは<b>ずらし（\(+b\)）では変わらず、拡大（\(\times a\)）だけが効く</b>。大きな数のデータは、きりのいい数（仮平均）を引いて小さくしてから計算する。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\bar y=a\bar x+b\)。</li>
+        <li>\(s_y^2=a^2s_x^2\)、\(s_y=\abs a\,s_x\)（\(a\lt0\) でも標準偏差は正）。</li>
+        <li>仮平均：\(u=x-1000\) などと変換し、\(u\) の平均・分散を求めて戻す（分散はそのまま）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\bar y=a\bar x+b,\ s_y^2=a^2s_x^2\)</dd>
+      <dt>なぜこの方法？</dt><dd>偏差は \(y_k-\bar y=a(x_k-\bar x)\) となり、\(b\) が消える。グラフで言えば、ヒストグラムを左右に平行移動しても形（幅）は変わらず、横に \(a\) 倍に引き伸ばすと幅も \(\abs a\) 倍になる。<a href="../thinking.html#t-subst">発想：置き換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) あるテストの得点 \(x\) の平均値は62点、標準偏差は8点である。\(y=1.5x+10\)、\(z=-2x+100\) と変換したときの \(y,z\) の平均値・分散・標準偏差を求めよ。<br>(2) データ \(1003,\ 1007,\ 1008,\ 1005,\ 1012\) の平均値と分散を求めよ。</div>
+      <p>(1) \(\bar y=1.5\cdot62+10=103\)、\(s_y^2=1.5^2\cdot64=144\)、\(s_y=12\)。</p>
+      <p>\(\bar z=-2\cdot62+100=-24\)、\(s_z^2=4\cdot64=256\)、\(s_z=16\)。</p>
+      <p class="answer">(1) \(y\)：平均 103、分散 144、標準偏差 12　\(z\)：平均 \(-24\)、分散 256、標準偏差 16</p>
+      <p>(2) \(u=x-1000\) とおくと \(u\) は \(3,7,8,5,12\)、平均7。偏差 \(-4,0,1,-2,5\)、2乗の和 46。\(u\) の分散 \(\frac{46}5\)。\(x\) の平均 \(=7+1000\)、分散は \(u\) と同じ。</p>
+      <p class="answer">(2) 平均値 1007、分散 \(\dfrac{46}{5}=9.2\)</p>
+      <p class="point">\(s_z=-2\times8=-16\) としないこと。標準偏差は \(\abs a\) 倍。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="data-p7" data-level="2">
+    <h3><span class="pid">P7</span>共分散と相関係数の計算</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「次の2つの変量 \(x,y\) のデータについて、共分散と相関係数を求めよ」</dd>
+      <dt>こう考える</dt><dd>表に「\(x\) の偏差」「\(y\) の偏差」「偏差の積」「偏差の2乗（\(x\)、\(y\)）」の列を作る。共分散 = 偏差の積の平均、相関係数 = 共分散 ÷（標準偏差の積）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\bar x,\ \bar y\) を求める。</li>
+        <li>偏差の表を作り、\(\sum(x_k-\bar x)(y_k-\bar y)\)、\(\sum(x_k-\bar x)^2\)、\(\sum(y_k-\bar y)^2\) を計算。</li>
+        <li>\(r=\dfrac{\sum(x_k-\bar x)(y_k-\bar y)}{\sqrt{\sum(x_k-\bar x)^2}\sqrt{\sum(y_k-\bar y)^2}}\)（\(\frac1n\) は約分で消える）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(s_{xy}=\frac1n\sum(x_k-\bar x)(y_k-\bar y)\)、\(r=\frac{s_{xy}}{s_xs_y}\)</dd>
+      <dt>なぜこの方法？</dt><dd>相関係数を求めるときは \(\frac1n\) が分子分母で打ち消すので、<b>和のまま計算</b>すれば分数が減る。共テでは「偏差の積の和」が与えられる形が多いので、この形を覚えておくと速い。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">5組のデータ \((x,y)=(1,2),(2,4),(3,5),(4,4),(5,5)\) について、\(x,y\) の共分散と相関係数を求めよ。</div>
+      <p>\(\bar x=3,\ \bar y=4\)。\(x\) の偏差 \(-2,-1,0,1,2\)、\(y\) の偏差 \(-2,0,1,0,1\)。</p>
+      <p>偏差の積の和 \(4+0+0+0+2=6\)、\(\sum(x-\bar x)^2=10\)、\(\sum(y-\bar y)^2=6\)。</p>
+      <p>共分散 \(\frac65=1.2\)、相関係数 \(r=\dfrac{6}{\sqrt{10}\sqrt6}=\dfrac{6}{2\sqrt{15}}=\dfrac{3}{\sqrt{15}}=\dfrac{\sqrt{15}}{5}\)。</p>
+      <p class="answer">共分散 1.2、相関係数 \(\dfrac{\sqrt{15}}5\ (\approx0.77)\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="data-p8" data-level="1">
+    <h3><span class="pid">P8</span>散布図と相関の読み取り</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「次の散布図のうち、相関係数が \(-0.6\) に最も近いものを選べ」「散布図から読み取れることとして正しいものを選べ」</dd>
+      <dt>こう考える</dt><dd>まず<b>符号</b>（右上がりか右下がりか）、次に<b>強さ</b>（直線にどれだけ集まっているか）を見る。相関係数は「直線的な関係」の強さだけを測る。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>点の集まりが右上がり → \(r\gt0\)、右下がり → \(r\lt0\)、傾向なし → \(r\fallingdotseq0\)。</li>
+        <li>直線に近く集まるほど \(\abs r\) は1に近い。</li>
+        <li>選択肢の文は、「相関がある」と「因果関係がある」を混同していないかチェック。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>相関係数の性質 \(-1\le r\le1\)</dd>
+      <dt>なぜこの方法？</dt><dd>平均を通る縦線・横線で4つに区切ると、右上と左下の点は偏差の積が正、左上と右下は負。どちらの領域に多いかで符号が決まる。ただし、放物線のような曲線の関係があっても \(r\fallingdotseq0\) になることがある。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">次の散布図 (A)〜(C) の相関係数は、\(0.9,\ -0.6,\ 0.0\) のいずれかである。それぞれ対応する値を答えよ。<br><svg viewBox="0 0 320 128" width="320" role="img" aria-label="3つの散布図 (A)(B)(C)"><g transform="translate(0,0)"><rect x="5" y="5" width="95" height="100" fill="none" stroke="currentColor" stroke-width="1"/><g fill="var(--accent)"><circle cx="58.0" cy="23.6" r="2.6"/> <circle cx="46.7" cy="55.1" r="2.6"/> <circle cx="54.5" cy="62.9" r="2.6"/> <circle cx="23.3" cy="48.7" r="2.6"/> <circle cx="37.7" cy="73.4" r="2.6"/> <circle cx="62.5" cy="33.4" r="2.6"/> <circle cx="21.1" cy="57.0" r="2.6"/> <circle cx="70.6" cy="63.6" r="2.6"/> <circle cx="27.5" cy="65.3" r="2.6"/> <circle cx="69.1" cy="76.7" r="2.6"/> <circle cx="42.5" cy="82.3" r="2.6"/> <circle cx="69.5" cy="32.2" r="2.6"/> <circle cx="58.7" cy="61.6" r="2.6"/> <circle cx="31.0" cy="24.8" r="2.6"/> <circle cx="77.3" cy="64.5" r="2.6"/></g><text x="52" y="122" fill="currentColor" font-size="12" text-anchor="middle">(A)</text></g><g transform="translate(110,0)"><rect x="5" y="5" width="95" height="100" fill="none" stroke="currentColor" stroke-width="1"/><g fill="var(--accent)"><circle cx="20.5" cy="93.6" r="2.6"/> <circle cx="43.8" cy="54.1" r="2.6"/> <circle cx="32.7" cy="69.3" r="2.6"/> <circle cx="36.5" cy="73.0" r="2.6"/> <circle cx="78.0" cy="17.0" r="2.6"/> <circle cx="36.5" cy="60.7" r="2.6"/> <circle cx="53.7" cy="64.2" r="2.6"/> <circle cx="74.1" cy="36.9" r="2.6"/> <circle cx="41.5" cy="58.4" r="2.6"/> <circle cx="52.0" cy="56.8" r="2.6"/> <circle cx="56.9" cy="45.2" r="2.6"/> <circle cx="55.9" cy="52.6" r="2.6"/> <circle cx="27.2" cy="68.9" r="2.6"/> <circle cx="56.1" cy="39.2" r="2.6"/> <circle cx="84.6" cy="35.1" r="2.6"/></g><text x="52" y="122" fill="currentColor" font-size="12" text-anchor="middle">(B)</text></g><g transform="translate(220,0)"><rect x="5" y="5" width="95" height="100" fill="none" stroke="currentColor" stroke-width="1"/><g fill="var(--accent)"><circle cx="57.8" cy="46.4" r="2.6"/> <circle cx="44.5" cy="59.7" r="2.6"/> <circle cx="56.3" cy="68.2" r="2.6"/> <circle cx="30.1" cy="48.6" r="2.6"/> <circle cx="42.2" cy="18.3" r="2.6"/> <circle cx="49.8" cy="65.3" r="2.6"/> <circle cx="71.7" cy="76.8" r="2.6"/> <circle cx="76.6" cy="65.9" r="2.6"/> <circle cx="27.4" cy="44.1" r="2.6"/> <circle cx="37.9" cy="52.6" r="2.6"/> <circle cx="66.6" cy="91.0" r="2.6"/> <circle cx="14.0" cy="33.1" r="2.6"/> <circle cx="44.5" cy="62.2" r="2.6"/> <circle cx="51.8" cy="32.2" r="2.6"/> <circle cx="78.8" cy="60.8" r="2.6"/></g><text x="52" y="122" fill="currentColor" font-size="12" text-anchor="middle">(C)</text></g></svg></div>
+      <p>(A) は右上がりも右下がりも見られず、点がばらばら。(B) は右上がりで直線に近く密集。(C) は右下がりだが、ばらつきが大きい。</p>
+      <p class="answer">(A) 0.0　(B) 0.9　(C) \(-0.6\)</p>
+      <p class="point">「相関係数が大きい ⇒ 一方が他方の原因」ではない。例えば「アイスの売上と水難事故の件数」は正の相関をもつが、どちらも「気温」という共通の要因で増えているだけ。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="data-p9" data-level="2">
+    <h3><span class="pid">P9</span>変量変換と共分散・相関係数</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(u=2x+3,\ v=-3y+1\) とするとき、\(u,v\) の共分散と相関係数を求めよ」「単位を cm から m に変えると相関係数は」</dd>
+      <dt>こう考える</dt><dd>\(u=ax+b,\ v=cy+d\) なら偏差はそれぞれ \(a\) 倍、\(c\) 倍。共分散は \(ac\) 倍、標準偏差は \(\abs a,\ \abs c\) 倍。相関係数は <b>\(\dfrac{ac}{\abs a\abs c}\)倍、つまり \(ac\) の符号だけが残る</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(s_{uv}=ac\,s_{xy}\)。</li>
+        <li>\(r_{uv}=r_{xy}\)（\(ac\gt0\)）、\(r_{uv}=-r_{xy}\)（\(ac\lt0\)）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>変量変換の性質、共分散・相関係数の定義</dd>
+      <dt>なぜこの方法？</dt><dd>相関係数は「単位の取り方や原点のずらし方によらない」ように作られた量。だから cm→m の換算や偏差値への変換で変わらない。向き（\(a\) や \(c\) が負）を反転させたときだけ符号が反転する。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">P7 のデータ（\(s_{xy}=1.2,\ r=\frac{\sqrt{15}}5\)）について、\(u=2x+3,\ v=-3y+1\) とする。\(u,v\) の共分散と相関係数を求めよ。</div>
+      <p>\(u-\bar u=2(x-\bar x)\)、\(v-\bar v=-3(y-\bar y)\)。偏差の積は \(-6\) 倍になるので \(s_{uv}=-6\times1.2=-7.2\)。</p>
+      <p>\(s_u=2s_x,\ s_v=3s_y\) なので \(r_{uv}=\dfrac{-6s_{xy}}{6s_xs_y}=-r\)。</p>
+      <p class="answer">共分散 \(-7.2\)、相関係数 \(-\dfrac{\sqrt{15}}5\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="data-p10" data-level="2">
+    <h3><span class="pid">P10</span>データの修正・追加による変化</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「10個のデータの平均が6、分散が4であった。そのうち1つの値8は誤りで、正しくは3であった。正しい平均と分散は」「平均と同じ値のデータを1つ追加すると分散は」</dd>
+      <dt>こう考える</dt><dd>平均と分散は直接修正できないが、<b>合計 \(\sum x\) と2乗の合計 \(\sum x^2\)</b> は値の差し替えで簡単に修正できる。\(\sum x^2=n(s^2+\bar x^2)\) で復元してから直す。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\sum x=n\bar x\)、\(\sum x^2=n(s^2+\bar x^2)\) を計算する。</li>
+        <li>誤った値を引き、正しい値を足す（2乗の合計も同様）。追加なら足して \(n\) を1増やす。</li>
+        <li>新しい平均と \(\overline{x^2}-(\bar x)^2\) で分散を求める。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(s^2=\overline{x^2}-(\bar x)^2\)</dd>
+      <dt>なぜこの方法？</dt><dd>平均・分散は「合計」から作られる量なので、合計の段階に戻れば、どんな修正も足し算・引き算で処理できる。<b>平均値と等しい値を追加すると、偏差の2乗の和は変わらず \(n\) だけ増えるので分散は小さくなる</b>。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">10個のデータの平均値が6、分散が4であった。<br>(1) このうち1つの値8は誤りで、正しくは3であった。正しい平均値と分散を求めよ。<br>(2)（もとのデータに）値6のデータを1つ追加した11個のデータの平均値と分散を求めよ。</div>
+      <p>\(\sum x=60\)、\(\sum x^2=10(4+36)=400\)。</p>
+      <p>(1) 修正後 \(\sum x=60-8+3=55\)、\(\sum x^2=400-64+9=345\)。平均 5.5、分散 \(34.5-5.5^2=34.5-30.25=4.25\)。</p>
+      <p class="answer">(1) 平均値 5.5、分散 4.25</p>
+      <p>(2) \(\sum x=66\)、\(\sum x^2=436\)、\(n=11\)。平均 6、分散 \(\frac{436}{11}-36=\frac{40}{11}\)。</p>
+      <p class="answer">(2) 平均値 6、分散 \(\dfrac{40}{11}\)</p>
+      <p class="point">(2) は「偏差の2乗の和 40 は変わらず、個数が 10 → 11」と考えれば一瞬：\(\frac{40}{11}\)。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="data-p11" data-level="3">
+    <h3><span class="pid">P11</span>2つのグループを合わせた平均・分散</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「A組20人の平均60点・標準偏差10点、B組30人の平均70点・標準偏差15点。全体50人の平均と標準偏差は」</dd>
+      <dt>こう考える</dt><dd>全体の分散は、各組の分散の単純な平均<b>ではない</b>。組の平均どうしがずれている分だけ全体の散らばりは大きくなる。P10 と同じく \(\sum x,\ \sum x^2\) に戻って合計する。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>各組で \(\sum x=n\bar x\)、\(\sum x^2=n(s^2+\bar x^2)\) を求める。</li>
+        <li>全体で合計し、全体の平均と \(\overline{x^2}-(\bar x)^2\) を計算。</li>
+        <li>（参考）\(s^2=\dfrac{n_As_A^2+n_Bs_B^2}{N}+\dfrac{n_An_B}{N^2}(\bar x_A-\bar x_B)^2\)（組内の散らばり＋組間の散らばり）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>分散の公式</dd>
+      <dt>なぜこの方法？</dt><dd>全員の偏差は「組の平均からの偏差」と「組の平均と全体平均の差」の和に分かれる。後者の分だけ分散が増えるので、組の分散を平均するだけでは足りない。数学Bの統計でも同じ分解が現れる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">A組20人の得点は平均値60点・標準偏差10点、B組30人の得点は平均値70点・標準偏差15点である。2組を合わせた50人の平均値と分散を求めよ。</div>
+      <p>A組：\(\sum x=1200\)、\(\sum x^2=20(100+3600)=74000\)。B組：\(\sum x=2100\)、\(\sum x^2=30(225+4900)=153750\)。</p>
+      <p>全体：平均 \(\frac{3300}{50}=66\)、\(\overline{x^2}=\frac{227750}{50}=4555\)、分散 \(4555-66^2=4555-4356=199\)。</p>
+      <p class="answer">平均値 66点、分散 199（標準偏差 \(\sqrt{199}\approx14.1\) 点）</p>
+      <p class="point">検算：組内 \(\frac{20\cdot100+30\cdot225}{50}=175\)、組間 \(\frac{20\cdot30}{2500}\cdot10^2=24\)、合計 199。組の分散の単純平均 \(\frac{100+225}{2}=162.5\) とは全く違う。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="data-p12" data-level="2">
+    <h3><span class="pid">P12</span>仮説検定の考え方</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「新製品の方が好まれていると判断してよいか。ただし、基準となる確率を 5% とし、コイン投げの実験結果を用いよ」</dd>
+      <dt>こう考える</dt><dd>主張（「新製品が好まれる」）の反対、<b>「どちらも同じくらい好まれ、結果は偶然」</b>を仮定する。その仮定のもとで、<b>実際の結果と同じかそれ以上に極端な結果</b>が起こる確率を見積もる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>主張と、その反対の仮説（偶然にすぎない）を書く。</li>
+        <li>仮説のもとでのシミュレーション（公正なコイン投げ）の結果から、「実際の結果以上」の相対度数を求める。</li>
+        <li>基準（5%）より小さい → 仮説は正しくなかったと考え、<b>主張は正しいと判断する</b>。基準以上 → <b>主張が正しいとは判断できない</b>。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>相対度数（確率の見積もり）、基準となる確率（有意水準）</dd>
+      <dt>なぜこの方法？</dt><dd>「主張が正しい」ことを直接示すのは難しいが、「偶然と仮定するとめったに起こらないことが起きた」なら、その仮定を疑う理由になる。<b>背理法に似た発想</b>（ただし確率的な判断）。数学Bの <a href="mb-stats.html">統計的な推測</a> で本格的に扱う。<a href="../thinking.html#t-contradiction">発想：背理法</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">20人に新製品と旧製品を試してもらったところ、15人が新製品の方がよいと答えた。「新製品の方が好まれる」と判断してよいか、基準となる確率を 5% として考察せよ。ただし、公正なコインを20枚投げて表の枚数を記録する実験を1000回行った結果は次のとおりであった（12枚未満は省略）。</div>
+      <div class="table-wrap"><table>
+        <tr><th>表の枚数</th><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18以上</td></tr>
+        <tr><th>回数</th><td>120</td><td>74</td><td>37</td><td>15</td><td>5</td><td>1</td><td>0</td></tr>
+      </table></div>
+      <p>主張「新製品の方が好まれる」に対し、「新旧どちらを選ぶかは五分五分（偶然）」と仮定する。この仮定のもとでは、20人の回答は公正なコインを20枚投げたときの表の枚数と同じように分布する。</p>
+      <p>表が15枚以上となった回数は \(15+5+1+0=21\) 回で、相対度数は \(\frac{21}{1000}=0.021\)。これは 5% より小さい。</p>
+      <p>よって、「五分五分」と仮定すると、めったに起こらないことが起きたと考えられ、仮定は正しくなかったと判断する。</p>
+      <p class="answer">新製品の方が好まれると判断してよい</p>
+      <p class="point">もし新製品と答えた人が14人なら、14枚以上の相対度数は \(\frac{37+21}{1000}=0.058\) で 5% 以上になり、「好まれるとは判断できない」となる。これは「好まれていない」という意味ではない（判断を保留するだけ）。この区別は共通テストの選択肢で頻出。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="data-p13" data-level="3">
+    <h3><span class="pid">P13</span>平均値・中央値の最小性（偏差平方和の分解）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(f(t)=\frac1n\sum(x_k-t)^2\) を最小にする \(t\) を求めよ」「\(\sum\abs{x_k-t}\) を最小にする \(t\)」「分散は \(\frac1n\sum(x_k-c)^2\) 以下であることを示せ」</dd>
+      <dt>こう考える</dt><dd>\(x_k-t=(x_k-\bar x)+(\bar x-t)\) と分けて展開すると、偏差の和が0なので交差項が消え、<b>\(f(t)=s^2+(t-\bar x)^2\)</b>。\(t\) の2次関数として平方完成された形になる。絶対値の和の方は、折れ線グラフの傾きで中央値が最小と分かる（<a href="m1-numbers.html">数と式</a> P19）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(f(t)=\frac1n\sum\{(x_k-\bar x)+(\bar x-t)\}^2\) を展開する。</li>
+        <li>\(\sum(x_k-\bar x)=0\) を使って \(f(t)=s^2+(\bar x-t)^2\) を得る。</li>
+        <li>\(t=\bar x\) で最小値 \(s^2\)。任意の定数 \(c\) に対し \(s^2\le\frac1n\sum(x_k-c)^2\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>偏差の和 \(=0\)、平方完成</dd>
+      <dt>なぜこの方法？</dt><dd>「平均値はデータ全体に最も近い1点（2乗の距離で）」という意味が、この分解から分かる。この不等式は「分散は \(\left(\frac{\text{最大値}-\text{最小値}}{2}\right)^2\) 以下」などの論証（演2）に使える。<a href="../thinking.html#t-bound">発想：不等式で評価する</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">データ \(1,\ 2,\ 4,\ 8,\ 15\) について、(1) \(f(t)=\frac15\sum_{k=1}^{5}(x_k-t)^2\) を最小にする \(t\) と最小値、(2) \(g(t)=\sum_{k=1}^{5}\abs{x_k-t}\) を最小にする \(t\) と最小値を求めよ。</div>
+      <p>(1) \(f(t)=s^2+(t-\bar x)^2\)。\(\bar x=6\)、偏差 \(-5,-4,-2,2,9\) より \(s^2=\frac{25+16+4+4+81}5=26\)。</p>
+      <p class="answer">(1) \(t=6\) で最小値 26</p>
+      <p>(2) \(g(t)\) は折れ線で、傾きは「\(t\) より左の点の個数 − 右の点の個数」。真ん中の値（中央値）4 で傾きが負から正に変わる。\(g(4)=3+2+0+4+11=20\)。</p>
+      <p class="answer">(2) \(t=4\) で最小値 20</p>
+      <p class="point">2乗の和は平均値で、絶対値の和は中央値で最小。外れ値 15 があると平均値は右に引っ張られるが、中央値は動かない（P3 の話とつながる）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="data-p14" data-level="3">
+    <h3><span class="pid">P14</span>平均・分散の条件から未知のデータを決定する</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「5個の整数データ \(2,5,7,x,y\ (x\lt y)\) の平均値が6、分散が6.8のとき、\(x,y\) を求めよ」</dd>
+      <dt>こう考える</dt><dd>平均から \(x+y\)、分散から \(x^2+y^2\) が分かる。<b>和と2乗の和が分かれば、積が分かる</b>（<a href="m1-numbers.html">数と式</a>の対称式）。\(x,y\) は2次方程式の2解として求まる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\sum x=n\bar x\) から \(x+y\) を求める。</li>
+        <li>\(\sum x^2=n(s^2+\bar x^2)\) から \(x^2+y^2\) を求める。</li>
+        <li>\(xy=\frac{(x+y)^2-(x^2+y^2)}2\)、\(x,y\) は \(u^2-(x+y)u+xy=0\) の解。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\sum x^2=n(s^2+\bar x^2)\)、対称式、2次方程式</dd>
+      <dt>なぜこの方法？</dt><dd>平均と分散は \(\sum x\) と \(\sum x^2\) の情報そのもの。未知数2つに式2本なので、対称式の形で解ける。偏差で考えて \((x-6)+(y-6)\)、\((x-6)^2+(y-6)^2\) を使うと数が小さくなる。<a href="../thinking.html#t-symmetry">発想：対称性を使う</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">5個のデータ \(2,\ 5,\ 7,\ x,\ y\)（\(x\lt y\)）の平均値が6、分散が6.8であるとき、\(x,y\) の値と、このデータの中央値を求めよ。</div>
+      <p>偏差で考える。\(2,5,7\) の偏差は \(-4,-1,1\)。\(p=x-6,\ q=y-6\) とおくと</p>
+      <p>偏差の和 \(=0\)：\(-4-1+1+p+q=0\)、\(p+q=4\)。</p>
+      <p>偏差の2乗の和 \(=5\times6.8=34\)：\(16+1+1+p^2+q^2=34\)、\(p^2+q^2=16\)。</p>
+      <p>\(pq=\frac{16-16}2=0\)。\(p\lt q\) より \(p=0,\ q=4\)。よって \(x=6,\ y=10\)。</p>
+      <p>データは \(2,5,6,7,10\) で、中央値は 6。</p>
+      <p class="answer">\(x=6,\ y=10\)、中央値 6</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="pitfalls">
+  <h2>よくあるミスと対策</h2>
+  <ul class="pitfalls">
+    <li><b>並べ替えずに中央値・四分位数を求める</b>（P1, P2）。→ まず小さい順に並べ、個数を数える。</li>
+    <li><b>個数が奇数のとき、中央値を前半・後半に入れてしまう</b>（P2）。→ 教科書の定義では中央値を除いて分ける。</li>
+    <li><b>標準偏差を \(a\) 倍（負の数のまま）にする</b>（P6）。→ 標準偏差は \(\abs a\) 倍、分散は \(a^2\) 倍。</li>
+    <li><b>全体の分散を、各組の分散の平均で求める</b>（P11）。→ 必ず \(\sum x,\ \sum x^2\) に戻る。</li>
+    <li><b>\(\overline{x^2}-(\bar x)^2\) で \(\overline{x^2}\) と \((\bar x)^2\) を取り違える</b>（P5）。→ 結果が負なら取り違えている。</li>
+    <li><b>相関係数が大きいことを因果関係と読む</b>（P8）。→ 共通の要因（第3の変数）がないか考える。</li>
+    <li><b>仮説検定で「判断できない」を「主張は誤り」と読む</b>（P12）。→ 基準以上なら判断を保留するだけ。</li>
+    <li><b>箱ひげ図から平均値や「ちょうどその値のデータがある」と決めつける</b>（演2）。→ 箱ひげ図が示すのは5つの値だけ。偶数個なら中央値はデータに含まれないこともある。</li>
+  </ul>
+</section>
+
+<section id="handai">
+  <h2>阪大レベルへの橋渡し</h2>
+  <p>阪大二次ではデータの分析はほぼ出題されない。ただし共通テストでは毎年出題され、<b>「必ず正しいと言えるか」を定義から判断する問題</b>で差がつく。ここでは共通テストで満点を取るための、論証的な問題を2題扱う。考え方は <a href="m1-logic.html">集合と命題</a>（真なら証明、偽なら反例）そのもので、阪大の論証力の練習にもなる。</p>
+
+  <article class="pattern" id="data-h1" data-level="3">
+    <h3><span class="pid">演1</span>データを1組追加したときの相関係数の変化</h3>
+    <div class="problem">2つの変量 \(x,y\) の10組のデータがあり、\(x\) の平均値は5、標準偏差は2、\(y\) の平均値は8、標準偏差は3、\(x\) と \(y\) の相関係数は0.6である。ここに、実数 \(k\) を用いて \((x,y)=(5+2k,\ 8+3k)\) と表される1組のデータを追加し、11組のデータとする。<br>(1) もとの10組について、\(S_{xx}=\sum(x_i-\bar x)^2\)、\(S_{yy}=\sum(y_i-\bar y)^2\)、\(S_{xy}=\sum(x_i-\bar x)(y_i-\bar y)\) の値を求めよ。<br>(2) 一般に、\(n\) 個のデータ \(x_1,\dots,x_n\)（平均 \(\bar x\)）に値 \(x_{n+1}=\bar x+d\) を追加すると、追加後の \(n+1\) 個の偏差平方和は \(\sum_{i=1}^{n}(x_i-\bar x)^2+\dfrac{n}{n+1}d^2\) となることを示せ。<br>(3) 追加後の11組の相関係数 \(r'\) を \(k\) で表し、\(r'\ge0.8\) となる \(k\) の範囲を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>相関係数は \(\dfrac{S_{xy}}{\sqrt{S_{xx}S_{yy}}}\) と<b>和のまま</b>書ける（\(\frac1n\) が約分される）。追加後は平均が \(\bar x+\frac{d}{n+1}\) にずれるので、偏差を「もとの偏差 − ずれ」と分けて展開する（P13 と同じ分解）。共分散の和 \(S_{xy}\) も同じ計算で \(\frac{n}{n+1}d_xd_y\) だけ増える。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) \(S_{xx}=10\cdot2^2=40\)、\(S_{yy}=10\cdot3^2=90\)。共分散は \(0.6\cdot2\cdot3=3.6\) なので \(S_{xy}=36\)。</p>
+      <p class="answer">(1) \(S_{xx}=40,\ S_{yy}=90,\ S_{xy}=36\)</p>
+      <p>(2) 追加後の平均は \(\bar x'=\dfrac{n\bar x+\bar x+d}{n+1}=\bar x+\dfrac{d}{n+1}\)。\(e=\frac{d}{n+1}\) とおく。</p>
+      <p>\(i\le n\) について \(x_i-\bar x'=(x_i-\bar x)-e\)。\(\sum_{i=1}^{n}(x_i-\bar x)=0\) なので</p>
+      \[ \begin{aligned} &\sum_{i=1}^{n}(x_i-\bar x')^2\\ &=\sum_{i=1}^{n}(x_i-\bar x)^2+ne^2 \end{aligned} \]
+      <p>また \(x_{n+1}-\bar x'=d-e=\dfrac{n}{n+1}d\)。よって追加後の偏差平方和は</p>
+      \[ \begin{aligned} &\sum_{i=1}^{n}(x_i-\bar x)^2\\ &\quad+\frac{n d^2}{(n+1)^2}+\frac{n^2d^2}{(n+1)^2}\\ &=\sum_{i=1}^{n}(x_i-\bar x)^2+\frac{n}{n+1}d^2 \end{aligned} \]
+      <p class="answer">（証明終）</p>
+      <p>(3) 同様にして、偏差の積の和は \(S_{xy}+\frac{n}{n+1}d_xd_y\) となる（(2) の計算で2乗を積に置き換えればよい）。\(n=10,\ d_x=2k,\ d_y=3k\) より</p>
+      <p>\(S_{xx}'=40+\frac{10}{11}\cdot4k^2=40\left(1+\frac{k^2}{11}\right)\)、\(S_{yy}'=90\left(1+\frac{k^2}{11}\right)\)、\(S_{xy}'=36+\frac{10}{11}\cdot6k^2=36+\frac{60}{11}k^2\)。</p>
+      <p>\(\sqrt{S_{xx}'S_{yy}'}=\sqrt{3600}\left(1+\frac{k^2}{11}\right)=60+\frac{60}{11}k^2\)。よって</p>
+      \[ r'=\frac{36+\frac{60}{11}k^2}{60+\frac{60}{11}k^2}=\frac{33+5k^2}{55+5k^2} \]
+      <p>\(r'\ge0.8\iff 5(33+5k^2)\ge4(55+5k^2)\iff 5k^2\ge55\iff k^2\ge11\)。</p>
+      <p class="answer">(3) \(r'=\dfrac{33+5k^2}{55+5k^2}\)、\(r'\ge0.8\) となるのは \(k\le-\sqrt{11}\) または \(k\ge\sqrt{11}\)</p>
+      <p class="point">意味：追加した点は「平均の点 \((5,8)\) から傾き \(\frac32\) の方向」にある。\(\abs k\) が大きいほど、その1点が直線的な傾向を強く作り出し、\(r'\) は1に近づく（\(k=0\) なら \(r'=0.6\) のまま）。<b>1点の外れ値で相関係数が大きく変わりうる</b>ことを示す例。採点ポイント：(2) で「偏差の和が0」を使って交差項を消す部分。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="data-h2" data-level="3">
+    <h3><span class="pid">演2</span>箱ひげ図と要約値から「必ず正しい」と言えるか</h3>
+    <div class="problem">ある学級20人の数学のテストの得点について、最小値32点、第1四分位数45点、中央値55点、第3四分位数64点、最大値90点、平均値56点であることが分かっている（得点は整数とは限らないとする）。四分位数は「小さい順に並べ、前半10人・後半10人それぞれの中央値」で定める。次の (1)〜(5) について、必ず正しいと言えるか判定し、正しいなら理由を、そうでなければ反例となるデータを示せ。<br>(1) 64点以上の生徒は5人以上いる。<br>(2) \(Q_1-1.5(Q_3-Q_1)\) 以下または \(Q_3+1.5(Q_3-Q_1)\) 以上の値を外れ値とするとき、このデータに外れ値はない。<br>(3) 得点がちょうど55点の生徒がいる。<br>(4) 平均値以上の得点の生徒は10人以下である。<br>(5) 得点の標準偏差は29点以下である。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>得点を小さい順に \(x_1\le x_2\le\cdots\le x_{20}\) とおき、<b>要約値を \(x_i\) の式に翻訳</b>する：\(Q_1=\frac{x_5+x_6}2,\ Q_2=\frac{x_{10}+x_{11}}2,\ Q_3=\frac{x_{15}+x_{16}}2\)。「2つの平均が \(m\)」なら「小さい方 \(\le m\le\) 大きい方」。(5) は P13 の「分散は \(\frac1n\sum(x_k-c)^2\) 以下」を、\(c\) を最大値と最小値の中点にして使う。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>得点を小さい順に \(x_1\le x_2\le\cdots\le x_{20}\) とする。条件は \(x_1=32,\ \frac{x_5+x_6}2=45,\ \frac{x_{10}+x_{11}}2=55,\ \frac{x_{15}+x_{16}}2=64,\ x_{20}=90\)、\(\sum x_i=1120\)。</p>
+      <p>(1) <b>正しい。</b>\(x_{15}\le x_{16}\) で平均が64なので \(x_{16}\ge64\)。よって \(x_{16},x_{17},\dots,x_{20}\) の5人は64点以上。</p>
+      <p>(2) <b>正しい。</b>四分位範囲は \(64-45=19\)、\(1.5\times19=28.5\)。下限 \(45-28.5=16.5\)、上限 \(64+28.5=92.5\)。最小値 \(32\gt16.5\)、最大値 \(90\lt92.5\) なので、すべての値は下限と上限の間にあり、外れ値はない。</p>
+      <p>(3) <b>必ずしも正しくない。</b>反例：</p>
+      <p>32, 36, 38, 42, 45, 45, 50, 52, 53, 54, 56, 58, 60, 62, 63, 65, 67, 72, 80, 90</p>
+      <p>このデータは \(x_1=32,\ \frac{45+45}2=45,\ \frac{54+56}2=55,\ \frac{63+65}2=64,\ x_{20}=90\)、合計1120（平均56）ですべての条件を満たすが、55点の生徒はいない。</p>
+      <p>(4) <b>正しい。</b>\(x_{10}\le x_{11}\) で平均が55なので \(x_{10}\le55\lt56\)。よって \(x_1,\dots,x_{10}\) はすべて平均値56未満であり、平均値以上になりうるのは \(x_{11},\dots,x_{20}\) の10人だけ。</p>
+      <p>(5) <b>正しい。</b>P13 より、任意の定数 \(c\) に対して \(s^2\le\frac1{20}\sum(x_i-c)^2\)。\(c=\frac{32+90}2=61\) とすると、すべての \(i\) で \(32\le x_i\le90\) より \(\abs{x_i-61}\le29\)。よって</p>
+      \[ \begin{aligned} s^2&\le\frac1{20}\sum_{i=1}^{20}(x_i-61)^2\\ &\le\frac1{20}\cdot20\cdot29^2=29^2 \end{aligned} \]
+      <p>したがって \(s\le29\)。</p>
+      <p class="answer">(1) 正しい　(2) 正しい　(3) 正しくない（反例あり）　(4) 正しい　(5) 正しい</p>
+      <p class="point">採点・選択のポイント：(3) の反例は<b>すべての条件（平均値56も含む）を満たす</b>ことを確認して初めて反例になる。(4) は「平均値 \(\gt\) 中央値」のときの典型的な性質で、分布が右に裾を引いている（高得点側に伸びている）ことと対応する。(5) は「標準偏差は範囲の半分を超えない」という一般的な事実で、共通テストの選択肢の真偽判定に使える。<a href="../thinking.html#t-bound">発想：不等式で評価する</a></p>
+    </div></details>
+  </article>
+</section>
+
+<section id="next">
+  <h2>次に学ぶとつながる単元</h2>
+  <ul>
+    <li><a href="mb-stats.html">統計的な推測</a>：平均・分散・変量変換（P5, P6）が確率変数の期待値・分散 \(E(aX+b)=aE(X)+b,\ V(aX+b)=a^2V(X)\) としてそのまま現れる。P12 の仮説検定が二項分布・正規分布を使って精密になる。</li>
+    <li><a href="ma-probability.html">確率</a>：P12 のシミュレーション結果は、反復試行の確率 \(\C{20}{k}\left(\frac12\right)^{20}\) で理論的に計算できる。</li>
+    <li><a href="m1-quadratic.html">2次関数</a>：P13 の \(f(t)=s^2+(t-\bar x)^2\) は平方完成そのもの。</li>
+    <li><a href="m1-logic.html">集合と命題</a>：演2 の「必ず正しいか（証明）／正しくないか（反例）」の判定は命題の真偽の判定と同じ構造。</li>
+  </ul>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>

@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>複素数平面（数学C）｜解法の地図</title>
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-unit="mc-complex" data-root="../">
+<main>
+
+<header class="unit-head">
+  <span class="subj-badge">数学C</span>
+  <h1>複素数平面</h1>
+  <p class="lead">複素数を平面上の点とみると、<b>掛け算が「回転と拡大」</b>になる。ベクトルでは面倒な回転が1回の掛け算で済み、図形・方程式・三角関数・数列が1つにつながる。阪大理系の最頻出分野の1つで、図形の論証や軌跡、点列の極限として出る。</p>
+  <div class="goal">
+    <strong>このページの到達目標</strong>
+    <ul>
+      <li>【基礎】絶対値・共役の計算、極形式への変換、ド・モアブルの定理による \(z^n\) の計算ができる。</li>
+      <li>【標準】回転を使って正三角形の頂点・3点の位置関係を求め、\(|z-\alpha|=r\)、アポロニウスの円、\(w=\frac1z\) による像を処理できる。</li>
+      <li>【阪大】\(w=z+\frac1z\) の像、1の \(n\) 乗根を使った積・和の計算、点列の漸化式と極限、\(|z|=1\) 上の最大最小を論証つきで書ける。</li>
+    </ul>
+  </div>
+  <p class="prereq">前提：<a href="m2-complex-eq.html">複素数と方程式</a>、<a href="m2-trig.html">三角関数</a>（加法定理）、<a href="mc-vector.html">ベクトル</a> ／ 次に進む：<a href="m3-limit.html">極限</a>（点列の極限・無限級数）</p>
+</header>
+
+<section id="core">
+  <h2>必ず押さえる基本事項</h2>
+
+  <div class="box theorem">
+    <p><span class="name">絶対値と共役</span>：\(z=x+yi\) に対し \(\bar z=x-yi\)、\(|z|=\sqrt{x^2+y^2}\)。</p>
+    \[ |z|^2=z\bar z,\quad \overline{\alpha\pm\beta}=\bar\alpha\pm\bar\beta,\quad \overline{\alpha\beta}=\bar\alpha\bar\beta,\quad |\alpha\beta|=|\alpha||\beta|,\quad |\beta-\alpha|=(\text{2点間の距離}) \]
+    <ul>
+      <li>\(z\) が実数 \(\iff\bar z=z\)、\(z\) が純虚数 \(\iff\bar z=-z,\ z\neq0\)</li>
+      <li>\(|z|=1\iff\bar z=\dfrac1z\)</li>
+    </ul>
+    <p>なぜ：\((x+yi)(x-yi)=x^2+y^2\)。\(\bar z=z\) は \(y=-y\)、すなわち虚部が0ということ。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">極形式と積・商</span>：\(z=r(\cos\theta+i\sin\theta)\)（\(r=|z|,\ \theta=\arg z\)）。</p>
+    \[ z_1z_2=r_1r_2\{\cos(\theta_1+\theta_2)+i\sin(\theta_1+\theta_2)\},\qquad \frac{z_1}{z_2}=\frac{r_1}{r_2}\{\cos(\theta_1-\theta_2)+i\sin(\theta_1-\theta_2)\} \]
+    <p>なぜ：掛け算を展開して加法定理を使うと、実部が \(\cos(\theta_1+\theta_2)\)、虚部が \(\sin(\theta_1+\theta_2)\) になる。<b>積は「長さを掛けて、角を足す」</b>。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">ド・モアブルの定理</span>：整数 \(n\) に対し</p>
+    \[ (\cos\theta+i\sin\theta)^n=\cos n\theta+i\sin n\theta \]
+    <p>なぜ：積の公式を \(n\) 回使う（自然数 \(n\) は<a href="../thinking.html#t-induction">数学的帰納法</a>、負の \(n\) は逆数をとる）。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">1の \(n\) 乗根</span>：\(z^n=1\) の解は \(\omega^k\ (k=0,1,\dots,n-1)\)、\(\omega=\cos\dfrac{2\pi}{n}+i\sin\dfrac{2\pi}{n}\)。単位円に内接する正 \(n\) 角形の頂点。</p>
+    \[ z^n-1=(z-1)(z-\omega)(z-\omega^2)\cdots(z-\omega^{n-1}),\qquad 1+\omega+\omega^2+\cdots+\omega^{n-1}=0\ (n\ge2) \]
+    <p>なぜ：\(n\) 個の異なる解をもつので因数定理で積に分解できる。和は等比数列の和 \(\dfrac{1-\omega^n}{1-\omega}=0\)。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">回転と3点の位置関係</span></p>
+    <ul>
+      <li>点 \(\beta\) を点 \(\alpha\) のまわりに \(\theta\) 回転した点：\(\gamma=\alpha+(\cos\theta+i\sin\theta)(\beta-\alpha)\)</li>
+      <li>\(\dfrac{\gamma-\alpha}{\beta-\alpha}=r(\cos\theta+i\sin\theta)\) ならば \(AC=r\cdot AB\)、\(\angle BAC=\theta\)（\(\vec{AB}\) から \(\vec{AC}\) へ測った角）</li>
+      <li>\(A,B,C\) が一直線上 \(\iff\dfrac{\gamma-\alpha}{\beta-\alpha}\) が実数、\(AB\perp AC\iff\dfrac{\gamma-\alpha}{\beta-\alpha}\) が純虚数</li>
+    </ul>
+    <p>なぜ：\(\alpha\) を原点に平行移動（\(-\alpha\)）→ 原点まわりに回転（掛け算）→ 元に戻す（\(+\alpha\)）。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">方程式の表す図形</span></p>
+    <ul>
+      <li>\(|z-\alpha|=r\)：中心 \(\alpha\)、半径 \(r\) の円</li>
+      <li>\(|z-\alpha|=|z-\beta|\)：2点 \(\alpha,\beta\) を結ぶ線分の垂直二等分線</li>
+      <li>\(|z-\alpha|=k|z-\beta|\ (k\gt0,\ k\neq1)\)：アポロニウスの円（\(\alpha,\beta\) を \(k:1\) に内分・外分する2点を直径の両端とする円）</li>
+    </ul>
+  </div>
+
+  <div class="box idea">
+    <p><b>この単元を貫く考え方</b>：複素数は<b>「点」でもあり「変換（回転・拡大）」でもある</b>。図形条件は「長さ \(\to\) 絶対値」「角度 \(\to\) 偏角（商の極形式）」「実数・純虚数 \(\to\) 共役」の3つで式に翻訳し、計算は \(|z|^2=z\bar z\) で行う。<a href="../thinking.html#t-vector">発想：ベクトル・複素数で表す</a></p>
+  </div>
+</section>
+
+<section id="quick">
+  <h2>早見表：こう来たら → こう解く</h2>
+  <div class="table-wrap"><table class="quick">
+    <tr><th>問題の特徴（こう来たら）</th><th>方針（こう解く）</th><th>使う道具</th><th>詳細</th></tr>
+    <tr data-level="1"><td>2点間の距離、絶対値の計算</td><td>\(|\beta-\alpha|\)、\(|\alpha\beta|=|\alpha||\beta|\)</td><td>絶対値の性質</td><td><a href="#cpx-p1">P1</a></td></tr>
+    <tr data-level="1"><td>「実数となる」「純虚数となる」条件</td><td>虚部 \(=0\) ／ \(\bar w=w\)</td><td>共役</td><td><a href="#cpx-p2">P2</a></td></tr>
+    <tr data-level="1"><td>積・商を極形式で</td><td>長さは掛け、角は足す</td><td>極形式</td><td><a href="#cpx-p3">P3</a></td></tr>
+    <tr data-level="1"><td>\((1+\sqrt3i)^{10}\)、\(z^n\) が実数となる \(n\)</td><td>極形式にしてド・モアブル</td><td>ド・モアブル</td><td><a href="#cpx-p4">P4</a></td></tr>
+    <tr data-level="2"><td>\(z^4=-8-8\sqrt3i\) を解け</td><td>\(z=r(\cos\theta+i\sin\theta)\) とおき比較</td><td>極形式・\(2k\pi\)</td><td><a href="#cpx-p5">P5</a></td></tr>
+    <tr data-level="2"><td>\(\omega^5=1\) で \(\omega\) の式の値、\(\prod(1-\omega^k)\)</td><td>和が0、\(z^n-1\) の因数分解</td><td>1の \(n\) 乗根</td><td><a href="#cpx-p6">P6</a></td></tr>
+    <tr data-level="2"><td>\(\cos\frac{2\pi}5\) の値を求めよ</td><td>\(t=\omega+\omega^{-1}\) の2次方程式</td><td>相反方程式</td><td><a href="#cpx-p7">P7</a></td></tr>
+    <tr data-level="1"><td>点を回転・拡大した点</td><td>中心を原点へ → 掛ける → 戻す</td><td>回転の公式</td><td><a href="#cpx-p8">P8</a></td></tr>
+    <tr data-level="2"><td>正三角形・正方形の残りの頂点</td><td>\(\pm\frac\pi3\)、\(\pm\frac\pi2\) 回転（向き2通り）</td><td>回転</td><td><a href="#cpx-p9">P9</a></td></tr>
+    <tr data-level="2"><td>3点が一直線・垂直・角度・三角形の形状</td><td>\(\frac{\gamma-\alpha}{\beta-\alpha}\) を計算</td><td>商の偏角</td><td><a href="#cpx-p10">P10</a></td></tr>
+    <tr data-level="1"><td>\(|z-2i|=3\)、\(|z-1|=|z+i|\)、\(z\bar z+\cdots=0\)</td><td>円・垂直二等分線の型に変形</td><td>\(|z|^2=z\bar z\)</td><td><a href="#cpx-p11">P11</a></td></tr>
+    <tr data-level="2"><td>\(|z-3|=2|z|\) の表す図形</td><td>2乗して \(z\bar z\) で展開</td><td>アポロニウスの円</td><td><a href="#cpx-p12">P12</a></td></tr>
+    <tr data-level="2"><td>\(z\) が円・直線上 → \(w=\frac1z\) の描く図形</td><td>\(z\) について解き、条件に代入</td><td>逆に解く</td><td><a href="#cpx-p13">P13</a></td></tr>
+    <tr data-level="3"><td>\(w=z+\frac1z\) の描く図形</td><td>\(z\) を極形式で表し \(w\) の実部・虚部</td><td>媒介変数表示</td><td><a href="#cpx-p14">P14</a></td></tr>
+    <tr data-level="2"><td>円上の \(z\) に対する \(|z|\)・\(\arg z\) の範囲</td><td>図を描いて接線・中心を通る直線</td><td>図形的意味</td><td><a href="#cpx-p15">P15</a></td></tr>
+    <tr data-level="2"><td>\(z_{n+1}=\alpha z_n+\beta\) の点列</td><td>不動点 \(c\) で \(z_n-c=\alpha^n(z_0-c)\)</td><td>漸化式・回転</td><td><a href="#cpx-p16">P16</a></td></tr>
+    <tr data-level="3"><td>三角関数の公式・和を複素数で示せ</td><td>ド・モアブル／\(z^n=\pm1\) の和</td><td>実部・虚部の比較</td><td><a href="#cpx-p17">P17</a></td></tr>
+    <tr data-level="2"><td>\(\alpha^2-2\alpha\beta+4\beta^2=0\) → 三角形の形状</td><td>\(\frac\alpha\beta\) の2次方程式を解く</td><td>商の極形式</td><td><a href="#cpx-p18">P18</a></td></tr>
+    <tr data-level="3"><td>単位円上の3点 → 垂心・重心</td><td>\(\bar\alpha=\frac1\alpha\) を使って純虚数を示す</td><td>\(h=\alpha+\beta+\gamma\)</td><td><a href="#cpx-p19">P19</a></td></tr>
+  </table></div>
+</section>
+
+<section id="patterns">
+  <h2>パターン別 解法マップ</h2>
+
+  <article class="pattern" id="cpx-p1" data-level="1">
+    <h3><span class="pid">P1</span>絶対値・共役の基本計算</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「2点 \(\alpha=3+i,\ \beta=1-2i\) 間の距離」「\(\left|\frac{3+4i}{1-i}\right|\) を求めよ」</dd>
+      <dt>こう考える</dt><dd>距離は差の絶対値。積や商の絶対値は<b>絶対値どうしの積・商</b>に分けてから計算すると楽。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>距離：\(|\beta-\alpha|=\sqrt{(\text{実部の差})^2+(\text{虚部の差})^2}\)。</li>
+        <li>\(|\alpha\beta|=|\alpha||\beta|,\ \left|\frac\alpha\beta\right|=\frac{|\alpha|}{|\beta|}\)。</li>
+        <li>式変形には \(|z|^2=z\bar z\) を使う。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(|z|=\sqrt{x^2+y^2}\)、\(|z|^2=z\bar z\)</dd>
+      <dt>なぜこの方法？</dt><dd>複素数平面上で \(\beta-\alpha\) は「\(\alpha\) から \(\beta\) へのベクトル」に当たるので、その長さが距離。\(|\alpha\beta|=|\alpha||\beta|\) は極形式で「長さを掛ける」ことそのもの。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 2点 \(A(3+i),\ B(1-2i)\) 間の距離を求めよ。(2) \(\left|\dfrac{3+4i}{1-i}\right|\) を求めよ。(3) \(|z|=2\) のとき \(z\bar z\) と \(\dfrac{4}{z}\) を \(\bar z\) で表せ。</div>
+      <p>(1) \(|(3+i)-(1-2i)|=|2+3i|=\sqrt{13}\)。<span class="answer">\(\sqrt{13}\)</span></p>
+      <p>(2) \(\dfrac{|3+4i|}{|1-i|}=\dfrac{5}{\sqrt2}\)。<span class="answer">\(\dfrac{5\sqrt2}{2}\)</span></p>
+      <p>(3) \(z\bar z=|z|^2=4\)。よって \(\dfrac4z=\bar z\)。<span class="answer">\(z\bar z=4,\ \dfrac4z=\bar z\)</span></p>
+      <p class="point">(3) の「\(|z|=r\) なら \(\bar z=\frac{r^2}{z}\)」は、共役を消去したいときの必須の変形。P2・P19 で使う。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="cpx-p2" data-level="1">
+    <h3><span class="pid">P2</span>実数条件・純虚数条件</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\frac{2+ai}{1+2i}\) が実数（純虚数）となる \(a\)」「\(|z|=1\) のとき \(z+\frac1z\) は実数であることを示せ」</dd>
+      <dt>こう考える</dt><dd>具体的な数なら<b>分母を実数化して虚部（実部）\(=0\)</b>。文字 \(z\) のまま示すなら<b>\(\bar w=w\)</b>（純虚数なら \(\bar w=-w\)）を確かめる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>具体的な数：分母の共役を分子分母に掛けて \(p+qi\) の形にする。実数 ⇔ \(q=0\)、純虚数 ⇔ \(p=0,\ q\neq0\)。</li>
+        <li>文字 \(z\)：\(\bar w\) を計算し、\(|z|=1\) なら \(\bar z=\frac1z\) を代入して \(w\) と比べる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(w\) が実数 \(\iff\bar w=w\)、\(|z|=1\iff\bar z=\frac1z\)</dd>
+      <dt>なぜこの方法？</dt><dd>実部・虚部に分けると \(z=x+yi\) の計算が重くなる。共役を使えば <b>\(z\) のまま</b>論証できる。「実数である」ことの<a href="../thinking.html#t-rephrase">同値な言い換え</a>を道具として持っておく。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(w=\dfrac{2+ai}{1+2i}\)（\(a\) は実数）が実数となる \(a\)、純虚数となる \(a\) を求めよ。(2) \(|z|=1,\ z^2\neq-1\) のとき、\(\dfrac{z}{1+z^2}\) は実数であることを示せ。</div>
+      <p>(1) \(w=\dfrac{(2+ai)(1-2i)}{5}=\dfrac{(2+2a)+(a-4)i}{5}\)。実数 ⇔ \(a-4=0\)。純虚数 ⇔ \(2+2a=0\) かつ \(a-4\neq0\)。</p>
+      <p class="answer">(1) 実数：\(a=4\)、純虚数：\(a=-1\)</p>
+      <p>(2) \(w=\dfrac{z}{1+z^2}\) とする。\(|z|=1\) より \(\bar z=\frac1z\) だから</p>
+      \[ \bar w=\frac{\bar z}{1+\bar z^2}=\frac{\frac1z}{1+\frac1{z^2}}=\frac{z}{z^2+1}=w \]
+      <p>よって \(w\) は実数。（証明終）</p>
+      <p class="point">(2) で分母分子に \(z^2\) を掛ける操作がポイント。\(1/z\) を含む式は \(z\) の累乗を掛けて分数を解消する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="cpx-p3" data-level="1">
+    <h3><span class="pid">P3</span>極形式と積・商</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\alpha=1+\sqrt3i,\ \beta=1-i\) について \(\alpha\beta,\ \frac\alpha\beta\) を極形式で表せ」「\(\cos\frac{7\pi}{12}\) の値を求めよ」</dd>
+      <dt>こう考える</dt><dd>まず各数を極形式に。積は<b>長さの積・角の和</b>、商は<b>長さの商・角の差</b>。同じ数を \(a+bi\) 形でも計算すれば、三角関数の値が得られる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(r=|z|\) を求め、\(z=r\left(\frac xr+\frac yri\right)\) から偏角 \(\theta\) を読む。</li>
+        <li>積・商の公式で極形式を作る。</li>
+        <li>（応用）\(a+bi\) 形の計算結果と実部・虚部を比べて \(\cos,\sin\) の値を得る。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>極形式の積・商、加法定理</dd>
+      <dt>なぜこの方法？</dt><dd>積の公式は加法定理そのもの。逆に言えば<b>複素数の掛け算をすれば加法定理を計算したことになる</b>ので、\(\frac{7\pi}{12}=\frac\pi3+\frac\pi4\) のような角の三角比が得られる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\alpha=1+\sqrt3i,\ \beta=1-i\) とする。(1) \(\alpha\beta,\ \dfrac\alpha\beta\) を極形式で表せ（偏角は \(0\le\theta\lt2\pi\)）。(2) \(\cos\dfrac{7\pi}{12}\) の値を求めよ。</div>
+      <p>(1) \(\alpha=2\left(\cos\frac\pi3+i\sin\frac\pi3\right),\ \beta=\sqrt2\left(\cos\left(-\frac\pi4\right)+i\sin\left(-\frac\pi4\right)\right)\)。</p>
+      <p class="answer">(1) \(\alpha\beta=2\sqrt2\left(\cos\frac{\pi}{12}+i\sin\frac{\pi}{12}\right)\)、\(\dfrac\alpha\beta=\sqrt2\left(\cos\frac{7\pi}{12}+i\sin\frac{7\pi}{12}\right)\)</p>
+      <p>(2) 一方で \(\dfrac\alpha\beta=\dfrac{(1+\sqrt3i)(1+i)}{2}=\dfrac{(1-\sqrt3)+(1+\sqrt3)i}{2}\)。実部を比べて \(\sqrt2\cos\frac{7\pi}{12}=\frac{1-\sqrt3}{2}\)。</p>
+      <p class="answer">(2) \(\cos\dfrac{7\pi}{12}=\dfrac{1-\sqrt3}{2\sqrt2}=\dfrac{\sqrt2-\sqrt6}{4}\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="cpx-p4" data-level="1">
+    <h3><span class="pid">P4</span>ド・モアブルの定理で \(z^n\) を計算</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\((1+\sqrt3i)^{10}\) を計算せよ」「\((\sqrt3+i)^n\) が実数（純虚数）となる最小の自然数 \(n\)」</dd>
+      <dt>こう考える</dt><dd>累乗は展開せず<b>極形式にして「長さは \(n\) 乗、角は \(n\) 倍」</b>。実数 ⇔ 偏角が \(\pi\) の整数倍、純虚数 ⇔ \(\frac\pi2+(\pi\text{ の整数倍})\)。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(z=r(\cos\theta+i\sin\theta)\) に直す。</li>
+        <li>\(z^n=r^n(\cos n\theta+i\sin n\theta)\)。\(n\theta\) から \(2\pi\) の倍数を引いて簡単にする。</li>
+        <li>実数条件は \(\sin n\theta=0\)、純虚数条件は \(\cos n\theta=0\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>ド・モアブルの定理</dd>
+      <dt>なぜこの方法？</dt><dd>10乗を二項展開すると11項の計算。極形式なら「角を10倍」の1行で終わる。<b>掛け算＝回転</b>だから、何回掛けても角が足されるだけ。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \((1+\sqrt3i)^{10}\) を計算せよ。(2) \((\sqrt3+i)^n\) が実数となる最小の自然数 \(n\)、純虚数となる最小の自然数 \(n\) を求めよ。</div>
+      <p>(1) \(1+\sqrt3i=2\left(\cos\frac\pi3+i\sin\frac\pi3\right)\)。\((1+\sqrt3i)^{10}=2^{10}\left(\cos\frac{10\pi}{3}+i\sin\frac{10\pi}{3}\right)=1024\left(\cos\frac{4\pi}{3}+i\sin\frac{4\pi}{3}\right)\)。</p>
+      <p class="answer">(1) \(-512-512\sqrt3\,i\)</p>
+      <p>(2) \(\sqrt3+i=2\left(\cos\frac\pi6+i\sin\frac\pi6\right)\)、\((\sqrt3+i)^n=2^n\left(\cos\frac{n\pi}6+i\sin\frac{n\pi}6\right)\)。</p>
+      <p>実数 ⇔ \(\sin\frac{n\pi}{6}=0\) ⇔ \(n\) が6の倍数。純虚数 ⇔ \(\cos\frac{n\pi}6=0\) ⇔ \(\frac{n\pi}{6}=\frac\pi2+k\pi\) ⇔ \(n=3+6k\)。</p>
+      <p class="answer">(2) 実数：\(n=6\)（値は \(-64\)）、純虚数：\(n=3\)（値は \(8i\)）</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="cpx-p5" data-level="2">
+    <h3><span class="pid">P5</span>方程式 \(z^n=\alpha\) を解く</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「方程式 \(z^4=-8-8\sqrt3i\) を解け」「\(z^3=8i\) の解を図示せよ」</dd>
+      <dt>こう考える</dt><dd>\(z=r(\cos\theta+i\sin\theta)\) とおいて両辺を極形式で比べる。偏角は<b>「\(+2k\pi\)」を付けて比べる</b>のが急所（これを忘れると解が1つしか出ない）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>右辺を極形式に：\(\alpha=R(\cos\phi+i\sin\phi)\)。</li>
+        <li>\(r^n=R\)、\(n\theta=\phi+2k\pi\)（\(k\) は整数）。</li>
+        <li>\(r=\sqrt[n]R\)、\(\theta=\frac{\phi}{n}+\frac{2k\pi}{n}\ (k=0,1,\dots,n-1)\) で \(n\) 個の解。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>ド・モアブル、極形式の相等（絶対値が等しく、偏角が \(2\pi\) の整数倍の差）</dd>
+      <dt>なぜこの方法？</dt><dd>偏角は \(2\pi\) ずれても同じ点。\(n\) 倍する前の角が \(\frac{2\pi}{n}\) ずつずれていれば、\(n\) 倍後は同じ点に重なる。だから解は円周上に<b>正 \(n\) 角形</b>として等間隔に並ぶ。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">方程式 \(z^4=-8-8\sqrt3i\) を解け。</div>
+      <p>\(-8-8\sqrt3i=16\left(\cos\frac{4\pi}{3}+i\sin\frac{4\pi}{3}\right)\)。\(z=r(\cos\theta+i\sin\theta)\ (r\gt0)\) とおくと</p>
+      <p>\(r^4=16,\ 4\theta=\frac{4\pi}3+2k\pi\) より \(r=2,\ \theta=\frac\pi3+\frac{k\pi}{2}\ (k=0,1,2,3)\)。</p>
+      <p>\(\theta=\frac\pi3,\ \frac{5\pi}6,\ \frac{4\pi}3,\ \frac{11\pi}{6}\)。</p>
+      <p class="answer">\(z=1+\sqrt3i,\ -\sqrt3+i,\ -1-\sqrt3i,\ \sqrt3-i\)</p>
+      <p class="point">4つの解は半径2の円に内接する正方形の頂点。1つ見つけたら \(i\) を次々掛ける（\(\frac\pi2\) 回転）だけで残りが出る、という検算ができる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="cpx-p6" data-level="2">
+    <h3><span class="pid">P6</span>1の \(n\) 乗根の性質（和が0、因数分解）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\omega=\cos\frac{2\pi}{5}+i\sin\frac{2\pi}5\) のとき \(1+\omega+\omega^2+\omega^3+\omega^4\) の値」「\((1-\omega)(1-\omega^2)(1-\omega^3)(1-\omega^4)\) の値」</dd>
+      <dt>こう考える</dt><dd>\(\omega\) の性質は<b>「\(\omega^n=1\)」と「\(z^n-1=(z-1)(z-\omega)\cdots(z-\omega^{n-1})\)」</b>の2つに集約される。具体的な値（\(\cos\frac{2\pi}5\) など）を計算に持ち込まない。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\omega^n=1,\ \omega\neq1\) から \(\omega^{n-1}+\cdots+\omega+1=0\)（\(z^n-1=(z-1)(z^{n-1}+\cdots+1)\) より）。</li>
+        <li>高い次数は \(\omega^n=1\) で下げる。\(\bar\omega=\omega^{-1}=\omega^{n-1}\)。</li>
+        <li>積 \(\prod(z-\omega^k)\) が出たら \(z^{n-1}+\cdots+1\) と同一視し、\(z\) に値を代入。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>因数定理、等比数列の和</dd>
+      <dt>なぜこの方法？</dt><dd>\(1,\omega,\dots,\omega^{n-1}\) は \(z^n-1=0\) の<b>全部の解</b>なので、解と係数の関係がそのまま使える。和が0は「正 \(n\) 角形の頂点ベクトルの和は0（重心が中心）」という図形的事実でもある。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\omega=\cos\dfrac{2\pi}{5}+i\sin\dfrac{2\pi}5\) とする。(1) \(1+\omega+\omega^2+\omega^3+\omega^4=0\) を示せ。(2) \((1-\omega)(1-\omega^2)(1-\omega^3)(1-\omega^4)\) の値を求めよ。(3) \(\omega^{2026}+\omega^{-2026}\) を \(\omega\) の多項式で表せ。</div>
+      <p>(1) ド・モアブルより \(\omega^5=1\)。\(\omega^5-1=(\omega-1)(\omega^4+\omega^3+\omega^2+\omega+1)=0\) で \(\omega\neq1\) だから成り立つ。（証明終）</p>
+      <p>(2) \(z^5-1=0\) の解は \(1,\omega,\omega^2,\omega^3,\omega^4\)（すべて異なる）なので</p>
+      \[ z^4+z^3+z^2+z+1=(z-\omega)(z-\omega^2)(z-\omega^3)(z-\omega^4) \]
+      <p>\(z=1\) を代入して</p>
+      <p class="answer">(2) 5</p>
+      <p>(3) \(2026=5\cdot405+1\) より \(\omega^{2026}=\omega\)、\(\omega^{-2026}=\omega^{-1}=\omega^4\)。</p>
+      <p class="answer">(3) \(\omega+\omega^4\)（\(=2\cos\frac{2\pi}{5}\)）</p>
+      <p class="point">(2) の結果は「単位円に内接する正五角形の1頂点から他の4頂点への距離の積は5」を意味する（\(|1-\omega^k|\) が距離）。阪大型演習2で一般化する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="cpx-p7" data-level="2">
+    <h3><span class="pid">P7</span>\(\cos\frac{2\pi}{5}\) の値の導出</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\cos\frac{2\pi}5\) の値を求めよ」「\(\cos\frac{2\pi}{7}\) は3次方程式の解であることを示せ」</dd>
+      <dt>こう考える</dt><dd>\(\omega^4+\omega^3+\omega^2+\omega+1=0\) は係数が左右対称（相反方程式）。<b>\(\omega^2\) で割って \(t=\omega+\frac1\omega\) で置き換える</b>と次数が半分になる。\(t=2\cos\frac{2\pi}5\)。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\omega^2\) で割る：\(\omega^2+\omega+1+\omega^{-1}+\omega^{-2}=0\)。</li>
+        <li>\(\omega^2+\omega^{-2}=t^2-2\) を使い \(t^2+t-1=0\)。</li>
+        <li>\(t=2\cos\frac{2\pi}5\gt0\) で解を選ぶ。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\omega+\bar\omega=\omega+\omega^{-1}=2\cos\frac{2\pi}{5}\)（\(|\omega|=1\)）</dd>
+      <dt>なぜこの方法？</dt><dd>\(\omega\) と \(\omega^{-1}\) は共役なので、和は実数 \(2\cos\theta\)。<b>実数の量だけで方程式を作り直す</b>と、三角関数の値が2次方程式の解として出てくる。<a href="../thinking.html#t-symmetry">発想：対称性</a>・<a href="../thinking.html#t-subst">置き換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\omega=\cos\dfrac{2\pi}{5}+i\sin\dfrac{2\pi}5\) を用いて、\(\cos\dfrac{2\pi}{5}\) の値を求めよ。</div>
+      <p>P6 より \(\omega^4+\omega^3+\omega^2+\omega+1=0\)。\(\omega\neq0\) なので \(\omega^2\) で割ると</p>
+      \[ \left(\omega^2+\frac1{\omega^2}\right)+\left(\omega+\frac1\omega\right)+1=0 \]
+      <p>\(t=\omega+\frac1\omega\) とおくと \(\omega^2+\frac{1}{\omega^2}=t^2-2\) だから \(t^2+t-1=0\)、\(t=\dfrac{-1\pm\sqrt5}{2}\)。</p>
+      <p>\(|\omega|=1\) より \(\frac1\omega=\bar\omega\) で \(t=\omega+\bar\omega=2\cos\frac{2\pi}{5}\gt0\)（\(0\lt\frac{2\pi}5\lt\frac\pi2\)）。よって \(t=\dfrac{-1+\sqrt5}2\)。</p>
+      <p class="answer">\(\cos\dfrac{2\pi}{5}=\dfrac{\sqrt5-1}{4}\)</p>
+      <p class="point">もう一方の解 \(\frac{-1-\sqrt5}{2}\) は \(\omega^2+\omega^{-2}=2\cos\frac{4\pi}{5}\)。2解が \(2\cos\frac{2\pi}5\) と \(2\cos\frac{4\pi}{5}\) であることも答案で使える。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="cpx-p8" data-level="1">
+    <h3><span class="pid">P8</span>点の回転と拡大</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「点 \(B(3+2i)\) を点 \(A(1+i)\) のまわりに \(\frac\pi2\) 回転した点」「原点のまわりに \(\frac\pi3\) 回転し、2倍に拡大した点」</dd>
+      <dt>こう考える</dt><dd>原点まわりの回転は掛け算。中心が原点でなければ<b>「中心を原点に移す → 掛ける → 戻す」</b>の3段階。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\beta-\alpha\)（中心 \(\alpha\) から見た位置）を作る。</li>
+        <li>\(r(\cos\theta+i\sin\theta)\) を掛ける（\(\frac\pi2\) 回転なら \(i\)、\(-\frac\pi2\) なら \(-i\)）。</li>
+        <li>\(\alpha\) を足して戻す：\(\gamma=\alpha+r(\cos\theta+i\sin\theta)(\beta-\alpha)\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>極形式の積（角を足す＝回転）</dd>
+      <dt>なぜこの方法？</dt><dd>掛け算の回転は<b>原点が中心</b>。だから中心を一度原点に持ってくる。ベクトルでは回転の計算に \(\cos,\sin\) の行列的計算が必要だが、複素数なら1回の掛け算。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 点 \(B(3+2i)\) を点 \(A(1+i)\) のまわりに \(\dfrac\pi2\) だけ回転した点を求めよ。(2) 点 \(2+2i\) を原点のまわりに \(\dfrac\pi3\) 回転して \(\dfrac12\) 倍した点を求めよ。</div>
+      <p>(1) \(\gamma=(1+i)+i\{(3+2i)-(1+i)\}=(1+i)+i(2+i)=(1+i)+(-1+2i)=3i\)。</p>
+      <p class="answer">(1) \(3i\)</p>
+      <p>(2) \(\frac12\left(\frac12+\frac{\sqrt3}2i\right)(2+2i)=\frac12\{(1-\sqrt3)+(1+\sqrt3)i\}\)。</p>
+      <p class="answer">(2) \(\dfrac{1-\sqrt3}{2}+\dfrac{1+\sqrt3}{2}i\)</p>
+      <p class="point">(1) の検算：\(AB=|2+i|=\sqrt5\)、\(AC=|3i-(1+i)|=|-1+2i|=\sqrt5\)、\((2+i)\cdot(-1+2i)\) の内積に当たる \(2\cdot(-1)+1\cdot2=0\) で直交。OK。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="cpx-p9" data-level="2">
+    <h3><span class="pid">P9</span>正三角形・正方形の頂点</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(O,\ A(2+i),\ B\) が正三角形となる点 \(B\)」「\(AB\) を1辺とする正方形の残りの頂点」</dd>
+      <dt>こう考える</dt><dd>正三角形 ⇔ 1頂点のまわりに他の頂点を \(\pm\frac\pi3\) 回転。正方形 ⇔ \(\pm\frac\pi2\) 回転。<b>向き（時計回り・反時計回り）で2通り</b>あることに注意。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>回転の中心となる頂点を決める。</li>
+        <li>\(\cos\left(\pm\frac\pi3\right)+i\sin\left(\pm\frac\pi3\right)=\frac12\pm\frac{\sqrt3}2i\) を掛ける。</li>
+        <li>2通りとも答える（問題文に「反時計回り」などの指定があれば1通り）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>回転（P8）。正三角形 \(\iff\alpha^2+\beta^2+\gamma^2=\alpha\beta+\beta\gamma+\gamma\alpha\)（発展）</dd>
+      <dt>なぜこの方法？</dt><dd>正三角形は「長さが等しく、角が60°」の2条件。\(\frac12\pm\frac{\sqrt3}{2}i\) を掛ければ<b>2条件を一度に</b>満たせる。座標で \(OB=AB=OA\) を連立するより圧倒的に速い。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">原点 \(O\) と点 \(A(2+i)\) に対し、\(\triangle OAB\) が正三角形となる点 \(B\) を表す複素数を求めよ。</div>
+      <p>\(B\) は \(A\) を原点のまわりに \(\pm\frac\pi3\) 回転した点。</p>
+      <p>\((2+i)\left(\frac12+\frac{\sqrt3}2i\right)=1+\sqrt3i+\frac12i-\frac{\sqrt3}{2}=\left(1-\frac{\sqrt3}{2}\right)+\left(\frac12+\sqrt3\right)i\)</p>
+      <p>\((2+i)\left(\frac12-\frac{\sqrt3}2i\right)=\left(1+\frac{\sqrt3}{2}\right)+\left(\frac12-\sqrt3\right)i\)</p>
+      <p class="answer">\(B=\left(1-\dfrac{\sqrt3}{2}\right)+\left(\dfrac12+\sqrt3\right)i,\ \ \left(1+\dfrac{\sqrt3}{2}\right)+\left(\dfrac12-\sqrt3\right)i\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="cpx-p10" data-level="2">
+    <h3><span class="pid">P10</span>3点の位置関係（\(\frac{\gamma-\alpha}{\beta-\alpha}\) の偏角）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「3点 \(A(\alpha),B(\beta),C(\gamma)\) が一直線上にあるような \(a\)」「\(AB\perp AC\) となる \(a\)」「\(\frac{\gamma-\alpha}{\beta-\alpha}=1+\sqrt3i\) のとき \(\triangle ABC\) の形状」</dd>
+      <dt>こう考える</dt><dd>\(\dfrac{\gamma-\alpha}{\beta-\alpha}\) は「\(\vec{AB}\) を何倍・何度回転すると \(\vec{AC}\) になるか」を表す。<b>この1つの複素数に辺の比と角の情報が全部入っている</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(w=\dfrac{\gamma-\alpha}{\beta-\alpha}\) を計算（分母を実数化）。</li>
+        <li>一直線上 ⇔ \(w\) が実数、垂直 ⇔ \(w\) が純虚数。</li>
+        <li>形状：\(w\) を極形式にして \(\frac{AC}{AB}=|w|\)、\(\angle BAC=\arg w\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>商の極形式、実数・純虚数条件（P2）</dd>
+      <dt>なぜこの方法？</dt><dd>ベクトルなら「平行は \(k\) 倍、垂直は内積0」と別々の道具が要るが、複素数は<b>1つの商</b>で両方判定できる。角度そのもの（60°など）が分かるのも複素数の強み。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(A(1+i),\ B(3+2i),\ C(a+3i)\)（\(a\) は実数）とする。3点が一直線上にある \(a\)、\(AB\perp AC\) となる \(a\) を求めよ。(2) 異なる3点 \(A(\alpha),B(\beta),C(\gamma)\) が \(\dfrac{\gamma-\alpha}{\beta-\alpha}=1+\sqrt3i\) を満たすとき、\(\triangle ABC\) の3つの角を求めよ。</div>
+      <p>(1) \(w=\dfrac{(a-1)+2i}{2+i}=\dfrac{\{(a-1)+2i\}(2-i)}{5}=\dfrac{2a+(5-a)i}{5}\)。</p>
+      <p>一直線上 ⇔ \(5-a=0\)。垂直 ⇔ \(2a=0\) かつ \(5-a\neq0\)。</p>
+      <p class="answer">(1) 一直線上：\(a=5\)、垂直：\(a=0\)</p>
+      <p>(2) \(1+\sqrt3i=2\left(\cos\frac\pi3+i\sin\frac\pi3\right)\) より \(AC=2AB\)、\(\angle BAC=\frac\pi3\)。余弦定理で \(BC^2=AB^2+4AB^2-2\cdot AB\cdot2AB\cdot\frac12=3AB^2\)。\(AB^2+BC^2=4AB^2=AC^2\) なので \(\angle B=\frac\pi2\)。</p>
+      <p class="answer">(2) \(\angle A=\dfrac\pi3,\ \angle B=\dfrac\pi2,\ \angle C=\dfrac\pi6\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="cpx-p11" data-level="1">
+    <h3><span class="pid">P11</span>\(|z-\alpha|=r\)、\(|z-\alpha|=|z-\beta|\) の表す図形</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(|z-2i|=3\)」「\(|z-1|=|z+i|\)」「\(|2z-2+4i|=2\)」「\(z\bar z-(1-i)z-(1+i)\bar z-2=0\) を満たす点 \(z\) 全体」</dd>
+      <dt>こう考える</dt><dd>\(|z-\alpha|\) は「点 \(z\) と点 \(\alpha\) の距離」と読む。<b>係数をくくり出し、\(+\) は \(-(-\cdots)\) に直して</b>型に合わせる。\(z\bar z\) を含む式は \((z-\alpha)(\bar z-\bar\alpha)\) の形を作る。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(|kz-\beta|=|k|\left|z-\frac\beta k\right|\) と変形。\(|z+i|=|z-(-i)|\)。</li>
+        <li>\(z\bar z-\bar\alpha z-\alpha\bar z=c\) なら、両辺に \(\alpha\bar\alpha\) を足して \((z-\alpha)(\bar z-\bar\alpha)=c+|\alpha|^2\)、すなわち \(|z-\alpha|^2=c+|\alpha|^2\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(|z|^2=z\bar z\)、\(\overline{z-\alpha}=\bar z-\bar\alpha\)</dd>
+      <dt>なぜこの方法？</dt><dd>距離として読めれば図形はすぐ分かる。\(x+yi\) を代入しても解けるが、<b>\(z\) のまま変形できる力</b>が P12・P13 のような応用で効いてくる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">次の式を満たす点 \(z\) 全体はどのような図形か。(1) \(|2z-2+4i|=2\)　(2) \(|z-1|=|z+i|\)　(3) \(z\bar z-(1-i)z-(1+i)\bar z-2=0\)</div>
+      <p>(1) \(2|z-(1-2i)|=2\)、\(|z-(1-2i)|=1\)。<span class="answer">中心 \(1-2i\)、半径1の円</span></p>
+      <p>(2) \(|z-1|=|z-(-i)|\)：2点 \(1,\ -i\) から等距離。<span class="answer">2点 \(1,\ -i\) を結ぶ線分の垂直二等分線（直線 \(y=-x\)）</span></p>
+      <p>(3) \(\alpha=1+i\) とすると \(\bar\alpha=1-i\) で、式は \(z\bar z-\bar\alpha z-\alpha\bar z=2\)。両辺に \(\alpha\bar\alpha=2\) を足して \((z-\alpha)(\bar z-\bar\alpha)=4\)、\(|z-(1+i)|^2=4\)。</p>
+      <p class="answer">(3) 中心 \(1+i\)、半径2の円</p>
+      <p class="point">(3) を \(z=x+yi\) で確かめると \(x^2+y^2-2x-2y-2=0\)、すなわち \((x-1)^2+(y-1)^2=4\)。一致する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="cpx-p12" data-level="2">
+    <h3><span class="pid">P12</span>アポロニウスの円 \(|z-\alpha|=k|z-\beta|\)</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(|z-3|=2|z|\) を満たす点 \(z\) 全体」「2点からの距離の比が \(2:1\) である点の軌跡」</dd>
+      <dt>こう考える</dt><dd>距離の比が一定（\(\neq1\)）なら円。<b>両辺を2乗して \(|w|^2=w\bar w\) で展開</b>し、P11 の型にまとめる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>両辺を2乗：\((z-\alpha)(\bar z-\bar\alpha)=k^2(z-\beta)(\bar z-\bar\beta)\)。</li>
+        <li>展開して \(z\bar z\) の係数で割る。</li>
+        <li>\(|z-\gamma|^2=R^2\) の形にまとめる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(|z|^2=z\bar z\)、アポロニウスの円（<a href="m2-coord.html">図形と方程式</a>）</dd>
+      <dt>なぜこの方法？</dt><dd>2乗すれば \(z\bar z\) の項が両辺に出て、係数を比べて整理できる。検算には「\(\alpha,\beta\) を結ぶ直線上で \(k:1\) に内分・外分する点」が円の直径の両端になることを使う。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(|z-3|=2|z|\) を満たす点 \(z\) 全体はどのような図形か。</div>
+      <p>2乗して \((z-3)(\bar z-3)=4z\bar z\)。展開：\(z\bar z-3z-3\bar z+9=4z\bar z\)、\(3z\bar z+3z+3\bar z-9=0\)。</p>
+      <p>3で割って \(z\bar z+z+\bar z=3\)。両辺に1を足して \((z+1)(\bar z+1)=4\)、\(|z+1|=2\)。</p>
+      <p class="answer">中心 \(-1\)、半径2の円</p>
+      <p class="point">検算：実軸上で \(0\) と \(3\) を \(2:1\) …ではなく、\(|z-3|:|z|=2:1\) なので \(3\) からの距離が \(0\) からの距離の2倍。内分点 \(z=1\)（\(2=2\cdot1\)）、外分点 \(z=-3\)（\(6=2\cdot3\)）。これを直径の両端とする円は中心 \(-1\)、半径2。一致。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="cpx-p13" data-level="2">
+    <h3><span class="pid">P13</span>\(w=f(z)\) による図形の像（\(w=\frac1z\) など）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「点 \(z\) が円 \(|z-1|=1\)（\(z\neq0\)）上を動くとき、\(w=\frac1z\) はどのような図形を描くか」「\(z\) が直線上を動くとき \(w=\frac{1}{z}\) の軌跡」</dd>
+      <dt>こう考える</dt><dd>\(w\) の満たす式を作りたい。<b>\(z\) を \(w\) で表し（逆に解き）、\(z\) の条件式に代入</b>すれば、それが \(w\) の満たすべき条件になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(w=f(z)\) を \(z=g(w)\) と解く（\(w\neq0\) などの除外値も確認）。</li>
+        <li>\(z\) の条件（\(|z-1|=1\) など）に \(z=g(w)\) を代入。</li>
+        <li>分母を払って \(w\) の式を整理し、P11・P12 の型にする。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(|z|^2=z\bar z\)、P11 の図形の型</dd>
+      <dt>なぜこの方法？</dt><dd>「\(w\) が像に含まれる ⇔ \(w=f(z)\) となる条件を満たす \(z\) が存在する」。\(z=g(w)\) と1通りに決まるので、それが条件を満たすかどうかを調べればよい。これは<a href="../thinking.html#t-inverse">逆像法</a>の考え方そのもの。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(w=\dfrac1z\) とする。(1) 点 \(z\) が円 \(|z-1|=1\) 上の原点以外の点を動くとき、点 \(w\) の描く図形を求めよ。(2) 点 \(z\) が直線 \(\mathrm{Re}\,z=1\)（実部が1）上を動くとき、点 \(w\) の描く図形を求めよ。</div>
+      <p>\(w\neq0\) で \(z=\dfrac1w\)。</p>
+      <p>(1) \(\left|\dfrac1w-1\right|=1\) より \(|1-w|=|w|\)。2点 \(0,1\) から等距離の点全体。逆にこの直線上の \(w\)（\(w\neq0\) は自動的に成立）に対し \(z=\frac1w\) は条件を満たす。</p>
+      <p class="answer">(1) 直線 \(\mathrm{Re}\,w=\dfrac12\)</p>
+      <p>(2) \(\mathrm{Re}\,z=1\iff z+\bar z=2\)。\(\dfrac1w+\dfrac1{\bar w}=2\)、分母を払って \(w+\bar w=2w\bar w\)。</p>
+      <p>\(w\bar w-\frac12w-\frac12\bar w=0\)、\(\left(w-\frac12\right)\left(\bar w-\frac12\right)=\frac14\)、\(\left|w-\frac12\right|=\frac12\)。ただし \(w\neq0\)。</p>
+      <p class="answer">(2) 中心 \(\dfrac12\)、半径 \(\dfrac12\) の円から原点を除いたもの</p>
+      <p class="point">\(w=\frac1z\) は「原点を通る円 ⇔ 原点を通らない直線」を入れ替える。原点は \(\frac1z\) では到達できないので<b>除外点</b>になる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="cpx-p14" data-level="3">
+    <h3><span class="pid">P14</span>\(w=z+\frac1z\) の像（円が楕円・線分に）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(|z|=2\) のとき \(w=z+\frac1z\) の描く図形」「\(|z|=1\) のとき」「\(w\) が実数となる \(z\) の条件」</dd>
+      <dt>こう考える</dt><dd>\(z\) について解くと2次方程式になり P13 の方法は重い。\(|z|\) が一定なら<b>\(z=r(\cos\theta+i\sin\theta)\) と極形式でおく</b>と、\(w\) の実部・虚部が \(\theta\) の媒介変数表示になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(z=r(\cos\theta+i\sin\theta)\) とおくと \(\frac1z=\frac1r(\cos\theta-i\sin\theta)\)。</li>
+        <li>\(w=\left(r+\frac1r\right)\cos\theta+i\left(r-\frac1r\right)\sin\theta\)。</li>
+        <li>\(\cos^2\theta+\sin^2\theta=1\) で \(\theta\) を消去（<a href="mc-curves.html">平面上の曲線</a>の楕円）。\(r=1\) なら虚部が0。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>ド・モアブル（\(z^{-1}\)）、楕円の媒介変数表示</dd>
+      <dt>なぜこの方法？</dt><dd>\(z\) と \(\frac1z\) は偏角が逆、長さが逆数。足すと虚部は打ち消し合い（\(r=1\) なら完全に消える）、実部は強め合う。だから円が横長の楕円につぶれる。<b>極形式は「長さ」と「角」を分離できる</b>のが強み。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(w=z+\dfrac1z\) とする。(1) 点 \(z\) が円 \(|z|=2\) 上を動くとき、点 \(w\) の描く図形を求めよ。(2) 点 \(z\) が円 \(|z|=1\) 上を動くとき、点 \(w\) の描く図形を求めよ。</div>
+      <p>(1) \(z=2(\cos\theta+i\sin\theta)\ (0\le\theta\lt2\pi)\) とおくと \(\frac1z=\frac12(\cos\theta-i\sin\theta)\)。</p>
+      \[ w=\frac52\cos\theta+\frac32i\sin\theta \]
+      <p>\(w=X+Yi\) とすると \(X=\frac52\cos\theta,\ Y=\frac32\sin\theta\)。\(\theta\) が \(0\) から \(2\pi\) まで動くと点 \((X,Y)\) は楕円を1周する。</p>
+      <p class="answer">(1) 楕円 \(\dfrac{X^2}{\left(\frac52\right)^2}+\dfrac{Y^2}{\left(\frac32\right)^2}=1\)（焦点 \(\pm2\)）</p>
+      <p>(2) \(z=\cos\theta+i\sin\theta\) とすると \(w=2\cos\theta\)。\(-2\le w\le2\) のすべての値をとる。</p>
+      <p class="answer">(2) 実軸上の線分 \(-2\le w\le2\)（2点 \(-2,\ 2\) を結ぶ線分）</p>
+      <p class="point">(1) の楕円の焦点は \(c=\sqrt{\frac{25}4-\frac94}=2\) で、\(r\) によらず常に \(\pm2\)。\(r\to1\) で楕円がつぶれて (2) の線分（焦点間の線分）になる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="cpx-p15" data-level="2">
+    <h3><span class="pid">P15</span>円上の点 \(z\) と \(|z|\)・\(\arg z\) の最大最小</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(|z-(\sqrt3+i)|=1\) のとき \(|z|\) の最大値・最小値」「\(\arg z\) の取りうる値の範囲」</dd>
+      <dt>こう考える</dt><dd>計算より<b>図</b>。\(|z|\) は原点からの距離 → 原点と円の中心を結ぶ直線上で最大・最小。\(\arg z\) は原点から引いた<b>接線</b>で最大・最小。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>円の中心 \(C\) と原点の距離 \(d\)、半径 \(r\) を求める。</li>
+        <li>\(|z|\) の範囲：\(d-r\le|z|\le d+r\)（原点が円の外部のとき）。</li>
+        <li>\(\arg z\) の範囲：\(\arg C\pm\phi\)、ただし \(\sin\phi=\frac rd\)（接線と中心方向の角）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>三角不等式 \(\bigl||\alpha|-|\beta|\bigr|\le|\alpha+\beta|\le|\alpha|+|\beta|\)、接線と半径の垂直</dd>
+      <dt>なぜこの方法？</dt><dd>\(|z|=|C+(z-C)|\) で \(|z-C|=r\) 一定だから、三角不等式で \(d-r\le|z|\le d+r\)。等号は \(z-C\) が \(C\) と同じ向き・逆向きのとき。<a href="../thinking.html#t-graph">発想：図・グラフにする</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">点 \(z\) が \(|z-(\sqrt3+i)|=1\) を満たして動くとき、\(|z|\) の最大値・最小値と、\(\arg z\ (0\le\arg z\lt2\pi)\) の取りうる値の範囲を求めよ。</div>
+      <p>中心 \(C=\sqrt3+i=2\left(\cos\frac\pi6+i\sin\frac\pi6\right)\)、\(d=|C|=2\)、半径1。原点は円の外部。</p>
+      <p>\(|z|\) は \(z\) が直線 \(OC\) 上にあるとき最大・最小：最大 \(2+1=3\)（\(z=\frac32C\)）、最小 \(2-1=1\)（\(z=\frac12C\)）。</p>
+      <p>原点から円に接線を引くと、接点・中心・原点で直角三角形ができ、\(\sin\phi=\frac12\)、\(\phi=\frac\pi6\)。\(\arg z\) の範囲は \(\frac\pi6-\frac\pi6\) から \(\frac\pi6+\frac\pi6\) まで。</p>
+      <p class="answer">\(|z|\)：最大値 3、最小値 1。\(0\le\arg z\le\dfrac\pi3\)</p>
+      <p class="point">接点は \(\arg z=0\) で \(z=\sqrt3\)、\(\arg z=\frac\pi3\) で \(z=\frac{\sqrt3}{2}+\frac32i\)。どちらも \(|z-C|=1\) を満たすことを確かめておこう。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="cpx-p16" data-level="2">
+    <h3><span class="pid">P16</span>\(z_{n+1}=\alpha z_n+\beta\) の点列（回転しながら近づく）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(z_0=0,\ z_{n+1}=\frac{1+i}{2}z_n+1\) で定まる点列」「\(z_n\) を求めよ」「線分 \(z_nz_{n+1}\) の長さの総和」</dd>
+      <dt>こう考える</dt><dd>数列の1次漸化式と同じく<b>不動点 \(c=\alpha c+\beta\)</b> を引くと \(z_{n+1}-c=\alpha(z_n-c)\)。図形的には「点 \(c\) を中心に、毎回 \(\arg\alpha\) 回転して \(|\alpha|\) 倍」。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(c=\dfrac{\beta}{1-\alpha}\) を求める。</li>
+        <li>\(z_n-c=\alpha^n(z_0-c)\)。\(\alpha^n\) はド・モアブルで計算。</li>
+        <li>\(|\alpha|\lt1\) なら \(z_n\to c\)。長さ \(|z_{n+1}-z_n|=|\alpha|^n|z_1-z_0|\) は等比数列。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>1次漸化式の解法（<a href="mb-sequence.html">数列</a>）、ド・モアブル、無限等比級数（<a href="m3-limit.html">極限</a>）</dd>
+      <dt>なぜこの方法？</dt><dd>\(z\mapsto\alpha z+\beta\) は「\(c\) を中心とする回転＋拡大」。中心から見れば単なる掛け算の繰り返しなので、等比数列になる。<a href="../thinking.html#t-recurrence">発想：漸化式を立てる</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(z_0=0,\ z_{n+1}=\dfrac{1+i}{2}z_n+1\ (n=0,1,2,\dots)\) とする。(1) \(z_n\) を \(n\) で表せ。(2) \(z_8\) を求めよ。(3) 折れ線 \(z_0z_1z_2\cdots\) の長さの総和 \(\displaystyle\sum_{n=0}^{\infty}|z_{n+1}-z_n|\) を求めよ。</div>
+      <p>\(\alpha=\frac{1+i}{2}=\frac{1}{\sqrt2}\left(\cos\frac\pi4+i\sin\frac\pi4\right)\)。</p>
+      <p>(1) \(c=\alpha c+1\) より \(c=\dfrac{1}{1-\alpha}=\dfrac{2}{1-i}=1+i\)。\(z_{n+1}-c=\alpha(z_n-c)\) より \(z_n-c=\alpha^n(0-c)\)。</p>
+      <p class="answer">(1) \(z_n=(1+i)\left\{1-\left(\dfrac{1+i}{2}\right)^n\right\}\)</p>
+      <p>(2) \(\alpha^8=\left(\frac1{\sqrt2}\right)^8(\cos2\pi+i\sin2\pi)=\frac1{16}\)。</p>
+      <p class="answer">(2) \(z_8=\dfrac{15}{16}(1+i)\)</p>
+      <p>(3) \(z_{n+1}-z_n=\alpha(z_n-z_{n-1})\) より \(|z_{n+1}-z_n|=|\alpha|^n|z_1-z_0|=\left(\frac{1}{\sqrt2}\right)^n\)。公比 \(\frac1{\sqrt2}\lt1\) の無限等比級数で</p>
+      \[ \sum_{n=0}^{\infty}\left(\frac1{\sqrt2}\right)^n=\frac{1}{1-\frac{1}{\sqrt2}}=\frac{\sqrt2}{\sqrt2-1}=2+\sqrt2 \]
+      <p class="answer">(3) \(2+\sqrt2\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="cpx-p17" data-level="3">
+    <h3><span class="pid">P17</span>複素数による三角関数の公式・和の証明</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「ド・モアブルの定理を用いて \(\cos3\theta\) を \(\cos\theta\) で表せ」「\(\cos\frac\pi7+\cos\frac{3\pi}{7}+\cos\frac{5\pi}{7}=\frac12\) を示せ」</dd>
+      <dt>こう考える</dt><dd>\(\cos k\theta\) の和は、\(z=\cos\theta+i\sin\theta\) の累乗の和の<b>実部</b>。累乗の和は等比数列の和で計算でき、\(z^n=\pm1\) なら値が単純になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>倍角：\((\cos\theta+i\sin\theta)^n\) を二項展開した実部・虚部と、\(\cos n\theta+i\sin n\theta\) を比べる。</li>
+        <li>和：\(z=\cos\frac{\pi}{7}+i\sin\frac\pi7\) なら \(z^7=-1\)。奇数乗 \(z,z^3,\dots,z^{13}\) の和を等比数列で計算。</li>
+        <li>\(\cos\) の対称性（\(\cos(2\pi-x)=\cos x\)）で同じ値をまとめる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>ド・モアブル、二項定理、等比数列の和</dd>
+      <dt>なぜこの方法？</dt><dd>三角関数の積和公式を何度も使う計算が、複素数では<b>等比数列の和1回</b>に変わる。正 \(n\) 角形の頂点の和が0（P6）という図形的事実の実部をとっているとも言える。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\cos3\theta=4\cos^3\theta-3\cos\theta,\ \sin3\theta=3\sin\theta-4\sin^3\theta\) を示せ。(2) \(\cos\dfrac\pi7+\cos\dfrac{3\pi}{7}+\cos\dfrac{5\pi}{7}=\dfrac12\) を示せ。</div>
+      <p>(1) \(c=\cos\theta,\ s=\sin\theta\) とする。ド・モアブルより \(\cos3\theta+i\sin3\theta=(c+is)^3=c^3+3c^2(is)+3c(is)^2+(is)^3=(c^3-3cs^2)+i(3c^2s-s^3)\)。</p>
+      <p>実部：\(\cos3\theta=c^3-3c(1-c^2)=4c^3-3c\)。虚部：\(\sin3\theta=3(1-s^2)s-s^3=3s-4s^3\)。（証明終）</p>
+      <p>(2) \(z=\cos\frac\pi7+i\sin\frac\pi7\) とすると \(z^7=-1\)、\(z^{14}=1\)、\(z^2\neq1\)。</p>
+      \[ z+z^3+z^5+\cdots+z^{13}=\frac{z(1-z^{14})}{1-z^2}=0 \]
+      <p>実部をとると \(\cos\frac\pi7+\cos\frac{3\pi}7+\cos\frac{5\pi}{7}+\cos\pi+\cos\frac{9\pi}{7}+\cos\frac{11\pi}{7}+\cos\frac{13\pi}{7}=0\)。</p>
+      <p>\(\cos\frac{9\pi}7=\cos\frac{5\pi}7,\ \cos\frac{11\pi}{7}=\cos\frac{3\pi}7,\ \cos\frac{13\pi}{7}=\cos\frac\pi7\)（\(\cos(2\pi-x)=\cos x\)）、\(\cos\pi=-1\) より、求める和を \(S\) として \(2S-1=0\)。</p>
+      <p class="answer">(2) \(S=\dfrac12\)（証明終）</p>
+      <p class="point">実数だけの別解：\(2\sin\frac\pi7\cdot S\) を積和公式で変形すると隣どうしが打ち消し合い \(\sin\frac{6\pi}{7}=\sin\frac{\pi}{7}\) が残る。どちらも「打ち消し合う和（望遠鏡和）」が本質。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="cpx-p18" data-level="2">
+    <h3><span class="pid">P18</span>条件式から三角形の形状を決める</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「0でない複素数 \(\alpha,\beta\) が \(\alpha^2-2\alpha\beta+4\beta^2=0\) を満たすとき、\(\triangle OAB\) はどんな三角形か」</dd>
+      <dt>こう考える</dt><dd>同次式（各項の次数が等しい）なら \(\beta^2\) で割って<b>比 \(\frac\alpha\beta\) の方程式</b>にできる。\(\frac\alpha\beta\) の極形式から辺の比と角が分かる（P10 と同じ）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\beta^2\) で割り \(t=\frac\alpha\beta\) の2次方程式を解く。</li>
+        <li>\(t\) を極形式にし、\(\frac{OA}{OB}=|t|\)、\(\angle BOA=|\arg t|\)。</li>
+        <li>余弦定理などで残りの角を求め、形状を答える。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>商の極形式、余弦定理</dd>
+      <dt>なぜこの方法？</dt><dd>三角形の形（相似形）は「2辺の比とはさむ角」で決まり、それは比 \(\frac\alpha\beta\) という<b>1つの複素数</b>に入っている。だから比の方程式を解けば形が決まる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">0でない複素数 \(\alpha,\beta\) が \(\alpha^2-2\alpha\beta+4\beta^2=0\) を満たす。\(O(0),A(\alpha),B(\beta)\) とするとき、\(\triangle OAB\) の3つの角を求めよ。</div>
+      <p>\(\beta^2\) で割って \(t=\frac\alpha\beta\) とおくと \(t^2-2t+4=0\)、\(t=1\pm\sqrt3i=2\left\{\cos\left(\pm\frac\pi3\right)+i\sin\left(\pm\frac\pi3\right)\right\}\)。</p>
+      <p>よって \(OA=2OB\)、\(\angle AOB=\frac\pi3\)。余弦定理で \(AB^2=OB^2+4OB^2-2\cdot OB\cdot 2OB\cdot\frac12=3OB^2\)。\(OB^2+AB^2=4OB^2=OA^2\) より \(\angle OBA=\frac\pi2\)。</p>
+      <p class="answer">\(\angle O=\dfrac\pi3,\ \angle B=\dfrac\pi2,\ \angle A=\dfrac\pi6\)（\(\angle B\) が直角の直角三角形）</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="cpx-p19" data-level="3">
+    <h3><span class="pid">P19</span>単位円上の3点と垂心（\(\bar\alpha=\frac1\alpha\) の活用）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(|\alpha|=|\beta|=|\gamma|=1\) のとき、\(\alpha+\beta+\gamma\) は \(\triangle ABC\) の垂心であることを示せ」「外接円の中心が原点」</dd>
+      <dt>こう考える</dt><dd>外心を原点にとると3頂点は \(|z|=1\)（半径で割れば）。<b>共役が \(\bar\alpha=\frac1\alpha\) と逆数に変わる</b>ので、純虚数・実数の判定（\(\bar w=\mp w\)）が計算だけでできる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>示したい垂直を「\(\frac{h-\alpha}{\gamma-\beta}\) が純虚数（または0）」に言い換える。</li>
+        <li>その共役を計算し、\(\bar\alpha=\frac1\alpha\) などを代入して \(-1\) 倍になることを示す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(|z|=1\iff\bar z=\frac1z\)、純虚数条件 \(\bar w=-w\)</dd>
+      <dt>なぜこの方法？</dt><dd>座標でやると三角関数だらけになるが、\(\bar z=\frac1z\) を使うと共役が消えて分数式の計算になる。外心が原点・重心が \(\frac{\alpha+\beta+\gamma}{3}\)・垂心が \(\alpha+\beta+\gamma\) と並ぶことから、<b>オイラー線</b>（外心・重心・垂心が一直線で \(OG:GH=1:2\)）も即座に分かる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">単位円 \(|z|=1\) 上の異なる3点 \(A(\alpha),B(\beta),C(\gamma)\) に対し、\(H(h),\ h=\alpha+\beta+\gamma\) とする。(1) \(H\neq A\) のとき \(AH\perp BC\) を示せ（同様に \(BH\perp CA\) なので \(H\) は垂心）。(2) \(\alpha=1,\ \beta=i,\ \gamma=-1\) のとき \(H\) を求め、その意味を説明せよ。</div>
+      <p>(1) \(w=\dfrac{h-\alpha}{\gamma-\beta}=\dfrac{\beta+\gamma}{\gamma-\beta}\)。\(H\neq A\) より \(\beta+\gamma\neq0\)。\(\bar\beta=\frac1\beta,\ \bar\gamma=\frac1\gamma\) だから</p>
+      \[ \bar w=\frac{\frac1\beta+\frac1\gamma}{\frac1\gamma-\frac1\beta}=\frac{\gamma+\beta}{\beta-\gamma}=-w \]
+      <p>（分子分母に \(\beta\gamma\) を掛けた）。\(w\neq0\) かつ \(\bar w=-w\) なので \(w\) は純虚数、すなわち \(AH\perp BC\)。（証明終）</p>
+      <p>(2) \(h=1+i-1=i=\beta\)。</p>
+      <p class="answer">(2) \(H=B\)。\(AC\) が直径なので \(\angle B=90^\circ\) の直角三角形であり、直角三角形の垂心は直角の頂点に一致する。</p>
+      <p class="point">\(H=A\)（\(\beta+\gamma=0\)）のときは \(BC\) が直径で \(\angle A=90^\circ\)、やはり \(H\) は垂心。場合分けまで書けると阪大の答案として満点。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="pitfalls">
+  <h2>よくあるミスと対策</h2>
+  <ul class="pitfalls">
+    <li><b>\(z^n=\alpha\) で偏角に \(2k\pi\) を付け忘れ、解が1つしか出ない</b>（P5）。→ 解は必ず \(n\) 個。正 \(n\) 角形になっているか図で確認。</li>
+    <li><b>純虚数条件で「実部 \(=0\)」だけ書き、虚部 \(\neq0\) を忘れる</b>（P2, P10）。→ 0は純虚数ではない。</li>
+    <li><b>回転の中心が原点でないのに、そのまま掛ける</b>（P8）。→ 「\(-\alpha\) → 掛ける → \(+\alpha\)」の3段階。</li>
+    <li><b>正三角形の頂点を1通りしか答えない</b>（P9）。→ \(\pm\frac\pi3\) の2通り。向きの指定を問題文で確認。</li>
+    <li><b>\(|z+i|\) を「\(i\) からの距離」と読む</b>（P11）。→ \(|z-(-i)|\) で、\(-i\) からの距離。</li>
+    <li><b>\(w=\frac1z\) の像で除外点（\(w=0\)）を書き忘れる</b>（P13）。→ 「\(w\) になれない値」を最後に必ずチェック。</li>
+    <li><b>\(\omega\) の計算で \(\cos\frac{2\pi}{5}\) などの値を代入してしまう</b>（P6）。→ \(\omega^n=1\) と和が0だけで処理するのが原則。</li>
+  </ul>
+</section>
+
+<section id="handai">
+  <h2>阪大レベルへの橋渡し</h2>
+  <p>阪大の複素数平面は、<b>「\(w=f(z)\) の像・存在範囲」「1の \(n\) 乗根と正多角形」「\(|z|=1\) 上の式の最大最小」「点列と極限」</b>が定番。いずれも「共役・極形式・図形」の3つの見方を、場面に応じて切り替えられるかが鍵になる。</p>
+  <ul>
+    <li>「実数となる」を \(\bar w=w\) で処理し、因数分解して<b>場合分け</b>する（演習1、<a href="../thinking.html#t-casework">発想：場合分け</a>）。</li>
+    <li>積・和を1の \(n\) 乗根の因数分解に結びつける（演習2）。</li>
+    <li>\(|z|=1\) なら \(\bar z=\frac1z\)、あるいは \(z\) をくくり出して絶対値を簡単にする（演習3）。</li>
+  </ul>
+
+  <article class="pattern" id="cpx-h1" data-level="3">
+    <h3><span class="pid">演1</span>\(z+\frac1z\) が実数となる条件と存在範囲の図示</h3>
+    <div class="problem">0でない複素数 \(z\) に対し \(w=z+\dfrac1z\) とする。<br>(1) \(w\) が実数となるような点 \(z\) 全体を図示せよ。<br>(2) \(w\) が実数で、かつ \(-1\le w\le1\) を満たすような点 \(z\) 全体を図示せよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>実数条件 \(\bar w=w\) を書き、\(z-\bar z\) でくくれる形に整理する。「積 \(=0\)」になれば「どちらかが0」で場合分け。(2) は (1) の各部分で \(w\) がどんな値をとるかを調べる（実軸上なら \(|w|\ge2\)、単位円上なら \(w=2\cos\theta\)）。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) \(w\) が実数 \(\iff\bar w=w\iff\bar z+\dfrac1{\bar z}=z+\dfrac1z\)。</p>
+      <p>移項して \((z-\bar z)+\left(\dfrac1z-\dfrac1{\bar z}\right)=0\)。\(\dfrac1z-\dfrac1{\bar z}=\dfrac{\bar z-z}{z\bar z}\) だから</p>
+      \[ (z-\bar z)-\frac{z-\bar z}{|z|^2}=0 \]
+      <p>すなわち \((z-\bar z)\left(1-\dfrac1{|z|^2}\right)=0\)。よって \(z=\bar z\)（\(z\) は実数）または \(|z|=1\)。</p>
+      <p class="answer">(1) 実軸（原点を除く）と、単位円 \(|z|=1\) の和集合</p>
+      <p>(2) (i) \(z\) が0でない実数のとき：\(z\gt0\) なら \(w=z+\frac1z\ge2\)、\(z\lt0\) なら \(w\le-2\)（相加相乗）。\(-1\le w\le1\) を満たさない。</p>
+      <p>(ii) \(|z|=1\) のとき：\(z=\cos\theta+i\sin\theta\ (0\le\theta\lt2\pi)\) とおくと \(\frac1z=\bar z\) で \(w=2\cos\theta\)。\(-1\le2\cos\theta\le1\iff-\frac12\le\cos\theta\le\frac12\iff\frac\pi3\le\theta\le\frac{2\pi}3\) または \(\frac{4\pi}3\le\theta\le\frac{5\pi}3\)。</p>
+      <p class="answer">(2) 単位円のうち、偏角が \(\dfrac\pi3\le\theta\le\dfrac{2\pi}{3}\) の弧と \(\dfrac{4\pi}{3}\le\theta\le\dfrac{5\pi}3\) の弧（端点を含む）</p>
+      <svg viewBox="0 0 160 160" width="100%" style="max-width:200px" role="img" aria-label="単位円上の2つの弧">
+        <line x1="10" y1="80" x2="150" y2="80" stroke="currentColor" stroke-width="0.8"/>
+        <line x1="80" y1="10" x2="80" y2="150" stroke="currentColor" stroke-width="0.8"/>
+        <circle cx="80" cy="80" r="50" fill="none" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3 3"/>
+        <path d="M105,36.7 A50,50 0 0 0 55,36.7" fill="none" stroke="var(--accent)" stroke-width="3"/>
+        <path d="M55,123.3 A50,50 0 0 0 105,123.3" fill="none" stroke="var(--accent)" stroke-width="3"/>
+        <text x="133" y="92" font-size="9" fill="currentColor">1</text>
+      </svg>
+      <p class="point">採点ポイント：\(\bar w=w\) から因数分解して「\(z\) が実数 または \(|z|=1\)」と<b>または</b>で分ける論理。(2) で実軸上の点を「\(|w|\ge2\) だから不適」と明示的に除外すること。図には端点を含むことを書く。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="cpx-h2" data-level="3">
+    <h3><span class="pid">演2</span>正 \(n\) 角形の対角線の長さの積と2乗和</h3>
+    <div class="problem">\(n\) を2以上の整数とし、単位円に内接する正 \(n\) 角形 \(A_0A_1\cdots A_{n-1}\) の頂点を \(A_k\left(\omega^k\right)\)、\(\omega=\cos\dfrac{2\pi}{n}+i\sin\dfrac{2\pi}{n}\) とする。<br>(1) \(A_0A_1\cdot A_0A_2\cdots A_0A_{n-1}=n\) を示せ。<br>(2) \(A_0A_1^{\,2}+A_0A_2^{\,2}+\cdots+A_0A_{n-1}^{\,2}=2n\) を示せ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>\(A_0A_k=|1-\omega^k|\)。(1) は P6 の \(z^{n-1}+\cdots+z+1=\prod_{k=1}^{n-1}(z-\omega^k)\) に \(z=1\) を代入。(2) は \(|1-\omega^k|^2=(1-\omega^k)(1-\bar\omega^k)=2-\omega^k-\omega^{-k}\) として、和が0（P6）を使う。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>ド・モアブルより \(\omega^n=1\)、かつ \(1,\omega,\dots,\omega^{n-1}\) は相異なる \(n\) 個の \(z^n=1\) の解。よって</p>
+      \[ z^n-1=(z-1)\prod_{k=1}^{n-1}(z-\omega^k) \]
+      <p>一方 \(z^n-1=(z-1)(z^{n-1}+z^{n-2}+\cdots+1)\)。両辺を \(z-1\) で割ると（多項式として）</p>
+      \[ z^{n-1}+z^{n-2}+\cdots+z+1=\prod_{k=1}^{n-1}(z-\omega^k) \]
+      <p>(1) \(z=1\) を代入して \(\prod_{k=1}^{n-1}(1-\omega^k)=n\)。両辺の絶対値をとると \(\prod_{k=1}^{n-1}|1-\omega^k|=n\)。\(A_0A_k=|1-\omega^k|\) だから示された。（証明終）</p>
+      <p>(2) \(|\omega|=1\) より \(\overline{\omega^k}=\omega^{-k}\)。</p>
+      \[ A_0A_k^{\,2}=(1-\omega^k)(1-\omega^{-k})=2-\omega^k-\omega^{-k} \]
+      <p>\(k=1,\dots,n-1\) で和をとる。\(\omega^{-k}=\omega^{n-k}\) なので \(\sum_{k=1}^{n-1}\omega^{-k}=\sum_{k=1}^{n-1}\omega^{k}\)。また \(1+\omega+\cdots+\omega^{n-1}=\dfrac{1-\omega^n}{1-\omega}=0\) より \(\sum_{k=1}^{n-1}\omega^k=-1\)。</p>
+      \[ \sum_{k=1}^{n-1}A_0A_k^{\,2}=2(n-1)-(-1)-(-1)=2n \]
+      <p class="answer">(1)(2) ともに示された（\(n=5\) なら積 5、2乗和 10）</p>
+      <p class="point">採点ポイント：(1) で「\(z-1\) で割る」ことを多項式の恒等式として行うこと（\(z=1\) を代入する前に割る。\(z=1\) で \(0=0\) としてしまうのは誤り）。(2) は \(|z|^2=z\bar z\) と「和が0」の2つで完結する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="cpx-h3" data-level="3">
+    <h3><span class="pid">演3</span>単位円上の \(z\) と式の絶対値の最大最小</h3>
+    <div class="problem">複素数 \(z\) が \(|z|=1\) を満たして動く。<br>(1) \(|z^2-z+1|\) の最大値と最小値、およびそれを与える \(z\) を求めよ。<br>(2) \(|z^3-3z+2|\) の最大値と、それを与える \(z\) を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>(1) \(|z|=1\) なので \(z\) をくくり出しても絶対値は変わらない：\(|z^2-z+1|=|z|\cdot\left|z-1+\frac1z\right|=|z+\bar z-1|\)。これは実数 \(2\cos\theta-1\) の絶対値。(2) は因数分解 \(z^3-3z+2=(z-1)^2(z+2)\) して、各因数の絶対値を \(\cos\theta\) で表す。2乗して \(c=\cos\theta\) の3次関数にし微分する。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>\(z=\cos\theta+i\sin\theta\ (0\le\theta\lt2\pi)\)、\(c=\cos\theta\ (-1\le c\le1)\) とおく。</p>
+      <p>(1) \(|z|=1\) より \(\frac1z=\bar z\)。</p>
+      \[ |z^2-z+1|=|z|\left|z-1+\frac1z\right|=|z+\bar z-1|=|2c-1| \]
+      <p>\(-1\le c\le1\) で \(-3\le2c-1\le1\)。最大値 3（\(c=-1\)、\(z=-1\)）、最小値 0（\(c=\frac12\)、\(z=\frac12\pm\frac{\sqrt3}{2}i\)）。</p>
+      <p class="answer">(1) 最大値 3（\(z=-1\)）、最小値 0（\(z=\dfrac{1\pm\sqrt3i}{2}\)）</p>
+      <p>(2) \(z^3-3z+2=(z-1)^2(z+2)\)。</p>
+      <p>\(|z-1|^2=(z-1)(\bar z-1)=2-2c\)、\(|z+2|^2=(z+2)(\bar z+2)=5+4c\)。よって</p>
+      \[ |z^3-3z+2|^2=(2-2c)^2(5+4c)=:g(c)\quad(-1\le c\le1) \]
+      <p>\(g'(c)=-4(2-2c)(5+4c)+4(2-2c)^2=4(2-2c)\{(2-2c)-(5+4c)\}=-12(2-2c)(1+2c)\)。</p>
+      <p>\(-1\le c\lt1\) で \(2-2c\gt0\) なので、\(g'(c)\) は \(c\lt-\frac12\) で正、\(c\gt-\frac12\) で負。\(g\) は \(c=-\frac12\) で最大値 \(g\left(-\frac12\right)=3^2\cdot3=27\)。</p>
+      <p class="answer">(2) 最大値 \(3\sqrt3\)（\(z=-\dfrac12\pm\dfrac{\sqrt3}{2}i\)）</p>
+      <p class="point">採点ポイント：\(|z|=1\) を使って共役や \(\frac1z\) に書き換える根拠を明記。(2) で絶対値を直接 \(\theta\) で展開すると大変だが、<b>因数分解 → 因数ごとに \(|\ |^2=(\ )(\overline{\ \ })\)</b> とすれば \(c\) の多項式になる。端点 \(c=\pm1\) の値（\(g(-1)=16,\ g(1)=0\)）と比べて最大を確定させる（<a href="../thinking.html#t-difffunc">発想：関数にして微分</a>）。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="next">
+  <h2>次に学ぶとつながる単元</h2>
+  <ul>
+    <li><a href="m3-limit.html">極限</a>：P16 の点列 \(z_n\to c\) と折れ線の長さの総和は、無限等比級数そのもの。</li>
+    <li><a href="mc-curves.html">平面上の曲線</a>：P14 で円が楕円に移った。楕円・極方程式の知識と組み合わさる。</li>
+    <li><a href="mc-vector.html">ベクトル</a>：P10・P19 の図形の論証は、ベクトルの内積でも書ける。両方で解いて比べると、回転が絡む問題での複素数の強さが分かる。</li>
+    <li><a href="m2-trig.html">三角関数</a>：P3・P17 のように、加法定理・倍角公式を複素数の掛け算として理解し直せる。</li>
+  </ul>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>

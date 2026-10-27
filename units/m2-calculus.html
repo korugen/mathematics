@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>微分法・積分法（数学II）｜解法の地図</title>
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-unit="m2-calculus" data-root="../">
+<main>
+
+<header class="unit-head">
+  <span class="subj-badge">数学II</span>
+  <h1>微分法・積分法（数II）</h1>
+  <p class="lead">「接点を文字でおく」「増減表を書く」「定数を分離してグラフと水平線の問題にする」「面積は公式で検算する」。この4つで数IIの微積はほぼ攻略できる。数IIIの微積分の土台であり、阪大では接線の本数・面積の最小化・最大値の評価として出る。</p>
+  <div class="goal">
+    <strong>このページの到達目標</strong>
+    <ul>
+      <li>【基礎】導関数を計算して接線を求め、増減表を書いて極値・最大最小を求められる。定積分で面積を正しく計算できる。</li>
+      <li>【標準】曲線外の点からの接線・共通接線、文字を含む最大最小、方程式の実数解の個数、定積分で表された関数を処理できる。1/6公式・1/12公式で面積を素早く求められる。</li>
+      <li>【阪大】「接線の本数＝接点の個数」の言い換え、絶対値つき定積分の最小化、最大値を最小にする評価（「すべての \(x\) で」の論証）を答案として完成できる。</li>
+    </ul>
+  </div>
+  <p class="prereq">前提：<a href="m1-quadratic.html">2次関数</a>（最大最小・解の配置）、<a href="m2-complex-eq.html">複素数と方程式</a>（因数定理）、<a href="m2-coord.html">図形と方程式</a>（直線・領域）／ 次に進む：<a href="m3-diff.html">微分法とその応用</a>、<a href="m3-integral-app.html">積分法の応用</a></p>
+</header>
+
+<section id="core">
+  <h2>必ず押さえる基本事項</h2>
+
+  <div class="box theorem">
+    <p><span class="name">微分係数と導関数</span></p>
+    \[ f'(a)=\lim_{h\to0}\frac{f(a+h)-f(a)}{h},\qquad f'(x)=\lim_{h\to0}\frac{f(x+h)-f(x)}{h} \]
+    <p>\(f'(a)\) は点 \((a,f(a))\) における<b>接線の傾き</b>。平均変化率（2点を結ぶ直線の傾き）で2点を限りなく近づけた極限である。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">微分の公式</span>：\(n\) は正の整数、\(k\) は定数として</p>
+    \[ (x^n)'=nx^{n-1},\quad (c)'=0,\quad \{kf(x)+lg(x)\}'=kf'(x)+lg'(x),\quad \{(ax+b)^n\}'=na(ax+b)^{n-1} \]
+    <p>なぜ：\((x+h)^n=x^n+nx^{n-1}h+(h^2\text{ 以上の項})\) なので、\(\frac{(x+h)^n-x^n}{h}=nx^{n-1}+(h\text{ を含む項})\to nx^{n-1}\)。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">接線の方程式</span>：曲線 \(y=f(x)\) 上の点 \((t,f(t))\) における接線は</p>
+    \[ y=f'(t)(x-t)+f(t) \]
+    <p>法線（接点で接線に垂直な直線）は \(f'(t)\ne0\) のとき \(y=-\dfrac{1}{f'(t)}(x-t)+f(t)\)。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">増減と極値</span>：ある区間で \(f'(x)\gt0\) なら増加、\(f'(x)\lt0\) なら減少。\(f'(x)\) の符号が \(x=a\) の前後で正から負に変われば極大、負から正なら極小。</p>
+    <p>注意：\(f'(a)=0\) でも符号が変わらなければ極値ではない（例：\(f(x)=x^3\) の \(x=0\)）。だから<b>増減表で符号の変化を確かめる</b>。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">積分の基本</span>：\(F'(x)=f(x)\) のとき</p>
+    \[ \int x^n\,dx=\frac{x^{n+1}}{n+1}+C,\quad \int(x-a)^n\,dx=\frac{(x-a)^{n+1}}{n+1}+C,\quad \int_a^b f(x)\,dx=F(b)-F(a) \]
+    \[ \frac{d}{dx}\int_a^x f(t)\,dt=f(x)\quad(a\text{ は定数}) \]
+    <p>なぜ最後の式が成り立つか：\(\int_a^x f(t)dt=F(x)-F(a)\) で、\(F(a)\) は定数だから微分すると \(F'(x)=f(x)\)。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">面積の公式</span>（\(\alpha\lt\beta\)）</p>
+    \[ \int_\alpha^\beta(x-\alpha)(x-\beta)\,dx=-\frac{(\beta-\alpha)^3}{6},\qquad \int_\alpha^\beta(x-\alpha)^2\,dx=\frac{(\beta-\alpha)^3}{3} \]
+    \[ \int_\alpha^\beta(x-\alpha)^2(x-\beta)\,dx=-\frac{(\beta-\alpha)^4}{12} \]
+    <p>なぜ：\(x-\alpha=u\) と平行移動すると \(\int_0^{d}u(u-d)\,du=\frac{d^3}{3}-\frac{d^3}{2}=-\frac{d^3}{6}\)（\(d=\beta-\alpha\)）。他の2つも同様に \(u\) の多項式の積分になる。</p>
+    <ul>
+      <li>放物線 \(y=ax^2+\cdots\) と直線（または放物線）で囲まれた面積 ＝ \(\dfrac{|a|}{6}(\beta-\alpha)^3\)（<b>1/6公式</b>、\(a\) は差の2次の係数）</li>
+      <li>放物線と接線と直線 \(x=\beta\) で囲まれた面積 ＝ \(\dfrac{|a|}{3}(\beta-\alpha)^3\)（<b>1/3公式</b>）</li>
+      <li>3次関数 \(y=ax^3+\cdots\) と接線で囲まれた面積 ＝ \(\dfrac{|a|}{12}(\beta-\alpha)^4\)（<b>1/12公式</b>）</li>
+    </ul>
+  </div>
+
+  <div class="box idea">
+    <p><b>この単元を貫く考え方</b>：微分は<b>「関数の形（グラフ）を知る道具」</b>、積分は<b>「面積を測る道具」</b>。方程式の解の個数も、不等式の証明も、接線の本数も、最後は「グラフを描いて見る」問題に帰着する。式をいじる前に、<b>何のグラフを描けば答えが見えるか</b>を考えよう。<a href="../thinking.html#t-graph">発想：図・グラフにする</a></p>
+  </div>
+</section>
+
+<section id="quick">
+  <h2>早見表：こう来たら → こう解く</h2>
+  <div class="table-wrap"><table class="quick">
+    <tr><th>問題の特徴（こう来たら）</th><th>方針（こう解く）</th><th>使う道具</th><th>詳細</th></tr>
+    <tr data-level="1"><td>定義に従って微分せよ／\(\lim\frac{f(a+3h)-f(a)}{h}\)</td><td>定義式の形に変形</td><td>微分係数の定義</td><td><a href="#calc2-p1">P1</a></td></tr>
+    <tr data-level="1"><td>点 \((2,f(2))\) における接線</td><td>\(y=f'(t)(x-t)+f(t)\)</td><td>接線の公式</td><td><a href="#calc2-p2">P2</a></td></tr>
+    <tr data-level="2"><td>点 \(A\) を通る（から引いた）接線</td><td>接点を \(t\) とおき \(A\) を代入</td><td>接点を文字でおく</td><td><a href="#calc2-p3">P3</a></td></tr>
+    <tr data-level="2"><td>2曲線の共通接線／2曲線が接する</td><td>片方の接線をもう片方に接させる／\(f=g,\ f'=g'\)</td><td>判別式・接点条件</td><td><a href="#calc2-p4">P4</a></td></tr>
+    <tr data-level="1"><td>増減を調べ極値を求めよ</td><td>\(f'\) を因数分解 → 増減表</td><td>増減表</td><td><a href="#calc2-p5">P5</a></td></tr>
+    <tr data-level="2"><td>極値をもつ条件／\(x=1\) で極値 \(-4\)</td><td>\(f'=0\) が異なる2実解／\(f'(1)=0\) から係数→十分性確認</td><td>判別式</td><td><a href="#calc2-p6">P6</a></td></tr>
+    <tr data-level="2"><td>区間 \(0\le x\le a\) での最大最小（文字あり）</td><td>極値の位置・端点の値で場合分け</td><td>増減表・場合分け</td><td><a href="#calc2-p7">P7</a></td></tr>
+    <tr data-level="2"><td>\(x^3-3x^2-a=0\) の実数解の個数</td><td>\(a=g(x)\) と分離しグラフと水平線</td><td>定数分離</td><td><a href="#calc2-p8">P8</a></td></tr>
+    <tr data-level="2"><td>3次方程式が異なる3つの実数解をもつ</td><td>（極大値）\(\times\)（極小値）\(\lt0\)</td><td>極値の積</td><td><a href="#calc2-p9">P9</a></td></tr>
+    <tr data-level="3"><td>点から3本の接線が引ける条件</td><td>接点 \(t\) の3次方程式が異なる3実解</td><td>接線の本数＝接点の個数</td><td><a href="#calc2-p10">P10</a></td></tr>
+    <tr data-level="3"><td>\(x\ge0\) で \(f(x)\ge g(x)\) を示せ／常に成り立つ \(a\)</td><td>差の関数の最小値 \(\ge0\)</td><td>差の関数</td><td><a href="#calc2-p11">P11</a></td></tr>
+    <tr data-level="2"><td>3次関数のグラフの対称性・極値の差</td><td>変曲点（極値点の中点）に関し点対称</td><td>点対称</td><td><a href="#calc2-p12">P12</a></td></tr>
+    <tr data-level="1"><td>不定積分・定積分を計算せよ</td><td>公式＋偶関数・奇関数の性質</td><td>原始関数</td><td><a href="#calc2-p13">P13</a></td></tr>
+    <tr data-level="2"><td>\(f(x)=x^2+x\int_0^1f(t)dt+1\)</td><td>\(\int_0^1f(t)dt=k\)（定数）とおく</td><td>定数とおく</td><td><a href="#calc2-p14">P14</a></td></tr>
+    <tr data-level="2"><td>\(\int_a^xf(t)dt=(x\text{ の式})\)／\(\int_0^x\) で定義された関数の極値</td><td>両辺を \(x\) で微分＋\(x=a\) を代入</td><td>\(\frac{d}{dx}\int_a^x f(t)dt=f(x)\)</td><td><a href="#calc2-p15">P15</a></td></tr>
+    <tr data-level="1"><td>曲線と \(x\) 軸で囲まれた面積</td><td>上 − 下、\(x\) 軸の下は符号に注意</td><td>定積分</td><td><a href="#calc2-p16">P16</a></td></tr>
+    <tr data-level="2"><td>放物線と直線（放物線）で囲まれた面積</td><td>交点の \(x\) 座標 \(\alpha,\beta\) だけで計算</td><td>1/6公式</td><td><a href="#calc2-p17">P17</a></td></tr>
+    <tr data-level="2"><td>放物線・3次関数と接線で囲まれた面積</td><td>\((x-\alpha)^2\) の形を作る</td><td>1/3公式・1/12公式</td><td><a href="#calc2-p18">P18</a></td></tr>
+    <tr data-level="3"><td>\(\int_0^1\abs{x^2-ax}dx\) の最小値</td><td>中身の符号が変わる点で分割</td><td>絶対値の場合分け</td><td><a href="#calc2-p19">P19</a></td></tr>
+    <tr data-level="3"><td>面積の最小値／面積を2等分する直線</td><td>面積を文字の関数で表す（1/6公式）</td><td>解と係数の関係</td><td><a href="#calc2-p20">P20</a></td></tr>
+  </table></div>
+</section>
+
+<section id="patterns">
+  <h2>パターン別 解法マップ</h2>
+
+  <article class="pattern" id="calc2-p1" data-level="1">
+    <h3><span class="pid">P1</span>微分係数の定義と導関数の計算</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「定義に従って \(f'(1)\) を求めよ」「\(\displaystyle\lim_{h\to0}\frac{f(a+3h)-f(a-h)}{h}\) を \(f'(a)\) で表せ」「\(f(0)=1,\ f'(0)=2\) を満たす2次関数」</dd>
+      <dt>こう考える</dt><dd>極限の式は<b>「\(\frac{f(a+\square)-f(a)}{\square}\)」の形</b>（分母と \(f\) の中のずれが同じ）を作れば \(f'(a)\) になる。導関数の計算は公式を機械的に使う。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>定義に従う問題：\(\frac{f(a+h)-f(a)}{h}\) を展開して \(h\) で約分し、\(h\to0\)。</li>
+        <li>\(\lim\) の式：\(f(a)\) を引いて足し、2つの「定義の形」に分ける。分母を中のずれに合わせて係数を調整。</li>
+        <li>係数決定：\(f(x)=ax^2+bx+c\) とおき、\(f\) と \(f'\) の条件を連立。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>微分係数の定義、\((x^n)'=nx^{n-1}\)、\(\{(ax+b)^n\}'=na(ax+b)^{n-1}\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(f'(a)\) は「\(a\) からのずれ \(\square\) で割った変化量」の極限。ずれ方が \(3h\) でも \(-h\) でも、分母を同じずれにそろえれば必ず \(f'(a)\) に近づく。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(f(x)=x^3-2x\) について、定義に従って \(f'(1)\) を求めよ。<br>(2) \(f(x)\) が \(x=a\) で微分可能なとき、\(\displaystyle\lim_{h\to0}\frac{f(a+3h)-f(a-h)}{h}\) を \(f'(a)\) で表せ。<br>(3) 2次関数 \(f(x)\) が \(f(0)=1,\ f'(0)=2,\ f'(1)=6\) を満たすとき、\(f(x)\) を求めよ。</div>
+      <p>(1) \(f(1+h)-f(1)=(1+h)^3-2(1+h)-(-1)=h+3h^2+h^3\)。</p>
+      <p>\(f'(1)=\displaystyle\lim_{h\to0}\frac{h+3h^2+h^3}{h}=\lim_{h\to0}(1+3h+h^2)=1\)。<span class="answer">\(f'(1)=1\)</span></p>
+      <p>(2) \(f(a)\) を引いて足す：</p>
+      \[ \begin{aligned}\frac{f(a+3h)-f(a-h)}{h}&=3\cdot\frac{f(a+3h)-f(a)}{3h}\\&\quad+\frac{f(a-h)-f(a)}{-h}\end{aligned} \]
+      <p>\(h\to0\) で \(3f'(a)+f'(a)\)。<span class="answer">\(4f'(a)\)</span></p>
+      <p>(3) \(f(x)=ax^2+bx+c\ (a\ne0)\) とおくと \(f'(x)=2ax+b\)。\(c=1,\ b=2,\ 2a+b=6\) より \(a=2\)。<span class="answer">\(f(x)=2x^2+2x+1\)</span></p>
+      <p class="point">(2) で \(\frac{f(a-h)-f(a)}{h}\) を \(f'(a)\) としてしまうミスが多い。分母を \(-h\) にそろえると \(-f'(a)\) の前の符号が反転し、引き算で \(+f'(a)\) になる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="calc2-p2" data-level="1">
+    <h3><span class="pid">P2</span>曲線上の点における接線・法線</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「曲線 \(y=x^3-3x\) 上の点 \((2,2)\) における接線の方程式」「法線の方程式」</dd>
+      <dt>こう考える</dt><dd>接線は「接点」と「傾き \(f'(t)\)」の2つで決まる。接点が分かっていれば公式に代入するだけ。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(f'(x)\) を求め、接点の \(x\) 座標 \(t\) を代入して傾き \(f'(t)\) を出す。</li>
+        <li>\(y=f'(t)(x-t)+f(t)\) に代入。</li>
+        <li>法線は傾き \(-\frac1{f'(t)}\)（垂直 ⇔ 傾きの積 \(-1\)）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>接線の公式、垂直条件 \(m_1m_2=-1\)</dd>
+      <dt>なぜこの方法？</dt><dd>微分係数の意味がそのまま「接線の傾き」だから。直線は「1点と傾き」で決まる（<a href="m2-coord.html">図形と方程式</a>）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">曲線 \(y=x^3-3x\) 上の点 \((2,2)\) における接線と法線の方程式を求めよ。</div>
+      <p>\(y'=3x^2-3\) より、\(x=2\) での傾きは \(9\)。</p>
+      <p>接線：\(y=9(x-2)+2\)、すなわち <span class="answer">\(y=9x-16\)</span></p>
+      <p>法線：傾き \(-\frac19\)。\(y=-\frac19(x-2)+2\)、すなわち <span class="answer">\(y=-\frac19x+\frac{20}9\)</span></p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="calc2-p3" data-level="2">
+    <h3><span class="pid">P3</span>曲線外の点（与えられた点）を通る接線</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「点 \((1,0)\) から曲線 \(y=x^3-x\) に引いた接線」「点 \(A\) を通る接線の方程式をすべて求めよ」</dd>
+      <dt>こう考える</dt><dd>与えられた点は接点とは限らない。<b>接点を \((t,f(t))\) とおいて接線を作り、それが与えられた点を通る条件</b>で \(t\) を決める。与えられた点が曲線上にあっても、別の点で接する接線が通ることがある。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>接点を \((t,f(t))\) とおき、接線 \(y=f'(t)(x-t)+f(t)\) を書く。</li>
+        <li>与えられた点の座標を代入して \(t\) の方程式を作る。</li>
+        <li>\(t\) を解き、各 \(t\) について接線を書く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>接線の公式、因数定理（\(t\) の3次方程式を解く）</dd>
+      <dt>なぜこの方法？</dt><dd>接線の公式は「接点」でしか使えない。未知の接点を文字でおけば、「通る」という条件が \(t\) の方程式になる。この「接点を文字でおく」が接線問題の万能の第一手。<a href="../thinking.html#t-goal">発想：ゴールから逆算</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">点 \((1,0)\) を通り、曲線 \(C:\ y=x^3-x\) に接する直線の方程式をすべて求めよ。</div>
+      <p>\(y'=3x^2-1\)。接点を \((t,\ t^3-t)\) とすると接線は</p>
+      \[ y=(3t^2-1)(x-t)+t^3-t=(3t^2-1)x-2t^3 \]
+      <p>これが \((1,0)\) を通るので \(0=3t^2-1-2t^3\)、\(2t^3-3t^2+1=0\)。\(t=1\) が解なので因数分解して \((t-1)^2(2t+1)=0\)、\(t=1,\ -\frac12\)。</p>
+      <p>\(t=1\)：\(y=2x-2\)。\(t=-\frac12\)：\(y=-\frac14x+\frac14\)。</p>
+      <p class="answer">\(y=2x-2,\ \ y=-\frac14x+\frac14\)</p>
+      <p class="point">点 \((1,0)\) は \(C\) 上にあるが、そこでの接線 \(y=2x-2\) だけでなく、\(x=-\frac12\) で接して \((1,0)\) を通る直線もある。「通る」と「接する」を区別すること。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="calc2-p4" data-level="2">
+    <h3><span class="pid">P4</span>共通接線・2曲線が接する条件</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「2つの放物線の両方に接する直線」「曲線 \(y=x^3-x\) と \(y=x^2+a\) が接するような \(a\)」</dd>
+      <dt>こう考える</dt><dd>
+        <ul>
+          <li><b>共通接線</b>（接点は別々）：片方の曲線の接線を \(t\) で表し、もう片方と連立して<b>重解条件（判別式 \(=0\)）</b>。相手が3次なら両方の接点を文字でおき、傾きと切片を一致させる。</li>
+          <li><b>2曲線が接する</b>（接点を共有）：共有点 \(x=p\) で <b>\(f(p)=g(p)\) かつ \(f'(p)=g'(p)\)</b>。</li>
+        </ul></dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>問題が「共通接線」か「2曲線が接する」かを判断する。</li>
+        <li>共通接線：\(C_1\) の接線 \(y=f'(t)(x-t)+f(t)\) と \(C_2\) の式を連立し、判別式 \(=0\)。</li>
+        <li>接する：\(f(p)=g(p),\ f'(p)=g'(p)\) を連立。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>接線の公式、判別式、接する ⇔ 共有点で接線が一致</dd>
+      <dt>なぜこの方法？</dt><dd>放物線と直線が接する ⇔ 連立した2次方程式が重解。3次以上ではこの判別式が使えないので、「両方の接線の式が一致」（傾き・切片の比較）に切り替える。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 2つの放物線 \(C_1:\ y=x^2,\ C_2:\ y=-x^2+4x-4\) の共通接線の方程式を求めよ。<br>(2) 曲線 \(y=x^3-x\) と放物線 \(y=x^2+a\) が接するような定数 \(a\) の値を求めよ。</div>
+      <p>(1) \(C_1\) 上の点 \((t,t^2)\) における接線は \(y=2tx-t^2\)。これと \(C_2\) を連立すると</p>
+      <p>\(-x^2+4x-4=2tx-t^2\)、すなわち \(x^2+(2t-4)x+4-t^2=0\)。これが重解をもつ条件は</p>
+      <p>\(D/4=(t-2)^2-(4-t^2)=2t^2-4t=0\) より \(t=0,\ 2\)。</p>
+      <p class="answer">\(y=0,\ \ y=4x-4\)</p>
+      <p>(2) 接点の \(x\) 座標を \(p\) とすると \(p^3-p=p^2+a\) かつ \(3p^2-1=2p\)。</p>
+      <p>第2式より \((3p+1)(p-1)=0\)、\(p=1,\ -\frac13\)。第1式 \(a=p^3-p^2-p\) に代入して</p>
+      <p class="answer">\(a=-1\)（\(p=1\)）、\(a=\frac{5}{27}\)（\(p=-\frac13\)）</p>
+      <p class="point">(1) の検算：\(y=0\) は \(C_2\) と \(x=2\) で、\(y=4x-4\) は \(C_2\) と \(x=0\) で接する。共通接線を求めたら両方の接点を確かめる習慣をつける。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="calc2-p5" data-level="1">
+    <h3><span class="pid">P5</span>増減表と極値</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(f(x)=x^3-3x^2-9x+2\) の増減を調べ、極値を求めよ」「グラフをかけ」</dd>
+      <dt>こう考える</dt><dd>\(f'(x)\) の<b>符号</b>が増減を決める。3次関数なら \(f'(x)\) は2次式なので、因数分解すれば符号はすぐ分かる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(f'(x)\) を求めて因数分解し、\(f'(x)=0\) の解を求める。</li>
+        <li>増減表を書く（\(f'\) の符号 → 矢印 → 極値）。</li>
+        <li>極値・\(y\) 切片・（必要なら）\(x\) 軸との交点を図に描き込む。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(f'(x)\gt0\) ⇒ 増加、\(f'(x)\lt0\) ⇒ 減少</dd>
+      <dt>なぜこの方法？</dt><dd>接線の傾きが正なら右上がり、負なら右下がり。増減表は「傾きの符号の一覧」で、グラフの骨格になる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(f(x)=x^3-3x^2-9x+2\) の極値を求めよ。</div>
+      <p>\(f'(x)=3x^2-6x-9=3(x+1)(x-3)\)。</p>
+      <div class="table-wrap"><table>
+        <tr><th>\(x\)</th><td>\(\cdots\)</td><td>\(-1\)</td><td>\(\cdots\)</td><td>\(3\)</td><td>\(\cdots\)</td></tr>
+        <tr><th>\(f'(x)\)</th><td>\(+\)</td><td>\(0\)</td><td>\(-\)</td><td>\(0\)</td><td>\(+\)</td></tr>
+        <tr><th>\(f(x)\)</th><td>↗</td><td>\(7\)</td><td>↘</td><td>\(-25\)</td><td>↗</td></tr>
+      </table></div>
+      <p class="answer">極大値 7（\(x=-1\)）、極小値 \(-25\)（\(x=3\)）</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="calc2-p6" data-level="2">
+    <h3><span class="pid">P6</span>極値をもつ条件・極値から係数を決定</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(f(x)=x^3+ax^2+3x+1\) が極値をもつような \(a\) の範囲」「\(x=1\) で極小値 \(-4\) をとるように \(a,b\) を定めよ」</dd>
+      <dt>こう考える</dt><dd>3次関数が極値をもつ ⇔ \(f'(x)\) の符号が変わる点がある ⇔ <b>2次方程式 \(f'(x)=0\) が異なる2つの実数解をもつ（\(D\gt0\)）</b>。「\(x=1\) で極値」は \(f'(1)=0\) が必要条件にすぎないので、最後に十分性を確かめる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>極値をもつ条件：\(f'(x)=0\) の判別式 \(D\gt0\)（\(D=0\) は重解で符号が変わらないので不可）。</li>
+        <li>係数決定：\(f'(1)=0\)、\(f(1)=-4\) を連立。</li>
+        <li><b>十分性の確認</b>：求めた係数で増減表を書き、本当に \(x=1\) で極小になっているか確かめる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>判別式、\(x=a\) で極値 ⇒ \(f'(a)=0\)（逆は不成立）</dd>
+      <dt>なぜこの方法？</dt><dd>\(f'(a)=0\) でも \(f(x)=x^3\) のように極値にならないことがある。だから「必要条件で絞って十分性を確認」という手順が必須。<a href="../thinking.html#t-necessary">発想：必要条件で絞って十分性を確認</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(f(x)=x^3+ax^2+3x+1\) が極値をもつような \(a\) の範囲を求めよ。<br>(2) \(g(x)=x^3+ax^2+bx\) が \(x=1\) で極小値 \(-4\) をとるように \(a,b\) を定めよ。</div>
+      <p>(1) \(f'(x)=3x^2+2ax+3\)。\(D/4=a^2-9\gt0\) より <span class="answer">\(a\lt-3,\ a\gt3\)</span></p>
+      <p>(2) \(g'(x)=3x^2+2ax+b\)。\(g'(1)=3+2a+b=0,\ g(1)=1+a+b=-4\)。辺々引いて \(2+a=4\)、\(a=2,\ b=-7\)。</p>
+      <p>十分性：\(g'(x)=3x^2+4x-7=(3x+7)(x-1)\)。\(x=1\) の前後で \(g'\) は負から正に変わるので、\(x=1\) で極小値 \(g(1)=1+2-7=-4\) をとる。</p>
+      <p class="answer">\(a=2,\ b=-7\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="calc2-p7" data-level="2">
+    <h3><span class="pid">P7</span>区間での最大最小（文字を含む・場合分け）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(0\le x\le a\) における \(x^3-3x\) の最大値・最小値」「\(f(x)=x^3-3a^2x\ (0\le x\le1)\) の最大値・最小値」</dd>
+      <dt>こう考える</dt><dd>2次関数の「軸と区間」が、3次関数では<b>「極値をとる点と区間」</b>になる。さらに最大値では「端点の値が極大値（極小値）と等しくなる点」も境目になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>増減表を書き、極値をとる \(x\) を求める。</li>
+        <li><b>区間が動く</b>なら固定されたグラフに区間を当てはめる。<b>関数が動く</b>なら極値点が区間の中か外かで分ける。</li>
+        <li>最大値は「端点の値 vs 極大値」の比較が必要。<b>\(f(x)=(\text{極大値})\) となる別の \(x\)</b> を求めておくと境目が分かる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>増減表、因数分解（\(f(x)-f(p)\) は \((x-p)^2\) を因数にもつ）</dd>
+      <dt>なぜこの方法？</dt><dd>区間での最大値・最小値は「極値」か「端点の値」のどれか。候補を全部挙げて比べるだけだが、どれが勝つかが文字によって変わるので場合分けになる。<a href="m1-quadratic.html">2次関数</a> P4・P5 と同じ構造。<a href="../thinking.html#t-casework">発想：場合分け</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(a\gt0\) とする。<br>(1) \(f(x)=x^3-3x\ (0\le x\le a)\) の最大値と最小値を求めよ。<br>(2) \(g(x)=x^3-3a^2x\ (0\le x\le1)\) の最大値と最小値を求めよ。</div>
+      <p>(1) \(f'(x)=3(x+1)(x-1)\)。\(x\ge0\) では \(x=1\) で極小値 \(-2\)。また \(f(x)=0=f(0)\) となるのは \(x(x^2-3)=0\) より \(x=\sqrt3\)（\(x\gt0\)）。</p>
+      <ul>
+        <li>最小値：\(0\lt a\lt1\) なら減少のみで \(f(a)=a^3-3a\)。\(a\ge1\) なら \(f(1)=-2\)。</li>
+        <li>最大値：\(0\lt a\le\sqrt3\) なら \(f(0)=0\)。\(a\gt\sqrt3\) なら \(f(a)=a^3-3a\)（\(\gt0\)）。</li>
+      </ul>
+      <p class="answer">最小値：\(0\lt a\lt1\) で \(a^3-3a\)、\(a\ge1\) で \(-2\)。最大値：\(0\lt a\le\sqrt3\) で \(0\)、\(a\gt\sqrt3\) で \(a^3-3a\)</p>
+      <p>(2) \(g'(x)=3(x+a)(x-a)\)。\(x\ge0\) では \(x=a\) で極小。</p>
+      <ul>
+        <li>最小値：\(0\lt a\lt1\) なら \(g(a)=-2a^3\)。\(a\ge1\) なら区間で減少し \(g(1)=1-3a^2\)。</li>
+        <li>最大値：候補は端点 \(g(0)=0\) と \(g(1)=1-3a^2\)（区間内に極大はない）。\(1-3a^2\gt0\iff a\lt\frac1{\sqrt3}\)。</li>
+      </ul>
+      <p class="answer">最小値：\(0\lt a\lt1\) で \(-2a^3\)、\(a\ge1\) で \(1-3a^2\)。最大値：\(0\lt a\lt\frac{1}{\sqrt3}\) で \(1-3a^2\)、\(a\ge\frac1{\sqrt3}\) で \(0\)</p>
+      <p class="point">境目 \(a=\sqrt3\)（(1)）や \(a=\frac1{\sqrt3}\)（(2)）では2つの候補が等しい。境目の値で両側の式が一致するか確かめると計算ミスに気づける。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="calc2-p8" data-level="2">
+    <h3><span class="pid">P8</span>方程式の実数解の個数（定数分離）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「方程式 \(x^3-3x^2-a=0\) の異なる実数解の個数を \(a\) の値で分類せよ」「正の解を2個、負の解を1個もつ \(a\)」</dd>
+      <dt>こう考える</dt><dd>\(a=x^3-3x^2\) と分ければ、<b>固定された曲線 \(y=x^3-3x^2\) と水平線 \(y=a\) の共有点の個数</b>。曲線を1回描けば、水平線を上下に動かすだけで全部分かる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>文字定数を片側に集める：\(a=g(x)\)。</li>
+        <li>\(y=g(x)\) の増減表とグラフを描く。</li>
+        <li>水平線 \(y=a\) を上から下へ動かし、極値の高さを境目に共有点を数える。解の符号は交点の位置で読む。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>実数解 ＝ グラフの共有点の \(x\) 座標</dd>
+      <dt>なぜこの方法？</dt><dd>文字が式全体に散らばったままだと、グラフ自体が \(a\) によって変形して追いきれない。動くものを水平線だけにすれば、場合分けの境目が「極値の高さ」として一目で分かる。<a href="../thinking.html#t-separate">発想：定数分離</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">方程式 \(x^3-3x^2-a=0\) の異なる実数解の個数を、\(a\) の値によって分類せよ。また、正の解を2個、負の解を1個もつような \(a\) の範囲を求めよ。</div>
+      <p>\(a=x^3-3x^2\)。\(g(x)=x^3-3x^2\) とすると \(g'(x)=3x(x-2)\) で、\(x=0\) で極大値 0、\(x=2\) で極小値 \(-4\)。</p>
+      <p>\(y=g(x)\) と \(y=a\) の共有点を数えて</p>
+      <p class="answer">\(a\gt0,\ a\lt-4\)：1個、\(a=0,\ -4\)：2個、\(-4\lt a\lt0\)：3個</p>
+      <p>\(-4\lt a\lt0\) のとき、交点は \(x\lt0\)（増加部分）に1つ、\(0\lt x\lt2\) に1つ、\(x\gt2\) に1つ。他の \(a\) では3個にならない。</p>
+      <p class="answer">正の解2個・負の解1個：\(-4\lt a\lt0\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="calc2-p9" data-level="2">
+    <h3><span class="pid">P9</span>3次方程式が異なる3つの実数解をもつ条件（極値の積）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x^3-3ax+2=0\) が異なる3つの実数解をもつような \(a\) の範囲」（定数がうまく分離できない）</dd>
+      <dt>こう考える</dt><dd>3次関数 \(y=f(x)\)（\(x^3\) の係数が正）が \(x\) 軸と3点で交わる ⇔ <b>極大値が正、極小値が負</b> ⇔ 極値をもち、<b>（極大値）\(\times\)（極小値）\(\lt0\)</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(f'(x)=0\) が異なる2実解をもつ条件（極値をもつ条件）を求める。</li>
+        <li>極値 \(f(\alpha),\ f(\beta)\) を計算し、\(f(\alpha)f(\beta)\lt0\) を解く。</li>
+        <li>極値の計算が重いときは、\(f(x)\) を \(f'(x)\) で割った余りを使う（\(f'(\alpha)=0\) なので余りに代入すればよい）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>中間値の定理の考え方、極値の積</dd>
+      <dt>なぜこの方法？</dt><dd>3次関数のグラフは「上がって下がって上がる」。山の頂上が \(x\) 軸より上、谷底が \(x\) 軸より下なら、3回 \(x\) 軸を横切る。積の符号で「片方正・片方負」を1本の不等式にまとめられる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">方程式 \(x^3-3ax+2=0\) が異なる3つの実数解をもつような定数 \(a\) の範囲を求めよ。</div>
+      <p>\(f(x)=x^3-3ax+2\) とおく。\(f'(x)=3(x^2-a)\)。</p>
+      <p>\(a\le0\) なら \(f'(x)\ge0\) で \(f\) は単調増加、実数解は1個のみ。よって \(a\gt0\) が必要で、このとき \(x=\pm\sqrt a\) で極値をとる。</p>
+      <p>\(f(\sqrt a)=2-2a\sqrt a,\ f(-\sqrt a)=2+2a\sqrt a\) より</p>
+      \[ f(\sqrt a)f(-\sqrt a)=4-4a^3\lt0 \]
+      <p>\(a^3\gt1\) より \(a\gt1\)（これは \(a\gt0\) を満たす）。</p>
+      <p class="answer">\(a\gt1\)</p>
+      <p class="point">別解：\(x=0\) は解でないので \(3a=x^2+\frac2x\) と定数分離もできる。分数関数のグラフは数IIIの内容になるので、数IIの範囲では極値の積が自然。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="calc2-p10" data-level="3">
+    <h3><span class="pid">P10</span>接線の本数（接点の個数＝3次方程式の解の個数）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「点 \((1,b)\) から曲線 \(y=x^3-x\) に3本の接線が引けるような \(b\) の範囲」「接線がちょうど2本引ける点」</dd>
+      <dt>こう考える</dt><dd>P3 と同じく接点を \(t\) とおくと、「点を通る」条件が \(t\) の3次方程式になる。3次関数では<b>接点が異なれば接線も異なる</b>ので、<b>接線の本数＝この方程式の異なる実数解の個数</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>接点 \((t,f(t))\) での接線に点の座標を代入し、\(t\) の方程式 \(h(t)=0\) を作る。</li>
+        <li>「接線の本数＝異なる実数解 \(t\) の個数」と言い換える（理由も一言書く）。</li>
+        <li>P8（定数分離）か P9（極値の積）で解の個数を調べる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>接線の公式、極値の積、3次関数の接線は2点で接しない</dd>
+      <dt>なぜこの方法？</dt><dd>もし1本の直線 \(y=mx+n\) が2点 \(t_1\ne t_2\) で接すると、\(f(x)-(mx+n)\) は \((x-t_1)^2(x-t_2)^2\) で割り切れ4次以上になってしまう。だから3次関数では「接点の個数＝接線の本数」が正確に成り立つ。<a href="../thinking.html#t-rephrase">発想：同値な言い換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">点 \(A(1,b)\) から曲線 \(C:\ y=x^3-x\) に3本の接線が引けるような \(b\) の範囲を求めよ。</div>
+      <p>P3 より、接点 \((t,t^3-t)\) における接線は \(y=(3t^2-1)x-2t^3\)。これが \(A\) を通る条件は</p>
+      <p>\(b=3t^2-1-2t^3\)、すなわち \(h(t)=2t^3-3t^2+1+b=0\)。</p>
+      <p>3次関数のグラフでは接点が異なれば接線も異なるので、接線が3本 ⇔ \(h(t)=0\) が異なる3つの実数解をもつ。</p>
+      <p>\(h'(t)=6t(t-1)\) より、\(t=0\) で極大値 \(h(0)=1+b\)、\(t=1\) で極小値 \(h(1)=b\)。条件は \(h(0)h(1)=(1+b)b\lt0\)。</p>
+      <p class="answer">\(-1\lt b\lt0\)</p>
+      <p class="point">\(b=0\) または \(b=-1\) のときは重解をもち、接線は2本。一般の点 \((a,b)\) で同じ計算をすると「3本引ける点の領域」が描ける（<a href="#calc2-h1">演1</a>）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="calc2-p11" data-level="3">
+    <h3><span class="pid">P11</span>不等式の証明（差の関数）と「常に成り立つ」条件</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x\ge0\) のとき \(x^3+16\ge12x\) を示せ」「\(x\ge0\) で常に \(x^3-3ax^2+4\ge0\) となる \(a\) の範囲」</dd>
+      <dt>こう考える</dt><dd>\(A\ge B\) を示すには <b>\(F(x)=A-B\) の最小値 \(\ge0\)</b> を示す。文字を含むときは「すべての \(x\) で」を「最小値 \(\ge0\)」に言い換え、最小値を場合分けで求める。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(F(x)=(\text{左辺})-(\text{右辺})\) とおく。</li>
+        <li>指定範囲で増減表を書き、最小値を求める。</li>
+        <li>最小値 \(\ge0\) を示す（文字があれば最小値 \(\ge0\) となる条件を解く）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>増減表、∀の言い換え（すべての \(x\) で \(F\ge0\iff\min F\ge0\)）</dd>
+      <dt>なぜこの方法？</dt><dd>2つの関数の大小を直接比べるより、差という「1つの関数」の符号を調べる方が増減表1枚で済む。数IIIの不等式証明もまったく同じ手順。<a href="../thinking.html#t-difffunc">発想：差をとって関数にし微分する</a>、<a href="../thinking.html#t-forall">発想：∀と∃の言い換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(x\ge0\) のとき、\(x^3+16\ge12x\) が成り立つことを示せ。<br>(2) \(x\ge0\) を満たすすべての \(x\) に対して \(x^3-3ax^2+4\ge0\) が成り立つような定数 \(a\) の範囲を求めよ。</div>
+      <p>(1) \(F(x)=x^3-12x+16\) とおくと \(F'(x)=3(x+2)(x-2)\)。\(x\ge0\) では \(x=2\) で極小かつ最小、\(F(2)=8-24+16=0\)。よって \(F(x)\ge0\)。等号は \(x=2\)。（実際 \(F(x)=(x-2)^2(x+4)\)。）（証明終）</p>
+      <p>(2) \(G(x)=x^3-3ax^2+4\) とおくと \(G'(x)=3x(x-2a)\)。</p>
+      <ul>
+        <li>\(a\le0\)：\(x\gt0\) で \(G'(x)\gt0\)、\(G\) は増加。最小値 \(G(0)=4\gt0\)。条件を満たす。</li>
+        <li>\(a\gt0\)：\(x\ge0\) では \(x=2a\) で最小。\(G(2a)=8a^3-12a^3+4=4-4a^3\ge0\) より \(a\le1\)。よって \(0\lt a\le1\)。</li>
+      </ul>
+      <p class="answer">\(a\le1\)</p>
+      <p class="point">\(a\le0\) の場合を忘れて「\(0\lt a\le1\)」と答える誤りが多い。極値点 \(2a\) が区間 \(x\ge0\) の中にあるかどうかで場合を分ける。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="calc2-p12" data-level="2">
+    <h3><span class="pid">P12</span>3次関数のグラフの対称性（変曲点）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「グラフは点 \((2,3)\) に関して対称であることを示せ」「極大値と極小値の和（差）を求めよ」</dd>
+      <dt>こう考える</dt><dd>3次関数のグラフは<b>変曲点（2つの極値点の中点、\(f''(x)=0\) の点）に関して点対称</b>。極大点と極小点も対称な位置にあるので、<b>極値の和＝変曲点の \(y\) 座標の2倍</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(f'(x)=0\) の2解 \(\alpha,\beta\) の中点 \(p=\frac{\alpha+\beta}2\) を求める（\(f'(x)=3ax^2+2bx+c\) なら \(p=-\frac{b}{3a}\)）。</li>
+        <li>\(f(p+h)+f(p-h)=2f(p)\) が恒等的に成り立つことを示す。</li>
+        <li>極値の和は \(2f(p)\)。差は \(\int_\alpha^\beta f'(x)dx\) か公式 \(\frac{|a|}{2}(\beta-\alpha)^3\) で。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>点対称の条件 \(f(p+h)+f(p-h)=2f(p)\)、\(f(\beta)-f(\alpha)=\int_\alpha^\beta f'(x)\,dx\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(x=p+h\) と平行移動すると \(f\) は \(ah^3+kh+f(p)\) の形（\(h^2\) の項が消える）になり、\(ah^3+kh\) は奇関数だから。極値の計算を半分にでき、検算にも使える。<a href="../thinking.html#t-symmetry">発想：対称性を使う</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(f(x)=x^3-6x^2+9x+1\) について、(1) グラフが点 \((2,3)\) に関して対称であることを示せ。(2) 極大値と極小値の差を求めよ。</div>
+      <p>(1) \(f(2)=8-24+18+1=3\)。\(f(2+h)\) を \(h\) で展開すると</p>
+      <p>\(f(2+h)=(2+h)^3-6(2+h)^2+9(2+h)+1=h^3-3h+3\)。</p>
+      <p>よって \(f(2+h)+f(2-h)=(h^3-3h+3)+(-h^3+3h+3)=6=2f(2)\)。点 \((2,3)\) に関して対称。（証明終）</p>
+      <p>(2) \(f'(x)=3(x-1)(x-3)\)。極大値 \(f(1)=5\)、極小値 \(f(3)=1\)。</p>
+      <p class="answer">差は 4</p>
+      <p class="point">検算：極値の和 \(5+1=6=2f(2)\)。また \(f(1)-f(3)=-\int_1^3 3(x-1)(x-3)dx=3\cdot\frac{(3-1)^3}{6}=4\)。1/6公式で極値の差が出る。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="calc2-p13" data-level="1">
+    <h3><span class="pid">P13</span>不定積分・定積分の計算</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\int(3x^2-4x+1)dx\)」「\(\int_{-1}^{2}(x^2-x+1)dx\)」「\(\int_{-2}^{2}(x^3+3x^2-x+1)dx\)」</dd>
+      <dt>こう考える</dt><dd>微分の逆。各項を \(\frac{x^{n+1}}{n+1}\) にする。区間が \(-a\) から \(a\) なら<b>奇関数部分は0、偶関数部分は2倍</b>で計算が半分になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>原始関数 \(F(x)\) を求める（不定積分なら \(+C\) を忘れない）。</li>
+        <li>\(\left[F(x)\right]_a^b=F(b)-F(a)\)。</li>
+        <li>対称な区間なら \(\int_{-a}^a x^{\text{奇数}}dx=0,\ \int_{-a}^a x^{\text{偶数}}dx=2\int_0^a\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\int x^ndx=\frac{x^{n+1}}{n+1}+C\)、偶関数・奇関数の定積分</dd>
+      <dt>なぜこの方法？</dt><dd>奇関数のグラフは原点対称なので、\(x\) 軸の上と下の面積が打ち消し合う。計算量が減るだけでなく、計算ミスも減る。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\int(3x^2-4x+1)\,dx\)　(2) \(\int_{-1}^{2}(x^2-x+1)\,dx\)　(3) \(\int_{-2}^{2}(x^3+3x^2-x+1)\,dx\)</div>
+      <p>(1) <span class="answer">\(x^3-2x^2+x+C\)</span>（\(C\) は積分定数）</p>
+      <p>(2) \(\left[\frac{x^3}3-\frac{x^2}2+x\right]_{-1}^{2}=\left(\frac83-2+2\right)-\left(-\frac13-\frac12-1\right)=\frac83+\frac{11}6=\frac92\)。<span class="answer">\(\frac92\)</span></p>
+      <p>(3) \(x^3,\ -x\) は奇関数なので0。\(2\int_0^2(3x^2+1)dx=2\left[x^3+x\right]_0^2=2\times10=20\)。<span class="answer">20</span></p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="calc2-p14" data-level="2">
+    <h3><span class="pid">P14</span>定積分で表された関数（定数 \(k\) とおく型）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(f(x)=x^2+x\int_0^1f(t)\,dt+1\) を満たす \(f(x)\) を求めよ」（積分区間が定数）</dd>
+      <dt>こう考える</dt><dd>\(\int_0^1f(t)\,dt\) は積分区間が数なので<b>ただの定数</b>。\(k\) とおけば \(f(x)\) の形が決まり、あとは \(k\) を求める方程式を作るだけ。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(k=\int_0^1f(t)\,dt\) とおき、\(f(x)\) を \(k\) を含む式で表す。</li>
+        <li>その \(f\) を \(k=\int_0^1f(t)\,dt\) に代入して計算する。</li>
+        <li>\(k\) の方程式を解き、\(f(x)\) に戻す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>定積分の値は定数</dd>
+      <dt>なぜこの方法？</dt><dd>未知関数の問題に見えるが、正体は「未知の定数1個」。名前をつけて方程式を立てるのは、どんな分野でも通用する基本戦術。<a href="../thinking.html#t-subst">発想：置き換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(f(x)=x^2+x\int_0^1f(t)\,dt+1\) を満たす関数 \(f(x)\) を求めよ。</div>
+      <p>\(k=\int_0^1f(t)\,dt\) とおくと \(f(x)=x^2+kx+1\)。</p>
+      <p>\(k=\int_0^1(t^2+kt+1)\,dt=\frac13+\frac k2+1\)。よって \(\frac k2=\frac43\)、\(k=\frac83\)。</p>
+      <p class="answer">\(f(x)=x^2+\frac83x+1\)</p>
+      <p class="point">\(\int_0^1xf(t)\,dt\) のように \(x\) が積分の中にあるときは、\(t\) で積分するので \(x\) は定数扱い：\(x\int_0^1f(t)dt\) と外に出してから \(k\) とおく。\(\int_0^1(x-t)f(t)dt\) なら \(x\int_0^1f(t)dt-\int_0^1tf(t)dt\) と分けて2つの定数をおく。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="calc2-p15" data-level="2">
+    <h3><span class="pid">P15</span>定積分で表された関数（\(\int_a^x\) を微分する型）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\int_a^xf(t)\,dt=x^2-3x+2\) を満たす \(f(x)\) と定数 \(a\)」「\(F(x)=\int_0^x(t^2-4t+3)dt\) の極値」</dd>
+      <dt>こう考える</dt><dd>積分区間に \(x\) があるので定数ではない。<b>両辺を \(x\) で微分すれば積分が外れる</b>。さらに \(x=a\) を代入すると \(\int_a^a=0\) となり、もう1つ条件が得られる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>両辺を \(x\) で微分：\(\frac{d}{dx}\int_a^xf(t)dt=f(x)\)。</li>
+        <li>\(x=a\) を代入：左辺 \(=0\)。これで \(a\) が決まる。</li>
+        <li>極値の問題は \(F'(x)=f(x)\) から増減表を書く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\frac{d}{dx}\int_a^xf(t)\,dt=f(x)\)、\(\int_a^af(t)\,dt=0\)</dd>
+      <dt>なぜこの方法？</dt><dd>微分と積分は逆の操作。「積分してから微分すると元に戻る」ことを使えば、未知の \(f\) を積分記号の外に取り出せる。ただし微分すると定数の情報が消えるので、\(x=a\) の代入で補う。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\int_a^xf(t)\,dt=x^2-3x+2\) を満たす関数 \(f(x)\) と定数 \(a\) を求めよ。<br>(2) \(F(x)=\int_0^x(t^2-4t+3)\,dt\) の極値を求めよ。</div>
+      <p>(1) 両辺を \(x\) で微分して \(f(x)=2x-3\)。\(x=a\) を代入すると \(0=a^2-3a+2\)、\((a-1)(a-2)=0\)。</p>
+      <p class="answer">\(f(x)=2x-3\)、\(a=1,\ 2\)</p>
+      <p>(2) \(F'(x)=x^2-4x+3=(x-1)(x-3)\)。\(x=1\) で極大、\(x=3\) で極小。\(F(x)=\frac{x^3}3-2x^2+3x\) より \(F(1)=\frac43,\ F(3)=0\)。</p>
+      <p class="answer">極大値 \(\frac43\)（\(x=1\)）、極小値 0（\(x=3\)）</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="calc2-p16" data-level="1">
+    <h3><span class="pid">P16</span>面積の基本（上 − 下、\(x\) 軸の下の部分）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「曲線 \(y=x^2-2x\) と \(x\) 軸および直線 \(x=3\) で囲まれた部分の面積」</dd>
+      <dt>こう考える</dt><dd>面積＝\(\int(\text{上の関数}-\text{下の関数})dx\)。<b>どちらが上かが入れ替わる点で積分を分ける</b>。\(x\) 軸の下にある部分は \(\int(0-f(x))dx\)。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>グラフを描き、交点（上下が入れ替わる点）を求める。</li>
+        <li>区間ごとに「上 − 下」を積分。</li>
+        <li>足し合わせる（負になったら上下を取り違えている）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(S=\int_a^b\{f(x)-g(x)\}dx\)（\(f\ge g\)）</dd>
+      <dt>なぜこの方法？</dt><dd>定積分は「符号つきの面積」。\(x\) 軸の下では負の値として数えられるので、そのまま積分すると上下で打ち消し合ってしまう。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">曲線 \(y=x^2-2x\)、\(x\) 軸、直線 \(x=3\) で囲まれた2つの部分の面積の和 \(S\) を求めよ。</div>
+      <p>\(x^2-2x=x(x-2)\) より、\(0\le x\le2\) で \(x\) 軸の下、\(2\le x\le3\) で上。</p>
+      <p>\(S=\int_0^2(2x-x^2)dx+\int_2^3(x^2-2x)dx=\frac43+\left[\frac{x^3}3-x^2\right]_2^3=\frac43+\left\{0-\left(-\frac43\right)\right\}=\frac83\)</p>
+      <p class="answer">\(S=\frac83\)</p>
+      <p class="point">\(\int_0^3(x^2-2x)dx=0\) となってしまうのは、上下の面積が打ち消し合った結果。「面積が0」はありえないので、すぐにミスに気づける。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="calc2-p17" data-level="2">
+    <h3><span class="pid">P17</span>1/6公式（放物線と直線・放物線どうし）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「放物線 \(y=x^2\) と直線 \(y=2x+3\) で囲まれた部分の面積」「2つの放物線で囲まれた部分の面積」</dd>
+      <dt>こう考える</dt><dd>上 − 下 は2次式で、交点 \(\alpha,\beta\) で0になるから \(-a(x-\alpha)(x-\beta)\) と因数分解された形になる。<b>面積は \(\frac{|a|}6(\beta-\alpha)^3\)</b>（\(a\) は差の \(x^2\) の係数）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>2つの式を連立し、交点の \(x\) 座標 \(\alpha\lt\beta\) を求める（求めにくければ \(\beta-\alpha=\frac{\sqrt D}{|a|}\)）。</li>
+        <li>差の2次の係数 \(a\) を確認する（放物線どうしなら係数の差）。</li>
+        <li>\(S=\frac{|a|}6(\beta-\alpha)^3\)。記述式では \(\int_\alpha^\beta\) の式を書いてから公式を使う。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\int_\alpha^\beta(x-\alpha)(x-\beta)dx=-\frac{(\beta-\alpha)^3}6\)、解と係数の関係</dd>
+      <dt>なぜこの方法？</dt><dd>交点が \(\frac{1\pm\sqrt{5}}{2}\) のような無理数でも、展開せずに \(\beta-\alpha\) だけで計算できる。計算量が劇的に減り、ミスも減る。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 放物線 \(y=x^2\) と直線 \(y=2x+3\) で囲まれた部分の面積を求めよ。<br>(2) 2つの放物線 \(y=x^2,\ y=-x^2+2x+4\) で囲まれた部分の面積を求めよ。</div>
+      <p>(1) \(x^2=2x+3\)、\((x+1)(x-3)=0\) より \(\alpha=-1,\ \beta=3\)。</p>
+      <p>\(S=\int_{-1}^3\{(2x+3)-x^2\}dx=-\int_{-1}^3(x+1)(x-3)dx=\frac{4^3}6=\frac{32}3\)。<span class="answer">\(\frac{32}3\)</span></p>
+      <p>(2) \(-x^2+2x+4-x^2=-2(x^2-x-2)=-2(x+1)(x-2)\)。</p>
+      <p>\(S=-2\int_{-1}^2(x+1)(x-2)dx=2\cdot\frac{3^3}6=9\)。<span class="answer">9</span></p>
+      <p class="point">(2) で係数 2 を掛け忘れて \(\frac92\) とする誤りが多い。「差をとってから」因数分解し、\(x^2\) の係数を確かめる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="calc2-p18" data-level="2">
+    <h3><span class="pid">P18</span>接線と囲む面積（1/3公式・1/12公式）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「放物線 \(y=x^2\) 上の2点における接線と放物線で囲まれた面積」「曲線 \(y=x^3\) とその接線で囲まれた面積」</dd>
+      <dt>こう考える</dt><dd>接線との差は接点で<b>重解</b>になる：放物線なら \((x-\alpha)^2\)、3次関数なら \((x-\alpha)^2(x-\beta)\)。この形のまま積分すれば展開不要。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>放物線と接線：\(y=ax^2+\cdots\) と点 \(\alpha\) での接線の差は \(a(x-\alpha)^2\)。\(\int_\alpha^\beta a(x-\alpha)^2dx=\frac{a}{3}(\beta-\alpha)^3\)。</li>
+        <li>放物線と2接線（接点 \(\alpha,\beta\)）：2接線の交点の \(x\) 座標は \(\frac{\alpha+\beta}2\)。面積は \(\frac{|a|}{12}(\beta-\alpha)^3\)。</li>
+        <li>3次関数と接線（接点 \(\alpha\)、もう1つの交点 \(\beta\)）：差は \(a(x-\alpha)^2(x-\beta)\)、面積は \(\frac{|a|}{12}(\beta-\alpha)^4\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\int(x-\alpha)^2dx=\frac{(x-\alpha)^3}{3}+C\)、1/12公式</dd>
+      <dt>なぜこの方法？</dt><dd>接する ⇔ 差の関数が重解をもつ。重解の因数 \((x-\alpha)^2\) を崩さずに積分すると、端点 \(\alpha\) で0になる項ばかりになり、計算が一気に軽くなる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 放物線 \(y=x^2\) 上の点 \((-1,1),\ (2,4)\) における2本の接線と、放物線で囲まれた部分の面積を求めよ。<br>(2) 曲線 \(y=x^3\) 上の点 \((1,1)\) における接線と、この曲線で囲まれた部分の面積を求めよ。</div>
+      <p>(1) 接線は \(y=-2x-1\)（\(x=-1\)）、\(y=4x-4\)（\(x=2\)）。交点は \(-2x-1=4x-4\) より \(x=\frac12\)（\(=\frac{-1+2}2\)）。</p>
+      <p>\(S=\int_{-1}^{\frac12}(x+1)^2dx+\int_{\frac12}^{2}(x-2)^2dx=\frac13\left(\frac32\right)^3+\frac13\left(\frac32\right)^3=\frac94\)。<span class="answer">\(\frac94\)</span></p>
+      <p>（検算：\(\frac{1}{12}(2-(-1))^3=\frac{27}{12}=\frac94\)。）</p>
+      <p>(2) 接線は \(y=3x-2\)。\(x^3-3x+2=(x-1)^2(x+2)\) より、もう1つの交点は \(x=-2\)。\(-2\le x\le1\) で \(x^3\ge3x-2\)。</p>
+      <p>\(S=\int_{-2}^{1}(x-1)^2(x+2)\,dx=\frac{(1-(-2))^4}{12}=\frac{27}{4}\)。<span class="answer">\(\frac{27}4\)</span></p>
+      <p class="point">(2) の積分は \(\int_{-2}^1(x-1)^2\{(x-1)+3\}dx=\left[\frac{(x-1)^4}4+(x-1)^3\right]_{-2}^1=-\frac{81}4+27=\frac{27}4\) と \((x-1)\) のかたまりで計算すれば記述式でも楽。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="calc2-p19" data-level="3">
+    <h3><span class="pid">P19</span>絶対値を含む定積分（区間で分けて関数として扱う）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(S(a)=\int_0^1\abs{x^2-ax}\,dx\) を求め、最小値を求めよ」</dd>
+      <dt>こう考える</dt><dd>絶対値の中身 \(x(x-a)\) の符号が変わる点 \(x=a\) が<b>積分区間 \([0,1]\) の中にあるか外にあるか</b>で式が変わる。区間の中なら積分を2つに分ける。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>中身が0になる点（\(x=0,\ a\)）と積分区間の位置関係で \(a\) を場合分け（\(a\le0\)、\(0\lt a\lt1\)、\(a\ge1\)）。</li>
+        <li>各場合で絶対値を外して積分し、\(S(a)\) を求める。</li>
+        <li>\(S(a)\) を \(a\) の関数とみて増減を調べる（3次式なら微分）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\abs{A}=A\ (A\ge0),\ -A\ (A\lt0)\)、定積分の区間の分割</dd>
+      <dt>なぜこの方法？</dt><dd>絶対値は「符号で式が変わる関数」なので、積分も符号が一定の区間ごとに行う。\(t\) で積分すると \(a\) の関数が残り、それをさらに微分するという<b>2段階の構造</b>が阪大頻出。<a href="../thinking.html#t-casework">発想：場合分け</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">実数 \(a\) に対し \(S(a)=\int_0^1\abs{x^2-ax}\,dx\) とする。\(S(a)\) を求め、その最小値を求めよ。</div>
+      <p>\(x^2-ax=x(x-a)\)。</p>
+      <ul>
+        <li>\(a\le0\)：\(0\le x\le1\) で \(x(x-a)\ge0\)。\(S=\int_0^1(x^2-ax)dx=\frac13-\frac a2\)。</li>
+        <li>\(a\ge1\)：\(0\le x\le1\) で \(x(x-a)\le0\)。\(S=\int_0^1(ax-x^2)dx=\frac a2-\frac13\)。</li>
+        <li>\(0\lt a\lt1\)：\(0\le x\le a\) で負、\(a\le x\le1\) で正。
+          \[ \begin{aligned}S&=\int_0^a(ax-x^2)dx+\int_a^1(x^2-ax)dx\\&=\frac{a^3}6+\left(\frac13-\frac a2\right)-\left(\frac{a^3}3-\frac{a^3}2\right)\\&=\frac{a^3}3-\frac a2+\frac13\end{aligned} \]</li>
+      </ul>
+      <p>\(a\le0\) で減少、\(a\ge1\) で増加。\(0\lt a\lt1\) では \(S'(a)=a^2-\frac12\) で、\(a=\frac1{\sqrt2}\) で極小かつ最小。</p>
+      <p>\(S\left(\frac1{\sqrt2}\right)=\frac{1}{3}\cdot\frac{1}{2\sqrt2}-\frac{1}{2\sqrt2}+\frac13=\frac13-\frac{1}{3\sqrt2}=\frac{2-\sqrt2}{6}\)</p>
+      <p class="answer">最小値 \(\frac{2-\sqrt2}6\)（\(a=\frac{1}{\sqrt2}\)）</p>
+      <p class="point">境目 \(a=0,\ 1\) で式がつながっているか確かめる：\(a=0\) で \(\frac13\)、\(a=1\) で \(\frac16\)。どちらの式でも一致する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="calc2-p20" data-level="3">
+    <h3><span class="pid">P20</span>面積の最小化・面積を2等分する直線</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「点 \((1,2)\) を通る直線と放物線 \(y=x^2\) で囲まれた面積の最小値」「放物線と \(x\) 軸で囲まれた部分の面積を直線 \(y=mx\) が2等分する」</dd>
+      <dt>こう考える</dt><dd>面積を<b>文字（傾き \(m\) など）の関数</b>で表せば、あとは最大最小・方程式の問題。1/6公式を使うと \(S=\frac16(\beta-\alpha)^3\) で、\((\beta-\alpha)^2\) は<b>解と係数の関係（判別式）</b>で \(m\) の式になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>直線を \(m\) で表し、放物線と連立した2次方程式を作る。</li>
+        <li>\((\beta-\alpha)^2=(\alpha+\beta)^2-4\alpha\beta=\frac{D}{a^2}\) を \(m\) で表す。</li>
+        <li>\(S(m)=\frac{|a|}6(\beta-\alpha)^3\) の最小値（\(D\) の最小値）や、\(S=\frac12\times\)全体 の方程式を解く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>1/6公式、解と係数の関係、\(\beta-\alpha=\frac{\sqrt D}{|a|}\)</dd>
+      <dt>なぜこの方法？</dt><dd>交点そのもの（無理数を含む）は不要で、「交点の間隔」だけが面積を決める。間隔は判別式だけで表せるので、展開地獄を避けられる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 点 \((1,2)\) を通る傾き \(m\) の直線と放物線 \(y=x^2\) で囲まれた部分の面積 \(S(m)\) の最小値を求めよ。<br>(2) 放物線 \(y=2x-x^2\) と \(x\) 軸で囲まれた部分の面積を、直線 \(y=mx\) が2等分するような \(m\) の値を求めよ。</div>
+      <p>(1) 直線 \(y=m(x-1)+2\) と連立して \(x^2-mx+m-2=0\)。判別式 \(D=m^2-4m+8=(m-2)^2+4\gt0\) なので常に2点で交わる。2解を \(\alpha\lt\beta\) とすると \(\beta-\alpha=\sqrt D\)。</p>
+      <p>\(S(m)=\frac16(\beta-\alpha)^3=\frac16D^{\frac32}\)。\(D\) は \(m=2\) で最小値 4。</p>
+      <p class="answer">最小値 \(\frac16\cdot4^{\frac32}=\frac43\)（\(m=2\)）</p>
+      <p>(2) 全体の面積は \(\int_0^2(2x-x^2)dx=\frac{2^3}6=\frac43\)。</p>
+      <p>直線 \(y=mx\) が原点以外で放物線と交わるのは \(2x-x^2=mx\) より \(x=2-m\)。2等分するには \(0\lt2-m\lt2\)、すなわち \(0\lt m\lt2\) が必要。このとき放物線と直線で囲まれた面積は</p>
+      <p>\(\int_0^{2-m}\{(2x-x^2)-mx\}dx=\int_0^{2-m}x\{(2-m)-x\}dx=\frac{(2-m)^3}6\)</p>
+      <p>これが \(\frac23\) に等しいので \((2-m)^3=4\)、\(2-m=\sqrt[3]4\)。</p>
+      <p class="answer">\(m=2-\sqrt[3]4\)</p>
+      <p class="point">(1) の幾何的意味：最小になるのは、点 \((1,2)\) を中点とする弦（\(\alpha+\beta=m=2\) で中点の \(x\) 座標が1）。答えの妥当性を図で確かめよう。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="pitfalls">
+  <h2>よくあるミスと対策</h2>
+  <ul class="pitfalls">
+    <li><b>「点 \(A\) を通る接線」で \(A\) を接点として扱う</b>（P3）。→ 必ず接点を \((t,f(t))\) とおく。\(A\) が曲線上にあっても他の接線がある。</li>
+    <li><b>\(f'(a)=0\) だけで「\(x=a\) で極値」と決めつける</b>（P6）。→ 係数を決めたら増減表で十分性を確認する。</li>
+    <li><b>最大値の場合分けで、端点と極値の比較を忘れる</b>（P7）。→ 「\(f(x)=\) 極大値」となる別の \(x\) を求め、境目にする。</li>
+    <li><b>\(x\) 軸の下の部分をそのまま積分して面積を打ち消す</b>（P16）。→ グラフを描き、上下が入れ替わる点で分割する。</li>
+    <li><b>1/6公式で差の \(x^2\) の係数を掛け忘れる</b>（P17）。→ 「上 − 下」を作ってから因数分解し、係数を確認する。</li>
+    <li><b>\(\int_a^xf(t)dt\) の問題で \(x=a\) の代入を忘れ、定数が決まらない</b>（P15）。→ 微分と代入はセットで行う。</li>
+    <li><b>文字の範囲の場合分け（\(a\le0\) など）の取りこぼし</b>（P11, P19）。→ 極値点・符号変化点が区間の内か外かを最初に全部書き出す。</li>
+  </ul>
+</section>
+
+<section id="handai">
+  <h2>阪大レベルへの橋渡し</h2>
+  <p>阪大理系では数IIの微積が単独で出ることもあるが、多くは<b>数IIIの微積の前半</b>や<b>図形と方程式との融合</b>として出る。次の3つは特に出題されやすい型である。</p>
+  <ul>
+    <li>接線の本数を「接点の方程式の解の個数」に言い換え、点の存在範囲を領域として図示する（演1）。</li>
+    <li>面積を2つの接点で表し、条件（直交など）のもとで最小化する（演2）。</li>
+    <li>「最大値を最小にする」ような評価の問題を、<b>具体的な \(x\) での値を使った不等式</b>で論証する（演3）。</li>
+  </ul>
+
+  <article class="pattern" id="calc2-h1" data-level="3">
+    <h3><span class="pid">演1</span>3本の接線が引ける点の存在範囲</h3>
+    <div class="problem">曲線 \(C:\ y=x^3-x\) に、点 \(P(a,b)\) から異なる3本の接線が引けるための \(a,b\) の条件を求め、点 \(P\) の存在範囲を図示せよ（図示は言葉で説明してよい）。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>P10 と同じく、接点 \(t\) の3次方程式 \(g(t)=0\) が異なる3実解をもつ条件を求める。\(g'(t)=6t(t-a)\) なので極値をとる \(t\) は \(0\) と \(a\)。<b>\(a=0\) のときは極値がない</b>ことに注意。条件は「\(g(0)g(a)\lt0\)」で、これは2つの曲線 \(b=-a\)、\(b=a^3-a\) の間の領域になる。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>接点を \((t,\ t^3-t)\) とすると、接線は \(y=(3t^2-1)x-2t^3\)。これが \(P(a,b)\) を通る条件は</p>
+      \[ g(t)=2t^3-3at^2+a+b=0 \]
+      <p>3次関数のグラフでは、1本の直線が2点で接することはない（もし \(t_1\ne t_2\) で接すれば、\(x^3-x-(\text{直線})\) が \((x-t_1)^2(x-t_2)^2\) で割り切れ、次数が合わない）。よって接線の本数は \(g(t)=0\) の異なる実数解の個数に等しい。</p>
+      <p>\(g'(t)=6t(t-a)\)。\(a=0\) なら \(g'(t)=6t^2\ge0\) で \(g\) は単調増加、実数解は1個なので不適。\(a\ne0\) のとき \(g\) は \(t=0,\ a\) で極値をとり、異なる3実解をもつ条件は</p>
+      \[ g(0)g(a)=(a+b)(-a^3+a+b)\lt0 \]
+      <p>（この式で \(a=0\) とすると \(b^2\lt0\) となり成り立たないので、\(a\ne0\) の条件は自動的に含まれる。）</p>
+      <p class="answer">条件：\((b+a)\{b-(a^3-a)\}\lt0\)</p>
+      <p>図示：\(a\gt0\) では \(a^3-a\gt-a\) なので \(-a\lt b\lt a^3-a\)、\(a\lt0\) では \(a^3-a\lt b\lt-a\)。つまり点 \(P\) の存在範囲は、<b>直線 \(y=-x\)（\(C\) の原点における接線）と曲線 \(C\) とで挟まれた部分</b>（\(x\gt0\) では直線の上かつ \(C\) の下、\(x\lt0\) では \(C\) の上かつ直線の下）。境界線上の点は含まない。</p>
+      <p class="point">採点ポイント：(1)「接線の本数＝\(t\) の解の個数」の理由を書く、(2) \(a=0\) の扱い、(3) 境界を含まないことの明記。境界の直線 \(y=-x\) が変曲点 \((0,0)\) での接線になっているのは偶然ではなく、3次関数一般に成り立つ性質（P12 の対称性）である。<a href="../thinking.html#t-rephrase">発想：同値な言い換え</a></p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="calc2-h2" data-level="3">
+    <h3><span class="pid">演2</span>直交する2接線と放物線で囲まれた面積の最小値</h3>
+    <div class="problem">放物線 \(y=x^2\) 上の2点 \(P(\alpha,\alpha^2),\ Q(\beta,\beta^2)\ (\alpha\lt\beta)\) における接線が直交している。2本の接線と放物線で囲まれた部分の面積 \(S\) を \(\alpha,\beta\) で表し、\(S\) の最小値を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>2接線の交点の \(x\) 座標は \(\frac{\alpha+\beta}2\)（中点）。面積は P18 と同じく \((x-\alpha)^2,\ (x-\beta)^2\) の積分で \(\frac{(\beta-\alpha)^3}{12}\)。直交条件は傾きの積 \(4\alpha\beta=-1\)。あとは \((\beta-\alpha)^2=(\alpha+\beta)^2-4\alpha\beta\) で最小化。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>\(P,\ Q\) における接線はそれぞれ \(y=2\alpha x-\alpha^2,\ y=2\beta x-\beta^2\)。連立すると \(2(\beta-\alpha)x=\beta^2-\alpha^2\) より、交点の \(x\) 座標は \(\gamma=\frac{\alpha+\beta}2\)。</p>
+      <p>\(x^2-(2\alpha x-\alpha^2)=(x-\alpha)^2\)、\(x^2-(2\beta x-\beta^2)=(x-\beta)^2\) なので</p>
+      \[ \begin{aligned}S&=\int_\alpha^\gamma(x-\alpha)^2dx+\int_\gamma^\beta(x-\beta)^2dx\\&=\frac{(\gamma-\alpha)^3}3+\frac{(\beta-\gamma)^3}3=\frac23\left(\frac{\beta-\alpha}2\right)^3=\frac{(\beta-\alpha)^3}{12}\end{aligned} \]
+      <p>直交条件：\(2\alpha\cdot2\beta=-1\)、すなわち \(\alpha\beta=-\frac14\)。</p>
+      <p>\((\beta-\alpha)^2=(\alpha+\beta)^2-4\alpha\beta=(\alpha+\beta)^2+1\ge1\)。等号は \(\alpha+\beta=0\)、つまり \(\alpha=-\frac12,\ \beta=\frac12\) のとき成立（\(\alpha\beta=-\frac14\) を満たす）。</p>
+      <p>\(\beta-\alpha\gt0\) なので \(\beta-\alpha\ge1\)、よって \(S=\frac{(\beta-\alpha)^3}{12}\ge\frac1{12}\)。</p>
+      <p class="answer">\(S=\dfrac{(\beta-\alpha)^3}{12}\)、最小値 \(\dfrac1{12}\)（\(\alpha=-\frac12,\ \beta=\frac12\)）</p>
+      <p class="point">採点ポイント：交点が中点 \(\frac{\alpha+\beta}2\) になることを計算で示す、面積の積分を省略せず書く、等号成立の \(\alpha,\beta\) を明示する。直交する2接線の交点は常に準線 \(y=-\frac14\) 上にある（<a href="mc-curves.html">平面上の曲線</a>とつながる）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="calc2-h3" data-level="3">
+    <h3><span class="pid">演3</span>最大値を最小にする（評価の論証）</h3>
+    <div class="problem">実数 \(a\) に対し、\(0\le x\le1\) における \(\abs{x^3-3ax}\) の最大値を \(M(a)\) とする。\(M(a)\) の最小値と、そのときの \(a\) の値を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>\(M(a)\) を全部の \(a\) で求めるのは大変。実験的に「\(f(x)=x^3-3ax\) の極小値の絶対値と \(f(1)\) が等しくなる \(a\)」を見つけ（\(a=\frac14\)、どちらも \(\frac14\)）、<b>それ以外の \(a\) では特定の \(x\) での値だけで \(M(a)\gt\frac14\) が言える</b>ことを示す。「最大値 \(\ge\) ある点での値」は常に正しいので、評価に使いやすい。<a href="../thinking.html#t-bound">発想：不等式で評価して絞る</a></p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>\(f(x)=x^3-3ax\) とする。\(M(a)\) は \(0\le x\le1\) での \(\abs{f(x)}\) の最大値なので、区間内のどの \(x_0\) についても \(M(a)\ge\abs{f(x_0)}\) である。</p>
+      <p><b>\(a=\frac14\) のとき。</b>\(f(x)=x^3-\frac34x\)、\(f'(x)=3x^2-\frac34=3\left(x-\frac12\right)\left(x+\frac12\right)\)。\(0\le x\le1\) では \(x=\frac12\) で最小値 \(f\left(\frac12\right)=-\frac14\)。最大値は端点 \(f(0)=0,\ f(1)=\frac14\) の大きい方で \(\frac14\)。よって \(-\frac14\le f(x)\le\frac14\)、\(M\left(\frac14\right)=\frac14\)。</p>
+      <p><b>\(a\lt\frac14\) のとき。</b>\(M(a)\ge\abs{f(1)}\ge f(1)=1-3a\gt1-\frac34=\frac14\)。</p>
+      <p><b>\(a\gt\frac14\) のとき。</b>\(x_0=\frac12\) を考えると \(f\left(\frac12\right)=\frac18-\frac32a\lt\frac18-\frac38=-\frac14\)。よって \(M(a)\ge\abs{f\left(\frac12\right)}\gt\frac14\)。</p>
+      <p>以上より、\(M(a)\ge\frac14\) で、等号は \(a=\frac14\) のときに限る。</p>
+      <p class="answer">最小値 \(\frac14\)（\(a=\frac14\)）</p>
+      <p class="point">採点ポイント：\(M(a)\) の式を全部求めなくても、「\(a\ne\frac14\) なら \(M(a)\gt\frac14\)」を<b>1点での値で示せば十分</b>。この「答えを予想してから評価で証明する」構成が阪大の論証問題の典型。\(a=\frac14\) は、\(f\) が区間内で \(+\frac14\) と \(-\frac14\) を交互にとる（振れ幅が均等になる）値として見つかる。<a href="../thinking.html#t-experiment">発想：小さい場合で実験</a></p>
+    </div></details>
+  </article>
+</section>
+
+<section id="next">
+  <h2>次に学ぶとつながる単元</h2>
+  <ul>
+    <li><a href="m3-diff.html">微分法とその応用</a>：P5〜P11 の手順が、分数関数・三角関数・指数対数関数でそのまま使える。P11 の差の関数は数IIIの不等式証明の主役。</li>
+    <li><a href="m3-integral-app.html">積分法の応用</a>：P16〜P20 の面積の考え方が、体積・回転体・曲線の長さへ発展する。</li>
+    <li><a href="m2-coord.html">図形と方程式</a>：演1 の「点の存在範囲」は領域・通過領域の問題と同じ考え方。</li>
+    <li><a href="mb-sequence.html">数列</a>：\(\sum k^2\) の公式と \(\int x^2dx\) の対応。和を積分で評価する発想（数III）の入口。</li>
+  </ul>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>

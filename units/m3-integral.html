@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>積分法（計算）（数学III）｜解法の地図</title>
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-unit="m3-integral" data-root="../">
+<main>
+
+<header class="unit-head">
+  <span class="subj-badge">数学III</span>
+  <h1>積分法（計算）</h1>
+  <p class="lead">積分は「微分の逆」なので、<b>被積分関数の形を見て、何を微分したものかを見抜く</b>のが全て。置換積分・部分積分・部分分数・三角関数の変形という4つの道具と、定積分ならではの対称性・漸化式を身につける。阪大では計算そのものより、漸化式・定積分で表された関数・最小化問題として出題される。</p>
+  <div class="goal">
+    <strong>このページの到達目標</strong>
+    <ul>
+      <li>【基礎】基本公式・\(f(ax+b)\)・\(\frac{f'}{f}\) 型・部分積分を、微分して検算しながら正確に計算できる。</li>
+      <li>【標準】式の形から置換（\(x=a\sin\theta\)、\(x=a\tan\theta\)、\(t=e^x\)）や部分分数を選び、ウォリス型の漸化式・定積分で表された関数を処理できる。</li>
+      <li>【阪大】\(x=\pi-t\) などの対称性、漸化式からの極限、絶対値や2乗の積分の最小化を、場合分けと論証を含めて答案にできる。</li>
+    </ul>
+  </div>
+  <p class="prereq">前提：<a href="m3-diff.html">微分法とその応用</a>（導関数の公式・合成関数の微分）、<a href="m2-calculus.html">微分法・積分法（数II）</a>、<a href="m2-trig.html">三角関数</a>（加法定理・半角・積和） ／ 次に進む：<a href="m3-integral-app.html">積分法の応用</a></p>
+</header>
+
+<section id="core">
+  <h2>必ず押さえる基本事項</h2>
+
+  <div class="box theorem">
+    <p><span class="name">基本的な不定積分</span>（\(C\) は積分定数）</p>
+    \[ \begin{aligned} &\int x^\alpha dx=\frac{x^{\alpha+1}}{\alpha+1}+C\ (\alpha\ne-1),\qquad \int\frac{dx}{x}=\log|x|+C,\\ &\int e^x dx=e^x+C,\qquad \int a^x dx=\frac{a^x}{\log a}+C,\\ &\int\sin x\,dx=-\cos x+C,\quad \int\cos x\,dx=\sin x+C,\quad \int\frac{dx}{\cos^2x}=\tan x+C \end{aligned} \]
+    <p>なぜ：右辺を微分すると左辺の被積分関数に戻る（<a href="m3-diff.html">微分法</a>の公式を逆に読んだだけ）。<b>答えに自信がなければ微分して検算</b>できるのが積分の強み。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">置換積分・部分積分</span></p>
+    \[ \int f(g(x))g'(x)\,dx=\int f(u)\,du\ \ (u=g(x)),\qquad \int f(x)g'(x)\,dx=f(x)g(x)-\int f'(x)g(x)\,dx \]
+    <p>なぜ：置換積分は<b>合成関数の微分</b> \(\{F(g(x))\}'=F'(g(x))g'(x)\) の逆、部分積分は<b>積の微分</b> \((fg)'=f'g+fg'\) を積分して移項したもの。定積分の置換では<b>積分区間も新しい変数の範囲に変える</b>。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">微分積分学の基本定理</span>：\(f\) が連続なら</p>
+    \[ \frac{d}{dx}\int_a^x f(t)\,dt=f(x),\qquad \frac{d}{dx}\int_{h(x)}^{g(x)}f(t)\,dt=f(g(x))g'(x)-f(h(x))h'(x) \]
+    <p>なぜ：\(F'=f\) となる \(F\) で \(\int_a^x f(t)dt=F(x)-F(a)\)。これを微分すれば \(f(x)\)。上端・下端が \(x\) の関数なら合成関数の微分になる。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">偶関数・奇関数</span></p>
+    \[ f(-x)=f(x)\ \Rightarrow\ \int_{-a}^af(x)dx=2\int_0^af(x)dx,\qquad f(-x)=-f(x)\ \Rightarrow\ \int_{-a}^af(x)dx=0 \]
+    <p>なぜ：\(x=-t\) と置換すると \(\int_{-a}^0f(x)dx=\int_0^af(-t)dt\)。グラフで言えば、奇関数は \(x\) 軸の上下で面積が打ち消し合う。</p>
+  </div>
+
+  <div class="box idea">
+    <p><b>この単元を貫く考え方</b>：積分の計算は<b>「微分したら被積分関数になるものは何か」の推理</b>である。被積分関数の中に<b>「あるカタマリ」と「その導関数」</b>がペアで見えたら置換、<b>「微分すると簡単になるもの × 積分しても複雑にならないもの」</b>の積なら部分積分。どちらも見えなければ、式を変形（部分分数・次数下げ・積和）してから再挑戦する。定積分では、さらに<b>区間の対称性</b>という強力な武器が加わる。</p>
+  </div>
+</section>
+
+<section id="quick">
+  <h2>早見表：こう来たら → こう解く</h2>
+  <div class="table-wrap"><table class="quick">
+    <tr><th>問題の特徴（こう来たら）</th><th>方針（こう解く）</th><th>使う道具</th><th>詳細</th></tr>
+    <tr data-level="1"><td>\(\frac{(x+1)^2}{\sqrt x}\)、\(\tan^2x\) など</td><td>展開・変形して基本公式の和に</td><td>基本公式</td><td><a href="#intg-p1">P1</a></td></tr>
+    <tr data-level="1"><td>\((2x+1)^5\)、\(e^{-2x+1}\)、\(\cos(3x+\frac\pi4)\)</td><td>\(\frac1a F(ax+b)\)</td><td>1次式の置換</td><td><a href="#intg-p2">P2</a></td></tr>
+    <tr data-level="1"><td>\(\tan x\)、\(\frac{x}{x^2+1}\)、\(xe^{x^2}\)、\(\frac{(\log x)^2}{x}\)</td><td>「カタマリと導関数のペア」を見抜く</td><td>\(\frac{f'}{f}\)、\(f(g)g'\)</td><td><a href="#intg-p3">P3</a></td></tr>
+    <tr data-level="2"><td>分数式 \(\frac{x+5}{(x-1)(x+2)}\)、\(\frac{1}{x(x+1)^2}\)</td><td>（次数を下げて）部分分数分解</td><td>恒等式</td><td><a href="#intg-p4">P4</a></td></tr>
+    <tr data-level="1"><td>\(\sin^2x\)、\(\sin3x\cos x\)、\(\int_0^\pi\sin mx\sin nx\,dx\)</td><td>半角で次数下げ／積和で和に</td><td>半角・積和の公式</td><td><a href="#intg-p5">P5</a></td></tr>
+    <tr data-level="2"><td>\(\sin^3x\)、\(\sin^2x\cos^3x\)、\(\cos^4x\)</td><td>奇数乗は1個残して置換、偶数乗は次数下げ</td><td>\(\sin^2+\cos^2=1\)</td><td><a href="#intg-p6">P6</a></td></tr>
+    <tr data-level="1"><td>\(\int_0^1x(1-x)^5dx\)、\(\int_0^1x\sqrt{1-x}\,dx\)</td><td>面倒な部分を \(t\) とおき、区間も変換</td><td>置換積分（定積分）</td><td><a href="#intg-p7">P7</a></td></tr>
+    <tr data-level="2"><td>\(\sqrt{a^2-x^2}\)、\(\frac{1}{\sqrt{a^2-x^2}}\)</td><td>\(x=a\sin\theta\)</td><td>三角置換</td><td><a href="#intg-p8">P8</a></td></tr>
+    <tr data-level="2"><td>\(\frac{1}{x^2+a^2}\)、\(\frac{1}{(1+x^2)^2}\)</td><td>\(x=a\tan\theta\)（平方完成してから）</td><td>三角置換</td><td><a href="#intg-p9">P9</a></td></tr>
+    <tr data-level="2"><td>\(\frac{1}{e^x+1}\)、\(\sqrt{e^x-1}\)、\(\frac{1}{1+\sin x+\cos x}\)</td><td>\(t=e^x\)、\(t=\sqrt{e^x-1}\)、（発展）\(t=\tan\frac x2\)</td><td>置換積分</td><td><a href="#intg-p10">P10</a></td></tr>
+    <tr data-level="1"><td>\(\log x\)、\(x^2e^x\)、\(x\cos x\)</td><td>微分すると簡単になる方を \(f\) に</td><td>部分積分</td><td><a href="#intg-p11">P11</a></td></tr>
+    <tr data-level="2"><td>\(e^x\sin x\)、\(e^{-x}\sin x\)</td><td>部分積分2回で同じ形 → 方程式</td><td>同形出現</td><td><a href="#intg-p12">P12</a></td></tr>
+    <tr data-level="1"><td>区間が \([-a,a]\)</td><td>偶関数・奇関数に分ける</td><td>偶奇の性質</td><td><a href="#intg-p13">P13</a></td></tr>
+    <tr data-level="3"><td>\(\int_0^\pi xf(\sin x)dx\)、\(\int_0^{\frac\pi2}\frac{\sin^3x}{\sin^3x+\cos^3x}dx\)</td><td>\(x=\pi-t\)、\(x=a-t\) で同じ積分を作り足す</td><td>対称性の置換</td><td><a href="#intg-p14">P14</a></td></tr>
+    <tr data-level="2"><td>\(I_n=\int_0^{\frac\pi2}\sin^nx\,dx\)</td><td>\(\sin^{n-1}x\cdot\sin x\) と見て部分積分</td><td>ウォリスの漸化式</td><td><a href="#intg-p15">P15</a></td></tr>
+    <tr data-level="3"><td>\(I_n=\int_0^1x^ne^xdx\) の漸化式・極限</td><td>部分積分で漸化式、不等式で評価</td><td>部分積分・はさみうち</td><td><a href="#intg-p16">P16</a></td></tr>
+    <tr data-level="1"><td>\(f(x)=e^x+\int_0^1tf(t)dt\)</td><td>定積分（定数）を \(k\) とおく</td><td>定積分は定数</td><td><a href="#intg-p17">P17</a></td></tr>
+    <tr data-level="2"><td>\(\int_a^xf(t)dt=\cdots\)、\(\int_0^x(x-t)f(t)dt\)</td><td>\(x\) を積分の外に出してから微分</td><td>微分積分学の基本定理</td><td><a href="#intg-p18">P18</a></td></tr>
+    <tr data-level="3"><td>\(\int_0^1|x-a|dx\)、\(\int_0^\pi|\sin x-a|dx\) の最小値</td><td>中身が 0 になる点で区間を分割。交点を角 \(\alpha\) で表す</td><td>絶対値の場合分け</td><td><a href="#intg-p19">P19</a></td></tr>
+    <tr data-level="3"><td>\(\int_0^\pi(f(x)-ax-b)^2dx\) の最小値</td><td>展開して \(a,b\) の2次式 → 平方完成</td><td>予選決勝法</td><td><a href="#intg-p20">P20</a></td></tr>
+    <tr data-level="3"><td>\(\int_0^1\frac{x^4(1-x)^4}{1+x^2}dx\) など \(\frac{1}{1+x^2}\) を含む式</td><td>割り算で多項式＋\(\frac{c}{1+x^2}\)。\(\pi\) の評価へ</td><td>\(\int_0^1\frac{dx}{1+x^2}=\frac\pi4\)</td><td><a href="#intg-p21">P21</a></td></tr>
+  </table></div>
+</section>
+
+<section id="patterns">
+  <h2>パターン別 解法マップ</h2>
+
+  <article class="pattern" id="intg-p1" data-level="1">
+    <h3><span class="pid">P1</span>基本関数の不定積分（変形して公式へ）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「次の不定積分を求めよ」：\(\int\frac{(x+1)^2}{\sqrt x}dx\)、\(\int(e^x+2^x)dx\)、\(\int\tan^2x\,dx\)</dd>
+      <dt>こう考える</dt><dd>そのままでは公式の形でない。<b>展開・分数の分割・三角関数の公式</b>で「基本関数の和」にばらしてから1つずつ積分する。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>根号は指数に直す（\(\sqrt x=x^{\frac12}\)、\(\frac{1}{\sqrt x}=x^{-\frac12}\)）。</li>
+        <li>分数は分子を展開して項ごとに割る。</li>
+        <li>\(\tan^2x=\frac{1}{\cos^2x}-1\) のように、公式のある形に書き換える。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>基本公式、\(1+\tan^2x=\frac{1}{\cos^2x}\)</dd>
+      <dt>なぜこの方法？</dt><dd>積分には「積の公式」「商の公式」がない（微分と違う）。だから<b>和の形にばらすこと</b>が最初の仕事になる。和なら項ごとに積分してよい（線形性）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">次の不定積分を求めよ。(1) \(\displaystyle\int\frac{(x+1)^2}{\sqrt x}dx\)　(2) \(\displaystyle\int(e^x+2^x)dx\)　(3) \(\displaystyle\int\tan^2x\,dx\)</div>
+      <p>(1) \(\dfrac{x^2+2x+1}{x^{\frac12}}=x^{\frac32}+2x^{\frac12}+x^{-\frac12}\) より</p>
+      \[ \int\frac{(x+1)^2}{\sqrt x}dx=\frac25x^{\frac52}+\frac43x^{\frac32}+2x^{\frac12}+C \]
+      <p>(2) \(e^x+\dfrac{2^x}{\log2}+C\)</p>
+      <p>(3) \(\displaystyle\int\left(\frac{1}{\cos^2x}-1\right)dx=\tan x-x+C\)</p>
+      <p class="answer">(1) \(\frac25x^2\sqrt x+\frac43x\sqrt x+2\sqrt x+C\)　(2) \(e^x+\frac{2^x}{\log 2}+C\)　(3) \(\tan x-x+C\)</p>
+      <p class="point">検算：(3) を微分すると \(\frac{1}{\cos^2x}-1=\tan^2x\)。迷ったら必ず微分して戻るか確かめよう。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="intg-p2" data-level="1">
+    <h3><span class="pid">P2</span>\(f(ax+b)\) の積分</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">\(\int(2x+1)^5dx\)、\(\int\frac{dx}{3x-1}\)、\(\int e^{-2x+1}dx\)、\(\int\cos\left(3x+\frac\pi4\right)dx\)、\(\int\sqrt{4x+1}\,dx\)</dd>
+      <dt>こう考える</dt><dd>中身が<b>1次式</b>なら、\(x\) のときの答えの \(x\) を \(ax+b\) に替えて、<b>\(\frac1a\) 倍</b>するだけ。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(F'(x)=f(x)\) となる \(F\) を思い出す。</li>
+        <li>\(\int f(ax+b)dx=\frac1aF(ax+b)+C\)。</li>
+        <li>微分して \(a\) が出てきて \(\frac1a\) と打ち消し合うことを確認。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\int f(ax+b)dx=\frac1aF(ax+b)+C\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(\{F(ax+b)\}'=aF'(ax+b)\) と、合成関数の微分で \(a\) が掛かる。それを打ち消すために \(\frac1a\) をつける。置換 \(u=ax+b\) をいちいち書かずに済む「公式化された置換積分」である。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">次の不定積分を求めよ。<br>(1) \(\int(2x+1)^5dx\)　(2) \(\int\frac{dx}{3x-1}\)　(3) \(\int e^{-2x+1}dx\)　(4) \(\int\cos\left(3x+\frac\pi4\right)dx\)　(5) \(\int\sqrt{4x+1}\,dx\)</div>
+      <p>(1) \(\dfrac12\cdot\dfrac{(2x+1)^6}{6}=\dfrac{(2x+1)^6}{12}+C\)</p>
+      <p>(2) \(\dfrac13\log|3x-1|+C\)</p>
+      <p>(3) \(-\dfrac12e^{-2x+1}+C\)</p>
+      <p>(4) \(\dfrac13\sin\left(3x+\dfrac\pi4\right)+C\)</p>
+      <p>(5) \(\dfrac14\cdot\dfrac{(4x+1)^{\frac32}}{\frac32}=\dfrac16(4x+1)\sqrt{4x+1}+C\)</p>
+      <p class="answer">上記のとおり</p>
+      <p class="point">この方法が使えるのは中身が<b>1次式</b>のときだけ。\(\int(x^2+1)^5dx\) を \(\frac{(x^2+1)^6}{6\cdot 2x}\) とするのは誤り（微分しても戻らない）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="intg-p3" data-level="1">
+    <h3><span class="pid">P3</span>\(\frac{f'(x)}{f(x)}\)、\(f(g(x))g'(x)\) の形を見抜く</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">\(\int\tan x\,dx\)、\(\int\frac{x}{x^2+1}dx\)、\(\int xe^{x^2}dx\)、\(\int\frac{(\log x)^2}{x}dx\)、\(\int\sin x\cos^3x\,dx\)、\(\int\frac{e^x}{e^x+1}dx\)</dd>
+      <dt>こう考える</dt><dd>被積分関数の中に<b>「あるカタマリ \(g(x)\)」と「その導関数 \(g'(x)\)（の定数倍）」</b>が掛け算で並んでいないか探す。見つかれば \(u=g(x)\) で一瞬。</dd>
+      <dt>こう解く</dt><dd><ul>
+        <li>分母の導関数が分子 → \(\displaystyle\int\frac{g'(x)}{g(x)}dx=\log|g(x)|+C\)。</li>
+        <li>カタマリの関数 × カタマリの導関数 → \(\displaystyle\int f(g(x))g'(x)dx=F(g(x))+C\)。</li>
+        <li>定数倍のずれは調整（\(x\) と \((x^2+1)'=2x\) なら \(\frac12\) を掛ける）。</li>
+      </ul></dd>
+      <dt>使う定理・公式</dt><dd>置換積分、\((\log|g|)'=\frac{g'}{g}\)</dd>
+      <dt>なぜこの方法？</dt><dd>合成関数の微分を逆にたどっている。「\(\frac{1}{x}\) は \(\log x\) の導関数」「\(\cos x\) は \(\sin x\) の導関数」のように、<b>導関数のペアを見る目</b>を養えば、置換を書かずに暗算できる。<a href="../thinking.html#t-subst">発想：置き換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">次の不定積分を求めよ。<br>(1) \(\int\tan x\,dx\)　(2) \(\int\frac{x}{x^2+1}dx\)　(3) \(\int xe^{x^2}dx\)　(4) \(\int\frac{(\log x)^2}{x}dx\)　(5) \(\int\sin x\cos^3x\,dx\)　(6) \(\int\frac{e^x}{e^x+1}dx\)</div>
+      <p>(1) \(\tan x=\dfrac{\sin x}{\cos x}=-\dfrac{(\cos x)'}{\cos x}\) より \(-\log|\cos x|+C\)</p>
+      <p>(2) \(\dfrac12\cdot\dfrac{(x^2+1)'}{x^2+1}\) より \(\dfrac12\log(x^2+1)+C\)</p>
+      <p>(3) \(\dfrac12e^{x^2}\cdot(x^2)'\) より \(\dfrac12e^{x^2}+C\)</p>
+      <p>(4) \((\log x)^2\cdot(\log x)'\) より \(\dfrac13(\log x)^3+C\)</p>
+      <p>(5) \(-\cos^3x\cdot(\cos x)'\) より \(-\dfrac14\cos^4x+C\)</p>
+      <p>(6) 分子は分母の導関数。\(\log(e^x+1)+C\)（\(e^x+1\gt0\) なので絶対値不要）</p>
+      <p class="answer">上記のとおり</p>
+      <p class="point">(2) で \(x^2+1\gt0\) なので絶対値は外してよい。逆に \(\int\frac{dx}{x^2+1}\) は分子に \(2x\) がないのでこの型ではない（P9 の \(x=\tan\theta\)）。似た形の区別が大事。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="intg-p4" data-level="2">
+    <h3><span class="pid">P4</span>分数関数（部分分数分解）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">\(\int\frac{x+5}{(x-1)(x+2)}dx\)、\(\int\frac{x^2}{x-1}dx\)、\(\int_1^2\frac{dx}{x(x+1)^2}\)</dd>
+      <dt>こう考える</dt><dd>分母が因数分解できる分数式は、<b>「簡単な分数の和」に分解</b>すれば、各項が \(\log\) や \(\frac{1}{x}\) 型になる。分子の次数 \(\ge\) 分母の次数なら<b>先に割り算</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>（分子の次数 \(\ge\) 分母の次数なら）割り算して「多項式＋真分数」に。</li>
+        <li>\(\dfrac{A}{x-1}+\dfrac{B}{x+2}\) とおく。重複因数 \((x+1)^2\) には \(\dfrac{B}{x+1}+\dfrac{C}{(x+1)^2}\) の2つを用意。</li>
+        <li>分母を払って恒等式にし、都合のよい \(x\) を代入して \(A,B,C\) を決める。</li>
+        <li>各項を積分（\(\int\frac{dx}{(x+1)^2}=-\frac{1}{x+1}\)）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>恒等式（<a href="m2-proof.html">式と証明</a>）、\(\int\frac{dx}{x-a}=\log|x-a|\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(\frac{1}{x-a}\) や \(\frac{1}{(x-a)^2}\) は積分できるが、それらの積は直接積分できない。通分の逆をやって「積分できる部品の和」に戻している。数列の和の「部分分数で差に分ける」と全く同じ発想（<a href="mb-sequence.html">数列</a>）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle\int\frac{x+5}{(x-1)(x+2)}dx\)　(2) \(\displaystyle\int\frac{x^2}{x-1}dx\)　(3) \(\displaystyle\int_1^2\frac{dx}{x(x+1)^2}\)</div>
+      <p>(1) \(\dfrac{x+5}{(x-1)(x+2)}=\dfrac{A}{x-1}+\dfrac{B}{x+2}\)。\(x+5=A(x+2)+B(x-1)\)。\(x=1\) で \(6=3A\)、\(x=-2\) で \(3=-3B\)。\(A=2,\ B=-1\)。</p>
+      <p>\(\displaystyle\int=2\log|x-1|-\log|x+2|+C=\log\frac{(x-1)^2}{|x+2|}+C\)</p>
+      <p>(2) \(x^2=(x-1)(x+1)+1\) より \(\dfrac{x^2}{x-1}=x+1+\dfrac{1}{x-1}\)。\(\displaystyle\int=\frac{x^2}{2}+x+\log|x-1|+C\)</p>
+      <p>(3) \(\dfrac{1}{x(x+1)^2}=\dfrac Ax+\dfrac{B}{x+1}+\dfrac{C}{(x+1)^2}\)。\(1=A(x+1)^2+Bx(x+1)+Cx\)。</p>
+      <p>\(x=0\) で \(A=1\)、\(x=-1\) で \(C=-1\)、\(x^2\) の係数比較で \(A+B=0\)、\(B=-1\)。</p>
+      \[ \int_1^2\left(\frac1x-\frac{1}{x+1}-\frac{1}{(x+1)^2}\right)dx=\left[\log\frac{x}{x+1}+\frac{1}{x+1}\right]_1^2=\log\frac23+\frac13-\log\frac12-\frac12 \]
+      <p class="answer">(1) \(2\log|x-1|-\log|x+2|+C\)　(2) \(\frac{x^2}{2}+x+\log|x-1|+C\)　(3) \(\log\dfrac43-\dfrac16\)</p>
+      <p class="point">(3) で \(\frac{1}{x(x+1)^2}=\frac Ax+\frac{C}{(x+1)^2}\) と2項しか用意しないと恒等式が成り立たない。重複因数は次数を1つずつ下げた分母をすべて用意する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="intg-p5" data-level="1">
+    <h3><span class="pid">P5</span>三角関数の積分（次数下げ・積和）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">\(\int_0^\pi\sin^2x\,dx\)、\(\int\sin3x\cos x\,dx\)、「\(m,n\) は自然数。\(\int_0^\pi\sin mx\sin nx\,dx\) を求めよ」</dd>
+      <dt>こう考える</dt><dd>三角関数の<b>2乗や積</b>はそのままでは積分できない。<b>半角の公式で1次に</b>、<b>積和の公式で和に</b>直す。</dd>
+      <dt>こう解く</dt><dd><ul>
+        <li>\(\sin^2x=\dfrac{1-\cos2x}{2}\)、\(\cos^2x=\dfrac{1+\cos2x}{2}\)、\(\sin x\cos x=\dfrac{\sin 2x}{2}\)。</li>
+        <li>\(\sin A\cos B=\dfrac12\{\sin(A+B)+\sin(A-B)\}\)、\(\sin A\sin B=-\dfrac12\{\cos(A+B)-\cos(A-B)\}\)。</li>
+        <li>\(m=n\) と \(m\ne n\) のように、和・差が 0 になるかで場合分け。</li>
+      </ul></dd>
+      <dt>使う定理・公式</dt><dd>半角の公式、積和の公式（<a href="m2-trig.html">三角関数</a>）</dd>
+      <dt>なぜこの方法？</dt><dd>\(\sin(ax+b)\)、\(\cos(ax+b)\) という「1次の三角関数」なら P2 で積分できる。2乗や積を<b>角を2倍・和にすることで1次に下げる</b>のが三角関数の変形の役割。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle\int_0^\pi\sin^2x\,dx\)　(2) \(\displaystyle\int\sin3x\cos x\,dx\)　(3) 自然数 \(m,n\) に対し \(\displaystyle\int_0^\pi\sin mx\sin nx\,dx\) を求めよ。</div>
+      <p>(1) \(\displaystyle\int_0^\pi\frac{1-\cos2x}{2}dx=\left[\frac x2-\frac{\sin2x}{4}\right]_0^\pi=\frac\pi2\)</p>
+      <p>(2) \(\sin3x\cos x=\dfrac12(\sin4x+\sin2x)\) より \(-\dfrac{\cos4x}{8}-\dfrac{\cos2x}{4}+C\)</p>
+      <p>(3) \(\sin mx\sin nx=\dfrac12\{\cos(m-n)x-\cos(m+n)x\}\)。\(m+n\ge2\) なので \(\int_0^\pi\cos(m+n)x\,dx=\left[\frac{\sin(m+n)x}{m+n}\right]_0^\pi=0\)。</p>
+      <ul>
+        <li>\(m\ne n\)：同様に \(\int_0^\pi\cos(m-n)x\,dx=0\)。積分は 0。</li>
+        <li>\(m=n\)：\(\cos0=1\) なので \(\int_0^\pi\frac12dx=\frac\pi2\)。</li>
+      </ul>
+      <p class="answer">(1) \(\frac\pi2\)　(2) \(-\frac{\cos4x}{8}-\frac{\cos2x}{4}+C\)　(3) \(m\ne n\) のとき 0、\(m=n\) のとき \(\frac\pi2\)</p>
+      <p class="point">(3) で \(m=n\) の場合を分けないと \(\frac{\sin 0}{0}\) という意味のない式が出る。分母に文字が来たら「0 になる場合」を必ず別扱い。この結果は大学で学ぶフーリエ級数の土台。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="intg-p6" data-level="2">
+    <h3><span class="pid">P6</span>\(\sin^nx\cos^mx\) の扱い（奇数乗は置換、偶数乗は次数下げ）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">\(\int\sin^3x\,dx\)、\(\int_0^{\frac\pi2}\sin^2x\cos^3x\,dx\)、\(\int_0^{\frac\pi2}\cos^4x\,dx\)</dd>
+      <dt>こう考える</dt><dd><b>どちらかが奇数乗</b>なら、その関数を<b>1個だけ残して</b>（導関数役）、残りの偶数乗を \(\sin^2+\cos^2=1\) で相手の関数に直し、相手を \(t\) と置換。<b>両方偶数乗</b>なら半角で次数下げを繰り返す。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\cos^3x=\cos^2x\cdot\cos x=(1-\sin^2x)\cos x\) のように1個切り離す。</li>
+        <li>\(t=\sin x\)（\(dt=\cos x\,dx\)）で多項式の積分に。</li>
+        <li>偶数乗：\(\cos^4x=\left(\frac{1+\cos2x}{2}\right)^2\) を展開し、\(\cos^22x\) を再び半角で下げる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\sin^2x+\cos^2x=1\)、半角の公式、置換積分</dd>
+      <dt>なぜこの方法？</dt><dd>切り離した1個の \(\cos x\) が、\(t=\sin x\) の導関数 \(dt=\cos x\,dx\) の役を果たす（P3 の「カタマリと導関数のペア」を自分で作っている）。偶数乗ではペアが作れないので次数下げに頼る。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle\int\sin^3x\,dx\)　(2) \(\displaystyle\int_0^{\frac\pi2}\sin^2x\cos^3x\,dx\)　(3) \(\displaystyle\int_0^{\frac\pi2}\cos^4x\,dx\)</div>
+      <p>(1) \(\sin^3x=(1-\cos^2x)\sin x\)。\(t=\cos x\)、\(dt=-\sin x\,dx\) とすると \(\displaystyle\int-(1-t^2)dt=-t+\frac{t^3}{3}\)。</p>
+      <p>よって \(-\cos x+\dfrac{\cos^3x}{3}+C\)。</p>
+      <p>(2) \(\sin^2x\cos^3x=\sin^2x(1-\sin^2x)\cos x\)。\(t=\sin x\)（\(x:0\to\frac\pi2\) で \(t:0\to1\)）。</p>
+      \[ \int_0^1t^2(1-t^2)dt=\frac13-\frac15=\frac{2}{15} \]
+      <p>(3) \(\cos^4x=\dfrac{(1+\cos2x)^2}{4}=\dfrac14\left(1+2\cos2x+\dfrac{1+\cos4x}{2}\right)=\dfrac38+\dfrac12\cos2x+\dfrac18\cos4x\)。</p>
+      <p>\(\int_0^{\frac\pi2}\cos2x\,dx=0,\ \int_0^{\frac\pi2}\cos4x\,dx=0\) より \(\dfrac38\cdot\dfrac\pi2=\dfrac{3\pi}{16}\)。</p>
+      <p class="answer">(1) \(-\cos x+\frac13\cos^3x+C\)　(2) \(\frac{2}{15}\)　(3) \(\frac{3\pi}{16}\)</p>
+      <p class="point">(3) は P15 のウォリスの公式 \(\frac34\cdot\frac12\cdot\frac\pi2\) でも一瞬で出る。2つの方法で検算できる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="intg-p7" data-level="1">
+    <h3><span class="pid">P7</span>置換積分（定積分・区間の変換）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">\(\int_0^1x(1-x)^5dx\)、\(\int_0^1x\sqrt{1-x}\,dx\) のように、<b>面倒なカタマリ</b>が1つあって展開がつらい</dd>
+      <dt>こう考える</dt><dd>面倒な部分（\(1-x\)、\(\sqrt{1-x}\)）を<b>丸ごと \(t\) とおく</b>。\(x\) を \(t\) で表し、\(dx\) と<b>積分区間</b>も \(t\) に書き換える。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(t=(\text{カタマリ})\) とおき、\(x=(\text{t の式})\) に解く。</li>
+        <li>\(dx=(\ \ )dt\) を求める。</li>
+        <li>区間の対応表 \(x:0\to1\) ⇒ \(t:\ ?\to\ ?\) を書く。</li>
+        <li>\(t\) の積分を計算（\(x\) に戻す必要はない）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\displaystyle\int_a^bf(x)dx=\int_\alpha^\beta f(g(t))g'(t)dt\)（\(a=g(\alpha),\ b=g(\beta)\)）</dd>
+      <dt>なぜこの方法？</dt><dd>\(\sqrt{1-x}\) は \(t\) とおけば \(t\) という単純な文字になり、残りの \(x\) は \(1-t^2\) という多項式になる。<b>「最も複雑な部分を最も単純な文字にする」</b>のが置換の原則。定積分では区間も変えれば \(x\) に戻す手間がない。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle\int_0^1x(1-x)^5dx\)　(2) \(\displaystyle\int_0^1x\sqrt{1-x}\,dx\)</div>
+      <p>(1) \(t=1-x\) とおくと \(x=1-t\)、\(dx=-dt\)、\(x:0\to1\) で \(t:1\to0\)。</p>
+      \[ \int_1^0(1-t)t^5(-dt)=\int_0^1(t^5-t^6)dt=\frac16-\frac17=\frac{1}{42} \]
+      <p>(2) \(t=\sqrt{1-x}\) とおくと \(x=1-t^2\)、\(dx=-2t\,dt\)、\(x:0\to1\) で \(t:1\to0\)。</p>
+      \[ \int_1^0(1-t^2)\cdot t\cdot(-2t)dt=\int_0^12(t^2-t^4)dt=2\left(\frac13-\frac15\right)=\frac{4}{15} \]
+      <p class="answer">(1) \(\frac{1}{42}\)　(2) \(\frac{4}{15}\)</p>
+      <p class="point">(2) で \(t=1-x\) とおいても \(\int_0^1(1-t)\sqrt t\,dt\) となり計算できる。根号を丸ごと置くか中身を置くかは好みだが、根号を丸ごと置くと<b>根号が完全に消える</b>ので安全。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="intg-p8" data-level="2">
+    <h3><span class="pid">P8</span>\(\sqrt{a^2-x^2}\) は \(x=a\sin\theta\)</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">\(\int_0^1\sqrt{4-x^2}\,dx\)、\(\int_0^{\frac12}\frac{dx}{\sqrt{1-x^2}}\)（根号の中が「定数 \(-\ x^2\)」）</dd>
+      <dt>こう考える</dt><dd>\(1-\sin^2\theta=\cos^2\theta\) を使えば根号が外れる。\(x=a\sin\theta\) とおくと \(\sqrt{a^2-x^2}=a\cos\theta\)（\(\cos\theta\ge0\) の範囲で）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(x=a\sin\theta\ \left(-\frac\pi2\le\theta\le\frac\pi2\right)\)、\(dx=a\cos\theta\,d\theta\)。</li>
+        <li>区間を \(\theta\) に変換（\(x=1,\ a=2\) なら \(\sin\theta=\frac12\)、\(\theta=\frac\pi6\)）。</li>
+        <li>\(\cos^2\theta\) は半角で次数下げ（P5）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(1-\sin^2\theta=\cos^2\theta\)、半角の公式</dd>
+      <dt>なぜこの方法？</dt><dd>\(y=\sqrt{a^2-x^2}\) は半径 \(a\) の半円。円は角度 \(\theta\) で表すのが自然なので、三角関数で置換すると根号が消える。結果は<b>扇形＋三角形の面積</b>として図形的にも検算できる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle\int_0^1\sqrt{4-x^2}\,dx\)　(2) \(\displaystyle\int_0^{\frac12}\frac{dx}{\sqrt{1-x^2}}\)</div>
+      <p>(1) \(x=2\sin\theta\) とおくと \(dx=2\cos\theta\,d\theta\)、\(x:0\to1\) で \(\theta:0\to\frac\pi6\)。この範囲で \(\cos\theta\gt0\) なので \(\sqrt{4-4\sin^2\theta}=2\cos\theta\)。</p>
+      \[ \int_0^{\frac\pi6}4\cos^2\theta\,d\theta=\int_0^{\frac\pi6}2(1+\cos2\theta)d\theta=\Big[2\theta+\sin2\theta\Big]_0^{\frac\pi6}=\frac\pi3+\frac{\sqrt3}{2} \]
+      <p>(2) \(x=\sin\theta\)、\(\theta:0\to\frac\pi6\)。\(\displaystyle\int_0^{\frac\pi6}\frac{\cos\theta}{\cos\theta}d\theta=\frac\pi6\)</p>
+      <p class="answer">(1) \(\frac\pi3+\frac{\sqrt3}{2}\)　(2) \(\frac\pi6\)</p>
+      <p class="point">(1) の図形的検算：半径 2 の円の \(0\le x\le1\) の部分は「底辺1・高さ \(\sqrt3\) の直角三角形（面積 \(\frac{\sqrt3}{2}\)）」＋「中心角 \(\frac\pi6\) の扇形（面積 \(\frac12\cdot4\cdot\frac\pi6=\frac\pi3\)）」。<a href="../thinking.html#t-graph">発想：図にする</a></p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="intg-p9" data-level="2">
+    <h3><span class="pid">P9</span>\(\frac{1}{x^2+a^2}\) は \(x=a\tan\theta\)</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">\(\int_0^1\frac{dx}{1+x^2}\)、\(\int_0^{\sqrt3}\frac{dx}{x^2+3}\)、\(\int_0^1\frac{dx}{x^2-2x+2}\)、\(\int_0^1\frac{dx}{(1+x^2)^2}\)</dd>
+      <dt>こう考える</dt><dd>\(1+\tan^2\theta=\dfrac{1}{\cos^2\theta}\) と \((\tan\theta)'=\dfrac{1}{\cos^2\theta}\) がちょうど打ち消し合う。分母が因数分解できない2次式なら<b>平方完成</b>して \((x-p)^2+q^2\) の形にしてから。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>（必要なら平方完成して \(u=x-p\)）</li>
+        <li>\(x=a\tan\theta\ \left(-\frac\pi2\lt\theta\lt\frac\pi2\right)\)、\(dx=\dfrac{a}{\cos^2\theta}d\theta\)。</li>
+        <li>\(x^2+a^2=\dfrac{a^2}{\cos^2\theta}\) なので \(\dfrac{dx}{x^2+a^2}=\dfrac1a d\theta\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(1+\tan^2\theta=\frac{1}{\cos^2\theta}\)、\(\displaystyle\int_0^1\frac{dx}{1+x^2}=\frac\pi4\)</dd>
+      <dt>なぜこの方法？</dt><dd>高校では \(\frac{1}{1+x^2}\) の原始関数（\(\tan\) の逆関数）を扱わないので、定積分は <b>\(\tan\) で置換して角度の積分に変える</b>しかない。答えに \(\pi\) が現れるのはこのため。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle\int_0^1\frac{dx}{1+x^2}\)　(2) \(\displaystyle\int_0^{\sqrt3}\frac{dx}{x^2+3}\)　(3) \(\displaystyle\int_0^1\frac{dx}{x^2-2x+2}\)　(4) \(\displaystyle\int_0^1\frac{dx}{(1+x^2)^2}\)</div>
+      <p>(1) \(x=\tan\theta\)、\(\theta:0\to\frac\pi4\)。\(\displaystyle\int_0^{\frac\pi4}\frac{1}{1+\tan^2\theta}\cdot\frac{d\theta}{\cos^2\theta}=\int_0^{\frac\pi4}d\theta=\frac\pi4\)</p>
+      <p>(2) \(x=\sqrt3\tan\theta\)、\(\theta:0\to\frac\pi4\)。\(\displaystyle\int_0^{\frac\pi4}\frac{1}{\sqrt3}d\theta=\frac{\pi}{4\sqrt3}=\frac{\sqrt3\pi}{12}\)</p>
+      <p>(3) \(x^2-2x+2=(x-1)^2+1\)。\(x-1=\tan\theta\)、\(x:0\to1\) で \(\theta:-\frac\pi4\to0\)。\(\displaystyle\int_{-\frac\pi4}^0d\theta=\frac\pi4\)</p>
+      <p>(4) \(x=\tan\theta\)。\(\dfrac{1}{(1+\tan^2\theta)^2}\cdot\dfrac{1}{\cos^2\theta}=\cos^4\theta\cdot\dfrac{1}{\cos^2\theta}=\cos^2\theta\)。</p>
+      \[ \int_0^{\frac\pi4}\cos^2\theta\,d\theta=\left[\frac\theta2+\frac{\sin2\theta}{4}\right]_0^{\frac\pi4}=\frac\pi8+\frac14 \]
+      <p class="answer">(1) \(\frac\pi4\)　(2) \(\frac{\sqrt3\pi}{12}\)　(3) \(\frac\pi4\)　(4) \(\frac\pi8+\frac14\)</p>
+      <p class="point">分母の2次式が因数分解できる（判別式 \(\gt0\)）なら部分分数（P4）、できない（判別式 \(\lt0\)）なら平方完成して \(\tan\) 置換。判別式で道具を選ぶ。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="intg-p10" data-level="2">
+    <h3><span class="pid">P10</span>\(e^x\) を含む式の置換・（発展）\(t=\tan\frac x2\)</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">\(\int_0^1\frac{dx}{e^x+1}\)、\(\int_0^{\log2}\sqrt{e^x-1}\,dx\)、\(\int_0^{\frac\pi2}\frac{dx}{1+\sin x+\cos x}\)</dd>
+      <dt>こう考える</dt><dd>\(e^x\) が分母や根号に入っていて P3 の形でないとき、<b>\(t=e^x\)</b>（\(dx=\frac{dt}{t}\)）で分数関数に、<b>\(t=\sqrt{e^x-1}\)</b> で根号ごと消す。\(\sin x,\cos x\) の分数式は（発展）\(t=\tan\frac x2\) で必ず有理式になる。</dd>
+      <dt>こう解く</dt><dd><ul>
+        <li>\(t=e^x\)：\(x=\log t\)、\(dx=\frac1t dt\)。分数関数になったら部分分数（P4）。</li>
+        <li>\(t=\sqrt{e^x-1}\)：\(e^x=t^2+1\)、\(dx=\frac{2t}{t^2+1}dt\)。</li>
+        <li>（発展）\(t=\tan\frac x2\)：\(\sin x=\frac{2t}{1+t^2}\)、\(\cos x=\frac{1-t^2}{1+t^2}\)、\(dx=\frac{2}{1+t^2}dt\)。</li>
+      </ul></dd>
+      <dt>使う定理・公式</dt><dd>置換積分、部分分数分解、2倍角の公式（\(\tan\frac x2\) 置換の導出）</dd>
+      <dt>なぜこの方法？</dt><dd>\(e^x\) の導関数は \(e^x\) 自身なので、\(t=e^x\) とおくと \(dx=\frac{dt}{t}\) となり、<b>指数関数の式が分数式に変わる</b>。分数式なら部分分数で必ず積分できる。\(\tan\frac x2\) 置換は「万能だが計算が重い」最終手段なので、他の方法がないときに使う。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle\int_0^1\frac{dx}{e^x+1}\)　(2) \(\displaystyle\int_0^{\log2}\sqrt{e^x-1}\,dx\)　(3)（発展）\(\displaystyle\int_0^{\frac\pi2}\frac{dx}{1+\sin x+\cos x}\)</div>
+      <p>(1) \(t=e^x\)、\(dx=\frac{dt}{t}\)、\(t:1\to e\)。</p>
+      \[ \int_1^e\frac{dt}{t(t+1)}=\int_1^e\left(\frac1t-\frac{1}{t+1}\right)dt=\Big[\log t-\log(t+1)\Big]_1^e=1-\log(e+1)+\log2 \]
+      <p>(2) \(t=\sqrt{e^x-1}\)、\(e^x=t^2+1\)、\(dx=\frac{2t}{t^2+1}dt\)、\(x:0\to\log2\) で \(t:0\to1\)。</p>
+      \[ \int_0^1t\cdot\frac{2t}{t^2+1}dt=2\int_0^1\left(1-\frac{1}{t^2+1}\right)dt=2\left(1-\frac\pi4\right) \]
+      <p>（\(\int_0^1\frac{dt}{t^2+1}=\frac\pi4\) は P9。）</p>
+      <p>(3) \(t=\tan\frac x2\)、\(x:0\to\frac\pi2\) で \(t:0\to1\)。\(1+\sin x+\cos x=\dfrac{(1+t^2)+2t+(1-t^2)}{1+t^2}=\dfrac{2(1+t)}{1+t^2}\)。</p>
+      \[ \int_0^1\frac{1+t^2}{2(1+t)}\cdot\frac{2}{1+t^2}dt=\int_0^1\frac{dt}{1+t}=\log2 \]
+      <p class="answer">(1) \(1+\log\dfrac{2}{e+1}\)　(2) \(2-\dfrac\pi2\)　(3) \(\log2\)</p>
+      <p class="point">(1) は \(\frac{1}{e^x+1}=1-\frac{e^x}{e^x+1}\) と変形すれば P3 の \(\frac{f'}{f}\) 型になり、置換なしでも解ける（\(\left[x-\log(e^x+1)\right]_0^1\)）。別解で検算しよう。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="intg-p11" data-level="1">
+    <h3><span class="pid">P11</span>部分積分（\(\log x\)、\(x^ne^x\)、\(x\cos x\)）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">\(\int\log x\,dx\)、\(\int x^2e^xdx\)、\(\int_0^{\frac\pi2}x\cos x\,dx\)、\(\int x\log x\,dx\)（<b>種類の違う関数の積</b>）</dd>
+      <dt>こう考える</dt><dd>\(\int f\cdot g'\) で、<b>\(f\)＝微分すると簡単になるもの</b>（\(x^n\)、\(\log x\)）、<b>\(g'\)＝積分しても複雑にならないもの</b>（\(e^x\)、\(\sin x\)、\(\cos x\)）と役割を決める。\(\log x\) 単独は \(\log x\cdot 1\) と見て \(1\) を \(g'\) に。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>優先順位の目安：\(f\) にするのは「\(\log\) ＞ 多項式 ＞ 三角・指数」の順。</li>
+        <li>\(\int fg'=fg-\int f'g\)。</li>
+        <li>\(x^n\) が残る限り繰り返す（\(x^2e^x\) は2回）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>部分積分 \(\int fg'dx=fg-\int f'g\,dx\)、定積分では \(\displaystyle\int_a^bfg'dx=\Big[fg\Big]_a^b-\int_a^bf'g\,dx\)</dd>
+      <dt>なぜこの方法？</dt><dd>部分積分は「積の一方を微分、もう一方を積分」と入れ替える操作。\(x^n\) は微分のたびに次数が下がり、最後は消える。\(\log x\) は微分すると \(\frac1x\) という代数式になり、他と約分できる。<b>入れ替えで式が簡単になる向きを選ぶ</b>のがコツ。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\int\log x\,dx\)　(2) \(\int x^2e^xdx\)　(3) \(\int_0^{\frac\pi2}x\cos x\,dx\)　(4) \(\int x\log x\,dx\)</div>
+      <p>(1) \(\displaystyle\int(x)'\log x\,dx=x\log x-\int x\cdot\frac1xdx=x\log x-x+C\)</p>
+      <p>(2) \(\displaystyle\int x^2(e^x)'dx=x^2e^x-\int2xe^xdx=x^2e^x-\left(2xe^x-\int2e^xdx\right)=(x^2-2x+2)e^x+C\)</p>
+      <p>(3) \(\displaystyle\Big[x\sin x\Big]_0^{\frac\pi2}-\int_0^{\frac\pi2}\sin x\,dx=\frac\pi2-\Big[-\cos x\Big]_0^{\frac\pi2}=\frac\pi2-1\)</p>
+      <p>(4) \(\displaystyle\int\left(\frac{x^2}{2}\right)'\log x\,dx=\frac{x^2}{2}\log x-\int\frac{x^2}{2}\cdot\frac1xdx=\frac{x^2}{2}\log x-\frac{x^2}{4}+C\)</p>
+      <p class="answer">(1) \(x\log x-x+C\)　(2) \((x^2-2x+2)e^x+C\)　(3) \(\frac\pi2-1\)　(4) \(\frac{x^2}{2}\log x-\frac{x^2}{4}+C\)</p>
+      <p class="point">(4) で \(x\) を \(f\)、\(\log x\) を \(g'\) にすると \(\int\log x\,dx\) を経由して式が複雑化する。\(\log\) があれば \(\log\) を微分する側に。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="intg-p12" data-level="2">
+    <h3><span class="pid">P12</span>\(e^x\sin x\) 型（部分積分で同形出現）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">\(\int e^x\sin x\,dx\)、\(\int_0^\pi e^{-x}\sin x\,dx\)、\(\int e^{ax}\cos bx\,dx\)</dd>
+      <dt>こう考える</dt><dd>\(e^x\) も \(\sin x\) も、何回微分・積分しても消えない。部分積分を<b>2回</b>すると<b>元の積分 \(I\) がもう一度現れる</b>ので、\(I\) についての1次方程式として解く。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(I=\int e^x\sin x\,dx\) とおき、\(e^x\) を積分側にして部分積分。</li>
+        <li>出てきた \(\int e^x\cos x\,dx\) にも<b>同じく \(e^x\) を積分側</b>にして部分積分。</li>
+        <li>\(I=(\cdots)-I\) の形になるので \(2I=\cdots\) と解く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>部分積分。別解：\((e^x\sin x)'=e^x(\sin x+\cos x)\)、\((e^x\cos x)'=e^x(\cos x-\sin x)\) の2式を引き算</dd>
+      <dt>なぜこの方法？</dt><dd>\(\sin\) は2回微分すると \(-\sin\) に戻り、\(e^x\) は何回積分しても \(e^x\)。だから2回の部分積分で「符号の変わった自分自身」が現れる。2回目に役割を入れ替えると元に戻ってしまう（\(I=I\) という無意味な式になる）ので注意。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle I=\int e^x\sin x\,dx\) を求めよ。　(2) \(\displaystyle\int_0^\pi e^{-x}\sin x\,dx\) を求めよ。</div>
+      <p>(1) \(I=e^x\sin x-\displaystyle\int e^x\cos x\,dx=e^x\sin x-\left(e^x\cos x+\int e^x\sin x\,dx\right)=e^x(\sin x-\cos x)-I\)。</p>
+      <p>よって \(2I=e^x(\sin x-\cos x)\)、\(I=\dfrac12e^x(\sin x-\cos x)+C\)。</p>
+      <p>(2) \(J=\int_0^\pi e^{-x}\sin x\,dx\)。\(e^{-x}\) を積分側にして2回部分積分：</p>
+      \[ J=\Big[-e^{-x}\sin x\Big]_0^\pi+\int_0^\pi e^{-x}\cos x\,dx=0+\Big[-e^{-x}\cos x\Big]_0^\pi-\int_0^\pi e^{-x}\sin x\,dx=(e^{-\pi}+1)-J \]
+      <p class="answer">(1) \(\frac12e^x(\sin x-\cos x)+C\)　(2) \(\dfrac{1+e^{-\pi}}{2}\)</p>
+      <p class="point">(2) は阪大頻出の「\(\int_0^{n\pi}e^{-x}|\sin x|dx\) の極限」（阪大演習3）の部品になる。不定積分の答えは微分して検算：\(\left\{\frac12e^x(\sin x-\cos x)\right\}'=\frac12e^x(\sin x-\cos x+\cos x+\sin x)=e^x\sin x\)。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="intg-p13" data-level="1">
+    <h3><span class="pid">P13</span>偶関数・奇関数と定積分</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">積分区間が \([-a,a]\)：\(\int_{-\pi}^{\pi}(x^3\cos x+x\sin x)dx\)、\(\int_{-\frac\pi2}^{\frac\pi2}(\sin x+\cos x)^2dx\)</dd>
+      <dt>こう考える</dt><dd>区間が原点対称なら、<b>被積分関数を偶関数部分と奇関数部分に分ける</b>。奇関数部分は丸ごと 0、偶関数部分は \(2\int_0^a\)。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>各項の偶奇を判定：奇×奇＝偶、奇×偶＝奇（\(x^3\) は奇、\(\cos x\) は偶、\(x\sin x\) は偶）。</li>
+        <li>奇関数の項を消す。</li>
+        <li>偶関数の項は \(2\int_0^a\) で計算（下端が 0 になり計算が楽）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>偶関数・奇関数の定積分の性質</dd>
+      <dt>なぜこの方法？</dt><dd>\(x^3\cos x\) の原始関数を求めるのは大変だが、奇関数と分かれば計算せずに 0。<b>計算する前に「計算しなくてよい部分」を探す</b>のが定積分のコツ。<a href="../thinking.html#t-symmetry">発想：対称性を使う</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle\int_{-\pi}^{\pi}(x^3\cos x+x\sin x)dx\)　(2) \(\displaystyle\int_{-\frac\pi2}^{\frac\pi2}(\sin x+\cos x)^2dx\)</div>
+      <p>(1) \(x^3\cos x\) は奇関数なので積分は 0。\(x\sin x\) は偶関数なので</p>
+      \[ 2\int_0^\pi x\sin x\,dx=2\left(\Big[-x\cos x\Big]_0^\pi+\int_0^\pi\cos x\,dx\right)=2(\pi+0)=2\pi \]
+      <p>(2) \((\sin x+\cos x)^2=1+\sin2x\)。\(\sin2x\) は奇関数なので \(\displaystyle\int_{-\frac\pi2}^{\frac\pi2}1\,dx=\pi\)。</p>
+      <p class="answer">(1) \(2\pi\)　(2) \(\pi\)</p>
+      <p class="point">偶奇の判定に迷ったら \(x\) に \(-x\) を代入してみる。\((-x)^3\cos(-x)=-x^3\cos x\) で奇関数、と式で確認すれば確実。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="intg-p14" data-level="3">
+    <h3><span class="pid">P14</span>対称性の置換（\(x=\pi-t\)、\(x=a-t\)、キング・プロパティ）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">\(\int_0^\pi\frac{x\sin x}{1+\cos^2x}dx\)（\(x\times f(\sin x)\) 型）、\(\int_0^{\frac\pi2}\frac{\sin^3x}{\sin^3x+\cos^3x}dx\)、\(\int_{-1}^1\frac{x^2}{1+e^x}dx\)（原始関数が求まりそうにない）</dd>
+      <dt>こう考える</dt><dd>原始関数を求めずに、<b>区間の端を入れ替える置換</b>（\(x=\pi-t\)、\(x=\frac\pi2-t\)、\(x=-t\)）で「同じ値の別の積分」を作り、<b>元の積分と足す</b>（または移項する）と簡単な積分になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(I=\int_0^af(x)dx\) に \(x=a-t\) を代入：\(I=\int_0^af(a-t)dt\)（キング・プロパティ）。</li>
+        <li>\(\int_0^\pi xf(\sin x)dx\) なら \(x=\pi-t\) で \(I=\int_0^\pi(\pi-t)f(\sin t)dt=\pi\int_0^\pi f(\sin t)dt-I\)。</li>
+        <li>\(2I=(\text{簡単な積分})\) を計算。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\int_0^af(x)dx=\int_0^af(a-x)dx\)、\(\int_0^\pi xf(\sin x)dx=\frac\pi2\int_0^\pi f(\sin x)dx\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(x=\pi-t\) は区間 \([0,\pi]\) を左右反転する操作で、\(\sin x\) は変わらないが \(x\) は \(\pi-x\) に変わる。足すと邪魔な \(x\) が定数 \(\pi\) に化ける。\(\frac{\sin^3}{\sin^3+\cos^3}\) と \(\frac{\cos^3}{\sin^3+\cos^3}\) は足すと 1 になる——<b>単独では解けない積分を、相棒と組にして解く</b>発想。<a href="../thinking.html#t-symmetry">発想：対称性</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle I=\int_0^\pi\frac{x\sin x}{1+\cos^2x}dx\)　(2) \(\displaystyle J=\int_0^{\frac\pi2}\frac{\sin^3x}{\sin^3x+\cos^3x}dx\)　(3) \(\displaystyle K=\int_{-1}^1\frac{x^2}{1+e^x}dx\)</div>
+      <p>(1) \(x=\pi-t\) とおくと \(dx=-dt\)、\(\sin(\pi-t)=\sin t\)、\(\cos^2(\pi-t)=\cos^2t\)。</p>
+      \[ I=\int_\pi^0\frac{(\pi-t)\sin t}{1+\cos^2t}(-dt)=\pi\int_0^\pi\frac{\sin t}{1+\cos^2t}dt-I \]
+      <p>よって \(I=\dfrac\pi2\displaystyle\int_0^\pi\frac{\sin x}{1+\cos^2x}dx\)。\(u=\cos x\)（\(du=-\sin x\,dx\)、\(u:1\to-1\)）で \(\displaystyle\int_{-1}^1\frac{du}{1+u^2}\)。さらに \(u=\tan\theta\) で \(\displaystyle\int_{-\frac\pi4}^{\frac\pi4}d\theta=\frac\pi2\)（P9）。\(I=\dfrac\pi2\cdot\dfrac\pi2\)。</p>
+      <p>(2) \(x=\frac\pi2-t\) とおくと \(\sin x=\cos t,\ \cos x=\sin t\) より \(J=\displaystyle\int_0^{\frac\pi2}\frac{\cos^3t}{\cos^3t+\sin^3t}dt\)。元の \(J\) と足すと \(2J=\displaystyle\int_0^{\frac\pi2}1\,dx=\frac\pi2\)。</p>
+      <p>(3) \(x=-t\) とおくと \(K=\displaystyle\int_{-1}^1\frac{t^2}{1+e^{-t}}dt=\int_{-1}^1\frac{t^2e^t}{e^t+1}dt\)。元の \(K\) と足すと \(2K=\displaystyle\int_{-1}^1x^2\cdot\frac{1+e^x}{1+e^x}dx=\frac23\)。</p>
+      <p class="answer">(1) \(\dfrac{\pi^2}{4}\)　(2) \(\dfrac\pi4\)　(3) \(\dfrac13\)</p>
+      <p class="point">(1) を部分積分でやろうとすると \(\int\frac{\sin x}{1+\cos^2x}dx\) の原始関数（高校範囲外）が必要になり行き詰まる。阪大では「(1) \(\int_0^\pi xf(\sin x)dx=\frac\pi2\int_0^\pi f(\sin x)dx\) を示せ (2) それを使って計算せよ」という誘導つきで出ることが多い。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="intg-p15" data-level="2">
+    <h3><span class="pid">P15</span>ウォリス型の漸化式 \(I_n=\int_0^{\frac\pi2}\sin^nx\,dx\)</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(I_n=\int_0^{\frac\pi2}\sin^nx\,dx\) とする。\(I_n=\frac{n-1}{n}I_{n-2}\ (n\ge2)\) を示し、\(I_5,\ I_6\) を求めよ」</dd>
+      <dt>こう考える</dt><dd>\(\sin^nx=\sin^{n-1}x\cdot\sin x\) と<b>1個だけ切り離して部分積分</b>。出てくる \(\cos^2x\) を \(1-\sin^2x\) に直すと \(I_{n-2}\) と \(I_n\) が現れる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\sin x=(-\cos x)'\) として部分積分。境界項は \(x=0,\frac\pi2\) で 0。</li>
+        <li>\(\cos^2x=1-\sin^2x\) で \(I_n=(n-1)(I_{n-2}-I_n)\)。</li>
+        <li>\(I_n\) について解く。\(I_0=\frac\pi2,\ I_1=1\) から順に計算。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>部分積分、\(\int_0^{\frac\pi2}\cos^nx\,dx=\int_0^{\frac\pi2}\sin^nx\,dx\)（\(x=\frac\pi2-t\)）</dd>
+      <dt>なぜこの方法？</dt><dd>\(\sin^n\) を直接積分する公式はないが、「\(n\) 乗」を「\(n-2\) 乗」に結びつければ、\(n=0,1\) という分かる場合まで降りていける。部分積分は<b>次数を下げる装置</b>として働く。<a href="../thinking.html#t-recurrence">発想：漸化式を立てる</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(I_n=\displaystyle\int_0^{\frac\pi2}\sin^nx\,dx\ (n=0,1,2,\dots)\) とする。<br>(1) \(n\ge2\) のとき \(I_n=\dfrac{n-1}{n}I_{n-2}\) を示せ。　(2) \(I_5,\ I_6\) を求めよ。</div>
+      <p>(1) \(n\ge2\) のとき</p>
+      \[ \begin{aligned} I_n&=\int_0^{\frac\pi2}\sin^{n-1}x(-\cos x)'dx=\Big[-\sin^{n-1}x\cos x\Big]_0^{\frac\pi2}+(n-1)\int_0^{\frac\pi2}\sin^{n-2}x\cos^2x\,dx\\ &=0+(n-1)\int_0^{\frac\pi2}\sin^{n-2}x(1-\sin^2x)dx=(n-1)(I_{n-2}-I_n) \end{aligned} \]
+      <p>よって \(nI_n=(n-1)I_{n-2}\)、\(I_n=\dfrac{n-1}{n}I_{n-2}\)。（証明終）</p>
+      <p>(2) \(I_1=1\)、\(I_0=\frac\pi2\) より</p>
+      <p>\(I_5=\dfrac45\cdot\dfrac23\cdot I_1=\dfrac{8}{15}\)、\(I_6=\dfrac56\cdot\dfrac34\cdot\dfrac12\cdot I_0=\dfrac{5}{16}\cdot\dfrac\pi2=\dfrac{5\pi}{32}\)</p>
+      <p class="answer">(2) \(I_5=\dfrac{8}{15}\)、\(I_6=\dfrac{5\pi}{32}\)</p>
+      <p class="point">偶数番目には \(\frac\pi2\) がつき、奇数番目は有理数。漸化式から \(nI_nI_{n-1}=(n-1)I_{n-1}I_{n-2}=\cdots=1\cdot I_1I_0=\frac\pi2\) も分かり、これと \(I_n\) の単調減少を組み合わせると \(\pi\) を表す無限積（ウォリスの公式）が得られる——阪大の誘導問題の定番。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="intg-p16" data-level="3">
+    <h3><span class="pid">P16</span>\(\int_0^1x^ne^xdx\) 型の漸化式と極限</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(I_n=\int_0^1x^ne^xdx\) とする。\(I_n\) と \(I_{n-1}\) の関係式を求めよ」「\(\lim I_n\)、\(\lim nI_n\) を求めよ」</dd>
+      <dt>こう考える</dt><dd>漸化式は部分積分（\(x^n\) を微分側）。極限は<b>被積分関数を不等式で挟んで積分</b>：\(0\le x\le1\) で \(1\le e^x\le e\) だから \(x^n\le x^ne^x\le ex^n\)。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>部分積分で \(I_n=e-nI_{n-1}\)。</li>
+        <li>\(\dfrac{1}{n+1}\le I_n\le\dfrac{e}{n+1}\) を積分で示し、はさみうちで \(I_n\to0\)。</li>
+        <li>\(nI_n\) は漸化式を使って \((n+1)I_n=e-I_{n+1}\) と書き直し、\(I_{n+1}\to0\) を使う。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>部分積分、「\(f\le g\) なら \(\int f\le\int g\)」、はさみうち</dd>
+      <dt>なぜこの方法？</dt><dd>\(I_n\) を \(n\) の式で書くのは難しいが、<b>極限だけなら不等式で十分</b>。\(nI_n\) の極限は不等式だけでは \(1\) と \(e\) の間までしか絞れないので、<b>漸化式を逆に使って</b>確定させる。<a href="../thinking.html#t-bound">発想：不等式で評価・はさみうち</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(I_n=\displaystyle\int_0^1x^ne^xdx\ (n=0,1,2,\dots)\) とする。<br>(1) \(n\ge1\) のとき \(I_n=e-nI_{n-1}\) を示し、\(I_3\) を求めよ。<br>(2) \(\displaystyle\lim_{n\to\infty}I_n\) と \(\displaystyle\lim_{n\to\infty}nI_n\) を求めよ。</div>
+      <p>(1) \(I_n=\Big[x^ne^x\Big]_0^1-\displaystyle\int_0^1nx^{n-1}e^xdx=e-nI_{n-1}\)。</p>
+      <p>\(I_0=e-1\)、\(I_1=e-I_0=1\)、\(I_2=e-2I_1=e-2\)、\(I_3=e-3I_2=6-2e\)。</p>
+      <p>(2) \(0\le x\le1\) で \(1\le e^x\le e\) より \(x^n\le x^ne^x\le ex^n\)。積分して \(\dfrac{1}{n+1}\le I_n\le\dfrac{e}{n+1}\)。はさみうちで \(I_n\to0\)。</p>
+      <p>次に (1) で \(n\) を \(n+1\) にすると \(I_{n+1}=e-(n+1)I_n\)、すなわち \((n+1)I_n=e-I_{n+1}\to e\)。</p>
+      <p>\(nI_n=\dfrac{n}{n+1}\cdot(n+1)I_n\to1\cdot e\)。</p>
+      <p class="answer">(1) \(I_3=6-2e\)　(2) \(\displaystyle\lim I_n=0\)、\(\displaystyle\lim nI_n=e\)</p>
+      <p class="point">不等式 \(\frac{n}{n+1}\le nI_n\le\frac{ne}{n+1}\) だけでは極限は決まらない（下から 1、上から \(e\)）。「評価が甘いときは漸化式に戻る」が阪大型の決め手。数値確認：\(n=5000\) で \(nI_n\fallingdotseq2.717\)。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="intg-p17" data-level="1">
+    <h3><span class="pid">P17</span>定積分を含む関数の決定（定数とおく）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(f(x)=e^x+\int_0^1tf(t)dt\) を満たす \(f(x)\) を求めよ」（積分区間が<b>数値</b>）</dd>
+      <dt>こう考える</dt><dd>上端・下端が数値の定積分は、計算すれば<b>ただの数（定数）</b>になる。だから \(k=\int_0^1tf(t)dt\) とおけば \(f(x)=e^x+k\) と形が決まる。あとは \(k\) を求める。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>定積分を \(k\) とおく（\(x\) を含む場合は \(x\) を積分の外に出してから）。</li>
+        <li>\(f(x)\) を \(k\) で表す。</li>
+        <li>それを \(k\) の定義式に代入して、\(k\) の方程式を解く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>定積分 \(\int_a^b(\cdots)dt\)（\(a,b\) は定数）は定数</dd>
+      <dt>なぜこの方法？</dt><dd>\(f\) が分からないから積分が計算できない、積分が分からないから \(f\) が分からない、という堂々巡りを、<b>未知の定数 \(k\) を導入して連立方程式</b>にすることで断ち切る。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(f(x)=e^x+\displaystyle\int_0^1tf(t)dt\) を満たす関数 \(f(x)\) を求めよ。<br>(2) \(g(x)=x^2+\displaystyle\int_0^1(x+t)g(t)dt\) を満たす関数 \(g(x)\) を求めよ。</div>
+      <p>(1) \(k=\displaystyle\int_0^1tf(t)dt\) とおくと \(f(x)=e^x+k\)。代入して</p>
+      \[ k=\int_0^1t(e^t+k)dt=\Big[(t-1)e^t\Big]_0^1+\frac k2=1+\frac k2 \]
+      <p>よって \(k=2\)。<span class="answer">\(f(x)=e^x+2\)</span></p>
+      <p>(2) \(\displaystyle\int_0^1(x+t)g(t)dt=x\int_0^1g(t)dt+\int_0^1tg(t)dt\)。\(a=\displaystyle\int_0^1g(t)dt,\ b=\int_0^1tg(t)dt\) とおくと \(g(x)=x^2+ax+b\)。</p>
+      <p>\(a=\displaystyle\int_0^1(t^2+at+b)dt=\frac13+\frac a2+b\)、\(b=\displaystyle\int_0^1(t^3+at^2+bt)dt=\frac14+\frac a3+\frac b2\)。</p>
+      <p>第1式より \(a=\frac23+2b\)。第2式に代入：\(\frac b2=\frac14+\frac29+\frac{2b}{3}\)、\(-\frac b6=\frac{17}{36}\)、\(b=-\frac{17}{6}\)、\(a=-5\)。</p>
+      <p class="answer">(2) \(g(x)=x^2-5x-\dfrac{17}{6}\)</p>
+      <p class="point">(2) のように積分の中に \(x\) があるときは、\(x\) は積分変数 \(t\) から見て定数なので<b>積分の外に出してから</b>定数とおく。\(\int_0^1(x+t)g(t)dt\) 全体を1つの定数とおくのは誤り（\(x\) によって値が変わる）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="intg-p18" data-level="2">
+    <h3><span class="pid">P18</span>定積分で表された関数の微分（\(\int_a^x\)、\(\int_0^x(x-t)f(t)dt\)）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\int_1^xf(t)dt=x\log x-2x+a\) を満たす \(f(x)\) と \(a\)」「\(\int_0^x(x-t)f(t)dt=\sin x-x\)」「\(\frac{d}{dx}\int_x^{2x}e^{t^2}dt\)」</dd>
+      <dt>こう考える</dt><dd>積分区間に \(x\) があれば、<b>微分すれば積分が外れる</b>（微分積分学の基本定理）。ただし被積分関数に \(x\) が混ざっていたら、<b>まず \(x\) を積分の外に出す</b>。定数 \(a\) は<b>上端＝下端となる \(x\) を代入</b>（積分が 0）して決める。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\int_0^x(x-t)f(t)dt=x\int_0^xf(t)dt-\int_0^xtf(t)dt\) と分ける。</li>
+        <li>両辺を \(x\) で微分（積の微分に注意）。</li>
+        <li>\(x=a\)（下端）を代入して定数を決める。</li>
+        <li>上端・下端が \(x\) の関数なら \(\frac{d}{dx}\int_{h(x)}^{g(x)}f(t)dt=f(g(x))g'(x)-f(h(x))h'(x)\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\dfrac{d}{dx}\displaystyle\int_a^xf(t)dt=f(x)\)、\(\displaystyle\int_a^af(t)dt=0\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(\int_a^xf(t)dt\) は「\(x\) までの面積」で、\(x\) を少し動かすと面積は \(f(x)\times\Delta x\) だけ増える。だから微分すると \(f(x)\)。\((x-t)\) の \(x\) は \(t\) についての積分では定数なので、外に出してからでないと基本定理が使えない。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle\int_1^xf(t)dt=x\log x-2x+a\ (x\gt0)\) を満たす関数 \(f(x)\) と定数 \(a\) を求めよ。<br>(2) \(\displaystyle\int_0^x(x-t)f(t)dt=\sin x-x\) を満たす連続関数 \(f(x)\) を求めよ。<br>(3) \(\displaystyle\frac{d}{dx}\int_x^{2x}e^{t^2}dt\) を求めよ。</div>
+      <p>(1) \(x=1\) を代入すると左辺 0 なので \(0=-2+a\)、\(a=2\)。両辺を微分して \(f(x)=\log x+1-2=\log x-1\)。</p>
+      <p class="answer">(1) \(f(x)=\log x-1,\ a=2\)</p>
+      <p>(2) 左辺 \(=x\displaystyle\int_0^xf(t)dt-\int_0^xtf(t)dt\)。微分して</p>
+      \[ \int_0^xf(t)dt+xf(x)-xf(x)=\int_0^xf(t)dt=\cos x-1 \]
+      <p>もう一度微分して \(f(x)=-\sin x\)。（逆に \(f(x)=-\sin x\) のとき、\(\int_0^x(-\sin t)dt=\cos x-1\) で、元の式の両辺は \(x=0\) で共に 0、導関数も一致するので成立。）</p>
+      <p class="answer">(2) \(f(x)=-\sin x\)</p>
+      <p>(3) \(F'(t)=e^{t^2}\) となる \(F\) をとると \(\int_x^{2x}e^{t^2}dt=F(2x)-F(x)\)。微分して \(2F'(2x)-F'(x)\)。</p>
+      <p class="answer">(3) \(2e^{4x^2}-e^{x^2}\)</p>
+      <p class="point">(2) の左辺を、\((x-t)\) を残したまま微分して「\((x-x)f(x)=0\)」とするのは誤り。(3) の \(e^{t^2}\) の原始関数は初等関数で書けないが、それでも微分はできる——<b>原始関数を「名前だけ」おく</b>のがコツ。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="intg-p19" data-level="3">
+    <h3><span class="pid">P19</span>絶対値を含む定積分の最小化（\(\int_0^1|x-a|dx\)、\(\int_0^\pi|\sin x-a|dx\)）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(F(a)=\int_0^1|x-a|dx\) の最小値」「\(G(a)=\int_0^\pi|\sin x-a|dx\) を最小にする \(a\)」</dd>
+      <dt>こう考える</dt><dd>絶対値の中身が 0 になる \(x\)（\(x=a\)、\(\sin x=a\)）が<b>積分区間の中にあるかどうか</b>で場合分け。中にあればそこで区間を分割。<b>交点が具体的に求まらない</b>ときは、交点を角 \(\alpha\)（\(\sin\alpha=a\)）で表し、\(\alpha\) を変数として微分する。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>中身の符号が変わる点で区間を分け、絶対値を外す。</li>
+        <li>\(a\) の範囲ごとに \(F(a)\) を求める（区間外なら絶対値は一方の符号のまま）。</li>
+        <li>交点が \(\sin\alpha=a\) なら、\(G\) を \(\alpha\) の関数として表し \(\frac{dG}{d\alpha}\) で増減を調べる（\(a=\sin\alpha\) は \(\alpha\) の増加関数なので、\(\alpha\) で最小化してよい）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>絶対値の定義、増減表、<a href="m1-quadratic.html">2次関数</a>の最大最小</dd>
+      <dt>なぜこの方法？</dt><dd>\(\int|f-a|\) は「グラフ \(y=f(x)\) と直線 \(y=a\) で挟まれた部分の面積の合計」。直線を上下に動かして面積の合計を最小にする問題である。交点を文字でおくのは、<b>求まらない値を求めずに済ませる</b>常套手段（<a href="m3-integral-app.html">積分法の応用</a>でも頻出）。<a href="../thinking.html#t-casework">発想：場合分け</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(F(a)=\displaystyle\int_0^1|x-a|dx\) を求め、その最小値を求めよ。<br>(2) \(G(a)=\displaystyle\int_0^\pi|\sin x-a|dx\) の最小値と、そのときの \(a\) を求めよ。</div>
+      <p>(1) \(a\le0\)：\(F=\int_0^1(x-a)dx=\frac12-a\)。\(a\ge1\)：\(F=\int_0^1(a-x)dx=a-\frac12\)。</p>
+      <p>\(0\lt a\lt1\)：\(F=\int_0^a(a-x)dx+\int_a^1(x-a)dx=\frac{a^2}{2}+\frac{(1-a)^2}{2}=a^2-a+\frac12\)。</p>
+      <p>\(a\le0\) で \(F\ge\frac12\)、\(a\ge1\) で \(F\ge\frac12\)、\(0\lt a\lt1\) では \(\left(a-\frac12\right)^2+\frac14\)。</p>
+      <p class="answer">(1) 最小値 \(\frac14\)（\(a=\frac12\)）</p>
+      <p>(2) <b>\(a\le0\) のとき</b>：\(\sin x\ge a\) なので \(G=\int_0^\pi(\sin x-a)dx=2-\pi a\ge2\)。</p>
+      <p><b>\(a\ge1\) のとき</b>：\(G=\int_0^\pi(a-\sin x)dx=\pi a-2\ge\pi-2\)。</p>
+      <p><b>\(0\lt a\lt1\) のとき</b>：\(\sin\alpha=a\ \left(0\lt\alpha\lt\frac\pi2\right)\) とおくと、\(\sin x=a\) の解は \(x=\alpha,\ \pi-\alpha\)。グラフの対称性（\(x=\frac\pi2\) に関して対称）より</p>
+      \[ \begin{aligned} G&=2\int_0^\alpha(a-\sin x)dx+\int_\alpha^{\pi-\alpha}(\sin x-a)dx\\ &=2\{a\alpha-(1-\cos\alpha)\}+\{2\cos\alpha-a(\pi-2\alpha)\}\\ &=4a\alpha+4\cos\alpha-2-\pi a \end{aligned} \]
+      <p>\(a=\sin\alpha\) を代入し、\(\alpha\) の関数として \(G(\alpha)=4\alpha\sin\alpha+4\cos\alpha-2-\pi\sin\alpha\)。</p>
+      \[ \frac{dG}{d\alpha}=4\sin\alpha+4\alpha\cos\alpha-4\sin\alpha-\pi\cos\alpha=(4\alpha-\pi)\cos\alpha \]
+      <p>\(0\lt\alpha\lt\frac\pi2\) で \(\cos\alpha\gt0\) なので、\(\alpha\lt\frac\pi4\) で減少、\(\alpha\gt\frac\pi4\) で増加。最小値は \(\alpha=\frac\pi4\)（\(a=\frac{\sqrt2}{2}\)）で</p>
+      \[ G=4\cdot\frac\pi4\cdot\frac{\sqrt2}{2}+4\cdot\frac{\sqrt2}{2}-2-\pi\cdot\frac{\sqrt2}{2}=2\sqrt2-2 \]
+      <p>これは \(a\le0\) のときの値（\(\ge2\)）、\(a\ge1\) のときの値（\(\ge\pi-2\fallingdotseq1.14\)）より小さい（\(2\sqrt2-2\fallingdotseq0.83\)）。</p>
+      <p class="answer">(2) 最小値 \(2\sqrt2-2\)（\(a=\dfrac{\sqrt2}{2}\)）</p>
+      <p class="point">(2) で \(G\) を \(a\) のまま微分しようとすると \(\alpha\) を \(a\) で表す必要（逆三角関数）が出て行き詰まる。<b>変数を \(\alpha\) に乗り換える</b>のが核心。(1) も (2) も、最小となるのは「直線 \(y=a\) の上側と下側で、グラフとの交点の間の長さが釣り合うとき」（(2) では \(\pi-2\alpha=2\alpha\)）という共通の意味がある。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="intg-p20" data-level="3">
+    <h3><span class="pid">P20</span>\(\int_0^\pi(f(x)-ax-b)^2dx\) の最小化</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(I(a,b)=\int_0^\pi(\cos x-ax-b)^2dx\) を最小にする \(a,b\) と最小値」</dd>
+      <dt>こう考える</dt><dd>\(a,b\) は積分変数 \(x\) とは無関係な定数。<b>展開して \(x\) について積分すると、\(I\) は \(a,b\) の2次式</b>になる。あとは2変数の2次式の最小化（平方完成・予選決勝法）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>2乗を展開し、各項の定積分（\(\int\cos^2x\)、\(\int x\cos x\)、\(\int x^2\) など）を計算。</li>
+        <li>\(I=pa^2+qab+rb^2+sa+tb+u\) の形に整理。</li>
+        <li>まず \(b\) について平方完成（\(a\) は固定）、残りを \(a\) について平方完成。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>部分積分、平方完成、予選決勝法（<a href="m1-quadratic.html">2次関数</a>）</dd>
+      <dt>なぜこの方法？</dt><dd>\(I\) は「曲線 \(y=f(x)\) と直線 \(y=ax+b\) のずれの2乗の合計」で、最小にする直線は<b>曲線に最もよく当てはまる直線</b>（最小2乗法）。積分を先に済ませれば、あとは数I の2次関数の問題に帰着する。<a href="../thinking.html#t-fix">発想：1文字固定</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">実数 \(a,b\) に対し \(I(a,b)=\displaystyle\int_0^\pi(\cos x-ax-b)^2dx\) とする。\(I\) を最小にする \(a,b\) と、\(I\) の最小値を求めよ。</div>
+      <p>\((\cos x-ax-b)^2=\cos^2x+a^2x^2+b^2-2ax\cos x-2b\cos x+2abx\)。各積分は</p>
+      <p>\(\int_0^\pi\cos^2x\,dx=\frac\pi2\)、\(\int_0^\pi x^2dx=\frac{\pi^3}{3}\)、\(\int_0^\pi\cos x\,dx=0\)、\(\int_0^\pi x\,dx=\frac{\pi^2}{2}\)、</p>
+      <p>\(\int_0^\pi x\cos x\,dx=\Big[x\sin x\Big]_0^\pi-\int_0^\pi\sin x\,dx=-2\)。よって</p>
+      \[ I=\frac\pi2+\frac{\pi^3}{3}a^2+\pi b^2+4a+\pi^2ab \]
+      <p>\(b\) について平方完成：\(\pi b^2+\pi^2ab=\pi\left(b+\frac{\pi a}{2}\right)^2-\frac{\pi^3a^2}{4}\)。</p>
+      \[ I=\pi\left(b+\frac{\pi a}{2}\right)^2+\frac{\pi^3}{12}a^2+4a+\frac\pi2=\pi\left(b+\frac{\pi a}{2}\right)^2+\frac{\pi^3}{12}\left(a+\frac{24}{\pi^3}\right)^2+\frac\pi2-\frac{48}{\pi^3} \]
+      <p>2つの2乗が同時に 0 になるのは \(a=-\dfrac{24}{\pi^3}\)、\(b=-\dfrac{\pi a}{2}=\dfrac{12}{\pi^2}\) のとき。</p>
+      <p class="answer">\(a=-\dfrac{24}{\pi^3},\ b=\dfrac{12}{\pi^2}\) のとき最小値 \(\dfrac\pi2-\dfrac{48}{\pi^3}\)</p>
+      <p class="point">検算：\(\cos x\) は点 \(\left(\frac\pi2,0\right)\) に関して点対称なので、最適な直線もこの点を通るはず。実際 \(a\cdot\frac\pi2+b=-\frac{12}{\pi^2}+\frac{12}{\pi^2}=0\)。また最小値 \(\fallingdotseq0.023\gt0\)（2乗の積分なので正のはず）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="intg-p21" data-level="3">
+    <h3><span class="pid">P21</span>\(\frac{1}{1+x^2}\) を含む定積分と \(\pi\) の評価</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\int_0^1\frac{x^4(1-x)^4}{1+x^2}dx\) を計算し、\(\pi\lt\frac{22}{7}\) を示せ」「\(\int_0^1\frac{x^n}{1+x^2}dx\)」</dd>
+      <dt>こう考える</dt><dd>分子が多項式、分母が \(1+x^2\) なら<b>割り算</b>して「多項式 \(+\dfrac{c}{1+x^2}\)」に。多項式部分は有理数、\(\int_0^1\frac{dx}{1+x^2}=\frac\pi4\) から \(\pi\) が出る。被積分関数が正なら<b>積分も正</b>なので \(\pi\) の不等式が得られる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>多項式の割り算：\(x^4(1-x)^4=(1+x^2)Q(x)+R\)。</li>
+        <li>\(\int_0^1Q(x)dx+R\cdot\frac\pi4\) を計算。</li>
+        <li>\(0\le x\le1\) で \(\frac12\le\frac{1}{1+x^2}\le1\) を使い、積分を上下から評価。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\int_0^1\frac{dx}{1+x^2}=\frac\pi4\)（P9）、「\(f\gt0\) なら \(\int f\gt0\)」</dd>
+      <dt>なぜこの方法？</dt><dd>\(\pi\) は \(\int_0^1\frac{4}{1+x^2}dx\) として積分の世界に住んでいる。<b>正の関数の積分 \(=\)（有理数）\(-\pi\)</b> という等式を作れば、そのまま \(\pi\) の上からの評価になる。被積分関数がとても小さい（\(x^4(1-x)^4\le\frac{1}{256}\)）ので、評価の精度も高い。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\displaystyle\int_0^1\frac{x^4(1-x)^4}{1+x^2}dx=\frac{22}{7}-\pi\) を示せ。<br>(2) \(\dfrac{22}{7}-\dfrac{1}{630}\lt\pi\lt\dfrac{22}{7}-\dfrac{1}{1260}\) を示せ。</div>
+      <p>(1) \(x^4(1-x)^4=x^8-4x^7+6x^6-4x^5+x^4\) を \(x^2+1\) で割ると</p>
+      \[ \frac{x^4(1-x)^4}{1+x^2}=x^6-4x^5+5x^4-4x^2+4-\frac{4}{1+x^2} \]
+      <p>（右辺に \(1+x^2\) を掛けて展開すると左辺の分子に一致することで確認できる。）よって</p>
+      \[ \int_0^1(\cdots)dx=\frac17-\frac46+\frac55-\frac43+4-4\cdot\frac\pi4=\frac{22}{7}-\pi \]
+      <p>(2) \(0\le x\le1\) で \(\frac12\le\frac{1}{1+x^2}\le1\)（等号は端点のみ）なので</p>
+      \[ \frac12\int_0^1x^4(1-x)^4dx\lt\frac{22}{7}-\pi\lt\int_0^1x^4(1-x)^4dx \]
+      <p>\(\int_0^1x^4(1-x)^4dx=\int_0^1(x^4-4x^5+6x^6-4x^7+x^8)dx=\frac15-\frac46+\frac67-\frac48+\frac19=\frac{1}{630}\)。</p>
+      <p>よって \(\frac{1}{1260}\lt\frac{22}{7}-\pi\lt\frac{1}{630}\)。移項して示された。（証明終）</p>
+      <p class="answer">(2) より \(3.1412\cdots\lt\pi\lt3.1420\cdots\)</p>
+      <p class="point">\(\int_0^1x^m(1-x)^ndx=\frac{m!\,n!}{(m+n+1)!}\) を知っていれば \(\frac{4!4!}{9!}=\frac{1}{630}\) と一瞬（部分積分の繰り返しで証明できる）。「\(\pi\gt3.05\) を示せ」型の問題（<a href="m1-trig.html">図形と計量</a>の多角形近似）を積分で解くのがこの型。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="pitfalls">
+  <h2>よくあるミスと対策</h2>
+  <ul class="pitfalls">
+    <li><b>置換積分で積分区間を変え忘れる／\(dx\) の変換を忘れる</b>（P7〜P10）。→ 「\(t=\cdots\)、\(dx=\cdots dt\)、\(x:a\to b\) のとき \(t:\alpha\to\beta\)」の3点セットを必ず書く。</li>
+    <li><b>\(f(ax+b)\) 型の公式を、中身が1次式でないのに使う</b>（P2）。→ \(\int(x^2+1)^5dx\) は展開するか、\(x\) が掛かっていれば P3 の置換。</li>
+    <li><b>\(\int\frac{dx}{1+x^2}\) を \(\log(1+x^2)\) とする</b>（P3, P9）。→ 分子が分母の導関数かを確認。\(\frac{2x}{1+x^2}\) なら \(\log\)、\(\frac{1}{1+x^2}\) なら \(\tan\) 置換。</li>
+    <li><b>部分分数で重複因数の項を用意し忘れる</b>（P4）。→ \((x+1)^2\) には \(\frac{B}{x+1}+\frac{C}{(x+1)^2}\)。</li>
+    <li><b>同形出現で2回目に役割を入れ替えて \(I=I\) になる</b>（P12）。→ 2回とも \(e^x\) を積分側に固定する。</li>
+    <li><b>\(\int_0^x(x-t)f(t)dt\) を \(x\) を外に出さずに微分する</b>（P18）。→ \(x\) は \(t\) から見て定数。外に出してから積の微分。</li>
+    <li><b>\(\sqrt{a^2-x^2}=a\cos\theta\) で \(\cos\theta\) の符号を確認しない</b>（P8）。→ \(\theta\) の範囲を \(\left[-\frac\pi2,\frac\pi2\right]\) 内に取れば \(\cos\theta\ge0\)。</li>
+    <li><b>絶対値の積分で、交点が区間の外にある場合を落とす</b>（P19）。→ \(a\le0\)、\(a\ge1\) の場合も必ず計算し、最後に全体で比較する。</li>
+  </ul>
+</section>
+
+<section id="handai">
+  <h2>阪大レベルへの橋渡し</h2>
+  <p>阪大理系では、積分の計算は<b>それ自体が目的ではなく、漸化式・極限・最大最小の部品</b>として出る。典型的な流れは次の3つ。</p>
+  <ul>
+    <li><b>\(I_n\) の漸化式 → 不等式 → 極限・無限級数</b>（P15, P16 → 演習1）。\(\tan^n\)、\(\sin^n\)、\(x^ne^x\)、\(\frac{x^n}{1+x}\) など。</li>
+    <li><b>定積分で表された関数の増減</b>（P18, P19 → 演習2）。区間に変数があり、被積分関数に絶対値がある形。</li>
+    <li><b>周期性を利用した区間の分割と無限等比級数</b>（P12 → 演習3）。\(e^{-x}|\sin x|\) は頻出テーマ。</li>
+  </ul>
+
+  <article class="pattern" id="intg-h1" data-level="3">
+    <h3><span class="pid">演1</span>\(\tan^n\) の漸化式とライプニッツの級数</h3>
+    <div class="problem">\(I_n=\displaystyle\int_0^{\frac\pi4}\tan^nx\,dx\ (n=0,1,2,\dots)\) とする。<br>(1) \(I_n+I_{n+2}=\dfrac{1}{n+1}\) を示せ。<br>(2) \(\displaystyle\lim_{n\to\infty}I_n=0\) を示せ。<br>(3) \(\displaystyle\sum_{k=0}^{\infty}\frac{(-1)^k}{2k+1}=1-\frac13+\frac15-\frac17+\cdots\) の値を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>(1) \(1+\tan^2x=\frac{1}{\cos^2x}=(\tan x)'\) なので、\(\tan^nx(1+\tan^2x)\) は「カタマリ \(\tan x\) とその導関数」のペア（P3）。(3) は (1) の式に \(n=0,2,4,\dots\) を代入して<b>符号を交互にして足す</b>と、中間の \(I\) が打ち消し合う。残った \(I_{2n}\) は (2) で 0 に行く。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) \(\displaystyle I_n+I_{n+2}=\int_0^{\frac\pi4}\tan^nx(1+\tan^2x)dx=\int_0^{\frac\pi4}\tan^nx\cdot(\tan x)'dx=\left[\frac{\tan^{n+1}x}{n+1}\right]_0^{\frac\pi4}=\frac{1}{n+1}\)</p>
+      <p>(2) \(0\le x\le\frac\pi4\) で \(\tan^nx\ge0\) より \(I_n\ge0\)。よって (1) から \(0\le I_n\le I_n+I_{n+2}=\dfrac{1}{n+1}\)。はさみうちで \(I_n\to0\)。</p>
+      <p>(3) (1) で \(n=2k\) として \(\dfrac{1}{2k+1}=I_{2k}+I_{2k+2}\)。\((-1)^k\) を掛けて \(k=0,1,\dots,n-1\) で足すと</p>
+      \[ \sum_{k=0}^{n-1}\frac{(-1)^k}{2k+1}=(I_0+I_2)-(I_2+I_4)+(I_4+I_6)-\cdots+(-1)^{n-1}(I_{2n-2}+I_{2n})=I_0+(-1)^{n-1}I_{2n} \]
+      <p>\(I_0=\frac\pi4\)、(2) より \(I_{2n}\to0\) なので、部分和は \(\frac\pi4\) に収束する。</p>
+      <p class="answer">(3) \(\dfrac\pi4\)</p>
+      <p class="point">採点ポイント：(1) の置換（または微分の逆）、(2) の \(I_n\ge0\) の明記とはさみうち、(3) で部分和を有限の \(n\) で書いてから極限をとること（いきなり無限和を変形しない）。打ち消し合いは \(n=1,2\) で具体的に書いて確かめると安全。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="intg-h2" data-level="3">
+    <h3><span class="pid">演2</span>区間が動く定積分で表された関数の最大・最小</h3>
+    <div class="problem">\(F(x)=\displaystyle\int_x^{x+\frac\pi2}|\sin t|\,dt\) とする。<br>(1) \(F(x+\pi)=F(x)\) を示せ。<br>(2) \(F(x)\) の最大値と最小値を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>絶対値があるので \(F\) を直接式で書くのは場合分けが多い。しかし<b>微分すれば積分が外れる</b>（P18）：\(F'(x)=|\sin(x+\frac\pi2)|-|\sin x|=|\cos x|-|\sin x|\)。周期 \(\pi\) なので \(0\le x\le\pi\) で調べれば十分。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) \(t=s+\pi\) とおくと \(|\sin(s+\pi)|=|\sin s|\) より \(F(x+\pi)=\displaystyle\int_{x+\pi}^{x+\frac{3\pi}{2}}|\sin t|dt=\int_x^{x+\frac\pi2}|\sin s|ds=F(x)\)。</p>
+      <p>(2) (1) より \(0\le x\le\pi\) で考えればよい。\(|\sin t|\) は連続なので、微分積分学の基本定理より</p>
+      \[ F'(x)=\left|\sin\left(x+\frac\pi2\right)\right|-|\sin x|=|\cos x|-|\sin x| \]
+      <p>\(0\le x\le\pi\) で \(|\cos x|\gt|\sin x|\) ⇔ \(0\le x\lt\frac\pi4\) または \(\frac{3\pi}{4}\lt x\le\pi\)。</p>
+      <div class="table-wrap"><table>
+        <tr><th>\(x\)</th><td>0</td><td>\(\cdots\)</td><td>\(\frac\pi4\)</td><td>\(\cdots\)</td><td>\(\frac{3\pi}4\)</td><td>\(\cdots\)</td><td>\(\pi\)</td></tr>
+        <tr><th>\(F'\)</th><td></td><td>\(+\)</td><td>0</td><td>\(-\)</td><td>0</td><td>\(+\)</td><td></td></tr>
+        <tr><th>\(F\)</th><td>1</td><td>↗</td><td>\(\sqrt2\)</td><td>↘</td><td>\(2-\sqrt2\)</td><td>↗</td><td>1</td></tr>
+      </table></div>
+      <p>\(F\left(\frac\pi4\right)=\displaystyle\int_{\frac\pi4}^{\frac{3\pi}{4}}\sin t\,dt=2\cdot\frac{\sqrt2}{2}=\sqrt2\)。</p>
+      <p>\(F\left(\frac{3\pi}{4}\right)=\displaystyle\int_{\frac{3\pi}{4}}^{\pi}\sin t\,dt+\int_\pi^{\frac{5\pi}{4}}(-\sin t)dt=\left(1-\frac{\sqrt2}{2}\right)+\left(1-\frac{\sqrt2}{2}\right)=2-\sqrt2\)。</p>
+      <p>\(F(0)=\int_0^{\frac\pi2}\sin t\,dt=1\)。</p>
+      <p class="answer">最大値 \(\sqrt2\)（\(x=\frac\pi4+n\pi\)）、最小値 \(2-\sqrt2\)（\(x=\frac{3\pi}{4}+n\pi\)）（\(n\) は整数）</p>
+      <p class="point">採点ポイント：周期性で範囲を絞る、\(F'\) を基本定理で求める（絶対値のまま微分してよい根拠＝被積分関数の連続性）、増減表、極値の計算。\(F(\frac{3\pi}{4})\) は区間が \(\pi\) をまたぐので絶対値の外し方を間違えやすい。意味：幅 \(\frac\pi2\) の窓が山の頂上を中心にとらえると最大、谷を中心にとらえると最小。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="intg-h3" data-level="3">
+    <h3><span class="pid">演3</span>\(\int_0^{n\pi}e^{-x}|\sin x|dx\) の極限</h3>
+    <div class="problem">自然数 \(n\) に対し \(S_n=\displaystyle\int_0^{n\pi}e^{-x}|\sin x|\,dx\) とする。\(\displaystyle\lim_{n\to\infty}S_n\) を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>絶対値は区間 \([k\pi,(k+1)\pi]\) ごとに外せる。各区間の積分を \(x=t+k\pi\) で \([0,\pi]\) にずらすと、\(e^{-x}=e^{-k\pi}e^{-t}\)、\(|\sin(t+k\pi)|=\sin t\) なので、<b>どの区間も「\(e^{-k\pi}\times\) 同じ積分」</b>になる。すると \(S_n\) は等比数列の和。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>\(\displaystyle a_k=\int_{k\pi}^{(k+1)\pi}e^{-x}|\sin x|dx\ (k=0,1,2,\dots)\) とおく。\(x=t+k\pi\) とすると \(dx=dt\)、\(t:0\to\pi\)、\(|\sin(t+k\pi)|=|\sin t|=\sin t\ (0\le t\le\pi)\) より</p>
+      \[ a_k=\int_0^\pi e^{-t-k\pi}\sin t\,dt=e^{-k\pi}J,\qquad J=\int_0^\pi e^{-t}\sin t\,dt=\frac{1+e^{-\pi}}{2} \]
+      <p>（\(J\) は P12 の例題 (2)。）よって</p>
+      \[ S_n=\sum_{k=0}^{n-1}a_k=J\cdot\frac{1-e^{-n\pi}}{1-e^{-\pi}} \]
+      <p>\(0\lt e^{-\pi}\lt1\) より \(e^{-n\pi}\to0\)。</p>
+      \[ \lim_{n\to\infty}S_n=\frac{1+e^{-\pi}}{2(1-e^{-\pi})}=\frac{e^\pi+1}{2(e^\pi-1)} \]
+      <p class="answer">\(\dfrac{e^\pi+1}{2(e^\pi-1)}\)</p>
+      <p class="point">採点ポイント：区間ごとの置換で \(e^{-k\pi}\) をくくり出す部分、\(J\) の計算（同形出現）、等比数列の和と極限。数値確認：\(\frac{e^\pi+1}{2(e^\pi-1)}\fallingdotseq0.5452\)、\(S_{10}\fallingdotseq0.5452\)。発展：「曲線 \(y=e^{-x}\sin x\ (x\ge0)\) と \(x\) 軸で囲まれた部分の面積の総和」として出題されることも多い（<a href="m3-integral-app.html">積分法の応用</a>）。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="next">
+  <h2>次に学ぶとつながる単元</h2>
+  <ul>
+    <li><a href="m3-integral-app.html">積分法の応用</a>：ここで身につけた計算が、面積・体積・曲線の長さの計算にそのまま使われる。P8（円の置換）は回転体、P12 は \(e^{-x}\sin x\) の面積和、P16 型の評価は「積分と不等式」で再登場。</li>
+    <li><a href="m3-diff.html">微分法とその応用</a>：P18〜P20 の最大最小は微分の増減表で決着する。不定積分の検算は常に微分で。</li>
+    <li><a href="mb-sequence.html">数列</a>：P15, P16、演習1 の漸化式は数列の漸化式・帰納法と同じ扱い。部分分数分解は数列の和でも主役。</li>
+    <li><a href="m3-limit.html">極限</a>：漸化式で定義された \(I_n\) の極限は、はさみうちの典型的な応用例。</li>
+  </ul>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>

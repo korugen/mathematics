@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ベクトル（数学C）｜解法の地図</title>
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-unit="mc-vector" data-root="../">
+<main>
+
+<header class="unit-head">
+  <span class="subj-badge">数学C</span>
+  <h1>ベクトル</h1>
+  <p class="lead">「始点をそろえる」「2つ（空間なら3つ）の基本ベクトルで全部を表す」「内積で長さと角を計算する」。この3つを徹底すれば、平面図形も空間図形も<b>計算だけで</b>解ける。阪大では空間ベクトルが毎年のように出る最重要単元。</p>
+  <div class="goal">
+    <strong>このページの到達目標</strong>
+    <ul>
+      <li>【基礎】成分・内分点・内積の計算ができ、3点が一直線上にある条件、垂直条件を式で書ける。</li>
+      <li>【標準】交点の位置ベクトルを「2通りに表して係数比較」で求め、存在範囲・ベクトル方程式・平面の方程式を使いこなせる。</li>
+      <li>【阪大】四面体の垂線の足・体積、ねじれの位置の2直線、文字を含む面積の最大などを、論理の抜けのない答案で書ける。</li>
+    </ul>
+  </div>
+  <p class="prereq">前提：<a href="m1-trig.html">図形と計量</a>（余弦定理・面積）、<a href="ma-geometry.html">図形の性質</a>（メネラウス・五心）、<a href="m2-coord.html">図形と方程式</a> ／ 次に進む：<a href="mc-complex.html">複素数平面</a>、<a href="m3-integral-app.html">積分法の応用</a>（空間図形の体積）</p>
+</header>
+
+<section id="core">
+  <h2>必ず押さえる基本事項</h2>
+
+  <div class="box theorem">
+    <p><span class="name">1次独立と係数比較</span>：平面で \(\vec a,\vec b\) が \(\vec 0\) でなく平行でもない（1次独立）とき、任意の \(\vec p\) は \(\vec p=s\vec a+t\vec b\) と<b>ただ1通りに</b>表せる。したがって</p>
+    \[ s\vec a+t\vec b=s'\vec a+t'\vec b \iff s=s',\ t=t' \]
+    <p>空間では、同一平面上にない \(\vec a,\vec b,\vec c\) で同じことが成り立つ（3つの係数を比較）。</p>
+    <p>なぜ：もし \(s\neq s'\) なら \(\vec a=\dfrac{t'-t}{s-s'}\vec b\) となり \(\vec a\parallel\vec b\) に矛盾する。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">内分・外分・重心</span>：\(A(\vec a),B(\vec b),C(\vec c)\) とする。</p>
+    \[ m:n\text{ に内分}\ \frac{n\vec a+m\vec b}{m+n},\quad m:n\text{ に外分}\ \frac{-n\vec a+m\vec b}{m-n},\quad \text{重心}\ \frac{\vec a+\vec b+\vec c}{3} \]
+    <p>なぜ：内分点 \(P\) は \(\vec{AP}=\dfrac{m}{m+n}\vec{AB}\) なので \(\vec p=\vec a+\dfrac{m}{m+n}(\vec b-\vec a)\)。外分は \(n\) を \(-n\) に置き換えたもの。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">内積</span>：\(\vec a,\vec b\) のなす角を \(\theta\ (0\le\theta\le\pi)\) とすると</p>
+    \[ \vec a\cdot\vec b=|\vec a||\vec b|\cos\theta=a_1b_1+a_2b_2\ (+a_3b_3) \]
+    <p>なぜ（成分表示）：余弦定理 \(|\vec b-\vec a|^2=|\vec a|^2+|\vec b|^2-2|\vec a||\vec b|\cos\theta\) の両辺を成分で計算すると、\(|\vec a||\vec b|\cos\theta=a_1b_1+a_2b_2\) が出る。</p>
+    <ul>
+      <li>垂直：\(\vec a\perp\vec b\iff\vec a\cdot\vec b=0\)（\(\vec a,\vec b\neq\vec 0\)）</li>
+      <li>長さ：\(|\vec a+\vec b|^2=|\vec a|^2+2\vec a\cdot\vec b+|\vec b|^2\)（<b>長さは2乗して内積で展開</b>）</li>
+    </ul>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">三角形の面積</span>：\(\vec{OA}=\vec a,\ \vec{OB}=\vec b\) のとき</p>
+    \[ \triangle OAB=\frac12\sqrt{|\vec a|^2|\vec b|^2-(\vec a\cdot\vec b)^2}\ \ \left(=\frac12|a_1b_2-a_2b_1|\ \text{（平面の成分）}\right) \]
+    <p>なぜ：\(\frac12|\vec a||\vec b|\sin\theta\) の \(\sin\theta=\sqrt{1-\cos^2\theta}\) に \(\cos\theta=\dfrac{\vec a\cdot\vec b}{|\vec a||\vec b|}\) を代入して整理しただけ。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">一直線上・同一平面上の条件</span>（始点 \(O\)）</p>
+    <ul>
+      <li>\(P\) が直線 \(AB\) 上 \(\iff \vec{AP}=k\vec{AB}\iff\vec{OP}=s\vec{OA}+t\vec{OB},\ s+t=1\)</li>
+      <li>\(P\) が平面 \(ABC\) 上 \(\iff \vec{AP}=s\vec{AB}+t\vec{AC}\iff\vec{OP}=s\vec{OA}+t\vec{OB}+u\vec{OC},\ s+t+u=1\)</li>
+    </ul>
+    <p>なぜ：\(\vec{OP}=\vec{OA}+k(\vec{OB}-\vec{OA})=(1-k)\vec{OA}+k\vec{OB}\)。係数の和が自動的に1になる。平面も同様。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">空間の平面・球面・距離</span></p>
+    <ul>
+      <li>点 \((x_0,y_0,z_0)\) を通り法線ベクトル \(\vec n=(a,b,c)\) の平面：\(a(x-x_0)+b(y-y_0)+c(z-z_0)=0\)（\(\vec n\cdot\vec{AP}=0\) を成分で書いたもの）</li>
+      <li>点 \((x_1,y_1,z_1)\) と平面 \(ax+by+cz+d=0\) の距離：\(\dfrac{|ax_1+by_1+cz_1+d|}{\sqrt{a^2+b^2+c^2}}\)（平面の点と直線の距離と同じ形）</li>
+      <li>中心 \((a,b,c)\)、半径 \(r\) の球面：\((x-a)^2+(y-b)^2+(z-c)^2=r^2\)（\(|\vec{CP}|=r\)）</li>
+      <li>四面体の体積 \(=\dfrac13\times(\text{底面積})\times(\text{高さ})\)。高さは「垂線の足」か「点と平面の距離」で出す。</li>
+    </ul>
+  </div>
+
+  <div class="box idea">
+    <p><b>この単元を貫く考え方</b>：図形の問題を<b>「基本ベクトル（平面なら2本、空間なら3本）の1次結合」</b>に翻訳する。位置は係数で、長さと角度は内積で表せる。あとは「係数比較」「内積 \(=0\)」「長さの2乗」の3つの計算に持ち込むだけ。補助線のひらめきは要らない。<a href="../thinking.html#t-vector">発想：ベクトル・複素数で表す</a></p>
+  </div>
+</section>
+
+<section id="quick">
+  <h2>早見表：こう来たら → こう解く</h2>
+  <div class="table-wrap"><table class="quick">
+    <tr><th>問題の特徴（こう来たら）</th><th>方針（こう解く）</th><th>使う道具</th><th>詳細</th></tr>
+    <tr data-level="1"><td>成分で \(\vec c=s\vec a+t\vec b\)、平行・単位ベクトル</td><td>成分ごとに連立／\(\vec a=k\vec b\)</td><td>成分計算</td><td><a href="#vec-p1">P1</a></td></tr>
+    <tr data-level="1"><td>\(\vec a,\vec b\) の式が等しい → 係数を求めよ</td><td>1次独立を確認して係数比較</td><td>1次独立</td><td><a href="#vec-p2">P2</a></td></tr>
+    <tr data-level="1"><td>内分点・外分点・重心を表せ</td><td>始点をそろえて公式</td><td>内分・外分の公式</td><td><a href="#vec-p3">P3</a></td></tr>
+    <tr data-level="1"><td>3点が一直線上にあることを示せ</td><td>\(\vec{PR}=k\vec{PQ}\) となる \(k\) を見つける</td><td>平行条件</td><td><a href="#vec-p4">P4</a></td></tr>
+    <tr data-level="2"><td>2直線（線分）の交点を \(\vec a,\vec b\) で表せ</td><td>2通りに表して係数比較</td><td>1次独立</td><td><a href="#vec-p5">P5</a></td></tr>
+    <tr data-level="1"><td>\(|\vec a|,|\vec b|,|\vec a-\vec b|\) から内積・角</td><td>長さを2乗して展開</td><td>内積の定義</td><td><a href="#vec-p6">P6</a></td></tr>
+    <tr data-level="1"><td>垂直になるように定数を決めよ／垂直を示せ</td><td>内積 \(=0\)</td><td>垂直条件</td><td><a href="#vec-p7">P7</a></td></tr>
+    <tr data-level="2"><td>\(|\vec a+t\vec b|\) の最小値</td><td>2乗して \(t\) の2次関数</td><td>平方完成</td><td><a href="#vec-p8">P8</a></td></tr>
+    <tr data-level="2"><td>3点（3頂点の座標）から三角形の面積</td><td>2辺ベクトルの面積公式</td><td>\(\frac12\sqrt{|a|^2|b|^2-(a\cdot b)^2}\)</td><td><a href="#vec-p9">P9</a></td></tr>
+    <tr data-level="2"><td>\(\vec{OP}=s\vec{OA}+t\vec{OB}\)、\(s,t\) の条件 → \(P\) の範囲</td><td>係数の和を1にそろえる</td><td>存在範囲</td><td><a href="#vec-p10">P10</a></td></tr>
+    <tr data-level="2"><td>\(\vec p\) の等式・内積の式が表す図形</td><td>円・直線のベクトル方程式に変形</td><td>ベクトル方程式</td><td><a href="#vec-p11">P11</a></td></tr>
+    <tr data-level="3"><td>外心・垂心・内心を \(\vec a,\vec b\) で表せ</td><td>性質を内積の式に翻訳</td><td>外心＝垂直二等分線、垂心＝垂直</td><td><a href="#vec-p12">P12</a></td></tr>
+    <tr data-level="1"><td>空間の点の座標・距離・平行四辺形の頂点</td><td>平面と同じく成分で</td><td>空間座標</td><td><a href="#vec-p13">P13</a></td></tr>
+    <tr data-level="2"><td>四面体で直線と平面の交点</td><td>係数の和 \(=1\)（同一平面上）</td><td>\(s+t+u=1\)</td><td><a href="#vec-p14">P14</a></td></tr>
+    <tr data-level="2"><td>点から平面に下ろした垂線の足 \(H\)</td><td>\(\vec{OH}\perp\) 平面内の2本</td><td>内積 \(=0\) を2本</td><td><a href="#vec-p15">P15</a></td></tr>
+    <tr data-level="2"><td>3点を通る平面の方程式・点と平面の距離・四面体の体積</td><td>法線ベクトルを求める</td><td>法線・距離公式</td><td><a href="#vec-p16">P16</a></td></tr>
+    <tr data-level="2"><td>球面の方程式、球と平面の交わり</td><td>平方完成で中心・半径／三平方</td><td>球面の方程式</td><td><a href="#vec-p17">P17</a></td></tr>
+    <tr data-level="2"><td>空間の直線と平面の交点</td><td>直線を媒介変数で表して代入</td><td>直線のベクトル方程式</td><td><a href="#vec-p18">P18</a></td></tr>
+    <tr data-level="3"><td>ねじれの位置の2直線の最短距離</td><td>共通垂線：\(\vec{PQ}\) が両方向に垂直</td><td>内積 \(=0\) を2本</td><td><a href="#vec-p19">P19</a></td></tr>
+    <tr data-level="3"><td>動点 \(P\) について \(\vec{PA}\cdot\vec{PB}\) の最大・最小</td><td>中点 \(M\) を使い \(|\vec{PM}|^2-|\vec{MA}|^2\)</td><td>内積の変形</td><td><a href="#vec-p20">P20</a></td></tr>
+  </table></div>
+</section>
+
+<section id="patterns">
+  <h2>パターン別 解法マップ</h2>
+
+  <article class="pattern" id="vec-p1" data-level="1">
+    <h3><span class="pid">P1</span>成分による計算（1次結合・平行・単位ベクトル）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\vec c\) を \(\vec a,\vec b\) で表せ」「\(\vec a+t\vec b\) が \(\vec d\) と平行になる \(t\)」「\(\vec a\) と同じ向きの単位ベクトル」</dd>
+      <dt>こう考える</dt><dd>成分が与えられたら、ベクトルの等式は<b>成分ごとの連立方程式</b>。平行は「一方が他方の実数倍」。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\vec c=s\vec a+t\vec b\) とおき、\(x\) 成分・\(y\) 成分を比べて連立。</li>
+        <li>平行：\(\vec p=k\vec d\) とおく（または \(p_1d_2-p_2d_1=0\)）。</li>
+        <li>単位ベクトル：\(\pm\dfrac{\vec a}{|\vec a|}\)（「同じ向き」なら \(+\) のみ）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\((a_1,a_2)=(b_1,b_2)\iff a_1=b_1,\ a_2=b_2\)、\(|\vec a|=\sqrt{a_1^2+a_2^2}\)</dd>
+      <dt>なぜこの方法？</dt><dd>成分表示は「\(x\) 方向にいくつ、\(y\) 方向にいくつ」という<b>分解</b>そのもの。方向ごとに独立だから、成分ごとに比べてよい。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\vec a=(2,-1),\ \vec b=(1,3)\) とする。(1) \(\vec c=(7,0)\) を \(s\vec a+t\vec b\) の形で表せ。(2) \(\vec a+t\vec b\) が \(\vec d=(1,1)\) と平行になる \(t\) を求めよ。(3) \(\vec a\) と平行な単位ベクトルを求めよ。</div>
+      <p>(1) \(s(2,-1)+t(1,3)=(2s+t,\ -s+3t)=(7,0)\)。\(-s+3t=0\) より \(s=3t\)、代入して \(7t=7\)。\(t=1,\ s=3\)。</p>
+      <p class="answer">(1) \(\vec c=3\vec a+\vec b\)</p>
+      <p>(2) \(\vec a+t\vec b=(2+t,\ -1+3t)\)。\((1,1)\) と平行 \(\iff\) \(x\) 成分と \(y\) 成分が等しい：\(2+t=-1+3t\)、\(t=\frac32\)。（このとき \(\left(\frac72,\frac72\right)\neq\vec 0\) で確かに平行。）</p>
+      <p class="answer">(2) \(t=\dfrac32\)</p>
+      <p>(3) \(|\vec a|=\sqrt5\)。</p>
+      <p class="answer">(3) \(\pm\left(\dfrac{2}{\sqrt5},\ -\dfrac{1}{\sqrt5}\right)\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="vec-p2" data-level="1">
+    <h3><span class="pid">P2</span>1次独立と係数比較</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\vec a,\vec b\) は1次独立とする」「\((x+y)\vec a+(x-2)\vec b=3\vec a+y\vec b\) を満たす \(x,y\)」「\(\triangle OAB\) で \(\vec{OA}=\vec a,\ \vec{OB}=\vec b\) とする」</dd>
+      <dt>こう考える</dt><dd>\(\vec a\) 方向と \(\vec b\) 方向は「別の軸」。平行でない2本で表す表し方は<b>1通りしかない</b>から、係数どうしが等しい。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\vec a,\vec b\) が \(\vec 0\) でなく平行でないこと（1次独立）を確認・明記する。</li>
+        <li>両辺を \(\square\vec a+\square\vec b\) の形に整理。</li>
+        <li>\(\vec a\) の係数どうし、\(\vec b\) の係数どうしを等しいとおく。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>1次独立なら \(s\vec a+t\vec b=\vec 0\iff s=t=0\)</dd>
+      <dt>なぜこの方法？</dt><dd>もし係数が違えば、移項して \(\vec a=k\vec b\) が作れてしまい「平行でない」に反する。<b>係数比較は1次独立のときだけ使える</b>ので、答案には「\(\vec a,\vec b\) は1次独立だから」と必ず書く。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\vec a,\vec b\) は1次独立とする。\((x+y)\vec a+(x-2)\vec b=3\vec a+y\vec b\) を満たす実数 \(x,y\) を求めよ。</div>
+      <p>\(\vec a,\vec b\) は1次独立だから、両辺の係数を比較して \(x+y=3,\ x-2=y\)。</p>
+      <p>第2式を第1式に代入：\(x+(x-2)=3\)、\(x=\frac52\)、\(y=\frac12\)。</p>
+      <p class="answer">\(x=\dfrac52,\ y=\dfrac12\)</p>
+      <p class="point">もし \(\vec b=2\vec a\) のように平行なら、\((x+y)+2(x-2)=3+2y\) という1つの式しか得られず、\(x,y\) は決まらない。1次独立の仮定がなぜ必要か、ここで納得しておこう。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="vec-p3" data-level="1">
+    <h3><span class="pid">P3</span>内分点・外分点・重心</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「辺 \(AB\) を \(2:1\) に内分する点」「\(3:1\) に外分する点」「\(\triangle PQR\) の重心は \(\triangle ABC\) の重心と一致することを示せ」</dd>
+      <dt>こう考える</dt><dd>まず<b>始点を1つに決める</b>（原点 \(O\) か頂点 \(A\)）。全部の点を同じ始点からの位置ベクトルにすれば、あとは公式に代入するだけ。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>位置ベクトルを \(A(\vec a),\ B(\vec b),\dots\) と決める。</li>
+        <li>\(m:n\) に内分 → \(\dfrac{n\vec a+m\vec b}{m+n}\)（<b>遠い方の比が手前にかかる</b>）。外分は \(n\to-n\)。</li>
+        <li>重心は3つの位置ベクトルの平均。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>内分・外分・重心の公式</dd>
+      <dt>なぜこの方法？</dt><dd>\(A\) から \(B\) へ向かって全体の \(\frac{m}{m+n}\) だけ進んだ点が内分点。この「進む」感覚を式にしたのが公式で、外分は「逆向きの比」を入れたものにすぎない。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\triangle ABC\) の辺 \(BC,\ CA,\ AB\) をそれぞれ \(m:n\) に内分する点を \(P,Q,R\) とする。(1) \(\triangle PQR\) の重心は \(\triangle ABC\) の重心と一致することを示せ。(2) 辺 \(AB\) を \(3:1\) に外分する点 \(S\) の位置ベクトルを \(\vec a,\vec b\) で表せ。</div>
+      <p>(1) \(A(\vec a),B(\vec b),C(\vec c)\) とする。</p>
+      \[ \vec p=\frac{n\vec b+m\vec c}{m+n},\quad \vec q=\frac{n\vec c+m\vec a}{m+n},\quad \vec r=\frac{n\vec a+m\vec b}{m+n} \]
+      <p>和をとると \(\vec p+\vec q+\vec r=\dfrac{(m+n)(\vec a+\vec b+\vec c)}{m+n}=\vec a+\vec b+\vec c\)。両辺を3で割れば重心どうしが一致する。（証明終）</p>
+      <p>(2) \(S=\dfrac{-1\cdot\vec a+3\vec b}{3-1}\)。</p>
+      <p class="answer">(2) \(\vec s=\dfrac{-\vec a+3\vec b}{2}\)</p>
+      <p class="point">チェック：外分点 \(S\) は \(B\) の外側にあるはず。\(\vec s=\vec a+\frac32(\vec b-\vec a)\) と書き直すと、\(A\) から \(\vec{AB}\) の \(1.5\) 倍進んだ点で \(B\) を越えている。OK。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="vec-p4" data-level="1">
+    <h3><span class="pid">P4</span>3点が一直線上にあることの証明</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「3点 \(P,Q,R\) は一直線上にあることを示せ」「\(PQ:QR\) を求めよ」</dd>
+      <dt>こう考える</dt><dd>一直線上 \(\iff\) \(\vec{PR}\) が \(\vec{PQ}\) の実数倍。3点とも同じ始点で表して、<b>差をとって比べる</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\vec{OP},\vec{OQ},\vec{OR}\) を \(\vec a,\vec b\) で表す。</li>
+        <li>\(\vec{PQ}=\vec{OQ}-\vec{OP}\)、\(\vec{PR}=\vec{OR}-\vec{OP}\) を計算。</li>
+        <li>\(\vec{PR}=k\vec{PQ}\) となる \(k\) を見つける。\(k\) から比も分かる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(P,Q,R\) が一直線上 \(\iff \vec{PR}=k\vec{PQ}\)（\(\vec{PQ}\neq\vec 0\)）</dd>
+      <dt>なぜこの方法？</dt><dd>同じ点 \(P\) から同じ向き（または逆向き）に伸びるベクトルなら、同じ直線上にある。<a href="ma-geometry.html">図形の性質</a>のメネラウスの定理で示すこともできるが、ベクトルなら<b>補助線なし・計算だけ</b>で済む。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\triangle OAB\) で、辺 \(OA\) を \(1:2\) に内分する点を \(P\)、辺 \(AB\) を \(3:1\) に内分する点を \(Q\)、辺 \(OB\) を \(3:2\) に外分する点を \(R\) とする。3点 \(P,Q,R\) は一直線上にあることを示し、\(PQ:QR\) を求めよ。</div>
+      <p>\(\vec{OA}=\vec a,\ \vec{OB}=\vec b\) とする。\(\vec{OP}=\dfrac13\vec a\)、\(\vec{OQ}=\dfrac{\vec a+3\vec b}{4}\)、\(\vec{OR}=\dfrac{-2\cdot\vec 0+3\vec b}{3-2}=3\vec b\)。</p>
+      \[ \vec{PQ}=\frac{\vec a+3\vec b}{4}-\frac{\vec a}{3}=\frac{-\vec a+9\vec b}{12},\qquad \vec{PR}=3\vec b-\frac{\vec a}{3}=\frac{-\vec a+9\vec b}{3} \]
+      <p>よって \(\vec{PR}=4\vec{PQ}\) となり、\(P,Q,R\) は一直線上にある。\(PQ:PR=1:4\) より</p>
+      <p class="answer">\(PQ:QR=1:3\)</p>
+      <p class="point">メネラウスで確認：\(\dfrac{OP}{PA}\cdot\dfrac{AQ}{QB}\cdot\dfrac{BR}{RO}=\dfrac12\cdot\dfrac31\cdot\dfrac23=1\)。一致する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="vec-p5" data-level="2">
+    <h3><span class="pid">P5</span>交点の位置ベクトル（2通りに表して係数比較）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「線分 \(AD\) と \(BC\) の交点を \(P\) とするとき、\(\vec{OP}\) を \(\vec a,\vec b\) で表せ」「直線 \(OP\) と辺 \(AB\) の交点」</dd>
+      <dt>こう考える</dt><dd>交点は「\(AD\) 上の点」でもあり「\(BC\) 上の点」でもある。<b>それぞれの直線上の点として別々の文字で表し</b>、同じ点だから係数が一致する、と考える。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(AP:PD=s:(1-s)\) とおき \(\vec{OP}=(1-s)\vec{OA}+s\vec{OD}\)。</li>
+        <li>\(BP:PC=t:(1-t)\) とおき \(\vec{OP}=(1-t)\vec{OB}+t\vec{OC}\)。</li>
+        <li>どちらも \(\vec a,\vec b\) で書き、1次独立より係数比較して \(s,t\) を求める。</li>
+        <li>直線 \(OP\) と \(AB\) の交点 \(Q\) は「\(\vec{OQ}=k\vec{OP}\) かつ係数の和 \(=1\)」で求める。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>直線上の点の表し方、1次独立と係数比較（P2）</dd>
+      <dt>なぜこの方法？</dt><dd>未知の交点を2つの条件で挟み撃ちにする、連立方程式と同じ発想。比だけ欲しいなら<a href="ma-geometry.html">メネラウスの定理</a>の方が速いこともあるが、ベクトルは<b>どんな配置でも機械的に</b>解けるのが強み。<a href="../thinking.html#t-rephrase">発想：同値な言い換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\triangle OAB\) で、辺 \(OA\) を \(1:2\) に内分する点を \(C\)、辺 \(OB\) の中点を \(D\) とし、線分 \(AD\) と \(BC\) の交点を \(P\) とする。(1) \(\vec{OP}\) を \(\vec a=\vec{OA},\ \vec b=\vec{OB}\) で表せ。(2) 直線 \(OP\) と辺 \(AB\) の交点を \(Q\) とするとき、\(AQ:QB\) を求めよ。</div>
+      <p>(1) \(\vec{OC}=\frac13\vec a,\ \vec{OD}=\frac12\vec b\)。</p>
+      <p>\(P\) は \(AD\) 上：\(\vec{OP}=(1-s)\vec a+\dfrac{s}{2}\vec b\)。\(P\) は \(BC\) 上：\(\vec{OP}=\dfrac{t}{3}\vec a+(1-t)\vec b\)。</p>
+      <p>\(\vec a,\vec b\) は1次独立だから \(1-s=\dfrac t3,\ \dfrac s2=1-t\)。第2式から \(s=2-2t\)、第1式に代入して \(-1+2t=\dfrac t3\)、\(t=\frac35\)、\(s=\frac45\)。</p>
+      <p class="answer">(1) \(\vec{OP}=\dfrac15\vec a+\dfrac25\vec b\)</p>
+      <p>(2) \(\vec{OQ}=k\vec{OP}=\dfrac k5\vec a+\dfrac{2k}5\vec b\)。\(Q\) は \(AB\) 上なので係数の和 \(\dfrac{3k}{5}=1\)、\(k=\dfrac53\)。\(\vec{OQ}=\dfrac{\vec a+2\vec b}{3}\) は \(AB\) を \(2:1\) に内分する点。</p>
+      <p class="answer">(2) \(AQ:QB=2:1\)</p>
+      <p class="point">メネラウスで検算：\(\triangle OAD\) と直線 \(BC\) で \(\dfrac{OC}{CA}\cdot\dfrac{AP}{PD}\cdot\dfrac{DB}{BO}=\dfrac12\cdot\dfrac{AP}{PD}\cdot\dfrac12=1\) より \(AP:PD=4:1\)。(1) の \(s=\frac45\) と一致する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="vec-p6" data-level="1">
+    <h3><span class="pid">P6</span>内積の計算となす角</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(|\vec a|=2,\ |\vec b|=3,\ |\vec a-\vec b|=\sqrt7\) のとき \(\vec a\cdot\vec b\) となす角」「\(|2\vec a+\vec b|\) を求めよ」</dd>
+      <dt>こう考える</dt><dd>ベクトルの長さは直接計算できない。<b>2乗すれば内積で展開できる</b>。分かっている長さを2乗して、未知の内積を求める。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>与えられた \(|\cdots|\) を2乗して展開：\(|\vec a-\vec b|^2=|\vec a|^2-2\vec a\cdot\vec b+|\vec b|^2\)。</li>
+        <li>\(\vec a\cdot\vec b\) を求める。</li>
+        <li>\(\cos\theta=\dfrac{\vec a\cdot\vec b}{|\vec a||\vec b|}\)。求めたい長さも2乗して展開し、最後に \(\sqrt{\ }\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>内積の定義、\(|\vec p|^2=\vec p\cdot\vec p\)、成分なら \(a_1b_1+a_2b_2\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(|\vec a|^2,\ |\vec b|^2,\ \vec a\cdot\vec b\) の3つの値さえ分かれば、\(\vec a,\vec b\) で作られる図形の<b>すべての長さと角度</b>が計算できる。この3つが「図形の設計図」になっている。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(|\vec a|=2,\ |\vec b|=3,\ |\vec a-\vec b|=\sqrt7\) のとき、\(\vec a\cdot\vec b\)、\(\vec a\) と \(\vec b\) のなす角 \(\theta\)、\(|2\vec a+\vec b|\) を求めよ。<br>(2) \(\vec a=(1,2),\ \vec b=(3,1)\) のなす角を求めよ。</div>
+      <p>(1) \(7=|\vec a|^2-2\vec a\cdot\vec b+|\vec b|^2=4-2\vec a\cdot\vec b+9\) より \(\vec a\cdot\vec b=3\)。\(\cos\theta=\dfrac{3}{2\cdot3}=\dfrac12\)、\(\theta=\dfrac\pi3\)。</p>
+      <p>\(|2\vec a+\vec b|^2=4|\vec a|^2+4\vec a\cdot\vec b+|\vec b|^2=16+12+9=37\)。</p>
+      <p class="answer">(1) \(\vec a\cdot\vec b=3,\ \theta=\dfrac\pi3,\ |2\vec a+\vec b|=\sqrt{37}\)</p>
+      <p>(2) \(\vec a\cdot\vec b=3+2=5\)、\(|\vec a|=\sqrt5,\ |\vec b|=\sqrt{10}\)。\(\cos\theta=\dfrac{5}{\sqrt{50}}=\dfrac{1}{\sqrt2}\)。</p>
+      <p class="answer">(2) \(\theta=\dfrac\pi4\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="vec-p7" data-level="1">
+    <h3><span class="pid">P7</span>垂直条件（定数の決定・垂直の証明）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\vec a+t\vec b\) と \(\vec a-\vec b\) が垂直になる \(t\)」「\(OA\perp BC\) ならば…を示せ」「\(\vec a\) に垂直な単位ベクトル」</dd>
+      <dt>こう考える</dt><dd>「垂直」という図形の言葉は、ベクトルでは<b>「内積 \(=0\)」という1本の方程式</b>に変わる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>垂直にしたい2つのベクトルを基本ベクトルで表す。</li>
+        <li>内積を展開して \(=0\) とおく（\(|\vec a|^2,\ \vec a\cdot\vec b,\ |\vec b|^2\) の値を代入）。</li>
+        <li>証明問題は「仮定の垂直 → 内積の等式」「結論の垂直 → 示すべき内積 \(=0\)」と翻訳してつなぐ。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\vec p\perp\vec q\iff\vec p\cdot\vec q=0\)、\((a_1,a_2)\) に垂直なベクトルは \(k(a_2,-a_1)\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(\cos\frac\pi2=0\) だから。<b>図形条件 → 方程式</b>の翻訳が最も単純な例で、空間図形（P15, P19）でもこれを繰り返し使う。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\vec a=(2,1),\ \vec b=(1,-3)\) のとき、\(\vec a+t\vec b\) と \(\vec a-\vec b\) が垂直になる \(t\) を求めよ。<br>(2) 四面体 \(OABC\) で \(OA\perp BC,\ OB\perp CA\) ならば \(OC\perp AB\) であることを示せ。</div>
+      <p>(1) \(|\vec a|^2=5,\ \vec a\cdot\vec b=2-3=-1,\ |\vec b|^2=10\)。</p>
+      <p>\((\vec a+t\vec b)\cdot(\vec a-\vec b)=|\vec a|^2-\vec a\cdot\vec b+t\,\vec a\cdot\vec b-t|\vec b|^2=5+1-t-10t=6-11t=0\)</p>
+      <p class="answer">(1) \(t=\dfrac{6}{11}\)</p>
+      <p>(2) \(\vec{OA}=\vec a,\ \vec{OB}=\vec b,\ \vec{OC}=\vec c\) とする。仮定より \(\vec a\cdot(\vec c-\vec b)=0,\ \vec b\cdot(\vec a-\vec c)=0\)、すなわち</p>
+      \[ \vec a\cdot\vec c=\vec a\cdot\vec b,\qquad \vec a\cdot\vec b=\vec b\cdot\vec c \]
+      <p>よって \(\vec c\cdot(\vec b-\vec a)=\vec b\cdot\vec c-\vec a\cdot\vec c=\vec a\cdot\vec b-\vec a\cdot\vec b=0\)。\(\vec{OC}\cdot\vec{AB}=0\) だから \(OC\perp AB\)。（証明終）</p>
+      <p class="point">(2) は「3つの内積 \(\vec a\cdot\vec b,\ \vec b\cdot\vec c,\ \vec c\cdot\vec a\) が全部等しい」と読み替えるのが核心。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="vec-p8" data-level="2">
+    <h3><span class="pid">P8</span>\(|\vec a+t\vec b|\) の最小値</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(|\vec a+t\vec b|\) を最小にする実数 \(t\) と最小値」「直線上の点 \(P\) と点 \(A\) の距離の最小」</dd>
+      <dt>こう考える</dt><dd>\(\sqrt{\ }\) のままでは扱いにくいので<b>2乗して \(t\) の2次関数</b>にする。図形的には \(\vec a+t\vec b\) の終点は直線上を動き、最小になるのは<b>垂線の足</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(|\vec a+t\vec b|^2=|\vec b|^2t^2+2(\vec a\cdot\vec b)t+|\vec a|^2\)。</li>
+        <li>平方完成して最小値と \(t\) を求める。</li>
+        <li>最後に \(\sqrt{\ }\) をとる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>平方完成（<a href="m1-quadratic.html#quad-p1">2次関数 P1</a>）、最小のとき \((\vec a+t\vec b)\perp\vec b\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(|\ |\ge0\) なので、2乗の最小と元の最小は同じ \(t\) で起こる。最小のとき \(\vec a+t\vec b\perp\vec b\) になることは「点と直線の距離＝垂線の長さ」の言い換えで、検算に使える。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\vec a=(3,1),\ \vec b=(1,2)\) のとき、\(|\vec a+t\vec b|\) の最小値とそのときの \(t\) を求めよ。</div>
+      <p>\(|\vec a|^2=10,\ \vec a\cdot\vec b=5,\ |\vec b|^2=5\)。</p>
+      <p>\(|\vec a+t\vec b|^2=5t^2+10t+10=5(t+1)^2+5\)。</p>
+      <p class="answer">\(t=-1\) のとき最小値 \(\sqrt5\)</p>
+      <p class="point">検算：\(t=-1\) で \(\vec a-\vec b=(2,-1)\)、\((2,-1)\cdot(1,2)=0\)。確かに \(\vec b\) と垂直になっている。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="vec-p9" data-level="2">
+    <h3><span class="pid">P9</span>三角形の面積（ベクトルの面積公式）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「3点 \(A(1,2,0),\ B(2,0,1),\ C(0,1,3)\) を頂点とする三角形の面積」「\(|\vec a|,\ |\vec b|,\ \vec a\cdot\vec b\) が分かっている三角形の面積」</dd>
+      <dt>こう考える</dt><dd>1つの頂点から2辺をベクトルで出せば、角度を求めなくても公式に入れるだけで面積が出る。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\vec{AB},\ \vec{AC}\) を成分で求める。</li>
+        <li>\(|\vec{AB}|^2,\ |\vec{AC}|^2,\ \vec{AB}\cdot\vec{AC}\) を計算。</li>
+        <li>\(S=\dfrac12\sqrt{|\vec{AB}|^2|\vec{AC}|^2-(\vec{AB}\cdot\vec{AC})^2}\)。平面なら \(\frac12|x_1y_2-x_2y_1|\) が速い。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>面積公式（基本事項）、\(\sin^2\theta+\cos^2\theta=1\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(\frac12ab\sin\theta\) の \(\sin\theta\) を内積で書き換えたもの。空間では座標から角度を出すのが面倒なので、<b>内積だけで済む</b>この公式が圧倒的に便利。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">3点 \(A(1,2,0),\ B(2,0,1),\ C(0,1,3)\) を頂点とする \(\triangle ABC\) の面積を求めよ。</div>
+      <p>\(\vec{AB}=(1,-2,1),\ \vec{AC}=(-1,-1,3)\)。\(|\vec{AB}|^2=6,\ |\vec{AC}|^2=11,\ \vec{AB}\cdot\vec{AC}=-1+2+3=4\)。</p>
+      <p>\(S=\dfrac12\sqrt{6\cdot11-4^2}=\dfrac12\sqrt{50}=\dfrac{5\sqrt2}{2}\)</p>
+      <p class="answer">\(\dfrac{5\sqrt2}{2}\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="vec-p10" data-level="2">
+    <h3><span class="pid">P10</span>点 \(P\) の存在範囲（\(\vec{OP}=s\vec{OA}+t\vec{OB}\)）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\vec{OP}=s\vec{OA}+t\vec{OB}\)、\(s+2t=2,\ s\ge0,\ t\ge0\) のとき点 \(P\) の存在範囲」「\(s+t\le1\)」「\(1\le s+t\le2\)」</dd>
+      <dt>こう考える</dt><dd>基準は<b>「係数の和が1なら直線 \(AB\) 上」</b>。条件の式を変形して、係数の和が1になる形を無理やり作る。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(s+t=1\)、\(s,t\ge0\) → 線分 \(AB\)。</li>
+        <li>\(s+t=k\) → \(\vec{OP}=\dfrac sk(k\vec{OA})+\dfrac tk(k\vec{OB})\) と変形し、\(AB\) に平行な線分 \(A'B'\)（\(\vec{OA'}=k\vec{OA}\)）。</li>
+        <li>\(s+t\le1,\ s,t\ge0\) → \(\triangle OAB\) の周と内部（線分を \(k=0\) から \(1\) まで平行移動して塗る）。</li>
+        <li>係数に重みがあるとき（\(s+2t=2\)）は \(\dfrac s2+t=1\) とし、\(\vec{OP}=\dfrac s2(2\vec{OA})+t\vec{OB}\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>一直線上の条件（\(s+t=1\)）</dd>
+      <dt>なぜこの方法？</dt><dd>\(s+t=k\) を固定すると \(P\) は1本の線分を描く。\(k\) を動かすとその線分が平行移動して領域を塗りつぶす。<b>1文字固定して線分を描き、それを動かす</b>という2段階で考えるから、どんな条件でも図が描ける。<a href="../thinking.html#t-fix">発想：1文字固定</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\triangle OAB\) に対し \(\vec{OP}=s\vec{OA}+t\vec{OB}\) とする。次の条件のときの点 \(P\) の存在範囲を答えよ。(1) \(s+2t=2,\ s\ge0,\ t\ge0\)　(2) \(s+t\le1,\ s\ge0,\ t\ge0\)　(3) \(1\le s+t\le2,\ s\ge0,\ t\ge0\)。また (3) の領域の面積は \(\triangle OAB\) の何倍か。</div>
+      <p>(1) \(\dfrac s2+t=1\)。\(\vec{OP}=\dfrac s2\,(2\vec{OA})+t\,\vec{OB}\) で、\(\vec{OA'}=2\vec{OA}\) とおくと係数の和が1、係数はともに0以上。</p>
+      <p class="answer">(1) \(\vec{OA'}=2\vec{OA}\) となる点 \(A'\) と \(B\) を結ぶ線分 \(A'B\)</p>
+      <p>(2) \(s+t=k\ (0\le k\le1)\) を固定すると、\(P\) は \(\vec{OA_k}=k\vec{OA},\ \vec{OB_k}=k\vec{OB}\) を結ぶ線分上（\(k=0\) なら点 \(O\)）。\(k\) を \(0\) から \(1\) まで動かすと三角形を塗る。</p>
+      <p class="answer">(2) \(\triangle OAB\) の周および内部</p>
+      <p>(3) 同様に \(k\) を \(1\) から \(2\) まで動かす。\(\vec{OA''}=2\vec{OA},\ \vec{OB''}=2\vec{OB}\) とすると、線分 \(AB\) が \(A''B''\) まで平行移動する。</p>
+      <p class="answer">(3) 台形 \(ABB''A''\) の周および内部。面積は \(\triangle OA''B''-\triangle OAB=4S-S=3S\) より 3倍</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="vec-p11" data-level="2">
+    <h3><span class="pid">P11</span>ベクトル方程式（直線・円）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\((\vec p-\vec a)\cdot(\vec p-\vec b)=0\) を満たす点 \(P\) の全体」「\(|3\vec p-\vec a-2\vec b|=6\)」「\(\vec n\) に垂直で点 \(A\) を通る直線」</dd>
+      <dt>こう考える</dt><dd>型を覚えておき、式をその型に変形する。</dd>
+      <dt>こう解く</dt><dd><ul>
+        <li>直線（方向）：\(\vec p=\vec a+t\vec d\)。直線（法線）：\(\vec n\cdot(\vec p-\vec a)=0\)。</li>
+        <li>円：\(|\vec p-\vec c|=r\)。\(|k\vec p-\cdots|\) の形は \(k\) でくくって \(|\vec p-\vec c|=\frac rk\) に。</li>
+        <li>\((\vec p-\vec a)\cdot(\vec p-\vec b)=0\)：\(AB\) を直径とする円（\(\angle APB=90^\circ\) または \(P=A,B\)）。</li>
+      </ul></dd>
+      <dt>使う定理・公式</dt><dd>円周角の定理（直径に対する円周角は直角）、内分点の公式</dd>
+      <dt>なぜこの方法？</dt><dd>ベクトル方程式は「点 \(P\) がどんな性質をもつか」をそのまま式にしたもの。<b>式を図形の言葉に読み戻せる</b>ように型を知っておく。座標で計算しても同じ答えになる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(A(1,2),\ B(5,0)\) とし、\(\vec a=\vec{OA},\ \vec b=\vec{OB},\ \vec p=\vec{OP}\) とする。次の式を満たす点 \(P\) の全体を求めよ。(1) \((\vec p-\vec a)\cdot(\vec p-\vec b)=0\)　(2) \(|3\vec p-\vec a-2\vec b|=6\)</div>
+      <p>(1) \(\vec{AP}\cdot\vec{BP}=0\)。\(P=A,B\) または \(\angle APB=90^\circ\)。これは \(AB\) を直径とする円。中心は中点 \((3,1)\)、半径は \(\frac12AB=\frac12\sqrt{16+4}=\sqrt5\)。</p>
+      <p class="answer">(1) 円 \((x-3)^2+(y-1)^2=5\)</p>
+      <p>(2) 3でくくって \(\left|\vec p-\dfrac{\vec a+2\vec b}{3}\right|=2\)。\(\dfrac{\vec a+2\vec b}{3}\) は \(AB\) を \(2:1\) に内分する点 \(\left(\frac{11}{3},\frac23\right)\)。</p>
+      <p class="answer">(2) 中心 \(\left(\dfrac{11}{3},\ \dfrac23\right)\)、半径 2 の円</p>
+      <p class="point">(1) を座標で確かめる：\((x-1)(x-5)+(y-2)y=0\) を整理すると \(x^2-6x+y^2-2y+5=0\)、すなわち \((x-3)^2+(y-1)^2=5\)。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="vec-p12" data-level="3">
+    <h3><span class="pid">P12</span>外心・垂心・内心の位置ベクトル</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(OA=2,\ OB=3,\ \angle AOB=60^\circ\) の \(\triangle OAB\) の外心 \(P\) について \(\vec{OP}\) を \(\vec a,\vec b\) で表せ」「垂心 \(H\)」「内心 \(I\)」</dd>
+      <dt>こう考える</dt><dd>五心を<b>定義そのものの性質</b>で内積の式に翻訳する。
+        <ul>
+          <li>外心 \(P\)：\(OA\) の垂直二等分線上 → \(\vec{OP}\cdot\vec a=\dfrac{|\vec a|^2}{2}\)（\(\vec b\) も同様）</li>
+          <li>垂心 \(H\)：\(OH\perp AB,\ AH\perp OB\)</li>
+          <li>内心 \(I\)：角の二等分線の比。\(\vec{OI}=\dfrac{|\vec b|\,\vec a+|\vec a|\,\vec b}{|\vec a|+|\vec b|+AB}\)</li>
+        </ul></dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\vec{OP}=s\vec a+t\vec b\) とおく。</li>
+        <li>条件を内積の式2本にし、\(|\vec a|^2,\ |\vec b|^2,\ \vec a\cdot\vec b\) を代入して \(s,t\) の連立方程式を解く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>外心の条件：\(M\) を \(OA\) の中点として \(\vec{MP}\cdot\vec a=0\iff\vec{OP}\cdot\vec a=\frac12|\vec a|^2\)。オイラー線 \(\vec{OH}=\vec{OA}+\vec{OB}-2\vec{OP}\)（始点を頂点 \(O\) としたとき）。</dd>
+      <dt>なぜこの方法？</dt><dd>\(\vec{OP}\cdot\vec a=|\vec{OP}||\vec a|\cos\angle POA\) は「\(\vec{OP}\) の \(\vec a\) 方向への影の長さ×\(|\vec a|\)」。外心の影はちょうど \(OA\) の中点に落ちるので \(\frac12|\vec a|^2\) になる。<b>図形の性質を「影」で読む</b>のが内積の使いどころ。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\triangle OAB\) で \(OA=2,\ OB=3,\ \angle AOB=60^\circ\) とし、\(\vec a=\vec{OA},\ \vec b=\vec{OB}\) とする。(1) 外心 \(P\) について \(\vec{OP}\) を \(\vec a,\vec b\) で表し、外接円の半径を求めよ。(2) 垂心 \(H\) について \(\vec{OH}\) を表せ。</div>
+      <p>\(|\vec a|^2=4,\ |\vec b|^2=9,\ \vec a\cdot\vec b=2\cdot3\cos60^\circ=3\)。</p>
+      <p>(1) \(\vec{OP}=s\vec a+t\vec b\) とおく。\(\vec{OP}\cdot\vec a=\frac12|\vec a|^2,\ \vec{OP}\cdot\vec b=\frac12|\vec b|^2\) より</p>
+      \[ 4s+3t=2,\qquad 3s+9t=\frac92 \]
+      <p>第1式を3倍して第2式を引くと \(9s=\frac32\)、\(s=\frac16\)、\(t=\frac49\)。</p>
+      <p>\(|\vec{OP}|^2=\frac1{36}\cdot4+2\cdot\frac16\cdot\frac49\cdot3+\frac{16}{81}\cdot9=\frac19+\frac49+\frac{16}9=\frac73\)。</p>
+      <p class="answer">(1) \(\vec{OP}=\dfrac16\vec a+\dfrac49\vec b\)、半径 \(\sqrt{\dfrac73}=\dfrac{\sqrt{21}}{3}\)</p>
+      <p>(2) \(\vec{OH}=s\vec a+t\vec b\)。\(\vec{OH}\cdot(\vec b-\vec a)=0\)：\(s(3-4)+t(9-3)=0\)、\(s=6t\)。\(\vec{AH}\cdot\vec b=0\)：\((s-1)\cdot3+9t=0\)。代入して \(27t=3\)、\(t=\frac19,\ s=\frac23\)。</p>
+      <p class="answer">(2) \(\vec{OH}=\dfrac23\vec a+\dfrac19\vec b\)</p>
+      <p class="point">検算：(1) 余弦定理 \(AB^2=4+9-6=7\)、正弦定理 \(2R=\dfrac{\sqrt7}{\sin60^\circ}\) より \(R^2=\frac73\) で一致。(2) オイラー線の関係 \(\vec{OH}=\vec a+\vec b-2\vec{OP}=\frac23\vec a+\frac19\vec b\) とも一致する。内心は公式から \(\vec{OI}=\dfrac{3\vec a+2\vec b}{5+\sqrt7}\)。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="vec-p13" data-level="1">
+    <h3><span class="pid">P13</span>空間座標と空間ベクトルの基本</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「座標空間の3点 \(A,B,C\) に対し、四角形 \(ABCD\) が平行四辺形となる点 \(D\)」「\(x\) 軸上にあって2点から等距離にある点」</dd>
+      <dt>こう考える</dt><dd>空間でも<b>平面とまったく同じ計算</b>に、\(z\) 成分が1つ増えるだけ。軸上の点は「他の2成分が0」、座標平面上の点は「1成分が0」。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>平行四辺形 \(ABCD\) ⇔ \(\vec{AD}=\vec{BC}\) ⇔ \(\vec d=\vec a+\vec c-\vec b\)（頂点の順番に注意）。</li>
+        <li>2点間の距離：\(\sqrt{(x_2-x_1)^2+(y_2-y_1)^2+(z_2-z_1)^2}\)。</li>
+        <li>\(x\) 軸上の点は \((x,0,0)\) とおき、距離の2乗どうしを等しくする。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>空間の距離公式（三平方の定理を2回）</dd>
+      <dt>なぜこの方法？</dt><dd>空間の点も3方向の成分に分解すれば、方向ごとに独立に計算できる。平面で身につけた手順をそのまま流用するのが最速。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(A(1,0,2),\ B(3,-1,1),\ C(0,2,-1)\) とする。(1) 四角形 \(ABCD\) が平行四辺形となる点 \(D\) を求めよ。(2) \(x\) 軸上にあって \(A,B\) から等距離にある点 \(P\) を求めよ。</div>
+      <p>(1) \(\vec{OD}=\vec{OA}+\vec{OC}-\vec{OB}=(1+0-3,\ 0+2+1,\ 2-1-1)\)。</p>
+      <p class="answer">(1) \(D(-2,3,0)\)</p>
+      <p>(2) \(P(x,0,0)\)。\(PA^2=(x-1)^2+0+4,\ PB^2=(x-3)^2+1+1\)。等しいとおくと \(-2x+5=-6x+11\)、\(x=\frac32\)。</p>
+      <p class="answer">(2) \(P\left(\dfrac32,0,0\right)\)</p>
+      <p class="point">(1) で \(\vec d=\vec a+\vec b-\vec c\) としてしまうと、\(ABDC\) の順の平行四辺形になる。「\(\vec{AD}=\vec{BC}\)」と向きを確認してから式を作る。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="vec-p14" data-level="2">
+    <h3><span class="pid">P14</span>四面体と平面の交点（係数の和が1）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「四面体 \(OABC\) で、直線 \(OG\) と平面 \(DEF\) の交点を \(P\) とする。\(\vec{OP}\) を表せ」「直線と平面 \(ABC\) の交点」</dd>
+      <dt>こう考える</dt><dd>\(P\) が平面 \(DEF\) 上 ⇔ \(\vec{OP}=x\vec{OD}+y\vec{OE}+z\vec{OF},\ x+y+z=1\)。<b>平面を作る3点の位置ベクトル</b>で書き直して係数の和を1にする。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>直線上の点として \(\vec{OP}=k\vec{OG}\) とおく。</li>
+        <li>\(\vec{OP}\) を \(\vec{OD},\vec{OE},\vec{OF}\) で書き直す（\(\vec a=2\vec{OD}\) などを代入）。</li>
+        <li>係数の和 \(=1\) から \(k\) を決める。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>同一平面上の条件 \(s+t+u=1\)（\(\vec a,\vec b,\vec c\) が1次独立だから係数は1通り）</dd>
+      <dt>なぜこの方法？</dt><dd>\(\vec{AP}=s\vec{AB}+t\vec{AC}\) を始点 \(O\) で書き直すと \(\vec{OP}=(1-s-t)\vec{OA}+s\vec{OB}+t\vec{OC}\)。係数の和1は「平面上にある」ことの<b>同値な言い換え</b>である。平面での「\(s+t=1\) なら直線上」の空間版。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">四面体 \(OABC\) で、辺 \(OA\) の中点を \(D\)、辺 \(OB\) を \(1:2\) に内分する点を \(E\)、辺 \(OC\) を \(1:3\) に内分する点を \(F\) とする。\(\triangle ABC\) の重心を \(G\) とし、直線 \(OG\) と平面 \(DEF\) の交点を \(P\) とする。\(\vec{OP}\) を \(\vec a,\vec b,\vec c\) で表し、\(OP:OG\) を求めよ。</div>
+      <p>\(\vec{OG}=\dfrac{\vec a+\vec b+\vec c}{3}\)、\(P\) は直線 \(OG\) 上なので \(\vec{OP}=\dfrac k3(\vec a+\vec b+\vec c)\)。</p>
+      <p>\(\vec a=2\vec{OD},\ \vec b=3\vec{OE},\ \vec c=4\vec{OF}\) を代入：\(\vec{OP}=\dfrac{2k}{3}\vec{OD}+k\vec{OE}+\dfrac{4k}{3}\vec{OF}\)。</p>
+      <p>\(P\) は平面 \(DEF\) 上だから \(\dfrac{2k}3+k+\dfrac{4k}3=3k=1\)、\(k=\frac13\)。</p>
+      <p class="answer">\(\vec{OP}=\dfrac19(\vec a+\vec b+\vec c)\)、\(OP:OG=1:3\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="vec-p15" data-level="2">
+    <h3><span class="pid">P15</span>平面に下ろした垂線の足</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「原点 \(O\) から平面 \(ABC\) に垂線 \(OH\) を下ろす。点 \(H\) の座標（\(\vec{OH}\)）を求めよ」「四面体の高さ」</dd>
+      <dt>こう考える</dt><dd>「\(H\) が平面 \(ABC\) 上」と「\(OH\perp\) 平面」の2つを式にする。平面に垂直 ⇔ <b>平面内の平行でない2本（\(\vec{AB},\vec{AC}\)）の両方と垂直</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\vec{OH}=\vec{OA}+s\vec{AB}+t\vec{AC}\) とおく（平面上の条件）。</li>
+        <li>\(\vec{OH}\cdot\vec{AB}=0,\ \vec{OH}\cdot\vec{AC}=0\) の連立方程式を解く。</li>
+        <li>\(|\vec{OH}|\) が高さ。体積は \(\frac13\times\triangle ABC\times OH\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>直線と平面の垂直（平面内の交わる2直線に垂直なら平面に垂直）</dd>
+      <dt>なぜこの方法？</dt><dd>未知数 \(s,t\) が2つ、条件（垂直）も2つで、ちょうど決まる。座標がない問題（\(|\vec a|\) や内積だけ与えられる問題）でも<b>同じ手順でそのまま解ける</b>のがこの方法の強み（阪大型演習2）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(A(2,0,0),\ B(0,4,0),\ C(0,0,4)\) とする。原点 \(O\) から平面 \(ABC\) に下ろした垂線の足 \(H\) の座標と、線分 \(OH\) の長さを求めよ。さらに \(\triangle ABC\) の面積を求めよ。</div>
+      <p>\(\vec{AB}=(-2,4,0),\ \vec{AC}=(-2,0,4)\)。\(\vec{OH}=(2,0,0)+s(-2,4,0)+t(-2,0,4)=(2-2s-2t,\ 4s,\ 4t)\)。</p>
+      <p>\(\vec{OH}\cdot\vec{AB}=-4+4s+4t+16s=0\)、\(\vec{OH}\cdot\vec{AC}=-4+4s+4t+16t=0\)。引くと \(s=t\)、\(24s=4\)、\(s=t=\frac16\)。</p>
+      <p>\(H\left(\frac43,\frac23,\frac23\right)\)、\(OH=\sqrt{\frac{16+4+4}{9}}=\frac{2\sqrt6}{3}\)。</p>
+      <p>四面体 \(OABC\) の体積は \(\frac13\cdot\left(\frac12\cdot2\cdot4\right)\cdot4=\frac{16}3\)。これを \(\frac13\triangle ABC\cdot OH\) とみて \(\triangle ABC=\dfrac{3\cdot\frac{16}{3}}{\frac{2\sqrt6}{3}}=4\sqrt6\)。</p>
+      <p class="answer">\(H\left(\dfrac43,\dfrac23,\dfrac23\right)\)、\(OH=\dfrac{2\sqrt6}3\)、\(\triangle ABC=4\sqrt6\)</p>
+      <p class="point">検算：P9 の公式で \(\frac12\sqrt{20\cdot20-4^2}=\frac12\sqrt{384}=4\sqrt6\)。また平面 \(ABC\) は \(2x+y+z=4\)（切片形 \(\frac x2+\frac y4+\frac z4=1\)）で、法線 \((2,1,1)\) と \(\vec{OH}\) は平行。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="vec-p16" data-level="2">
+    <h3><span class="pid">P16</span>平面の方程式・点と平面の距離・四面体の体積</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「3点 \(A,B,C\) を通る平面の方程式」「点 \(D\) と平面 \(ABC\) の距離」「四面体 \(ABCD\) の体積」</dd>
+      <dt>こう考える</dt><dd>平面は<b>法線ベクトル \(\vec n\)</b> と通る1点で決まる。\(\vec n\) は \(\vec{AB},\vec{AC}\) の両方に垂直なベクトルとして求める。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\vec n=(a,b,c)\) とおき \(\vec n\cdot\vec{AB}=0,\ \vec n\cdot\vec{AC}=0\) から比 \(a:b:c\) を求める。</li>
+        <li>平面：\(a(x-x_A)+b(y-y_A)+c(z-z_A)=0\)。他の2点を代入して検算。</li>
+        <li>距離 \(=\dfrac{|ax_1+by_1+cz_1+d|}{\sqrt{a^2+b^2+c^2}}\)、体積 \(=\frac13\times\triangle ABC\times\)距離。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>平面の方程式、点と平面の距離の公式</dd>
+      <dt>なぜこの方法？</dt><dd>平面上の点 \(P\) は \(\vec{AP}\perp\vec n\)。これを成分で書いたのが平面の方程式。距離公式も、点から法線方向に進んで平面にぶつかるまでの長さを計算したもので、平面の「点と直線の距離」と同じ形になる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(A(1,0,1),\ B(2,1,0),\ C(0,2,1),\ D(3,2,4)\) とする。(1) 平面 \(ABC\) の方程式を求めよ。(2) 点 \(D\) と平面 \(ABC\) の距離を求めよ。(3) 四面体 \(ABCD\) の体積を求めよ。</div>
+      <p>(1) \(\vec{AB}=(1,1,-1),\ \vec{AC}=(-1,2,0)\)。\(\vec n=(a,b,c)\) とすると \(a+b-c=0,\ -a+2b=0\)。\(a=2b,\ c=3b\) より \(\vec n=(2,1,3)\) がとれる。</p>
+      <p>\(2(x-1)+y+3(z-1)=0\)。（\(B:4+1+0=5\)、\(C:0+2+3=5\) で成立。）</p>
+      <p class="answer">(1) \(2x+y+3z=5\)</p>
+      <p>(2) \(\dfrac{|6+2+12-5|}{\sqrt{4+1+9}}=\dfrac{15}{\sqrt{14}}\)</p>
+      <p class="answer">(2) \(\dfrac{15}{\sqrt{14}}=\dfrac{15\sqrt{14}}{14}\)</p>
+      <p>(3) \(|\vec{AB}|^2=3,\ |\vec{AC}|^2=5,\ \vec{AB}\cdot\vec{AC}=1\) より \(\triangle ABC=\frac12\sqrt{15-1}=\frac{\sqrt{14}}2\)。体積 \(=\frac13\cdot\frac{\sqrt{14}}{2}\cdot\frac{15}{\sqrt{14}}=\frac52\)。</p>
+      <p class="answer">(3) \(\dfrac52\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="vec-p17" data-level="2">
+    <h3><span class="pid">P17</span>球面の方程式、球と平面の交わり</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x^2+y^2+z^2-2x+4y-6z+5=0\) の中心と半径」「球面と平面 \(z=1\) の交わりの円」「球面が平面に接する条件」</dd>
+      <dt>こう考える</dt><dd>\(x,y,z\) それぞれ平方完成すれば中心と半径が出る。平面との交わりは<b>「球の中心から平面までの距離 \(d\)」と半径 \(r\) の三平方</b>で、交わりの円の半径 \(\sqrt{r^2-d^2}\)。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>平方完成：\((x-a)^2+(y-b)^2+(z-c)^2=r^2\)。</li>
+        <li>平面との距離 \(d\) を求める。\(d\lt r\) で交わる（円）、\(d=r\) で接する、\(d\gt r\) で共有点なし。</li>
+        <li>交わりの円：中心は球の中心から平面に下ろした垂線の足、半径 \(\sqrt{r^2-d^2}\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>球面の方程式、三平方の定理、点と平面の距離</dd>
+      <dt>なぜこの方法？</dt><dd>円と直線の関係（<a href="m2-coord.html">図形と方程式</a>）の空間版。断面は必ず円になり、その中心は球の中心の真下（垂線の足）にくる。対称性から明らか。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">球面 \(S:\ x^2+y^2+z^2-2x+4y-6z+5=0\) について、(1) 中心と半径を求めよ。(2) \(S\) と平面 \(z=1\) の交わりの円の中心と半径を求めよ。(3) \(S\) が平面 \(2x+y+2z=k\) に接するような \(k\) を求めよ。</div>
+      <p>(1) \((x-1)^2+(y+2)^2+(z-3)^2=1+4+9-5=9\)。</p>
+      <p class="answer">(1) 中心 \((1,-2,3)\)、半径 3</p>
+      <p>(2) \(z=1\) を代入：\((x-1)^2+(y+2)^2=9-4=5\)。</p>
+      <p class="answer">(2) 中心 \((1,-2,1)\)、半径 \(\sqrt5\)（平面 \(z=1\) 上の円）</p>
+      <p>(3) 中心と平面の距離 \(=\dfrac{|2-2+6-k|}{\sqrt{4+1+4}}=\dfrac{|6-k|}{3}=3\) より \(|6-k|=9\)。</p>
+      <p class="answer">(3) \(k=-3,\ 15\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="vec-p18" data-level="2">
+    <h3><span class="pid">P18</span>空間の直線（媒介変数表示）と平面の交点</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「2点 \(A,B\) を通る直線と平面 \(x+y+z=2\) の交点」「直線 \(AB\) と \(xy\) 平面の交点」「光源 \(A\) による点 \(B\) の影」</dd>
+      <dt>こう考える</dt><dd>空間の直線は方程式1本では表せないので、<b>媒介変数 \(t\) で「点の動き」として</b>表す。それを平面の方程式に代入すれば \(t\) の1次方程式になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>直線 \(AB\)：\((x,y,z)=\vec a+t(\vec b-\vec a)\) を成分で書く。</li>
+        <li>平面の方程式に代入して \(t\) を求める。</li>
+        <li>\(t\) を戻して交点の座標を得る。\(xy\) 平面なら \(z=0\) を解く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>直線のベクトル方程式 \(\vec p=\vec a+t\vec d\)</dd>
+      <dt>なぜこの方法？</dt><dd>直線は自由度1（\(t\) だけ）、平面との交点の条件は1本。<b>未知数1個に条件1本</b>なので1次方程式で決まる。2直線の交点なら \(t,s\) の2文字で3成分を比べる（3本中2本で解き、残り1本で確認）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">2点 \(A(1,2,3),\ B(2,1,5)\) を通る直線を \(\ell\) とする。(1) \(\ell\) と平面 \(x+y+z=2\) の交点を求めよ。(2) \(\ell\) と \(xy\) 平面の交点を求めよ。</div>
+      <p>\(\vec{AB}=(1,-1,2)\) より \(\ell:\ (x,y,z)=(1+t,\ 2-t,\ 3+2t)\)。</p>
+      <p>(1) \((1+t)+(2-t)+(3+2t)=6+2t=2\)、\(t=-2\)。</p>
+      <p class="answer">(1) \((-1,\ 4,\ -1)\)</p>
+      <p>(2) \(3+2t=0\)、\(t=-\frac32\)。</p>
+      <p class="answer">(2) \(\left(-\dfrac12,\ \dfrac72,\ 0\right)\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="vec-p19" data-level="3">
+    <h3><span class="pid">P19</span>ねじれの位置にある2直線と最短距離</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「2直線 \(\ell,m\) はねじれの位置にあることを示せ」「\(\ell\) 上の点 \(P\) と \(m\) 上の点 \(Q\) の距離 \(PQ\) の最小値」</dd>
+      <dt>こう考える</dt><dd>\(PQ\) が最小になるのは、\(PQ\) が<b>両方の直線に垂直（共有垂線）</b>のとき。あるいは \(|\vec{PQ}|^2\) を2変数 \(s,t\) の2次式とみて、1文字ずつ平方完成する。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>ねじれ：方向ベクトルが平行でなく、かつ \(P=Q\) となる \(s,t\) が存在しない（3成分の連立が矛盾）ことを示す。</li>
+        <li>\(\vec{PQ}\) を \(s,t\) で表し、\(\vec{PQ}\cdot\vec u=0,\ \vec{PQ}\cdot\vec v=0\)（\(\vec u,\vec v\) は方向ベクトル）を解く。</li>
+        <li>そのときの \(|\vec{PQ}|\) が最短距離。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>内積 \(=0\)、または <a href="m1-quadratic.html#quad-p7">2次関数 P7</a> の予選決勝法</dd>
+      <dt>なぜこの方法？</dt><dd>\(|\vec{PQ}|^2\) は \(s,t\) の2次式なので、\(s\) を固定して \(t\) で最小 → \(s\) で最小、と進めれば必ず最小値が出る（<a href="../thinking.html#t-fix">発想：1文字固定</a>）。その最小点で偏りがない＝両直線と垂直、というのが幾何的な意味で、内積条件はその近道。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">直線 \(\ell:\ (x,y,z)=(s,s,0)\)、直線 \(m:\ (x,y,z)=(1,\ t,\ 2+t)\)（\(s,t\) は実数）とする。(1) \(\ell\) と \(m\) はねじれの位置にあることを示せ。(2) \(\ell\) 上の点 \(P\)、\(m\) 上の点 \(Q\) について \(PQ\) の最小値を求めよ。</div>
+      <p>(1) 方向ベクトル \(\vec u=(1,1,0),\ \vec v=(0,1,1)\) は平行でない。共有点があるとすると \(s=1,\ s=t,\ 0=2+t\) で、\(t=1\) と \(t=-2\) が矛盾。よって交わらず平行でもないので、ねじれの位置にある。</p>
+      <p>(2) \(\vec{PQ}=(1-s,\ t-s,\ 2+t)\)。</p>
+      <p>\(\vec{PQ}\cdot\vec u=(1-s)+(t-s)=1-2s+t=0\)、\(\vec{PQ}\cdot\vec v=(t-s)+(2+t)=2t-s+2=0\)。</p>
+      <p>第2式から \(s=2t+2\)、第1式に代入して \(-3t-3=0\)、\(t=-1,\ s=0\)。このとき \(\vec{PQ}=(1,-1,1)\)。</p>
+      <p class="answer">最小値 \(\sqrt3\)（\(P(0,0,0),\ Q(1,-1,1)\)）</p>
+      <p class="point">「垂直なら最小」は直観だが、答案では \(|\vec{PQ}|^2=(1-s)^2+(t-s)^2+(2+t)^2\) を \(s\) について平方完成→\(t\) について平方完成して最小を示すと、論理の抜けがない。（実際 \(|\vec{PQ}|^2=2\left(s-\frac{t+1}2\right)^2+\frac32(t+1)^2+3\) となり、最小値 3。）</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="vec-p20" data-level="3">
+    <h3><span class="pid">P20</span>動点と内積の最大・最小（中点を使う変形）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「点 \(P\) が辺 \(CD\) 上を動くとき \(\vec{PA}\cdot\vec{PB}\) の最大値・最小値」「\(\vec{PA}\cdot\vec{PB}\) が一定となる点 \(P\) の軌跡」</dd>
+      <dt>こう考える</dt><dd>\(\vec{PA}\cdot\vec{PB}\) は \(P\) が2か所に入っていて扱いにくい。\(AB\) の中点 \(M\) を使うと<b>\(P\) が1か所（\(|\vec{PM}|\)）だけ</b>の式になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\vec{PA}=\vec{PM}+\vec{MA},\ \vec{PB}=\vec{PM}+\vec{MB}=\vec{PM}-\vec{MA}\)。</li>
+        <li>\(\vec{PA}\cdot\vec{PB}=|\vec{PM}|^2-|\vec{MA}|^2\)。</li>
+        <li>\(|\vec{PM}|\)（定点 \(M\) と動点 \(P\) の距離）の最大最小を図で求める。座標を入れて2次関数にしてもよい。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\((\vec x+\vec y)\cdot(\vec x-\vec y)=|\vec x|^2-|\vec y|^2\)</dd>
+      <dt>なぜこの方法？</dt><dd>和と差の積の公式で、内積を「距離の2乗」に変える。距離なら図で一目で分かる。一定値になる軌跡も「\(|\vec{PM}|=\)一定」すなわち \(M\) 中心の円と即答できる。<a href="../thinking.html#t-coord">発想：座標を入れる</a>で検算する習慣も付けよう。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">1辺の長さ2の正方形 \(ABCD\) がある。点 \(P\) が辺 \(CD\) 上を動くとき、\(\vec{PA}\cdot\vec{PB}\) の最大値と最小値を求めよ。</div>
+      <p>\(AB\) の中点を \(M\) とすると \(\vec{PA}\cdot\vec{PB}=|\vec{PM}|^2-|\vec{MA}|^2=|\vec{PM}|^2-1\)。</p>
+      <p>\(P\) が辺 \(CD\) 上を動くとき、\(PM\) は \(P\) が \(CD\) の中点のとき最小 \(2\)、\(P=C,D\) のとき最大 \(\sqrt{2^2+1^2}=\sqrt5\)。</p>
+      <p class="answer">最大値 4（\(P=C,D\)）、最小値 3（\(P\) が \(CD\) の中点）</p>
+      <p class="point">座標で検算：\(A(0,0),B(2,0),P(x,2)\ (0\le x\le2)\) とすると \(\vec{PA}\cdot\vec{PB}=-x(2-x)+4=(x-1)^2+3\)。\(x=1\) で 3、\(x=0,2\) で 4。一致。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="pitfalls">
+  <h2>よくあるミスと対策</h2>
+  <ul class="pitfalls">
+    <li><b>1次独立を書かずに係数比較する</b>（P2, P5, P14）。→ 「\(\vec a,\vec b\) は1次独立だから」の一言が採点対象。空間では「\(\vec a,\vec b,\vec c\) は同一平面上にない」。</li>
+    <li><b>内分点の公式で比を逆にかける</b>（P3）。→ \(m:n\) に内分なら \(\vec a\) に \(n\)、\(\vec b\) に \(m\)。「遠い方の比が手前の点にかかる」。不安なら \(\vec a+\frac{m}{m+n}\vec{AB}\) から作る。</li>
+    <li><b>\(|\vec a+\vec b|=|\vec a|+|\vec b|\) としてしまう</b>（P6, P8）。→ 長さは必ず2乗して展開。\(|\vec a+\vec b|^2\) には \(2\vec a\cdot\vec b\) が入る。</li>
+    <li><b>存在範囲で係数の和を1にそろえずに図を描く</b>（P10）。→ \(s+2t=2\) なら \(\frac s2+t=1\) に直し、\(\vec{OA}\) を2倍した点を作ってから線分を描く。</li>
+    <li><b>垂線の足で平面上の条件を忘れる</b>（P15）。→ \(\vec{OH}=s\vec a+t\vec b+u\vec c\) とおいたら \(s+t+u=1\) を必ず添える。未知数3つに条件3本。</li>
+    <li><b>平面の法線ベクトルを1本の垂直条件だけで決めようとする</b>（P16）。→ \(\vec{AB}\) と \(\vec{AC}\) の両方に垂直。最後に3点すべてを代入して検算。</li>
+    <li><b>ねじれの位置で「平行でない」だけ示して終わる</b>（P19）。→ 「交わらない」ことも連立方程式の矛盾で示す。</li>
+  </ul>
+</section>
+
+<section id="handai">
+  <h2>阪大レベルへの橋渡し</h2>
+  <p>阪大理系のベクトルは、<b>空間図形（四面体・垂線の足・体積）</b>と、<b>文字を含む位置ベクトルからの最大最小</b>が中心。座標が与えられず \(|\vec a|\)、内積だけで設定される問題も多い。次の3点が合否を分ける。</p>
+  <ul>
+    <li>未知の点を「平面上（係数の和1）」「垂直（内積0）」で決める手順を、座標なしでも実行できる（演習2）。</li>
+    <li>交点や面積をパラメータ \(t\) の関数として求め、<a href="../thinking.html#t-subst">置き換え</a>や微分で最大最小まで持っていく（演習1）。</li>
+    <li>空間の2直線の位置関係を論証し、動点の軌跡を「どの平面上の、どんな図形か」まで答える（演習3）。</li>
+  </ul>
+
+  <article class="pattern" id="vec-h1" data-level="3">
+    <h3><span class="pid">演1</span>交点の位置ベクトルと面積の最大</h3>
+    <div class="problem">\(\triangle OAB\) の面積を \(S\) とする。\(0\lt t\lt1\) として、辺 \(OA\) 上に \(\vec{OP}=t\vec{OA}\) となる点 \(P\)、辺 \(OB\) 上に \(\vec{OQ}=(1-t)\vec{OB}\) となる点 \(Q\) をとり、線分 \(AQ\) と \(BP\) の交点を \(R\) とする。<br>(1) \(\vec{OR}\) を \(t,\ \vec a=\vec{OA},\ \vec b=\vec{OB}\) で表せ。<br>(2) 四角形 \(OPRQ\) の面積を \(t\) と \(S\) で表し、その最大値を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>(1) は P5 の「2通りに表して係数比較」そのもの。(2) は \(\triangle OPR+\triangle ORQ\) に分け、\(\vec{OR}=\alpha\vec a+\beta\vec b\) なら \(\triangle OPR=t\beta S\)（底辺 \(OP\) が \(OA\) の \(t\) 倍、高さが \(\beta\) 倍）と読む。出てきた式は \(t(1-t)\) のカタマリで書けるので<a href="../thinking.html#t-subst">置き換え</a>る。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) \(R\) は \(AQ\) 上：\(\vec{OR}=(1-x)\vec a+x(1-t)\vec b\)。\(R\) は \(BP\) 上：\(\vec{OR}=yt\,\vec a+(1-y)\vec b\)。</p>
+      <p>\(\vec a,\vec b\) は1次独立だから \(1-x=yt,\ x(1-t)=1-y\)。第2式より \(y=1-x(1-t)\)、第1式に代入して</p>
+      \[ 1-x=t-t(1-t)x\ \Longrightarrow\ (1-t+t^2)\,x=1-t\ \Longrightarrow\ x=\frac{1-t}{t^2-t+1} \]
+      <p>（\(t^2-t+1=\left(t-\frac12\right)^2+\frac34\gt0\)。）よって \(1-x=\dfrac{t^2}{t^2-t+1}\)、\(x(1-t)=\dfrac{(1-t)^2}{t^2-t+1}\)。</p>
+      <p class="answer">(1) \(\vec{OR}=\dfrac{t^2\,\vec a+(1-t)^2\,\vec b}{t^2-t+1}\)</p>
+      <p>(2) \(\vec{OR}=\alpha\vec a+\beta\vec b\ (\alpha,\beta\gt0)\) のとき、\(\triangle OPR\) は底辺 \(OP=t\cdot OA\)、高さ（\(OA\) からの距離）が \(\triangle OAB\) の \(\beta\) 倍なので \(\triangle OPR=t\beta S\)。同様に \(\triangle ORQ=(1-t)\alpha S\)。</p>
+      \[ [OPRQ]=\frac{t(1-t)^2+(1-t)t^2}{t^2-t+1}S=\frac{t(1-t)}{1-t(1-t)}S \]
+      <p>\(u=t(1-t)\) とおくと、\(0\lt t\lt1\) で \(0\lt u\le\frac14\)（等号は \(t=\frac12\)）。\(\dfrac{u}{1-u}=-1+\dfrac{1}{1-u}\) は \(u\) について増加するので、\(u=\frac14\) で最大値 \(\dfrac{1/4}{3/4}=\dfrac13\)。</p>
+      <p class="answer">(2) \([OPRQ]=\dfrac{t(1-t)}{t^2-t+1}S\)、最大値 \(\dfrac{S}{3}\)（\(t=\dfrac12\)）</p>
+      <p class="point">採点ポイント：(1) の係数比較の前に「1次独立」を明記。(2) は面積を係数で表す根拠（底辺比・高さ比）を一言書く。置き換えた \(u\) の範囲 \(0\lt u\le\frac14\) を書かないと最大値の論証が不完全になる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="vec-h2" data-level="3">
+    <h3><span class="pid">演2</span>座標なしの四面体：垂線の足と体積</h3>
+    <div class="problem">四面体 \(OABC\) において \(OA=1,\ OB=2,\ OC=3,\ \angle AOB=\angle BOC=\angle COA=60^\circ\) とする。\(\vec a=\vec{OA},\ \vec b=\vec{OB},\ \vec c=\vec{OC}\) とし、\(O\) から平面 \(ABC\) に下ろした垂線の足を \(H\) とする。<br>(1) \(\vec{OH}\) を \(\vec a,\vec b,\vec c\) で表せ。<br>(2) \(OH\) の長さと四面体 \(OABC\) の体積を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>座標がなくても P15 と同じ手順。\(\vec{OH}=s\vec a+t\vec b+u\vec c\) とおき、条件は「\(s+t+u=1\)」「\(\vec{OH}\cdot\vec{AB}=0\)」「\(\vec{OH}\cdot\vec{AC}=0\)」の3本。まず6個の内積の値を表にしておく。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>\(|\vec a|^2=1,\ |\vec b|^2=4,\ |\vec c|^2=9,\ \vec a\cdot\vec b=1,\ \vec b\cdot\vec c=3,\ \vec c\cdot\vec a=\frac32\)。</p>
+      <p>(1) \(H\) は平面 \(ABC\) 上なので \(\vec{OH}=s\vec a+t\vec b+u\vec c,\ s+t+u=1\) とおける。</p>
+      \[ \begin{aligned} \vec{OH}\cdot\vec a&= s+t+\tfrac32u,\\ \vec{OH}\cdot\vec b&= s+4t+3u,\\ \vec{OH}\cdot\vec c&= \tfrac32s+3t+9u. \end{aligned} \]
+      <p>\(\vec{OH}\cdot(\vec b-\vec a)=0\)：\(3t+\frac32u=0\)、\(u=-2t\)。</p>
+      <p>\(\vec{OH}\cdot(\vec c-\vec a)=0\)：\(\frac12s+2t+\frac{15}2u=0\)、\(s+4t+15u=0\)、よって \(s=26t\)。</p>
+      <p>\(s+t+u=25t=1\) より \(t=\frac1{25},\ s=\frac{26}{25},\ u=-\frac2{25}\)。</p>
+      <p class="answer">(1) \(\vec{OH}=\dfrac{26\vec a+\vec b-2\vec c}{25}\)</p>
+      <p>(2) \(\vec{OH}\cdot\vec a=\vec{OH}\cdot\vec b=\vec{OH}\cdot\vec c\)（垂直条件より）だから</p>
+      \[ |\vec{OH}|^2=\vec{OH}\cdot(s\vec a+t\vec b+u\vec c)=(s+t+u)\,\vec{OH}\cdot\vec a=s+t+\tfrac32u=\frac{26+1-3}{25}=\frac{24}{25} \]
+      <p>\(OH=\dfrac{2\sqrt6}{5}\)。</p>
+      <p>\(\vec{AB}=\vec b-\vec a,\ \vec{AC}=\vec c-\vec a\)：\(|\vec{AB}|^2=4-2+1=3\)、\(|\vec{AC}|^2=9-3+1=7\)、\(\vec{AB}\cdot\vec{AC}=3-\frac32-1+1=\frac32\)。</p>
+      <p>\(\triangle ABC=\frac12\sqrt{21-\frac94}=\frac12\cdot\frac{5\sqrt3}{2}=\frac{5\sqrt3}{4}\)。</p>
+      <p>体積 \(V=\dfrac13\cdot\dfrac{5\sqrt3}{4}\cdot\dfrac{2\sqrt6}{5}=\dfrac{\sqrt{18}}{6}=\dfrac{\sqrt2}{2}\)。</p>
+      <p class="answer">(2) \(OH=\dfrac{2\sqrt6}{5}\)、\(V=\dfrac{\sqrt2}{2}\)</p>
+      <p class="point">採点ポイント：\(\vec c\) の係数が負になる（\(H\) は \(\triangle ABC\) の外、辺 \(AB\) の外側にある）が、計算は正しい。「平面上」の条件は係数の和だけで、係数の正負は問わない。\(|\vec{OH}|^2\) を \(\vec{OH}\cdot\vec{OH}\) と見て垂直条件を再利用すると計算が激減する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="vec-h3" data-level="3">
+    <h3><span class="pid">演3</span>ねじれの位置の2直線と中点の軌跡</h3>
+    <div class="problem">座標空間に、\(x\) 軸 \(\ell\) と、点 \((0,0,1)\) を通り \(y\) 軸に平行な直線 \(m\) がある。<br>(1) \(\ell\) と \(m\) はねじれの位置にあることを示し、\(\ell\) 上の点と \(m\) 上の点の距離の最小値を求めよ。<br>(2) \(\ell\) 上の点 \(P\) と \(m\) 上の点 \(Q\) が \(PQ=2\) を満たしながら動くとき、線分 \(PQ\) の中点 \(M\) の軌跡を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>\(P(s,0,0),\ Q(0,t,1)\) と2つの文字で表す。(2) は \(M(X,Y,Z)\) を \(s,t\) で表し、条件 \(PQ=2\) を使って \(s,t\) を消去する（軌跡＝「\(X,Y,Z\) の関係式」）。\(Z\) が一定になることに気づけば、「どの平面上の図形か」まで答えられる。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) \(\ell:(s,0,0)\)、\(m:(0,t,1)\)。方向ベクトル \((1,0,0)\) と \((0,1,0)\) は平行でない。共有点があれば \(z\) 座標を比べて \(0=1\) となり矛盾。よってねじれの位置にある。</p>
+      <p>\(P(s,0,0),\ Q(0,t,1)\) について \(PQ^2=s^2+t^2+1\ge1\)、等号は \(s=t=0\)。</p>
+      <p class="answer">(1) 最小値 1（\(P(0,0,0),\ Q(0,0,1)\)）</p>
+      <p>(2) \(M(X,Y,Z)\) とすると \(X=\frac s2,\ Y=\frac t2,\ Z=\frac12\)。条件 \(PQ=2\) は \(s^2+t^2+1=4\)、すなわち \(s^2+t^2=3\)。</p>
+      <p>\(s=2X,\ t=2Y\) を代入して \(4X^2+4Y^2=3\)、\(X^2+Y^2=\frac34\)。逆に、この式と \(Z=\frac12\) を満たす点 \((X,Y,Z)\) に対して \(s=2X,\ t=2Y\) とおけば \(PQ=2\) を満たす \(P,Q\) が存在する。</p>
+      <p class="answer">(2) 平面 \(z=\dfrac12\) 上の、中心 \(\left(0,0,\dfrac12\right)\)、半径 \(\dfrac{\sqrt3}{2}\) の円</p>
+      <p class="point">採点ポイント：(1) は「平行でない」と「交わらない」の両方。(2) は空間の軌跡なので「\(x^2+y^2=\frac34\)」だけでは円柱面になってしまう。<b>\(z=\frac12\) を必ず併記</b>し、逆の確認（その点が実際に得られること）を一言添える。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="next">
+  <h2>次に学ぶとつながる単元</h2>
+  <ul>
+    <li><a href="mc-complex.html">複素数平面</a>：平面ベクトルの回転・拡大を「掛け算」で表せるようになる。P4・P5 の位置関係の問題が、偏角の計算で解ける。</li>
+    <li><a href="m3-integral-app.html">積分法の応用</a>：P15〜P17 の空間図形の知識が、断面積を積分する体積計算の土台になる。</li>
+    <li><a href="m2-coord.html">図形と方程式</a>：P11 のベクトル方程式・P20 の軌跡は、座標でも解ける。両方の方法を比べると理解が深まる。</li>
+    <li><a href="mc-curves.html">平面上の曲線</a>：\(\vec{OP}=\cos\theta\,\vec a+\sin\theta\,\vec b\) の形は楕円の媒介変数表示につながる。</li>
+  </ul>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>

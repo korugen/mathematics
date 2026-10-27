@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>指数関数・対数関数（数学II）｜解法の地図</title>
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-unit="m2-explog" data-root="../">
+<main>
+
+<header class="unit-head">
+  <span class="subj-badge">数学II</span>
+  <h1>指数関数・対数関数</h1>
+  <p class="lead">「底をそろえる」「置き換えて2次関数にする」「真数条件を最初に書く」の3つでほとんどの問題が片づく単元。桁数・大小比較・無理数の証明は整数や不等式の評価とつながり、阪大でも融合問題の部品として出てくる。</p>
+  <div class="goal">
+    <strong>このページの到達目標</strong>
+    <ul>
+      <li>【基礎】指数法則・対数の性質・底の変換を使って式の値を正確に計算し、底をそろえて方程式・不等式を解ける。</li>
+      <li>【標準】\(t=2^x\)、\(t=\log_2 x\)、\(t=a^x+a^{-x}\) と置き換えて、\(t\) の範囲つきの2次関数の問題に直せる。桁数・最高位の数字を常用対数で求められる。</li>
+      <li>【阪大】\(\log_2 3\) の無理数性や \(\log_2 3\) の評価を自力で論証し、「\(t\) 1つに \(x\) がいくつ対応するか」まで数えて解の個数を答えられる。</li>
+    </ul>
+  </div>
+  <p class="prereq">前提：<a href="m1-numbers.html">数と式</a>（指数・平方根の計算）、<a href="m1-quadratic.html">2次関数</a>（置き換え・解の配置）／ 次に進む：<a href="m2-calculus.html">微分法・積分法（数II）</a>、<a href="m3-limit.html">極限</a>、<a href="m3-diff.html">微分法とその応用</a></p>
+</header>
+
+<section id="core">
+  <h2>必ず押さえる基本事項</h2>
+
+  <div class="box theorem">
+    <p><span class="name">累乗根と有理数の指数</span>：\(a\gt 0\)、\(m,n\) は正の整数のとき</p>
+    \[ a^0=1,\quad a^{-n}=\frac{1}{a^n},\quad a^{\frac{m}{n}}=\sqrt[n]{a^m}=\left(\sqrt[n]{a}\right)^m \]
+    <p>なぜ：\(a^{-n}\) や \(a^{\frac mn}\) は「指数法則 \(a^pa^q=a^{p+q}\) がそのまま成り立つように」決めた定義である。たとえば \(\left(a^{\frac1n}\right)^n=a^{1}\) となるべきだから \(a^{\frac1n}=\sqrt[n]a\)。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">指数法則</span>：\(a\gt0,\ b\gt0\)、\(p,q\) は実数のとき</p>
+    \[ a^pa^q=a^{p+q},\quad \frac{a^p}{a^q}=a^{p-q},\quad (a^p)^q=a^{pq},\quad (ab)^p=a^pb^p \]
+    <p>なぜ：\(a^3a^2=(aaa)(aa)=a^5\) のように「かけた個数を数える」ことが出発点。負・分数・実数の指数はこれが壊れないように拡張されている。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">指数関数 \(y=a^x\) の性質</span>（\(a\gt0,\ a\ne1\)）</p>
+    <ul>
+      <li>値域は \(y\gt0\)（<b>どんな \(x\) でも正</b>）。グラフは点 \((0,1)\) を通る。</li>
+      <li>\(a\gt1\) なら増加：\(p\lt q \iff a^p\lt a^q\)。</li>
+      <li>\(0\lt a\lt1\) なら減少：\(p\lt q \iff a^p\gt a^q\)（<b>不等号の向きが逆になる</b>）。</li>
+    </ul>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">対数の定義と性質</span>：\(a\gt0,\ a\ne1,\ M\gt0\) のとき \(a^p=M \iff p=\log_a M\)。\(M,N\gt0\) で</p>
+    \[ \log_a MN=\log_a M+\log_a N,\quad \log_a\frac MN=\log_a M-\log_a N,\quad \log_a M^r=r\log_a M \]
+    <p>なぜ：\(M=a^p,\ N=a^q\) とおくと \(MN=a^{p+q}\)。つまり<b>対数の性質は指数法則を「指数の側」から読んだもの</b>にすぎない。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">底の変換公式</span>：\(a,b,c\gt0,\ a\ne1,\ c\ne1\) のとき</p>
+    \[ \log_a b=\frac{\log_c b}{\log_c a},\qquad \text{特に}\ \log_a b=\frac{1}{\log_b a}\ (b\ne1) \]
+    <p>なぜ：\(p=\log_a b\) とすると \(a^p=b\)。両辺の \(\log_c\) をとって \(p\log_c a=\log_c b\)。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">対数関数 \(y=\log_a x\) の性質と真数条件</span></p>
+    <ul>
+      <li>定義域は \(x\gt0\)（<b>真数条件</b>）。値域はすべての実数。\(y=a^x\) と直線 \(y=x\) に関して対称（逆関数）。</li>
+      <li>\(a\gt1\)：\(0\lt p\lt q \iff \log_a p\lt\log_a q\)。\(0\lt a\lt1\)：\(0\lt p\lt q \iff \log_a p\gt\log_a q\)。</li>
+    </ul>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">常用対数と桁数</span>：正の数 \(N\) について</p>
+    <ul>
+      <li>\(N\) の整数部分が \(k\) 桁 \(\iff 10^{k-1}\le N\lt 10^k \iff k-1\le \log_{10}N\lt k\)</li>
+      <li>\(N\lt1\) で小数第 \(k\) 位に初めて0でない数字 \(\iff 10^{-k}\le N\lt 10^{-k+1}\)</li>
+    </ul>
+    <p>なぜ：10進法の桁数は「10を何乗した数の間にあるか」そのもの。\(\log_{10}\) はその「何乗」を取り出す道具である。</p>
+  </div>
+
+  <div class="box idea">
+    <p><b>この単元を貫く考え方</b>：指数・対数の問題は、<b>(1) 底をそろえて「指数どうし」「真数どうし」の比較に落とす</b>か、<b>(2) \(t=a^x\) や \(t=\log_a x\) と置き換えて2次関数の問題に落とす</b>かのどちらかである。どちらの場合も、<b>\(t\gt0\) や真数条件などの「範囲」を最初に書く</b>ことが得点の分かれ目になる。</p>
+  </div>
+</section>
+
+<section id="quick">
+  <h2>早見表：こう来たら → こう解く</h2>
+  <div class="table-wrap"><table class="quick">
+    <tr><th>問題の特徴（こう来たら）</th><th>方針（こう解く）</th><th>使う道具</th><th>詳細</th></tr>
+    <tr data-level="1"><td>\(\sqrt[3]{\ }\)・分数の指数を含む式の値</td><td>すべて \(a^{\frac mn}\) の形にして指数を計算</td><td>指数法則</td><td><a href="#exp-p1">P1</a></td></tr>
+    <tr data-level="1"><td>\(4^{x+1}=8^x\)、\(\left(\frac13\right)^{x}\gt 27\)</td><td>底をそろえて指数を比較。底が1未満なら不等号逆</td><td>指数関数の単調性</td><td><a href="#exp-p2">P2</a></td></tr>
+    <tr data-level="2"><td>\(4^x\) と \(2^x\) が混在</td><td>\(t=2^x\ (t\gt0)\) で2次式に</td><td>置き換え</td><td><a href="#exp-p3">P3</a></td></tr>
+    <tr data-level="2"><td>\(a^x+a^{-x}\)、\(a^{2x}+a^{-2x}\) が混在</td><td>\(t=a^x+a^{-x}\ (t\ge2)\)</td><td>相加相乗・\(t^2-2\)</td><td><a href="#exp-p4">P4</a></td></tr>
+    <tr data-level="1"><td>対数の式の値を求めよ</td><td>和・差・係数をまとめて1つの \(\log\) に</td><td>対数の性質</td><td><a href="#exp-p5">P5</a></td></tr>
+    <tr data-level="1"><td>底がばらばら／\(\log_2 3=a\) のとき〜を表せ</td><td>底を1つにそろえる</td><td>底の変換公式</td><td><a href="#exp-p6">P6</a></td></tr>
+    <tr data-level="2"><td>対数方程式を解け</td><td>真数条件 → 底をそろえる → 真数比較</td><td>真数条件</td><td><a href="#exp-p7">P7</a></td></tr>
+    <tr data-level="2"><td>対数不等式を解け</td><td>真数条件 → 底の大小で向きを決める</td><td>対数関数の単調性</td><td><a href="#exp-p8">P8</a></td></tr>
+    <tr data-level="2"><td>\((\log_2 x)^2\) と \(\log_2 x\) が混在</td><td>\(t=\log_2 x\) で2次関数（\(t\) の範囲）</td><td>置き換え</td><td><a href="#exp-p9">P9</a></td></tr>
+    <tr data-level="2"><td>3つの数の大小を比べよ</td><td>底をそろえる／何乗かする／中間値をはさむ</td><td>単調性</td><td><a href="#exp-p10">P10</a></td></tr>
+    <tr data-level="1"><td>「何桁か」「小数第何位に初めて0でない数字」</td><td>\(\log_{10}N\) の整数部分を読む</td><td>常用対数</td><td><a href="#exp-p11">P11</a></td></tr>
+    <tr data-level="2"><td>最高位の数字・「\(n\) 桁になる \(n\)」</td><td>\(\log_{10}N\) の小数部分を \(\log_{10}k\) と比べる</td><td>常用対数</td><td><a href="#exp-p12">P12</a></td></tr>
+    <tr data-level="3"><td>\(\log_2 3\) は無理数であることを示せ</td><td>有理数と仮定 → \(2^m=3^n\) → 偶奇で矛盾</td><td>背理法</td><td><a href="#exp-p13">P13</a></td></tr>
+    <tr data-level="2"><td>\(2^x+2^{2-x}\)、\(\log_2x+\log_x16\) の最小値</td><td>積が一定 → 相加相乗平均</td><td>相加相乗</td><td><a href="#exp-p14">P14</a></td></tr>
+    <tr data-level="3"><td>\(x^2y=16\) のとき \((\log_2x)(\log_2y)\) の最大</td><td>\(X=\log_2x,\ Y=\log_2y\) で1次の条件に</td><td>対数をとる・1文字消去</td><td><a href="#exp-p15">P15</a></td></tr>
+    <tr data-level="3"><td>\(\frac32\lt\log_2 3\lt\frac85\) を示せ</td><td>整数の累乗の大小に直す</td><td>評価・はさみうち</td><td><a href="#exp-p16">P16</a></td></tr>
+    <tr data-level="3"><td>指数方程式の実数解の個数（文字定数あり）</td><td>\(t\) の方程式の正の解の個数に言い換え</td><td>解の配置</td><td><a href="#exp-p17">P17</a></td></tr>
+  </table></div>
+</section>
+
+<section id="patterns">
+  <h2>パターン別 解法マップ</h2>
+
+  <article class="pattern" id="exp-p1" data-level="1">
+    <h3><span class="pid">P1</span>累乗根・指数法則の計算</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\sqrt[3]{54}\times\sqrt[3]{4}\) を計算せよ」「\(8^{\frac23}\times4^{-\frac12}\) の値」「\(\sqrt{a\sqrt{a\sqrt a}}\) を \(a^r\) の形で表せ」</dd>
+      <dt>こう考える</dt><dd>根号のままでは法則が使いにくい。<b>すべてを「素数の何乗」</b>（\(2^{\square}\) や \(3^{\square}\)）に直せば、あとは指数の足し算・かけ算だけになる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>底を素数に分解する（\(8=2^3,\ 54=2\cdot3^3\)）。</li>
+        <li>\(\sqrt[n]{\ }\) は \(\frac1n\) 乗、\(\frac1{a^p}\) は \(a^{-p}\) に直す。</li>
+        <li>底ごとに指数を計算し、最後に値に戻す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>指数法則、\(\sqrt[n]{a^m}=a^{\frac mn}\)</dd>
+      <dt>なぜこの方法？</dt><dd>指数法則は「同じ底」どうしでしか使えない。素因数に分ければ<b>底が2や3にそろう</b>ので、迷わず計算できる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\sqrt[3]{54}\times\sqrt[3]{4}\)　(2) \(8^{\frac23}\times4^{-\frac12}\div2^{-1}\)　(3) \(a\gt0\) のとき \(\sqrt{a\sqrt{a\sqrt a}}\) を \(a^r\) の形で表せ。</div>
+      <p>(1) \(\sqrt[3]{54\cdot4}=\sqrt[3]{216}=\sqrt[3]{6^3}=6\)。<span class="answer">6</span></p>
+      <p>(2) \(8^{\frac23}=(2^3)^{\frac23}=2^2,\ 4^{-\frac12}=(2^2)^{-\frac12}=2^{-1}\)。よって \(2^{2+(-1)-(-1)}=2^2=4\)。<span class="answer">4</span></p>
+      <p>(3) 内側から：\(a\sqrt a=a^{\frac32}\)、\(a\sqrt{a^{\frac32}}=a^{1+\frac34}=a^{\frac74}\)、\(\sqrt{a^{\frac74}}=a^{\frac78}\)。<span class="answer">\(a^{\frac78}\)</span></p>
+      <p class="point">\(\div 2^{-1}\) は「\(2^{-1}\) で割る」＝「指数から \(-1\) を引く」＝ \(+1\)。符号ミスが最も多い所。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="exp-p2" data-level="1">
+    <h3><span class="pid">P2</span>指数方程式・不等式（底をそろえる）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(4^{x+1}=8^x\) を解け」「\(\left(\frac13\right)^{2x-1}\gt 27\) を解け」</dd>
+      <dt>こう考える</dt><dd>\(y=a^x\) は単調（増加または減少）なので、<b>底がそろえば「指数どうし」の比較</b>になる。不等式では<b>底が1より大きいか小さいか</b>で向きが決まる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>両辺を同じ底 \(a\) の累乗 \(a^{\square}\) で表す。</li>
+        <li>方程式：指数を等しいとおく。</li>
+        <li>不等式：\(a\gt1\) ならそのまま、\(0\lt a\lt1\) なら<b>向きを逆に</b>して指数を比べる（迷ったら底を1より大きくそろえ直す）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>指数関数の単調性：\(a\gt1\) のとき \(a^p\lt a^q\iff p\lt q\)</dd>
+      <dt>なぜこの方法？</dt><dd>単調な関数は「1対1」なので、値が等しい ⇔ 中身が等しい、値の大小 ⇔ 中身の大小（減少なら逆）が言える。底を1より大きいものにそろえれば向きのミスがなくなる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(4^{x+1}=8^x\)　(2) \(\left(\frac13\right)^{2x-1}\gt 27\) を解け。</div>
+      <p>(1) \(2^{2(x+1)}=2^{3x}\) より \(2x+2=3x\)。<span class="answer">\(x=2\)</span></p>
+      <p>(2) \(\left(\frac13\right)^{2x-1}=3^{-(2x-1)}\)、\(27=3^3\)。底 \(3\gt1\) なので \(-(2x-1)\gt3\)、\(-2x\gt2\)。<span class="answer">\(x\lt-1\)</span></p>
+      <p class="point">(2) を底 \(\frac13\) のまま解くなら \(27=\left(\frac13\right)^{-3}\) で、底が1未満なので \(2x-1\lt-3\)。どちらでも同じ答えになることを確かめよう。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="exp-p3" data-level="2">
+    <h3><span class="pid">P3</span>\(t=a^x\) と置き換える（方程式・不等式・最大最小）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(4^x-3\cdot2^{x+1}+8\lt0\) を解け」「\(y=4^x-2^{x+2}+5\ (-1\le x\le2)\) の最大値・最小値」</dd>
+      <dt>こう考える</dt><dd>\(4^x=(2^x)^2\)、\(2^{x+1}=2\cdot2^x\) なので、\(2^x\) を1つのカタマリとみれば<b>2次式</b>。ただし \(t=2^x\) は<b>必ず正</b>で、\(x\) の範囲があれば \(t\) の範囲も変わる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(t=2^x\) とおき、<b>\(t\) の範囲</b>を書く（\(x\) が全実数なら \(t\gt0\)、\(-1\le x\le2\) なら \(\frac12\le t\le4\)）。</li>
+        <li>\(t\) の2次方程式・不等式・2次関数として処理する。</li>
+        <li>\(t\) の答えを \(x\) に戻す（\(2^x=t\iff x=\log_2 t\)）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(a^{2x}=(a^x)^2\)、\(a^{x+k}=a^k\cdot a^x\)、平方完成</dd>
+      <dt>なぜこの方法？</dt><dd>次数を下げて「知っている2次関数」に帰着させる。\(t\) が全実数を動けないことが、2次関数の定義域の問題（<a href="m1-quadratic.html">2次関数</a> P8）とまったく同じ構造を生む。<a href="../thinking.html#t-subst">発想：置き換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 不等式 \(4^x-3\cdot2^{x+1}+8\lt0\) を解け。<br>(2) \(y=4^x-2^{x+2}+5\ (-1\le x\le2)\) の最大値と最小値を求めよ。</div>
+      <p>(1) \(t=2^x\ (t\gt0)\) とおくと \(t^2-6t+8\lt0\)、\((t-2)(t-4)\lt0\) より \(2\lt t\lt4\)（これは \(t\gt0\) を満たす）。\(2^1\lt2^x\lt2^2\)、底 \(2\gt1\) なので <span class="answer">\(1\lt x\lt2\)</span></p>
+      <p>(2) \(t=2^x\) とおくと、\(-1\le x\le2\) より \(\frac12\le t\le4\)。</p>
+      <p>\(y=t^2-4t+5=(t-2)^2+1\)。軸 \(t=2\) は範囲内。端点では \(t=\frac12\) で \(\frac{13}{4}\)、\(t=4\) で \(5\)。</p>
+      <p class="answer">最大値 5（\(t=4\)、すなわち \(x=2\)）、最小値 1（\(t=2\)、すなわち \(x=1\)）</p>
+      <p class="point">答えは \(t\) ではなく \(x\) の値で書く。最大値をとる \(x\) を書き忘れると減点される。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="exp-p4" data-level="2">
+    <h3><span class="pid">P4</span>\(a^x+a^{-x}\) の置き換え</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(2^x+2^{-x}=\frac52\) を解け」「\(4^x+4^{-x}-2(2^x+2^{-x})+3\) の最小値」</dd>
+      <dt>こう考える</dt><dd>\(x\) を \(-x\) にしても式が変わらない（対称）。対称なカタマリ \(t=a^x+a^{-x}\) で表せる。\(a^{2x}+a^{-2x}=t^2-2\) となるのがポイント。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(t=a^x+a^{-x}\) とおく。相加平均・相乗平均の関係より \(t\ge2\sqrt{a^x\cdot a^{-x}}=2\)（等号は \(x=0\)）。</li>
+        <li>\(a^{2x}+a^{-2x}=(a^x+a^{-x})^2-2=t^2-2\) で書き直す。</li>
+        <li>\(t\ge2\) で2次関数を処理し、\(x\) に戻す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>相加平均・相乗平均の関係、\(p^2+q^2=(p+q)^2-2pq\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(a^x\cdot a^{-x}=1\)（積が一定）だから、和 \(t\) で2乗の和も表せる。対称な式は対称なカタマリで書くと必ず次数が下がる。<a href="../thinking.html#t-symmetry">発想：対称性を使う</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 方程式 \(2^x+2^{-x}=\frac52\) を解け。<br>(2) \(y=4^x+4^{-x}-2(2^x+2^{-x})+3\) の最小値と、そのときの \(x\) を求めよ。</div>
+      <p>(1) \(u=2^x\ (u\gt0)\) とおくと \(u+\frac1u=\frac52\)。両辺に \(2u\) をかけて \(2u^2-5u+2=0\)、\((2u-1)(u-2)=0\)。\(u=\frac12,\ 2\) はともに正。<span class="answer">\(x=-1,\ 1\)</span></p>
+      <p>(2) \(t=2^x+2^{-x}\) とおくと、\(2^x\gt0,\ 2^{-x}\gt0\) より \(t\ge2\sqrt{2^x\cdot2^{-x}}=2\)（等号は \(2^x=2^{-x}\)、すなわち \(x=0\)）。</p>
+      <p>\(4^x+4^{-x}=t^2-2\) より \(y=t^2-2-2t+3=(t-1)^2\)。\(t\ge2\) で増加なので \(t=2\) で最小。</p>
+      <p class="answer">最小値 1（\(x=0\)）</p>
+      <p class="point">(1) から分かるように、\(t\gt2\) の値1つに \(x\) は2つ（\(\pm\)の組）対応し、\(t=2\) には \(x=0\) の1つだけが対応する。解の個数を問われたらここが核心（<a href="#exp-h3">演3</a>）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="exp-p5" data-level="1">
+    <h3><span class="pid">P5</span>対数の定義と性質を使った計算</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(2\log_2\sqrt{12}-\log_2\frac32\) を計算せよ」「\(\log_x 8=\frac32\) を満たす \(x\)」</dd>
+      <dt>こう考える</dt><dd>係数は真数の指数へ、和は積へ、差は商へ。<b>最終的に \(\log_a(\text{1つの数})\)</b> にまとめれば値が出る。定義の問題は「\(\log\) を外して指数の式」に戻す。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>係数 \(r\) を \(\log_a M^r\) として真数に入れる。</li>
+        <li>和・差を積・商にまとめる。</li>
+        <li>真数が \(a^{\square}\) になれば値が出る。定義の問題は \(\log_a M=p\iff a^p=M\) で書き直す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\log_a MN=\log_aM+\log_aN\)、\(\log_a M^r=r\log_aM\)、\(\log_a a=1\)、\(\log_a1=0\)</dd>
+      <dt>なぜこの方法？</dt><dd>対数は「\(a\) を何乗すると \(M\) になるか」を表す数。真数を1つにまとめれば、その問いに直接答えられる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\log_3 18-\log_3 2\)　(2) \(2\log_2\sqrt{12}-\log_2\frac32\)　(3) \(\log_x 8=\frac32\) を満たす \(x\) を求めよ。</div>
+      <p>(1) \(\log_3\frac{18}{2}=\log_3 9=2\)。<span class="answer">2</span></p>
+      <p>(2) \(2\log_2\sqrt{12}=\log_2 12\)。よって \(\log_2\left(12\div\frac32\right)=\log_2 8=3\)。<span class="answer">3</span></p>
+      <p>(3) 底の条件 \(x\gt0,\ x\ne1\)。定義より \(x^{\frac32}=8=2^3\)。両辺を \(\frac23\) 乗して \(x=2^2=4\)（条件を満たす）。<span class="answer">\(x=4\)</span></p>
+      <p class="point">\(\log_a M+\log_a N=\log_a(M+N)\) は誤り。「和は積」が正しい。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="exp-p6" data-level="1">
+    <h3><span class="pid">P6</span>底の変換公式</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\log_2 3\cdot\log_3 5\cdot\log_5 8\) の値」「\(\log_2 3=a,\ \log_3 5=b\) のとき \(\log_{15}40\) を \(a,b\) で表せ」</dd>
+      <dt>こう考える</dt><dd>底がばらばらだと性質が使えない。<b>1つの底（多くは2か10）にそろえる</b>。与えられた \(a,b\) の底に合わせるのが基本。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>そろえる底 \(c\) を決める（問題に出てくる一番小さい素数が無難）。</li>
+        <li>\(\log_a b=\dfrac{\log_c b}{\log_c a}\) ですべて書き直す。</li>
+        <li>\(\log_2 5=\log_2 3\cdot\log_3 5=ab\) のように、与えられた量の積・和で表す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>底の変換公式、\(\log_a b\cdot\log_b c=\log_a c\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(\log_a b\cdot\log_b c=\dfrac{\log b}{\log a}\cdot\dfrac{\log c}{\log b}\) と分母分子が「鎖のように」消える。底をそろえるとこの消え方が見える。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\log_2 3\cdot\log_3 5\cdot\log_5 8\) の値を求めよ。<br>(2) \(\log_2 3=a,\ \log_3 5=b\) のとき、\(\log_{15}40\) を \(a,b\) で表せ。</div>
+      <p>(1) 底を2にそろえると \(\log_23\cdot\dfrac{\log_25}{\log_23}\cdot\dfrac{\log_28}{\log_25}=\log_2 8=3\)。<span class="answer">3</span></p>
+      <p>(2) 底を2にそろえる。\(\log_2 5=\log_2 3\cdot\log_3 5=ab\)。</p>
+      \[ \log_{15}40=\frac{\log_2 40}{\log_2 15}=\frac{\log_2 8+\log_2 5}{\log_2 3+\log_2 5}=\frac{3+ab}{a+ab} \]
+      <p class="answer">\(\log_{15}40=\dfrac{ab+3}{a(b+1)}\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="exp-p7" data-level="2">
+    <h3><span class="pid">P7</span>対数方程式（真数条件を最初に）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\log_2(x-1)+\log_2(x+2)=2\) を解け」「\(\log_4(x+6)=\log_2 x\) を解け」</dd>
+      <dt>こう考える</dt><dd>変形の途中で \(\log_2(x-1)+\log_2(x+2)=\log_2(x-1)(x+2)\) とまとめると、<b>もとの式より \(x\) の範囲が広がる</b>（両方負でも積は正）。だから<b>真数条件を最初に書き、最後に照らし合わせる</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>真数条件（すべての真数 \(\gt0\)、底に文字があれば底 \(\gt0,\ \ne1\)）を書く。</li>
+        <li>底をそろえ、\(\log_a(\ \cdot\ )=\log_a(\ \cdot\ )\) の形にまとめる。</li>
+        <li>真数を等しいとおいて解き、真数条件を満たすものだけ残す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>対数の性質、底の変換（\(\log_4 M=\frac{\log_2M}{2}\)）</dd>
+      <dt>なぜこの方法？</dt><dd>対数の変形は「真数が正」という前提のもとでだけ同値。前提を最初に固定しておけば、出てきた解から不適なものを機械的にはじける。<a href="../thinking.html#t-rephrase">発想：同値な言い換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\log_2(x-1)+\log_2(x+2)=2\)　(2) \(\log_4(x+6)=\log_2 x\) を解け。</div>
+      <p>(1) 真数条件：\(x-1\gt0\) かつ \(x+2\gt0\) より \(x\gt1\)。</p>
+      <p>\(\log_2(x-1)(x+2)=\log_2 4\) より \((x-1)(x+2)=4\)、\(x^2+x-6=0\)、\((x+3)(x-2)=0\)。\(x\gt1\) より <span class="answer">\(x=2\)</span></p>
+      <p>(2) 真数条件：\(x+6\gt0\) かつ \(x\gt0\) より \(x\gt0\)。</p>
+      <p>\(\log_4(x+6)=\dfrac{\log_2(x+6)}{2}\) なので \(\log_2(x+6)=2\log_2x=\log_2x^2\)。\(x+6=x^2\)、\((x-3)(x+2)=0\)。\(x\gt0\) より <span class="answer">\(x=3\)</span></p>
+      <p class="point">(1) で \(x=-3\) を残すと誤答。\(x=-3\) では \(\log_2(-4)\) が定義されない。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="exp-p8" data-level="2">
+    <h3><span class="pid">P8</span>対数不等式（底の大小で向きが決まる）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\log_{\frac12}(x-1)+\log_{\frac12}(x-2)\ge-1\) を解け」「\(\log_a x\gt\log_a 3\)（\(a\) は定数）」</dd>
+      <dt>こう考える</dt><dd>方程式と同じく真数条件が最優先。さらに、<b>底が1未満なら不等号の向きが逆</b>になる。底が文字 \(a\) なら \(a\gt1\) と \(0\lt a\lt1\) で場合分けする。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>真数条件を書く。</li>
+        <li>右辺の数も同じ底の \(\log\) で表す（\(-1=\log_{\frac12}2\)）。</li>
+        <li>底 \(\gt1\) なら向きそのまま、\(0\lt\)底\(\lt1\) なら向きを逆にして真数を比べる。</li>
+        <li>真数条件との共通部分をとる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(0\lt a\lt1\) のとき \(\log_a p\ge\log_a q\iff 0\lt p\le q\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(y=\log_{\frac12}x\) は減少関数。「\(\log\) の値が大きい ⇔ 真数が小さい」となるのはグラフを見れば明らか。不安なら底の変換で底を2にして \(-\log_2\) の形にすれば向きを間違えない。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">不等式 \(\log_{\frac12}(x-1)+\log_{\frac12}(x-2)\ge-1\) を解け。</div>
+      <p>真数条件：\(x-1\gt0\) かつ \(x-2\gt0\) より \(x\gt2\)。</p>
+      <p>左辺 \(=\log_{\frac12}(x-1)(x-2)\)、右辺 \(-1=\log_{\frac12}2\)。底 \(\frac12\lt1\) なので向きが逆になり \((x-1)(x-2)\le2\)。</p>
+      <p>\(x^2-3x\le0\) より \(0\le x\le3\)。\(x\gt2\) との共通部分をとって <span class="answer">\(2\lt x\le3\)</span></p>
+      <p class="point">底が文字のとき（例：\(\log_a(x-1)\lt\log_a 2\)）は、\(a\gt1\) なら \(1\lt x\lt3\)、\(0\lt a\lt1\) なら \(x\gt3\) と答えが分かれる。<a href="../thinking.html#t-casework">発想：場合分け</a></p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="exp-p9" data-level="2">
+    <h3><span class="pid">P9</span>\(t=\log_a x\) と置き換える最大・最小</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(y=\left(\log_2\frac x4\right)(\log_2 2x)\ (1\le x\le16)\) の最大値・最小値」「\((\log_3 x)^2-\log_3 x^4\) を含む方程式」</dd>
+      <dt>こう考える</dt><dd>\(\log_2\frac x4=\log_2x-2\)、\(\log_2 2x=\log_2x+1\) のように、<b>すべて \(\log_2 x\) の式</b>に分解できる。\(t=\log_2 x\) とおけば2次関数。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>真数を分解して \(\log_a x\) の多項式にする。</li>
+        <li>\(t=\log_a x\) とおき、\(x\) の範囲から \(t\) の範囲を求める（\(1\le x\le16\) なら \(0\le t\le4\)）。</li>
+        <li>2次関数の最大最小を求め、\(x=a^t\) で戻す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>対数の性質、平方完成、対数関数の単調性</dd>
+      <dt>なぜこの方法？</dt><dd>\(t=a^x\)（P3）の逆向き版。\(\log_a x\) は全実数を動くが、\(x\) に範囲があれば \(t\) にも範囲がつく。構造は<a href="m1-quadratic.html">2次関数</a>の「定義域つきの最大最小」と同じ。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(y=\left(\log_2\dfrac x4\right)(\log_2 2x)\ \ (1\le x\le16)\) の最大値と最小値を求めよ。</div>
+      <p>\(t=\log_2 x\) とおくと、\(1\le x\le16\) より \(0\le t\le4\)。</p>
+      <p>\(y=(t-2)(t+1)=t^2-t-2=\left(t-\frac12\right)^2-\frac94\)。</p>
+      <p>軸 \(t=\frac12\) は範囲内で、\(t=\frac12\) のとき \(y=-\frac94\)。端点は \(t=0\) で \(-2\)、\(t=4\) で \(10\)。</p>
+      <p class="answer">最大値 10（\(x=16\)）、最小値 \(-\frac94\)（\(x=2^{\frac12}=\sqrt2\)）</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="exp-p10" data-level="2">
+    <h3><span class="pid">P10</span>大小比較（底をそろえる・何乗かする・中間値をはさむ）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\sqrt2,\ \sqrt[3]3,\ \sqrt[6]6\) の大小」「\(\log_2 3,\ \log_4 10,\ \frac32\) を小さい順に」「\(\log_2 3\) と \(\log_3 5\) の大小」</dd>
+      <dt>こう考える</dt><dd>3つの武器を使い分ける。
+        <ul>
+          <li><b>累乗根どうし</b> → 根号が消えるまで<b>何乗かする</b>（指数の分母の最小公倍数）。</li>
+          <li><b>底をそろえられる対数</b> → 底をそろえて<b>真数を比べる</b>。</li>
+          <li><b>底がそろわない対数</b> → \(1,\ \frac32,\ 2\) などの<b>中間値をはさんで</b>比べる。</li>
+        </ul></dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>まず電卓なしでおよその値を見積もり（\(\log_2 3\approx1.58\) など）、はさめそうな値を探す。</li>
+        <li>正の数どうしなら「\(p\lt q\iff p^n\lt q^n\)」で累乗して比べる。</li>
+        <li>\(\log_a b\gt\frac32\iff b\gt a^{\frac32}\iff b^2\gt a^3\)（\(a\gt1\)）のように整数の比較に直す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>指数・対数関数の単調性、\(x^n\) の単調性（\(x\gt0\)）</dd>
+      <dt>なぜこの方法？</dt><dd>単調関数を両辺にほどこしても大小は保たれる。\(\log_2 3\) と \(\log_3 5\) は直接比べられないが、\(\frac32\) という「ものさし」をはさめば、それぞれ<b>整数どうしの比較（\(9\) と \(8\)、\(25\) と \(27\)）</b>になる。<a href="../thinking.html#t-bound">発想：不等式で評価する</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\sqrt2,\ \sqrt[3]3,\ \sqrt[6]6\) を小さい順に並べよ。<br>(2) \(a=\log_2 3,\ b=\log_4 10,\ c=\frac32\) を小さい順に並べよ。<br>(3) \(\log_2 3\) と \(\log_3 5\) の大小を比較せよ。</div>
+      <p>(1) すべて正なので6乗して比べる。\((\sqrt2)^6=8,\ (\sqrt[3]3)^6=9,\ (\sqrt[6]6)^6=6\)。<span class="answer">\(\sqrt[6]6\lt\sqrt2\lt\sqrt[3]3\)</span></p>
+      <p>(2) 底を2にそろえる。\(b=\dfrac{\log_2 10}{2}=\log_2\sqrt{10}\)、\(c=\log_2 2^{\frac32}=\log_2\sqrt8\)、\(a=\log_2\sqrt9\)。真数 \(\sqrt8\lt\sqrt9\lt\sqrt{10}\) で底 \(2\gt1\) なので <span class="answer">\(c\lt a\lt b\)</span></p>
+      <p>(3) \(\frac32\) と比べる。\(2\log_2 3=\log_2 9\gt\log_2 8=3\) より \(\log_2 3\gt\frac32\)。</p>
+      <p>\(2\log_3 5=\log_3 25\lt\log_3 27=3\) より \(\log_3 5\lt\frac32\)。</p>
+      <p class="answer">\(\log_3 5\lt\log_2 3\)</p>
+      <p class="point">(3) の「\(\frac32\)」は、およその値 \(\log_2 3\approx1.58\)、\(\log_3 5\approx1.46\) の間にある簡単な分数として選んだ。はさむ値は「2乗・3乗で整数比較になる分数」を選ぶ。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="exp-p11" data-level="1">
+    <h3><span class="pid">P11</span>桁数・小数首位（常用対数）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(6^{50}\) は何桁の整数か」「\(\left(\frac13\right)^{20}\) は小数第何位に初めて0でない数字が現れるか」（\(\log_{10}2=0.3010\) などが与えられる）</dd>
+      <dt>こう考える</dt><dd>\(N\) が \(k\) 桁 \(\iff10^{k-1}\le N\lt10^k\)。両辺の常用対数をとれば <b>\(\log_{10}N\) の整数部分</b>で桁数が決まる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\log_{10}N\) を与えられた値で計算する（\(6=2\cdot3\) と素因数分解）。</li>
+        <li>\(k-1\le\log_{10}N\lt k\) となる整数 \(k\) を見つける → \(k\) 桁。</li>
+        <li>\(N\lt1\) なら \(-k\le\log_{10}N\lt-k+1\) となる \(k\) → 小数第 \(k\) 位。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\log_{10}N^n=n\log_{10}N\)、\(\log_{10}10^k=k\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(10^{38}\) は39桁（1の後に0が38個）。「10の何乗の間にあるか」が桁数そのものなので、指数を取り出す \(\log_{10}\) が最適な道具になる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\log_{10}2=0.3010,\ \log_{10}3=0.4771\) とする。<br>(1) \(6^{50}\) は何桁の整数か。<br>(2) \(\left(\frac13\right)^{20}\) を小数で表すと、小数第何位に初めて0でない数字が現れるか。</div>
+      <p>(1) \(\log_{10}6^{50}=50(\log_{10}2+\log_{10}3)=50\times0.7781=38.905\)。</p>
+      <p>\(38\le38.905\lt39\) より \(10^{38}\le6^{50}\lt10^{39}\)。<span class="answer">39桁</span></p>
+      <p>(2) \(\log_{10}\left(\frac13\right)^{20}=-20\times0.4771=-9.542\)。</p>
+      <p>\(-10\le-9.542\lt-9\) より \(10^{-10}\le\left(\frac13\right)^{20}\lt10^{-9}\)。<span class="answer">小数第10位</span></p>
+      <p class="point">(2) で「\(-9.542\) だから第9位」とするのは典型的な誤り。\(10^{-9}=0.000000001\) は第9位が1。それより小さいので第10位から始まる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="exp-p12" data-level="2">
+    <h3><span class="pid">P12</span>最高位の数字・「\(n\) 桁になる \(n\)」</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(6^{50}\) の最高位の数字を求めよ」「\(2^n\) が20桁の数となる自然数 \(n\) をすべて求めよ」</dd>
+      <dt>こう考える</dt><dd>\(\log_{10}N=k+\alpha\)（\(k\) は整数、\(0\le\alpha\lt1\)）なら \(N=10^{\alpha}\times10^k\)。<b>最高位の数字は \(10^\alpha\) の整数部分</b>で決まる。\(\alpha\) を \(\log_{10}1,\log_{10}2,\dots,\log_{10}9\) と比べる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\log_{10}N\) の小数部分 \(\alpha\) を求める。</li>
+        <li>\(\log_{10}m\le\alpha\lt\log_{10}(m+1)\) となる \(m\) を探す（\(\log_{10}4=0.6020,\ \log_{10}5=1-\log_{10}2=0.6990,\ \log_{10}6=0.7781\) などを準備）。</li>
+        <li>「\(n\) 桁になる \(n\)」は \(k-1\le n\log_{10}2\lt k\) を \(n\) について解く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\log_{10}5=1-\log_{10}2\)、\(\log_{10}8=3\log_{10}2\)、\(\log_{10}9=2\log_{10}3\)</dd>
+      <dt>なぜこの方法？</dt><dd>桁数は \(\log\) の整数部分、最高位は小数部分が担当している。\(10^\alpha\) は1以上10未満の数で、それが \(m\) と \(m+1\) の間にあれば先頭は \(m\)。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\log_{10}2=0.3010,\ \log_{10}3=0.4771\) とする。<br>(1) \(6^{50}\) の最高位の数字を求めよ。<br>(2) \(2^n\) が20桁の数となるような自然数 \(n\) をすべて求めよ。</div>
+      <p>(1) P11 より \(\log_{10}6^{50}=38.905\)、小数部分は \(0.905\)。</p>
+      <p>\(\log_{10}8=3\times0.3010=0.9030\)、\(\log_{10}9=2\times0.4771=0.9542\) なので \(\log_{10}8\lt0.905\lt\log_{10}9\)。</p>
+      <p>よって \(8\times10^{38}\lt6^{50}\lt9\times10^{38}\)。<span class="answer">最高位の数字は 8</span></p>
+      <p>(2) 20桁 \(\iff19\le n\log_{10}2\lt20\iff\dfrac{19}{0.3010}\le n\lt\dfrac{20}{0.3010}\)。</p>
+      <p>\(\frac{19}{0.3010}=63.12\cdots,\ \frac{20}{0.3010}=66.44\cdots\)。<span class="answer">\(n=64,\ 65,\ 66\)</span></p>
+      <p class="point">近似値を使っているので、境目ぎりぎり（例えば \(n\log_{10}2\) がちょうど整数に近い）ときは注意。ここでは境目から十分離れているので問題ない。実際 \(2^{63}\approx9.2\times10^{18}\)（19桁）、\(2^{67}\approx1.5\times10^{20}\)（21桁）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="exp-p13" data-level="3">
+    <h3><span class="pid">P13</span>\(\log\) の値が無理数であることの証明</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\log_2 3\) は無理数であることを証明せよ」「\(\log_{10}2\) が無理数であることを示せ」</dd>
+      <dt>こう考える</dt><dd>「無理数である」＝「有理数でない」という<b>否定の形</b>の主張なので、背理法。有理数 \(\frac mn\) と仮定すると、対数を外して<b>整数の等式 \(2^m=3^n\)</b> が得られ、素因数（偶奇）で矛盾が出る。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\log_2 3\gt0\) を確認し、\(\log_2 3=\frac mn\)（\(m,n\) は正の整数）と仮定する。</li>
+        <li>定義より \(2^{\frac mn}=3\)。両辺を \(n\) 乗して \(2^m=3^n\)。</li>
+        <li>左辺は偶数、右辺は奇数で矛盾。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>背理法、素因数分解の一意性（偶奇）</dd>
+      <dt>なぜこの方法？</dt><dd>無理数は「分数で書けない」としか定義されていないので、直接は示しようがない。仮定すると「整数の世界」に持ち込めて、偶奇・素因数という強力な道具が使える。<a href="../thinking.html#t-contradiction">発想：背理法</a>、<a href="../thinking.html#t-mod">発想：偶奇で分類</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\log_2 3\) が無理数であることを証明せよ。</div>
+      <p>\(3\gt1\) より \(\log_2 3\gt\log_2 1=0\)。\(\log_2 3\) が有理数であると仮定すると、正の整数 \(m,n\) を用いて \(\log_2 3=\dfrac mn\) と表せる。</p>
+      <p>対数の定義より \(2^{\frac mn}=3\)。両辺を \(n\) 乗すると \(2^m=3^n\)。</p>
+      <p>\(m\ge1\) より左辺は偶数、右辺は奇数の積なので奇数。これは矛盾である。</p>
+      <p class="answer">よって \(\log_2 3\) は無理数である。（証明終）</p>
+      <p class="point">「\(m,n\) は正の整数」と言うために \(\log_2 3\gt0\) を先に示すのが採点ポイント。符号を確認しないと \(m\) が負の場合（\(2^m\) が分数）を論じ残す。\(\log_{10}2\) なら \(10^m=2^n\) から \(5^m=2^{n-m}\)（\(n\gt m\)）で「5の倍数と2のべき」の矛盾になる（<a href="ma-integer.html">整数の性質</a>）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="exp-p14" data-level="2">
+    <h3><span class="pid">P14</span>指数・対数の最大最小（相加相乗平均との組合せ）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(2^x+2^{2-x}\) の最小値」「\(x\gt1\) のとき \(\log_2 x+\log_x 16\) の最小値」</dd>
+      <dt>こう考える</dt><dd>\(2^x\cdot2^{2-x}=4\)、\(\log_2x\cdot\log_x16=4\) のように、<b>2つの正の項の積が一定</b>になっている。積一定なら和の最小は相加相乗平均で一発。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>2つの項が正であることを確認する（対数なら \(x\gt1\) などの条件から）。</li>
+        <li>\(A+B\ge2\sqrt{AB}\) を使い、\(AB\) が定数になることを確認。</li>
+        <li><b>等号が成り立つ \(x\) が存在することを示す</b>（これがないと最小値とは言えない）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>相加平均・相乗平均の関係（<a href="m2-proof.html">式と証明</a>）、底の変換 \(\log_x16=\frac{4}{\log_2x}\)</dd>
+      <dt>なぜこの方法？</dt><dd>積が一定の2数は「等しいとき和が最小」。2次関数に直す（\(t=2^x\) で \(t+\frac4t\)）と分数関数になり微分が必要だが、相加相乗なら1行で済む。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(y=2^x+2^{2-x}\) の最小値を求めよ。<br>(2) \(x\gt1\) のとき、\(y=\log_2x+\log_x16\) の最小値を求めよ。</div>
+      <p>(1) \(2^x\gt0,\ 2^{2-x}\gt0\) なので \(y\ge2\sqrt{2^x\cdot2^{2-x}}=2\sqrt4=4\)。</p>
+      <p>等号は \(2^x=2^{2-x}\)、すなわち \(x=2-x\)、\(x=1\) のとき成立。<span class="answer">最小値 4（\(x=1\)）</span></p>
+      <p>(2) \(t=\log_2x\) とおくと、\(x\gt1\) より \(t\gt0\)。\(\log_x16=\dfrac{\log_216}{\log_2x}=\dfrac4t\)。</p>
+      <p>\(y=t+\dfrac4t\ge2\sqrt{t\cdot\dfrac4t}=4\)。等号は \(t=\dfrac4t\)、\(t=2\)（\(t\gt0\)）、すなわち \(x=4\) で成立。<span class="answer">最小値 4（\(x=4\)）</span></p>
+      <p class="point">\(0\lt x\lt1\) だと \(t\lt0\) で相加相乗は使えない（このとき \(y\le-4\)）。「正であること」の確認を省かない。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="exp-p15" data-level="3">
+    <h3><span class="pid">P15</span>対数を含む2変数の最大最小</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x\ge1,\ y\ge1,\ x^2y=16\) のとき \((\log_2x)(\log_2y)\) の最大値・最小値」</dd>
+      <dt>こう考える</dt><dd>条件式 \(x^2y=16\) は積の形。<b>両辺の対数をとれば和（1次式）</b>になる：\(2X+Y=4\)（\(X=\log_2x,\ Y=\log_2y\)）。あとは<a href="m1-quadratic.html">2次関数</a>の「条件式つき2変数」と同じ。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(X=\log_2x,\ Y=\log_2y\) とおく。条件 \(x\ge1,\ y\ge1\) は \(X\ge0,\ Y\ge0\) になる。</li>
+        <li>条件式の \(\log_2\) をとり \(2X+Y=4\)。\(Y=4-2X\) を代入し、\(Y\ge0\) を \(X\) の範囲に引き継ぐ（\(0\le X\le2\)）。</li>
+        <li>\(X\) の2次関数として最大最小を求め、\(x,y\) に戻す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\log_2 x^2y=2\log_2x+\log_2y\)、平方完成</dd>
+      <dt>なぜこの方法？</dt><dd>対数は「積を和に、累乗を係数に」変える道具。積の条件は対数をとると1次の条件になり、1文字消去がしやすい。消した文字の範囲を引き継ぐのを忘れないこと。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(x\ge1,\ y\ge1,\ x^2y=16\) のとき、\(P=(\log_2x)(\log_2y)\) の最大値と最小値を求めよ。</div>
+      <p>\(X=\log_2x,\ Y=\log_2y\) とおくと \(X\ge0,\ Y\ge0\)。条件式の両辺の \(\log_2\) をとって \(2X+Y=4\)。</p>
+      <p>\(Y=4-2X\ge0\) より \(0\le X\le2\)。</p>
+      <p>\(P=X(4-2X)=-2X^2+4X=-2(X-1)^2+2\ \ (0\le X\le2)\)。</p>
+      <p>\(X=1\) で最大値 2。このとき \(Y=2\)、\(x=2,\ y=4\)。\(X=0,\ 2\) で最小値 0。このとき \((x,y)=(1,16),\ (4,1)\)。</p>
+      <p class="answer">最大値 2（\(x=2,\ y=4\)）、最小値 0（\((x,y)=(1,16),\ (4,1)\)）</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="exp-p16" data-level="3">
+    <h3><span class="pid">P16</span>\(\log_2 3\) の評価（整数の大小に直してはさむ）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\frac32\lt\log_23\lt\frac85\) を示せ」「\(\log_{10}2\) の値を用いずに \(2^{100}\) の桁数を求めよ」</dd>
+      <dt>こう考える</dt><dd>\(\log_2 3\lt\frac85\iff5\log_23\lt8\iff3^5\lt2^8\)。<b>分母を払うと「整数の累乗どうしの比較」</b>になり、計算すれば白黒がつく。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>示したい不等式 \(\log_a b\lt\frac qp\) を \(b^p\lt a^q\) に同値変形する（\(a\gt1\)）。</li>
+        <li>両辺を計算して比較（\(3^5=243\lt256=2^8\)）。</li>
+        <li>逆向きに書き直して答案にする（「\(3^5\lt2^8\) より両辺の \(\log_2\) をとって…」）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>対数関数の単調性、\(2^{10}=1024\)、\(3^5=243\) などの数値</dd>
+      <dt>なぜこの方法？</dt><dd>\(\log\) の値そのものは無理数（P13）で正確には書けないが、<b>有理数ではさむ</b>ことはできる。はさむ有理数 \(\frac qp\) は「\(a^q\) と \(b^p\) が近い」組から見つかる（\(2^8=256\) と \(3^5=243\)）。<a href="../thinking.html#t-bound">発想：はさみうち</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\dfrac32\lt\log_23\lt\dfrac85\) を示せ。<br>(2) \(2^{10}=1024,\ 2^{13}=8192\) を用いて \(\dfrac{3}{10}\lt\log_{10}2\lt\dfrac4{13}\) を示し、\(2^{100}\) の桁数を求めよ。</div>
+      <p>(1) \(2^3=8\lt9=3^2\)。両辺の \(\log_2\) をとると \(3\lt2\log_23\)、よって \(\frac32\lt\log_23\)。</p>
+      <p>\(3^5=243\lt256=2^8\)。両辺の \(\log_2\) をとると \(5\log_23\lt8\)、よって \(\log_23\lt\frac85\)。（証明終）</p>
+      <p>(2) \(2^{10}=1024\gt10^3\) より \(10\log_{10}2\gt3\)、\(\log_{10}2\gt\frac{3}{10}\)。\(2^{13}=8192\lt10^4\) より \(13\log_{10}2\lt4\)、\(\log_{10}2\lt\frac4{13}\)。</p>
+      <p>よって \(30\lt100\log_{10}2\lt\frac{400}{13}=30.76\cdots\lt31\)。\(10^{30}\lt2^{100}\lt10^{31}\) なので <span class="answer">31桁</span></p>
+      <p class="point">(2) では \(\log_{10}2=0.3010\) を使わずに、粗い評価だけで桁数が確定する。評価は「答えが決まる精度」まであれば十分。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="exp-p17" data-level="3">
+    <h3><span class="pid">P17</span>指数方程式の実数解の個数（\(t\) と \(x\) の対応）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(4^x-a\cdot2^{x+1}+a+2=0\) が異なる2つの実数解をもつ \(a\) の範囲」「ただ1つの実数解をもつ条件」</dd>
+      <dt>こう考える</dt><dd>\(t=2^x\) は \(x\) と \(t\ (t\gt0)\) が<b>1対1に対応</b>する。だから「\(x\) の解の個数」＝「\(t\) の方程式の<b>正の</b>解の個数」。あとは2次方程式の解の配置。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(t=2^x\) とおき、「\(t\) の2次方程式 \(f(t)=0\) が正の解を何個もつか」に言い換える。</li>
+        <li>判別式・軸・\(f(0)\) の符号で解の配置を調べる（<a href="m1-quadratic.html">2次関数</a> P10）。</li>
+        <li>「ただ1つ」は〈重解が正〉〈正と負に1つずつ〉〈0と正〉を漏れなく調べる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>解の配置（判別式・軸・端点）</dd>
+      <dt>なぜこの方法？</dt><dd>置き換えたら「\(t\) の解1個に \(x\) の解が何個対応するか」を必ず確認する。\(t=2^x\) なら1対1だが、\(t=2^x+2^{-x}\) なら \(t\gt2\) に2個、\(t=2\) に1個（<a href="#exp-h3">演3</a>）。<a href="../thinking.html#t-rephrase">発想：同値な言い換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(x\) の方程式 \(4^x-a\cdot2^{x+1}+a+2=0\) について、<br>(1) 異なる2つの実数解をもつような \(a\) の範囲を求めよ。<br>(2) ただ1つの実数解をもつような \(a\) の範囲を求めよ。</div>
+      <p>\(t=2^x\) とおくと \(t\gt0\) で、\(x\) と \(t\) は1対1に対応する。方程式は \(f(t)=t^2-2at+a+2=0\)。</p>
+      <p>(1) \(f(t)=0\) が異なる2つの正の解をもつ条件：</p>
+      <ul>
+        <li>\(D/4=a^2-a-2=(a-2)(a+1)\gt0\) より \(a\lt-1,\ a\gt2\)</li>
+        <li>軸 \(t=a\gt0\)</li>
+        <li>\(f(0)=a+2\gt0\) より \(a\gt-2\)</li>
+      </ul>
+      <p class="answer">(1) \(a\gt2\)</p>
+      <p>(2) \(f(t)=0\) の正の解がちょうど1個になる場合：</p>
+      <ul>
+        <li>正の重解：\(D=0\) より \(a=2\) または \(a=-1\)。重解は \(t=a\) なので \(a=2\)（\(t=2\)）のみ適する。</li>
+        <li>正の解と負の解を1つずつ：\(f(0)\lt0\) より \(a\lt-2\)。</li>
+        <li>0と正の解：\(f(0)=0\) より \(a=-2\)。このとき \(t^2+4t=0\)、\(t=0,-4\) で正の解はないので不適。</li>
+      </ul>
+      <p class="answer">(2) \(a\lt-2,\ a=2\)</p>
+      <p class="point">(2) で「0を解にもつ場合」を調べ忘れる答案が多い。境界 \(f(0)=0\) は必ず個別に代入して確かめる。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="pitfalls">
+  <h2>よくあるミスと対策</h2>
+  <ul class="pitfalls">
+    <li><b>\(t=a^x\) とおいて \(t\gt0\) を書かない</b>（P3, P17）。→ 置き換えた次の行に必ず「\(t\) の範囲」を書く。負の \(t\) の解を拾うと誤答になる。</li>
+    <li><b>真数条件を最後に考える／忘れる</b>（P7, P8）。→ 対数の式を見たら、変形を始める前に真数条件を書く。</li>
+    <li><b>底が1未満の不等式で向きを逆にし忘れる</b>（P2, P8）。→ 不安なら底を2や3など1より大きい数にそろえ直してから比べる。</li>
+    <li><b>\(\log_a(M+N)=\log_aM+\log_aN\) としてしまう</b>（P5）。→ 対数の性質は「積 ↔ 和」。和の対数は分解できない。</li>
+    <li><b>小数首位を1つずらす</b>（P11）。→ \(10^{-k}\le N\lt10^{-k+1}\) なら第 \(k\) 位。\(10^{-1}=0.1\) で確かめる。</li>
+    <li><b>相加相乗平均で等号成立を確認しない</b>（P4, P14）。→ 「\(\ge4\)」だけでは最小値4と言えない。等号が成り立つ \(x\) を具体的に書く。</li>
+    <li><b>\(a^x+a^{-x}\) の置き換えで、\(t\) 1つに対応する \(x\) の個数を考えない</b>（P4, 演3）。→ \(t\gt2\) なら2個、\(t=2\) なら1個。</li>
+  </ul>
+</section>
+
+<section id="handai">
+  <h2>阪大レベルへの橋渡し</h2>
+  <p>阪大理系で指数・対数が単独で大問になることは少ないが、<b>整数問題・不等式の評価・解の個数</b>の部品として頻繁に現れる。特に次の3つが答案の差になる。</p>
+  <ul>
+    <li>桁数の議論を<b>不等式 \(10^{k-1}\le N\lt10^k\) のまま扱い</b>、整数の性質と組み合わせる（演1）。</li>
+    <li>対数をとって<b>積の条件を1次（2次）の条件</b>に直し、実数条件で値域を求める（演2）。</li>
+    <li>置き換えた後の<b>「\(t\) と \(x\) の対応の個数」</b>まで数えて解の個数を答える（演3）。</li>
+  </ul>
+
+  <article class="pattern" id="exp-h1" data-level="3">
+    <h3><span class="pid">演1</span>\(2^n\) と \(5^n\) の桁数の関係</h3>
+    <div class="problem">\(n\) を正の整数とする。<br>(1) \(2^n\) の桁数を \(a\)、\(5^n\) の桁数を \(b\) とするとき、\(a+b=n+1\) であることを証明せよ。<br>(2) \(2^{100}\) が31桁であることを用いて、\(5^{100}\) の桁数を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>\(2^n\times5^n=10^n\) という関係に気づけるかが勝負。桁数の定義を不等式 \(10^{a-1}\le2^n\lt10^a\) で書き、2つの不等式を<b>かけ合わせる</b>。等号が成り立たないこと（\(2^n\) が10のべきでない）を確認するのが論証のポイント。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) 桁数の定義より \(10^{a-1}\le2^n\lt10^a,\ 10^{b-1}\le5^n\lt10^b\)。</p>
+      <p>ここで \(n\ge1\) のとき \(2^n\) は5の倍数でないので10のべき乗ではない。同様に \(5^n\) は偶数なので10のべき乗ではない。よって左側の等号は成り立たず</p>
+      \[ 10^{a-1}\lt2^n\lt10^a,\qquad 10^{b-1}\lt5^n\lt10^b \]
+      <p>辺々かけ合わせる（すべて正）と \(10^{a+b-2}\lt10^n\lt10^{a+b}\)。底 \(10\gt1\) なので \(a+b-2\lt n\lt a+b\)。</p>
+      <p>\(n\) は整数なので \(n=a+b-1\)、すなわち \(a+b=n+1\)。（証明終）</p>
+      <p>(2) (1) で \(n=100,\ a=31\) とすると \(b=101-31=70\)。<span class="answer">70桁</span></p>
+      <p class="point">採点ポイント：「等号が成り立たない理由」を書くこと。\(10^{a-1}\le\) のまま掛けると \(10^{a+b-2}\le10^n\) となり、\(n=a+b-2\) の可能性が残ってしまう。結論に必要な「厳密な不等号」を自分で確保する姿勢が阪大の論証で問われる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="exp-h2" data-level="3">
+    <h3><span class="pid">演2</span>対数の2変数条件と値域（実数条件）</h3>
+    <div class="problem">\(x\ge1,\ y\ge1\) を満たす実数 \(x,y\) が \((\log_2x)^2+(\log_2y)^2=\log_2x^2+\log_2y^2\) を満たしながら動くとき、\(xy\) の取りうる値の範囲を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>\(X=\log_2x,\ Y=\log_2y\) とおけば \(X^2+Y^2=2X+2Y\)、求めるものは \(\log_2xy=X+Y\)。\(X,Y\) について対称なので \(s=X+Y,\ p=XY\) で書き、「<b>\(X,Y\) が0以上の実数として存在する条件</b>」を2次方程式 \(u^2-su+p=0\) の解の配置で求める（逆像法）。図形的には円 \((X-1)^2+(Y-1)^2=2\) の \(X\ge0,\ Y\ge0\) の部分と直線 \(X+Y=s\) の共有点。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>\(X=\log_2x,\ Y=\log_2y\) とおくと、\(x\ge1,\ y\ge1\) は \(X\ge0,\ Y\ge0\) と同値。条件は \(X^2+Y^2=2X+2Y\)。</p>
+      <p>\(s=X+Y,\ p=XY\) とおくと \(s^2-2p=2s\)、すなわち \(p=\dfrac{s^2-2s}{2}\)。</p>
+      <p>\(X,Y\) は \(u^2-su+p=0\) の2解である。\(X,Y\) が0以上の実数として存在する条件は</p>
+      <ul>
+        <li>判別式：\(s^2-4p\ge0\)。代入して \(s^2-2(s^2-2s)\ge0\)、\(s(s-4)\le0\)、よって \(0\le s\le4\)。</li>
+        <li>2解の和 \(s\ge0\)、積 \(p\ge0\)：\(s(s-2)\ge0\) より \(s\le0\) または \(s\ge2\)。</li>
+      </ul>
+      <p>（実数解が2つとも0以上 ⇔ 判別式 \(\ge0\) かつ 和 \(\ge0\) かつ 積 \(\ge0\)。）以上の共通部分は \(s=0\) または \(2\le s\le4\)。</p>
+      <p>\(xy=2^{X+Y}=2^s\) で、\(2^s\) は増加関数なので</p>
+      <p class="answer">\(xy=1\) または \(4\le xy\le16\)</p>
+      <p class="point">採点ポイント：\(s=0\)（\(x=y=1\)）という<b>孤立した値</b>を落とさないこと。図で見ると、円 \((X-1)^2+(Y-1)^2=2\) は原点を通り、\(X\ge0,\ Y\ge0\) の部分は「大きな弧」と「原点1点」からなる。積 \(p\ge0\) の条件を書かないと \(0\lt s\lt2\) を誤って含めてしまう。<a href="../thinking.html#t-inverse">発想：逆像法</a></p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="exp-h3" data-level="3">
+    <h3><span class="pid">演3</span>\(3^x+3^{-x}\) の置き換えと解の個数</h3>
+    <div class="problem">\(a\) を実数の定数とする。\(x\) の方程式 \(9^x+9^{-x}-2a(3^x+3^{-x})+11=0\) の異なる実数解の個数を、\(a\) の値によって分類せよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>\(t=3^x+3^{-x}\) とおくと \(t\ge2\) で、方程式は \(t^2-2at+9=0\)。ここで2段階の数え上げが必要：<b>(i) \(t\ge2\) の解がいくつあるか、(ii) 各 \(t\) に \(x\) がいくつ対応するか</b>（\(t\gt2\) なら2個、\(t=2\) なら1個）。さらに \(t\) の2解の積が9であることに気づくと見通しがよい。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p><b>対応の個数。</b>\(t=3^x+3^{-x}\) とおく。\(u=3^x\ (u\gt0)\) とすると \(u^2-tu+1=0\)。この \(u\) の方程式は判別式 \(t^2-4\)、2解の積1、和 \(t\) なので、\(t\gt2\) のとき異なる2つの正の解（\(x\) は2個）、\(t=2\) のとき \(u=1\) のみ（\(x=0\) の1個）、\(t\lt2\) のとき正の解なし。</p>
+      <p><b>\(t\) の方程式。</b>\(9^x+9^{-x}=t^2-2\) より、方程式は \(g(t)=t^2-2at+9=0\)。</p>
+      <p>\(g(t)=0\) が \(t\ge2\) に解をもつには実数解が必要で \(D/4=a^2-9\ge0\)。また2解の積が9（正）、和が \(2a\) なので、\(t\ge2\) に解があれば2解はともに正で \(a\gt0\)。よって \(a\ge3\) のときだけ考えればよい。2解を \(\alpha\le\beta\) とすると \(\alpha\beta=9\) より \(\alpha\le3\le\beta\)。</p>
+      <ul>
+        <li>\(a\lt3\)：\(t\ge2\) の解なし → <b>0個</b>。</li>
+        <li>\(a=3\)：重解 \(t=3\ (\gt2)\) → \(x\) は <b>2個</b>。</li>
+        <li>\(a\gt3\)：\(\alpha\lt3\lt\beta\)。\(\beta\gt3\gt2\) から \(x\) が2個。\(\alpha\) については \(g(2)=13-4a\) の符号で決まる（\(g(2)\gt0\) かつ軸 \(a\gt2\) なら \(2\lt\alpha\)、\(g(2)=0\) なら \(\alpha=2\)、\(g(2)\lt0\) なら \(\alpha\lt2\)）。
+          <ul>
+            <li>\(3\lt a\lt\frac{13}4\)：\(2\lt\alpha\lt3\) → \(x\) は \(2+2=\)<b>4個</b>。</li>
+            <li>\(a=\frac{13}4\)：\(\alpha=2\)（\(x=0\)）、\(\beta=\frac92\) → <b>3個</b>。</li>
+            <li>\(a\gt\frac{13}4\)：\(\alpha\lt2\) は不適 → <b>2個</b>。</li>
+          </ul></li>
+      </ul>
+      <p class="answer">\(a\lt3\)：0個、\(a=3\)：2個、\(3\lt a\lt\frac{13}{4}\)：4個、\(a=\frac{13}{4}\)：3個、\(a\gt\frac{13}{4}\)：2個</p>
+      <p class="point">採点ポイント：(1) \(t\) の範囲 \(t\ge2\) と「対応の個数」を答案の最初で明示する、(2) \(a=\frac{13}{4}\) のとき解が3個になる（\(x=0\) と \(3^x+3^{-x}=\frac92\) の2解）ことを具体的に確かめる。定数分離 \(a=\frac t2+\frac{9}{2t}\ (t\ge2)\) でグラフを描いても同じ結論になる。<a href="../thinking.html#t-separate">発想：定数分離</a></p>
+    </div></details>
+  </article>
+</section>
+
+<section id="next">
+  <h2>次に学ぶとつながる単元</h2>
+  <ul>
+    <li><a href="m2-calculus.html">微分法・積分法（数II）</a>：P3・P9 の置き換えで3次関数が出てきたら微分で増減を調べる。</li>
+    <li><a href="mb-sequence.html">数列</a>：等比数列 \(ar^{n-1}\) は指数関数そのもの。漸化式で「対数をとる」型（\(a_{n+1}=2a_n^3\) など）は P15 の発想。</li>
+    <li><a href="ma-integer.html">整数の性質</a>：P13 の背理法、演1 の桁数の議論は整数問題の定番の部品。</li>
+    <li><a href="m3-limit.html">極限</a>・<a href="m3-diff.html">微分法とその応用</a>：\(e\) を底とする指数・対数関数の微分、\(\lim\frac{\log x}{x}=0\) など。P16 の評価はやがて「はさみうちの原理」に育つ。</li>
+  </ul>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>

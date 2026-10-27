@@ -1,0 +1,718 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>数と式（数学I）｜解法の地図</title>
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-unit="m1-numbers" data-root="../">
+<main>
+
+<header class="unit-head">
+  <span class="subj-badge">数学I</span>
+  <h1>数と式</h1>
+  <p class="lead">展開・因数分解・絶対値・平方根・1次不等式。すべての単元の「計算の足腰」になる単元だ。ここで迷わなくなると、後の単元で本質的な部分に頭を使えるようになる。合言葉は「<b>形を見て、まとめ方を決める</b>」。</p>
+  <div class="goal">
+    <strong>このページの到達目標</strong>
+    <ul>
+      <li>【基礎】たすき掛け・有理化・絶対値の基本処理・連立不等式を、手が止まらずに正確にできる。</li>
+      <li>【標準】複2次式・多変数の因数分解、二重根号、整数部分と小数部分、対称式による式の値、文字係数の不等式を「型」で処理できる。</li>
+      <li>【阪大】有理数・無理数の論証、3文字の対称式、絶対値と整数の個数、不等式による評価を、答案として論理的に書ける。</li>
+    </ul>
+  </div>
+  <p class="prereq">前提：中学の式の計算・平方根・1次方程式 ／ 次に進む：<a href="m1-quadratic.html">2次関数</a>、<a href="m2-proof.html">式と証明</a>、<a href="m1-logic.html">集合と命題</a></p>
+</header>
+
+<section id="core">
+  <h2>必ず押さえる基本事項</h2>
+
+  <div class="box theorem">
+    <p><span class="name">展開・因数分解の公式</span></p>
+    <ul>
+      <li>\((a+b)^2=a^2+2ab+b^2\)、\((a+b)(a-b)=a^2-b^2\)</li>
+      <li>\((x+a)(x+b)=x^2+(a+b)x+ab\)、\((ax+b)(cx+d)=acx^2+(ad+bc)x+bd\)（たすき掛け）</li>
+      <li>\((a+b)^3=a^3+3a^2b+3ab^2+b^3\)、\(a^3+b^3=(a+b)(a^2-ab+b^2)\)、\(a^3-b^3=(a-b)(a^2+ab+b^2)\)</li>
+      <li>\((a+b+c)^2=a^2+b^2+c^2+2ab+2bc+2ca\)</li>
+      <li>\(a^3+b^3+c^3-3abc=(a+b+c)(a^2+b^2+c^2-ab-bc-ca)\)</li>
+    </ul>
+    <p>なぜ：どれも分配法則で右辺を展開すれば確かめられる。たすき掛けは「\(x^2\) の係数 \(ac\)、定数項 \(bd\)、\(x\) の係数 \(ad+bc\)」の3つを合わせるパズルにすぎない。最後の式は、\(a=-(b+c)\) を代入すると左辺が0になる（だから \(a+b+c\) を因数にもつ）ことから見当がつく。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">実数の分類</span>：実数は<b>有理数</b>（\(\dfrac{\text{整数}}{\text{0でない整数}}\) で表せる数）と<b>無理数</b>（表せない数）に分かれる。</p>
+    <p>有理数を小数で表すと「有限小数」か「循環小数」になり、無理数は「循環しない無限小数」になる。</p>
+    <p>なぜ：\(\dfrac{m}{n}\) を筆算で割ると、余りは \(0,1,\dots,n-1\) の \(n\) 通りしかない。だから余りが0になって終わるか、いつか同じ余りが現れて以後くり返す（循環する）。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">絶対値</span>：\(\abs{A}=\begin{cases}A & (A\ge 0)\\ -A & (A\lt 0)\end{cases}\)　意味は「数直線上で \(A\) と原点の距離」。</p>
+    <ul>
+      <li>\(\abs{x-a}\) は「\(x\) と \(a\) の距離」。</li>
+      <li>\(c\gt 0\) のとき：\(\abs{x}=c\iff x=\pm c\)、\(\abs{x}\lt c\iff -c\lt x\lt c\)、\(\abs{x}\gt c\iff x\lt -c\ \text{または}\ c\lt x\)</li>
+      <li>\(\sqrt{A^2}=\abs{A}\)（\(\sqrt{\ }\) は0以上の値を返すので、\(A\lt 0\) なら \(-A\) になる）</li>
+    </ul>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">平方根の計算</span>：\(a\gt0,\ b\gt0\) のとき</p>
+    <ul>
+      <li>\(\sqrt a\sqrt b=\sqrt{ab}\)、\(\dfrac{1}{\sqrt a-\sqrt b}=\dfrac{\sqrt a+\sqrt b}{a-b}\)（分母の有理化）</li>
+      <li>二重根号：\(\sqrt{(a+b)+2\sqrt{ab}}=\sqrt a+\sqrt b\)、\(\sqrt{(a+b)-2\sqrt{ab}}=\sqrt a-\sqrt b\ \ (a\gt b)\)</li>
+    </ul>
+    <p>なぜ：有理化は \((\sqrt a-\sqrt b)(\sqrt a+\sqrt b)=a-b\) で根号が消えることを使う。二重根号は \((\sqrt a\pm\sqrt b)^2=a+b\pm2\sqrt{ab}\) を逆に読んだだけ。\(\sqrt a-\sqrt b\) は正でなければならないので \(a\gt b\) の順に書く。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">不等式の性質</span>：\(a\lt b\) のとき、\(a+c\lt b+c\)。\(c\gt0\) なら \(ac\lt bc\)、<b>\(c\lt0\) なら \(ac\gt bc\)（向きが逆）</b>。</p>
+    <p>なぜ：負の数をかけると数直線が原点について裏返り、大小が入れ替わる（例：\(2\lt 3\) に \(-1\) をかけると \(-2\gt -3\)）。<b>文字でかける・割るときは、その文字の符号が分からない限り計算を進められない</b>。</p>
+  </div>
+
+  <div class="box idea">
+    <p><b>この単元を貫く考え方</b>：式は「そのまま計算する」のではなく、<b>形を見てまとめ方を決める</b>。同じカタマリは置き換える、対称な式は \(x+y,\ xy\) で表す、絶対値は「中身の符号」で分ける、文字で割るときは「符号」で分ける。<b>「何でまとめるか」「何で分けるか」を先に決める</b>習慣が、計算ミスと迷いを同時に減らす。</p>
+  </div>
+</section>
+
+<section id="quick">
+  <h2>早見表：こう来たら → こう解く</h2>
+  <div class="table-wrap"><table class="quick">
+    <tr><th>問題の特徴（こう来たら）</th><th>方針（こう解く）</th><th>使う道具</th><th>詳細</th></tr>
+    <tr data-level="1"><td>4つの1次式の積・似た項が多い式を展開せよ</td><td>組み合わせて共通部分を作り置き換え</td><td>展開公式・置き換え</td><td><a href="#num-p1">P1</a></td></tr>
+    <tr data-level="1"><td>\(6x^2+x-12\) のような2次式の因数分解</td><td>たすき掛け</td><td>\((ax+b)(cx+d)\)</td><td><a href="#num-p2">P2</a></td></tr>
+    <tr data-level="2"><td>\(x^4+x^2+1\) など \(x^2\) の2次式</td><td>\(x^2=X\) で無理なら平方の差を作る</td><td>\(A^2-B^2\)</td><td><a href="#num-p3">P3</a></td></tr>
+    <tr data-level="2"><td>文字が2つ以上の因数分解</td><td>次数の最も低い文字について整理</td><td>降べきの順</td><td><a href="#num-p4">P4</a></td></tr>
+    <tr data-level="2"><td>\(a^2(b-c)+b^2(c-a)+\cdots\) のような循環する式</td><td>1文字について整理、交代式なら \((a-b)(b-c)(c-a)\)</td><td>対称式・交代式</td><td><a href="#num-p5">P5</a></td></tr>
+    <tr data-level="1"><td>循環小数を分数で表せ／有理数か無理数か</td><td>10倍・100倍して引く</td><td>実数の分類</td><td><a href="#num-p6">P6</a></td></tr>
+    <tr data-level="1"><td>\(\abs{x-2}\lt3\)、\(\abs{2x-1}=x+4\)</td><td>距離で読む／中身の符号で場合分け</td><td>絶対値の定義</td><td><a href="#num-p7">P7</a></td></tr>
+    <tr data-level="2"><td>絶対値が2つ以上ある方程式・不等式</td><td>中身が0になる点で数直線を区切る</td><td>場合分け</td><td><a href="#num-p8">P8</a></td></tr>
+    <tr data-level="1"><td>分母に根号がある式を簡単にせよ</td><td>分母の有理化（3項なら2段階）</td><td>和と差の積</td><td><a href="#num-p9">P9</a></td></tr>
+    <tr data-level="2"><td>\(\sqrt{5+2\sqrt6}\)、\(\sqrt{4-\sqrt{15}}\)</td><td>「和が \(p\)、積が \(q\)」の2数を探す</td><td>二重根号</td><td><a href="#num-p10">P10</a></td></tr>
+    <tr data-level="2"><td>「整数部分を \(a\)、小数部分を \(b\) とする」</td><td>不等式で挟んで \(a\) を決め、\(b=x-a\)</td><td>\(\sqrt{\ }\) の評価</td><td><a href="#num-p11">P11</a></td></tr>
+    <tr data-level="2"><td>\(x=\dfrac{\sqrt5+\sqrt3}{\sqrt5-\sqrt3}\) などのとき \(x^2+y^2\) の値</td><td>\(x+y,\ xy\) を先に求める</td><td>基本対称式</td><td><a href="#num-p12">P12</a></td></tr>
+    <tr data-level="2"><td>「\(x+\dfrac1x=3\) のとき」</td><td>\(x\cdot\dfrac1x=1\) を使って次数を上げる</td><td>対称式の変形</td><td><a href="#num-p13">P13</a></td></tr>
+    <tr data-level="1"><td>1次不等式・連立不等式を解け</td><td>移項して係数で割る（負なら向き反転）、数直線で共通部分</td><td>不等式の性質</td><td><a href="#num-p14">P14</a></td></tr>
+    <tr data-level="2"><td>\(ax\gt b\) のように \(x\) の係数に文字</td><td>係数の正・0・負で場合分け</td><td>不等式の性質</td><td><a href="#num-p15">P15</a></td></tr>
+    <tr data-level="2"><td>「整数解がちょうど3個となる \(a\) の範囲」</td><td>数直線に整数を打ち、端の位置で条件を読む</td><td>数直線・等号の確認</td><td><a href="#num-p16">P16</a></td></tr>
+    <tr data-level="3"><td>「\(a,b\) は有理数」「\(\sqrt2\) が無理数であることを用いて」</td><td>有理数部分と無理数部分を比較</td><td>\(p+q\sqrt2=0\Rightarrow p=q=0\)</td><td><a href="#num-p17">P17</a></td></tr>
+    <tr data-level="3"><td>\(a+b+c,\ ab+bc+ca,\ abc\) が与えられた式の値</td><td>基本対称式で表す</td><td>3文字の対称式</td><td><a href="#num-p18">P18</a></td></tr>
+    <tr data-level="3"><td>\(\abs{x-1}+\abs{x-2}+\abs{x-4}\) の最小値・解の個数</td><td>折れ線グラフ／距離の和と見る</td><td>絶対値のグラフ</td><td><a href="#num-p19">P19</a></td></tr>
+    <tr data-level="3"><td>\(\sqrt{n^2+n}\) の整数部分、小数部分の範囲を示せ</td><td>平方数で挟む、有理化して評価</td><td>不等式による評価</td><td><a href="#num-p20">P20</a></td></tr>
+  </table></div>
+</section>
+
+<section id="patterns">
+  <h2>パターン別 解法マップ</h2>
+
+  <article class="pattern" id="num-p1" data-level="1">
+    <h3><span class="pid">P1</span>展開の工夫（組み合わせ・置き換え）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\((x+1)(x+2)(x+3)(x+4)\) を展開せよ」「\((a+b-c)(a-b+c)\) を展開せよ」</dd>
+      <dt>こう考える</dt><dd>端から順にかけると項が爆発する。<b>同じカタマリが出るように組み合わせる</b>か、<b>符号だけ違う部分</b>を探して和と差の積にする。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>4つの1次式なら、定数項の和が等しくなる2組に分ける（\(1+4=2+3\)）。すると \(x^2+5x\) が共通に現れる。</li>
+        <li>共通部分を \(t\) とおいて展開し、最後に戻す。</li>
+        <li>3項の式は「符号が同じ項」と「符号が逆の項」に分けて \((A+B)(A-B)\) の形にする。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\((x+a)(x+b)=x^2+(a+b)x+ab\)、\((A+B)(A-B)=A^2-B^2\)</dd>
+      <dt>なぜこの方法？</dt><dd>同じカタマリを1文字とみれば、4次式の展開が2次式の展開に化ける。計算量が減るだけでなく、後で因数分解するときにも同じ見方が使える。<a href="../thinking.html#t-subst">発想：置き換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">次の式を展開せよ。(1) \((x+1)(x+2)(x+3)(x+4)\)　(2) \((a+b-c)(a-b+c)\)</div>
+      <p>(1) \(\{(x+1)(x+4)\}\{(x+2)(x+3)\}=(x^2+5x+4)(x^2+5x+6)\)。\(t=x^2+5x\) とおくと</p>
+      <p>\((t+4)(t+6)=t^2+10t+24=(x^2+5x)^2+10(x^2+5x)+24\)</p>
+      <p class="answer">(1) \(x^4+10x^3+35x^2+50x+24\)</p>
+      <p>(2) \(\{a+(b-c)\}\{a-(b-c)\}=a^2-(b-c)^2\)</p>
+      <p class="answer">(2) \(a^2-b^2+2bc-c^2\)</p>
+      <p class="point">(2) で \(b-c\) の前の符号に注意。\(-(b-c)^2=-b^2+2bc-c^2\) の符号ミスが最も多い。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="num-p2" data-level="1">
+    <h3><span class="pid">P2</span>たすき掛けの因数分解</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(6x^2+x-12\) を因数分解せよ」「\(2x^2-5xy-3y^2\) を因数分解せよ」</dd>
+      <dt>こう考える</dt><dd>\((ax+b)(cx+d)=acx^2+(ad+bc)x+bd\)。<b>\(x^2\) の係数を \(a\times c\)、定数項を \(b\times d\) に分け、斜めにかけた和が \(x\) の係数になる組</b>を探す。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(x^2\) の係数の分け方（\(6=1\times6=2\times3\)）と、定数項の分け方を書き出す。</li>
+        <li>たすき（斜め）にかけて足し、\(x\) の係数と一致する組を探す。</li>
+        <li>最後に展開して検算する（10秒でできる）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\((ax+b)(cx+d)=acx^2+(ad+bc)x+bd\)</dd>
+      <dt>なぜこの方法？</dt><dd>展開の公式を逆向きに読んでいるだけ。候補は有限個なので、<b>係数の絶対値が近い組から</b>試すと速い（\(x\) の係数が小さいときは、斜めの積が打ち消し合う組が当たり）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">因数分解せよ。(1) \(6x^2+x-12\)　(2) \(2x^2-5xy-3y^2\)</div>
+      <p>(1) \(6=2\times3\)、\(-12=3\times(-4)\) と分けると、斜めの積の和は \(2\cdot(-4)+3\cdot3=1\)。</p>
+      <p class="answer">(1) \((2x+3)(3x-4)\)</p>
+      <p>(2) \(y\) を定数とみて \(x\) の2次式と考える。\(2=2\times1\)、\(-3y^2=y\times(-3y)\) で、斜めの積の和は \(2\cdot(-3y)+1\cdot y=-5y\)。</p>
+      <p class="answer">(2) \((2x+y)(x-3y)\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="num-p3" data-level="2">
+    <h3><span class="pid">P3</span>複2次式（\(x^4+px^2+q\)）の因数分解</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x^4-5x^2+4\)」「\(x^4+x^2+1\)」「\(x^4-7x^2+9\)」「\(x^4+4\)」を因数分解せよ</dd>
+      <dt>こう考える</dt><dd>まず \(X=x^2\) とおいて \(X\) の2次式として因数分解を試す。<b>それで無理なら \(x^2\) の項を足し引きして \(A^2-B^2\) を作る</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(X=x^2\) とおき、\(X^2+pX+q\) を因数分解できるか見る。</li>
+        <li>できなければ、\(x^4\) と定数項から \((x^2\pm\sqrt q)^2\) を作り、ずれた分を \(x^2\) の項で調整する。</li>
+        <li>調整した結果が \(-(kx)^2\) の形（完全平方を引く形）になる方を選ぶ。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(A^2-B^2=(A+B)(A-B)\)</dd>
+      <dt>なぜこの方法？</dt><dd>「平方の差」はどんな式でも因数分解できる唯一の万能形。\(x^4\) と定数項はすでに平方なので、<b>真ん中の項を調整して平方を2つ作る</b>のが自然な発想になる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">因数分解せよ。(1) \(x^4-5x^2+4\)　(2) \(x^4+x^2+1\)　(3) \(x^4-7x^2+9\)</div>
+      <p>(1) \(X=x^2\) とおくと \(X^2-5X+4=(X-1)(X-4)=(x^2-1)(x^2-4)\)。</p>
+      <p class="answer">(1) \((x+1)(x-1)(x+2)(x-2)\)</p>
+      <p>(2) \(X^2+X+1\) は整数の範囲で因数分解できない。\(x^4+2x^2+1\) を作ると</p>
+      <p>\(x^4+x^2+1=(x^4+2x^2+1)-x^2=(x^2+1)^2-x^2\)</p>
+      <p class="answer">(2) \((x^2+x+1)(x^2-x+1)\)</p>
+      <p>(3) \((x^2+3)^2=x^4+6x^2+9\) では \(-13x^2\) が余り平方にならない。\((x^2-3)^2=x^4-6x^2+9\) を使うと</p>
+      <p>\(x^4-7x^2+9=(x^2-3)^2-x^2\)</p>
+      <p class="answer">(3) \((x^2+x-3)(x^2-x-3)\)</p>
+      <p class="point">\(\pm\sqrt q\) の2通りを試し、「引く量が完全平方になる」方を選ぶ。同じ手で \(x^4+4=(x^2+2)^2-(2x)^2=(x^2+2x+2)(x^2-2x+2)\) も分解できる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="num-p4" data-level="2">
+    <h3><span class="pid">P4</span>文字が2つ以上：次数の最も低い文字について整理</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x^2+xy-2y^2+2x+7y-3\) を因数分解せよ」「\(a^2+ab-3b-9\) を因数分解せよ」</dd>
+      <dt>こう考える</dt><dd>文字がたくさんあると見通しが悪い。<b>1つの文字に注目し、他は数とみなす</b>。注目する文字は<b>次数の最も低いもの</b>（1次の文字があれば最優先）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>各文字の次数を調べ、最も低い文字を選ぶ（同じなら \(x\) など好きな方）。</li>
+        <li>その文字について降べきの順に整理する（係数は他の文字の式）。</li>
+        <li>1次式なら共通因数でくくる。2次式なら、定数項（他の文字の式）を先に因数分解し、たすき掛け。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>降べきの順、たすき掛け（P2）</dd>
+      <dt>なぜこの方法？</dt><dd>1次の文字について整理すれば \(Ab+B\) の形になり、\(A\) と \(B\) に共通因数があるかを見るだけで済む。次数が低いほど「残る形」が単純になり、因数分解の候補が絞られる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">因数分解せよ。(1) \(a^2+ab-3b-9\)　(2) \(x^2+xy-2y^2+2x+7y-3\)</div>
+      <p>(1) \(a\) は2次、\(b\) は1次なので \(b\) について整理する。</p>
+      <p>\((a-3)b+(a^2-9)=(a-3)b+(a-3)(a+3)=(a-3)(a+b+3)\)</p>
+      <p class="answer">(1) \((a-3)(a+b+3)\)</p>
+      <p>(2) どちらも2次なので \(x\) について整理する。</p>
+      <p>\(x^2+(y+2)x-(2y^2-7y+3)=x^2+(y+2)x-(2y-1)(y-3)\)</p>
+      <p>積が \(-(2y-1)(y-3)\)、和が \(y+2\) の2式は \((2y-1)\) と \(-(y-3)\)（和 \(=y+2\)）。</p>
+      <p class="answer">(2) \((x+2y-1)(x-y+3)\)</p>
+      <p class="point">(2) では先に「定数項」\(-2y^2+7y-3\) を因数分解しておくのがコツ。いきなりたすき掛けすると候補が多すぎて迷う。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="num-p5" data-level="2">
+    <h3><span class="pid">P5</span>対称式・交代式の因数分解</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(a^2(b-c)+b^2(c-a)+c^2(a-b)\)」「\((a+b)(b+c)(c+a)+abc\)」のように \(a,b,c\) が循環して現れる式</dd>
+      <dt>こう考える</dt><dd>どの文字も同じ次数なので、<b>1文字（\(a\)）について整理</b>する。答えの形も予想できる：\(a\) と \(b\) を入れかえると符号だけ変わる式（交代式）は \((a-b)(b-c)(c-a)\) を因数にもつ。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(a\) について降べきの順に整理する。</li>
+        <li>各係数に共通因数（\(b-c\) など）がないか見てくくる。</li>
+        <li>残った \(a\) の2次式をたすき掛けし、最後に \((a-b)(b-c)(c-a)\) のように<b>輪の順</b>にそろえる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>1文字について整理、\(a^3+b^3+c^3-3abc=(a+b+c)(a^2+b^2+c^2-ab-bc-ca)\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(a=b\) を代入すると0になる式は \(a-b\) を因数にもつ（\(a\) の式として見ると \(a=b\) が解になるから）。交代式はどの2文字を等しくしても0なので、\((a-b)(b-c)(c-a)\) が丸ごと出てくる。<b>答えの形を予想してから計算すると、ミスに気づきやすい</b>。<a href="../thinking.html#t-symmetry">発想：対称性を使う</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">因数分解せよ。(1) \(a^2(b-c)+b^2(c-a)+c^2(a-b)\)　(2) \((a+b)(b+c)(c+a)+abc\)</div>
+      <p>(1) \(a\) について整理すると</p>
+      \[ \begin{aligned} &(b-c)a^2-(b^2-c^2)a\\ &\qquad+(b^2c-bc^2)\\ &=(b-c)\{a^2-(b+c)a+bc\}\\ &=(b-c)(a-b)(a-c) \end{aligned} \]
+      <p class="answer">(1) \(-(a-b)(b-c)(c-a)\)</p>
+      <p>(2) \(a\) について整理する。\((a+b)(a+c)=a^2+(b+c)a+bc\) なので</p>
+      \[ \begin{aligned} &(b+c)\{a^2+(b+c)a+bc\}\\ &\qquad+abc\\ &=(b+c)a^2+\{(b+c)^2+bc\}a\\ &\qquad+bc(b+c) \end{aligned} \]
+      <p>たすき掛け：\((b+c)\times bc\) と \(1\times(b+c)\) に分けると、斜めの和は \((b+c)^2+bc\)。よって \(\{(b+c)a+bc\}(a+b+c)\)。</p>
+      <p class="answer">(2) \((a+b+c)(ab+bc+ca)\)</p>
+      <p class="point">(1) は \((a-c)=-(c-a)\) なので符号が1つ出る。最後に \(a=0,b=1,c=2\) などを代入して両辺が一致するか確かめると安心（左辺 \(=0+1\cdot2+4\cdot(-1)=-2\)、右辺 \(=-(-1)(-1)(2)=-2\)）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="num-p6" data-level="1">
+    <h3><span class="pid">P6</span>循環小数を分数に直す・有理数と無理数</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(0.\dot3\dot6\)、\(1.2\dot3\) を分数で表せ」「次の数のうち無理数はどれか」</dd>
+      <dt>こう考える</dt><dd>循環小数は「循環する部分が無限に続く」ので、<b>循環節の長さだけ桁をずらして引けば、無限に続く部分が消える</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(x=(\text{循環小数})\) とおく。</li>
+        <li>循環節が \(k\) 桁なら \(10^k x\) を作る（循環しない部分があれば、先にそれを整数部分に送る）。</li>
+        <li>\(10^k x-x\) で循環部分を消し、\(x\) を求める。約分を忘れない。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>実数の分類（有理数 ⇔ 有限小数または循環小数）</dd>
+      <dt>なぜこの方法？</dt><dd>小数点以下が完全に一致する2数を引けば、無限に続く部分がぴったり消える。これで「循環小数は必ず分数で表せる＝有理数」ことも分かる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(0.\dot3\dot6\) を分数で表せ。(2) \(1.2\dot3\) を分数で表せ。(3) \(-3,\ 0.25,\ \dfrac13,\ \sqrt4,\ \sqrt5,\ \pi\) のうち無理数をすべて答えよ。</div>
+      <p>(1) \(x=0.363636\cdots\) とおく。\(100x=36.3636\cdots\)。引いて \(99x=36\)、\(x=\dfrac{36}{99}\)。</p>
+      <p class="answer">(1) \(\dfrac{4}{11}\)</p>
+      <p>(2) \(x=1.2333\cdots\) とおく。\(10x=12.333\cdots\)、\(100x=123.333\cdots\)。引いて \(90x=111\)、\(x=\dfrac{111}{90}\)。</p>
+      <p class="answer">(2) \(\dfrac{37}{30}\)</p>
+      <p>(3) \(\sqrt4=2\) は整数なので有理数。\(\sqrt5\) と \(\pi\) は循環しない無限小数。</p>
+      <p class="answer">(3) \(\sqrt5,\ \pi\)</p>
+      <p class="point">「\(\sqrt{\ }\) がついていれば無理数」は誤り。\(\sqrt4,\ \sqrt{\frac{9}{16}}\) は有理数。\(\sqrt{\ }\) の中が平方数（の比）かどうかで判断する。\(\sqrt2\) が無理数であることの証明は <a href="m1-logic.html">集合と命題</a>（背理法）で扱う。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="num-p7" data-level="1">
+    <h3><span class="pid">P7</span>絶対値を含む方程式・不等式（1つ）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\abs{x-2}\lt3\) を解け」「\(\abs{2x-1}=x+4\) を解け」</dd>
+      <dt>こう考える</dt><dd>右辺が<b>正の定数</b>なら「距離」で読めば一瞬。右辺に \(x\) があるときは、<b>中身の符号で場合分け</b>して絶対値をはずす。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>右辺が正の定数 \(c\)：\(\abs{X}\lt c\iff -c\lt X\lt c\)、\(\abs X=c\iff X=\pm c\)。</li>
+        <li>右辺に \(x\) を含む：中身 \(\ge0\) と \(\lt0\) に分け、それぞれで絶対値をはずして解く。</li>
+        <li><b>得られた解が、その場合の範囲に入っているか確認</b>してから採用する。不等式なら最後に合併する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>絶対値の定義、\(\abs{x-a}\) は \(x\) と \(a\) の距離</dd>
+      <dt>なぜこの方法？</dt><dd>絶対値は「中身の符号によって式が変わる」記号。符号を決めてしまえば、ただの1次式になる。場合分けした範囲のチェックを忘れると、ニセの解が混ざる。<a href="../thinking.html#t-casework">発想：場合分け</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\abs{x-2}\lt3\) を解け。(2) \(\abs{2x-1}=x+4\) を解け。(3) \(\abs{x+1}\ge 2x-4\) を解け。</div>
+      <p>(1) \(-3\lt x-2\lt3\)。<span class="answer">\(-1\lt x\lt5\)</span>（「2からの距離が3未満」）</p>
+      <p>(2) [1] \(x\ge\frac12\) のとき：\(2x-1=x+4\)、\(x=5\)（\(x\ge\frac12\) を満たす）。</p>
+      <p>[2] \(x\lt\frac12\) のとき：\(-(2x-1)=x+4\)、\(x=-1\)（\(x\lt\frac12\) を満たす）。</p>
+      <p class="answer">(2) \(x=-1,\ 5\)</p>
+      <p>(3) [1] \(x\ge-1\) のとき：\(x+1\ge2x-4\)、\(x\le5\)。範囲と合わせて \(-1\le x\le5\)。</p>
+      <p>[2] \(x\lt-1\) のとき：\(-x-1\ge2x-4\)、\(x\le1\)。範囲と合わせて \(x\lt-1\)。</p>
+      <p class="answer">(3) [1]と[2]を合わせて \(x\le5\)</p>
+      <p class="point">方程式は「範囲に入るか」で解を捨てる、不等式は「範囲との共通部分」をとってから合併する。この2つの作業を混同しないこと。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="num-p8" data-level="2">
+    <h3><span class="pid">P8</span>絶対値が2つ以上：数直線を区切る</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\abs{x+1}+\abs{x-2}\lt5\) を解け」「\(\abs{x-1}+2\abs{x+2}=9\) を解け」</dd>
+      <dt>こう考える</dt><dd>絶対値の中身が0になる点（\(x=-1,\ 2\) など）で数直線を区切ると、<b>各区間では全部の絶対値の符号が決まる</b>。区切り点が \(n\) 個なら \(n+1\) 通りの場合分け。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>中身が0になる点を小さい順に並べ、数直線を区間に分ける。</li>
+        <li>各区間で絶対値をはずす（区間内の1点を代入して符号を確認すると確実）。</li>
+        <li>各区間で解き、区間との共通部分をとり、最後に合併する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>絶対値の定義、場合分け</dd>
+      <dt>なぜこの方法？</dt><dd>2つの絶対値を別々に場合分けすると \(2\times2=4\) 通りになるが、区間で考えれば3通りで済み、ありえない組合せ（\(x+1\lt0\) かつ \(x-2\ge0\)）を自動的に除ける。<a href="../thinking.html#t-casework">発想：場合分け</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\abs{x+1}+\abs{x-2}\lt5\) を解け。(2) \(\abs{x-1}+2\abs{x+2}=9\) を解け。</div>
+      <p>(1) 区切り点は \(x=-1,\ 2\)。</p>
+      <ul>
+        <li>\(x\lt-1\)：\(-(x+1)-(x-2)=-2x+1\lt5\) より \(x\gt-2\)。→ \(-2\lt x\lt-1\)</li>
+        <li>\(-1\le x\lt2\)：\((x+1)-(x-2)=3\lt5\) は常に成立。→ \(-1\le x\lt2\)</li>
+        <li>\(x\ge2\)：\((x+1)+(x-2)=2x-1\lt5\) より \(x\lt3\)。→ \(2\le x\lt3\)</li>
+      </ul>
+      <p class="answer">(1) \(-2\lt x\lt3\)</p>
+      <p>(2) 区切り点は \(x=-2,\ 1\)。</p>
+      <ul>
+        <li>\(x\lt-2\)：\(-(x-1)-2(x+2)=-3x-3=9\)、\(x=-4\)（適）</li>
+        <li>\(-2\le x\lt1\)：\(-(x-1)+2(x+2)=x+5=9\)、\(x=4\)（範囲外、不適）</li>
+        <li>\(x\ge1\)：\((x-1)+2(x+2)=3x+3=9\)、\(x=2\)（適）</li>
+      </ul>
+      <p class="answer">(2) \(x=-4,\ 2\)</p>
+      <p class="point">(1) の意味：「\(-1\) と \(2\) からの距離の和が5未満」。2点間の距離は3なので、2点の外側に \(1\) ずつはみ出した \(-2\lt x\lt3\)。図で検算できる（P19）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="num-p9" data-level="1">
+    <h3><span class="pid">P9</span>分母の有理化</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\dfrac{2}{\sqrt5-\sqrt3}\) を簡単にせよ」「\(\dfrac{1}{1+\sqrt2+\sqrt3}\) の分母を有理化せよ」</dd>
+      <dt>こう考える</dt><dd>分母と<b>符号を1つ変えた式</b>を分母・分子にかけると、\((A+B)(A-B)=A^2-B^2\) で根号が消える。3項なら2項と1項に分けて<b>2回</b>行う。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>分母が \(\sqrt a-\sqrt b\) なら、分母・分子に \(\sqrt a+\sqrt b\) をかける。</li>
+        <li>3項 \(1+\sqrt2+\sqrt3\) なら \((1+\sqrt2)+\sqrt3\) とみて \((1+\sqrt2)-\sqrt3\) をかける。</li>
+        <li>残った \(\sqrt{\ }\) を同様に処理し、約分する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\((\sqrt a+\sqrt b)(\sqrt a-\sqrt b)=a-b\)</dd>
+      <dt>なぜこの方法？</dt><dd>分母に根号があると、値の見積もりも他の数との足し算もしにくい。有理化は「分母を整数にそろえて比較・計算しやすくする」ための操作。3項でも、まとめ方を工夫すれば2項の場合に帰着する。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\dfrac{2}{\sqrt5-\sqrt3}\)　(2) \(\dfrac{1}{1+\sqrt2+\sqrt3}\) の分母を有理化せよ。</div>
+      <p>(1) \(\dfrac{2(\sqrt5+\sqrt3)}{(\sqrt5-\sqrt3)(\sqrt5+\sqrt3)}=\dfrac{2(\sqrt5+\sqrt3)}{2}\)。<span class="answer">\(\sqrt5+\sqrt3\)</span></p>
+      <p>(2) 分母・分子に \((1+\sqrt2)-\sqrt3\) をかける。分母は \((1+\sqrt2)^2-3=2\sqrt2\)。</p>
+      <p>\(\dfrac{1+\sqrt2-\sqrt3}{2\sqrt2}=\dfrac{(1+\sqrt2-\sqrt3)\sqrt2}{4}=\dfrac{\sqrt2+2-\sqrt6}{4}\)</p>
+      <p class="answer">(2) \(\dfrac{2+\sqrt2-\sqrt6}{4}\)</p>
+      <p class="point">(2) で \(1\) と \(\sqrt3\) を組にすると分母が \(-2+2\sqrt3\) となり、もう一度有理化が必要で少し重い。「2乗したとき定数項が消える組合せ」を選ぶと1段で済む。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="num-p10" data-level="2">
+    <h3><span class="pid">P10</span>二重根号をはずす</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\sqrt{5+2\sqrt6}\)」「\(\sqrt{4-\sqrt{15}}\)」を簡単にせよ</dd>
+      <dt>こう考える</dt><dd>\((\sqrt a\pm\sqrt b)^2=(a+b)\pm2\sqrt{ab}\)。中の根号が <b>\(2\sqrt{\ }\) の形</b>なら、「<b>和が外の数、積が中の数</b>」となる2数 \(a,b\) を探せばよい。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>中の根号の前を「2」にする。\(\sqrt{15}\) なら \(\dfrac{2\sqrt{15}}{2}\) として、全体を \(\sqrt{\dfrac{8-2\sqrt{15}}{2}}\) にする。</li>
+        <li>和が \(8\)、積が \(15\) の2数（5と3）を探す。</li>
+        <li>引き算のときは<b>大きい方を前</b>にして \(\sqrt5-\sqrt3\)。最後に分母を有理化する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\sqrt{(a+b)\pm2\sqrt{ab}}=\sqrt a\pm\sqrt b\ \ (a\gt b\gt0)\)</dd>
+      <dt>なぜこの方法？</dt><dd>2乗の展開を逆に読んでいるだけ。「2」をそろえるのは、展開公式の \(2ab\) の「2」に合わせるため。\(\sqrt{A^2}=\abs A\) なので、\(\sqrt3-\sqrt5\) と書くと負の数になってしまい誤り。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">簡単にせよ。(1) \(\sqrt{5+2\sqrt6}\)　(2) \(\sqrt{4-\sqrt{15}}\)</div>
+      <p>(1) 和5、積6 の2数は 3 と 2。\(\sqrt{(\sqrt3+\sqrt2)^2}\)。<span class="answer">\(\sqrt3+\sqrt2\)</span></p>
+      <p>(2) \(\sqrt{4-\sqrt{15}}=\sqrt{\dfrac{8-2\sqrt{15}}{2}}=\dfrac{\sqrt{(\sqrt5-\sqrt3)^2}}{\sqrt2}=\dfrac{\sqrt5-\sqrt3}{\sqrt2}\)</p>
+      <p class="answer">(2) \(\dfrac{\sqrt{10}-\sqrt6}{2}\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="num-p11" data-level="2">
+    <h3><span class="pid">P11</span>整数部分・小数部分</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\dfrac{2}{3-\sqrt5}\) の整数部分を \(a\)、小数部分を \(b\) とする。\(b+\dfrac1b\) の値を求めよ」</dd>
+      <dt>こう考える</dt><dd>整数部分 \(a\) は「\(a\le x\lt a+1\) を満たす整数」、小数部分は <b>\(b=x-a\)</b>（\(0\le b\lt1\)）。\(b\) は「\(0.618\cdots\)」と書くのではなく、<b>引き算の式で表す</b>のがポイント。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>有理化などで \(x\) を簡単な形にする。</li>
+        <li>\(\sqrt{\ }\) を平方数で挟む（\(\sqrt4\lt\sqrt5\lt\sqrt9\) など。必要なら \(2.2^2\lt5\lt2.3^2\) まで細かく）。</li>
+        <li>\(x\) を挟んで \(a\) を決め、\(b=x-a\)。</li>
+        <li>求める式を、\(b\) を代入して計算する（\(\dfrac1b\) は有理化）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(0\le A\lt B\iff \sqrt A\lt\sqrt B\)、有理化</dd>
+      <dt>なぜこの方法？</dt><dd>小数部分を正確に扱える唯一の表し方が「\(x-a\)」。そのためには \(a\) を確定させる必要があり、それには不等式で挟むしかない。<a href="../thinking.html#t-bound">発想：不等式で評価して絞る</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\dfrac{2}{3-\sqrt5}\) の整数部分を \(a\)、小数部分を \(b\) とする。\(a,\ b\) および \(b+\dfrac1b,\ b^2+\dfrac{1}{b^2}\) の値を求めよ。</div>
+      <p>\(\dfrac{2}{3-\sqrt5}=\dfrac{2(3+\sqrt5)}{9-5}=\dfrac{3+\sqrt5}{2}\)。</p>
+      <p>\(2\lt\sqrt5\lt3\) より \(\dfrac52\lt\dfrac{3+\sqrt5}{2}\lt3\)。よって \(a=2\)。</p>
+      <p>\(b=\dfrac{3+\sqrt5}{2}-2=\dfrac{\sqrt5-1}{2}\)、\(\dfrac1b=\dfrac{2}{\sqrt5-1}=\dfrac{2(\sqrt5+1)}{4}=\dfrac{\sqrt5+1}{2}\)。</p>
+      <p>\(b+\dfrac1b=\sqrt5\)、\(b^2+\dfrac1{b^2}=\left(b+\dfrac1b\right)^2-2=5-2=3\)。</p>
+      <p class="answer">\(a=2,\ b=\dfrac{\sqrt5-1}{2},\ b+\dfrac1b=\sqrt5,\ b^2+\dfrac{1}{b^2}=3\)</p>
+      <p class="point">\(b^2+\frac{1}{b^2}\) は直接計算せず、P13 の「\(x+\frac1x\) 型」を使うと速い。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="num-p12" data-level="2">
+    <h3><span class="pid">P12</span>対称式は \(x+y,\ xy\) で計算する</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x=\dfrac{\sqrt5+\sqrt3}{\sqrt5-\sqrt3},\ y=\dfrac{\sqrt5-\sqrt3}{\sqrt5+\sqrt3}\) のとき、\(x^2+y^2,\ x^3+y^3\) の値を求めよ」</dd>
+      <dt>こう考える</dt><dd>\(x\) と \(y\) を入れかえても変わらない式（対称式）は、必ず <b>\(x+y\) と \(xy\)（基本対称式）だけで表せる</b>。\(x,y\) は汚くても \(x+y,\ xy\) はきれいになることが多い。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>まず \(x+y\) と \(xy\) を求める（有理化してから足す・かける）。</li>
+        <li>求める式を基本対称式で表す：\(x^2+y^2=(x+y)^2-2xy\)、\(x^3+y^3=(x+y)^3-3xy(x+y)\)。</li>
+        <li>値を代入する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(x^2+y^2=(x+y)^2-2xy\)、\(x^3+y^3=(x+y)^3-3xy(x+y)\)、\(\dfrac yx+\dfrac xy=\dfrac{x^2+y^2}{xy}\)</dd>
+      <dt>なぜこの方法？</dt><dd>\(x,\ y\) に含まれる \(\sqrt{15}\) は、和では打ち消し合い、積では \((a+\sqrt b)(a-\sqrt b)=a^2-b\) で消える。対称式の値は根号の入らない計算に持ち込める。この見方は <a href="m2-complex-eq.html">複素数と方程式</a>の「解と係数の関係」に直結する。<a href="../thinking.html#t-symmetry">発想：対称性を使う</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(x=\dfrac{\sqrt5+\sqrt3}{\sqrt5-\sqrt3},\ y=\dfrac{\sqrt5-\sqrt3}{\sqrt5+\sqrt3}\) のとき、\(x^2+y^2,\ x^3+y^3,\ \dfrac yx+\dfrac xy\) の値を求めよ。</div>
+      <p>\(x=\dfrac{(\sqrt5+\sqrt3)^2}{5-3}=\dfrac{8+2\sqrt{15}}{2}=4+\sqrt{15}\)、同様に \(y=4-\sqrt{15}\)。</p>
+      <p>よって \(x+y=8,\ xy=16-15=1\)。</p>
+      <p>\(x^2+y^2=8^2-2\cdot1=62\)、\(x^3+y^3=8^3-3\cdot1\cdot8=488\)、\(\dfrac yx+\dfrac xy=\dfrac{62}{1}=62\)。</p>
+      <p class="answer">\(x^2+y^2=62,\ x^3+y^3=488,\ \dfrac yx+\dfrac xy=62\)</p>
+      <p class="point">\(xy=1\) は、\(x\) と \(y\) が逆数どうしであることから有理化しなくても分かる。式の形をよく見る癖をつけよう。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="num-p13" data-level="2">
+    <h3><span class="pid">P13</span>\(x+\dfrac1x\) 型（逆数の和）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x+\dfrac1x=3\) のとき \(x^2+\dfrac{1}{x^2}\)、\(x^3+\dfrac1{x^3}\) の値」「\(x^2-3x+1=0\) のとき」</dd>
+      <dt>こう考える</dt><dd>\(x\) と \(\dfrac1x\) の対称式とみる。<b>積が \(x\cdot\dfrac1x=1\)</b> と分かっているので、P12 の \(xy\) が常に1の特別な場合。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(x^2-3x+1=0\) の形なら、\(x\neq0\) を確認して両辺を \(x\) で割り \(x+\dfrac1x=3\) を作る。</li>
+        <li>\(x^2+\dfrac1{x^2}=\left(x+\dfrac1x\right)^2-2\)、\(x^3+\dfrac1{x^3}=\left(x+\dfrac1x\right)^3-3\left(x+\dfrac1x\right)\)。</li>
+        <li>高次は「かけて余分を引く」：\(\left(x^2+\frac1{x^2}\right)\left(x^3+\frac1{x^3}\right)=\left(x^5+\frac1{x^5}\right)+\left(x+\frac1x\right)\)。</li>
+        <li>\(x-\dfrac1x\) は2乗して \(\left(x-\frac1x\right)^2=\left(x+\frac1x\right)^2-4\) から求め、<b>符号は条件で決める</b>。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\left(x+\frac1x\right)^2=x^2+\frac1{x^2}+2\)、対称式の変形</dd>
+      <dt>なぜこの方法？</dt><dd>\(x\) を具体的に求めると \(\dfrac{3\pm\sqrt5}{2}\) の累乗計算になり大変。積が1という情報を最大限使えば、整数計算だけで済む。この型は 4次の相反方程式（演1）や、<a href="m2-trig.html">三角関数</a>の \(t=\sin\theta+\cos\theta\)、数III の評価にもそのまま現れる。<a href="../thinking.html#t-subst">発想：置き換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(x+\dfrac1x=3\) のとき、次の値を求めよ。(1) \(x^2+\dfrac1{x^2}\)　(2) \(x^3+\dfrac1{x^3}\)　(3) \(x^5+\dfrac1{x^5}\)　(4) \(x\gt1\) のとき \(x-\dfrac1x\)</div>
+      <p>(1) \(3^2-2=7\)。(2) \(3^3-3\cdot3=18\)。</p>
+      <p>(3) \(\left(x^2+\frac1{x^2}\right)\left(x^3+\frac1{x^3}\right)=x^5+\frac1{x^5}+x+\frac1x\) より \(x^5+\frac1{x^5}=7\cdot18-3=123\)。</p>
+      <p>(4) \(\left(x-\frac1x\right)^2=7-2=5\)。\(x\gt1\) なら \(\frac1x\lt1\lt x\) なので \(x-\frac1x\gt0\)。</p>
+      <p class="answer">(1) 7　(2) 18　(3) 123　(4) \(\sqrt5\)</p>
+      <p class="point">(4) で \(\pm\sqrt5\) と書いて終わると減点。符号を決める根拠（\(x\gt1\)）を必ず書く。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="num-p14" data-level="1">
+    <h3><span class="pid">P14</span>1次不等式・連立不等式</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(3x-2\lt5x+4\le2x+13\) を解け」「\(\dfrac{x-1}{3}-\dfrac{2x-3}{4}\ge\dfrac12\) を解け」</dd>
+      <dt>こう考える</dt><dd>方程式と同じく移項・整理するが、<b>負の数で割るときだけ向きが逆</b>になる。連立は「それぞれ解いて数直線で共通部分」。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>分数があれば分母の最小公倍数をかけて整数係数にする（正の数なので向きは変わらない）。</li>
+        <li>\(x\) の項を一方に、定数を他方に集め、係数で割る（負なら向き反転）。</li>
+        <li>\(A\lt B\le C\) は「\(A\lt B\) かつ \(B\le C\)」に分けて解き、数直線で共通部分をとる。端点の ● ○ を区別する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>不等式の性質</dd>
+      <dt>なぜこの方法？</dt><dd>\(A\lt B\le C\) を「\(A\lt C\)」などと勝手に組み替えると条件が変わってしまう。2つの不等式に分けるのが、条件をそのまま保つ唯一の安全な方法。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(3x-2\lt5x+4\le2x+13\) を解け。(2) \(\dfrac{x-1}{3}-\dfrac{2x-3}{4}\ge\dfrac12\) を解け。</div>
+      <p>(1) \(3x-2\lt5x+4\) より \(-2x\lt6\)、\(x\gt-3\)。\(5x+4\le2x+13\) より \(3x\le9\)、\(x\le3\)。</p>
+      <p class="answer">(1) \(-3\lt x\le3\)</p>
+      <p>(2) 両辺に12をかけて \(4(x-1)-3(2x-3)\ge6\)、\(-2x+5\ge6\)、\(-2x\ge1\)。\(-2\) で割って向きを変える。</p>
+      <p class="answer">(2) \(x\le-\dfrac12\)</p>
+      <p class="point">(2) で12をかけるとき、右辺の \(\frac12\) にもかけ忘れないこと。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="num-p15" data-level="2">
+    <h3><span class="pid">P15</span>文字係数の1次不等式</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(a\) を定数とする。不等式 \((a-1)x\gt a^2-1\) を解け」「\(ax\gt2\) の解が \(x\lt-1\) となる \(a\)」</dd>
+      <dt>こう考える</dt><dd>\(x\) の係数で割りたいが、<b>係数の符号が分からないと向きが決まらない</b>。さらに係数が0なら割れない。だから「正・0・負」の3通りに分ける。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(Ax\gt B\) の形に整理する。</li>
+        <li>\(A\gt0\)：\(x\gt\frac BA\)。\(A\lt0\)：\(x\lt\frac BA\)。</li>
+        <li>\(A=0\)：\(0\cdot x\gt B\)。\(B\lt0\) なら<b>すべての実数</b>、\(B\ge0\) なら<b>解なし</b>。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>不等式の性質（負で割ると向きが逆）</dd>
+      <dt>なぜこの方法？</dt><dd>文字の値によって、操作のルール（向き）そのものが変わる。場合分けの境界は「ルールが変わる値」すなわち係数が0になる値。<a href="../thinking.html#t-casework">発想：場合分け</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(a\) を定数とする。\(x\) の不等式 \((a-1)x\gt a^2-1\) を解け。<br>(2) \(x\) の不等式 \(ax\gt2\) の解が \(x\lt-1\) となるような \(a\) の値を求めよ。</div>
+      <p>(1) 右辺 \(=(a-1)(a+1)\)。</p>
+      <ul>
+        <li>\(a\gt1\)：\(a-1\gt0\) で割って \(x\gt a+1\)</li>
+        <li>\(a=1\)：\(0\cdot x\gt0\) となり、これを満たす \(x\) はない</li>
+        <li>\(a\lt1\)：\(a-1\lt0\) で割って \(x\lt a+1\)</li>
+      </ul>
+      <p class="answer">(1) \(a\gt1\) のとき \(x\gt a+1\)、\(a=1\) のとき解なし、\(a\lt1\) のとき \(x\lt a+1\)</p>
+      <p>(2) 解が「\(x\lt\)〜」の形になるのは、向きが逆転する \(a\lt0\) のときだけ（\(a=0\) なら \(0\gt2\) で解なし、\(a\gt0\) なら \(x\gt\frac2a\)）。</p>
+      <p>\(a\lt0\) のとき \(x\lt\frac2a\)。これが \(x\lt-1\) と一致するので \(\frac2a=-1\)、\(a=-2\)（\(a\lt0\) を満たす）。</p>
+      <p class="answer">(2) \(a=-2\)</p>
+      <p class="point">(1) で両辺を \(a-1\) で約分して「\(x\gt a+1\)」とだけ書くのが典型的な誤り。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="num-p16" data-level="2">
+    <h3><span class="pid">P16</span>整数解の個数から文字の範囲を求める</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「連立不等式を満たす整数 \(x\) がちょうど3個となるような \(a\) の範囲を求めよ」</dd>
+      <dt>こう考える</dt><dd>まず文字を含まない方を解いて端を固定し、<b>数直線上に整数を打つ</b>。文字を含む端がどの整数の間にあればよいか、図で読む。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>各不等式を解く（文字を含む方は \(x\lt a\) のような形に）。</li>
+        <li>固定された端から数えて、ちょうど3個の整数を数直線に書き込む。</li>
+        <li>文字の端が「3個目の整数」と「4個目の整数」の間にある条件を書く。</li>
+        <li><b>境界の値（等号）を1つずつ代入して確認</b>する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>1次不等式、数直線</dd>
+      <dt>なぜこの方法？</dt><dd>整数解の個数は端の位置が整数をまたぐ瞬間にだけ変わる。だから問題は「端の位置の範囲」に帰着し、境界で等号が入るかどうかだけが勝負になる。<a href="../thinking.html#t-graph">発想：図にする</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">連立不等式 \(\begin{cases}5x-3\gt2x+3\\ 2x-a\lt x\end{cases}\) を満たす整数 \(x\) がちょうど3個となるような定数 \(a\) の値の範囲を求めよ。</div>
+      <p>第1式より \(3x\gt6\)、\(x\gt2\)。第2式より \(x\lt a\)。よって解は \(2\lt x\lt a\)（\(a\gt2\) のとき）。</p>
+      <p>整数解が3個なら、それは \(x=3,4,5\)。このためには \(5\lt a\) かつ「6は含まない」\(a\le6\)。</p>
+      <p>境界の確認：\(a=6\) のとき \(2\lt x\lt6\) で整数は 3,4,5 の3個（適）。\(a=5\) のとき 3,4 の2個（不適）。</p>
+      <p class="answer">\(5\lt a\le6\)</p>
+      <p class="point">「\(x\lt a\)」は端を含まないので、\(a=6\) でも6は解に入らない。逆に「\(x\le a\)」なら答えは \(5\le a\lt6\) に変わる。等号は必ず具体的な値を代入して決める。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="num-p17" data-level="3">
+    <h3><span class="pid">P17</span>有理数・無理数の相等（係数比較）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(a,b\) は有理数とする」「\(\sqrt2\) が無理数であることを用いてよい」「\(1+\sqrt2\) が \(x^2+ax+b=0\) の解となる有理数 \(a,b\)」</dd>
+      <dt>こう考える</dt><dd>\(p,q\) が有理数なら、<b>\(p+q\sqrt2=0\iff p=q=0\)</b>。「有理数の部分」と「\(\sqrt2\) の部分」を別々に比較できる。ただし答案では、この事実を<b>証明してから</b>使うのが阪大流。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>条件式を展開し、\(P+Q\sqrt2=0\)（\(P,Q\) は有理数）の形に整理する。</li>
+        <li>\(Q\neq0\) と仮定すると \(\sqrt2=-\frac PQ\) が有理数となり矛盾。よって \(Q=0\)、すると \(P=0\)。</li>
+        <li>\(P=0,\ Q=0\) の連立方程式を解く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\sqrt2\) は無理数、有理数は四則演算で閉じている（有理数どうしの和差積商は有理数）</dd>
+      <dt>なぜこの方法？</dt><dd>1つの等式から2つの条件が取り出せるのは、\(\sqrt2\) が有理数では表せない「別の方向の数」だから。複素数で「実部と虚部を比較」するのと同じ構造。\(Q\neq0\) を仮定して矛盾を導く部分は背理法そのもの。<a href="../thinking.html#t-contradiction">発想：背理法</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(a,b\) は有理数とする。\(x=1+\sqrt2\) が2次方程式 \(x^2+ax+b=0\) の解であるとき、\(a,b\) の値を求めよ。また、この方程式のもう1つの解を求めよ。ただし \(\sqrt2\) が無理数であることは用いてよい。</div>
+      <p>\(x^2=3+2\sqrt2\) なので、代入して \((3+2\sqrt2)+a(1+\sqrt2)+b=0\)、すなわち</p>
+      <p>\((a+b+3)+(a+2)\sqrt2=0\quad\cdots①\)</p>
+      <p>\(P=a+b+3,\ Q=a+2\) は有理数である。\(Q\neq0\) と仮定すると \(\sqrt2=-\dfrac PQ\) となり、右辺は有理数なので \(\sqrt2\) が無理数であることに矛盾する。よって \(Q=0\)、① から \(P=0\)。</p>
+      <p>\(a+2=0,\ a+b+3=0\) より \(a=-2,\ b=-1\)。</p>
+      <p>方程式は \(x^2-2x-1=0\)、解は \(x=1\pm\sqrt2\)。</p>
+      <p class="answer">\(a=-2,\ b=-1\)、もう1つの解は \(1-\sqrt2\)</p>
+      <p class="point">「有理数」の条件がなければ結論は成り立たない（例：\(a=\sqrt2\) なども可能になる）。採点では「\(P,Q\) が有理数であること」と「\(Q\neq0\) なら矛盾」の2点を書いたかが見られる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="num-p18" data-level="3">
+    <h3><span class="pid">P18</span>3文字の対称式（基本対称式で表す）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x+y+z=3,\ xy+yz+zx=-3,\ xyz=-5\) のとき \(x^3+y^3+z^3\) の値」「\(a+b+c=0\) のとき〜を示せ」</dd>
+      <dt>こう考える</dt><dd>2文字と同じく、3文字の対称式は <b>\(x+y+z,\ xy+yz+zx,\ xyz\)</b> で必ず表せる。必要な恒等式を3つ覚えておけば、ほぼ全部これで処理できる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(x^2+y^2+z^2=(x+y+z)^2-2(xy+yz+zx)\)</li>
+        <li>\(x^3+y^3+z^3=3xyz+(x+y+z)\{(x^2+y^2+z^2)-(xy+yz+zx)\}\)</li>
+        <li>\((x+y)(y+z)(z+x)=(x+y+z)(xy+yz+zx)-xyz\)、\(\dfrac1x+\dfrac1y+\dfrac1z=\dfrac{xy+yz+zx}{xyz}\)</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(a^3+b^3+c^3-3abc=(a+b+c)(a^2+b^2+c^2-ab-bc-ca)\)、P5 の因数分解</dd>
+      <dt>なぜこの方法？</dt><dd>\(x,y,z\) は \((t-x)(t-y)(t-z)=t^3-(x+y+z)t^2+(xy+yz+zx)t-xyz\) の3つの解なので、3つの基本対称式が分かれば \(x,y,z\) の組は決まる。だから対称式の値はすべてこの3つで決まる。<a href="../thinking.html#t-symmetry">発想：対称性を使う</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(x+y+z=3,\ xy+yz+zx=-3,\ xyz=-5\) のとき、次の値を求めよ。<br>(1) \(x^2+y^2+z^2\)　(2) \(x^3+y^3+z^3\)　(3) \((x+y)(y+z)(z+x)\)　(4) \(\dfrac1x+\dfrac1y+\dfrac1z\)</div>
+      <p>(1) \(3^2-2\cdot(-3)=15\)。</p>
+      <p>(2) \(3\cdot(-5)+3\{15-(-3)\}=-15+54=39\)。</p>
+      <p>(3) \(x+y=3-z\) などを使うと \((3-z)(3-x)(3-y)\)。これは \((t-x)(t-y)(t-z)\) に \(t=3\) を代入したもので、\(27-3\cdot9+(-3)\cdot3-(-5)=-4\)。（公式 \(3\cdot(-3)-(-5)=-4\) でも同じ。）</p>
+      <p>(4) \(\dfrac{-3}{-5}=\dfrac35\)。</p>
+      <p class="answer">(1) 15　(2) 39　(3) \(-4\)　(4) \(\dfrac35\)</p>
+      <p class="point">(3) の「\(x+y=3-z\) と置き換える」発想は、\(a+b+c=0\) の条件式の問題（\(a+b=-c\) を使う）でも主役になる。例えば \(a+b+c=0\) なら \(a^3+b^3+c^3=3abc\)。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="num-p19" data-level="3">
+    <h3><span class="pid">P19</span>絶対値の和：折れ線グラフと「距離の和」</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(f(x)=\abs{x-1}+\abs{x-2}+\abs{x-4}\) の最小値」「\(f(x)=k\) の実数解の個数」</dd>
+      <dt>こう考える</dt><dd>\(\abs{x-a}\) の和は<b>折れ線</b>になる。区間ごとの傾きは「左にある点の個数 − 右にある点の個数」。<b>傾きが負から正に変わる点（真ん中の点＝中央値）で最小</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>区切り点（1, 2, 4）で区間に分け、各区間の式（傾き）を書く。</li>
+        <li>区切り点での値を計算し、折れ線を描く。</li>
+        <li>最小値や、水平線 \(y=k\) との交点の個数をグラフから読む。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>絶対値の定義、\(\abs{x-a}\) は距離</dd>
+      <dt>なぜこの方法？</dt><dd>\(x\) を少し右に動かすと、左にある点からの距離は増え、右にある点からの距離は減る。だから「左右の点の個数が釣り合う位置」で和が最小。式を区間ごとに書くより、<b>傾きの変化</b>で見ると一気に全体像がつかめる。データの分析で「中央値は絶対偏差の和を最小にする」とつながる。<a href="../thinking.html#t-graph">発想：図・グラフにする</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(f(x)=\abs{x-1}+\abs{x-2}+\abs{x-4}\) とする。(1) \(f(x)\) の最小値を求めよ。(2) 方程式 \(f(x)=k\) の異なる実数解の個数を、実数 \(k\) の値で分類せよ。</div>
+      <p>区間ごとに \(f(x)\) の式を書くと</p>
+      \[ \begin{cases} -3x+7 & (x\lt1)\\ -x+5 & (1\le x\lt2)\\ x+1 & (2\le x\lt4)\\ 3x-7 & (x\ge4)\end{cases} \]
+      <p>\(f(1)=4,\ f(2)=3,\ f(4)=5\)。傾きは \(-3,-1,1,3\) と変化し、\(x=2\) で負から正に変わる。</p>
+      <p class="answer">(1) 最小値 3（\(x=2\)）</p>
+      <p>(2) グラフは \(x=2\) を谷とする折れ線で、谷の左では減少、右では増加し、両側とも \(\infty\) に向かう。水平線 \(y=k\) との共有点は</p>
+      <p class="answer">(2) \(k\lt3\)：0個、\(k=3\)：1個、\(k\gt3\)：2個</p>
+      <p class="point">点が偶数個（例：\(\abs{x-1}+\abs{x-3}\)）のときは、真ん中の2点の間で傾き0となり、最小値をとる \(x\) が区間全体になる。P8 の (1) の図形的意味もこれ。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="num-p20" data-level="3">
+    <h3><span class="pid">P20</span>不等式で評価して整数部分を決める（文字を含む場合）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(n\) を自然数とする。\(\sqrt{n^2+n}\) の整数部分を求めよ」「小数部分 \(b_n\) について \(\sqrt2-1\le b_n\lt\frac12\) を示せ」</dd>
+      <dt>こう考える</dt><dd>\(n\) が文字なので電卓的な近似はできない。<b>連続する平方数で挟む</b>：\(n^2\le n^2+n\lt(n+1)^2\)。小数部分は <b>差を有理化して分数の形</b>にすると評価しやすい。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(n^2\le(\text{中身})\lt(n+1)^2\) を示し、整数部分 \(=n\) を得る。</li>
+        <li>小数部分 \(b_n=\sqrt{n^2+n}-n\) を \(\dfrac{n}{\sqrt{n^2+n}+n}\) と有理化する。</li>
+        <li>分母を大きく・小さく評価して、上下から挟む。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(0\le A\lt B\iff\sqrt A\lt\sqrt B\)、有理化、分母が大きいほど分数は小さい</dd>
+      <dt>なぜこの方法？</dt><dd>\(\sqrt{\ }-\sqrt{\ }\) の差は「打ち消し合い」で大きさが見えにくいが、有理化すると「和」の形になって分母の大きさを簡単に評価できる。この技術は数III の極限（\(\sqrt{n^2+n}-n\to\frac12\)）の計算そのもの。<a href="../thinking.html#t-bound">発想：不等式で評価して絞る</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(n\) を自然数とする。(1) \(\sqrt{n^2+n}\) の整数部分を求めよ。(2) \(\sqrt{n^2+n}\) の小数部分を \(b_n\) とするとき、\(\sqrt2-1\le b_n\lt\dfrac12\) を示せ。</div>
+      <p>(1) \(n\ge1\) より \(n^2\lt n^2+n\lt n^2+2n+1=(n+1)^2\)。各辺は正なので平方根をとって \(n\lt\sqrt{n^2+n}\lt n+1\)。</p>
+      <p class="answer">(1) 整数部分は \(n\)</p>
+      <p>(2) \(b_n=\sqrt{n^2+n}-n=\dfrac{(n^2+n)-n^2}{\sqrt{n^2+n}+n}=\dfrac{n}{\sqrt{n^2+n}+n}=\dfrac{1}{\sqrt{1+\frac1n}+1}\)。</p>
+      <p>上からの評価：\(\sqrt{1+\frac1n}\gt1\) なので分母 \(\gt2\)、よって \(b_n\lt\frac12\)。</p>
+      <p>下からの評価：\(n\ge1\) より \(1+\frac1n\le2\)、\(\sqrt{1+\frac1n}\le\sqrt2\)。分母 \(\le\sqrt2+1\) なので \(b_n\ge\dfrac{1}{\sqrt2+1}=\sqrt2-1\)（等号は \(n=1\)）。</p>
+      <p class="answer">(2) \(\sqrt2-1\le b_n\lt\dfrac12\)（証明終）</p>
+      <p class="point">分母を \(n\) で割って \(\dfrac{1}{\sqrt{1+1/n}+1}\) にすると、\(n\) が大きくなると分母が小さくなる（\(b_n\) は増加する）ことまで見える。評価しやすい形に変形するのが、阪大の不等式証明の第一歩。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="pitfalls">
+  <h2>よくあるミスと対策</h2>
+  <ul class="pitfalls">
+    <li><b>\(-(b-c)^2\) の符号ミス</b>（P1）。→ カッコをつけたまま展開し、最後に符号を配る。</li>
+    <li><b>因数分解が途中で止まっている</b>（P3）。\((x^2-1)(x^2-4)\) で終えるなど。→ 各因数がまだ分解できないか必ず確認する。</li>
+    <li><b>絶対値をはずした後、場合分けの範囲チェックを忘れる</b>（P7, P8）。→ 解の横に「（適）」「（不適）」と書く習慣をつける。</li>
+    <li><b>\(\sqrt{A^2}=A\) としてしまう</b>（P10）。→ \(\sqrt{A^2}=\abs A\)。二重根号の差は「大きい方 − 小さい方」。</li>
+    <li><b>小数部分を「\(0.618\cdots\)」と近似値で書く</b>（P11）。→ 小数部分は必ず「\(x-(\text{整数部分})\)」の式で表す。</li>
+    <li><b>文字で割るとき符号を考えない</b>（P15）。→ 文字で割る直前に「この文字は正？0？負？」と自問する。</li>
+    <li><b>整数解の個数問題で端の等号を勘で決める</b>（P16）。→ 境界の値を実際に代入して整数解を数える。</li>
+    <li><b>\(x-\frac1x=\pm\sqrt5\) のまま答える</b>（P13）。→ 2乗して求めた値は、元の式の符号を条件から必ず決める。</li>
+  </ul>
+</section>
+
+<section id="handai">
+  <h2>阪大レベルへの橋渡し</h2>
+  <p>阪大理系で「数と式」だけの問題は出ないが、<b>すべての答案の計算と論証の部品</b>として使われる。特に次の3つは大問の途中で必ず問われる。</p>
+  <ul>
+    <li>\(x+\frac1x\) 型・対称式による<b>次数下げと置き換え</b>（P12, P13 → 4次方程式、三角関数、複素数平面の \(z+\frac1z\)）。</li>
+    <li>絶対値・整数解の個数を<b>図（数直線・折れ線）で整理</b>する力（P16, P19 → 解の個数、整数問題）。</li>
+    <li>\(\sqrt{\ }\) や有理数・無理数を<b>論証として扱う</b>力（P17, P20 → 背理法、不等式による評価、極限）。</li>
+  </ul>
+
+  <article class="pattern" id="num-h1" data-level="3">
+    <h3><span class="pid">演1</span>相反方程式と小数部分</h3>
+    <div class="problem">(1) 方程式 \(x^4-5x^3+6x^2-5x+1=0\) の実数解をすべて求めよ。<br>(2) (1) の実数解のうち大きい方を \(\alpha\) とし、\(\alpha\) の小数部分を \(\beta\) とする。\(\beta^2+2\beta\) の値を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>係数が \(1,-5,6,-5,1\) と<b>左右対称</b>。このとき \(x=0\) は解でないので \(x^2\) で割ると \(x^2+\frac1{x^2}\) と \(x+\frac1x\) が現れる。\(t=x+\frac1x\) とおけば \(t\) の2次方程式になる（P13）。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) \(x=0\) は解でないので、両辺を \(x^2\) で割ると</p>
+      \[ x^2+\frac1{x^2}-5\left(x+\frac1x\right)+6=0 \]
+      <p>\(t=x+\frac1x\) とおくと \(x^2+\frac1{x^2}=t^2-2\) なので \(t^2-5t+4=0\)、\((t-1)(t-4)=0\)。</p>
+      <ul>
+        <li>\(t=1\)：\(x+\frac1x=1\) より \(x^2-x+1=0\)。判別式 \(1-4\lt0\) で実数解なし。</li>
+        <li>\(t=4\)：\(x^2-4x+1=0\) より \(x=2\pm\sqrt3\)。</li>
+      </ul>
+      <p class="answer">(1) \(x=2\pm\sqrt3\)</p>
+      <p>(2) \(\alpha=2+\sqrt3\)。\(1\lt\sqrt3\lt2\) より \(3\lt\alpha\lt4\)、整数部分は3。</p>
+      <p>\(\beta=\alpha-3=\sqrt3-1\)。\(\beta+1=\sqrt3\) なので \(\beta^2+2\beta=(\beta+1)^2-1=3-1=2\)。</p>
+      <p class="answer">(2) \(\beta^2+2\beta=2\)</p>
+      <p class="point">採点ポイント：「\(x=0\) は解でない」と断ってから割ること（0で割る可能性の排除）。\(t\) の値から \(x\) に戻すとき、実数解をもたない \(t\) を判別式で除外する理由も書く。(2) は \(\beta\) を直接2乗してもよいが、\((\beta+1)^2\) の形を作ると計算が軽い。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="num-h2" data-level="3">
+    <h3><span class="pid">演2</span>距離の和の不等式と整数解の個数</h3>
+    <div class="problem">\(a\) を実数の定数とする。\(x\) の不等式 \(\abs{x-a}+\abs{x-1}\le3\) を満たす整数 \(x\) がちょうど3個となるような \(a\) の値の範囲を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>「\(a\) からの距離 + 1 からの距離 \(\le 3\)」と読む。2点 \(a,1\) の間の点では和は一定値 \(\abs{a-1}\)、外側では1進むごとに2ずつ増える。だから解の集合は<b>2点を中心から左右に広げた区間</b>になり、その長さが実は \(a\) によらない。区間の長さが分かれば、中に入る整数の個数は「端が整数かどうか」だけで決まる。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>\(m=\min(a,1),\ M=\max(a,1)\) とおく。</p>
+      <ul>
+        <li>\(m\le x\le M\) のとき：\(\abs{x-a}+\abs{x-1}=M-m=\abs{a-1}\)。</li>
+        <li>\(x\gt M\) のとき：\((x-a)+(x-1)=2x-a-1\)。</li>
+        <li>\(x\lt m\) のとき：\((a-x)+(1-x)=a+1-2x\)。</li>
+      </ul>
+      <p>どの \(x\) でも \(\abs{x-a}+\abs{x-1}\ge\abs{a-1}\) なので、\(\abs{a-1}\gt3\) なら解はない。以下 \(\abs{a-1}\le3\)、すなわち \(-2\le a\le4\) とする。</p>
+      <p>このとき \(m\le x\le M\) はすべて解。\(x\gt M\) では \(2x-a-1\le3\iff x\le\frac{a+4}{2}\)、\(x\lt m\) では \(a+1-2x\le3\iff x\ge\frac{a-2}{2}\)。\(\abs{a-1}\le3\) より \(\frac{a-2}{2}\le m,\ M\le\frac{a+4}{2}\) が成り立つ（例えば \(a\ge1\) なら \(\frac{a+4}{2}\ge a\iff a\le4\)、\(\frac{a-2}{2}\le1\iff a\le4\)。\(a\lt1\) も同様）ので、解の集合は</p>
+      \[ \frac{a-2}{2}\le x\le\frac{a+4}{2} \]
+      <p>という<b>長さ3の閉区間</b>である。</p>
+      <p>長さ3の閉区間 \([L,\ L+3]\) に含まれる整数の個数は、\(L\) が整数なら \(L,L+1,L+2,L+3\) の4個、\(L\) が整数でなければ3個（\(L\) より大きい最小の整数を \(k\) とすると \(k\lt L+1\) なので \(k,k+1,k+2\) は区間内、\(k+3\gt L+3\) は区間外）。</p>
+      <p>よって求める条件は、\(-2\le a\le4\) かつ \(L=\frac{a-2}{2}\) が整数でないこと。\(-2\le a\le4\) で \(\frac{a-2}{2}\) が整数になるのは \(a=-2,0,2,4\)。</p>
+      <p class="answer">\(-2\lt a\lt0,\ 0\lt a\lt2,\ 2\lt a\lt4\)</p>
+      <p class="point">検算：\(a=0\) のとき解は \(-1\le x\le2\) で整数4個、\(a=0.01\) のとき \(-0.995\le x\le2.005\) で整数 \(0,1,2\) の3個。採点ポイント：(i) 解が存在する条件 \(\abs{a-1}\le3\) を書く、(ii) 解の集合が長さ3の区間になることを示す、(iii) 端が整数のとき4個になることを除く。区間の長さが一定と気づかず \(a\) の範囲で細かく場合分けしても解けるが、境界の処理で崩れやすい。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="num-h3" data-level="3">
+    <h3><span class="pid">演3</span>べき乗和から3数を決定する</h3>
+    <div class="problem">実数 \(a,b,c\) が \(a+b+c=2,\ a^2+b^2+c^2=6,\ a^3+b^3+c^3=8\) を満たすとする。<br>(1) \(ab+bc+ca\) と \(abc\) の値を求めよ。<br>(2) \(a^4+b^4+c^4\) の値を求めよ。<br>(3) \(a,b,c\) の組をすべて求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>与えられたのは「べき乗の和」。これを<b>基本対称式</b> \(a+b+c,\ ab+bc+ca,\ abc\) に翻訳する（P18）。基本対称式が分かれば、\(a,b,c\) は3次式 \((t-a)(t-b)(t-c)\) の根として決まる。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>\(p=a+b+c=2,\ q=ab+bc+ca,\ r=abc\) とおく。</p>
+      <p>(1) \(a^2+b^2+c^2=p^2-2q\) より \(6=4-2q\)、\(q=-1\)。</p>
+      <p>\(a^3+b^3+c^3=3r+p\{(a^2+b^2+c^2)-q\}\) より \(8=3r+2(6+1)\)、\(r=-2\)。</p>
+      <p class="answer">(1) \(ab+bc+ca=-1,\ abc=-2\)</p>
+      <p>(2) \((a^2+b^2+c^2)^2=a^4+b^4+c^4+2(a^2b^2+b^2c^2+c^2a^2)\)。ここで</p>
+      <p>\(a^2b^2+b^2c^2+c^2a^2=(ab+bc+ca)^2-2abc(a+b+c)=1-2\cdot(-2)\cdot2=9\)。</p>
+      <p>よって \(a^4+b^4+c^4=36-18=18\)。</p>
+      <p class="answer">(2) 18</p>
+      <p>(3) 展開すると \((t-a)(t-b)(t-c)=t^3-pt^2+qt-r=t^3-2t^2-t+2\)。</p>
+      <p>\(t^3-2t^2-t+2=t^2(t-2)-(t-2)=(t-2)(t-1)(t+1)\)。</p>
+      <p>\((t-a)(t-b)(t-c)=(t-2)(t-1)(t+1)\) がすべての \(t\) で成り立つので、\(t=a\) を代入すると \((a-2)(a-1)(a+1)=0\)、つまり \(a\in\{2,1,-1\}\)。\(b,c\) も同様。さらに \(t=2,1,-1\) を代入すると左辺も0になるので、\(2,1,-1\) はそれぞれ \(a,b,c\) のどれかに等しい。よって \(\{a,b,c\}=\{2,1,-1\}\)。</p>
+      <p class="answer">(3) \((a,b,c)\) は \(2,1,-1\) を並べた6通り：\((2,1,-1)\)、\((2,-1,1)\)、\((1,2,-1)\)、\((1,-1,2)\)、\((-1,2,1)\)、\((-1,1,2)\)</p>
+      <p class="point">検算：\(2^4+1^4+(-1)^4=18\) で(2)と一致。採点ポイント：(3) では「\(a,b,c\) が \(2,1,-1\) のどれか」だけでなく「\(2,1,-1\) がすべて現れる」ことまで言わないと、\((2,2,1)\) などを除けていない。(3) の論法は <a href="m2-complex-eq.html">複素数と方程式</a>の解と係数の関係（3次）の先取り。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="next">
+  <h2>次に学ぶとつながる単元</h2>
+  <ul>
+    <li><a href="m1-quadratic.html">2次関数</a>：因数分解（P2）で2次不等式を解き、絶対値（P7, P8）がグラフの折り返しになる。P19 の折れ線の見方がそのまま使える。</li>
+    <li><a href="m1-logic.html">集合と命題</a>：P17 の「\(\sqrt2\) が無理数」の証明（背理法）と、不等式の解の集合（数直線）による必要・十分の判定。</li>
+    <li><a href="m2-proof.html">式と証明</a>：P5 の「\(a=b\) を代入して0なら \(a-b\) が因数」は因数定理へ、P12・P18 の対称式は恒等式・不等式の証明へ。</li>
+    <li><a href="m2-complex-eq.html">複素数と方程式</a>：P12, P18, 演3 の基本対称式が「解と係数の関係」になり、P13・演1 の相反方程式が高次方程式で再登場する。</li>
+    <li><a href="m3-limit.html">極限</a>：P20 の有理化による評価が \(\sqrt{n^2+n}-n\) 型の極限計算そのもの。</li>
+  </ul>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>

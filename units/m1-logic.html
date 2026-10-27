@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>集合と命題（数学I）｜解法の地図</title>
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-unit="m1-logic" data-root="../">
+<main>
+
+<header class="unit-head">
+  <span class="subj-badge">数学I</span>
+  <h1>集合と命題</h1>
+  <p class="lead">「ならば」「すべて」「ある」「少なくとも一方」——数学の文章を正確に読み、正確に書くための単元。計算問題は少ないが、<b>阪大の証明問題の答案は、ほぼすべてここで学ぶ論理の上に組み立てられている</b>。「何を示せば証明が終わるのか」を自分で判断できるようになろう。</p>
+  <div class="goal">
+    <strong>このページの到達目標</strong>
+    <ul>
+      <li>【基礎】集合の共通部分・和集合・補集合を求め、命題の真偽を判定し、偽なら反例を挙げられる。</li>
+      <li>【標準】必要条件・十分条件を集合の包含で判定し、否定・対偶・背理法を使った証明が書ける。</li>
+      <li>【阪大】「少なくとも1つ」「無限に存在」「必要十分条件を求めよ」を、必要性と十分性を区別した答案として完成できる。</li>
+    </ul>
+  </div>
+  <p class="prereq">前提：<a href="m1-numbers.html">数と式</a>（不等式・有理数と無理数）／ 次に進む：<a href="m1-quadratic.html">2次関数</a>（「すべての \(x\)」「ある \(x\)」）、<a href="ma-integer.html">整数の性質</a>、<a href="mb-sequence.html">数列</a>（数学的帰納法）</p>
+</header>
+
+<section id="core">
+  <h2>必ず押さえる基本事項</h2>
+
+  <div class="box theorem">
+    <p><span class="name">集合の記号</span>：全体集合を \(U\) とする。</p>
+    <ul>
+      <li>\(a\in A\)：\(a\) は \(A\) の要素。\(A\subset B\)：\(A\) の要素はすべて \(B\) の要素（部分集合）。\(\emptyset\)：空集合。</li>
+      <li>共通部分 \(A\cap B\)：両方に属する。和集合 \(A\cup B\)：少なくとも一方に属する。補集合 \(\overline{A}\)：\(U\) の要素で \(A\) に属さない。</li>
+    </ul>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">ド・モルガンの法則</span></p>
+    \[ \overline{A\cup B}=\overline{A}\cap\overline{B} \]
+    \[ \overline{A\cap B}=\overline{A}\cup\overline{B} \]
+    <p>なぜ：「\(A\) か \(B\) の少なくとも一方に属する」の否定は「\(A\) にも \(B\) にも属さない」。ベン図で塗ってみれば一致する。条件の言葉では「\(p\) または \(q\)」の否定は「\(\overline p\) かつ \(\overline q\)」。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">命題と集合・必要条件と十分条件</span>：条件 \(p,q\) を満たすものの集合を \(P,Q\) とすると</p>
+    \[ p\Longrightarrow q\ \text{が真}\iff P\subset Q \]
+    <svg viewBox="0 0 320 130" width="320" role="img" aria-label="P が Q に含まれる図">
+      <ellipse cx="160" cy="65" rx="140" ry="58" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <ellipse cx="130" cy="68" rx="58" ry="32" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
+      <text x="122" y="74" fill="var(--accent)" font-size="18" font-weight="700">P</text>
+      <text x="240" y="74" fill="currentColor" font-size="18" font-weight="700">Q</text>
+    </svg>
+    <p>このとき、\(p\) は \(q\) であるための<b>十分条件</b>、\(q\) は \(p\) であるための<b>必要条件</b>。\(p\Longrightarrow q\) と \(q\Longrightarrow p\) が両方真なら<b>必要十分条件</b>（同値）で、\(P=Q\)。</p>
+    <p>覚え方：<b>小さい集合（\(P\)）が十分、大きい集合（\(Q\)）が必要</b>。\(P\) に入っていれば「それだけで十分」\(Q\) に入れる。\(Q\) に入っていることは \(P\) に入るために「最低限必要」。</p>
+    <p>\(p\Longrightarrow q\) が偽であることを示すには、\(P\) に属して \(Q\) に属さない例（<b>反例</b>）を1つ挙げればよい。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">否定のつくり方</span></p>
+    <div class="table-wrap"><table>
+      <tr><th>もとの条件・命題</th><th>否定</th></tr>
+      <tr><td>\(p\) かつ \(q\)</td><td>\(\overline p\) または \(\overline q\)</td></tr>
+      <tr><td>\(p\) または \(q\)</td><td>\(\overline p\) かつ \(\overline q\)</td></tr>
+      <tr><td>すべての \(x\) について \(p(x)\)</td><td>ある \(x\) について \(\overline{p(x)}\)</td></tr>
+      <tr><td>ある \(x\) について \(p(x)\)</td><td>すべての \(x\) について \(\overline{p(x)}\)</td></tr>
+      <tr><td>\(x\gt0\)</td><td>\(x\le0\)（\(x\lt0\) ではない）</td></tr>
+    </table></div>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">逆・裏・対偶</span>：命題 \(p\Longrightarrow q\) に対し</p>
+    <ul>
+      <li>逆：\(q\Longrightarrow p\)　裏：\(\overline p\Longrightarrow\overline q\)　対偶：\(\overline q\Longrightarrow\overline p\)</li>
+      <li><b>もとの命題と対偶は真偽が一致する</b>（逆と裏も互いに対偶なので真偽が一致する）。もとの命題が真でも、逆が真とは限らない。</li>
+    </ul>
+    <p>なぜ：\(P\subset Q\) と \(\overline Q\subset\overline P\) は同じこと（\(Q\) の外にあるものは \(P\) の外にもある）。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">背理法</span>：命題 \(A\) を示すために、「\(A\) でない」と仮定して矛盾を導く。</p>
+    <p>なぜ：命題は真か偽のどちらかであり、「\(A\) でない」から正しい推論で矛盾（偽な結論）が出るなら、出発点の「\(A\) でない」が偽、つまり \(A\) が真である。</p>
+  </div>
+
+  <div class="box idea">
+    <p><b>この単元を貫く考え方</b>：条件は<b>集合</b>、「ならば」は<b>包含 \(\subset\)</b>、「否定」は<b>補集合</b>、と翻訳する。言葉のままでは混乱する論理も、数直線やベン図にすれば「どちらが大きいか」を見るだけになる。そして証明では、<b>直接示しにくいときは「否定」の側から攻める</b>（対偶・背理法）。<a href="../thinking.html#t-complement">発想：余事象・否定・補集合</a></p>
+  </div>
+</section>
+
+<section id="quick">
+  <h2>早見表：こう来たら → こう解く</h2>
+  <div class="table-wrap"><table class="quick">
+    <tr><th>問題の特徴（こう来たら）</th><th>方針（こう解く）</th><th>使う道具</th><th>詳細</th></tr>
+    <tr data-level="1"><td>\(A\cap B\)、\(A\cup B\)、\(\overline A\) を求めよ</td><td>要素を書き並べる／数直線に描く</td><td>ベン図・数直線</td><td><a href="#logic-p1">P1</a></td></tr>
+    <tr data-level="1"><td>「〜でも〜でもない」「\(\overline{A}\cap\overline{B}\)」</td><td>ド・モルガンで和集合の補集合に</td><td>ド・モルガン</td><td><a href="#logic-p2">P2</a></td></tr>
+    <tr data-level="2"><td>「\(A\cap B=\{4,5\}\) となる \(a\) を求めよ」</td><td>要素の条件で候補を絞り、代入して確認</td><td>必要条件→十分性</td><td><a href="#logic-p3">P3</a></td></tr>
+    <tr data-level="1"><td>「次の命題の真偽を答えよ。偽なら反例を」</td><td>集合の包含を調べ、はみ出す例を探す</td><td>反例</td><td><a href="#logic-p4">P4</a></td></tr>
+    <tr data-level="2"><td>「必要条件・十分条件のどれか答えよ」</td><td>両方向の真偽を調べる（小さい方が十分）</td><td>集合の包含</td><td><a href="#logic-p5">P5</a></td></tr>
+    <tr data-level="2"><td>「〜が〜であるための十分条件となる \(a\) の範囲」</td><td>数直線で区間の包含、端点の等号を確認</td><td>集合の包含</td><td><a href="#logic-p6">P6</a></td></tr>
+    <tr data-level="2"><td>「次の命題の否定を述べよ」</td><td>すべて↔ある、かつ↔または を入れかえる</td><td>否定の規則</td><td><a href="#logic-p7">P7</a></td></tr>
+    <tr data-level="1"><td>「逆・裏・対偶を述べ、真偽を答えよ」</td><td>対偶はもとと同じ、裏は逆と同じ真偽</td><td>逆・裏・対偶</td><td><a href="#logic-p8">P8</a></td></tr>
+    <tr data-level="2"><td>結論が「または」「〜でない」の形の証明</td><td>対偶をとって「かつ」「〜である」に</td><td>対偶</td><td><a href="#logic-p9">P9</a></td></tr>
+    <tr data-level="2"><td>「\(\sqrt2\) は無理数であることを証明せよ」</td><td>有理数と仮定し、既約分数の矛盾</td><td>背理法</td><td><a href="#logic-p10">P10</a></td></tr>
+    <tr data-level="3"><td>「\(\sqrt2+\sqrt3\) は無理数であることを示せ」</td><td>有理数と仮定し、既知の無理数が有理数になる矛盾</td><td>背理法・有理数の四則</td><td><a href="#logic-p11">P11</a></td></tr>
+    <tr data-level="3"><td>「無限に存在することを示せ」「存在しないことを示せ」</td><td>有限個（存在する）と仮定して矛盾</td><td>背理法</td><td><a href="#logic-p12">P12</a></td></tr>
+    <tr data-level="2"><td>「少なくとも一方は〜」「ともに〜」</td><td>否定は「ともに〜でない」。積＝0／平方和＝0 に翻訳</td><td>ド・モルガン・対偶</td><td><a href="#logic-p13">P13</a></td></tr>
+    <tr data-level="3"><td>「\(a,b,c\) のうち少なくとも1つは1であることを示せ」</td><td>\((a-1)(b-1)(c-1)=0\) を示す</td><td>積＝0の言い換え</td><td><a href="#logic-p14">P14</a></td></tr>
+    <tr data-level="3"><td>「〜となるための必要十分条件を求めよ」</td><td>必要性（特別な値を代入）→十分性（一般に成立）の2段</td><td>必要条件で絞る</td><td><a href="#logic-p15">P15</a></td></tr>
+  </table></div>
+</section>
+
+<section id="patterns">
+  <h2>パターン別 解法マップ</h2>
+
+  <article class="pattern" id="logic-p1" data-level="1">
+    <h3><span class="pid">P1</span>集合の演算（共通部分・和集合・補集合）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(A\cap B,\ A\cup B,\ \overline A\cap B\) を求めよ」（要素を並べた集合、または \(\{x\mid -1\le x\lt3\}\) のような範囲の集合）</dd>
+      <dt>こう考える</dt><dd>要素が有限個なら<b>ベン図</b>に書き込む。範囲の集合なら<b>数直線</b>に描く。頭の中だけで処理しない。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>有限集合：全体集合 \(U\) の要素を1つずつ、どの領域に入るかベン図に書き込む。</li>
+        <li>範囲の集合：数直線に \(A\)、\(B\) を上下2段で描き、端点の ●（含む）○（含まない）を区別する。</li>
+        <li>補集合は「\(U\) から抜く」。端点の ● ○ は<b>入れかわる</b>。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>共通部分・和集合・補集合の定義</dd>
+      <dt>なぜこの方法？</dt><dd>集合の演算は「どこに属するか」の分類なので、図にすれば見落としがない。特に補集合の端点の扱いは、図がないとほぼ確実に間違える。<a href="../thinking.html#t-graph">発想：図にする</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(U=\{1,2,\dots,10\}\) を全体集合とし、\(A=\{2,3,5,7\}\)（10以下の素数）、\(B=\{1,3,5,7,9\}\)（10以下の正の奇数）とする。\(A\cap B,\ A\cup B,\ \overline A\cap B,\ \overline{A\cup B}\) を求めよ。<br>(2) 実数全体を全体集合とし、\(A=\{x\mid -1\le x\lt3\},\ B=\{x\mid 1\lt x\le5\}\) とする。\(A\cap B,\ A\cup B,\ \overline A\cap B\) を求めよ。</div>
+      <p>(1) ベン図に書き込むと、\(A\) だけ：\(\{2\}\)、両方：\(\{3,5,7\}\)、\(B\) だけ：\(\{1,9\}\)、どちらでもない：\(\{4,6,8,10\}\)。</p>
+      <p class="answer">(1) \(A\cap B=\{3,5,7\},\ A\cup B=\{1,2,3,5,7,9\},\ \overline A\cap B=\{1,9\},\ \overline{A\cup B}=\{4,6,8,10\}\)</p>
+      <p>(2) 数直線より \(A\cap B=\{x\mid 1\lt x\lt3\}\)、\(A\cup B=\{x\mid -1\le x\le5\}\)。</p>
+      <p>\(\overline A=\{x\mid x\lt-1\ \text{または}\ 3\le x\}\)。これと \(B\) の共通部分は \(\{x\mid 3\le x\le5\}\)。</p>
+      <p class="answer">(2) \(A\cap B=\{x\mid 1\lt x\lt3\},\ A\cup B=\{x\mid -1\le x\le5\},\ \overline A\cap B=\{x\mid 3\le x\le5\}\)</p>
+      <p class="point">(2) で \(A\) は「\(x\lt3\)」なので3を含まない。だから \(\overline A\) は3を<b>含む</b>。端点の ● ○ が反転することに注意。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="logic-p2" data-level="1">
+    <h3><span class="pid">P2</span>ド・モルガンの法則と要素の個数</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「2の倍数でも3の倍数でもない数」「\(\overline A\cap\overline B\)」「\(\overline{A}\cup\overline{B}\) の要素の個数」</dd>
+      <dt>こう考える</dt><dd>「〜でも〜でもない」は直接数えにくい。ド・モルガンで<b>和集合の補集合</b> \(\overline{A\cup B}\) に直せば、「全体 − 少なくとも一方」で数えられる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\overline A\cap\overline B=\overline{A\cup B}\)、\(\overline A\cup\overline B=\overline{A\cap B}\) と書き換える。</li>
+        <li>\(n(A\cup B)=n(A)+n(B)-n(A\cap B)\) で和集合を数える。</li>
+        <li>全体から引く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>ド・モルガンの法則、\(n(\overline A)=n(U)-n(A)\)、和集合の要素の個数</dd>
+      <dt>なぜこの方法？</dt><dd>「でない」が2つ重なった条件は、まとめて1つの「でない」にすると扱いやすい。要素の個数の詳しい扱い（3つの集合など）は <a href="ma-counting.html">場合の数</a> で学ぶ。<a href="../thinking.html#t-complement">発想：余事象・補集合</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">1から30までの整数のうち、(1) 2の倍数でも3の倍数でもないものの個数、(2) 6の倍数でないもの（「2の倍数でない または 3の倍数でない」もの）の個数を求めよ。</div>
+      <p>\(U=\{1,\dots,30\}\)、\(A\)：2の倍数、\(B\)：3の倍数とする。\(n(A)=15,\ n(B)=10,\ n(A\cap B)=5\)（6の倍数）。</p>
+      <p>(1) \(n(\overline A\cap\overline B)=n(\overline{A\cup B})=30-(15+10-5)=10\)。</p>
+      <p>(2) \(n(\overline A\cup\overline B)=n(\overline{A\cap B})=30-5=25\)。</p>
+      <p class="answer">(1) 10個　(2) 25個</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="logic-p3" data-level="2">
+    <h3><span class="pid">P3</span>集合の条件から文字を決める（絞ってから確認）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(A=\{2,4,a^2+1\},\ B=\{4,a+7,a^2-4a+5\}\) で \(A\cap B=\{4,5\}\) のとき \(a\) を求めよ」</dd>
+      <dt>こう考える</dt><dd>\(5\in A\) という<b>一部の条件</b>から \(a\) の候補を絞る（必要条件）。そのあと各候補を代入し、\(A\cap B\) が<b>ちょうど</b> \(\{4,5\}\) になるかを確かめる（十分性）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>「5は \(A\) の要素」から方程式を立て、\(a\) の候補を出す。</li>
+        <li>各候補で \(A,\ B\) を具体的に書き出す。</li>
+        <li>\(A\cap B=\{4,5\}\) となるか（余分な共通要素がないか、5が \(B\) に入っているか）を確認し、不適な候補を捨てる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>共通部分の定義</dd>
+      <dt>なぜこの方法？</dt><dd>「\(A\cap B=\{4,5\}\)」には「5が両方に入る」「4,5以外の共通要素がない」など複数の条件が含まれる。全部を一度に式にするのは難しいので、<b>使いやすい条件で絞り、残りは代入で確認</b>する。この「必要条件で絞って十分性を確認」は阪大で最も多用する論法の1つ。<a href="../thinking.html#t-necessary">発想：必要条件で絞って十分性を確認</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(a\) は実数とする。\(A=\{2,4,a^2+1\},\ B=\{4,a+7,a^2-4a+5\}\) について \(A\cap B=\{4,5\}\) となるとき、\(a\) の値と \(A\cup B\) を求めよ。</div>
+      <p>\(5\in A\) なので \(a^2+1=5\)、\(a=\pm2\)（必要条件）。</p>
+      <ul>
+        <li>\(a=2\)：\(A=\{2,4,5\},\ B=\{4,9,1\}\)。\(A\cap B=\{4\}\) となり不適。</li>
+        <li>\(a=-2\)：\(A=\{2,4,5\},\ B=\{4,5,17\}\)。\(A\cap B=\{4,5\}\) で適する。</li>
+      </ul>
+      <p class="answer">\(a=-2\)、\(A\cup B=\{2,4,5,17\}\)</p>
+      <p class="point">\(a=\pm2\) を出した時点で答えにすると誤り。候補の確認（十分性）を答案に必ず書く。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="logic-p4" data-level="1">
+    <h3><span class="pid">P4</span>命題の真偽と反例</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「次の命題の真偽を答えよ。偽であるものは反例を挙げよ」</dd>
+      <dt>こう考える</dt><dd>\(p\Longrightarrow q\) が真 ⇔ \(P\subset Q\)。<b>\(p\) を満たすのに \(q\) を満たさないもの</b>が1つでもあれば偽、それが反例。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>仮定 \(p\) を満たすものの集合 \(P\) を具体的にする（方程式・不等式を解く）。</li>
+        <li>\(P\) の要素がすべて \(q\) を満たすか調べる。</li>
+        <li>偽なら、\(P\) に属して \(Q\) に属さない具体的な値を1つ挙げる。<b>負の数・0・端の値</b>が反例の定番。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>命題と集合の関係</dd>
+      <dt>なぜこの方法？</dt><dd>「すべての場合に成り立つ」を崩すには1例で十分。逆に真であることは、例をいくつ挙げても示せない（集合の包含か論証が必要）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(x,y\) は実数、\(n\) は整数とする。次の命題の真偽を答え、偽なら反例を挙げよ。<br>(1) \(x^2=1\Longrightarrow x=1\)　(2) \(x^2\lt4\Longrightarrow x\lt2\)　(3) \(xy\gt0\Longrightarrow x\gt0\)　(4) \(n\) が4の倍数 \(\Longrightarrow\) \(n\) は2の倍数</div>
+      <p>(1) \(P=\{1,-1\}\not\subset\{1\}\)。<span class="answer">偽（反例 \(x=-1\)）</span></p>
+      <p>(2) \(P=\{x\mid -2\lt x\lt2\}\subset\{x\mid x\lt2\}\)。<span class="answer">真</span></p>
+      <p>(3) \(xy\gt0\) は「同符号」。<span class="answer">偽（反例 \(x=y=-1\)）</span></p>
+      <p>(4) \(n=4k\) なら \(n=2\cdot2k\)。<span class="answer">真</span></p>
+      <p class="point">反例は「仮定を満たし、結論を満たさない」もの。(1) で \(x=2\) を反例とするのは誤り（そもそも仮定 \(x^2=1\) を満たしていない）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="logic-p5" data-level="2">
+    <h3><span class="pid">P5</span>必要条件・十分条件の判定</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(p\) は \(q\) であるための必要条件・十分条件・必要十分条件・いずれでもない のどれか」</dd>
+      <dt>こう考える</dt><dd>\(p\Longrightarrow q\) と \(q\Longrightarrow p\) の<b>2方向の真偽</b>を別々に調べる。集合にできるなら、\(P\) と \(Q\) の大小関係を見るだけ。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(p\Longrightarrow q\) の真偽を調べる（偽なら反例）。</li>
+        <li>\(q\Longrightarrow p\) の真偽を調べる。</li>
+        <li>結論：\(p\Rightarrow q\) だけ真 → \(p\) は十分条件。\(q\Rightarrow p\) だけ真 → \(p\) は必要条件。両方真 → 必要十分。両方偽 → いずれでもない。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(p\Rightarrow q\) が真 ⇔ \(P\subset Q\)（小さい方が十分、大きい方が必要）</dd>
+      <dt>なぜこの方法？</dt><dd>「必要」「十分」は矢印の向きの名前にすぎない。<b>矢印の始点にあるのが十分条件、終点にあるのが必要条件</b>。言葉で考えると混乱するので、矢印と集合の大小に翻訳する。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(x,a,b\) は実数とする。\(p\) は \(q\) であるための何条件か答えよ。<br>(1) \(p:x\gt2,\ q:x^2\gt4\)　(2) \(p:xy=0,\ q:x=0\)　(3) \(p:\abs{x-1}\lt2,\ q:0\lt x\lt3\)　(4) \(p:a+b\gt0\ \text{かつ}\ ab\gt0,\ q:a\gt0\ \text{かつ}\ b\gt0\)</div>
+      <p>(1) \(x\gt2\Rightarrow x^2\gt4\) は真。\(x^2\gt4\Rightarrow x\gt2\) は偽（反例 \(x=-3\)）。<span class="answer">十分条件であるが必要条件でない</span></p>
+      <p>(2) \(xy=0\Rightarrow x=0\) は偽（反例 \(x=1,y=0\)）。\(x=0\Rightarrow xy=0\) は真。<span class="answer">必要条件であるが十分条件でない</span></p>
+      <p>(3) \(P=\{x\mid -1\lt x\lt3\}\)、\(Q=\{x\mid 0\lt x\lt3\}\)。\(Q\subset P\) で \(P\neq Q\)（反例 \(x=-\frac12\)）。<span class="answer">必要条件であるが十分条件でない</span></p>
+      <p>(4) \(q\Rightarrow p\) は明らか。\(p\Rightarrow q\)：\(ab\gt0\) より \(a,b\) は同符号、さらに \(a+b\gt0\) より両方正。<span class="answer">必要十分条件</span></p>
+      <p class="point">(3) は「\(p\) が大きい集合」なので必要条件。「\(\abs{x-1}\lt2\) の方が見た目が厳しそう」などの印象で決めず、必ず集合にする。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="logic-p6" data-level="2">
+    <h3><span class="pid">P6</span>文字を含む条件：区間の包含で範囲を求める</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x^2-4x+3\le0\) が \(\abs{x-a}\lt2\) であるための十分条件となるような \(a\) の値の範囲を求めよ」</dd>
+      <dt>こう考える</dt><dd>「\(p\) が \(q\) の十分条件」⇔ \(P\subset Q\)。区間どうしの包含は<b>端点の大小比較</b>に帰着する。勝負は<b>端点の等号</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>どちらがどちらに含まれるべきかを、矢印から決める（十分条件の方が小さい集合）。</li>
+        <li>両方の条件を区間で表し、数直線に描く。</li>
+        <li>「左端 ≧ 左端」「右端 ≦ 右端」を書き、<b>等号を入れてよいかを端点が ● か ○ かで判定</b>する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(p\Rightarrow q\iff P\subset Q\)、2次不等式、絶対値の不等式</dd>
+      <dt>なぜこの方法？</dt><dd>区間 \([1,3]\) が区間 \((a-2,\ a+2)\) に含まれるのは、左右どちらにもはみ出さないとき。端点が一致したとき、外側の区間がその端点を含む（●）なら OK、含まない（○）ならはみ出す。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(p:x^2-4x+3\le0,\ q:\abs{x-a}\lt2,\ r:\abs{x-a}\le1\) とする（\(a\) は実数の定数）。<br>(1) \(p\) が \(q\) であるための十分条件となる \(a\) の範囲を求めよ。<br>(2) \(p\) が \(r\) であるための必要条件となる \(a\) の範囲を求めよ。</div>
+      <p>\(P=\{x\mid 1\le x\le3\}\)、\(Q=\{x\mid a-2\lt x\lt a+2\}\)、\(R=\{x\mid a-1\le x\le a+1\}\)。</p>
+      <p>(1) \(P\subset Q\) となる条件。\(Q\) の端点は含まれない（○）ので、\(P\) の端点 1, 3 が \(Q\) の内側に入るには \(a-2\lt1\) かつ \(3\lt a+2\)。</p>
+      <p class="answer">(1) \(1\lt a\lt3\)</p>
+      <p>(2) 「\(p\) が \(r\) の必要条件」⇔ \(r\Rightarrow p\) ⇔ \(R\subset P\)。両方とも端点を含む（●）ので等号つきで \(1\le a-1\) かつ \(a+1\le3\)。</p>
+      <p class="answer">(2) \(a=2\)</p>
+      <p class="point">(1) で \(a=1\) とすると \(Q=\{x\mid -1\lt x\lt3\}\) で \(x=3\) が入らない。境界の値を代入して確かめれば、等号の判断ミスは防げる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="logic-p7" data-level="2">
+    <h3><span class="pid">P7</span>命題の否定をつくる（すべて・ある・かつ・または）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「次の命題の否定を述べよ。また、その真偽を答えよ」（「すべての実数 \(x\) について」「ある自然数 \(n\) について」を含む）</dd>
+      <dt>こう考える</dt><dd>否定は<b>機械的に</b>つくれる：「すべて」↔「ある」、「かつ」↔「または」、そして最後の条件を否定する。命題とその否定は、<b>必ずどちらか一方だけが真</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>文頭から順に、「すべての」を「ある」に、「ある」を「すべての」に入れかえる（<b>順番は変えない</b>）。</li>
+        <li>最後の条件を否定する（\(\gt\) は \(\le\)、「かつ」は「または」）。</li>
+        <li>真偽は、もとの命題とちょうど逆になる。判定しやすい方で判定する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>ド・モルガンの法則、「すべて」と「ある」の否定</dd>
+      <dt>なぜこの方法？</dt><dd>「すべての \(x\) で成り立つ」が崩れるのは「成り立たない \(x\) が1つでもある」とき。だから「すべて」の否定は「ある」。この言い換えは <a href="m1-quadratic.html">2次関数</a> の「すべての \(x\) で \(f(x)\ge0\)」⇔「最小値 \(\ge0\)」でも使う。<a href="../thinking.html#t-forall">発想：∀と∃の言い換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">次の命題の否定を述べ、もとの命題の真偽を答えよ（\(x,y\) は実数、\(n\) は自然数）。<br>(1) すべての実数 \(x\) について \(x^2\gt0\)<br>(2) ある自然数 \(n\) について \(n^2=2n\)<br>(3) \(x\gt0\) かつ \(y\gt0\)（条件の否定）<br>(4) すべての実数 \(x\) に対して、ある実数 \(y\) が存在して \(x+y=0\)</div>
+      <p>(1) 否定：ある実数 \(x\) について \(x^2\le0\)。\(x=0\) で否定が真なので、<span class="answer">もとの命題は偽</span>。</p>
+      <p>(2) 否定：すべての自然数 \(n\) について \(n^2\neq2n\)。\(n=2\) で \(4=4\) なので、<span class="answer">もとの命題は真</span>。</p>
+      <p>(3) <span class="answer">否定：\(x\le0\) または \(y\le0\)</span></p>
+      <p>(4) 否定：ある実数 \(x\) が存在して、すべての実数 \(y\) について \(x+y\neq0\)。もとの命題は、各 \(x\) に \(y=-x\) を選べば成り立つので<span class="answer">真</span>。</p>
+      <p class="point">(4) で「ある \(y\) が存在して、すべての \(x\) について \(x+y=0\)」と<b>順番を入れかえると別の命題</b>（偽）になる。「すべての \(x\) に対して \(y\) が存在」なら \(y\) は \(x\) ごとに選び直してよいが、「ある \(y\) がすべての \(x\) に対して」なら1つの \(y\) で全部に対応しなければならない。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="logic-p8" data-level="1">
+    <h3><span class="pid">P8</span>逆・裏・対偶とその真偽</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「命題 \(x^2=4\Longrightarrow x=2\) の逆・裏・対偶を述べ、それぞれの真偽を答えよ」</dd>
+      <dt>こう考える</dt><dd>4つの命題は2組に分かれる：<b>（もと・対偶）は同じ真偽、（逆・裏）は同じ真偽</b>。だから実際に調べるのは「もと」と「逆」の2つだけでよい。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>逆：矢印の向きを変える。裏：両方を否定する。対偶：向きを変えて両方否定する。</li>
+        <li>もとの命題と逆の真偽を調べる。</li>
+        <li>対偶はもとと同じ、裏は逆と同じ真偽を答える。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>命題とその対偶の真偽は一致する</dd>
+      <dt>なぜこの方法？</dt><dd>\(P\subset Q\) なら \(\overline Q\subset\overline P\)。裏 \(\overline p\Rightarrow\overline q\) は逆 \(q\Rightarrow p\) の対偶なので、逆と同じ真偽。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(x\) を実数とする。命題「\(x^2=4\Longrightarrow x=2\)」の逆・裏・対偶を述べ、もとの命題を含めた4つの真偽を答えよ。</div>
+      <p>もと：\(x^2=4\Rightarrow x=2\)。<span class="answer">偽</span>（反例 \(x=-2\)）</p>
+      <p>逆：\(x=2\Rightarrow x^2=4\)。<span class="answer">真</span></p>
+      <p>裏：\(x^2\neq4\Rightarrow x\neq2\)。逆の対偶なので<span class="answer">真</span></p>
+      <p>対偶：\(x\neq2\Rightarrow x^2\neq4\)。もとと同じく<span class="answer">偽</span>（反例 \(x=-2\)）</p>
+      <p class="point">「もとが偽でも逆は真」ということは普通に起こる。「逆は必ずしも真ならず」は、両方向で起こる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="logic-p9" data-level="2">
+    <h3><span class="pid">P9</span>対偶による証明</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x+y\gt2\) ならば \(x\gt1\) または \(y\gt1\) であることを示せ」「\(n^2\) が3の倍数ならば \(n\) は3の倍数であることを示せ」</dd>
+      <dt>こう考える</dt><dd>結論が「または」や「〜である（ことの方が扱いにくい）」形のとき、<b>対偶をとると仮定が「かつ」や具体的な形</b>になって扱いやすくなる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>「対偶を示す」と宣言し、対偶を正確に書く。</li>
+        <li>対偶の仮定（「かつ」の条件や「3で割り切れない ⇒ \(n=3k\pm1\)」）から結論を導く。</li>
+        <li>「対偶が真なので、もとの命題も真である」で締める。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>命題と対偶の同値性、余りによる分類</dd>
+      <dt>なぜこの方法？</dt><dd>「\(n^2\) が3の倍数」から \(n\) について何かを言うのは難しい（\(\sqrt{\ }\) をとれない）。逆に「\(n\) が3の倍数でない」なら \(n=3k\pm1\) と<b>式で書ける</b>ので、\(n^2\) を計算できる。<b>情報が式にできる方を仮定にする</b>のが対偶の使いどころ。<a href="../thinking.html#t-mod">発想：余り・偶奇で分類</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 実数 \(x,y\) について、\(x+y\gt2\) ならば \(x\gt1\) または \(y\gt1\) であることを示せ。<br>(2) 整数 \(n\) について、\(n^2\) が3の倍数ならば \(n\) は3の倍数であることを示せ。</div>
+      <p>(1) 対偶「\(x\le1\) かつ \(y\le1\) ならば \(x+y\le2\)」を示す。\(x\le1,\ y\le1\) を辺々加えて \(x+y\le2\)。よって対偶は真であり、もとの命題も真である。</p>
+      <p>(2) 対偶「\(n\) が3の倍数でないならば \(n^2\) は3の倍数でない」を示す。\(n\) が3の倍数でないとき、整数 \(k\) を用いて \(n=3k\pm1\) と表せる。</p>
+      <p>\(n^2=9k^2\pm6k+1=3(3k^2\pm2k)+1\)（複号同順）</p>
+      <p>\(3k^2\pm2k\) は整数なので \(n^2\) を3で割った余りは1で、\(n^2\) は3の倍数でない。よって対偶は真であり、もとの命題も真である。</p>
+      <p class="answer">（証明終）</p>
+      <p class="point">答案では「対偶を示す」と最初に宣言し、対偶の文を書いてから証明する。\(n=3k+1,\ 3k+2\) と分けてもよい。この (2) は P11 の「\(\sqrt3\) は無理数」の証明の部品になる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="logic-p10" data-level="2">
+    <h3><span class="pid">P10</span>背理法の基本：\(\sqrt2\) は無理数</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\sqrt2\) が無理数であることを証明せよ」「〜でないことを示せ」</dd>
+      <dt>こう考える</dt><dd>「無理数」＝「有理数でない」という<b>否定の形の定義</b>なので、直接は示しにくい。逆に「有理数である」と仮定すれば \(\dfrac pq\) という<b>具体的な式</b>が手に入る。そこから矛盾を出す。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>「\(\sqrt2\) が有理数であると仮定する」と書き、\(\sqrt2=\dfrac pq\)（\(p,q\) は<b>互いに素</b>な自然数）とおく。</li>
+        <li>2乗して分母を払う：\(p^2=2q^2\)。</li>
+        <li>\(p\) が偶数 → \(p=2k\) → \(q\) も偶数 → 「互いに素」に矛盾。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>背理法、「\(p^2\) が偶数 ⇒ \(p\) は偶数」（P9 と同じく対偶で示せる）</dd>
+      <dt>なぜこの方法？</dt><dd>既約分数で表せると仮定すると、\(p,q\) がともに2で割り切れることになり、「これ以上約分できない」と矛盾する。<b>仮定の中に「互いに素」を入れておくことが矛盾を生む仕掛け</b>。<a href="../thinking.html#t-contradiction">発想：背理法</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\sqrt2\) が無理数であることを証明せよ。ただし、整数 \(p\) について「\(p^2\) が偶数ならば \(p\) は偶数」であることは用いてよい。</div>
+      <p>\(\sqrt2\) が有理数であると仮定する。\(\sqrt2\gt0\) なので、互いに素な自然数 \(p,q\) を用いて \(\sqrt2=\dfrac pq\) と表せる。</p>
+      <p>両辺を2乗して分母を払うと \(p^2=2q^2\ \cdots①\)。右辺は偶数なので \(p^2\) は偶数、よって \(p\) は偶数である。</p>
+      <p>\(p=2k\)（\(k\) は自然数）とおくと、① より \(4k^2=2q^2\)、すなわち \(q^2=2k^2\)。よって \(q^2\) は偶数、\(q\) も偶数である。</p>
+      <p>\(p,q\) がともに偶数となり、互いに素であることに矛盾する。したがって \(\sqrt2\) は無理数である。</p>
+      <p class="answer">（証明終）</p>
+      <p class="point">「互いに素」を最初に書かないと、最後の矛盾が言えない。同じ方法で \(\sqrt3\)（P9 の (2) を使う）、\(\sqrt5\) なども示せる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="logic-p11" data-level="3">
+    <h3><span class="pid">P11</span>背理法の応用：無理数であることの証明</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\sqrt2+\sqrt3\) は無理数であることを示せ」「\(\sqrt6\) が無理数であることを用いて〜」</dd>
+      <dt>こう考える</dt><dd>有理数 \(r\) と仮定して、式変形で<b>既に無理数と分かっている数（\(\sqrt6\) など）を \(r\) で表す</b>。有理数どうしの四則演算は有理数なので、その数が有理数になって矛盾。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\sqrt2+\sqrt3=r\)（\(r\) は有理数）と仮定する。</li>
+        <li>根号が1つだけ残るように変形する（2乗する、移項してから2乗する）。</li>
+        <li>\(\sqrt6=(r\text{ の式})\) の形にし、右辺が有理数であることから矛盾を導く。</li>
+        <li>使う無理数（\(\sqrt6\)）が無理数であることも、問題で与えられていなければ P10 の方法で示す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>有理数の和・差・積・商（0で割らない）は有理数、背理法</dd>
+      <dt>なぜこの方法？</dt><dd>\(\sqrt2+\sqrt3\) は直接分数で表して矛盾を出すのが難しい。2乗すれば \(5+2\sqrt6\) となり、「無理数は \(\sqrt6\) だけ」にまとまる。<b>未知の主張を既知の事実（\(\sqrt6\) は無理数）に帰着</b>させるのが要点。<a href="../thinking.html#t-contradiction">発想：背理法</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\sqrt6\) が無理数であることを証明せよ。<br>(2) \(\sqrt2+\sqrt3\) が無理数であることを証明せよ。</div>
+      <p>(1) \(\sqrt6\) が有理数であると仮定し、互いに素な自然数 \(p,q\) で \(\sqrt6=\dfrac pq\) とおく。\(p^2=6q^2\) より \(p^2\) は偶数、よって \(p\) は偶数。\(p=2k\) とおくと \(4k^2=6q^2\)、すなわち \(2k^2=3q^2\)。</p>
+      <p>左辺は偶数なので \(3q^2\) は偶数。3は奇数なので \(q^2\) が偶数、よって \(q\) も偶数。\(p,q\) がともに偶数となり矛盾。よって \(\sqrt6\) は無理数。</p>
+      <p>(2) \(\sqrt2+\sqrt3\) が有理数であると仮定し、\(\sqrt2+\sqrt3=r\)（\(r\) は有理数）とおく。両辺を2乗して \(5+2\sqrt6=r^2\)、よって</p>
+      \[ \sqrt6=\frac{r^2-5}{2} \]
+      <p>\(r\) は有理数なので右辺は有理数となり、(1) で示した「\(\sqrt6\) は無理数」に矛盾する。よって \(\sqrt2+\sqrt3\) は無理数である。</p>
+      <p class="answer">（証明終）</p>
+      <p class="point">「無理数 + 無理数 = 無理数」は一般には誤り（\(\sqrt2+(-\sqrt2)=0\)）。だから「\(\sqrt2\) と \(\sqrt3\) が無理数だから和も無理数」は証明にならない。一方「有理数 + 無理数 = 無理数」は正しい（差をとると背理法で示せる）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="logic-p12" data-level="3">
+    <h3><span class="pid">P12</span>「無限に存在する」「存在しない」の証明（背理法）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「素数は無限に存在することを示せ」「〜を満たす整数は存在しないことを示せ」</dd>
+      <dt>こう考える</dt><dd>「無限にある」「存在しない」は、どちらも<b>1つずつ確かめることができない</b>主張。だから否定（「有限個しかない」「存在する」）を仮定し、手に入った<b>具体的な対象</b>（最大の素数、解の組）を使って矛盾を作る。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>「素数が有限個 \(p_1,p_2,\dots,p_n\) しかないと仮定する」と書く。</li>
+        <li>全部をかけて1を足した数 \(N=p_1p_2\cdots p_n+1\) を考える。</li>
+        <li>\(N\) はどの \(p_i\) で割っても1余る。一方、2以上の整数は必ず素因数をもつので、\(N\) の素因数は \(p_1,\dots,p_n\) 以外の素数 → 矛盾。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>2以上の整数は少なくとも1つの素因数をもつ、背理法</dd>
+      <dt>なぜこの方法？</dt><dd>「有限個」と仮定した瞬間に「全部の積」という具体的な数が作れる。<b>否定の仮定は、新しい道具（全部を並べたリスト、最小の反例など）を手に入れる手段</b>でもある。整数問題で「\(x^2-2y^2=0\) の自然数解は存在しない」なども同じ構造。<a href="../thinking.html#t-contradiction">発想：背理法</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">素数は無限に存在することを証明せよ。</div>
+      <p>素数が有限個しかないと仮定し、それらを \(p_1,p_2,\dots,p_n\) とする。</p>
+      <p>\(N=p_1p_2\cdots p_n+1\) とおくと \(N\ge3\) で、\(N\) は2以上の整数なので素因数 \(p\) をもつ。素数は \(p_1,\dots,p_n\) しかないので、\(p=p_i\) となる \(i\) がある。</p>
+      <p>ところが \(N\) を \(p_i\) で割ると余りは1であり、\(p_i\) は \(N\) を割り切らない。これは矛盾である。</p>
+      <p>よって素数は無限に存在する。</p>
+      <p class="answer">（証明終）</p>
+      <p class="point">よくある誤解：「\(N\) 自身が新しい素数になる」わけではない（\(2\cdot3\cdot5\cdot7\cdot11\cdot13+1=30031=59\times509\)）。言えるのは「\(N\) の素因数がリストにない」こと。答案でもそう書く。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="logic-p13" data-level="2">
+    <h3><span class="pid">P13</span>「少なくとも一方」と「ともに」の扱い</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(a+b\gt0\) ならば \(a,b\) の少なくとも一方は正であることを示せ」「\(x,y\) の少なくとも一方は1であることを示せ」</dd>
+      <dt>こう考える</dt><dd>「少なくとも一方」は<b>「または」</b>。その否定は「<b>ともに〜でない</b>」で、こちらは「かつ」なので扱いやすい。式の上では次の翻訳が強力：<ul>
+        <li>\(x,y\) の少なくとも一方が \(1\) ⇔ \((x-1)(y-1)=0\)</li>
+        <li>\(x,y\) がともに \(1\)（\(x,y\) は実数）⇔ \((x-1)^2+(y-1)^2=0\)</li>
+      </ul></dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>「示すべきこと」が「少なくとも一方」なら、対偶か背理法で「ともに〜でない」を仮定する。</li>
+        <li>または、「少なくとも一方が \(c\)」を「積 \(=0\)」に翻訳して、直接その式を計算する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>ド・モルガンの法則、\(AB=0\iff A=0\ \text{または}\ B=0\)</dd>
+      <dt>なぜこの方法？</dt><dd>「どちらか一方（どちらかは分からない）」は扱いにくいが、否定すれば両方に同じ条件がつく。積が0の言い換えは、「または」を1本の等式にまとめる技術。<a href="../thinking.html#t-rephrase">発想：同値な言い換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 実数 \(a,b\) について、\(a+b\gt0\) ならば \(a,b\) の少なくとも一方は正であることを示せ。<br>(2) 実数 \(x,y\) が \(x+y=xy+1\) を満たすとき、\(x,y\) の少なくとも一方は1であることを示せ。</div>
+      <p>(1) 対偶「\(a\le0\) かつ \(b\le0\) ならば \(a+b\le0\)」を示す。辺々加えれば \(a+b\le0\)。対偶が真なので、もとの命題も真。</p>
+      <p>(2) \((x-1)(y-1)=xy-x-y+1=xy+1-(x+y)=0\)。よって \(x-1=0\) または \(y-1=0\)、すなわち \(x,y\) の少なくとも一方は1である。</p>
+      <p class="answer">（証明終）</p>
+      <p class="point">(2) で「\(x=1\) を代入すると成り立つ」と書くのは誤り。それは「\(x=1\) なら条件を満たす」（逆向き）を確かめているにすぎない。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="logic-p14" data-level="3">
+    <h3><span class="pid">P14</span>「少なくとも1つは〜」を積＝0で示す（3文字）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(a+b+c=1,\ \dfrac1a+\dfrac1b+\dfrac1c=1\) のとき、\(a,b,c\) のうち少なくとも1つは1であることを示せ」</dd>
+      <dt>こう考える</dt><dd>示すべきことは <b>\((a-1)(b-1)(c-1)=0\)</b>。これを展開すると基本対称式 \(a+b+c,\ ab+bc+ca,\ abc\) が現れるので、条件をこの3つの関係に直して代入する。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>ゴールを \((a-1)(b-1)(c-1)=0\) と書き換える。</li>
+        <li>展開：\(abc-(ab+bc+ca)+(a+b+c)-1\)。</li>
+        <li>条件の分母を払って \(ab+bc+ca=abc\) を得て、代入すると0。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\((t-a)(t-b)(t-c)\) の展開、P13 の言い換え</dd>
+      <dt>なぜこの方法？</dt><dd>「どれが1か」は分からないし、分ける必要もない。<b>ゴールを1本の式に言い換え、その式を条件から計算する</b>という「ゴールから逆算」の典型。<a href="../thinking.html#t-goal">発想：ゴールから逆算する</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">0でない実数 \(a,b,c\) が \(a+b+c=1,\ \dfrac1a+\dfrac1b+\dfrac1c=1\) を満たすとき、\(a,b,c\) のうち少なくとも1つは1であることを示せ。</div>
+      <p>第2式の両辺に \(abc\ (\neq0)\) をかけると \(bc+ca+ab=abc\)。</p>
+      <p>\((a-1)(b-1)(c-1)=abc-(ab+bc+ca)+(a+b+c)-1=abc-abc+1-1=0\)</p>
+      <p>よって \(a-1,\ b-1,\ c-1\) のうち少なくとも1つは0、すなわち \(a,b,c\) のうち少なくとも1つは1である。</p>
+      <p class="answer">（証明終）</p>
+      <p class="point">発展：このとき残り2つの和は0になる（例えば \(a=1\) なら \(b+c=0\)）。「少なくとも1つ」の問題では、ゴールの式を先に書いてから計算を始めると迷わない。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="logic-p15" data-level="3">
+    <h3><span class="pid">P15</span>「必要十分条件を求めよ」の答案の書き方</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(0\le x\le1\) を満たすすべての \(x\) について \(ax+b\gt0\) が成り立つための、\(a,b\) の必要十分条件を求めよ」</dd>
+      <dt>こう考える</dt><dd>答案は<b>2段構え</b>：①【必要性】条件が成り立つなら、特別な値（端点など）でも成り立つ → 候補の条件が出る。②【十分性】その候補の条件があれば、もとの条件がすべての場合に成り立つことを示す。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>「（必要性）」と見出しをつけ、\(x=0,1\) など扱いやすい値を代入して条件を出す。</li>
+        <li>「（十分性）」と見出しをつけ、出した条件のもとで、すべての \(x\) について成り立つことを示す。</li>
+        <li>「以上より、求める必要十分条件は〜」でまとめる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>必要条件・十分条件の定義、1次関数の性質</dd>
+      <dt>なぜこの方法？</dt><dd>「すべての \(x\)」の条件は無限個の条件の集まり。いくつか代入して得た条件は<b>必要条件にすぎない</b>（他の \(x\) で崩れるかもしれない）。だから十分性の確認が答案の後半として必須になる。逆に、同値変形（⇔）だけでつなげられるなら1段で書いてもよいが、\(\Rightarrow\) と \(\Leftarrow\) が両方成り立つことを意識すること。<a href="../thinking.html#t-necessary">発想：必要条件で絞って十分性を確認</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(a,b\) を実数の定数とする。<br>(1) すべての実数 \(x\) について \(ax+b\gt0\) が成り立つための、\(a,b\) の必要十分条件を求めよ。<br>(2) \(0\le x\le1\) を満たすすべての実数 \(x\) について \(ax+b\gt0\) が成り立つための、\(a,b\) の必要十分条件を求めよ。</div>
+      <p>(1)（必要性）\(a\neq0\) と仮定すると、\(x=-\dfrac ba\) で \(ax+b=0\) となり条件に反する。よって \(a=0\)。このとき \(x=0\) を代入して \(b\gt0\)。</p>
+      <p>（十分性）\(a=0,\ b\gt0\) なら、すべての \(x\) で \(ax+b=b\gt0\)。</p>
+      <p class="answer">(1) \(a=0\) かつ \(b\gt0\)</p>
+      <p>(2)（必要性）\(x=0\) を代入して \(b\gt0\)、\(x=1\) を代入して \(a+b\gt0\)。</p>
+      <p>（十分性）\(b\gt0,\ a+b\gt0\) とする。\(0\le x\le1\) のとき</p>
+      \[ ax+b=(1-x)\,b+x\,(a+b) \]
+      <p>で、\(1-x\ge0,\ x\ge0\) かつ \(1-x,\ x\) は同時に0にならない。\(b\gt0,\ a+b\gt0\) なので右辺 \(\gt0\)。</p>
+      <p class="answer">(2) \(b\gt0\) かつ \(a+b\gt0\)</p>
+      <p class="point">(2) は「1次関数は区間の端で最小になる」と言ってもよい（\(y=ax+b\) のグラフは直線なので、両端が正なら間も正）。採点では「必要性」「十分性」の両方が書かれているかが見られる。代入して出た条件だけで答えると、十分性の欠落で大きく減点される。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="pitfalls">
+  <h2>よくあるミスと対策</h2>
+  <ul class="pitfalls">
+    <li><b>補集合で端点の ● ○ を反転させ忘れる</b>（P1）。→ 補集合は必ず数直線を描いてから書く。</li>
+    <li><b>必要と十分を逆に答える</b>（P5, P6）。→ 矢印 \(p\Rightarrow q\) を書き、「始点が十分、終点が必要」「小さい集合が十分」と確認する。</li>
+    <li><b>「\(x\gt0\)」の否定を「\(x\lt0\)」とする</b>（P7）。→ 否定は補集合。0 を忘れない。</li>
+    <li><b>「すべて」「ある」の否定で順番を入れかえる</b>（P7）。→ 文頭から順に1つずつ入れかえ、順番は保つ。</li>
+    <li><b>反例が仮定を満たしていない</b>（P4）。→ 反例は「仮定は満たす、結論は満たさない」の両方をチェックする。</li>
+    <li><b>背理法で「互いに素」を書かずに始める</b>（P10, P11）。→ 矛盾の種は最初の設定に仕込む。</li>
+    <li><b>「無理数 + 無理数 は無理数」と決めつける</b>（P11）。→ \(\sqrt2+(-\sqrt2)=0\) という反例がある。</li>
+    <li><b>必要条件だけ求めて答えにする</b>（P3, P15）。→ 代入で出した条件の後には、必ず「十分性」の確認を書く。</li>
+  </ul>
+</section>
+
+<section id="handai">
+  <h2>阪大レベルへの橋渡し</h2>
+  <p>阪大理系では「集合と命題」の単独問題はまれだが、<b>証明問題（毎年複数）の論理はすべてこの単元</b>に立っている。特に次の型は、整数・数列・微積分の証明の中で繰り返し現れる。</p>
+  <ul>
+    <li>「無理数であること」「存在しないこと」を<b>背理法</b>で示す（P10〜P12 → 整数問題、方程式の解の性質）。</li>
+    <li>「すべて」「ある」を正確に扱い、<b>必要性と十分性を分けて</b>答案を書く（P15 → 恒等式、不等式が常に成り立つ条件）。</li>
+    <li>「少なくとも1つ」「すべて正」などの<b>結論の形から証明方法を選ぶ</b>（P13, P14、下の演習2）。</li>
+  </ul>
+
+  <article class="pattern" id="logic-h1" data-level="3">
+    <h3><span class="pid">演1</span>平方根が有理数なら整数</h3>
+    <div class="problem">(1) \(n\) を自然数とする。\(\sqrt n\) が有理数ならば、\(\sqrt n\) は整数であることを示せ。<br>(2) すべての自然数 \(n\) について、\(\sqrt{n^2+1}\) は無理数であることを示せ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>(1) は「有理数である」が仮定なので、\(\sqrt n=\dfrac pq\)（既約）と<b>式で書ける</b>。\(nq^2=p^2\) から「\(q=1\)」を言えばよい。\(q\ge2\) と仮定して、\(q\) の素因数が \(p\) も割り切ることを使う（背理法）。(2) は (1) の対偶「整数でなければ無理数」を使い、整数でないことは<b>平方数で挟んで</b>示す（<a href="m1-numbers.html">数と式</a>の評価）。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) \(\sqrt n\) が有理数であるとする。\(\sqrt n\gt0\) なので、互いに素な自然数 \(p,q\) を用いて \(\sqrt n=\dfrac pq\) と表せる。両辺を2乗して分母を払うと</p>
+      \[ nq^2=p^2\quad\cdots① \]
+      <p>\(q\ge2\) と仮定する。\(q\) の素因数の1つを \(r\) とすると、① の左辺は \(r\) で割り切れるので \(p^2\) は \(r\) で割り切れる。\(r\) は素数なので \(p\) も \(r\) で割り切れる（素数 \(r\) が積 \(p\cdot p\) を割り切れば、\(p\) を割り切る）。すると \(p,q\) はともに \(r\) の倍数となり、互いに素であることに矛盾する。</p>
+      <p>よって \(q=1\)、\(\sqrt n=p\) は整数である。</p>
+      <p>(2) \(n\ge1\) より \(n^2\lt n^2+1\lt n^2+2n+1=(n+1)^2\)。各辺は正なので \(n\lt\sqrt{n^2+1}\lt n+1\)。連続する整数 \(n,\ n+1\) の間にあるので、\(\sqrt{n^2+1}\) は整数でない。</p>
+      <p>(1) の対偶「\(\sqrt m\) が整数でないならば \(\sqrt m\) は有理数でない」（\(m\) は自然数）を \(m=n^2+1\) に用いると、\(\sqrt{n^2+1}\) は無理数である。</p>
+      <p class="answer">（証明終）</p>
+      <p class="point">採点ポイント：(1) では「互いに素」の設定、\(q\ge2\) の仮定、素因数 \(r\) を取る理由を明記する。(2) は (1) を<b>対偶の形で</b>使っていることを書く。「素数 \(r\) が \(p^2\) を割り切れば \(p\) を割り切る」は <a href="ma-integer.html">整数の性質</a> で証明する基本事実で、阪大の答案では断りなく使ってよい。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="logic-h2" data-level="3">
+    <h3><span class="pid">演2</span>3数がすべて正であることの証明</h3>
+    <div class="problem">実数 \(a,b,c\) が \(a+b+c\gt0,\ ab+bc+ca\gt0,\ abc\gt0\) を満たすならば、\(a,b,c\) はすべて正であることを示せ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>結論「すべて正」の否定は「少なくとも1つは0以下」。\(abc\gt0\) から0はありえず、負の数の個数は偶数個（2個）に限られる。<b>否定を仮定すると状況が具体的に1通りに絞れる</b>ので背理法が有効。対称性から「\(b,c\) が負」としてよい。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>\(a,b,c\) のうち少なくとも1つが正でない（0以下）と仮定する。</p>
+      <p>\(abc\gt0\) より、どれも0ではない。よって負の数が少なくとも1つある。負の数が1個または3個なら \(abc\lt0\) となるので、負の数はちょうど2個である。条件は \(a,b,c\) について対称なので、\(a\gt0,\ b\lt0,\ c\lt0\) としてよい。</p>
+      <p>\(a+b+c\gt0\) より \(a\gt-(b+c)\)。ここで \(b+c\lt0\) なので、両辺に負の数 \(b+c\) をかけて</p>
+      \[ a(b+c)\lt-(b+c)^2 \]
+      <p>よって</p>
+      \[ \begin{aligned} ab+bc+ca&=a(b+c)+bc\\ &\lt-(b+c)^2+bc\\ &=-(b^2+bc+c^2) \end{aligned} \]
+      <p>\(b^2+bc+c^2=\left(b+\frac c2\right)^2+\frac34c^2\gt0\)（\(c\neq0\)）なので \(ab+bc+ca\lt0\) となり、\(ab+bc+ca\gt0\) に矛盾する。</p>
+      <p>したがって \(a,b,c\) はすべて正である。</p>
+      <p class="answer">（証明終）</p>
+      <p class="point">採点ポイント：(i) 否定の正確な仮定、(ii) \(abc\gt0\) から「負がちょうど2個」に絞る論証、(iii)「対称性より \(a\gt0,b\lt0,c\lt0\) としてよい」の一言、(iv) 負の数をかけて不等号の向きを変える処理。数学IIで学ぶ「3次方程式 \(t^3-pt^2+qt-r=0\) の3解がすべて正」の条件の証明と同じ内容である。<a href="../thinking.html#t-symmetry">発想：対称性を使う</a></p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="logic-h3" data-level="3">
+    <h3><span class="pid">演3</span>3つの条件の関係を証明と反例で決める</h3>
+    <div class="problem">実数 \(x,y\) に関する条件 \(p,q,r\) を次で定める。<br>\(p:x+y\ge2\)　\(q:x\ge1\ \text{または}\ y\ge1\)　\(r:x^2+y^2\ge2\)<br>(1) \(p\) は \(q\) であるための何条件か。<br>(2) \(p\) は \(r\) であるための何条件か。<br>(3) \(p\) は「\(q\) かつ \(r\)」であるための何条件か。<br>いずれも、真である命題は証明し、偽である命題は反例を挙げて答えよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>2方向の命題をそれぞれ判定する（P5）。「または」が結論にある \(p\Rightarrow q\) は<b>対偶</b>（P9）。\(p\Rightarrow r\) は \(x^2+y^2\) と \(x+y\) の関係 \(2(x^2+y^2)-(x+y)^2=(x-y)^2\ge0\) を使う。逆向きの反例は、<b>負の数</b>や<b>片方だけ大きい</b>点を試す。(3) は (1)(2) の結果を組み合わせるだけでは決まらない部分（逆向き）に注意。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) \(p\Rightarrow q\)：対偶「\(x\lt1\) かつ \(y\lt1\) ならば \(x+y\lt2\)」は、辺々加えて明らかに真。よって \(p\Rightarrow q\) は真。</p>
+      <p>\(q\Rightarrow p\)：偽。反例 \(x=1,\ y=-5\)（\(q\) を満たすが \(x+y=-4\lt2\)）。</p>
+      <p class="answer">(1) 十分条件であるが必要条件でない</p>
+      <p>(2) \(p\Rightarrow r\)：\(2(x^2+y^2)-(x+y)^2=(x-y)^2\ge0\) より \(x^2+y^2\ge\dfrac{(x+y)^2}{2}\)。\(x+y\ge2\) なら \((x+y)^2\ge4\) なので \(x^2+y^2\ge2\)。よって真。</p>
+      <p>\(r\Rightarrow p\)：偽。反例 \(x=-2,\ y=0\)（\(x^2+y^2=4\ge2\) だが \(x+y=-2\lt2\)）。</p>
+      <p class="answer">(2) 十分条件であるが必要条件でない</p>
+      <p>(3) (1)(2) より \(p\Rightarrow q\) かつ \(p\Rightarrow r\) なので、\(p\Rightarrow(q\text{ かつ }r)\) は真。</p>
+      <p>\((q\text{ かつ }r)\Rightarrow p\)：偽。反例 \(x=2,\ y=-1\)（\(x\ge1\) なので \(q\) を満たし、\(x^2+y^2=5\ge2\) なので \(r\) を満たすが、\(x+y=1\lt2\)）。</p>
+      <p class="answer">(3) 十分条件であるが必要条件でない</p>
+      <p class="point">採点ポイント：「真」の判定には証明、「偽」の判定には具体的な反例が<b>必ず</b>必要（片方だけだと半分以下の点）。(1) の反例 \(x=1,y=-5\) は \(r\) も満たすので (3) の反例にもなるが、(2) の反例 \(x=-2,y=0\) は \(q\) を満たさないので (3) の反例にならない。反例は「すべての仮定を満たすか」を1つずつ確認する。座標平面で \(P,Q,R\) を図示すると、半平面 \(P\) が \(Q\)（L字型の領域）と \(R\)（円の外側）の両方に含まれる様子が見える（<a href="m2-coord.html">図形と方程式</a>）。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="next">
+  <h2>次に学ぶとつながる単元</h2>
+  <ul>
+    <li><a href="m1-quadratic.html">2次関数</a>：P7 の「すべて／ある」の否定が、「すべての \(x\) で \(f(x)\ge0\)」⇔「最小値 \(\ge0\)」の言い換え（quad-p12, quad-p13）に直結する。</li>
+    <li><a href="ma-integer.html">整数の性質</a>：P9 の余りによる分類と P10〜P12 の背理法が、整数問題の証明の主力になる。</li>
+    <li><a href="m2-proof.html">式と証明</a>：P15 の「必要性と十分性」が恒等式の係数決定（数値代入法）や不等式の証明に現れる。</li>
+    <li><a href="mb-sequence.html">数列</a>：「すべての自然数 \(n\) について」を示す新しい方法、数学的帰納法を学ぶ。</li>
+    <li><a href="m2-coord.html">図形と方程式</a>：条件を座標平面上の集合（領域）として図示し、包含関係で必要・十分を判定する（演3 の発展）。</li>
+  </ul>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>

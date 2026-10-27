@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>平面上の曲線（数学C）｜解法の地図</title>
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-unit="mc-curves" data-root="../">
+<main>
+
+<header class="unit-head">
+  <span class="subj-badge">数学C</span>
+  <h1>平面上の曲線</h1>
+  <p class="lead">放物線・楕円・双曲線（2次曲線）は「焦点からの距離」で定義される仲間であり、媒介変数表示や極座標を使うと、座標の式では重い計算が三角関数の計算に変わる。阪大では、接線・面積の最大最小・焦点を通る弦などで、微分や三角関数と融合して出る。</p>
+  <div class="goal">
+    <strong>このページの到達目標</strong>
+    <ul>
+      <li>【基礎】2次曲線の標準形から焦点・準線・漸近線を読み、平行移動した式を平方完成で判別できる。</li>
+      <li>【標準】直線との共有点・接線・弦の中点を判別式や解と係数の関係で処理し、媒介変数表示・極方程式を直交座標と行き来できる。</li>
+      <li>【阪大】楕円上の点を \((a\cos\theta,b\sin\theta)\) で表して最大最小を解き、焦点を極とする極方程式や準円の論証を答案にできる。</li>
+    </ul>
+  </div>
+  <p class="prereq">前提：<a href="m2-coord.html">図形と方程式</a>（円・接線・軌跡）、<a href="m2-trig.html">三角関数</a>（合成・2倍角） ／ 次に進む：<a href="m3-diff.html">微分法とその応用</a>（媒介変数の微分）、<a href="m3-integral-app.html">積分法の応用</a>（曲線で囲まれた面積・曲線の長さ）</p>
+</header>
+
+<section id="core">
+  <h2>必ず押さえる基本事項</h2>
+
+  <div class="box theorem">
+    <p><span class="name">放物線</span>：焦点 \(F(p,0)\) と準線 \(x=-p\) から等距離な点の軌跡</p>
+    \[ y^2=4px\qquad(\text{焦点 }(p,0),\ \text{準線 }x=-p) \]
+    <p>なぜ：\(\sqrt{(x-p)^2+y^2}=|x+p|\) を2乗して整理すると \(y^2=4px\)。\(x^2=4py\) は \(x,y\) を入れ替えたもの（焦点 \((0,p)\)、準線 \(y=-p\)）。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">楕円</span>：2焦点からの距離の和が一定 \(2a\) の点の軌跡（\(a\gt b\gt0\)）</p>
+    \[ \frac{x^2}{a^2}+\frac{y^2}{b^2}=1,\qquad \text{焦点 }(\pm c,0),\ c=\sqrt{a^2-b^2} \]
+    <p>なぜ：\(\sqrt{(x+c)^2+y^2}+\sqrt{(x-c)^2+y^2}=2a\) で1つの根号を移項して2乗を2回行うと \((a^2-c^2)x^2+a^2y^2=a^2(a^2-c^2)\)。\(b^2=a^2-c^2\) とおけば標準形。\(b\gt a\) のときは焦点が \(y\) 軸上 \((0,\pm\sqrt{b^2-a^2})\)。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">双曲線</span>：2焦点からの距離の差（の絶対値）が一定 \(2a\) の点の軌跡</p>
+    \[ \frac{x^2}{a^2}-\frac{y^2}{b^2}=1,\quad \text{焦点 }(\pm c,0),\ c=\sqrt{a^2+b^2},\quad \text{漸近線 }y=\pm\frac bax \]
+    <p>なぜ：楕円と同じ計算で \(b^2=c^2-a^2\) とおく。\(|x|\) が大きいと \(y=\pm\frac bax\sqrt{1-\frac{a^2}{x^2}}\approx\pm\frac bax\) となるのが漸近線。\(\frac{x^2}{a^2}-\frac{y^2}{b^2}=-1\) は焦点が \(y\) 軸上 \((0,\pm c)\)。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">接線の公式</span>：曲線上の点 \((x_1,y_1)\) における接線</p>
+    <div class="table-wrap"><table>
+      <tr><th>曲線</th><th>接線</th></tr>
+      <tr><td>\(\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1\)</td><td>\(\dfrac{x_1x}{a^2}+\dfrac{y_1y}{b^2}=1\)</td></tr>
+      <tr><td>\(\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=\pm1\)</td><td>\(\dfrac{x_1x}{a^2}-\dfrac{y_1y}{b^2}=\pm1\)</td></tr>
+      <tr><td>\(y^2=4px\)</td><td>\(y_1y=2p(x+x_1)\)</td></tr>
+    </table></div>
+    <p>なぜ：両辺を \(x\) で微分すると（楕円なら）\(\dfrac{2x}{a^2}+\dfrac{2yy'}{b^2}=0\)、傾きは \(-\dfrac{b^2x_1}{a^2y_1}\)。点 \((x_1,y_1)\) を通る直線を作り、曲線上の条件 \(\frac{x_1^2}{a^2}+\frac{y_1^2}{b^2}=1\) を使うとこの形になる（「\(x^2\to x_1x\)、\(y^2\to y_1y\)」と覚える）。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">2次曲線の統一的定義（離心率）</span>：定点 \(F\)（焦点）と定直線 \(\ell\)（準線）に対し \(\dfrac{PF}{(P\text{ と }\ell\text{ の距離})}=e\) となる点 \(P\) の軌跡は</p>
+    <p>\(0\lt e\lt1\) なら楕円、\(e=1\) なら放物線、\(e\gt1\) なら双曲線。楕円・双曲線では \(e=\dfrac ca\)、準線は \(x=\pm\dfrac{a}{e}=\pm\dfrac{a^2}{c}\)。</p>
+    <p>なぜ：\(\sqrt{(x-c)^2+y^2}=e\left|x-\frac{a}{e}\right|\) を2乗すると、\(x^2\) の係数が \(1-e^2\) になる。その符号（正・0・負）で楕円・放物線・双曲線が分かれる。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">媒介変数表示と極座標</span></p>
+    <ul>
+      <li>楕円 \(\frac{x^2}{a^2}+\frac{y^2}{b^2}=1\)：\(x=a\cos\theta,\ y=b\sin\theta\)（円 \(x^2+y^2=a^2\) を \(y\) 方向に \(\frac ba\) 倍に縮めたもの）</li>
+      <li>双曲線 \(\frac{x^2}{a^2}-\frac{y^2}{b^2}=1\)：\(x=\dfrac{a}{\cos\theta},\ y=b\tan\theta\)（\(\frac1{\cos^2\theta}-\tan^2\theta=1\) より）</li>
+      <li>サイクロイド：\(x=a(\theta-\sin\theta),\ y=a(1-\cos\theta)\)（半径 \(a\) の円が転がるときの円周上の点）</li>
+      <li>極座標 \((r,\theta)\) と直交座標：\(x=r\cos\theta,\ y=r\sin\theta,\ r^2=x^2+y^2\)</li>
+      <li>焦点を極とする2次曲線：\(r=\dfrac{\ell}{1+e\cos\theta}\)（\(\ell\) は正の定数、\(e\) は離心率。準線が極の右側にあるときは分母が \(1+e\cos\theta\)）</li>
+    </ul>
+  </div>
+
+  <div class="box idea">
+    <p><b>この単元を貫く考え方</b>：同じ曲線を<b>3つの言葉</b>で表せるようにする。「\(x,y\) の方程式」（共有点・接線に強い）、「媒介変数表示」（曲線上の点を1文字で表せるので最大最小に強い）、「極方程式」（焦点や原点からの距離・角度に強い）。問題が聞いている量に合わせて言葉を選ぶのが解法の核心。<a href="../thinking.html#t-subst">発想：置き換え</a></p>
+  </div>
+</section>
+
+<section id="quick">
+  <h2>早見表：こう来たら → こう解く</h2>
+  <div class="table-wrap"><table class="quick">
+    <tr><th>問題の特徴（こう来たら）</th><th>方針（こう解く）</th><th>使う道具</th><th>詳細</th></tr>
+    <tr data-level="1"><td>放物線の焦点・準線、焦点と準線から方程式</td><td>\(y^2=4px\) の \(p\) を読む</td><td>放物線の標準形</td><td><a href="#crv-p1">P1</a></td></tr>
+    <tr data-level="1"><td>楕円の焦点・長軸／距離の和が一定の点の軌跡</td><td>\(a,b,c\) の関係 \(c^2=a^2-b^2\)</td><td>楕円の標準形</td><td><a href="#crv-p2">P2</a></td></tr>
+    <tr data-level="1"><td>双曲線の焦点・漸近線／距離の差が一定</td><td>\(c^2=a^2+b^2\)、漸近線 \(y=\pm\frac bax\)</td><td>双曲線の標準形</td><td><a href="#crv-p3">P3</a></td></tr>
+    <tr data-level="1"><td>\(x^2+4y^2-4x+8y+4=0\) はどんな曲線か</td><td>平方完成して平行移動を読む</td><td>平行移動</td><td><a href="#crv-p4">P4</a></td></tr>
+    <tr data-level="2"><td>2次曲線と直線の共有点・弦の中点の軌跡</td><td>連立して2次方程式、判別式・解と係数</td><td>判別式</td><td><a href="#crv-p5">P5</a></td></tr>
+    <tr data-level="2"><td>接線の方程式（曲線外の点から引く）</td><td>接点 \((x_1,y_1)\) をおいて公式</td><td>接線の公式</td><td><a href="#crv-p6">P6</a></td></tr>
+    <tr data-level="2"><td>楕円上の点で \(2x+3y\) などの最大最小</td><td>\((a\cos\theta,b\sin\theta)\) とおいて合成</td><td>媒介変数・合成</td><td><a href="#crv-p7">P7</a></td></tr>
+    <tr data-level="2"><td>楕円上の点を頂点とする三角形・長方形の面積最大</td><td>媒介変数で面積を表す／円の縮小</td><td>点と直線の距離</td><td><a href="#crv-p8">P8</a></td></tr>
+    <tr data-level="2"><td>定点と定直線への距離の比が一定の点の軌跡</td><td>距離の式を2乗して整理、\(e\) で判別</td><td>離心率</td><td><a href="#crv-p9">P9</a></td></tr>
+    <tr data-level="1"><td>媒介変数で表された曲線の方程式</td><td>媒介変数を消去（範囲に注意）</td><td>\(\cos^2+\sin^2=1\) など</td><td><a href="#crv-p10">P10</a></td></tr>
+    <tr data-level="2"><td>サイクロイドなどの接線・概形</td><td>\(\frac{dy}{dx}=\frac{dy/d\theta}{dx/d\theta}\)、増減表</td><td>媒介変数の微分</td><td><a href="#crv-p11">P11</a></td></tr>
+    <tr data-level="1"><td>極座標 ⇔ 直交座標の変換</td><td>\(x=r\cos\theta,\ y=r\sin\theta\)</td><td>極座標</td><td><a href="#crv-p12">P12</a></td></tr>
+    <tr data-level="2"><td>極方程式の表す図形（直線・円・2次曲線）</td><td>加法定理で展開 → \(x,y\) に</td><td>極方程式</td><td><a href="#crv-p13">P13</a></td></tr>
+    <tr data-level="3"><td>焦点を通る弦の長さ・\(\frac1{FP}+\frac1{FQ}\)</td><td>焦点を極とする極方程式</td><td>\(r=\frac{\ell}{1+e\cos\theta}\)</td><td><a href="#crv-p14">P14</a></td></tr>
+    <tr data-level="3"><td>直交する2接線の交点の軌跡</td><td>傾き \(m\) の2次方程式の解の積 \(=-1\)</td><td>準円・解と係数の関係</td><td><a href="#crv-p15">P15</a></td></tr>
+    <tr data-level="3"><td>双曲線の接線と漸近線で作る三角形</td><td>接点を文字でおき交点を計算</td><td>接線・漸近線</td><td><a href="#crv-p16">P16</a></td></tr>
+  </table></div>
+</section>
+
+<section id="patterns">
+  <h2>パターン別 解法マップ</h2>
+
+  <article class="pattern" id="crv-p1" data-level="1">
+    <h3><span class="pid">P1</span>放物線の焦点・準線</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「放物線 \(y^2=8x\) の焦点と準線」「焦点が \((0,3)\)、準線が \(y=-3\) の放物線の方程式」</dd>
+      <dt>こう考える</dt><dd>\(y^2=4px\) の形に合わせて \(p\) を読むだけ。\(4p\) の「4」を作るのがコツ。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(y^2=(\text{数})\,x\) なら \((\text{数})=4p\) として \(p\) を求める → 焦点 \((p,0)\)、準線 \(x=-p\)。</li>
+        <li>\(x^2=(\text{数})\,y\) なら焦点 \((0,p)\)、準線 \(y=-p\)。</li>
+        <li>焦点・準線から式を作るときは、定義 \(PF=(\text{準線までの距離})\) を直接2乗してもよい。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>放物線の標準形（基本事項）</dd>
+      <dt>なぜこの方法？</dt><dd>頂点は焦点と準線のちょうど真ん中。\(p\) は「頂点から焦点までの距離」なので、\(p\) が分かれば焦点も準線も対称に決まる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 放物線 \(y^2=8x\)、\(x^2=-2y\) の焦点と準線を求めよ。(2) 焦点が \((0,3)\)、準線が \(y=-3\) の放物線の方程式を求めよ。</div>
+      <p>(1) \(y^2=4\cdot2\,x\) より \(p=2\)。\(x^2=4\cdot\left(-\frac12\right)y\) より \(p=-\frac12\)。</p>
+      <p class="answer">(1) \(y^2=8x\)：焦点 \((2,0)\)、準線 \(x=-2\)。\(x^2=-2y\)：焦点 \(\left(0,-\frac12\right)\)、準線 \(y=\frac12\)</p>
+      <p>(2) \(\sqrt{x^2+(y-3)^2}=|y+3|\) を2乗：\(x^2+y^2-6y+9=y^2+6y+9\)。</p>
+      <p class="answer">(2) \(x^2=12y\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crv-p2" data-level="1">
+    <h3><span class="pid">P2</span>楕円の標準形と焦点</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「楕円 \(4x^2+9y^2=36\) の焦点・長軸の長さ」「2点 \((\pm2,0)\) からの距離の和が 6 である点の軌跡」</dd>
+      <dt>こう考える</dt><dd>右辺を1にして \(\frac{x^2}{a^2}+\frac{y^2}{b^2}=1\) の形にする。<b>大きい方の分母</b>の方向が長軸で、焦点もそちら側にある。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>右辺を1にして \(a^2,b^2\) を読む。</li>
+        <li>焦点：\(c=\sqrt{(\text{大})-(\text{小})}\)、長軸方向に \((\pm c,0)\) または \((0,\pm c)\)。</li>
+        <li>逆に「距離の和 \(2a\)、焦点 \(\pm c\)」から作るときは \(b^2=a^2-c^2\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(c^2=a^2-b^2\)（楕円は「引き算」）、長軸 \(2a\)、短軸 \(2b\)</dd>
+      <dt>なぜこの方法？</dt><dd>短軸の端 \((0,b)\) から2焦点への距離は等しく、和が \(2a\) だから片方は \(a\)。直角三角形で \(b^2+c^2=a^2\)。<b>図に三角形を1つ描けば公式を忘れても復元できる</b>。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 楕円 \(4x^2+9y^2=36\) の焦点、長軸・短軸の長さを求めよ。(2) 2点 \((2,0),(-2,0)\) からの距離の和が 6 である点の軌跡の方程式を求めよ。</div>
+      <p>(1) \(\dfrac{x^2}{9}+\dfrac{y^2}{4}=1\)。\(a=3,\ b=2,\ c=\sqrt{9-4}=\sqrt5\)。</p>
+      <p class="answer">(1) 焦点 \((\pm\sqrt5,0)\)、長軸 6、短軸 4</p>
+      <p>(2) \(2a=6\) より \(a=3\)、\(c=2\) より \(b^2=9-4=5\)。</p>
+      <p class="answer">(2) \(\dfrac{x^2}{9}+\dfrac{y^2}{5}=1\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crv-p3" data-level="1">
+    <h3><span class="pid">P3</span>双曲線の焦点と漸近線</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「双曲線 \(\frac{x^2}{16}-\frac{y^2}{9}=1\) の焦点と漸近線」「焦点が \((0,\pm3)\) で、距離の差が 4 の双曲線」</dd>
+      <dt>こう考える</dt><dd>右辺が \(+1\) なら左右に開く（焦点は \(x\) 軸上）、\(-1\) なら上下に開く（焦点は \(y\) 軸上）。焦点は \(c^2=a^2+b^2\)（双曲線は「足し算」）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(a^2,b^2\) を読み、\(c=\sqrt{a^2+b^2}\)。</li>
+        <li>漸近線は右辺を0にした \(\frac{x^2}{a^2}-\frac{y^2}{b^2}=0\)、すなわち \(y=\pm\frac bax\)。</li>
+        <li>距離の差 \(2a\) から作るときは \(b^2=c^2-a^2\)。焦点が \(y\) 軸上なら右辺を \(-1\) にする。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(c^2=a^2+b^2\)、漸近線 \(y=\pm\frac bax\)</dd>
+      <dt>なぜこの方法？</dt><dd>漸近線は「遠くで定数1が無視できる」ことから、右辺を0にすれば出る。<b>右辺を0にする</b>は \(-1\) 型でも同じ漸近線になる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 双曲線 \(\dfrac{x^2}{16}-\dfrac{y^2}{9}=1\) の焦点と漸近線を求めよ。(2) 2点 \((0,3),(0,-3)\) からの距離の差の絶対値が 4 である点の軌跡を求めよ。</div>
+      <p>(1) \(c=\sqrt{16+9}=5\)。漸近線は \(\frac{x^2}{16}=\frac{y^2}{9}\)。</p>
+      <p class="answer">(1) 焦点 \((\pm5,0)\)、漸近線 \(y=\pm\dfrac34x\)</p>
+      <p>(2) 焦点が \(y\) 軸上なので \(\dfrac{x^2}{b^2}-\dfrac{y^2}{a^2}=-1\) の形。\(2a=4\) より \(a=2\)、\(c=3\) より \(b^2=9-4=5\)。</p>
+      <p class="answer">(2) \(\dfrac{x^2}{5}-\dfrac{y^2}{4}=-1\)（漸近線 \(y=\pm\dfrac{2}{\sqrt5}x\)）</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crv-p4" data-level="1">
+    <h3><span class="pid">P4</span>平行移動と2次曲線の判別</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「方程式 \(x^2+4y^2-4x+8y+4=0\) はどのような曲線を表すか。焦点も求めよ」</dd>
+      <dt>こう考える</dt><dd>\(xy\) の項がなければ、\(x\) と \(y\) それぞれ平方完成すれば標準形を平行移動したものになる。中心（頂点）の座標＝平行移動の量。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(x\) の項、\(y\) の項をまとめて平方完成。</li>
+        <li>右辺を1にして標準形と見比べる。\(X=x-p,\ Y=y-q\) とおくと標準形。</li>
+        <li>焦点などは標準形で求めてから \((p,q)\) だけずらす。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>平行移動：\(f(x-p,\ y-q)=0\) は \(f(x,y)=0\) を \((p,q)\) だけ移動</dd>
+      <dt>なぜこの方法？</dt><dd>平行移動は形を変えないので、<b>標準形の世界で考えてから戻す</b>のが一番ミスが少ない。<a href="m1-quadratic.html">2次関数</a>の頂点を平方完成で求めたのと同じ発想。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">方程式 \(x^2+4y^2-4x+8y+4=0\) が表す曲線の名前、中心、焦点を求めよ。</div>
+      <p>\((x-2)^2-4+4(y+1)^2-4+4=0\) より \((x-2)^2+4(y+1)^2=4\)、すなわち</p>
+      \[ \frac{(x-2)^2}{4}+(y+1)^2=1 \]
+      <p>これは楕円 \(\frac{x^2}{4}+y^2=1\)（焦点 \((\pm\sqrt3,0)\)）を \(x\) 方向に 2、\(y\) 方向に \(-1\) 平行移動したもの。</p>
+      <p class="answer">楕円、中心 \((2,-1)\)、焦点 \((2\pm\sqrt3,\ -1)\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crv-p5" data-level="2">
+    <h3><span class="pid">P5</span>2次曲線と直線（判別式・弦の中点）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「楕円 \(\frac{x^2}4+y^2=1\) と直線 \(y=x+k\) が共有点をもつ \(k\) の範囲」「2交点を結ぶ弦の中点の軌跡」</dd>
+      <dt>こう考える</dt><dd>共有点 ⇔ 連立方程式の実数解。\(y\) を消去すれば \(x\) の2次方程式になるので、<b>個数は判別式、中点は解と係数の関係</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>直線の式を代入して \(x\) の2次方程式を作る（分数は払う）。</li>
+        <li>共有点をもつ ⇔ \(D\ge0\)、2点で交わる ⇔ \(D\gt0\)、接する ⇔ \(D=0\)。</li>
+        <li>中点の \(x\) 座標 \(=\frac{\alpha+\beta}{2}\)（解と係数の関係）、\(y\) は直線の式から。</li>
+        <li>中点 \((X,Y)\) から \(k\) を消去し、<b>\(k\) の範囲から \(X\) の範囲</b>を求める。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>判別式、解と係数の関係（<a href="m2-complex-eq.html">複素数と方程式</a>）</dd>
+      <dt>なぜこの方法？</dt><dd>交点を具体的に求めると \(\sqrt{\ }\) が出るが、中点は「2解の和」だけで決まるので解く必要がない。軌跡の範囲は「その \(k\) で本当に2交点があるか」で制限される（<a href="../thinking.html#t-inverse">発想：逆像法</a>）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">楕円 \(\dfrac{x^2}{4}+y^2=1\) と直線 \(y=x+k\) について、(1) 共有点をもつ \(k\) の範囲を求めよ。(2) 異なる2点で交わるとき、その2点を結ぶ線分の中点の軌跡を求めよ。</div>
+      <p>代入して4倍：\(x^2+4(x+k)^2=4\)、すなわち \(5x^2+8kx+4k^2-4=0\) …①</p>
+      <p>(1) \(D/4=16k^2-5(4k^2-4)=20-4k^2\ge0\)。</p>
+      <p class="answer">(1) \(-\sqrt5\le k\le\sqrt5\)</p>
+      <p>(2) \(-\sqrt5\lt k\lt\sqrt5\) のとき①は異なる2実数解 \(\alpha,\beta\) をもち、中点 \((X,Y)\) は</p>
+      \[ X=\frac{\alpha+\beta}{2}=-\frac{4k}{5},\qquad Y=X+k=\frac{k}{5} \]
+      <p>\(k=5Y\) を代入して \(X=-4Y\)、すなわち \(Y=-\frac14X\)。\(k=-\frac54X\) で \(-\sqrt5\lt k\lt\sqrt5\) より \(-\frac{4}{\sqrt5}\lt X\lt\frac4{\sqrt5}\)。</p>
+      <p class="answer">(2) 直線 \(y=-\dfrac14x\) の \(-\dfrac{4\sqrt5}{5}\lt x\lt\dfrac{4\sqrt5}{5}\) の部分</p>
+      <p class="point">範囲を書き忘れると「直線全体」と誤答になる。端点 \(k=\pm\sqrt5\) は接するとき（中点は接点そのもの）で、「2点で交わる」には含めない。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crv-p6" data-level="2">
+    <h3><span class="pid">P6</span>接線の方程式（曲線外の点から引く接線）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「点 \((0,2)\) から楕円 \(\frac{x^2}{4}+y^2=1\) に引いた接線の方程式」「接点の座標」</dd>
+      <dt>こう考える</dt><dd>2つの方法がある。(A) <b>接点 \((x_1,y_1)\) をおいて公式</b>、(B) 傾き \(m\) の直線とおいて<b>重解条件 \(D=0\)</b>。接点も聞かれたら (A) が速い。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>(A) 接点を \((x_1,y_1)\) とし、接線 \(\frac{x_1x}{a^2}+\frac{y_1y}{b^2}=1\) が与点を通る条件を書く。</li>
+        <li>曲線上の条件 \(\frac{x_1^2}{a^2}+\frac{y_1^2}{b^2}=1\) と連立して接点を求める。</li>
+        <li>(B) では \(y=mx+n\) を代入して \(D=0\)。ただし<b>\(y\) 軸に平行な接線</b>（傾きなし）を見落とさないよう注意。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>接線の公式（基本事項）、判別式</dd>
+      <dt>なぜこの方法？</dt><dd>2次曲線と直線が「接する」は「共有点が重なって1つ」。だから \(D=0\) と同値。接線の公式は微分で導けるので、どちらでも同じ答えになる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">点 \(A(0,2)\) から楕円 \(\dfrac{x^2}{4}+y^2=1\) に引いた2本の接線の方程式と接点を求めよ。</div>
+      <p>接点を \((x_1,y_1)\) とすると接線は \(\dfrac{x_1x}{4}+y_1y=1\)。\(A\) を通るので \(2y_1=1\)、\(y_1=\frac12\)。</p>
+      <p>\(\frac{x_1^2}{4}+\frac14=1\) より \(x_1=\pm\sqrt3\)。接線は \(\pm\frac{\sqrt3}{4}x+\frac12y=1\)。</p>
+      <p class="answer">接点 \(\left(\sqrt3,\frac12\right)\) で \(y=-\dfrac{\sqrt3}{2}x+2\)、接点 \(\left(-\sqrt3,\frac12\right)\) で \(y=\dfrac{\sqrt3}{2}x+2\)</p>
+      <p class="point">(B) で検算：\(y=mx+2\) を代入すると \(\left(\frac14+m^2\right)x^2+4mx+3=0\)、\(D/4=4m^2-3\left(\frac14+m^2\right)=m^2-\frac34=0\)、\(m=\pm\frac{\sqrt3}{2}\)。一致。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crv-p7" data-level="2">
+    <h3><span class="pid">P7</span>楕円の媒介変数表示と最大・最小</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「点 \((x,y)\) が楕円 \(\frac{x^2}{9}+\frac{y^2}{4}=1\) 上を動くとき、\(2x+3y\) の最大値」「\(xy\) の最大値」</dd>
+      <dt>こう考える</dt><dd>楕円上の点は \(x,y\) が独立に動けない。<b>\(x=3\cos\theta,\ y=2\sin\theta\) とおけば1変数 \(\theta\) の関数</b>になり、三角関数の合成や2倍角で処理できる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(x=a\cos\theta,\ y=b\sin\theta\ (0\le\theta\lt2\pi)\) とおく。</li>
+        <li>目的の式を \(\theta\) で表し、合成（\(p\cos\theta+q\sin\theta=\sqrt{p^2+q^2}\sin(\theta+\alpha)\)）など。</li>
+        <li>最大を与える \(\theta\) から点の座標を答える。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>三角関数の合成、2倍角（<a href="m2-trig.html">三角関数</a>）</dd>
+      <dt>なぜこの方法？</dt><dd>\(\cos^2\theta+\sin^2\theta=1\) がちょうど楕円の式に一致するので、\(\theta\) が \(0\) から \(2\pi\) まで動くと楕円を<b>過不足なく1周</b>する。条件式を自動的に満たす変数に置き換えるのが本質（<a href="../thinking.html#t-subst">発想：置き換え</a>）。線形の式なら「\(2x+3y=k\) と楕円が共有点をもつ \(k\) の範囲」（P5 の判別式）でも解ける。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">点 \(P(x,y)\) が楕円 \(\dfrac{x^2}{9}+\dfrac{y^2}{4}=1\) 上を動くとき、(1) \(2x+3y\) の最大値とそのときの \(P\) を求めよ。(2) \(xy\) の最大値を求めよ。</div>
+      <p>\(x=3\cos\theta,\ y=2\sin\theta\ (0\le\theta\lt2\pi)\) とおく。</p>
+      <p>(1) \(2x+3y=6\cos\theta+6\sin\theta=6\sqrt2\sin\left(\theta+\frac\pi4\right)\)。\(\theta=\frac\pi4\) で最大。</p>
+      <p class="answer">(1) 最大値 \(6\sqrt2\)、\(P\left(\dfrac{3\sqrt2}{2},\ \sqrt2\right)\)</p>
+      <p>(2) \(xy=6\sin\theta\cos\theta=3\sin2\theta\le3\)、等号は \(\theta=\frac\pi4,\frac{5\pi}4\)。</p>
+      <p class="answer">(2) 最大値 3</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crv-p8" data-level="2">
+    <h3><span class="pid">P8</span>楕円上の点と面積の最大</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「楕円上の点 \(P\) と定点 \(A,B\) で作る \(\triangle PAB\) の面積の最大値」「楕円に内接する長方形の面積の最大値」</dd>
+      <dt>こう考える</dt><dd>底辺 \(AB\) が固定なら、面積最大 ⇔ \(P\) と直線 \(AB\) の距離が最大。\(P=(a\cos\theta,b\sin\theta)\) として点と直線の距離を \(\theta\) で表す。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>直線 \(AB\) の方程式を求める。</li>
+        <li>\(P(a\cos\theta,b\sin\theta)\) との距離を公式で書き、絶対値の中を合成。</li>
+        <li>\(\sin\) の値の範囲から距離の最大を求め、面積 \(=\frac12AB\times\)距離。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>点と直線の距離、合成。楕円は円 \(x^2+y^2=a^2\) を \(y\) 方向に \(\frac ba\) 倍したもの（面積も \(\frac ba\) 倍）</dd>
+      <dt>なぜこの方法？</dt><dd>「縮小」で見ると、楕円内の図形の面積は円の場合の \(\frac ba\) 倍。円に内接する図形の最大は正方形・正三角形のように対称形で起こるから、楕円でも答えの予想が立つ。媒介変数はそれを計算で確かめる手段。<a href="../thinking.html#t-symmetry">発想：対称性</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">楕円 \(\dfrac{x^2}{9}+\dfrac{y^2}{4}=1\) 上に2点 \(A(3,0),\ B(0,2)\) をとる。点 \(P\) がこの楕円上を動くとき、\(\triangle PAB\) の面積の最大値と、そのときの \(P\) を求めよ。また、この楕円に内接し、各辺が座標軸に平行な長方形の面積の最大値を求めよ。</div>
+      <p>直線 \(AB\)：\(2x+3y-6=0\)、\(AB=\sqrt{13}\)。\(P(3\cos\theta,2\sin\theta)\) と直線 \(AB\) の距離は</p>
+      \[ d=\frac{|6\cos\theta+6\sin\theta-6|}{\sqrt{13}}=\frac{\left|6\sqrt2\sin\left(\theta+\frac\pi4\right)-6\right|}{\sqrt{13}} \]
+      <p>\(\sin\left(\theta+\frac\pi4\right)=-1\)（\(\theta=\frac{5\pi}{4}\)）のとき最大 \(\dfrac{6\sqrt2+6}{\sqrt{13}}\)。面積 \(=\frac12\sqrt{13}\cdot\dfrac{6(\sqrt2+1)}{\sqrt{13}}\)。</p>
+      <p class="answer">\(\triangle PAB\) の最大値 \(3(\sqrt2+1)\)、\(P\left(-\dfrac{3\sqrt2}{2},\ -\sqrt2\right)\)</p>
+      <p>長方形：第1象限の頂点を \((3\cos\theta,2\sin\theta)\ \left(0\lt\theta\lt\frac\pi2\right)\) とすると面積 \(4\cdot3\cos\theta\cdot2\sin\theta=12\sin2\theta\le12\)（\(\theta=\frac\pi4\)）。</p>
+      <p class="answer">長方形の最大値 12</p>
+      <p class="point">円 \(x^2+y^2=9\) に内接する長方形の最大は正方形で面積 18。\(y\) 方向に \(\frac23\) 倍すると \(18\times\frac23=12\)。縮小の考えと一致する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crv-p9" data-level="2">
+    <h3><span class="pid">P9</span>離心率と2次曲線の統一的定義</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「点 \(F(1,0)\) からの距離と直線 \(x=4\) からの距離の比が \(1:2\) である点の軌跡」「離心率を求めよ」</dd>
+      <dt>こう考える</dt><dd>距離の比 \(e=\frac{PF}{PH}\) で2次曲線が決まる。\(e\lt1\) 楕円、\(e=1\) 放物線、\(e\gt1\) 双曲線。計算は<b>2乗して整理し平方完成</b>するだけ。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(P(x,y)\)、\(PF=\sqrt{\cdots}\)、\(PH=|x-k|\) と書く。</li>
+        <li>\(PF=e\cdot PH\) を2乗して整理。</li>
+        <li>平方完成して標準形にし、中心・焦点を確かめる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>統一的定義、\(e=\frac ca\)、準線 \(x=\pm\frac{a}{e}\)</dd>
+      <dt>なぜこの方法？</dt><dd>放物線の定義（\(e=1\)）を一般化したもの。\(x^2\) の係数 \(1-e^2\) の符号が曲線の種類を決める。この見方は P14 の「焦点を極とする極方程式」の土台になる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">点 \(F(1,0)\) と直線 \(\ell:x=4\) がある。点 \(P\) から \(\ell\) に下ろした垂線の足を \(H\) とするとき、次の点 \(P\) の軌跡を求めよ。(1) \(PF:PH=1:2\)　(2) \(PF:PH=2:1\)</div>
+      <p>(1) \(2PF=PH\)：\(4\{(x-1)^2+y^2\}=(x-4)^2\)。展開して \(3x^2+4y^2=12\)。</p>
+      <p class="answer">(1) 楕円 \(\dfrac{x^2}{4}+\dfrac{y^2}{3}=1\)（離心率 \(\frac12\)。\(c=1,\ a=2\)、準線 \(x=\frac ae=4\) と整合）</p>
+      <p>(2) \(PF=2PH\)：\((x-1)^2+y^2=4(x-4)^2\)。整理して \(3x^2-30x-y^2+63=0\)、\(3(x-5)^2-y^2=12\)。</p>
+      <p class="answer">(2) 双曲線 \(\dfrac{(x-5)^2}{4}-\dfrac{y^2}{12}=1\)（中心 \((5,0)\)、焦点 \((1,0),(9,0)\)、離心率 2）</p>
+      <p class="point">検算：(2) は \(a=2,\ c=\sqrt{4+12}=4\)、\(e=\frac ca=2\)。準線は中心から \(\frac ae=1\) の位置 \(x=4\)。与えられた条件と一致する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crv-p10" data-level="1">
+    <h3><span class="pid">P10</span>媒介変数を消去して曲線を求める</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x=t+1,\ y=t^2-2t\) で表される曲線」「\(x=2\cos\theta+1,\ y=3\sin\theta-2\)」「\(x=\frac{1-t^2}{1+t^2},\ y=\frac{2t}{1+t^2}\)」</dd>
+      <dt>こう考える</dt><dd>媒介変数を消去すれば \(x,y\) の式。<b>1次式なら解いて代入</b>、<b>三角関数なら \(\cos^2+\sin^2=1\)</b>。最後に \(x,y\) の動く範囲（除外点）を確認する。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>媒介変数が1次で表せる式から \(t=\cdots\) として代入。</li>
+        <li>\(\cos\theta=\frac{x-1}{2},\ \sin\theta=\frac{y+2}{3}\) のように変形して2乗の和。</li>
+        <li>\(x\) や \(y\) の範囲に制限がないか（\(t\) の範囲、分母、\(\cos\) の値域）を調べる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\cos^2\theta+\sin^2\theta=1\)、\(\frac{1}{\cos^2\theta}-\tan^2\theta=1\)</dd>
+      <dt>なぜこの方法？</dt><dd>媒介変数表示は「時刻 \(t\) での位置」。軌跡は時刻を忘れた「通り道」なので \(t\) を消す。ただし \(t\) が取れない値があると通り道に<b>穴</b>があく。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">次の媒介変数表示の曲線を \(x,y\) の方程式で表せ。(1) \(x=t+1,\ y=t^2-2t\)　(2) \(x=2\cos\theta+1,\ y=3\sin\theta-2\)　(3) \(x=\dfrac{1-t^2}{1+t^2},\ y=\dfrac{2t}{1+t^2}\)（\(t\) は実数）</div>
+      <p>(1) \(t=x-1\) を代入：\(y=(x-1)^2-2(x-1)=x^2-4x+3\)。</p>
+      <p class="answer">(1) 放物線 \(y=x^2-4x+3\)</p>
+      <p>(2) \(\cos\theta=\frac{x-1}{2},\ \sin\theta=\frac{y+2}{3}\) を \(\cos^2\theta+\sin^2\theta=1\) に代入。</p>
+      <p class="answer">(2) 楕円 \(\dfrac{(x-1)^2}{4}+\dfrac{(y+2)^2}{9}=1\)</p>
+      <p>(3) \(x^2+y^2=\dfrac{(1-t^2)^2+4t^2}{(1+t^2)^2}=\dfrac{(1+t^2)^2}{(1+t^2)^2}=1\)。また \(x=-1\) とすると \(1-t^2=-1-t^2\) となり不可能なので点 \((-1,0)\) は含まれない。逆に \(x\neq-1\) である円周上の点は \(t=\dfrac{y}{1+x}\) で得られる。</p>
+      <p class="answer">(3) 円 \(x^2+y^2=1\) から点 \((-1,0)\) を除いたもの</p>
+      <p class="point">(3) で \(t=\tan\frac\phi2\) とおくと \(x=\cos\phi,\ y=\sin\phi\) になる。\(\phi=\pi\) に対応する \(t\) がないことが除外点の正体。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crv-p11" data-level="2">
+    <h3><span class="pid">P11</span>サイクロイドと媒介変数表示の曲線の概形</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x=\theta-\sin\theta,\ y=1-\cos\theta\) の \(\theta=\frac\pi2\) に対応する点における接線」「曲線の概形をかけ」</dd>
+      <dt>こう考える</dt><dd>\(\theta\) を消去できない曲線は、<b>\(x\) と \(y\) をそれぞれ \(\theta\) の関数として増減を調べ</b>、並べて描く。傾きは \(\dfrac{dy}{dx}=\dfrac{dy/d\theta}{dx/d\theta}\)。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\frac{dx}{d\theta},\ \frac{dy}{d\theta}\) を計算。</li>
+        <li>接線：点 \((x(\theta_0),y(\theta_0))\)、傾き \(\frac{y'(\theta_0)}{x'(\theta_0)}\)。</li>
+        <li>概形：\(\theta\) の増減表に \(x\) の増減・\(y\) の増減を並べ、主要な点（端点・\(y\) 最大の点）を結ぶ。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>媒介変数の微分（<a href="m3-diff.html">微分法とその応用</a>）</dd>
+      <dt>なぜこの方法？</dt><dd>\(\theta\) が少し増えたとき \(x\) が \(dx\)、\(y\) が \(dy\) 動くので、その比が傾き。サイクロイドの面積・長さは<a href="m3-integral-app.html">積分法の応用</a>で頻出（面積 \(3\pi a^2\)、1アーチの長さ \(8a\)）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">サイクロイド \(x=\theta-\sin\theta,\ y=1-\cos\theta\ (0\le\theta\le2\pi)\) について、(1) \(\theta=\frac\pi2\) に対応する点における接線の方程式を求めよ。(2) 曲線の概形を述べよ。</div>
+      <p>\(\dfrac{dx}{d\theta}=1-\cos\theta,\ \dfrac{dy}{d\theta}=\sin\theta\) より \(\dfrac{dy}{dx}=\dfrac{\sin\theta}{1-\cos\theta}\ (0\lt\theta\lt2\pi)\)。</p>
+      <p>(1) \(\theta=\frac\pi2\)：点 \(\left(\frac\pi2-1,\ 1\right)\)、傾き \(\frac{1}{1}=1\)。\(y-1=x-\frac\pi2+1\)。</p>
+      <p class="answer">(1) \(y=x-\dfrac\pi2+2\)</p>
+      <p>(2) \(0\lt\theta\lt2\pi\) で \(\frac{dx}{d\theta}\gt0\) なので \(x\) は \(0\) から \(2\pi\) まで単調に増加。\(y\) は \(\theta=\pi\)（\(x=\pi\)）で最大値 2。\(\theta\to+0\) で \(\frac{dy}{dx}\to+\infty\)、\(\theta\to2\pi-0\) で \(\to-\infty\)。</p>
+      <p class="answer">(2) 原点から立ち上がり、点 \((\pi,2)\) で最高点、\((2\pi,0)\) に垂直に下りるアーチ形（両端で \(x\) 軸に垂直に接する）</p>
+      <svg viewBox="0 0 330 90" width="100%" style="max-width:380px" role="img" aria-label="サイクロイドの概形">
+        <line x1="10" y1="80" x2="320" y2="80" stroke="currentColor" stroke-width="1"/>
+        <path d="M10,80 C14,40 50,10 110,10 C170,10 206,40 210,80" fill="none" stroke="var(--accent)" stroke-width="2"/>
+        <text x="104" y="8" font-size="10" fill="currentColor">(π, 2)</text>
+        <text x="200" y="90" font-size="10" fill="currentColor">2π</text>
+        <text x="4" y="90" font-size="10" fill="currentColor">O</text>
+      </svg>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crv-p12" data-level="1">
+    <h3><span class="pid">P12</span>極座標と直交座標の変換</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「極座標 \(\left(2,\frac{2\pi}{3}\right)\) の点を直交座標で」「点 \((1,-1)\) を極座標で」「極方程式 \(r=4\cos\theta\) を直交座標の方程式に」</dd>
+      <dt>こう考える</dt><dd>\(r\)＝原点からの距離、\(\theta\)＝\(x\) 軸正の向きからの角。<b>\(x=r\cos\theta,\ y=r\sin\theta,\ r^2=x^2+y^2\)</b> の3つで行き来する。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>極→直交：\(x=r\cos\theta,\ y=r\sin\theta\)。</li>
+        <li>直交→極：\(r=\sqrt{x^2+y^2}\)、\(\theta\) は点の位置（象限）を見て決める。</li>
+        <li>極方程式→直交：\(r\cos\theta,\ r\sin\theta,\ r^2\) が現れるように<b>両辺に \(r\) を掛ける</b>などの工夫をする。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>三角比の定義</dd>
+      <dt>なぜこの方法？</dt><dd>\(x,y\) は「横と縦」、\(r,\theta\) は「距離と方向」で同じ点を指定している。\(r\) を掛けると \(r\cos\theta=x\) のような<b>置き換えられる形</b>が作れる。原点（\(r=0\)）を含むかどうかの確認も忘れずに。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 極座標 \(\left(2,\frac{2\pi}{3}\right)\) の点の直交座標を求めよ。(2) 直交座標 \((1,-1)\) の点の極座標を求めよ（\(0\le\theta\lt2\pi\)）。(3) 極方程式 \(r=4\cos\theta\) が表す図形を求めよ。</div>
+      <p>(1) \(x=2\cos\frac{2\pi}3=-1,\ y=2\sin\frac{2\pi}{3}=\sqrt3\)。<span class="answer">\((-1,\sqrt3)\)</span></p>
+      <p>(2) \(r=\sqrt2\)、第4象限で \(\theta=\frac{7\pi}{4}\)。<span class="answer">\(\left(\sqrt2,\frac{7\pi}{4}\right)\)</span></p>
+      <p>(3) 両辺に \(r\) を掛けて \(r^2=4r\cos\theta\)、\(x^2+y^2=4x\)、\((x-2)^2+y^2=4\)。（\(r=0\) すなわち原点は \(\theta=\frac\pi2\) で元の式も満たすので、両辺に \(r\) を掛けても図形は変わらない。）</p>
+      <p class="answer">(3) 中心 \((2,0)\)、半径 2 の円</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crv-p13" data-level="2">
+    <h3><span class="pid">P13</span>直線・円・2次曲線の極方程式</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「極方程式 \(r\cos\left(\theta-\frac\pi3\right)=2\) の表す図形」「\(r=2\cos\theta+2\sqrt3\sin\theta\)」「\(r=\dfrac{3}{2+\cos\theta}\) はどんな曲線か」</dd>
+      <dt>こう考える</dt><dd>代表的な型を覚えておくと、図形が一目で分かる。
+        <ul>
+          <li>\(r\cos(\theta-\alpha)=p\)：極からの垂線の足が \((p,\alpha)\) の直線</li>
+          <li>\(r=2a\cos(\theta-\alpha)\)：中心 \((a,\alpha)\)、半径 \(a\) で極を通る円</li>
+          <li>\(r=\dfrac{\ell}{1+e\cos\theta}\)：極を焦点とする2次曲線（離心率 \(e\)）</li>
+        </ul></dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>加法定理で展開して \(r\cos\theta,\ r\sin\theta\) を作る。</li>
+        <li>分数型は分母を払い \(r=(\text{\(x\) の1次式})\) にしてから2乗。</li>
+        <li>\(x,y\) の式を平方完成して図形を判定。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>加法定理、P12 の変換</dd>
+      <dt>なぜこの方法？</dt><dd>\(r\cos(\theta-\alpha)\) は「点を方向 \(\alpha\) に射影した長さ」。それが一定なら \(\alpha\) 方向に垂直な直線になる。分数型は \(r=e(d-r\cos\theta)\)、すなわち「焦点までの距離 \(=e\times\)準線までの距離」そのもの。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">次の極方程式が表す図形を直交座標の方程式で答えよ。(1) \(r\cos\left(\theta-\frac\pi3\right)=2\)　(2) \(r=2\cos\theta+2\sqrt3\sin\theta\)　(3) \(r=\dfrac{3}{2+\cos\theta}\)</div>
+      <p>(1) \(r\cos\theta\cdot\frac12+r\sin\theta\cdot\frac{\sqrt3}{2}=2\)。</p>
+      <p class="answer">(1) 直線 \(x+\sqrt3y=4\)</p>
+      <p>(2) \(r^2=2r\cos\theta+2\sqrt3r\sin\theta\)、\(x^2+y^2=2x+2\sqrt3y\)。</p>
+      <p class="answer">(2) 円 \((x-1)^2+(y-\sqrt3)^2=4\)（\(r=4\cos\left(\theta-\frac\pi3\right)\) とも書け、極を通る）</p>
+      <p>(3) \(2r+r\cos\theta=3\) より \(2r=3-x\)。2乗して \(4(x^2+y^2)=9-6x+x^2\)、\(3x^2+6x+4y^2=9\)、\(3(x+1)^2+4y^2=12\)。</p>
+      <p class="answer">(3) 楕円 \(\dfrac{(x+1)^2}{4}+\dfrac{y^2}{3}=1\)</p>
+      <p class="point">(3) の楕円は \(a=2,\ c=1\) で焦点は \((0,0),(-2,0)\)。<b>極（原点）が焦点</b>になっていて、\(e=\frac12\) は分母 \(2+\cos\theta=2\left(1+\frac12\cos\theta\right)\) から読める。なお \(2r=3-x\) を2乗するとき \(3-x\gt0\) が必要だが、楕円上では \(-3\le x\le1\) なので自動的に成り立つ。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crv-p14" data-level="3">
+    <h3><span class="pid">P14</span>焦点を極とする極方程式の利用（焦点弦）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「焦点 \(F\) を通る直線が楕円と \(P,Q\) で交わる。\(\frac1{FP}+\frac1{FQ}\) は一定であることを示せ」「弦 \(PQ\) の長さの最大・最小」</dd>
+      <dt>こう考える</dt><dd>焦点から曲線上の点までの距離が主役 → <b>焦点を極にした極方程式</b>。焦点を通る弦の両端は偏角が \(\theta\) と \(\theta+\pi\) なので、\(FP=r(\theta),\ FQ=r(\theta+\pi)\) と1文字で書ける。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>統一的定義 \(PF=e\cdot(\text{準線までの距離})\) に \(P=F+r(\cos\theta,\sin\theta)\) を代入して \(r=\dfrac{\ell}{1+e\cos\theta}\) を導く。</li>
+        <li>\(FQ=r(\theta+\pi)=\dfrac{\ell}{1-e\cos\theta}\)。</li>
+        <li>和・積・逆数和を \(\cos\theta\) で表し、\(-1\le\cos\theta\le1\) から最大最小。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>統一的定義（P9）、\(\cos(\theta+\pi)=-\cos\theta\)</dd>
+      <dt>なぜこの方法？</dt><dd>座標で解くと交点の \(\sqrt{\ }\) を含む計算になるが、極方程式なら焦点からの距離が<b>分数1つ</b>で書ける。焦点・準線の定義が「距離の比」なので、距離を直接扱う極座標と相性がよい。<a href="../thinking.html#t-rephrase">発想：同値な言い換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">楕円 \(\dfrac{x^2}{4}+\dfrac{y^2}{3}=1\) の焦点 \(F(1,0)\) を通る直線がこの楕円と2点 \(P,Q\) で交わる。(1) \(F\) を極、\(x\) 軸の正の向きを始線とするこの楕円の極方程式を求めよ。(2) \(\dfrac1{FP}+\dfrac1{FQ}\) は一定であることを示せ。(3) 弦 \(PQ\) の長さの最大値と最小値を求めよ。</div>
+      <p>(1) \(a=2,\ c=1,\ e=\frac12\)、\(F(1,0)\) に対応する準線は \(x=\frac ae=4\)。楕円上の点 \(P\) を \(P(1+r\cos\theta,\ r\sin\theta)\ (r=FP)\) とすると、\(PF=\frac12(4-x)\) より</p>
+      \[ r=\frac12(3-r\cos\theta)\ \Longrightarrow\ r=\frac{3}{2+\cos\theta} \]
+      <p class="answer">(1) \(r=\dfrac{3}{2+\cos\theta}\)</p>
+      <p>(2) \(P\) の偏角を \(\theta\) とすると \(Q\) の偏角は \(\theta+\pi\)。\(FP=\dfrac{3}{2+\cos\theta},\ FQ=\dfrac{3}{2-\cos\theta}\)。</p>
+      <p>\(\dfrac1{FP}+\dfrac1{FQ}=\dfrac{(2+\cos\theta)+(2-\cos\theta)}{3}=\dfrac43\)（一定）。（証明終）</p>
+      <p>(3) \(PQ=FP+FQ=\dfrac{3(2-\cos\theta)+3(2+\cos\theta)}{4-\cos^2\theta}=\dfrac{12}{4-\cos^2\theta}\)。\(0\le\cos^2\theta\le1\) より \(3\le PQ\le4\)。</p>
+      <p class="answer">(3) 最大値 4（\(PQ\) が長軸）、最小値 3（\(PQ\perp x\) 軸）</p>
+      <p class="point">検算：長軸の長さ \(2a=4\)、焦点を通り長軸に垂直な弦（通径）は \(\frac{2b^2}{a}=3\)。P13 (3) の楕円はこの楕円を \(x\) 方向に \(-1\) ずらしたもので、同じ極方程式になっている。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crv-p15" data-level="3">
+    <h3><span class="pid">P15</span>準円（直交する2接線の交点の軌跡）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「楕円 \(\frac{x^2}{4}+y^2=1\) に点 \(P\) から引いた2本の接線が直交するような点 \(P\) の軌跡」</dd>
+      <dt>こう考える</dt><dd>\(P(X,Y)\) を通る傾き \(m\) の直線が接する条件は \(m\) の2次方程式。<b>2本の接線の傾きはその2解</b>なので、直交 ⇔ 解の積 \(=-1\)（解と係数の関係）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(y=mx+n\) が楕円 \(\frac{x^2}{a^2}+\frac{y^2}{b^2}=1\) に接する条件 \(n^2=a^2m^2+b^2\)（判別式から）。</li>
+        <li>\(P\) を通るので \(n=Y-mX\)。代入して \(m\) の2次方程式に。</li>
+        <li>解の積 \(=-1\) から \(X,Y\) の関係式。傾きがない接線（\(X=\pm a\)）は別に調べる。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>判別式、解と係数の関係</dd>
+      <dt>なぜこの方法？</dt><dd>2本の接線を個別に求めると重いが、欲しいのは「傾きの積」だけ。<b>2解を求めずに対称式（積）だけ取り出す</b>のが解と係数の関係の真価。答えの円 \(x^2+y^2=a^2+b^2\) を準円という。<a href="../thinking.html#t-goal">発想：ゴールから逆算</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">点 \(P(X,Y)\) から楕円 \(\dfrac{x^2}{4}+y^2=1\) に引いた2本の接線が直交するとき、点 \(P\) の軌跡を求めよ。</div>
+      <p><b>(i) \(X\neq\pm2\) のとき。</b>接線は \(y\) 軸に平行でないので \(y=m(x-X)+Y\) とおける。楕円に代入して判別式を0とすると、\(y=mx+n\) が接する条件 \(n^2=4m^2+1\) が得られる（\(\left(\frac14+m^2\right)x^2+2mnx+n^2-1=0\) の \(D/4=m^2n^2-\left(\frac14+m^2\right)(n^2-1)=0\) を整理）。</p>
+      <p>\(n=Y-mX\) を代入して \((X^2-4)m^2-2XYm+(Y^2-1)=0\)。この2解が2本の接線の傾き \(m_1,m_2\) で、直交条件 \(m_1m_2=-1\) より</p>
+      \[ \frac{Y^2-1}{X^2-4}=-1\ \Longrightarrow\ X^2+Y^2=5 \]
+      <p>逆に \(X^2+Y^2=5\ (X\neq\pm2)\) なら、判別式 \(X^2Y^2-(X^2-4)(Y^2-1)=X^2+4Y^2-4\gt0\)（\(\frac{X^2}{4}+Y^2\ge\frac{X^2+Y^2}{4}=\frac54\gt1\) より \(P\) は楕円の外部）なので、実際に異なる2本の接線が引け、傾きの積は \(-1\)。</p>
+      <p><b>(ii) \(X=\pm2\) のとき。</b>一方の接線は \(x=\pm2\)（垂直）なので、もう一方は水平な接線 \(y=\pm1\)。よって \(P=(\pm2,\pm1)\)（複号任意）で、これらも \(X^2+Y^2=5\) を満たす。</p>
+      <p class="answer">円 \(x^2+y^2=5\)</p>
+      <p class="point">採点ポイント：(ii) の「傾きが存在しない接線」の場合分けと、(i) の逆（実際に2本引けるか）の確認。この2つが抜けると減点される。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crv-p16" data-level="3">
+    <h3><span class="pid">P16</span>双曲線の接線と漸近線</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「双曲線上の点 \(P\) における接線と2本の漸近線の交点を \(Q,R\) とする。\(P\) は線分 \(QR\) の中点であることを示せ」「\(\triangle OQR\) の面積は一定」</dd>
+      <dt>こう考える</dt><dd>接点 \((x_1,y_1)\) を文字のまま置き、接線と漸近線の交点を計算。最後に<b>曲線上の条件 \(\frac{x_1^2}{a^2}-\frac{y_1^2}{b^2}=1\) で分母が定数になる</b>ことを使う。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>接線 \(\frac{x_1x}{a^2}-\frac{y_1y}{b^2}=1\) と漸近線 \(y=\pm\frac bax\) の交点 \(Q,R\) を求める。</li>
+        <li>中点・面積（\(\frac12|x_Qy_R-x_Ry_Q|\)）を計算。</li>
+        <li>\(\frac{x_1^2}{a^2}-\frac{y_1^2}{b^2}=1\) を代入して \(x_1,y_1\) によらないことを示す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>接線の公式、三角形の面積 \(\frac12|x_1y_2-x_2y_1|\)</dd>
+      <dt>なぜこの方法？</dt><dd>「一定であることを示せ」は、文字のまま計算して<b>最後に条件式で消える</b>のが定石。どこで条件式を使うかを意識すると計算の見通しが立つ。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">双曲線 \(\dfrac{x^2}{4}-y^2=1\) 上の点 \(P(x_1,y_1)\) における接線と2本の漸近線 \(y=\pm\frac12x\) の交点を \(Q,R\) とする。(1) \(P\) は線分 \(QR\) の中点であることを示せ。(2) \(\triangle OQR\) の面積を求めよ。</div>
+      <p>接線 \(\frac{x_1x}{4}-y_1y=1\)。条件 \(x_1^2-4y_1^2=4\) より \(x_1-2y_1\neq0,\ x_1+2y_1\neq0\)。</p>
+      <p>\(y=\frac12x\) と連立：\(x\left(\frac{x_1}{4}-\frac{y_1}{2}\right)=1\) より \(Q\left(\dfrac{4}{x_1-2y_1},\ \dfrac{2}{x_1-2y_1}\right)\)。</p>
+      <p>\(y=-\frac12x\) と連立：\(R\left(\dfrac{4}{x_1+2y_1},\ \dfrac{-2}{x_1+2y_1}\right)\)。</p>
+      <p>(1) \(Q,R\) の \(x\) 座標の和 \(=\dfrac{4(x_1+2y_1)+4(x_1-2y_1)}{x_1^2-4y_1^2}=\dfrac{8x_1}{4}=2x_1\)。\(y\) 座標の和 \(=\dfrac{2(x_1+2y_1)-2(x_1-2y_1)}{x_1^2-4y_1^2}=\dfrac{8y_1}{4}=2y_1\)。よって中点は \(P\)。（証明終）</p>
+      <p>(2) \(\triangle OQR=\dfrac12\left|\dfrac{4}{x_1-2y_1}\cdot\dfrac{-2}{x_1+2y_1}-\dfrac{4}{x_1+2y_1}\cdot\dfrac{2}{x_1-2y_1}\right|=\dfrac12\cdot\dfrac{16}{|x_1^2-4y_1^2|}=2\)。</p>
+      <p class="answer">(2) 2（\(P\) によらず一定。一般に \(ab\)）</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="pitfalls">
+  <h2>よくあるミスと対策</h2>
+  <ul class="pitfalls">
+    <li><b>楕円と双曲線で \(c\) の式を取り違える</b>（P2, P3）。→ 楕円は \(c^2=a^2-b^2\)（焦点は内側）、双曲線は \(c^2=a^2+b^2\)（焦点は外側）。図の三角形で確認。</li>
+    <li><b>焦点が \(y\) 軸上の場合を \(x\) 軸上と同じに扱う</b>（P2, P3）。→ 楕円は大きい分母の軸、双曲線は右辺が \(-1\) なら \(y\) 軸上。</li>
+    <li><b>弦の中点の軌跡で範囲を書かない</b>（P5）。→ 「2点で交わる」ための \(D\gt0\) を、軌跡の \(x\) の範囲に必ず翻訳する。</li>
+    <li><b>傾き \(m\) でおいた接線で、\(y\) 軸に平行な接線を落とす</b>（P6, P15）。→ \(x=\pm a\) を別に確認する。</li>
+    <li><b>媒介変数を消去したあとの除外点・範囲を忘れる</b>（P10）。→ \(t\) が全実数でも \(x,y\) が全部の値を取るとは限らない。</li>
+    <li><b>極方程式を2乗・\(r\) 倍したときに図形が変わる</b>（P12, P13）。→ 原点や符号の条件を確認する。</li>
+    <li><b>楕円の媒介変数 \(\theta\) を「点 \(P\) の偏角」と思い込む</b>（P7）。→ \((a\cos\theta,b\sin\theta)\) の \(\theta\) は \(\angle POx\) ではない（離心角）。偏角が必要なら極座標を使う（P14、阪大型演習3）。</li>
+  </ul>
+</section>
+
+<section id="handai">
+  <h2>阪大レベルへの橋渡し</h2>
+  <p>阪大理系では2次曲線そのものより、<b>接線・面積・距離の最大最小</b>として微分や三角関数と融合して出ることが多い。答案で差がつくのは次の3点。</p>
+  <ul>
+    <li>楕円上の点を \((a\cos\theta,b\sin\theta)\) とおき、量を \(\theta\) の関数にして最小値まで論証する（演習1）。</li>
+    <li>焦点からの距離・原点からの距離が主役なら極座標に切り替える判断（演習2・3）。</li>
+    <li>「一定であることを示せ」は文字のまま計算し、条件式で消えるところまで書き切る。</li>
+  </ul>
+
+  <article class="pattern" id="crv-h1" data-level="3">
+    <h3><span class="pid">演1</span>楕円の接線が作る三角形と線分の最小</h3>
+    <div class="problem">楕円 \(\dfrac{x^2}{4}+y^2=1\) の第1象限の部分にある点 \(P\) における接線が、\(x\) 軸、\(y\) 軸と交わる点をそれぞれ \(Q,R\) とする。<br>(1) \(\triangle OQR\) の面積の最小値と、そのときの \(P\) を求めよ。<br>(2) 線分 \(QR\) の長さの最小値を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>\(P(2\cos\theta,\sin\theta)\ \left(0\lt\theta\lt\frac\pi2\right)\) とおけば接線の切片が \(\frac{2}{\cos\theta},\ \frac{1}{\sin\theta}\) と簡単になる。(2) は \(QR^2=\frac{4}{\cos^2\theta}+\frac{1}{\sin^2\theta}\)。\(u=\cos^2\theta\) と置き換えて1変数の関数の最小に（微分でも、\((\cos^2\theta+\sin^2\theta)\) を掛ける工夫でもよい）。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>\(P(2\cos\theta,\ \sin\theta)\ \left(0\lt\theta\lt\frac\pi2\right)\) とおく。接線は \(\dfrac{2\cos\theta\cdot x}{4}+\sin\theta\cdot y=1\)、すなわち \(\dfrac{\cos\theta}{2}x+\sin\theta\, y=1\)。</p>
+      <p>\(Q\left(\dfrac{2}{\cos\theta},0\right),\ R\left(0,\dfrac{1}{\sin\theta}\right)\)。</p>
+      <p>(1) \(\triangle OQR=\dfrac12\cdot\dfrac{2}{\cos\theta}\cdot\dfrac{1}{\sin\theta}=\dfrac{2}{\sin2\theta}\ge2\)。等号は \(\sin2\theta=1\)、\(\theta=\frac\pi4\)。</p>
+      <p class="answer">(1) 最小値 2、\(P\left(\sqrt2,\ \dfrac{\sqrt2}{2}\right)\)</p>
+      <p>(2) \(QR^2=\dfrac{4}{\cos^2\theta}+\dfrac{1}{\sin^2\theta}\)。\(\cos^2\theta+\sin^2\theta=1\) を掛けて</p>
+      \[ QR^2=\left(\frac{4}{\cos^2\theta}+\frac{1}{\sin^2\theta}\right)(\cos^2\theta+\sin^2\theta)=5+\frac{4\sin^2\theta}{\cos^2\theta}+\frac{\cos^2\theta}{\sin^2\theta}\ge5+2\sqrt{4}=9 \]
+      <p>（相加平均・相乗平均の関係）。等号は \(4\sin^4\theta=\cos^4\theta\)、すなわち \(\tan^2\theta=\frac12\) のときで、\(0\lt\theta\lt\frac\pi2\) の範囲に存在する。</p>
+      <p class="answer">(2) 最小値 3（\(\tan\theta=\dfrac{1}{\sqrt2}\)、すなわち \(\cos^2\theta=\dfrac23\) のとき）</p>
+      <p class="point">採点ポイント：相加相乗を使うときは<b>等号成立条件を満たす \(\theta\) が範囲内に実在すること</b>を書く。微分で解く場合は \(u=\cos^2\theta\ (0\lt u\lt1)\) として \(f(u)=\frac4u+\frac1{1-u}\)、\(f'(u)=0\) から \(u=\frac23\)、増減表で最小値 9。一般に最小値は \(a+b\) になる（ここでは \(2+1=3\)）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crv-h2" data-level="3">
+    <h3><span class="pid">演2</span>放物線の焦点弦と直交する2本の弦</h3>
+    <div class="problem">放物線 \(y^2=4x\) の焦点を \(F\) とする。\(F\) を通る直線がこの放物線と2点 \(P,Q\) で交わるとする。<br>(1) \(\dfrac{1}{FP}+\dfrac{1}{FQ}\) は直線によらず一定であることを示せ。<br>(2) 線分 \(PQ\) の長さの最小値を求めよ。<br>(3) \(F\) を通り互いに直交する2直線がこの放物線と交わってできる弦を \(PQ,\ RS\) とする。\(\dfrac{1}{PQ}+\dfrac{1}{RS}\) は一定であることを示せ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>焦点からの距離が主役 → 焦点 \(F(1,0)\) を極とする極方程式。放物線の定義「\(PF=\)準線 \(x=-1\) までの距離」に \(P(1+r\cos\theta,\ r\sin\theta)\) を代入すると \(r=\dfrac{2}{1-\cos\theta}\)。\(Q\) は偏角 \(\theta+\pi\)、直交する弦は偏角 \(\theta+\frac\pi2\)。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>焦点 \(F(1,0)\)、準線 \(x=-1\)。放物線上の点を \(P(1+r\cos\theta,\ r\sin\theta)\ (r=FP\gt0)\) と表すと、定義 \(PF=x+1\) より \(r=2+r\cos\theta\)、すなわち</p>
+      \[ r=\frac{2}{1-\cos\theta}\quad(\cos\theta\neq1) \]
+      <p>\(F\) を通る直線は \(x\) 軸と一致しなければ放物線と2点で交わり（\(x\) 軸とは1点でしか交わらない）、その2点の偏角は \(\theta,\ \theta+\pi\ (\cos\theta\neq\pm1)\) と表せる。</p>
+      <p>(1) \(FP=\dfrac{2}{1-\cos\theta},\ FQ=\dfrac{2}{1+\cos\theta}\)。\(\dfrac1{FP}+\dfrac1{FQ}=\dfrac{(1-\cos\theta)+(1+\cos\theta)}{2}=1\)（一定）。（証明終）</p>
+      <p>(2) \(PQ=FP+FQ=\dfrac{2(1+\cos\theta)+2(1-\cos\theta)}{1-\cos^2\theta}=\dfrac{4}{\sin^2\theta}\ge4\)。等号は \(\theta=\frac\pi2\)。</p>
+      <p class="answer">(2) 最小値 4（\(PQ\perp x\) 軸のとき）</p>
+      <p>(3) \(PQ\) の方向を \(\theta\) とすると \(RS\) の方向は \(\theta+\frac\pi2\)。どちらも \(x\) 軸と一致しないので \(\sin\theta\neq0,\ \cos\theta\neq0\)。(2) と同様に \(PQ=\dfrac{4}{\sin^2\theta},\ RS=\dfrac{4}{\sin^2\left(\theta+\frac\pi2\right)}=\dfrac{4}{\cos^2\theta}\)。</p>
+      <p>\(\dfrac1{PQ}+\dfrac1{RS}=\dfrac{\sin^2\theta+\cos^2\theta}{4}=\dfrac14\)（一定）。（証明終）</p>
+      <p class="answer">(1) 1　(2) 4　(3) \(\dfrac14\)</p>
+      <p class="point">採点ポイント：極方程式の導出（定義から）を書くこと。\(x\) 軸方向の直線は1点でしか交わらないので除外されることも一言。座標で解くと \(y=m(x-1)\) を代入して解と係数の関係でも同じ結果になるが、計算量は極座標の数倍。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="crv-h3" data-level="3">
+    <h3><span class="pid">演3</span>楕円上の直交する2点と三角形の面積</h3>
+    <div class="problem">楕円 \(E:\ \dfrac{x^2}{4}+y^2=1\) 上の2点 \(P,Q\) が \(\angle POQ=\dfrac\pi2\)（\(O\) は原点）を満たしながら動く。<br>(1) \(\dfrac{1}{OP^2}+\dfrac{1}{OQ^2}\) は一定であることを示せ。<br>(2) \(\triangle OPQ\) の面積の最大値と最小値を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>原点からの距離と角度が主役なので極座標。\(P(r_1\cos\theta,\ r_1\sin\theta)\) を楕円の式に代入すると \(\dfrac{1}{r_1^2}=\dfrac{\cos^2\theta}{4}+\sin^2\theta\)。\(Q\) は偏角 \(\theta+\frac\pi2\)。\((a\cos\theta,b\sin\theta)\) とおくと \(\theta\) が偏角にならないので直交条件が使いにくい点に注意。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>\(OP=r_1,\ OQ=r_2\) とし、\(P(r_1\cos\theta,\ r_1\sin\theta)\)、\(Q\left(r_2\cos\left(\theta+\frac\pi2\right),\ r_2\sin\left(\theta+\frac\pi2\right)\right)=(-r_2\sin\theta,\ r_2\cos\theta)\) とおける。</p>
+      <p>\(E\) に代入して</p>
+      \[ \frac1{r_1^2}=\frac{\cos^2\theta}{4}+\sin^2\theta=\frac{1+3\sin^2\theta}{4},\qquad \frac1{r_2^2}=\frac{\sin^2\theta}{4}+\cos^2\theta=\frac{4-3\sin^2\theta}{4} \]
+      <p>(1) 和は \(\dfrac{1+3\sin^2\theta+4-3\sin^2\theta}{4}=\dfrac54\)（一定）。（証明終）</p>
+      <p>(2) \(s=\sin^2\theta\ (0\le s\le1)\) とおくと</p>
+      \[ \triangle OPQ^2=\frac14r_1^2r_2^2=\frac14\cdot\frac{16}{(1+3s)(4-3s)}=\frac{4}{-9s^2+9s+4} \]
+      <p>\(g(s)=-9s^2+9s+4=-9\left(s-\frac12\right)^2+\frac{25}{4}\) は \(0\le s\le1\) で最大 \(\frac{25}4\)（\(s=\frac12\)）、最小 4（\(s=0,1\)）。</p>
+      <p>よって \(\triangle OPQ^2\) は最小 \(\frac{16}{25}\)、最大 1。</p>
+      <p class="answer">(2) 最大値 1（\(P,Q\) が楕円の頂点のとき）、最小値 \(\dfrac45\)（\(\theta=\frac\pi4\) など、\(OP=OQ\) のとき）</p>
+      <p class="point">採点ポイント：\(Q\) の座標を \(\theta+\frac\pi2\) で表す根拠（直交）を明記。置き換えた \(s\) の範囲 \(0\le s\le1\) を書く。(1) は一般に \(\frac1{a^2}+\frac1{b^2}\) となり、\(\triangle OPQ\) の高さ \(h\) が \(\frac1{h^2}=\frac1{OP^2}+\frac1{OQ^2}\) を満たすことから、\(PQ\) は常に円 \(x^2+y^2=\frac45\) に接するという美しい結論につながる。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="next">
+  <h2>次に学ぶとつながる単元</h2>
+  <ul>
+    <li><a href="m3-diff.html">微分法とその応用</a>：P11 の媒介変数の微分、P6 の陰関数の微分が本格的に登場する。曲線の概形を描く力が必要。</li>
+    <li><a href="m3-integral-app.html">積分法の応用</a>：楕円の面積 \(\pi ab\)、サイクロイドの面積・長さ、極方程式で表された曲線の面積。</li>
+    <li><a href="mc-complex.html">複素数平面</a>：\(w=z+\frac1z\) で円が楕円に移るなど、2次曲線が複素数の写像として再登場する。</li>
+    <li><a href="mc-vector.html">ベクトル</a>：\(\vec{OP}=\cos\theta\,\vec a+\sin\theta\,\vec b\) が楕円を描くことは、P7 の媒介変数表示の一般化。</li>
+  </ul>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>
