@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2次関数（数学I）｜解法の地図</title>
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-unit="m1-quadratic" data-root="../">
+<main>
+
+<header class="unit-head">
+  <span class="subj-badge">数学I</span>
+  <h1>2次関数</h1>
+  <p class="lead">「軸はどこ？」「定義域はどこ？」「文字は何を表す？」の3つの問いで、ほぼすべての問題が整理できる単元。数学II・III の最大最小、解の配置、不等式の証明の土台になる。</p>
+  <div class="goal">
+    <strong>このページの到達目標</strong>
+    <ul>
+      <li>【基礎】平方完成して頂点・軸を求め、グラフを正確にかける。</li>
+      <li>【標準】文字を含む最大・最小を「軸と定義域の位置関係」で場合分けし、解の配置を3条件で処理できる。</li>
+      <li>【阪大】「すべての \(x\) で」「ある \(x\) で」を正確に言い換え、2変数・置き換え・実数条件を伴う問題を答案として完成できる。</li>
+    </ul>
+  </div>
+  <p class="prereq">前提：<a href="m1-numbers.html">数と式</a>（因数分解・絶対値）／ 次に進む：<a href="m2-calculus.html">微分法・積分法（数II）</a>、<a href="m2-coord.html">図形と方程式</a></p>
+</header>
+
+<section id="core">
+  <h2>必ず押さえる基本事項</h2>
+
+  <div class="box theorem">
+    <p><span class="name">平方完成</span>：\(a\neq 0\) のとき</p>
+    \[ ax^2+bx+c = a\left(x+\frac{b}{2a}\right)^2 - \frac{b^2-4ac}{4a} \]
+    <p>グラフは頂点 \(\left(-\dfrac{b}{2a},\ -\dfrac{b^2-4ac}{4a}\right)\)、軸 \(x=-\dfrac{b}{2a}\) の放物線。\(a\gt 0\) なら下に凸、\(a\lt 0\) なら上に凸。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">判別式とグラフ</span>：\(D=b^2-4ac\) とすると（\(a\gt 0\) のとき）</p>
+    <div class="table-wrap"><table>
+      <tr><th></th><th>\(D\gt 0\)</th><th>\(D=0\)</th><th>\(D\lt 0\)</th></tr>
+      <tr><td>\(x\) 軸との共有点</td><td>2個</td><td>1個（接する）</td><td>0個</td></tr>
+      <tr><td>\(ax^2+bx+c\gt 0\) の解</td><td>\(x\lt\alpha,\ \beta\lt x\)</td><td>\(x\neq\alpha\)</td><td>すべての実数</td></tr>
+      <tr><td>\(ax^2+bx+c\lt 0\) の解</td><td>\(\alpha\lt x\lt\beta\)</td><td>なし</td><td>なし</td></tr>
+    </table></div>
+    <p>（\(\alpha\lt\beta\) は \(ax^2+bx+c=0\) の解。\(b=2b'\) のときは \(D/4=b'^2-ac\) を使うと計算が楽。）</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">最大・最小の原則</span>：下に凸の放物線を閉区間 \(p\le x\le q\) で考えると</p>
+    <ul>
+      <li><b>最小値</b>は「軸が区間の左・中・右のどこにあるか」で決まる（3通り）。</li>
+      <li><b>最大値</b>は「軸が区間の中央 \(\dfrac{p+q}{2}\) より左か右か」で決まる（2通り）。軸から遠い端点で最大。</li>
+    </ul>
+  </div>
+
+  <div class="box idea">
+    <p><b>この単元を貫く考え方</b>：2次関数の問題は、最終的に<b>「放物線の絵」</b>に翻訳すると解ける。式だけで考えず、<b>軸・頂点・端点・\(x\)軸との交点</b>を必ず図に描き込む習慣をつけよう。</p>
+  </div>
+</section>
+
+<section id="quick">
+  <h2>早見表：こう来たら → こう解く</h2>
+  <div class="table-wrap"><table class="quick">
+    <tr><th>問題の特徴（こう来たら）</th><th>方針（こう解く）</th><th>使う道具</th><th>詳細</th></tr>
+    <tr data-level="1"><td>頂点・最大最小・グラフをかけ</td><td>平方完成</td><td>平方完成</td><td><a href="#quad-p1">P1</a></td></tr>
+    <tr data-level="1"><td>放物線の式を求めよ</td><td>条件の種類で式の形を選ぶ</td><td>一般形／標準形／分解形</td><td><a href="#quad-p2">P2</a></td></tr>
+    <tr data-level="1"><td>2次不等式を解け</td><td>グラフと \(x\) 軸の位置関係</td><td>判別式・因数分解</td><td><a href="#quad-p3">P3</a></td></tr>
+    <tr data-level="2"><td>定義域は固定、式に文字（軸が動く）</td><td>軸と定義域の位置で場合分け</td><td>最大最小の原則</td><td><a href="#quad-p4">P4</a></td></tr>
+    <tr data-level="2"><td>定義域に文字（区間が動く）</td><td>区間を左右に動かして場合分け</td><td>最大最小の原則</td><td><a href="#quad-p5">P5</a></td></tr>
+    <tr data-level="2"><td>2変数＋条件式（\(x+2y=4\) など）</td><td>1文字消去。残る文字の範囲に注意</td><td>代入・変数の範囲</td><td><a href="#quad-p6">P6</a></td></tr>
+    <tr data-level="2"><td>2変数が独立に動く</td><td>1文字を固定して最小化 → もう1文字で最小化</td><td>予選決勝法</td><td><a href="#quad-p7">P7</a></td></tr>
+    <tr data-level="2"><td>同じカタマリが繰り返し出る（\(x^2-2x\) など）</td><td>置き換え。新変数の範囲を必ず求める</td><td>置き換え</td><td><a href="#quad-p8">P8</a></td></tr>
+    <tr data-level="1"><td>絶対値つきのグラフ・解の個数</td><td>中身の符号で場合分け／折り返し</td><td>絶対値の定義</td><td><a href="#quad-p9">P9</a></td></tr>
+    <tr data-level="2"><td>解が「ともに正」「1より大と小」など</td><td>判別式・軸・端点の値の3条件</td><td>解の配置</td><td><a href="#quad-p10">P10</a></td></tr>
+    <tr data-level="2"><td>文字定数を含む方程式の解の個数</td><td>文字を分離して「グラフと水平線」に</td><td>定数分離</td><td><a href="#quad-p11">P11</a></td></tr>
+    <tr data-level="3"><td>「すべての \(x\) で」「ある \(x\) で」成り立つ</td><td>最小値・最大値の条件に言い換え</td><td>∀・∃の言い換え</td><td><a href="#quad-p12">P12</a></td></tr>
+    <tr data-level="3"><td>2つの関数・2つの変数の大小比較</td><td>「同じ \(x\)」か「別々の \(x_1,x_2\)」かを見抜く</td><td>差の関数／max と min</td><td><a href="#quad-p13">P13</a></td></tr>
+  </table></div>
+</section>
+
+<section id="patterns">
+  <h2>パターン別 解法マップ</h2>
+
+  <article class="pattern" id="quad-p1" data-level="1">
+    <h3><span class="pid">P1</span>平方完成して頂点・最大最小を求める</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「頂点を求めよ」「グラフをかけ」「最大値・最小値を求めよ（定義域なし or 固定）」</dd>
+      <dt>こう考える</dt><dd>2次関数の情報はすべて \(a(x-p)^2+q\) の形に詰まっている。<b>まず平方完成</b>が全ての出発点。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(x^2\) の係数でくくる（定数項はくくらなくてよい）。</li>
+        <li>\(x\) の係数の半分の2乗を足して引く。</li>
+        <li>頂点 \((p,q)\) を読む。定義域があれば端点の値も計算し、図で比較。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>平方完成、\((x+k)^2=x^2+2kx+k^2\)</dd>
+      <dt>なぜこの方法？</dt><dd>\((x-p)^2\ge 0\) だから、\(x=p\) で \(a(x-p)^2\) が最小（\(a\gt0\)）。最大最小が<b>一目で分かる形</b>に変形している。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(y=-2x^2+8x-3\ (0\le x\le 3)\) の最大値と最小値を求めよ。</div>
+      <p>\(y=-2(x^2-4x)-3=-2\{(x-2)^2-4\}-3=-2(x-2)^2+5\)</p>
+      <p>上に凸、軸 \(x=2\) は定義域内。\(x=0\) で \(y=-3\)、\(x=3\) で \(y=3\)。</p>
+      <p class="answer">最大値 5（\(x=2\)）、最小値 \(-3\)（\(x=0\)）</p>
+      <p class="point">チェック：上に凸なら「最大は頂点、最小は軸から遠い端点」。軸 \(x=2\) から遠いのは \(x=0\)（距離2）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="quad-p2" data-level="1">
+    <h3><span class="pid">P2</span>条件から2次関数を決定する</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「〜を通る放物線の方程式を求めよ」</dd>
+      <dt>こう考える</dt><dd>未知数の個数を減らせる形を選ぶ。<b>与えられた情報の種類</b>で式の形が決まる。</dd>
+      <dt>こう解く</dt><dd><ul>
+        <li>頂点や軸が分かる → <b>標準形</b> \(y=a(x-p)^2+q\)</li>
+        <li>\(x\) 軸との交点 \(\alpha,\beta\) が分かる → <b>分解形</b> \(y=a(x-\alpha)(x-\beta)\)</li>
+        <li>通る3点のみ → <b>一般形</b> \(y=ax^2+bx+c\) で連立</li>
+      </ul></dd>
+      <dt>使う定理・公式</dt><dd>連立方程式、点を通る ⇔ 代入して成立</dd>
+      <dt>なぜこの方法？</dt><dd>3つの未知数を1つの条件で1つずつ消すより、形そのものに条件を組み込んだ方が計算量が少なくミスも減る。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">軸が \(x=1\) で、2点 \((0,1)\)、\((3,7)\) を通る放物線の方程式を求めよ。</div>
+      <p>軸が分かっているので \(y=a(x-1)^2+q\) とおく。</p>
+      <p>\((0,1)\) より \(a+q=1\)、\((3,7)\) より \(4a+q=7\)。引いて \(3a=6\)、\(a=2,\ q=-1\)。</p>
+      <p class="answer">\(y=2(x-1)^2-1\ \ (=2x^2-4x+1)\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="quad-p3" data-level="1">
+    <h3><span class="pid">P3</span>2次不等式を解く</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">\(ax^2+bx+c\gt 0\)（\(\lt,\ \ge,\ \le\)）を解け</dd>
+      <dt>こう考える</dt><dd>不等式＝「グラフが \(x\) 軸より上（下）にある \(x\) の範囲」。<b>式を解くのではなく、グラフを読む</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(x^2\) の係数を正にする（負なら両辺に \(-1\) をかけて不等号を逆に）。</li>
+        <li>\(=0\) の解を因数分解または解の公式で求める（\(D\lt 0\) なら解なし→グラフは常に \(x\) 軸より上）。</li>
+        <li>「\(\gt 0\) は外側、\(\lt 0\) は内側」。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>判別式、解の公式、因数分解</dd>
+      <dt>なぜこの方法？</dt><dd>下に凸の放物線は「2つの解の間だけ \(x\) 軸の下」に来る。この形を覚えれば暗記不要。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(-x^2+2x+3\ge 0\)　(2) \(x^2-4x+5\gt 0\) を解け。</div>
+      <p>(1) \(x^2-2x-3\le 0\)、\((x-3)(x+1)\le 0\)。<span class="answer">\(-1\le x\le 3\)</span></p>
+      <p>(2) \(x^2-4x+5=(x-2)^2+1\gt 0\) は常に成立。<span class="answer">すべての実数</span></p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="quad-p4" data-level="2">
+    <h3><span class="pid">P4</span>軸が動く最大・最小（定義域は固定）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">式に文字 \(a\) があり、定義域は数値で固定（例：\(0\le x\le 2\)）</dd>
+      <dt>こう考える</dt><dd>定義域（窓）は動かず、<b>放物線が左右に動く</b>。軸が窓の「左外・中・右外」のどこにあるかで最小値の場所が変わる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>平方完成して軸 \(x=(\text{aの式})\) を出す。</li>
+        <li><b>最小値</b>（下に凸）：軸 \(\lt\) 左端／左端 \(\le\) 軸 \(\le\) 右端／軸 \(\gt\) 右端 の3通り。</li>
+        <li><b>最大値</b>（下に凸）：軸 \(\lt\) 区間の中央／軸 \(\ge\) 中央 の2通り（中央のときは両端が等しい）。</li>
+        <li>場合ごとに図を描き、答えを \(a\) の範囲とセットで書く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>平方完成、最大最小の原則</dd>
+      <dt>なぜこの方法？</dt><dd>放物線は軸について対称で、軸から離れるほど値が大きい（下に凸）。だから「軸に一番近い点で最小、一番遠い点で最大」。場合分けの境目は「軸＝端点」と「軸＝中央」になる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(f(x)=x^2-2ax+a\ (0\le x\le 2)\) の最小値 \(m(a)\) と最大値 \(M(a)\) を求めよ。</div>
+      <p>\(f(x)=(x-a)^2-a^2+a\)。軸は \(x=a\)。</p>
+      <h4>最小値</h4>
+      <ul>
+        <li>\(a\lt 0\)：軸が区間の左外 → \(m(a)=f(0)=a\)</li>
+        <li>\(0\le a\le 2\)：軸が区間内 → \(m(a)=f(a)=-a^2+a\)</li>
+        <li>\(a\gt 2\)：軸が区間の右外 → \(m(a)=f(2)=4-3a\)</li>
+      </ul>
+      <h4>最大値</h4>
+      <p>区間の中央は \(x=1\)。</p>
+      <ul>
+        <li>\(a\le 1\)：軸が中央以左 → 遠い右端で最大、\(M(a)=f(2)=4-3a\)</li>
+        <li>\(a\gt 1\)：軸が中央より右 → 遠い左端で最大、\(M(a)=f(0)=a\)</li>
+      </ul>
+      <p class="point">チェック：境目 \(a=1\) では \(f(0)=f(2)=1\) で一致する。境目で値がつながることを確かめると計算ミスに気づける。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="quad-p5" data-level="2">
+    <h3><span class="pid">P5</span>定義域が動く最大・最小</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">関数は数値で固定、定義域が \(a\le x\le a+1\) のように文字を含む</dd>
+      <dt>こう考える</dt><dd>今度は<b>窓が左から右へスライド</b>する。放物線は固定なので図は1枚、そこに窓をいくつか描く。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>固定された放物線の軸を求める。</li>
+        <li>最小値：窓が軸の左側全体／軸を含む／軸の右側全体 で3通り。</li>
+        <li>最大値：窓の中央 \(a+\frac12\) が軸より左か右かで2通り。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>最大最小の原則（P4と同じ。動くものが入れ替わっただけ）</dd>
+      <dt>なぜこの方法？</dt><dd>P4 と本質は同じ「軸と区間の位置関係」。どちらが動いても<b>相対的な位置</b>だけが問題。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(f(x)=x^2-4x+5\ (a\le x\le a+1)\) の最小値 \(m(a)\)、最大値 \(M(a)\) を求めよ。</div>
+      <p>\(f(x)=(x-2)^2+1\)、軸 \(x=2\)。</p>
+      <ul>
+        <li>\(a+1\lt 2\)（\(a\lt 1\)）：区間全体が軸の左 → \(m(a)=f(a+1)=a^2-2a+2\)</li>
+        <li>\(a\le 2\le a+1\)（\(1\le a\le 2\)）：→ \(m(a)=f(2)=1\)</li>
+        <li>\(a\gt 2\)：区間全体が軸の右 → \(m(a)=f(a)=a^2-4a+5\)</li>
+      </ul>
+      <p>最大値：区間の中央 \(a+\frac12\) と軸 \(2\) を比べる。</p>
+      <ul>
+        <li>\(a+\frac12\lt 2\)（\(a\lt\frac32\)）：→ \(M(a)=f(a)=a^2-4a+5\)</li>
+        <li>\(a\ge\frac32\)：→ \(M(a)=f(a+1)=a^2-2a+2\)</li>
+      </ul>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="quad-p6" data-level="2">
+    <h3><span class="pid">P6</span>条件式つき2変数の最大・最小（1文字消去）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x+2y=4,\ x\ge 0,\ y\ge 0\) のとき \(x^2+y^2\) の最大・最小」</dd>
+      <dt>こう考える</dt><dd>条件式は<b>変数を1つ減らす道具</b>。ただし消した文字の条件（\(x\ge 0\) など）は、<b>残った文字の範囲として引き継ぐ</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>1次の条件式から1文字を消去（2次の文字を消すと範囲が複雑になりやすい）。</li>
+        <li>消した文字の制約を、残った文字の不等式に直す。</li>
+        <li>1変数の2次関数として P1／P4 の要領で処理。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>代入、平方完成</dd>
+      <dt>なぜこの方法？</dt><dd>2変数のままでは図が描けない。1変数にすれば放物線の絵が描ける。<b>範囲の引き継ぎを忘れるのが最頻出の失点</b>。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(x+2y=4,\ x\ge 0,\ y\ge 0\) のとき、\(x^2+y^2\) の最大値と最小値を求めよ。</div>
+      <p>\(x=4-2y\)。\(x\ge 0\) より \(y\le 2\)、よって \(0\le y\le 2\)。</p>
+      <p>\(x^2+y^2=(4-2y)^2+y^2=5y^2-16y+16=5\left(y-\frac85\right)^2+\frac{16}{5}\)</p>
+      <p>\(y=\frac85\) で最小 \(\frac{16}{5}\)。端点 \(y=0\) で \(16\)、\(y=2\) で \(4\)。</p>
+      <p class="answer">最大値 16（\(x=4,y=0\)）、最小値 \(\frac{16}{5}\)（\(x=\frac45,\ y=\frac85\)）</p>
+      <p class="point">図形的意味：原点と線分上の点の距離の2乗。最小は原点から直線への垂線の足（点と直線の距離 \(\frac{4}{\sqrt5}\) の2乗が \(\frac{16}{5}\)）。<a href="m2-coord.html">図形と方程式</a>とつながる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="quad-p7" data-level="2">
+    <h3><span class="pid">P7</span>独立な2変数の最大・最小（予選決勝法）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">\(x,y\) が互いに無関係に動く（条件式がない）2変数関数の最大・最小</dd>
+      <dt>こう考える</dt><dd>一度に両方動かすと分からない。<b>まず \(y\) を止めて</b> \(x\) だけ動かし（予選）、その最小値を \(y\) の関数とみて \(y\) を動かす（決勝）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(x\) について平方完成（\(y\) は定数扱い）。</li>
+        <li>残った部分を \(y\) について平方完成。</li>
+        <li>等号が成り立つ \(x,y\) が実際に存在することを確認。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>平方完成、\(A^2+B^2\ge 0\)（等号は \(A=B=0\)）</dd>
+      <dt>なぜこの方法？</dt><dd>「全員の中の1位」は「各クラスの1位の中の1位」に等しい。変数ごとに順に最適化してよいのはこのため。<a href="../thinking.html#t-fix">発想：1文字固定</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">実数 \(x,y\) に対し \(F=x^2-2xy+2y^2-4y+5\) の最小値を求めよ。</div>
+      <p>\(x\) について整理：\(F=(x-y)^2-y^2+2y^2-4y+5=(x-y)^2+(y-2)^2+1\)</p>
+      <p>\((x-y)^2\ge0,\ (y-2)^2\ge0\) で、等号は \(x=y=2\) で同時に成立。</p>
+      <p class="answer">最小値 1（\(x=y=2\)）</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="quad-p8" data-level="2">
+    <h3><span class="pid">P8</span>置き換えて2次関数に帰着</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">4次式だが同じカタマリ（\(x^2-2x\)、\(2^x\)、\(\sin x\) など）が繰り返し現れる</dd>
+      <dt>こう考える</dt><dd>カタマリを \(t\) とおけば2次関数。ただし <b>\(t\) は何でも取れるわけではない</b>。\(t\) の動く範囲が新しい「定義域」になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(t=(\text{カタマリ})\) とおく。</li>
+        <li><b>\(t\) の取りうる範囲を求める</b>（これを答案に必ず書く）。</li>
+        <li>\(t\) の2次関数として最大最小を求め、対応する \(x\) を求める。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>置き換え、平方完成、値域の計算</dd>
+      <dt>なぜこの方法？</dt><dd>次数を下げて既知の問題に変える。三角関数（\(t=\sin x\)、\(t=\sin x+\cos x\)）や指数対数（\(t=2^x\)、\(t=\log_2 x\)）でも全く同じ型が出る。<a href="../thinking.html#t-subst">発想：置き換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(y=(x^2-2x)^2+4(x^2-2x)+1\) の最小値を求めよ。</div>
+      <p>\(t=x^2-2x=(x-1)^2-1\) とおくと、\(t\ge -1\)。</p>
+      <p>\(y=t^2+4t+1=(t+2)^2-3\)。軸 \(t=-2\) は範囲 \(t\ge-1\) の外（左）なので、\(t=-1\) で最小。</p>
+      <p>\(y=1-4+1=-2\)、このとき \(x=1\)。</p>
+      <p class="answer">最小値 \(-2\)（\(x=1\)）</p>
+      <p class="point">\(t\) の範囲を忘れると「\(t=-2\) で最小値 \(-3\)」と誤答する。\(t=-2\) となる実数 \(x\) は存在しない。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="quad-p9" data-level="1">
+    <h3><span class="pid">P9</span>絶対値を含む2次関数のグラフ</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">\(y=|x^2-2x-3|\)、\(y=x^2-2|x|\) などのグラフ・解の個数</dd>
+      <dt>こう考える</dt><dd>\(|f(x)|\) は「\(x\) 軸より下の部分を上に折り返す」。\(f(|x|)\) は「\(x\ge0\) の部分を \(y\) 軸で左右対称にコピー」。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>中身が0になる点を求める。</li>
+        <li>中身の符号で場合分けして式を書く（または折り返しで描く）。</li>
+        <li>解の個数はグラフと直線の共有点の個数として数える。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(|A|=A\ (A\ge0),\ -A\ (A\lt0)\)</dd>
+      <dt>なぜこの方法？</dt><dd>絶対値は「符号で式が変わる関数」。場合分けを図でやるのが折り返し。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">方程式 \(|x^2-2x-3|=k\) の異なる実数解の個数を、実数 \(k\) の値で分類せよ。</div>
+      <p>\(x^2-2x-3=(x-3)(x+1)=(x-1)^2-4\)。\(-1\lt x\lt 3\) の部分（最小 \(-4\)）を折り返すと、\(x=1\) で高さ4の山ができる。</p>
+      <p>\(y=|x^2-2x-3|\) と水平線 \(y=k\) の共有点を数える：</p>
+      <p class="answer">\(k\lt0\)：0個、\(k=0\)：2個、\(0\lt k\lt4\)：4個、\(k=4\)：3個、\(k\gt4\)：2個</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="quad-p10" data-level="2">
+    <h3><span class="pid">P10</span>解の配置（解の存在範囲）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「2つの解がともに正」「1つの解が0と1の間、他の解が1と2の間」「\(x\gt1\) に解をもつ」</dd>
+      <dt>こう考える</dt><dd>解＝放物線と \(x\) 軸の交点。解の位置の条件を<b>放物線の形の条件</b>に翻訳する。解の公式で解を直接扱うのは \(\sqrt{\ }\) が出て大変。</dd>
+      <dt>こう解く</dt><dd><p>\(f(x)=x^2+bx+c\)（下に凸）として、図を描いてから次の3つを必要なだけ使う：</p><ol>
+        <li><b>判別式</b> \(D\)（\(x\) 軸と交わるか）</li>
+        <li><b>軸の位置</b>（交点が左右どちらに寄るか）</li>
+        <li><b>端点・境界の値の符号</b> \(f(k)\)（境界のどちら側に解があるか）</li>
+      </ol><p>「境界をまたぐ」型（\(k\) の左右に1つずつ）は \(f(k)\lt0\) の1条件だけでよい。</p></dd>
+      <dt>使う定理・公式</dt><dd>判別式、中間値の定理の考え方、解と係数の関係（別解）</dd>
+      <dt>なぜこの方法？</dt><dd>下に凸の放物線が \(x=k\) で負の値をとれば、その左右で必ず \(x\) 軸と交わる。3条件は「形が決まるのに必要十分な情報」。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(x^2-2ax+a+2=0\) が異なる2つの正の解をもつ \(a\) の範囲を求めよ。<br>(2) \(x^2-2ax+3a-2=0\) の1つの解が \(0\lt x\lt1\)、他の解が \(1\lt x\lt 2\) にあるような \(a\) の範囲を求めよ。</div>
+      <p>(1) \(f(x)=x^2-2ax+a+2\)。</p>
+      <ul>
+        <li>\(D/4=a^2-a-2=(a-2)(a+1)\gt0\) → \(a\lt-1,\ a\gt2\)</li>
+        <li>軸 \(x=a\gt0\)</li>
+        <li>\(f(0)=a+2\gt0\) → \(a\gt-2\)</li>
+      </ul>
+      <p class="answer">共通部分：\(a\gt 2\)</p>
+      <p>(2) \(f(x)=x^2-2ax+3a-2\)。図より \(f(0)\gt0,\ f(1)\lt0,\ f(2)\gt0\) が必要十分。</p>
+      <p>\(f(0)=3a-2\gt0\)、\(f(1)=a-1\lt0\)、\(f(2)=2-a\gt0\) より</p>
+      <p class="answer">\(\frac23\lt a\lt1\)</p>
+      <p class="point">(2) では判別式も軸も不要。\(f(1)\lt0\) から自動的に \(D\gt0\) になる。使う条件を図で選ぶのがコツ。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="quad-p11" data-level="2">
+    <h3><span class="pid">P11</span>定数分離（文字を含む方程式の解の個数）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x^2-2x-a=0\) が \(-1\le x\le2\) に何個の解をもつか」のように、文字が1か所にまとめられる方程式</dd>
+      <dt>こう考える</dt><dd>\(a=g(x)\) の形に分ければ、<b>動かない曲線 \(y=g(x)\) と水平線 \(y=a\)</b> の共有点の個数になる。放物線が動く問題より圧倒的に楽。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>文字 \(a\) を片側に集める：\(a=g(x)\)。</li>
+        <li>\(y=g(x)\) のグラフを指定された範囲で描く（端点の値に注意）。</li>
+        <li>水平線を下から上へ動かして、共有点の個数を数える。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>方程式の実数解 ＝ グラフの共有点の \(x\) 座標</dd>
+      <dt>なぜこの方法？</dt><dd>「動くもの」を水平線だけに押し込めることで、場合分けが図から一瞬で読める。数III では \(g(x)\) が分数関数・指数関数になり、微分でグラフを描く（<a href="m3-diff.html">微分法とその応用</a>）。<a href="../thinking.html#t-separate">発想：定数分離</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">方程式 \(x^2-2x-a=0\) の \(-1\le x\le 2\) における実数解の個数を、\(a\) の値で分類せよ。</div>
+      <p>\(a=x^2-2x\)。\(g(x)=(x-1)^2-1\ (-1\le x\le 2)\) は \(g(-1)=3,\ g(1)=-1,\ g(2)=0\)。</p>
+      <p>水平線 \(y=a\) を動かして数える：</p>
+      <p class="answer">\(a\lt-1\)：0個、\(a=-1\)：1個、\(-1\lt a\le0\)：2個、\(0\lt a\le3\)：1個、\(a\gt3\)：0個</p>
+      <p class="point">\(a=0\) では \(x=0,2\) の2個、\(a=3\) では \(x=-1\) の1個（\(x=3\) は範囲外）。<b>端点を含むかどうかを個別に確認</b>する。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="quad-p12" data-level="3">
+    <h3><span class="pid">P12</span>「すべての \(x\) で」「ある \(x\) で」成り立つ条件</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(0\le x\le2\) で常に \(f(x)\ge0\)」「\(f(x)\lt0\) となる \(x\) が存在する」</dd>
+      <dt>こう考える</dt><dd>
+        <p>無数の \(x\) についての条件を、<b>1つの値（最小値・最大値）の条件</b>に圧縮する。</p>
+        <ul>
+          <li>すべての \(x\) で \(f(x)\ge0\) ⇔ \((f\text{ の最小値})\ge0\)</li>
+          <li>ある \(x\) で \(f(x)\lt0\) ⇔ \((f\text{ の最小値})\lt0\)</li>
+          <li>ある \(x\) で \(f(x)\ge0\) ⇔ \((f\text{ の最大値})\ge0\)</li>
+        </ul>
+      </dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>条件を最大値・最小値の言葉に言い換える。</li>
+        <li>P4／P5 の場合分けで最大値・最小値を求める。</li>
+        <li>各場合の \(a\) の範囲と条件の共通部分をとり、最後に合併。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>∀（すべて）・∃（ある）の言い換え、<a href="m1-logic.html">集合と命題</a>の否定</dd>
+      <dt>なぜこの方法？</dt><dd>一番条件の厳しい点（最小値をとる点）で成り立てば、他の点でも成り立つ。「すべて」の否定は「ある」なので、2つの条件は互いに<b>補集合</b>になる。<a href="../thinking.html#t-forall">発想：∀と∃の言い換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(f(x)=x^2-2ax+a\) とする。<br>(1) \(0\le x\le2\) を満たすすべての \(x\) で \(f(x)\ge0\) となる \(a\) の範囲を求めよ。<br>(2) \(0\le x\le2\) を満たすある \(x\) で \(f(x)\lt0\) となる \(a\) の範囲を求めよ。</div>
+      <p>(1) P4 の例題で求めた最小値 \(m(a)\ge0\) を解く。</p>
+      <ul>
+        <li>\(a\lt0\)：\(m=a\ge0\) → 不適</li>
+        <li>\(0\le a\le2\)：\(-a^2+a\ge0\) → \(0\le a\le1\)</li>
+        <li>\(a\gt2\)：\(4-3a\ge0\) → \(a\le\frac43\)、不適</li>
+      </ul>
+      <p class="answer">(1) \(0\le a\le1\)</p>
+      <p>(2) (1) の否定。「すべての \(x\) で \(f(x)\ge 0\)」でないことと同じ。</p>
+      <p class="answer">(2) \(a\lt0,\ 1\lt a\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="quad-p13" data-level="3">
+    <h3><span class="pid">P13</span>2つの関数の大小（同じ \(x\) か、別々の \(x\) か）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「すべての \(x\) で \(f(x)\ge g(x)\)」と「すべての \(x_1,x_2\) で \(f(x_1)\ge g(x_2)\)」</dd>
+      <dt>こう考える</dt><dd>
+        <ul>
+          <li>同じ \(x\) で比べる → <b>差 \(h(x)=f(x)-g(x)\) の最小値 \(\ge0\)</b></li>
+          <li>別々の \(x_1,x_2\) ですべて → <b>\(\min f\ge\max g\)</b>（\(f\) の一番低いところが \(g\) の一番高いところ以上）</li>
+          <li>別々で「ある \(x_1,x_2\)」→ <b>\(\max f\ge\min g\)</b></li>
+        </ul>
+      </dd>
+      <dt>こう解く</dt><dd>問題文の変数が1つか2つかを<b>最初に確認</b>し、上のどれかに言い換えてから計算する。</dd>
+      <dt>使う定理・公式</dt><dd>∀∃の言い換え（P12 の発展）</dd>
+      <dt>なぜこの方法？</dt><dd>\(x_1,x_2\) が独立に動けるなら、\(f\) は自分の最小値、\(g\) は自分の最大値を別々の場所でとれる。同じ \(x\) なら一緒に動くので差で見る。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(0\le x\le2\) で \(f(x)=x^2-2x+a,\ g(x)=-x^2+3x\) とする。次の条件を満たす \(a\) の範囲を求めよ。<br>(1) \(0\le x\le2\) のすべての \(x\) で \(f(x)\ge g(x)\)<br>(2) \(0\le x_1\le2,\ 0\le x_2\le2\) のすべての \(x_1,x_2\) で \(f(x_1)\ge g(x_2)\)<br>(3) ある \(x_1,x_2\)（範囲は(2)と同じ）で \(f(x_1)\ge g(x_2)\)</div>
+      <p>(1) \(h(x)=f(x)-g(x)=2x^2-5x+a=2\left(x-\frac54\right)^2+a-\frac{25}{8}\)。軸 \(\frac54\) は区間内なので \(\min h=a-\frac{25}8\ge0\)。<span class="answer">\(a\ge\frac{25}{8}\)</span></p>
+      <p>(2) \(\min f=f(1)=a-1\)、\(\max g=g\left(\frac32\right)=\frac94\)。\(a-1\ge\frac94\)。<span class="answer">\(a\ge\frac{13}{4}\)</span></p>
+      <p>(3) \(\max f=f(0)=f(2)=a\)、\(\min g=g(0)=0\)（\(g(2)=2\) より小）。\(a\ge 0\)。<span class="answer">\(a\ge0\)</span></p>
+      <p class="point">(1) と (2) は答えが違う（\(\frac{25}8\lt\frac{13}4\)）。(2) の方が条件が厳しいことを図で納得しよう。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="pitfalls">
+  <h2>よくあるミスと対策</h2>
+  <ul class="pitfalls">
+    <li><b>置き換えた変数の範囲を忘れる</b>（P8）。→ 「\(t\) とおく」と書いたら、次の行に必ず「\(t\) の範囲は」と書く。</li>
+    <li><b>1文字消去で消した文字の条件を捨てる</b>（P6）。→ \(x\ge0\) は \(y\le2\) として生き残る。</li>
+    <li><b>場合分けの境界の等号の付け忘れ・重複</b>。→ 境界の値をそれぞれの式に代入し、一致することを確認する。</li>
+    <li><b>\(x^2\) の係数が文字のとき、2次関数と決めつける</b>。→ 「\(a=0\) のとき」（1次関数）を別に調べる。</li>
+    <li><b>「すべて」と「ある」の取り違え</b>（P12, P13）。→ 問題文の該当箇所に線を引き、「最小値で見るのか最大値で見るのか」を先に決める。</li>
+    <li><b>解の配置で、条件を足しすぎ・足りなさすぎ</b>（P10）。→ 必ず図を描き、図が一意に決まる最小限の条件を選ぶ。</li>
+  </ul>
+</section>
+
+<section id="handai">
+  <h2>阪大レベルへの橋渡し</h2>
+  <p>阪大理系で2次関数が単独で出ることは少ないが、<b>微分・積分・三角関数・数列の最後の一押し</b>として必ず使う。特に次の3つは答案の完成度を左右する。</p>
+  <ul>
+    <li>置き換え後の<b>変数の範囲</b>を論理的に求める（P8 → 阪大では \(t=\sin\theta+\cos\theta\) や \(t=x+\frac1x\) で頻出）。</li>
+    <li>「実数 \(x,y\) が存在する」条件を2次方程式の<b>実数解条件</b>に言い換える（下の演習1）。</li>
+    <li>パラメータを含む最大最小を場合分けし、さらにそれを<b>関数として扱う</b>（下の演習2）。</li>
+  </ul>
+
+  <article class="pattern" id="quad-h1" data-level="3">
+    <h3><span class="pid">演1</span>対称式と実数条件（逆像法の入口）</h3>
+    <div class="problem">実数 \(x,y\) が \(x^2+xy+y^2=3\) を満たすとき、\(x+y+xy\) の取りうる値の範囲を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>\(x,y\) について対称 → \(s=x+y,\ t=xy\) で書き直す。ただし、<b>実数 \(x,y\) が存在する</b>ためには、\(x,y\) を解にもつ2次方程式 \(u^2-su+t=0\) が実数解をもつ必要がある。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>\(s=x+y,\ t=xy\) とおく。条件は \(s^2-t=3\)、すなわち \(t=s^2-3\)。</p>
+      <p>\(x,y\) は \(u^2-su+t=0\) の2解なので、\(x,y\) が実数である条件は判別式 \(s^2-4t\ge0\)。</p>
+      <p>\(s^2-4(s^2-3)\ge0\) より \(s^2\le4\)、つまり \(-2\le s\le2\)。</p>
+      <p>\(x+y+xy=s+t=s^2+s-3=\left(s+\frac12\right)^2-\frac{13}{4}\ \ (-2\le s\le 2)\)</p>
+      <p>\(s=-\frac12\) で最小 \(-\frac{13}{4}\)、\(s=2\) で最大 \(3\)（\(s=-2\) では \(-1\)）。</p>
+      <p class="answer">\(-\frac{13}{4}\le x+y+xy\le 3\)</p>
+      <p class="point">採点ポイント：「\(-2\le s\le2\)」を導く実数条件を書かないと、\(s\) が全実数を動くことになり最大値が存在しなくなる。ここが答案の核心。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="quad-h2" data-level="3">
+    <h3><span class="pid">演2</span>最大値と最小値の差を関数として扱う</h3>
+    <div class="problem">\(a\) を実数とし、\(f(x)=x^2-2ax\ (0\le x\le1)\) の最大値を \(M(a)\)、最小値を \(m(a)\) とする。\(g(a)=M(a)-m(a)\) を求め、\(g(a)\) の最小値とそのときの \(a\) を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>最大値の境目は \(a=\frac12\)（区間の中央）、最小値の境目は \(a=0,\ 1\)（区間の端）。これらを全部合わせて4つの範囲に分ける。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>\(f(x)=(x-a)^2-a^2\)。</p>
+      <p>最小値：\(a\lt0\) で \(m=f(0)=0\)、\(0\le a\le1\) で \(m=-a^2\)、\(a\gt1\) で \(m=f(1)=1-2a\)。</p>
+      <p>最大値：\(a\le\frac12\) で \(M=f(1)=1-2a\)、\(a\gt\frac12\) で \(M=f(0)=0\)。</p>
+      \[ g(a)=\begin{cases} 1-2a & (a\lt 0)\\ (1-a)^2 & (0\le a\le \tfrac12)\\ a^2 & (\tfrac12\lt a\le 1)\\ 2a-1 & (a\gt 1)\end{cases} \]
+      <p>\(a\lt0\) で \(g\gt1\)、\(0\le a\le\frac12\) で \(g\) は減少して \(g\left(\frac12\right)=\frac14\)、\(\frac12\lt a\le1\) で増加、\(a\gt1\) で \(g\gt1\)。</p>
+      <p class="answer">\(g(a)\) の最小値は \(\frac14\)（\(a=\frac12\)）</p>
+      <p class="point">意味：軸が区間のちょうど真ん中に来たとき、関数値の「振れ幅」が最小になる。答えが妥当か、図で確かめる習慣をつけよう。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="next">
+  <h2>次に学ぶとつながる単元</h2>
+  <ul>
+    <li><a href="m2-calculus.html">微分法・積分法（数II）</a>：3次関数の最大最小も「区間と極値の位置関係」で場合分けする。P4 の発想がそのまま使える。</li>
+    <li><a href="m2-trig.html">三角関数</a>・<a href="m2-explog.html">指数・対数</a>：P8 の置き換えが主役。</li>
+    <li><a href="m2-coord.html">図形と方程式</a>：P10 の解の配置と P12 の言い換えが、領域・通過領域の問題で再登場する。</li>
+  </ul>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>

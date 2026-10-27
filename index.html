@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>解法の地図 — 高校数学 解法パターン対応表</title>
+<meta name="description" content="高校数学の全単元について「こういう問題が来たら、こう考え、こう解く。使う定理はこれ」を対応づけた学習サイト。偏差値50台から阪大理系数学の突破を目指す。">
+<link rel="stylesheet" href="assets/katex/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+<script defer src="assets/katex/katex.min.js"></script>
+<script defer src="assets/katex/auto-render.min.js"></script>
+<script defer src="assets/site.js"></script>
+</head>
+<body data-root="">
+<main>
+
+<section class="hero">
+  <h1>解法の地図</h1>
+  <p class="lead">高校数学（数学I・A・II・B・C・III）の全単元について、<b>「こういう問題が来たら → こう考える → こう解く → この定理を使う → なぜその方法なのか」</b>を1枚の地図にまとめたサイトです。<br>苦手な人が基礎から一段ずつ登り、<b>大阪大学 理系数学を余裕で突破できる力</b>をつけることを目標にしています。</p>
+</section>
+
+<section id="howto">
+  <h2>このサイトの使い方</h2>
+  <ol class="steps">
+    <li><b>問題を見たら「こう来たら」を探す。</b>各単元の<b>早見表</b>には、問題文に出てくる言葉や形（「すべての \(x\) で」「整数の組をすべて求めよ」など）と、それに対応する解法が並んでいます。単元が分からないときは<a href="reverse.html">逆引き索引</a>から探せます。</li>
+    <li><b>「なぜこの方法？」まで読む。</b>解法の丸暗記は初めて見る問題では役に立ちません。理由が分かると、形が少し変わった問題にも同じ考え方を使えます。</li>
+    <li><b>例題を自力で解いてから答えを開く。</b>何も見ずに解けたら「習得」にチェックを入れます。チェックはこのブラウザに保存され、単元一覧に習得数が表示されます。</li>
+    <li><b>レベルを順に上げる。</b>各パターンには難易度があります。最初は「基礎」だけを表示して全単元を回り、次に「標準」、最後に「阪大」へ進みます。</li>
+    <li><b>単元をまたぐ考え方を身につける。</b><a href="thinking.html">発想の引き出し</a>に、多くの単元で使える考え方（1文字固定、置き換え、∀と∃の言い換え、実験など）をまとめています。阪大の問題を解くのに一番効くのはここです。</li>
+  </ol>
+  <div class="box">
+    <p><b>難易度の目安</b></p>
+    <div class="level-legend">
+      <span><span class="lv lv1">基礎</span> 教科書の例題〜章末レベル。全統偏差値 55 前後</span>
+      <span><span class="lv lv2">標準</span> 入試の標準問題・共通テスト。偏差値 60〜65</span>
+      <span><span class="lv lv3">阪大</span> 阪大理系の合格〜上位レベル。偏差値 65〜70 以上</span>
+    </div>
+  </div>
+  <p>今どこから始めればいいか分からない人は、まず<a href="roadmap.html">学習ロードマップ</a>を読んでください。</p>
+</section>
+
+<section id="units">
+  <h2>単元一覧</h2>
+  <p class="lead">★は阪大理系数学での重要度（出題頻度と配点の大きさ）です。</p>
+  <div id="unit-grid"></div>
+</section>
+
+<section id="pages">
+  <h2>単元をまたぐページ</h2>
+  <div class="cards">
+    <a class="card" href="roadmap.html"><span class="card-title">学習ロードマップ</span><span class="card-desc">偏差値 52 から阪大理系合格までの道のり。時期ごとにやることと、このサイトの回し方。</span></a>
+    <a class="card" href="thinking.html"><span class="card-title">発想の引き出し</span><span class="card-desc">単元を超えて使える考え方を集めたページ。初めて見る問題で最初の一手を見つけるために使う。</span></a>
+    <a class="card" href="reverse.html"><span class="card-title">逆引き索引</span><span class="card-desc">「最大最小を求めたい」「存在を示したい」「個数を数えたい」など、やりたいことから解法を探す。</span></a>
+    <a class="card" href="handai.html"><span class="card-title">阪大理系数学 対策</span><span class="card-desc">出題傾向、時間配分、部分点の取り方、答案の書き方。</span></a>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>

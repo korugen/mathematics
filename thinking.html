@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>発想の引き出し｜解法の地図</title>
+<link rel="stylesheet" href="assets/katex/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+<script defer src="assets/katex/katex.min.js"></script>
+<script defer src="assets/katex/auto-render.min.js"></script>
+<script defer src="assets/site.js"></script>
+</head>
+<body data-root="">
+<main>
+
+<header class="unit-head">
+  <h1>発想の引き出し</h1>
+  <p class="lead">初めて見る問題で手が止まったときに開く、単元をまたいで使える「考え方」の一覧です。阪大の問題は、各単元のパターンをこれらの考え方でつなぐと解けるように作られています。</p>
+  <div class="box idea">
+    <p><b>使い方</b>：問題を読んで方針が立たないとき、この一覧を上から順に見て「この問題に使えそうか？」と自分に聞いてください。<b>手が止まったら引き出しを開ける</b>習慣が、応用力の正体です。</p>
+  </div>
+</header>
+
+<nav class="toc" aria-label="考え方の一覧">
+  <strong>考え方の一覧</strong>
+  <ol>
+    <li><a href="#t-graph">図・グラフにする</a></li>
+    <li><a href="#t-rephrase">同値な言い換え</a></li>
+    <li><a href="#t-goal">ゴールから逆算する</a></li>
+    <li><a href="#t-casework">場合分け</a></li>
+    <li><a href="#t-subst">置き換え</a></li>
+    <li><a href="#t-fix">1文字固定（予選決勝）</a></li>
+    <li><a href="#t-separate">定数分離</a></li>
+    <li><a href="#t-forall">∀と∃の言い換え</a></li>
+    <li><a href="#t-inverse">逆像法（存在条件）</a></li>
+    <li><a href="#t-necessary">必要条件で絞る→十分性</a></li>
+    <li><a href="#t-symmetry">対称性を使う</a></li>
+    <li><a href="#t-complement">余事象・否定・補集合</a></li>
+    <li><a href="#t-experiment">小さい場合で実験する</a></li>
+    <li><a href="#t-recurrence">漸化式を立てる</a></li>
+    <li><a href="#t-induction">数学的帰納法</a></li>
+    <li><a href="#t-contradiction">背理法</a></li>
+    <li><a href="#t-bound">不等式で評価して絞る</a></li>
+    <li><a href="#t-mod">余り・偶奇で分類する</a></li>
+    <li><a href="#t-coord">座標を入れる</a></li>
+    <li><a href="#t-vector">ベクトル・複素数で表す</a></li>
+    <li><a href="#t-difffunc">差をとって関数にし微分する</a></li>
+    <li><a href="#t-integral-eval">和を積分で評価する</a></li>
+  </ol>
+</nav>
+
+<section id="basic">
+<h2>まず最初に試す3つ</h2>
+
+<article class="pattern" id="t-graph">
+  <h3><span class="pid">1</span>図・グラフにする</h3>
+  <dl class="map">
+    <dt class="trigger">こんなとき</dt><dd class="trigger">方程式の解の個数、不等式、最大最小、絶対値、文字定数を含む条件。迷ったらまずこれ。</dd>
+    <dt>考え方</dt><dd>式の情報を図に移すと、<b>場合分けの境目</b>や<b>答えの見当</b>が目で分かる。「方程式 \(f(x)=g(x)\) の解」＝「2つのグラフの共有点」、「不等式 \(f(x)\gt g(x)\)」＝「上下関係」。</dd>
+    <dt>注意</dt><dd>図は方針を見つけるための道具。答案では、図から読み取ったことを式で裏付ける（端点の値・増減など）。</dd>
+  </dl>
+  <details class="ex"><summary>ミニ例</summary><div class="inner">
+    <div class="problem">方程式 \(|x-1|+|x-3|=k\) の実数解の個数を \(k\) で分類せよ。</div>
+    <p>\(f(x)=|x-1|+|x-3|\) は \(x\lt1\) で \(4-2x\)、\(1\le x\le3\) で \(2\)、\(x\gt3\) で \(2x-4\)。底が平らな谷形のグラフ。</p>
+    <p class="answer">\(k\lt2\)：0個、\(k=2\)：無数（\(1\le x\le3\) のすべて）、\(k\gt2\)：2個</p>
+  </div></details>
+  <p class="prereq">よく使う単元：<a href="units/m1-quadratic.html">2次関数</a>、<a href="units/m2-calculus.html">微分法（数II）</a>、<a href="units/m3-diff.html">微分法（数III）</a>、<a href="units/m2-coord.html">図形と方程式</a></p>
+</article>
+
+<article class="pattern" id="t-rephrase">
+  <h3><span class="pid">2</span>同値な言い換え</h3>
+  <dl class="map">
+    <dt class="trigger">こんなとき</dt><dd class="trigger">問題文の条件をそのままでは扱えないとき。</dd>
+    <dt>考え方</dt><dd>数学の問題の多くは、<b>条件を扱いやすい形に言い換える</b>ことで解ける。代表的な言い換えを「辞書」として覚えておく。</dd>
+  </dl>
+  <div class="table-wrap"><table>
+    <tr><th>問題文の言葉</th><th>言い換え</th></tr>
+    <tr><td>方程式 \(f(x)=a\) が実数解をもつ</td><td>\(y=f(x)\) と \(y=a\) が共有点をもつ</td></tr>
+    <tr><td>2次方程式が実数解をもつ／\(x\) が実数</td><td>判別式 \(D\ge0\)</td></tr>
+    <tr><td>直線と曲線が接する</td><td>連立して重解（2次なら \(D=0\)）、または接線の式と一致</td></tr>
+    <tr><td>すべての \(x\) で \(f(x)\ge0\)</td><td>\(f\) の最小値 \(\ge0\)</td></tr>
+    <tr><td>3点 A, B, P が一直線上</td><td>\(\vec{AP}=k\vec{AB}\)</td></tr>
+    <tr><td>\(\vec a\perp\vec b\)</td><td>\(\vec a\cdot\vec b=0\)</td></tr>
+    <tr><td>\(z\) が実数／純虚数</td><td>\(\bar z=z\)／\(\bar z=-z\ (z\neq0)\)</td></tr>
+    <tr><td>\(n\) が \(m\) で割り切れる</td><td>\(n\equiv0\pmod m\)、\(n=mk\)</td></tr>
+    <tr><td>整式 \(f(x)\) が \((x-a)\) で割り切れる</td><td>\(f(a)=0\)</td></tr>
+    <tr><td>\(f(x)\) が \((x-a)^2\) で割り切れる</td><td>\(f(a)=0\) かつ \(f'(a)=0\)</td></tr>
+    <tr><td>関数が \(x=a\) で極値をとる</td><td>\(f'(a)=0\) かつ \(f'\) の符号が変わる（必要条件と十分性）</td></tr>
+  </table></div>
+  <p class="prereq">よく使う単元：すべて。特に<a href="units/m1-logic.html">集合と命題</a>で「同値」の意味を確認しておくこと。</p>
+</article>
+
+<article class="pattern" id="t-goal">
+  <h3><span class="pid">3</span>ゴールから逆算する</h3>
+  <dl class="map">
+    <dt class="trigger">こんなとき</dt><dd class="trigger">条件はたくさんあるが、何から手をつければよいか分からない。</dd>
+    <dt>考え方</dt><dd>「求めたいもの」を出すには「何が分かればよいか」を逆向きにたどる。<b>ゴール ← 必要な材料 ← その材料を出す方法</b> と、条件に届くまでさかのぼる。</dd>
+  </dl>
+  <details class="ex"><summary>ミニ例</summary><div class="inner">
+    <div class="problem">\(\triangle ABC\) で \(a=7,\ b=5,\ c=3\) のとき、面積を求めよ。</div>
+    <p>面積 ← 「2辺とその間の角の sin」が必要 ← sin は cos から出る ← cos は3辺から余弦定理で出る。</p>
+    <p>\(\cos A=\dfrac{5^2+3^2-7^2}{2\cdot5\cdot3}=-\dfrac12\) より \(A=120^\circ\)。\(S=\dfrac12\cdot5\cdot3\cdot\sin120^\circ\)。</p>
+    <p class="answer">\(S=\dfrac{15\sqrt3}{4}\)</p>
+  </div></details>
+  <p class="prereq">よく使う単元：<a href="units/m1-trig.html">図形と計量</a>、<a href="units/m3-integral-app.html">積分法の応用</a>（面積・体積 ← 交点・断面）</p>
+</article>
+</section>
+
+<section id="transform">
+<h2>問題を扱いやすい形に変える</h2>
+
+<article class="pattern" id="t-casework">
+  <h3><span class="pid">4</span>場合分け（もれなく、重複なく）</h3>
+  <dl class="map">
+    <dt class="trigger">こんなとき</dt><dd class="trigger">文字の値によって式の形や答えが変わる。絶対値、文字係数、軸と区間の位置、偶奇。</dd>
+    <dt>考え方</dt><dd>場合分けは「<b>何によって状況が変わるか</b>」を見つけてから行う。境目（0になる点、軸＝端点など）を先に全部書き出し、数直線上で区間に分ける。</dd>
+    <dt>注意</dt><dd>境目の値（等号）をどちらに入れたか確認する。<b>境目で両側の答えが一致するか</b>を確かめると計算ミスに気づける。</dd>
+  </dl>
+  <details class="ex"><summary>ミニ例</summary><div class="inner">
+    <div class="problem">\(x\) についての不等式 \(ax\gt2\) を解け。</div>
+    <p>両辺を \(a\) で割るとき、\(a\) の符号で不等号の向きが変わる → \(a\) の符号で場合分け。</p>
+    <p class="answer">\(a\gt0\)：\(x\gt\frac2a\)、\(a=0\)：解なし（\(0\gt2\) は不成立）、\(a\lt0\)：\(x\lt\frac2a\)</p>
+  </div></details>
+  <p class="prereq">よく使う単元：<a href="units/m1-numbers.html">数と式</a>、<a href="units/m1-quadratic.html">2次関数</a>、<a href="units/ma-counting.html">場合の数</a></p>
+</article>
+
+<article class="pattern" id="t-subst">
+  <h3><span class="pid">5</span>置き換え</h3>
+  <dl class="map">
+    <dt class="trigger">こんなとき</dt><dd class="trigger">同じカタマリが何度も出てくる。\(\sin x+\cos x\)、\(2^x\)、\(x+\frac1x\)、\(x^2-2x\) など。</dd>
+    <dt>考え方</dt><dd>カタマリを \(t\) とおいて次数を下げ、知っている問題（多くは2次関数）にする。<b>\(t\) の取りうる範囲を必ず求める</b>。これを忘れると答えが変わる。</dd>
+  </dl>
+  <details class="ex"><summary>ミニ例</summary><div class="inner">
+    <div class="problem">\(y=\sin x\cos x+\sin x+\cos x\ (0\le x\lt2\pi)\) の最大値・最小値を求めよ。</div>
+    <p>\(t=\sin x+\cos x=\sqrt2\sin\left(x+\frac\pi4\right)\) とおくと \(-\sqrt2\le t\le\sqrt2\)。\(t^2=1+2\sin x\cos x\) より \(\sin x\cos x=\frac{t^2-1}2\)。</p>
+    <p>\(y=\frac{t^2-1}{2}+t=\frac12(t+1)^2-1\)。\(t=-1\) で最小、\(t=\sqrt2\) で最大。</p>
+    <p class="answer">最大値 \(\frac12+\sqrt2\)、最小値 \(-1\)</p>
+  </div></details>
+  <p class="prereq">よく使う単元：<a href="units/m1-quadratic.html">2次関数</a>、<a href="units/m2-trig.html">三角関数</a>、<a href="units/m2-explog.html">指数・対数</a>、<a href="units/m3-integral.html">積分法（置換積分）</a></p>
+</article>
+
+<article class="pattern" id="t-fix">
+  <h3><span class="pid">6</span>1文字固定（予選決勝）</h3>
+  <dl class="map">
+    <dt class="trigger">こんなとき</dt><dd class="trigger">2つ以上の変数が独立に動く最大最小。点が2つの媒介変数で動く領域（通過領域）。</dd>
+    <dt>考え方</dt><dd>全部を一度に動かさず、<b>1つを止めて残りを動かす</b>（予選）。その結果を、止めていた変数の関数とみて動かす（決勝）。「学年1位 ＝ 各クラス1位のうちの1位」。</dd>
+  </dl>
+  <details class="ex"><summary>ミニ例</summary><div class="inner">
+    <div class="problem">\(0\le x\le1,\ 0\le y\le1\) のとき、\(F=x^2-2xy+2y\) の最大値を求めよ。</div>
+    <p>予選：\(y\) を固定。\(F\) は \(x\) の下に凸な2次関数なので、最大は端点。\(x=0\) で \(2y\)、\(x=1\) で \(1\)。よって予選の勝者は \(\max(2y,\ 1)\)。</p>
+    <p>決勝：\(0\le y\le1\) で \(\max(2y,1)\) の最大は \(y=1\) のときの \(2\)。</p>
+    <p class="answer">最大値 2（\(x=0,\ y=1\)）</p>
+  </div></details>
+  <p class="prereq">よく使う単元：<a href="units/m1-quadratic.html">2次関数</a>（P7）、<a href="units/m2-coord.html">図形と方程式</a>（通過領域）、<a href="units/m3-diff.html">微分法（2変数の不等式）</a></p>
+</article>
+
+<article class="pattern" id="t-separate">
+  <h3><span class="pid">7</span>定数分離</h3>
+  <dl class="map">
+    <dt class="trigger">こんなとき</dt><dd class="trigger">「方程式 \(f(x)=0\) の実数解の個数を、文字 \(a\) の値で分類せよ」で、\(a\) が1か所にまとめられる。</dd>
+    <dt>考え方</dt><dd>\(a=g(x)\) と変形すれば、<b>固定された曲線 \(y=g(x)\) と、上下に動く水平線 \(y=a\)</b> の共有点の個数になる。曲線全体が動く問題より圧倒的に見やすい。</dd>
+  </dl>
+  <details class="ex"><summary>ミニ例</summary><div class="inner">
+    <div class="problem">\(x^3-3x-a=0\) の異なる実数解の個数を \(a\) で分類せよ。</div>
+    <p>\(a=x^3-3x=g(x)\)。\(g'(x)=3(x+1)(x-1)\) より、極大値 \(g(-1)=2\)、極小値 \(g(1)=-2\)。</p>
+    <p class="answer">\(|a|\lt2\)：3個、\(a=\pm2\)：2個、\(|a|\gt2\)：1個</p>
+  </div></details>
+  <p class="prereq">よく使う単元：<a href="units/m1-quadratic.html">2次関数</a>（P11）、<a href="units/m2-calculus.html">微分法（数II）</a>、<a href="units/m3-diff.html">微分法（数III）</a>、<a href="units/m2-trig.html">三角関数</a></p>
+</article>
+</section>
+
+<section id="logic">
+<h2>条件を正しく言い換える（論理）</h2>
+
+<article class="pattern" id="t-forall">
+  <h3><span class="pid">8</span>∀（すべて）と∃（ある）の言い換え</h3>
+  <dl class="map">
+    <dt class="trigger">こんなとき</dt><dd class="trigger">「すべての〜について」「ある〜が存在して」「常に成り立つ」「少なくとも1つ」。</dd>
+    <dt>考え方</dt><dd>無数の条件を<b>最大値・最小値の条件1つ</b>にまとめる。下の表を覚える（\(f,g\) は閉区間で連続など、最大最小が存在する場合）。</dd>
+  </dl>
+  <div class="table-wrap"><table>
+    <tr><th>条件</th><th>言い換え</th></tr>
+    <tr><td>すべての \(x\) で \(f(x)\ge0\)</td><td>\(\min f\ge0\)</td></tr>
+    <tr><td>ある \(x\) で \(f(x)\ge0\)</td><td>\(\max f\ge0\)</td></tr>
+    <tr><td>すべての \(x_1,x_2\) で \(f(x_1)\ge g(x_2)\)</td><td>\(\min f\ge\max g\)</td></tr>
+    <tr><td>すべての \(x_1\) に対し、ある \(x_2\) で \(f(x_1)\ge g(x_2)\)</td><td>\(\min f\ge\min g\)</td></tr>
+    <tr><td>ある \(x_1\) があって、すべての \(x_2\) で \(f(x_1)\ge g(x_2)\)</td><td>\(\max f\ge\max g\)</td></tr>
+    <tr><td>ある \(x_1,x_2\) で \(f(x_1)\ge g(x_2)\)</td><td>\(\max f\ge\min g\)</td></tr>
+  </table></div>
+  <p><b>否定</b>：「すべての \(x\) で P」の否定は「ある \(x\) で P でない」。「すべて」と「ある」は否定で入れ替わる。</p>
+  <p class="prereq">よく使う単元：<a href="units/m1-quadratic.html">2次関数</a>（P12, P13）、<a href="units/m1-logic.html">集合と命題</a>、<a href="units/m3-diff.html">微分法（不等式）</a></p>
+</article>
+
+<article class="pattern" id="t-inverse">
+  <h3><span class="pid">9</span>逆像法（存在条件で値域を求める）</h3>
+  <dl class="map">
+    <dt class="trigger">こんなとき</dt><dd class="trigger">値域・取りうる値の範囲。\(x+y\) と \(xy\) で表す問題。直線や曲線の通過領域。</dd>
+    <dt>考え方</dt><dd>「\(k\) が値域に入る」⇔「\(f(x)=k\) となる \(x\) が<b>存在する</b>」。値を直接追いかけず、<b>その値をとる \(x\) が存在する条件</b>（多くは2次方程式の実数解条件）を求める。</dd>
+  </dl>
+  <details class="ex"><summary>ミニ例</summary><div class="inner">
+    <div class="problem">\(y=\dfrac{x+1}{x^2+3}\) の値域を求めよ。</div>
+    <p>\(k=\dfrac{x+1}{x^2+3}\) を満たす実数 \(x\) が存在する条件を求める。分母は正なので \(kx^2-x+3k-1=0\)。</p>
+    <p>\(k=0\) のとき \(x=-1\) で存在。\(k\neq0\) のとき判別式 \(1-4k(3k-1)\ge0\)、つまり \((6k+1)(2k-1)\le0\)。</p>
+    <p class="answer">\(-\dfrac16\le y\le\dfrac12\)</p>
+  </div></details>
+  <p class="prereq">よく使う単元：<a href="units/m1-quadratic.html">2次関数</a>（演1）、<a href="units/m2-coord.html">図形と方程式</a>（通過領域）、<a href="units/m2-complex-eq.html">複素数と方程式</a></p>
+</article>
+
+<article class="pattern" id="t-necessary">
+  <h3><span class="pid">10</span>必要条件で絞り、十分性を確かめる</h3>
+  <dl class="map">
+    <dt class="trigger">こんなとき</dt><dd class="trigger">「〜となるような \(a\) をすべて求めよ」で、条件を同値変形するのが難しい。恒等式、極値、整数問題。</dd>
+    <dt>考え方</dt><dd>特別な値を代入するなどして<b>まず候補を絞る</b>（必要条件）。次に、その候補が<b>本当に条件を満たすかを確かめる</b>（十分性）。後半を書かないと減点される。</dd>
+  </dl>
+  <details class="ex"><summary>ミニ例</summary><div class="inner">
+    <div class="problem">\(f(x)=x^3+ax^2+bx\) が \(x=1\) で極値 2 をとるとき、\(a,b\) を求めよ。</div>
+    <p>必要条件：\(f'(1)=3+2a+b=0\)、\(f(1)=1+a+b=2\)。これを解いて \(a=-4,\ b=5\)。</p>
+    <p>十分性：\(f'(x)=3x^2-8x+5=(x-1)(3x-5)\) は \(x=1\) の前後で正から負に変わるので、\(x=1\) で極大値 \(f(1)=2\) をとる。</p>
+    <p class="answer">\(a=-4,\ b=5\)</p>
+  </div></details>
+  <p class="prereq">よく使う単元：<a href="units/m2-proof.html">式と証明</a>（恒等式）、<a href="units/m2-calculus.html">微分法（数II）</a>、<a href="units/m3-limit.html">極限（係数決定）</a>、<a href="units/ma-integer.html">整数</a></p>
+</article>
+
+<article class="pattern" id="t-complement">
+  <h3><span class="pid">11</span>余事象・否定・補集合</h3>
+  <dl class="map">
+    <dt class="trigger">こんなとき</dt><dd class="trigger">「少なくとも1つ」「〜でない」「2つ以上」。直接数えると場合が多すぎる。</dd>
+    <dt>考え方</dt><dd>求めたいものの<b>反対側の方が単純</b>なら、全体から引く。「少なくとも1つ」の反対は「1つもない」。</dd>
+  </dl>
+  <details class="ex"><summary>ミニ例</summary><div class="inner">
+    <div class="problem">サイコロを \(n\) 回投げる。出た目の積が 6 の倍数になる確率を求めよ。</div>
+    <p>余事象は「偶数が1回も出ない」または「3の倍数が1回も出ない」。和事象の確率で計算する。</p>
+    <p>\(P(\text{偶数なし})=\left(\frac12\right)^n\)、\(P(\text{3の倍数なし})=\left(\frac23\right)^n\)、\(P(\text{両方なし: 1,5のみ})=\left(\frac13\right)^n\)。</p>
+    <p class="answer">\(1-\left(\frac12\right)^n-\left(\frac23\right)^n+\left(\frac13\right)^n\)</p>
+  </div></details>
+  <p class="prereq">よく使う単元：<a href="units/ma-probability.html">確率</a>、<a href="units/ma-counting.html">場合の数</a>、<a href="units/m1-logic.html">集合と命題</a></p>
+</article>
+
+<article class="pattern" id="t-contradiction">
+  <h3><span class="pid">12</span>背理法</h3>
+  <dl class="map">
+    <dt class="trigger">こんなとき</dt><dd class="trigger">「〜でないことを示せ」「無理数であることを示せ」「無限に存在する」「少なくとも1つは〜」。</dd>
+    <dt>考え方</dt><dd>結論を否定すると、<b>扱いやすい等式や具体的な条件</b>が手に入る（「無理数でない」→「\(\frac pq\) と書ける」）。そこから矛盾を導く。</dd>
+  </dl>
+  <details class="ex"><summary>ミニ例</summary><div class="inner">
+    <div class="problem">\(\log_2 3\) が無理数であることを示せ。</div>
+    <p>有理数と仮定する。\(\log_23\gt0\) なので \(\log_23=\frac pq\)（\(p,q\) は正の整数）とおける。</p>
+    <p>\(2^{p/q}=3\) より \(2^p=3^q\)。左辺は偶数、右辺は奇数で矛盾。よって \(\log_23\) は無理数。</p>
+  </div></details>
+  <p class="prereq">よく使う単元：<a href="units/m1-logic.html">集合と命題</a>、<a href="units/ma-integer.html">整数</a>、<a href="units/m2-explog.html">指数・対数</a></p>
+</article>
+</section>
+
+<section id="discover">
+<h2>規則を見つけて証明する</h2>
+
+<article class="pattern" id="t-experiment">
+  <h3><span class="pid">13</span>小さい場合で実験する</h3>
+  <dl class="map">
+    <dt class="trigger">こんなとき</dt><dd class="trigger">\(n\) を含む問題で、一般の場合が想像できない。数列・整数・確率・場合の数。</dd>
+    <dt>考え方</dt><dd>\(n=1,2,3,4\) を具体的に計算・書き出して、<b>規則を予想</b>する。予想は数学的帰納法などで証明する。阪大では「実験してから証明」を要求する問題が多い。</dd>
+  </dl>
+  <details class="ex"><summary>ミニ例</summary><div class="inner">
+    <div class="problem">\(a_1=1,\ a_{n+1}=\dfrac{a_n}{a_n+1}\) で定まる数列の一般項を求めよ。</div>
+    <p>実験：\(a_2=\frac12,\ a_3=\frac{1/2}{3/2}=\frac13,\ a_4=\frac14\)。予想：\(a_n=\frac1n\)。</p>
+    <p>証明（帰納法）：\(a_k=\frac1k\) なら \(a_{k+1}=\dfrac{1/k}{1/k+1}=\dfrac{1}{k+1}\)。</p>
+    <p class="answer">\(a_n=\dfrac1n\)</p>
+    <p class="point">別解：逆数をとると \(\frac1{a_{n+1}}=\frac1{a_n}+1\)。実験で予想が立たないときの道具として<a href="units/mb-sequence.html">数列</a>で学ぶ。</p>
+  </div></details>
+  <p class="prereq">よく使う単元：<a href="units/mb-sequence.html">数列</a>、<a href="units/ma-integer.html">整数</a>、<a href="units/ma-probability.html">確率</a></p>
+</article>
+
+<article class="pattern" id="t-recurrence">
+  <h3><span class="pid">14</span>漸化式を立てる（状態の遷移）</h3>
+  <dl class="map">
+    <dt class="trigger">こんなとき</dt><dd class="trigger">「\(n\) 回目に〜である確率」「\(n\) 段の階段の上り方」「\(n\) 個並べる方法の数」。直接は数えにくい。</dd>
+    <dt>考え方</dt><dd>\(n\) の場合を、<b>1つ前（\(n-1\)）の状態からどう移るか</b>で表す。「最後の1手」または「最初の1手」で場合分けすると立てやすい。</dd>
+  </dl>
+  <details class="ex"><summary>ミニ例</summary><div class="inner">
+    <div class="problem">三角形の頂点 A, B, C を点 P が動く。P は毎秒、他の2頂点のどちらかに確率 \(\frac12\) ずつで移る。最初 A にいるとき、\(n\) 秒後に A にいる確率 \(p_n\) を求めよ。</div>
+    <p>\(n+1\) 秒後に A にいるのは、\(n\) 秒後に A 以外（確率 \(1-p_n\)）にいて、A に移る（\(\frac12\)）とき。</p>
+    <p>\(p_{n+1}=\frac12(1-p_n)\)、\(p_0=1\)。\(p_{n+1}-\frac13=-\frac12\left(p_n-\frac13\right)\) と変形して</p>
+    <p class="answer">\(p_n=\dfrac13+\dfrac23\left(-\dfrac12\right)^n\)</p>
+  </div></details>
+  <p class="prereq">よく使う単元：<a href="units/ma-probability.html">確率</a>、<a href="units/ma-counting.html">場合の数</a>、<a href="units/mb-sequence.html">数列</a></p>
+</article>
+
+<article class="pattern" id="t-induction">
+  <h3><span class="pid">15</span>数学的帰納法</h3>
+  <dl class="map">
+    <dt class="trigger">こんなとき</dt><dd class="trigger">「すべての自然数 \(n\) について〜を示せ」。漸化式で定まる数列の性質。実験で得た予想の証明。</dd>
+    <dt>考え方</dt><dd>「\(n=k\) で成り立つ」を<b>使って</b>「\(n=k+1\) で成り立つ」を示す。\(k+1\) の式の中に \(k\) の式を作り出すのがコツ。</dd>
+    <dt>注意</dt><dd>\(k\to k+1\) の議論が使える \(k\) の範囲を確認し、それより小さい場合は個別に確かめる。</dd>
+  </dl>
+  <details class="ex"><summary>ミニ例</summary><div class="inner">
+    <div class="problem">すべての自然数 \(n\) について \(3^n\gt n^2\) を示せ。</div>
+    <p>\(n=1,2\)：\(3\gt1,\ 9\gt4\) で成立。</p>
+    <p>\(k\ge2\) で \(3^k\gt k^2\) と仮定すると、\(3^{k+1}\gt3k^2\)。ここで \(3k^2-(k+1)^2=2k^2-2k-1=2k(k-1)-1\ge 3\gt0\)（\(k\ge2\)）。よって \(3^{k+1}\gt(k+1)^2\)。</p>
+    <p class="point">\(k=1\) では \(2k(k-1)-1=-1\lt0\) となり、この議論は使えない。だから \(n=2\) まで個別に確認している。</p>
+  </div></details>
+  <p class="prereq">よく使う単元：<a href="units/mb-sequence.html">数列</a>、<a href="units/ma-integer.html">整数</a>、<a href="units/m3-limit.html">極限</a></p>
+</article>
+</section>
+
+<section id="estimate">
+<h2>整数・不等式で絞る</h2>
+
+<article class="pattern" id="t-bound">
+  <h3><span class="pid">16</span>不等式で評価して絞る（はさみうち）</h3>
+  <dl class="map">
+    <dt class="trigger">こんなとき</dt><dd class="trigger">整数解を求める（候補が無限にありそう）。極限が直接計算できない。「平方数になる \(n\)」。</dd>
+    <dt>考え方</dt><dd>値を<b>上下から不等式ではさみ</b>、候補を有限個に絞る。極限ではさみうちの原理を使う。「隣り合う平方数の間には平方数はない」もよく使う。</dd>
+  </dl>
+  <details class="ex"><summary>ミニ例</summary><div class="inner">
+    <div class="problem">\(n^2+n+7\) が平方数となる自然数 \(n\) をすべて求めよ。</div>
+    <p>\(n^2\lt n^2+n+7\) は常に成立。また \(n^2+n+7\lt(n+1)^2 \iff n\gt6\)。</p>
+    <p>よって \(n\ge7\) では \(n^2\lt n^2+n+7\lt(n+1)^2\) となり平方数でない。\(n=1,\dots,6\) を調べると \(9,13,19,27,37,49\)。</p>
+    <p class="answer">\(n=1,\ 6\)</p>
+  </div></details>
+  <p class="prereq">よく使う単元：<a href="units/ma-integer.html">整数</a>、<a href="units/m3-limit.html">極限</a>、<a href="units/m3-integral-app.html">積分法の応用</a></p>
+</article>
+
+<article class="pattern" id="t-symmetry">
+  <h3><span class="pid">17</span>対称性を使う</h3>
+  <dl class="map">
+    <dt class="trigger">こんなとき</dt><dd class="trigger">\(x,y,z\) を入れ替えても変わらない式・条件。左右対称な図形。対称な確率の状態。</dd>
+    <dt>考え方</dt><dd>対称なら「\(x\le y\le z\) と仮定してよい」（大小の順番を固定）、「\(x+y,\ xy\) で表せる」、「同じ確率の状態をまとめる」。<b>調べる場合が減る</b>。</dd>
+  </dl>
+  <details class="ex"><summary>ミニ例</summary><div class="inner">
+    <div class="problem">\(\dfrac1x+\dfrac1y+\dfrac1z=1\) を満たす自然数の組 \((x,y,z)\) で \(x\le y\le z\) のものをすべて求めよ。</div>
+    <p>\(x\) が最小なので \(1\le\frac3x\)、よって \(x\le3\)。\(x=1\) は不可なので \(x=2,3\)。</p>
+    <p>\(x=2\)：\(\frac1y+\frac1z=\frac12\)、\(y\le z\) より \(\frac12\le\frac2y\)、\(y\le4\)。\(y\ge3\) なので \((y,z)=(3,6),(4,4)\)。</p>
+    <p>\(x=3\)：\(\frac1y+\frac1z=\frac23\)、\(y\le3\) かつ \(y\ge3\) で \(y=z=3\)。</p>
+    <p class="answer">\((2,3,6),\ (2,4,4),\ (3,3,3)\)</p>
+    <p class="point">対称性で大小を固定し、さらに「最小のものは平均以下」という評価（<a href="#t-bound">不等式で絞る</a>）を組み合わせている。</p>
+  </div></details>
+  <p class="prereq">よく使う単元：<a href="units/ma-integer.html">整数</a>、<a href="units/m1-numbers.html">数と式</a>（対称式）、<a href="units/ma-probability.html">確率</a></p>
+</article>
+
+<article class="pattern" id="t-mod">
+  <h3><span class="pid">18</span>余り・偶奇で分類する</h3>
+  <dl class="map">
+    <dt class="trigger">こんなとき</dt><dd class="trigger">「整数解をもたないことを示せ」「〜の倍数であることを示せ」「平方数」。</dd>
+    <dt>考え方</dt><dd>整数を \(m\) で割った余りで分類すると、無限個の整数が<b>有限個の場合</b>になる。平方数の余り（\(\bmod3\) で 0,1、\(\bmod4\) で 0,1、\(\bmod8\) で 0,1,4）は覚えておく。</dd>
+  </dl>
+  <details class="ex"><summary>ミニ例</summary><div class="inner">
+    <div class="problem">\(x^2-3y^2=2\) を満たす整数 \(x,y\) は存在しないことを示せ。</div>
+    <p>\(\bmod 3\) で考えると \(x^2\equiv2\)。しかし \(x\equiv0,1,2\) に対して \(x^2\equiv0,1,1\) であり、\(2\) にはならない。よって整数解は存在しない。</p>
+  </div></details>
+  <p class="prereq">よく使う単元：<a href="units/ma-integer.html">整数</a>、<a href="units/mb-sequence.html">数列（帰納法と整除）</a></p>
+</article>
+</section>
+
+<section id="tools">
+<h2>別の道具に乗り換える</h2>
+
+<article class="pattern" id="t-coord">
+  <h3><span class="pid">19</span>座標を入れる</h3>
+  <dl class="map">
+    <dt class="trigger">こんなとき</dt><dd class="trigger">図形の問題で補助線が思いつかない。長さ・角の関係を示したい。</dd>
+    <dt>考え方</dt><dd>図形を座標平面に置けば、<b>計算だけで</b>解ける。原点や軸を対称の中心・特別な点に置くと計算が軽くなる。</dd>
+  </dl>
+  <details class="ex"><summary>ミニ例</summary><div class="inner">
+    <div class="problem">\(\triangle ABC\) で辺 BC の中点を M とする。\(AB^2+AC^2=2(AM^2+BM^2)\) を示せ（中線定理）。</div>
+    <p>M を原点、\(B(-c,0),\ C(c,0),\ A(a,b)\) とおく。</p>
+    <p>\(AB^2+AC^2=(a+c)^2+b^2+(a-c)^2+b^2=2(a^2+b^2+c^2)=2(AM^2+BM^2)\)。</p>
+  </div></details>
+  <p class="prereq">よく使う単元：<a href="units/m2-coord.html">図形と方程式</a>、<a href="units/ma-geometry.html">図形の性質</a>、<a href="units/m3-integral-app.html">積分法の応用（立体の座標設定）</a></p>
+</article>
+
+<article class="pattern" id="t-vector">
+  <h3><span class="pid">20</span>ベクトル・複素数で表す</h3>
+  <dl class="map">
+    <dt class="trigger">こんなとき</dt><dd class="trigger">交点の位置、平行・垂直、空間図形（ベクトル）。回転、正三角形、角度（複素数）。</dd>
+    <dt>考え方</dt><dd>ベクトルは<b>平行・内分・内積</b>に強く、複素数は<b>回転・拡大</b>に強い。図形の条件に合わせて道具を選ぶ。</dd>
+  </dl>
+  <details class="ex"><summary>ミニ例</summary><div class="inner">
+    <div class="problem">複素数平面上で \(A(0),\ B(2)\) とする。\(\triangle ABC\) が正三角形となる点 \(C\) を求めよ。</div>
+    <p>C は B を A のまわりに \(\pm60^\circ\) 回転した点。\(2\left(\cos60^\circ\pm i\sin60^\circ\right)\)。</p>
+    <p class="answer">\(C=1\pm\sqrt3\,i\)</p>
+  </div></details>
+  <p class="prereq">よく使う単元：<a href="units/mc-vector.html">ベクトル</a>、<a href="units/mc-complex.html">複素数平面</a></p>
+</article>
+
+<article class="pattern" id="t-difffunc">
+  <h3><span class="pid">21</span>差をとって関数にし、微分する</h3>
+  <dl class="map">
+    <dt class="trigger">こんなとき</dt><dd class="trigger">「\(x\gt0\) のとき \(f(x)\gt g(x)\) を示せ」。式変形だけでは示せない不等式。</dd>
+    <dt>考え方</dt><dd>\(h(x)=f(x)-g(x)\) とおき、<b>増減を調べて最小値 \(\ge0\)</b> を示す。\(h'\) の符号が分からなければもう一度微分する。</dd>
+  </dl>
+  <details class="ex"><summary>ミニ例</summary><div class="inner">
+    <div class="problem">\(x\gt0\) のとき \(e^x\gt1+x+\dfrac{x^2}2\) を示せ。</div>
+    <p>\(h(x)=e^x-1-x-\frac{x^2}2\)。\(h'(x)=e^x-1-x\)、\(h''(x)=e^x-1\gt0\ (x\gt0)\)。</p>
+    <p>\(h'\) は \(x\ge0\) で増加し \(h'(0)=0\) なので \(h'(x)\gt0\ (x\gt0)\)。同様に \(h\) は増加し \(h(0)=0\) なので \(h(x)\gt0\)。</p>
+  </div></details>
+  <p class="prereq">よく使う単元：<a href="units/m3-diff.html">微分法とその応用</a>、<a href="units/m2-calculus.html">微分法（数II）</a></p>
+</article>
+
+<article class="pattern" id="t-integral-eval">
+  <h3><span class="pid">22</span>和を積分で評価する</h3>
+  <dl class="map">
+    <dt class="trigger">こんなとき</dt><dd class="trigger">\(\displaystyle\sum_{k=1}^n\frac1k\)、\(\log n!\) など、和が計算できないが大きさを知りたい。極限・不等式の証明。</dd>
+    <dt>考え方</dt><dd>和は「幅1の長方形の面積の合計」。単調な関数なら、<b>長方形と曲線の下の面積を比べる</b>ことで、和を積分ではさめる。</dd>
+  </dl>
+  <details class="ex"><summary>ミニ例</summary><div class="inner">
+    <div class="problem">\(\displaystyle\sum_{k=1}^n\frac1k\gt\log(n+1)\) を示せ。</div>
+    <p>\(k\le x\le k+1\) で \(\frac1x\le\frac1k\)（等号は \(x=k\) のみ）なので \(\displaystyle\frac1k\gt\int_k^{k+1}\frac{dx}x\)。</p>
+    <p>\(k=1,\dots,n\) で足すと \(\displaystyle\sum_{k=1}^n\frac1k\gt\int_1^{n+1}\frac{dx}x=\log(n+1)\)。</p>
+    <p class="point">これから \(\displaystyle\sum\frac1k\to\infty\) が分かる。</p>
+  </div></details>
+  <p class="prereq">よく使う単元：<a href="units/m3-integral-app.html">積分法の応用</a>、<a href="units/m3-limit.html">極限</a></p>
+</article>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>学習ロードマップ｜解法の地図</title>
+<link rel="stylesheet" href="assets/katex/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+<script defer src="assets/katex/katex.min.js"></script>
+<script defer src="assets/katex/auto-render.min.js"></script>
+<script defer src="assets/site.js"></script>
+</head>
+<body data-root="">
+<main>
+
+<header class="unit-head">
+  <h1>学習ロードマップ：偏差値 52 から阪大理系へ</h1>
+  <p class="lead">全統模試の偏差値が 52 前後の高2生が、高3の2月に阪大理系数学で余裕をもって合格点を取るまでの道のりです。時期ごとに、何を、どのレベルまで、どの順でやるかをまとめています。</p>
+</header>
+
+<section id="now">
+  <h2>まず現状を正しく知る</h2>
+  <p>偏差値 52 は「数学が全くできない」状態ではありません。多くの場合、原因は次の3つのどれか、またはその組み合わせです。</p>
+  <div class="table-wrap"><table>
+    <tr><th>原因</th><th>よくある症状</th><th>このサイトでの対策</th></tr>
+    <tr><td>① 基本パターンが定着していない</td><td>解説を読めば分かるのに、試験では手が止まる</td><td>各単元の<span class="lv lv1">基礎</span>パターンの例題を、何も見ずに解けるまで繰り返す</td></tr>
+    <tr><td>② 問題文から方針を選べない</td><td>何の単元の問題か分からない。最初の一手が出ない</td><td><b>早見表の「こう来たら」</b>を読み込み、<a href="reverse.html">逆引き索引</a>で問題文の言葉から方針を選ぶ練習をする</td></tr>
+    <tr><td>③ 計算ミス・論理の穴</td><td>方針は合っているのに答えが合わない。場合分けが抜ける</td><td>各単元の<b>「よくあるミスと対策」</b>を確認し、例題の <span class="point">チェック</span> 欄の検算方法をまねる</td></tr>
+  </table></div>
+  <p>模試の答案を見直して、<b>失点のうち①②③がそれぞれ何割か</b>を数えてください。それによって、下の各段階でどこに時間をかけるかが決まります。</p>
+</section>
+
+<section id="target">
+  <h2>ゴールの確認：阪大理系数学</h2>
+  <ul>
+    <li><b>形式</b>：150分・大問5題・すべて記述式（理・医・歯・薬・工・基礎工の理系学部）。1題あたり約30分。</li>
+    <li><b>難度</b>：標準〜やや難が中心で、1題は難しい問題が入ることが多い。<b>「標準問題を確実に完答し、難問で部分点を取る」</b>のが合格の型です。</li>
+    <li><b>頻出</b>：数学IIIの微積分（ほぼ毎年、しばしば2題）、確率、整数、数列と数学的帰納法、ベクトル、複素数平面、図形と方程式（軌跡・領域）。証明問題が多いのが特徴。</li>
+    <li><b>目標点</b>：合格に必要な得点率は学部や年度で変わりますが、数学で <b>6割を安定して取る</b>と大きな武器になり、<b>7割</b>取れれば「余裕で突破」と言えます。</li>
+  </ul>
+  <p class="prereq">出題範囲・配点は年度ごとに変わることがあります。受験する年の募集要項で必ず確認してください。詳しい分析は<a href="handai.html">阪大対策</a>のページにあります。</p>
+</section>
+
+<section id="phases">
+  <h2>時期ごとの計画</h2>
+  <p>高2の10月（今）から、高3の2月下旬（阪大2次試験）までの約16か月です。学校の進度に合わせて前後させて構いませんが、<b>順番</b>は守ってください。</p>
+
+  <article class="pattern" id="phase0" data-level="1">
+    <h3><span class="pid">第0期</span>高2 10月〜12月：基礎の穴を全部ふさぐ</h3>
+    <dl class="map">
+      <dt>対象</dt><dd>数学I・A・II（学校で既に習った範囲）の<span class="lv lv1">基礎</span>パターン</dd>
+      <dt>やること</dt><dd><ol>
+        <li>難易度フィルタを「基礎」にして、<a href="units/m1-numbers.html">数と式</a>から順に、各パターンの例題を解く。</li>
+        <li>解けなかったパターンは、<b>翌日・3日後・1週間後</b>にもう一度解く。3回とも何も見ずに解けたら「習得」にチェックする。</li>
+        <li>特に<a href="units/m1-quadratic.html">2次関数</a>・<a href="units/m2-trig.html">三角関数</a>・<a href="units/m2-explog.html">指数対数</a>の基礎は、後の全単元で使うので最優先。</li>
+      </ol></dd>
+      <dt>到達目標</dt><dd>既習範囲の基礎パターンをすべて習得。全統模試で偏差値 57〜58。</dd>
+    </dl>
+  </article>
+
+  <article class="pattern" id="phase1" data-level="2">
+    <h3><span class="pid">第1期</span>高2 1月〜3月：標準パターンと考え方の習得</h3>
+    <dl class="map">
+      <dt>対象</dt><dd>数学I・A・II・B・C の<span class="lv lv2">標準</span>パターン、<a href="thinking.html">発想の引き出し</a>の前半</dd>
+      <dt>やること</dt><dd><ol>
+        <li>阪大重要度★★★の単元（<a href="units/ma-probability.html">確率</a>・<a href="units/ma-integer.html">整数</a>・<a href="units/mb-sequence.html">数列</a>・<a href="units/mc-vector.html">ベクトル</a>・<a href="units/m2-coord.html">図形と方程式</a>）を優先して、標準パターンを習得する。</li>
+        <li>1つのパターンを習得したら、「なぜこの方法？」の内容を<b>自分の言葉でノートに1行</b>書く（例：「定数分離 → 動くのが水平線だけになるから場合分けが図で読める」）。</li>
+        <li>発想の引き出しのうち、<a href="thinking.html#t-graph">図・グラフ化</a>、<a href="thinking.html#t-casework">場合分け</a>、<a href="thinking.html#t-subst">置き換え</a>、<a href="thinking.html#t-fix">1文字固定</a>、<a href="thinking.html#t-complement">余事象</a>、<a href="thinking.html#t-experiment">実験</a>を意識して使う。</li>
+      </ol></dd>
+      <dt>到達目標</dt><dd>数学IA・IIBC の標準問題で方針が立つ。偏差値 60 前後。</dd>
+    </dl>
+  </article>
+
+  <article class="pattern" id="phase2" data-level="2">
+    <h3><span class="pid">第2期</span>高3 4月〜7月：数学III を固め、全範囲を標準レベルで完成させる</h3>
+    <dl class="map">
+      <dt>対象</dt><dd>数学III 全単元の<span class="lv lv1">基礎</span>・<span class="lv lv2">標準</span>パターン。数学I〜C の標準パターンの総復習</dd>
+      <dt>やること</dt><dd><ol>
+        <li>数学III は阪大で最も配点が大きい分野です。<a href="units/m3-limit.html">極限</a> → <a href="units/m3-diff.html">微分法</a> → <a href="units/m3-integral.html">積分計算</a> → <a href="units/m3-integral-app.html">積分の応用</a>の順に進める。</li>
+        <li><b>積分計算は毎日10分</b>、計算練習を続ける（置換・部分積分を手が覚えるまで）。</li>
+        <li>週に1回、別の単元をランダムに選び、習得済みパターンの例題を解き直して定着を確認する。</li>
+      </ol></dd>
+      <dt>到達目標</dt><dd>全範囲で標準パターンの習得率 8 割以上。偏差値 62〜65。</dd>
+    </dl>
+  </article>
+
+  <article class="pattern" id="phase3" data-level="3">
+    <h3><span class="pid">第3期</span>高3 8月〜10月：阪大レベルへ</h3>
+    <dl class="map">
+      <dt>対象</dt><dd>全単元の<span class="lv lv3">阪大</span>パターンと阪大型演習、<a href="thinking.html">発想の引き出し</a>の全項目</dd>
+      <dt>やること</dt><dd><ol>
+        <li>阪大型演習は<b>まず30分、何も見ずに考える</b>。手が止まったら「着眼点」だけを開いて、もう15分考える。</li>
+        <li>解答を読んだら、<b>最初の一手をどこから思いつけばよかったか</b>を「こう来たら → こう考える」の形でノートに書く。これを書けることが応用力そのものです。</li>
+        <li>単元をまたぐ融合問題（確率×数列、整数×帰納法、微分×不等式、ベクトル×図形など）に慣れる。</li>
+        <li>阪大の過去問を古い年度から解き始める（新しい年度は直前期のためにとっておく）。</li>
+      </ol></dd>
+      <dt>到達目標</dt><dd>阪大過去問で 5 割。偏差値 65 以上。</dd>
+    </dl>
+  </article>
+
+  <article class="pattern" id="phase4" data-level="3">
+    <h3><span class="pid">第4期</span>高3 11月〜2月：実戦と仕上げ</h3>
+    <dl class="map">
+      <dt>やること</dt><dd><ol>
+        <li><b>11〜12月</b>：週1回、阪大過去問1年分を150分で解く。答案は<a href="handai.html#writing">答案の書き方</a>に従って書き、自分で採点する。12月からは共通テスト対策（<a href="units/m1-data.html">データの分析</a>・<a href="units/mb-stats.html">統計的な推測</a>を含む）も並行する。</li>
+        <li><b>共通テスト後〜2月</b>：阪大過去問（新しい年度）と、間違えたパターンの総復習。新しい問題集には手を出さない。</li>
+        <li>直前1週間：各単元の「よくあるミスと対策」と、自分のノートだけを読み返す。</li>
+      </ol></dd>
+      <dt>到達目標</dt><dd>阪大過去問で安定して 6〜7 割。</dd>
+    </dl>
+  </article>
+</section>
+
+<section id="daily">
+  <h2>1日の回し方（平日 60〜90 分の例）</h2>
+  <ol class="steps">
+    <li><b>復習 20 分</b>：昨日・3日前・1週間前に解けなかったパターンの例題を解き直す。</li>
+    <li><b>新しいパターン 40 分</b>：2〜3パターン。「こう来たら」を読む → 例題を自力で考える（10〜15分）→ 解けなければ「こう考える」だけ読んで再挑戦 → 解答と「なぜこの方法？」を読む。</li>
+    <li><b>まとめ 10 分</b>：今日のパターンを「こう来たら → こう解く。理由は〜」の1行にしてノートに書く。</li>
+    <li><b>（余裕があれば）計算練習 10〜20 分</b>：数III期は積分計算を毎日。</li>
+  </ol>
+  <div class="box tip">
+    <p><b>「分かった」と「解ける」は違う。</b>解説を読んで納得するのは「分かった」です。<b>日を置いて、何も見ずに解けて初めて「解ける」</b>と言えます。習得チェックはこの基準で付けてください。</p>
+  </div>
+</section>
+
+<section id="materials">
+  <h2>問題集との併用</h2>
+  <p>このサイトは「解法の地図」です。地図だけでは足腰が鍛えられないので、演習量は問題集で確保します。</p>
+  <div class="table-wrap"><table>
+    <tr><th>段階</th><th>問題集の例</th><th>このサイトの使い方</th></tr>
+    <tr><td>基礎〜標準</td><td>教科書傍用問題集、網羅系参考書（チャート式など）</td><td>問題を解く前に早見表で方針を予想し、解いたあとで「なぜ」欄で理由を確認する</td></tr>
+    <tr><td>標準〜阪大</td><td>入試標準問題集（『1対1対応の演習』など）</td><td>解けなかった問題を、どのパターンの組み合わせかに分解する</td></tr>
+    <tr><td>阪大</td><td>阪大の過去問集（15カ年など）</td><td><a href="handai.html">阪大対策</a>の答案作法に従って答案を書く練習</td></tr>
+  </table></div>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>
