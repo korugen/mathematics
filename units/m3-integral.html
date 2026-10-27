@@ -33,25 +33,25 @@
 
   <div class="box theorem">
     <p><span class="name">基本的な不定積分</span>（\(C\) は積分定数）</p>
-    \[ \begin{aligned} &\int x^\alpha dx=\frac{x^{\alpha+1}}{\alpha+1}+C\ (\alpha\ne-1),\qquad \int\frac{dx}{x}=\log|x|+C,\\ &\int e^x dx=e^x+C,\qquad \int a^x dx=\frac{a^x}{\log a}+C,\\ &\int\sin x\,dx=-\cos x+C,\quad \int\cos x\,dx=\sin x+C,\quad \int\frac{dx}{\cos^2x}=\tan x+C \end{aligned} \]
+    \[ \begin{aligned} & \int x^\alpha dx=\frac{x^{\alpha+1}}{\alpha+1}+C\ (\alpha\ne-1),\\ & \int\frac{dx}{x}=\log|x|+C,\\ & \int e^x dx=e^x+C,\quad \int a^x dx=\frac{a^x}{\log a}+C,\\ & \int\sin x\,dx=-\cos x+C,\\ & \int\cos x\,dx=\sin x+C,\\ & \int\frac{dx}{\cos^2x}=\tan x+C \end{aligned} \]
     <p>なぜ：右辺を微分すると左辺の被積分関数に戻る（<a href="m3-diff.html">微分法</a>の公式を逆に読んだだけ）。<b>答えに自信がなければ微分して検算</b>できるのが積分の強み。</p>
   </div>
 
   <div class="box theorem">
     <p><span class="name">置換積分・部分積分</span></p>
-    \[ \int f(g(x))g'(x)\,dx=\int f(u)\,du\ \ (u=g(x)),\qquad \int f(x)g'(x)\,dx=f(x)g(x)-\int f'(x)g(x)\,dx \]
+    \[ \begin{aligned}& \int f(g(x))g'(x)\,dx \\ & \qquad = \int f(u)\,du\ \ (u=g(x)), \\ & \int f(x)g'(x)\,dx \\ & \qquad = f(x)g(x)-\int f'(x)g(x)\,dx\end{aligned} \]
     <p>なぜ：置換積分は<b>合成関数の微分</b> \(\{F(g(x))\}'=F'(g(x))g'(x)\) の逆、部分積分は<b>積の微分</b> \((fg)'=f'g+fg'\) を積分して移項したもの。定積分の置換では<b>積分区間も新しい変数の範囲に変える</b>。</p>
   </div>
 
   <div class="box theorem">
     <p><span class="name">微分積分学の基本定理</span>：\(f\) が連続なら</p>
-    \[ \frac{d}{dx}\int_a^x f(t)\,dt=f(x),\qquad \frac{d}{dx}\int_{h(x)}^{g(x)}f(t)\,dt=f(g(x))g'(x)-f(h(x))h'(x) \]
+    \[ \begin{aligned}& \frac{d}{dx}\int_a^x f(t)\,dt = f(x), \\ & \frac{d}{dx}\int_{h(x)}^{g(x)}f(t)\,dt \\ & \qquad = f(g(x))g'(x)-f(h(x))h'(x)\end{aligned} \]
     <p>なぜ：\(F'=f\) となる \(F\) で \(\int_a^x f(t)dt=F(x)-F(a)\)。これを微分すれば \(f(x)\)。上端・下端が \(x\) の関数なら合成関数の微分になる。</p>
   </div>
 
   <div class="box theorem">
     <p><span class="name">偶関数・奇関数</span></p>
-    \[ f(-x)=f(x)\ \Rightarrow\ \int_{-a}^af(x)dx=2\int_0^af(x)dx,\qquad f(-x)=-f(x)\ \Rightarrow\ \int_{-a}^af(x)dx=0 \]
+    \[ \begin{aligned} & f(-x)=f(x)\ \Rightarrow\\ & \qquad\int_{-a}^af(x)dx=2\int_0^af(x)dx,\\ & f(-x)=-f(x)\ \Rightarrow\\ & \qquad\int_{-a}^af(x)dx=0 \end{aligned} \]
     <p>なぜ：\(x=-t\) と置換すると \(\int_{-a}^0f(x)dx=\int_0^af(-t)dt\)。グラフで言えば、奇関数は \(x\) 軸の上下で面積が打ち消し合う。</p>
   </div>
 
@@ -107,7 +107,7 @@
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">次の不定積分を求めよ。(1) \(\displaystyle\int\frac{(x+1)^2}{\sqrt x}dx\)　(2) \(\displaystyle\int(e^x+2^x)dx\)　(3) \(\displaystyle\int\tan^2x\,dx\)</div>
       <p>(1) \(\dfrac{x^2+2x+1}{x^{\frac12}}=x^{\frac32}+2x^{\frac12}+x^{-\frac12}\) より</p>
-      \[ \int\frac{(x+1)^2}{\sqrt x}dx=\frac25x^{\frac52}+\frac43x^{\frac32}+2x^{\frac12}+C \]
+      \[ \begin{aligned}& \int\frac{(x+1)^2}{\sqrt x}dx \\ & \qquad = \frac25x^{\frac52}+\frac43x^{\frac32}+2x^{\frac12}+C\end{aligned} \]
       <p>(2) \(e^x+\dfrac{2^x}{\log2}+C\)</p>
       <p>(3) \(\displaystyle\int\left(\frac{1}{\cos^2x}-1\right)dx=\tan x-x+C\)</p>
       <p class="answer">(1) \(\frac25x^2\sqrt x+\frac43x\sqrt x+2\sqrt x+C\)　(2) \(e^x+\frac{2^x}{\log 2}+C\)　(3) \(\tan x-x+C\)</p>
@@ -187,7 +187,7 @@
       <p>(2) \(x^2=(x-1)(x+1)+1\) より \(\dfrac{x^2}{x-1}=x+1+\dfrac{1}{x-1}\)。\(\displaystyle\int=\frac{x^2}{2}+x+\log|x-1|+C\)</p>
       <p>(3) \(\dfrac{1}{x(x+1)^2}=\dfrac Ax+\dfrac{B}{x+1}+\dfrac{C}{(x+1)^2}\)。\(1=A(x+1)^2+Bx(x+1)+Cx\)。</p>
       <p>\(x=0\) で \(A=1\)、\(x=-1\) で \(C=-1\)、\(x^2\) の係数比較で \(A+B=0\)、\(B=-1\)。</p>
-      \[ \int_1^2\left(\frac1x-\frac{1}{x+1}-\frac{1}{(x+1)^2}\right)dx=\left[\log\frac{x}{x+1}+\frac{1}{x+1}\right]_1^2=\log\frac23+\frac13-\log\frac12-\frac12 \]
+      \[ \begin{aligned}& \int_1^2\left(\frac1x-\frac{1}{x+1}-\frac{1}{(x+1)^2}\right)dx \\ & \qquad = \left[\log\frac{x}{x+1}+\frac{1}{x+1}\right]_1^2 \\ & \qquad = \log\frac23+\frac13-\log\frac12-\frac12\end{aligned} \]
       <p class="answer">(1) \(2\log|x-1|-\log|x+2|+C\)　(2) \(\frac{x^2}{2}+x+\log|x-1|+C\)　(3) \(\log\dfrac43-\dfrac16\)</p>
       <p class="point">(3) で \(\frac{1}{x(x+1)^2}=\frac Ax+\frac{C}{(x+1)^2}\) と2項しか用意しないと恒等式が成り立たない。重複因数は次数を1つずつ下げた分母をすべて用意する。</p>
     </div></details>
@@ -263,9 +263,9 @@
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">(1) \(\displaystyle\int_0^1x(1-x)^5dx\)　(2) \(\displaystyle\int_0^1x\sqrt{1-x}\,dx\)</div>
       <p>(1) \(t=1-x\) とおくと \(x=1-t\)、\(dx=-dt\)、\(x:0\to1\) で \(t:1\to0\)。</p>
-      \[ \int_1^0(1-t)t^5(-dt)=\int_0^1(t^5-t^6)dt=\frac16-\frac17=\frac{1}{42} \]
+      \[ \begin{aligned}& \int_1^0(1-t)t^5(-dt) \\ & \qquad = \int_0^1(t^5-t^6)dt = \frac16-\frac17 \\ & \qquad = \frac{1}{42}\end{aligned} \]
       <p>(2) \(t=\sqrt{1-x}\) とおくと \(x=1-t^2\)、\(dx=-2t\,dt\)、\(x:0\to1\) で \(t:1\to0\)。</p>
-      \[ \int_1^0(1-t^2)\cdot t\cdot(-2t)dt=\int_0^12(t^2-t^4)dt=2\left(\frac13-\frac15\right)=\frac{4}{15} \]
+      \[ \begin{aligned}& \int_1^0(1-t^2)\cdot t\cdot(-2t)dt \\ & \qquad = \int_0^12(t^2-t^4)dt \\ & \qquad = 2\left(\frac13-\frac15\right) = \frac{4}{15}\end{aligned} \]
       <p class="answer">(1) \(\frac{1}{42}\)　(2) \(\frac{4}{15}\)</p>
       <p class="point">(2) で \(t=1-x\) とおいても \(\int_0^1(1-t)\sqrt t\,dt\) となり計算できる。根号を丸ごと置くか中身を置くかは好みだが、根号を丸ごと置くと<b>根号が完全に消える</b>ので安全。</p>
     </div></details>
@@ -287,7 +287,7 @@
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">(1) \(\displaystyle\int_0^1\sqrt{4-x^2}\,dx\)　(2) \(\displaystyle\int_0^{\frac12}\frac{dx}{\sqrt{1-x^2}}\)</div>
       <p>(1) \(x=2\sin\theta\) とおくと \(dx=2\cos\theta\,d\theta\)、\(x:0\to1\) で \(\theta:0\to\frac\pi6\)。この範囲で \(\cos\theta\gt0\) なので \(\sqrt{4-4\sin^2\theta}=2\cos\theta\)。</p>
-      \[ \int_0^{\frac\pi6}4\cos^2\theta\,d\theta=\int_0^{\frac\pi6}2(1+\cos2\theta)d\theta=\Big[2\theta+\sin2\theta\Big]_0^{\frac\pi6}=\frac\pi3+\frac{\sqrt3}{2} \]
+      \[ \begin{aligned}& \int_0^{\frac\pi6}4\cos^2\theta\,d\theta \\ & \qquad = \int_0^{\frac\pi6}2(1+\cos2\theta)d\theta \\ & \qquad = \Big[2\theta+\sin2\theta\Big]_0^{\frac\pi6} \\ & \qquad = \frac\pi3+\frac{\sqrt3}{2}\end{aligned} \]
       <p>(2) \(x=\sin\theta\)、\(\theta:0\to\frac\pi6\)。\(\displaystyle\int_0^{\frac\pi6}\frac{\cos\theta}{\cos\theta}d\theta=\frac\pi6\)</p>
       <p class="answer">(1) \(\frac\pi3+\frac{\sqrt3}{2}\)　(2) \(\frac\pi6\)</p>
       <p class="point">(1) の図形的検算：半径 2 の円の \(0\le x\le1\) の部分は「底辺1・高さ \(\sqrt3\) の直角三角形（面積 \(\frac{\sqrt3}{2}\)）」＋「中心角 \(\frac\pi6\) の扇形（面積 \(\frac12\cdot4\cdot\frac\pi6=\frac\pi3\)）」。<a href="../thinking.html#t-graph">発想：図にする</a></p>
@@ -313,7 +313,7 @@
       <p>(2) \(x=\sqrt3\tan\theta\)、\(\theta:0\to\frac\pi4\)。\(\displaystyle\int_0^{\frac\pi4}\frac{1}{\sqrt3}d\theta=\frac{\pi}{4\sqrt3}=\frac{\sqrt3\pi}{12}\)</p>
       <p>(3) \(x^2-2x+2=(x-1)^2+1\)。\(x-1=\tan\theta\)、\(x:0\to1\) で \(\theta:-\frac\pi4\to0\)。\(\displaystyle\int_{-\frac\pi4}^0d\theta=\frac\pi4\)</p>
       <p>(4) \(x=\tan\theta\)。\(\dfrac{1}{(1+\tan^2\theta)^2}\cdot\dfrac{1}{\cos^2\theta}=\cos^4\theta\cdot\dfrac{1}{\cos^2\theta}=\cos^2\theta\)。</p>
-      \[ \int_0^{\frac\pi4}\cos^2\theta\,d\theta=\left[\frac\theta2+\frac{\sin2\theta}{4}\right]_0^{\frac\pi4}=\frac\pi8+\frac14 \]
+      \[ \begin{aligned}\int_0^{\frac\pi4}\cos^2\theta\,d\theta & = \left[\frac\theta2+\frac{\sin2\theta}{4}\right]_0^{\frac\pi4} \\ & = \frac\pi8+\frac14\end{aligned} \]
       <p class="answer">(1) \(\frac\pi4\)　(2) \(\frac{\sqrt3\pi}{12}\)　(3) \(\frac\pi4\)　(4) \(\frac\pi8+\frac14\)</p>
       <p class="point">分母の2次式が因数分解できる（判別式 \(\gt0\)）なら部分分数（P4）、できない（判別式 \(\lt0\)）なら平方完成して \(\tan\) 置換。判別式で道具を選ぶ。</p>
     </div></details>
@@ -335,12 +335,12 @@
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">(1) \(\displaystyle\int_0^1\frac{dx}{e^x+1}\)　(2) \(\displaystyle\int_0^{\log2}\sqrt{e^x-1}\,dx\)　(3)（発展）\(\displaystyle\int_0^{\frac\pi2}\frac{dx}{1+\sin x+\cos x}\)</div>
       <p>(1) \(t=e^x\)、\(dx=\frac{dt}{t}\)、\(t:1\to e\)。</p>
-      \[ \int_1^e\frac{dt}{t(t+1)}=\int_1^e\left(\frac1t-\frac{1}{t+1}\right)dt=\Big[\log t-\log(t+1)\Big]_1^e=1-\log(e+1)+\log2 \]
+      \[ \begin{aligned} & \int_1^e\frac{dt}{t(t+1)}=\int_1^e\left(\frac1t-\frac{1}{t+1}\right)dt\\ & \qquad=\Big[\log t-\log(t+1)\Big]_1^e\\ & \qquad=1-\log(e+1)+\log2 \end{aligned} \]
       <p>(2) \(t=\sqrt{e^x-1}\)、\(e^x=t^2+1\)、\(dx=\frac{2t}{t^2+1}dt\)、\(x:0\to\log2\) で \(t:0\to1\)。</p>
-      \[ \int_0^1t\cdot\frac{2t}{t^2+1}dt=2\int_0^1\left(1-\frac{1}{t^2+1}\right)dt=2\left(1-\frac\pi4\right) \]
+      \[ \begin{aligned}& \int_0^1t\cdot\frac{2t}{t^2+1}dt \\ & \qquad = 2\int_0^1\left(1-\frac{1}{t^2+1}\right)dt \\ & \qquad = 2\left(1-\frac\pi4\right)\end{aligned} \]
       <p>（\(\int_0^1\frac{dt}{t^2+1}=\frac\pi4\) は P9。）</p>
       <p>(3) \(t=\tan\frac x2\)、\(x:0\to\frac\pi2\) で \(t:0\to1\)。\(1+\sin x+\cos x=\dfrac{(1+t^2)+2t+(1-t^2)}{1+t^2}=\dfrac{2(1+t)}{1+t^2}\)。</p>
-      \[ \int_0^1\frac{1+t^2}{2(1+t)}\cdot\frac{2}{1+t^2}dt=\int_0^1\frac{dt}{1+t}=\log2 \]
+      \[ \begin{aligned}& \int_0^1\frac{1+t^2}{2(1+t)}\cdot\frac{2}{1+t^2}dt \\ & \qquad = \int_0^1\frac{dt}{1+t} = \log2\end{aligned} \]
       <p class="answer">(1) \(1+\log\dfrac{2}{e+1}\)　(2) \(2-\dfrac\pi2\)　(3) \(\log2\)</p>
       <p class="point">(1) は \(\frac{1}{e^x+1}=1-\frac{e^x}{e^x+1}\) と変形すれば P3 の \(\frac{f'}{f}\) 型になり、置換なしでも解ける（\(\left[x-\log(e^x+1)\right]_0^1\)）。別解で検算しよう。</p>
     </div></details>
@@ -388,7 +388,7 @@
       <p>(1) \(I=e^x\sin x-\displaystyle\int e^x\cos x\,dx=e^x\sin x-\left(e^x\cos x+\int e^x\sin x\,dx\right)=e^x(\sin x-\cos x)-I\)。</p>
       <p>よって \(2I=e^x(\sin x-\cos x)\)、\(I=\dfrac12e^x(\sin x-\cos x)+C\)。</p>
       <p>(2) \(J=\int_0^\pi e^{-x}\sin x\,dx\)。\(e^{-x}\) を積分側にして2回部分積分：</p>
-      \[ J=\Big[-e^{-x}\sin x\Big]_0^\pi+\int_0^\pi e^{-x}\cos x\,dx=0+\Big[-e^{-x}\cos x\Big]_0^\pi-\int_0^\pi e^{-x}\sin x\,dx=(e^{-\pi}+1)-J \]
+      \[ \begin{aligned} J& =\Big[-e^{-x}\sin x\Big]_0^\pi+\int_0^\pi e^{-x}\cos x\,dx\\ & =0+\Big[-e^{-x}\cos x\Big]_0^\pi\\ & \quad-\int_0^\pi e^{-x}\sin x\,dx\\ & =(e^{-\pi}+1)-J \end{aligned} \]
       <p class="answer">(1) \(\frac12e^x(\sin x-\cos x)+C\)　(2) \(\dfrac{1+e^{-\pi}}{2}\)</p>
       <p class="point">(2) は阪大頻出の「\(\int_0^{n\pi}e^{-x}|\sin x|dx\) の極限」（阪大演習3）の部品になる。不定積分の答えは微分して検算：\(\left\{\frac12e^x(\sin x-\cos x)\right\}'=\frac12e^x(\sin x-\cos x+\cos x+\sin x)=e^x\sin x\)。</p>
     </div></details>
@@ -410,7 +410,7 @@
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">(1) \(\displaystyle\int_{-\pi}^{\pi}(x^3\cos x+x\sin x)dx\)　(2) \(\displaystyle\int_{-\frac\pi2}^{\frac\pi2}(\sin x+\cos x)^2dx\)</div>
       <p>(1) \(x^3\cos x\) は奇関数なので積分は 0。\(x\sin x\) は偶関数なので</p>
-      \[ 2\int_0^\pi x\sin x\,dx=2\left(\Big[-x\cos x\Big]_0^\pi+\int_0^\pi\cos x\,dx\right)=2(\pi+0)=2\pi \]
+      \[ \begin{aligned} & 2\int_0^\pi x\sin x\,dx\\ & \quad=2\Big[-x\cos x\Big]_0^\pi+2\int_0^\pi\cos x\,dx\\ & \quad=2\pi+0=2\pi \end{aligned} \]
       <p>(2) \((\sin x+\cos x)^2=1+\sin2x\)。\(\sin2x\) は奇関数なので \(\displaystyle\int_{-\frac\pi2}^{\frac\pi2}1\,dx=\pi\)。</p>
       <p class="answer">(1) \(2\pi\)　(2) \(\pi\)</p>
       <p class="point">偶奇の判定に迷ったら \(x\) に \(-x\) を代入してみる。\((-x)^3\cos(-x)=-x^3\cos x\) で奇関数、と式で確認すれば確実。</p>
@@ -433,7 +433,7 @@
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">(1) \(\displaystyle I=\int_0^\pi\frac{x\sin x}{1+\cos^2x}dx\)　(2) \(\displaystyle J=\int_0^{\frac\pi2}\frac{\sin^3x}{\sin^3x+\cos^3x}dx\)　(3) \(\displaystyle K=\int_{-1}^1\frac{x^2}{1+e^x}dx\)</div>
       <p>(1) \(x=\pi-t\) とおくと \(dx=-dt\)、\(\sin(\pi-t)=\sin t\)、\(\cos^2(\pi-t)=\cos^2t\)。</p>
-      \[ I=\int_\pi^0\frac{(\pi-t)\sin t}{1+\cos^2t}(-dt)=\pi\int_0^\pi\frac{\sin t}{1+\cos^2t}dt-I \]
+      \[ \begin{aligned}I & = \int_\pi^0\frac{(\pi-t)\sin t}{1+\cos^2t}(-dt) \\ & = \pi\int_0^\pi\frac{\sin t}{1+\cos^2t}dt-I\end{aligned} \]
       <p>よって \(I=\dfrac\pi2\displaystyle\int_0^\pi\frac{\sin x}{1+\cos^2x}dx\)。\(u=\cos x\)（\(du=-\sin x\,dx\)、\(u:1\to-1\)）で \(\displaystyle\int_{-1}^1\frac{du}{1+u^2}\)。さらに \(u=\tan\theta\) で \(\displaystyle\int_{-\frac\pi4}^{\frac\pi4}d\theta=\frac\pi2\)（P9）。\(I=\dfrac\pi2\cdot\dfrac\pi2\)。</p>
       <p>(2) \(x=\frac\pi2-t\) とおくと \(\sin x=\cos t,\ \cos x=\sin t\) より \(J=\displaystyle\int_0^{\frac\pi2}\frac{\cos^3t}{\cos^3t+\sin^3t}dt\)。元の \(J\) と足すと \(2J=\displaystyle\int_0^{\frac\pi2}1\,dx=\frac\pi2\)。</p>
       <p>(3) \(x=-t\) とおくと \(K=\displaystyle\int_{-1}^1\frac{t^2}{1+e^{-t}}dt=\int_{-1}^1\frac{t^2e^t}{e^t+1}dt\)。元の \(K\) と足すと \(2K=\displaystyle\int_{-1}^1x^2\cdot\frac{1+e^x}{1+e^x}dx=\frac23\)。</p>
@@ -458,7 +458,7 @@
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">\(I_n=\displaystyle\int_0^{\frac\pi2}\sin^nx\,dx\ (n=0,1,2,\dots)\) とする。<br>(1) \(n\ge2\) のとき \(I_n=\dfrac{n-1}{n}I_{n-2}\) を示せ。　(2) \(I_5,\ I_6\) を求めよ。</div>
       <p>(1) \(n\ge2\) のとき</p>
-      \[ \begin{aligned} I_n&=\int_0^{\frac\pi2}\sin^{n-1}x(-\cos x)'dx=\Big[-\sin^{n-1}x\cos x\Big]_0^{\frac\pi2}+(n-1)\int_0^{\frac\pi2}\sin^{n-2}x\cos^2x\,dx\\ &=0+(n-1)\int_0^{\frac\pi2}\sin^{n-2}x(1-\sin^2x)dx=(n-1)(I_{n-2}-I_n) \end{aligned} \]
+      \[ \begin{aligned} I_n& =\int_0^{\frac\pi2}\sin^{n-1}x(-\cos x)'dx\\ & =\Big[-\sin^{n-1}x\cos x\Big]_0^{\frac\pi2}\\ & \quad+(n-1)\int_0^{\frac\pi2}\sin^{n-2}x\cos^2x\,dx\\ & =(n-1)\int_0^{\frac\pi2}(\sin^{n-2}x-\sin^nx)dx\\ & =(n-1)(I_{n-2}-I_n) \end{aligned} \]
       <p>よって \(nI_n=(n-1)I_{n-2}\)、\(I_n=\dfrac{n-1}{n}I_{n-2}\)。（証明終）</p>
       <p>(2) \(I_1=1\)、\(I_0=\frac\pi2\) より</p>
       <p>\(I_5=\dfrac45\cdot\dfrac23\cdot I_1=\dfrac{8}{15}\)、\(I_6=\dfrac56\cdot\dfrac34\cdot\dfrac12\cdot I_0=\dfrac{5}{16}\cdot\dfrac\pi2=\dfrac{5\pi}{32}\)</p>
@@ -508,7 +508,7 @@
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">(1) \(f(x)=e^x+\displaystyle\int_0^1tf(t)dt\) を満たす関数 \(f(x)\) を求めよ。<br>(2) \(g(x)=x^2+\displaystyle\int_0^1(x+t)g(t)dt\) を満たす関数 \(g(x)\) を求めよ。</div>
       <p>(1) \(k=\displaystyle\int_0^1tf(t)dt\) とおくと \(f(x)=e^x+k\)。代入して</p>
-      \[ k=\int_0^1t(e^t+k)dt=\Big[(t-1)e^t\Big]_0^1+\frac k2=1+\frac k2 \]
+      \[ \begin{aligned}k & = \int_0^1t(e^t+k)dt \\ & = \Big[(t-1)e^t\Big]_0^1+\frac k2 = 1+\frac k2\end{aligned} \]
       <p>よって \(k=2\)。<span class="answer">\(f(x)=e^x+2\)</span></p>
       <p>(2) \(\displaystyle\int_0^1(x+t)g(t)dt=x\int_0^1g(t)dt+\int_0^1tg(t)dt\)。\(a=\displaystyle\int_0^1g(t)dt,\ b=\int_0^1tg(t)dt\) とおくと \(g(x)=x^2+ax+b\)。</p>
       <p>\(a=\displaystyle\int_0^1(t^2+at+b)dt=\frac13+\frac a2+b\)、\(b=\displaystyle\int_0^1(t^3+at^2+bt)dt=\frac14+\frac a3+\frac b2\)。</p>
@@ -537,7 +537,7 @@
       <p>(1) \(x=1\) を代入すると左辺 0 なので \(0=-2+a\)、\(a=2\)。両辺を微分して \(f(x)=\log x+1-2=\log x-1\)。</p>
       <p class="answer">(1) \(f(x)=\log x-1,\ a=2\)</p>
       <p>(2) 左辺 \(=x\displaystyle\int_0^xf(t)dt-\int_0^xtf(t)dt\)。微分して</p>
-      \[ \int_0^xf(t)dt+xf(x)-xf(x)=\int_0^xf(t)dt=\cos x-1 \]
+      \[ \begin{aligned}& \int_0^xf(t)dt+xf(x)-xf(x) \\ & \qquad = \int_0^xf(t)dt = \cos x-1\end{aligned} \]
       <p>もう一度微分して \(f(x)=-\sin x\)。（逆に \(f(x)=-\sin x\) のとき、\(\int_0^x(-\sin t)dt=\cos x-1\) で、元の式の両辺は \(x=0\) で共に 0、導関数も一致するので成立。）</p>
       <p class="answer">(2) \(f(x)=-\sin x\)</p>
       <p>(3) \(F'(t)=e^{t^2}\) となる \(F\) をとると \(\int_x^{2x}e^{t^2}dt=F(2x)-F(x)\)。微分して \(2F'(2x)-F'(x)\)。</p>
@@ -568,11 +568,11 @@
       <p>(2) <b>\(a\le0\) のとき</b>：\(\sin x\ge a\) なので \(G=\int_0^\pi(\sin x-a)dx=2-\pi a\ge2\)。</p>
       <p><b>\(a\ge1\) のとき</b>：\(G=\int_0^\pi(a-\sin x)dx=\pi a-2\ge\pi-2\)。</p>
       <p><b>\(0\lt a\lt1\) のとき</b>：\(\sin\alpha=a\ \left(0\lt\alpha\lt\frac\pi2\right)\) とおくと、\(\sin x=a\) の解は \(x=\alpha,\ \pi-\alpha\)。グラフの対称性（\(x=\frac\pi2\) に関して対称）より</p>
-      \[ \begin{aligned} G&=2\int_0^\alpha(a-\sin x)dx+\int_\alpha^{\pi-\alpha}(\sin x-a)dx\\ &=2\{a\alpha-(1-\cos\alpha)\}+\{2\cos\alpha-a(\pi-2\alpha)\}\\ &=4a\alpha+4\cos\alpha-2-\pi a \end{aligned} \]
+      \[ \begin{aligned} G& =2\int_0^\alpha(a-\sin x)dx\\ & \quad+\int_\alpha^{\pi-\alpha}(\sin x-a)dx\\ & =2\{a\alpha-(1-\cos\alpha)\}\\ & \quad+\{2\cos\alpha-a(\pi-2\alpha)\}\\ & =4a\alpha+4\cos\alpha-2-\pi a \end{aligned} \]
       <p>\(a=\sin\alpha\) を代入し、\(\alpha\) の関数として \(G(\alpha)=4\alpha\sin\alpha+4\cos\alpha-2-\pi\sin\alpha\)。</p>
-      \[ \frac{dG}{d\alpha}=4\sin\alpha+4\alpha\cos\alpha-4\sin\alpha-\pi\cos\alpha=(4\alpha-\pi)\cos\alpha \]
+      \[ \begin{aligned}\frac{dG}{d\alpha} & = 4\sin\alpha +4\alpha\cos\alpha -4\sin\alpha \\ & \quad -\pi\cos\alpha = (4\alpha-\pi)\cos\alpha\end{aligned} \]
       <p>\(0\lt\alpha\lt\frac\pi2\) で \(\cos\alpha\gt0\) なので、\(\alpha\lt\frac\pi4\) で減少、\(\alpha\gt\frac\pi4\) で増加。最小値は \(\alpha=\frac\pi4\)（\(a=\frac{\sqrt2}{2}\)）で</p>
-      \[ G=4\cdot\frac\pi4\cdot\frac{\sqrt2}{2}+4\cdot\frac{\sqrt2}{2}-2-\pi\cdot\frac{\sqrt2}{2}=2\sqrt2-2 \]
+      \[ \begin{aligned}G & = 4\cdot\frac\pi4\cdot\frac{\sqrt2}{2} +4\cdot\frac{\sqrt2}{2} -2 \\ & \quad -\pi\cdot\frac{\sqrt2}{2} = 2\sqrt2 -2\end{aligned} \]
       <p>これは \(a\le0\) のときの値（\(\ge2\)）、\(a\ge1\) のときの値（\(\ge\pi-2\fallingdotseq1.14\)）より小さい（\(2\sqrt2-2\fallingdotseq0.83\)）。</p>
       <p class="answer">(2) 最小値 \(2\sqrt2-2\)（\(a=\dfrac{\sqrt2}{2}\)）</p>
       <p class="point">(2) で \(G\) を \(a\) のまま微分しようとすると \(\alpha\) を \(a\) で表す必要（逆三角関数）が出て行き詰まる。<b>変数を \(\alpha\) に乗り換える</b>のが核心。(1) も (2) も、最小となるのは「直線 \(y=a\) の上側と下側で、グラフとの交点の間の長さが釣り合うとき」（(2) では \(\pi-2\alpha=2\alpha\)）という共通の意味がある。</p>
@@ -599,7 +599,7 @@
       <p>\(\int_0^\pi x\cos x\,dx=\Big[x\sin x\Big]_0^\pi-\int_0^\pi\sin x\,dx=-2\)。よって</p>
       \[ I=\frac\pi2+\frac{\pi^3}{3}a^2+\pi b^2+4a+\pi^2ab \]
       <p>\(b\) について平方完成：\(\pi b^2+\pi^2ab=\pi\left(b+\frac{\pi a}{2}\right)^2-\frac{\pi^3a^2}{4}\)。</p>
-      \[ I=\pi\left(b+\frac{\pi a}{2}\right)^2+\frac{\pi^3}{12}a^2+4a+\frac\pi2=\pi\left(b+\frac{\pi a}{2}\right)^2+\frac{\pi^3}{12}\left(a+\frac{24}{\pi^3}\right)^2+\frac\pi2-\frac{48}{\pi^3} \]
+      \[ \begin{aligned} I& =\pi\left(b+\frac{\pi a}{2}\right)^2+\frac{\pi^3}{12}a^2+4a+\frac\pi2\\ & =\pi\left(b+\frac{\pi a}{2}\right)^2\\ & \quad+\frac{\pi^3}{12}\left(a+\frac{24}{\pi^3}\right)^2+\frac\pi2-\frac{48}{\pi^3} \end{aligned} \]
       <p>2つの2乗が同時に 0 になるのは \(a=-\dfrac{24}{\pi^3}\)、\(b=-\dfrac{\pi a}{2}=\dfrac{12}{\pi^2}\) のとき。</p>
       <p class="answer">\(a=-\dfrac{24}{\pi^3},\ b=\dfrac{12}{\pi^2}\) のとき最小値 \(\dfrac\pi2-\dfrac{48}{\pi^3}\)</p>
       <p class="point">検算：\(\cos x\) は点 \(\left(\frac\pi2,0\right)\) に関して点対称なので、最適な直線もこの点を通るはず。実際 \(a\cdot\frac\pi2+b=-\frac{12}{\pi^2}+\frac{12}{\pi^2}=0\)。また最小値 \(\fallingdotseq0.023\gt0\)（2乗の積分なので正のはず）。</p>
@@ -622,11 +622,11 @@
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">(1) \(\displaystyle\int_0^1\frac{x^4(1-x)^4}{1+x^2}dx=\frac{22}{7}-\pi\) を示せ。<br>(2) \(\dfrac{22}{7}-\dfrac{1}{630}\lt\pi\lt\dfrac{22}{7}-\dfrac{1}{1260}\) を示せ。</div>
       <p>(1) \(x^4(1-x)^4=x^8-4x^7+6x^6-4x^5+x^4\) を \(x^2+1\) で割ると</p>
-      \[ \frac{x^4(1-x)^4}{1+x^2}=x^6-4x^5+5x^4-4x^2+4-\frac{4}{1+x^2} \]
+      \[ \begin{aligned}\frac{x^4(1-x)^4}{1+x^2} & = x^6 -4x^5 +5x^4 \\ & \quad -4x^2 +4 -\frac{4}{1+x^2}\end{aligned} \]
       <p>（右辺に \(1+x^2\) を掛けて展開すると左辺の分子に一致することで確認できる。）よって</p>
-      \[ \int_0^1(\cdots)dx=\frac17-\frac46+\frac55-\frac43+4-4\cdot\frac\pi4=\frac{22}{7}-\pi \]
+      \[ \begin{aligned}\int_0^1(\cdots)dx & = \frac17 -\frac46 +\frac55 -\frac43 +4 \\ & \quad -4\cdot\frac\pi4 = \frac{22}{7} -\pi\end{aligned} \]
       <p>(2) \(0\le x\le1\) で \(\frac12\le\frac{1}{1+x^2}\le1\)（等号は端点のみ）なので</p>
-      \[ \frac12\int_0^1x^4(1-x)^4dx\lt\frac{22}{7}-\pi\lt\int_0^1x^4(1-x)^4dx \]
+      \[ \begin{aligned}& \frac12\int_0^1x^4(1-x)^4dx \lt \frac{22}{7}-\pi \\ & \qquad \lt \int_0^1x^4(1-x)^4dx\end{aligned} \]
       <p>\(\int_0^1x^4(1-x)^4dx=\int_0^1(x^4-4x^5+6x^6-4x^7+x^8)dx=\frac15-\frac46+\frac67-\frac48+\frac19=\frac{1}{630}\)。</p>
       <p>よって \(\frac{1}{1260}\lt\frac{22}{7}-\pi\lt\frac{1}{630}\)。移項して示された。（証明終）</p>
       <p class="answer">(2) より \(3.1412\cdots\lt\pi\lt3.1420\cdots\)</p>
@@ -668,7 +668,7 @@
       <p>(1) \(\displaystyle I_n+I_{n+2}=\int_0^{\frac\pi4}\tan^nx(1+\tan^2x)dx=\int_0^{\frac\pi4}\tan^nx\cdot(\tan x)'dx=\left[\frac{\tan^{n+1}x}{n+1}\right]_0^{\frac\pi4}=\frac{1}{n+1}\)</p>
       <p>(2) \(0\le x\le\frac\pi4\) で \(\tan^nx\ge0\) より \(I_n\ge0\)。よって (1) から \(0\le I_n\le I_n+I_{n+2}=\dfrac{1}{n+1}\)。はさみうちで \(I_n\to0\)。</p>
       <p>(3) (1) で \(n=2k\) として \(\dfrac{1}{2k+1}=I_{2k}+I_{2k+2}\)。\((-1)^k\) を掛けて \(k=0,1,\dots,n-1\) で足すと</p>
-      \[ \sum_{k=0}^{n-1}\frac{(-1)^k}{2k+1}=(I_0+I_2)-(I_2+I_4)+(I_4+I_6)-\cdots+(-1)^{n-1}(I_{2n-2}+I_{2n})=I_0+(-1)^{n-1}I_{2n} \]
+      \[ \begin{aligned}& \sum_{k=0}^{n-1}\frac{(-1)^k}{2k+1} = (I_0+I_2) \\ & \qquad \quad -(I_2+I_4) +(I_4+I_6) \\ & \qquad \quad -\cdots \\ & \qquad \quad +(-1)^{n-1}(I_{2n-2}+I_{2n}) \\ & \qquad = I_0 +(-1)^{n-1}I_{2n}\end{aligned} \]
       <p>\(I_0=\frac\pi4\)、(2) より \(I_{2n}\to0\) なので、部分和は \(\frac\pi4\) に収束する。</p>
       <p class="answer">(3) \(\dfrac\pi4\)</p>
       <p class="point">採点ポイント：(1) の置換（または微分の逆）、(2) の \(I_n\ge0\) の明記とはさみうち、(3) で部分和を有限の \(n\) で書いてから極限をとること（いきなり無限和を変形しない）。打ち消し合いは \(n=1,2\) で具体的に書いて確かめると安全。</p>
@@ -684,7 +684,7 @@
     <details class="sol"><summary>解答</summary><div class="inner">
       <p>(1) \(t=s+\pi\) とおくと \(|\sin(s+\pi)|=|\sin s|\) より \(F(x+\pi)=\displaystyle\int_{x+\pi}^{x+\frac{3\pi}{2}}|\sin t|dt=\int_x^{x+\frac\pi2}|\sin s|ds=F(x)\)。</p>
       <p>(2) (1) より \(0\le x\le\pi\) で考えればよい。\(|\sin t|\) は連続なので、微分積分学の基本定理より</p>
-      \[ F'(x)=\left|\sin\left(x+\frac\pi2\right)\right|-|\sin x|=|\cos x|-|\sin x| \]
+      \[ \begin{aligned}F'(x) & = \left|\sin\left(x+\frac\pi2\right)\right|-|\sin x| \\ & = |\cos x|-|\sin x|\end{aligned} \]
       <p>\(0\le x\le\pi\) で \(|\cos x|\gt|\sin x|\) ⇔ \(0\le x\lt\frac\pi4\) または \(\frac{3\pi}{4}\lt x\le\pi\)。</p>
       <div class="table-wrap"><table>
         <tr><th>\(x\)</th><td>0</td><td>\(\cdots\)</td><td>\(\frac\pi4\)</td><td>\(\cdots\)</td><td>\(\frac{3\pi}4\)</td><td>\(\cdots\)</td><td>\(\pi\)</td></tr>
@@ -707,11 +707,11 @@
     </div></details>
     <details class="sol"><summary>解答</summary><div class="inner">
       <p>\(\displaystyle a_k=\int_{k\pi}^{(k+1)\pi}e^{-x}|\sin x|dx\ (k=0,1,2,\dots)\) とおく。\(x=t+k\pi\) とすると \(dx=dt\)、\(t:0\to\pi\)、\(|\sin(t+k\pi)|=|\sin t|=\sin t\ (0\le t\le\pi)\) より</p>
-      \[ a_k=\int_0^\pi e^{-t-k\pi}\sin t\,dt=e^{-k\pi}J,\qquad J=\int_0^\pi e^{-t}\sin t\,dt=\frac{1+e^{-\pi}}{2} \]
+      \[ \begin{aligned}a_k & = \int_0^\pi e^{-t-k\pi}\sin t\,dt = e^{-k\pi}J, \\ J & = \int_0^\pi e^{-t}\sin t\,dt = \frac{1+e^{-\pi}}{2}\end{aligned} \]
       <p>（\(J\) は P12 の例題 (2)。）よって</p>
       \[ S_n=\sum_{k=0}^{n-1}a_k=J\cdot\frac{1-e^{-n\pi}}{1-e^{-\pi}} \]
       <p>\(0\lt e^{-\pi}\lt1\) より \(e^{-n\pi}\to0\)。</p>
-      \[ \lim_{n\to\infty}S_n=\frac{1+e^{-\pi}}{2(1-e^{-\pi})}=\frac{e^\pi+1}{2(e^\pi-1)} \]
+      \[ \begin{aligned}\lim_{n\to\infty}S_n & = \frac{1+e^{-\pi}}{2(1-e^{-\pi})} \\ & = \frac{e^\pi+1}{2(e^\pi-1)}\end{aligned} \]
       <p class="answer">\(\dfrac{e^\pi+1}{2(e^\pi-1)}\)</p>
       <p class="point">採点ポイント：区間ごとの置換で \(e^{-k\pi}\) をくくり出す部分、\(J\) の計算（同形出現）、等比数列の和と極限。数値確認：\(\frac{e^\pi+1}{2(e^\pi-1)}\fallingdotseq0.5452\)、\(S_{10}\fallingdotseq0.5452\)。発展：「曲線 \(y=e^{-x}\sin x\ (x\ge0)\) と \(x\) 軸で囲まれた部分の面積の総和」として出題されることも多い（<a href="m3-integral-app.html">積分法の応用</a>）。</p>
     </div></details>

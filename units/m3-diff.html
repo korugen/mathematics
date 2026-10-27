@@ -33,20 +33,20 @@
 
   <div class="box theorem">
     <p><span class="name">微分係数・導関数の定義</span></p>
-    \[ f'(a)=\lim_{h\to 0}\frac{f(a+h)-f(a)}{h},\qquad f'(x)=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h} \]
+    \[ \begin{aligned}f'(a) & = \lim_{h\to 0}\frac{f(a+h)-f(a)}{h}, \\ f'(x) & = \lim_{h\to 0}\frac{f(x+h)-f(x)}{h}\end{aligned} \]
     <p>この極限が存在するとき「\(x=a\) で微分可能」という。<b>微分可能 ⇒ 連続</b>（逆は成り立たない。例：\(|x|\) は \(x=0\) で連続だが微分不可能）。</p>
     <p>なぜ：\(f(a+h)-f(a)=\dfrac{f(a+h)-f(a)}{h}\cdot h\to f'(a)\cdot 0=0\) だから。</p>
   </div>
 
   <div class="box theorem">
     <p><span class="name">計算規則</span></p>
-    \[ \begin{aligned} &(fg)'=f'g+fg',\qquad \left(\frac{f}{g}\right)'=\frac{f'g-fg'}{g^2},\\ &\{f(g(x))\}'=f'(g(x))\,g'(x),\qquad \frac{dx}{dy}=\frac{1}{\ \frac{dy}{dx}\ }\end{aligned} \]
+    \[ \begin{aligned} & (fg)'=f'g+fg',\\ & \left(\frac{f}{g}\right)'=\frac{f'g-fg'}{g^2},\\ & \{f(g(x))\}'=f'(g(x))\,g'(x),\\ & \frac{dx}{dy}=\frac{1}{\ \frac{dy}{dx}\ }\end{aligned} \]
     <p>なぜ：積は \(f(x+h)g(x+h)-f(x)g(x)\) に \(-f(x)g(x+h)+f(x)g(x+h)\) を挟んで分ける。合成関数は \(\dfrac{\Delta y}{\Delta x}=\dfrac{\Delta y}{\Delta u}\cdot\dfrac{\Delta u}{\Delta x}\)（\(u=g(x)\)）と分数のように分解できるから。</p>
   </div>
 
   <div class="box theorem">
     <p><span class="name">基本関数の導関数</span></p>
-    \[ \begin{aligned} &(x^\alpha)'=\alpha x^{\alpha-1},\quad (\sin x)'=\cos x,\quad (\cos x)'=-\sin x,\quad (\tan x)'=\frac{1}{\cos^2 x},\\ &(\log|x|)'=\frac1x,\quad (\log_a x)'=\frac{1}{x\log a},\quad (e^x)'=e^x,\quad (a^x)'=a^x\log a \end{aligned} \]
+    \[ \begin{aligned} & (x^\alpha)'=\alpha x^{\alpha-1},\quad (\sin x)'=\cos x,\\ & (\cos x)'=-\sin x,\quad (\tan x)'=\frac{1}{\cos^2 x},\\ & (\log|x|)'=\frac1x,\quad (\log_a x)'=\frac{1}{x\log a},\\ & (e^x)'=e^x,\quad (a^x)'=a^x\log a \end{aligned} \]
     <p>なぜ：三角関数は \(\displaystyle\lim_{h\to0}\frac{\sin h}{h}=1\)、対数は \(\displaystyle\lim_{h\to0}(1+h)^{\frac1h}=e\) という<b>2つの基本極限</b>に帰着する（P3）。\(\log\) は自然対数（底 \(e\)）。</p>
   </div>
 
@@ -144,9 +144,9 @@
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">次の関数を微分せよ。(1) \(y=x^2\sqrt{1-x^2}\)　(2) \(y=\dfrac{x-1}{x^2+1}\)　(3) \(y=\sin^3 2x\)</div>
       <p>(1) 積の微分。\((\sqrt{1-x^2})'=\dfrac{-2x}{2\sqrt{1-x^2}}=\dfrac{-x}{\sqrt{1-x^2}}\) なので</p>
-      \[ y'=2x\sqrt{1-x^2}+x^2\cdot\frac{-x}{\sqrt{1-x^2}}=\frac{2x(1-x^2)-x^3}{\sqrt{1-x^2}}=\frac{2x-3x^3}{\sqrt{1-x^2}} \]
+      \[ \begin{aligned}y' & = 2x\sqrt{1-x^2}+x^2\cdot\frac{-x}{\sqrt{1-x^2}} \\ & = \frac{2x(1-x^2)-x^3}{\sqrt{1-x^2}} \\ & = \frac{2x-3x^3}{\sqrt{1-x^2}}\end{aligned} \]
       <p>(2) 商の微分。</p>
-      \[ y'=\frac{1\cdot(x^2+1)-(x-1)\cdot 2x}{(x^2+1)^2}=\frac{-x^2+2x+1}{(x^2+1)^2} \]
+      \[ \begin{aligned}y' & = \frac{1\cdot(x^2+1)-(x-1)\cdot 2x}{(x^2+1)^2} \\ & = \frac{-x^2+2x+1}{(x^2+1)^2}\end{aligned} \]
       <p>(3) \(y=u^3,\ u=\sin v,\ v=2x\) の3段の合成。\(y'=3\sin^2 2x\cdot\cos 2x\cdot 2\)。</p>
       <p class="answer">(1) \(\dfrac{2x-3x^3}{\sqrt{1-x^2}}\)　(2) \(\dfrac{-x^2+2x+1}{(x^2+1)^2}\)　(3) \(6\sin^2 2x\cos 2x\)</p>
       <p class="point">(3) で最後の「\(\times2\)」を忘れるのが典型ミス。中身が \(x\) そのものでない限り、必ず中身の微分を掛ける。</p>
@@ -170,7 +170,7 @@
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">(1) 定義に従って \((\sin x)'=\cos x\) を示せ。<br>(2) 次の関数を微分せよ。(a) \(e^{2x}\cos x\)　(b) \(\log|\cos x|\)　(c) \(\log\left(x+\sqrt{x^2+1}\right)\)　(d) \(2^x\)</div>
       <p>(1) 和積公式より</p>
-      \[ \frac{\sin(x+h)-\sin x}{h}=\frac{2\cos\left(x+\frac h2\right)\sin\frac h2}{h}=\cos\left(x+\frac h2\right)\cdot\frac{\sin\frac h2}{\frac h2} \]
+      \[ \begin{aligned}& \frac{\sin(x+h)-\sin x}{h} \\ & \qquad = \frac{2\cos\left(x+\frac h2\right)\sin\frac h2}{h} \\ & \qquad = \cos\left(x+\frac h2\right)\cdot\frac{\sin\frac h2}{\frac h2}\end{aligned} \]
       <p>\(h\to0\) で \(\cos\left(x+\frac h2\right)\to\cos x\)（\(\cos\) の連続性）、\(\dfrac{\sin(h/2)}{h/2}\to1\)。よって \((\sin x)'=\cos x\)。</p>
       <p>(2)(a) \(2e^{2x}\cos x+e^{2x}(-\sin x)=e^{2x}(2\cos x-\sin x)\)</p>
       <p>(b) \(\dfrac{(\cos x)'}{\cos x}=\dfrac{-\sin x}{\cos x}=-\tan x\)</p>
@@ -198,7 +198,7 @@
       <div class="problem">\(f(x)\) は \(x=a\) で微分可能とする。<br>(1) \(\displaystyle\lim_{h\to0}\frac{f(a+3h)-f(a-h)}{h}\)　(2) \(\displaystyle\lim_{x\to a}\frac{x^2f(a)-a^2f(x)}{x-a}\) を \(a,f(a),f'(a)\) で表せ。<br>(3) \(\displaystyle\lim_{x\to0}\frac{2^x-1}{x}\) を求めよ。</div>
       <p>(1) \(\displaystyle\frac{f(a+3h)-f(a)}{3h}\cdot3+\frac{f(a-h)-f(a)}{-h}\cdot1\to3f'(a)+f'(a)\)</p>
       <p>(2) 分子 \(=x^2f(a)-a^2f(a)+a^2f(a)-a^2f(x)=(x^2-a^2)f(a)-a^2\{f(x)-f(a)\}\)。よって</p>
-      \[ \frac{x^2f(a)-a^2f(x)}{x-a}=(x+a)f(a)-a^2\cdot\frac{f(x)-f(a)}{x-a}\to 2af(a)-a^2f'(a) \]
+      \[ \begin{aligned}& \frac{x^2f(a)-a^2f(x)}{x-a} = (x+a)f(a) \\ & \qquad \quad -a^2\cdot\frac{f(x)-f(a)}{x-a} \\ & \qquad \to 2af(a) -a^2f'(a)\end{aligned} \]
       <p>(3) \(g(x)=2^x\) とすると \(g(0)=1\) なので、求める極限は \(g'(0)=2^0\log2=\log 2\)。</p>
       <p class="answer">(1) \(4f'(a)\)　(2) \(2af(a)-a^2f'(a)\)　(3) \(\log 2\)</p>
       <p class="point">(1) を「\(f'(a)\cdot 3-f'(a)\cdot(-1)\)」と符号で迷ったら、\(f(x)=x\) を代入して検算（分子 \(=4h\) で答え 4）。具体例で確かめる習慣は記号の極限で特に有効。</p>
@@ -223,7 +223,7 @@
       <p>(1) 両辺を \(x\) で微分：\(\dfrac{x}{2}+2y\,y'=0\)、\(y'=-\dfrac{x}{4y}\)。点を代入して \(y'=-\dfrac{\sqrt2}{4/\sqrt2}=-\dfrac12\)。</p>
       <p>接線 \(y-\dfrac{1}{\sqrt2}=-\dfrac12(x-\sqrt2)\)、整理して <span class="answer">\(y=-\dfrac12x+\sqrt2\)</span></p>
       <p>(2) \(\dfrac{dx}{dt}=1-\cos t\gt0,\ \dfrac{dy}{dt}=\sin t\) より \(\dfrac{dy}{dx}=\dfrac{\sin t}{1-\cos t}\)。</p>
-      \[ \frac{d}{dt}\left(\frac{\sin t}{1-\cos t}\right)=\frac{\cos t(1-\cos t)-\sin^2t}{(1-\cos t)^2}=\frac{\cos t-1}{(1-\cos t)^2}=-\frac{1}{1-\cos t} \]
+      \[ \begin{aligned}& \frac{d}{dt}\left(\frac{\sin t}{1-\cos t}\right) \\ & \qquad = \frac{\cos t(1-\cos t)-\sin^2t}{(1-\cos t)^2} \\ & \qquad = \frac{\cos t-1}{(1-\cos t)^2} = -\frac{1}{1-\cos t}\end{aligned} \]
       <p>これを \(\frac{dx}{dt}=1-\cos t\) で割って <span class="answer">\(\dfrac{dy}{dx}=\dfrac{\sin t}{1-\cos t},\quad \dfrac{d^2y}{dx^2}=-\dfrac{1}{(1-\cos t)^2}\)</span></p>
       <p>(3) \(g(2)=b\) とおくと \(f(b)=2\)、\(b^3+b-2=(b-1)(b^2+b+2)=0\) より \(b=1\)。\(g'(2)=\dfrac{1}{f'(1)}=\dfrac{1}{3+1}\)。<span class="answer">\(\dfrac14\)</span></p>
       <p class="point">(1) は公式 \(\frac{x_0x}{4}+y_0y=1\) でも確認できる（<a href="mc-curves.html">平面上の曲線</a>）。(2) の \(\frac{d^2y}{dx^2}\lt0\) は「サイクロイドは上に凸」を意味する。</p>
@@ -249,7 +249,7 @@
       <p>(1) \(y\gt0\) なので \(\log y=x\log x\)。両辺を微分して \(\dfrac{y'}{y}=\log x+x\cdot\dfrac1x=\log x+1\)。</p>
       <p class="answer">\(y'=x^x(\log x+1)\)</p>
       <p>(2) \(\log y=\dfrac32\log(x+1)-\dfrac12\log(x-2)\)。微分して</p>
-      \[ \frac{y'}{y}=\frac{3}{2(x+1)}-\frac{1}{2(x-2)}=\frac{3(x-2)-(x+1)}{2(x+1)(x-2)}=\frac{2x-7}{2(x+1)(x-2)} \]
+      \[ \begin{aligned}\frac{y'}{y} & = \frac{3}{2(x+1)}-\frac{1}{2(x-2)} \\ & = \frac{3(x-2)-(x+1)}{2(x+1)(x-2)} \\ & = \frac{2x-7}{2(x+1)(x-2)}\end{aligned} \]
       <p class="answer">\(y'=\dfrac{2x-7}{2(x+1)(x-2)}\sqrt{\dfrac{(x+1)^3}{x-2}}\)</p>
       <p class="point">\((x^x)'=x\cdot x^{x-1}\)（べき関数扱い）や \(x^x\log x\)（指数関数扱い）はどちらも誤り。実は正解はこの2つの<b>和</b>になっている（両方の \(x\) を順に動かした効果の和）。</p>
     </div></details>
@@ -347,7 +347,7 @@
       <p>(1) \(f(x)=\log x\) に平均値の定理を用いると、\(\log b-\log a=\dfrac1c(b-a)\) となる \(c\ (a\lt c\lt b)\) が存在する。</p>
       <p>\(a\lt c\lt b\) より \(\dfrac1b\lt\dfrac1c\lt\dfrac1a\)。\(b-a\gt0\) を掛けて示された。（証明終）</p>
       <p>(2) \(x\gt0\) とする。\(g(u)=e^u\) に区間 \(\left[\frac1{x+1},\frac1x\right]\) で平均値の定理を用いると</p>
-      \[ e^{\frac1x}-e^{\frac1{x+1}}=e^{c}\left(\frac1x-\frac1{x+1}\right)=\frac{e^c}{x(x+1)},\qquad \frac{1}{x+1}\lt c\lt\frac1x \]
+      \[ \begin{aligned}e^{\frac1x}-e^{\frac1{x+1}} & = e^{c}\left(\frac1x-\frac1{x+1}\right) \\ & = \frac{e^c}{x(x+1)}, \\ \frac{1}{x+1} & \lt c \lt \frac1x\end{aligned} \]
       <p>となる \(c\) が存在する。よって \(x^2\left(e^{\frac1x}-e^{\frac1{x+1}}\right)=\dfrac{x}{x+1}e^c\)。</p>
       <p>\(x\to\infty\) で \(\frac1{x+1}\to0,\ \frac1x\to0\) なので、はさみうちより \(c\to0\)、\(e^c\to1\)。また \(\frac{x}{x+1}\to1\)。</p>
       <p class="answer">(2) 1</p>
@@ -431,7 +431,7 @@
       <p>(2) 定義域は \(x\le-2,\ x\ge0\)。</p>
       <p>\(x\to\infty\)：\(\dfrac yx=\sqrt{1+\frac2x}\to1\)、\(y-x=\dfrac{2x}{\sqrt{x^2+2x}+x}=\dfrac{2}{\sqrt{1+\frac2x}+1}\to1\)。漸近線 \(y=x+1\)。</p>
       <p>\(x\to-\infty\)：\(x=-s\ (s\to\infty)\) とおくと \(y=\sqrt{s^2-2s}\)。\(\dfrac{y}{x}=-\sqrt{1-\frac2s}\to-1\)、</p>
-      \[ y+x=\sqrt{s^2-2s}-s=\frac{-2s}{\sqrt{s^2-2s}+s}=\frac{-2}{\sqrt{1-\frac2s}+1}\to-1 \]
+      \[ \begin{aligned}y+x & = \sqrt{s^2-2s}-s \\ & = \frac{-2s}{\sqrt{s^2-2s}+s} \\ & = \frac{-2}{\sqrt{1-\frac2s}+1} \to -1\end{aligned} \]
       <p>漸近線 \(y=-x-1\)。</p>
       <p class="answer">\(y=x+1\)（\(x\to\infty\)）、\(y=-x-1\)（\(x\to-\infty\)）</p>
       <p class="point">\(x\to-\infty\) で \(\sqrt{x^2}=x\) と書くのは誤り（\(\sqrt{x^2}=|x|=-x\)）。負の方向は \(x=-s\) と置き換えるのが安全。</p>
@@ -608,10 +608,10 @@
       <div class="problem">\(0\lt a\lt b\) のとき、\(\sqrt{ab}\lt\dfrac{b-a}{\log b-\log a}\lt\dfrac{a+b}{2}\) を示せ。</div>
       <p>\(t=\dfrac ba\ (t\gt1)\) とおき、各辺を \(a\) で割ると、示すべき式は \(\sqrt t\lt\dfrac{t-1}{\log t}\lt\dfrac{t+1}{2}\)。\(\log t\gt0\) なので</p>
       <p><b>右側</b> ⇔ \(\log t\gt\dfrac{2(t-1)}{t+1}\)。\(h(t)=\log t-\dfrac{2(t-1)}{t+1}\) とおくと \(h(1)=0\)、</p>
-      \[ h'(t)=\frac1t-\frac{4}{(t+1)^2}=\frac{(t+1)^2-4t}{t(t+1)^2}=\frac{(t-1)^2}{t(t+1)^2}\gt0\quad(t\gt1) \]
+      \[ \begin{aligned}h'(t) & = \frac1t-\frac{4}{(t+1)^2} \\ & = \frac{(t+1)^2-4t}{t(t+1)^2} = \frac{(t-1)^2}{t(t+1)^2} \\ & \gt 0\quad(t\gt1)\end{aligned} \]
       <p>よって \(t\gt1\) で \(h(t)\gt0\)。</p>
       <p><b>左側</b> ⇔ \(\log t\lt\dfrac{t-1}{\sqrt t}\)。\(s=\sqrt t\ (s\gt1)\) とおくと \(2\log s\lt s-\dfrac1s\)。\(k(s)=s-\dfrac1s-2\log s\) とおくと \(k(1)=0\)、</p>
-      \[ k'(s)=1+\frac{1}{s^2}-\frac2s=\left(1-\frac1s\right)^2\gt0\quad(s\gt1) \]
+      \[ \begin{aligned}k'(s) & = 1+\frac{1}{s^2}-\frac2s = \left(1-\frac1s\right)^2 \\ & \gt 0\quad(s\gt1)\end{aligned} \]
       <p>よって \(k(s)\gt0\)。以上で示された。（証明終）</p>
       <p class="point">真ん中の量は「対数平均」と呼ばれ、相乗平均と相加平均の間にある。左側の評価で \(\sqrt t\) を \(s\) とおき直すのは、根号を消して微分を楽にするため。別解：\(a\) を固定し \(b\) を変数 \(x\ (x\gt a)\) とみて \(\log x-\log a-\frac{2(x-a)}{x+a}\) を微分しても同じ計算になる。</p>
     </div></details>
@@ -665,7 +665,7 @@
       <p><b>主張</b>：\(0\le x\le\pi\) で \(\sin x\le\ell(x)\)。</p>
       <p>\(k(x)=\ell(x)-\sin x\) とおくと \(k'(x)=\dfrac12-\cos x\)。\(\cos x\) は \([0,\pi]\) で減少なので、\(k'\) は \(x\lt\frac\pi3\) で負、\(x\gt\frac\pi3\) で正。よって \(k\) は \(x=\frac\pi3\) で最小値 \(k\left(\frac\pi3\right)=0\)。主張が示された。</p>
       <p>\(A,B,C\in(0,\pi)\) を代入して足すと</p>
-      \[ \sin A+\sin B+\sin C\le\frac{3\sqrt3}{2}+\frac12\left(A+B+C-\pi\right)=\frac{3\sqrt3}{2} \]
+      \[ \begin{aligned}& \sin A+\sin B+\sin C \le \frac{3\sqrt3}{2} \\ & \qquad \quad +\frac12\left(A+B+C-\pi\right) \\ & \qquad = \frac{3\sqrt3}{2}\end{aligned} \]
       <p>（\(A+B+C=\pi\)）。等号は \(A=B=C=\frac\pi3\)（正三角形）。（証明終）</p>
       <p class="point">接線の傾き \(\frac12\) の項が「\(A+B+C=\pi\)」でちょうど消えるのがこの方法の要。等号成立の予想が外れていると1次の項が消えない（または不等式が逆になる）ので、予想は対称な点で行う。<a href="../thinking.html#t-symmetry">発想：対称性</a></p>
     </div></details>
@@ -733,7 +733,7 @@
       <p>\(h(p)=h(q)\) より平均値の定理から \(h'(r)=0\) となる \(r\ (p\lt r\lt q)\) がある。すると \(h'\) は \(p\lt r\lt q\) の3点で 0 になり、再び平均値の定理より \(h''\) は \((p,r)\) と \((r,q)\) にそれぞれ零点をもつ。</p>
       <p>しかし \(h''(x)=f''(x)=(x-2)e^{-x}\) の零点は \(x=2\) の1つだけ。矛盾。よってそのような直線は存在しない。</p>
       <p>(2) \(C\) 上の点 \((t,te^{-t})\) における接線は \(y=(1-t)e^{-t}(x-t)+te^{-t}\)。これが \((a,0)\) を通る条件は</p>
-      \[ 0=e^{-t}\{(1-t)(a-t)+t\}\iff t^2-at+a=0\quad\cdots(*) \]
+      \[ \begin{aligned}0 & = e^{-t}\{(1-t)(a-t)+t\} \\ & \iff t^2-at+a = 0\quad\cdots(*)\end{aligned} \]
       <p>(1) より、接点が異なれば接線も異なるので、接線の本数は (*) の異なる実数解 \(t\) の個数に等しい。判別式 \(D=a^2-4a=a(a-4)\)。</p>
       <p class="answer">\(a\lt0\) または \(a\gt4\)：2本、\(a=0\) または \(a=4\)：1本、\(0\lt a\lt4\)：0本</p>
       <p class="point">採点ポイント：(*) を導いた段階で部分点。(1) の「異なる接点 → 異なる接線」に言及しないと、本数の議論に論理の穴が残る（阪大はここを見る）。\(a=4\) のときの接点 \(t=2\) は変曲点で、接線は曲線を横切る。</p>
@@ -749,7 +749,7 @@
     <details class="sol"><summary>解答</summary><div class="inner">
       <p>(1) 左側は P17 の例題 (1)。右側：\(u(x)=x-\log(1+x)\) とおくと \(u(0)=0\)、\(u'(x)=1-\dfrac{1}{1+x}=\dfrac{x}{1+x}\gt0\ (x\gt0)\) より \(u(x)\gt0\)。</p>
       <p>(2) \(\displaystyle\log P_n=\sum_{k=1}^{n}\log\left(1+\frac{k}{n^2}\right)\)。(1) で \(x=\dfrac{k}{n^2}\gt0\) として \(k=1,\dots,n\) について足すと</p>
-      \[ \sum_{k=1}^n\frac{k}{n^2}-\sum_{k=1}^n\frac{k^2}{2n^4}\lt\log P_n\lt\sum_{k=1}^n\frac{k}{n^2} \]
+      \[ \begin{aligned}\sum_{k=1}^n\frac{k}{n^2}-\sum_{k=1}^n\frac{k^2}{2n^4} & \lt \log P_n \\ & \lt \sum_{k=1}^n\frac{k}{n^2}\end{aligned} \]
       <p>ここで \(\displaystyle\sum_{k=1}^n\frac{k}{n^2}=\frac{n(n+1)}{2n^2}=\frac{n+1}{2n}\to\frac12\)、</p>
       \[ \sum_{k=1}^n\frac{k^2}{2n^4}=\frac{n(n+1)(2n+1)}{12n^4}\to0 \]
       <p>はさみうちの原理より \(\log P_n\to\dfrac12\)。指数関数の連続性より \(P_n\to e^{\frac12}\)。</p>

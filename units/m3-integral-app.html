@@ -33,25 +33,26 @@
 
   <div class="box theorem">
     <p><span class="name">面積</span>：\(a\le x\le b\) で \(f(x)\ge g(x)\) のとき、2曲線の間の面積は</p>
-    \[ S=\int_a^b\{f(x)-g(x)\}dx\qquad\left(\text{y で積分するなら }S=\int_c^d\{(\text{右の }x)-(\text{左の }x)\}dy\right) \]
+    \[ S=\int_a^b\{f(x)-g(x)\}dx \]
+    <p>横に切る（\(y\) で積分する）なら \(S=\displaystyle\int_c^d\{(\text{右の }x)-(\text{左の }x)\}dy\)。</p>
     <p>なぜ：幅 \(\Delta x\) の細長い長方形（高さ \(f-g\)）の面積を足し合わせ、幅を 0 に近づけた極限が定積分だから。</p>
   </div>
 
   <div class="box theorem">
     <p><span class="name">体積（断面積の積分）</span>：\(x\) 軸に垂直な平面で切った断面積が \(S(x)\) なら</p>
-    \[ V=\int_a^bS(x)\,dx,\qquad x\text{ 軸回転体：}V=\pi\int_a^b\{f(x)\}^2dx \]
+    \[ \begin{aligned}V & = \int_a^bS(x)\,dx, \\ x\text{ 軸回転体：}V & = \pi\int_a^b\{f(x)\}^2dx\end{aligned} \]
     <p>なぜ：厚さ \(\Delta x\) の薄い板（体積 \(\fallingdotseq S(x)\Delta x\)）を積み重ねる。回転体なら断面は半径 \(|f(x)|\) の円。<b>どんな立体も「断面積が分かれば」体積が出る</b>。</p>
   </div>
 
   <div class="box theorem">
     <p><span class="name">曲線の長さ・道のり</span></p>
-    \[ L=\int_a^b\sqrt{1+\{f'(x)\}^2}\,dx,\qquad L=\int_\alpha^\beta\sqrt{\left(\frac{dx}{dt}\right)^2+\left(\frac{dy}{dt}\right)^2}dt \]
+    \[ \begin{aligned}L & = \int_a^b\sqrt{1+\{f'(x)\}^2}\,dx, \\ L & = \int_\alpha^\beta\sqrt{\left(\frac{dx}{dt}\right)^2+\left(\frac{dy}{dt}\right)^2}dt\end{aligned} \]
     <p>なぜ：微小部分は斜辺 \(\sqrt{(\Delta x)^2+(\Delta y)^2}\) の線分とみなせるから（三平方の定理）。媒介変数表示なら、これは「速さ \(|\vec v|\) を時間で積分」したものでもある。</p>
   </div>
 
   <div class="box theorem">
     <p><span class="name">区分求積法</span>：\(f\) が \([0,1]\) で連続なら</p>
-    \[ \lim_{n\to\infty}\frac1n\sum_{k=1}^nf\left(\frac kn\right)=\lim_{n\to\infty}\frac1n\sum_{k=0}^{n-1}f\left(\frac kn\right)=\int_0^1f(x)\,dx \]
+    \[ \begin{aligned}& \lim_{n\to\infty}\frac1n\sum_{k=1}^nf\left(\frac kn\right) \\ & \qquad = \lim_{n\to\infty}\frac1n\sum_{k=0}^{n-1}f\left(\frac kn\right) \\ & \qquad = \int_0^1f(x)\,dx\end{aligned} \]
     <p>なぜ：\(\frac1nf\left(\frac kn\right)\) は幅 \(\frac1n\)、高さ \(f\left(\frac kn\right)\) の長方形の面積。和は長方形の面積の合計で、\(n\to\infty\) で曲線の下の面積に近づく。</p>
   </div>
 
@@ -112,7 +113,7 @@
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">(1) 2曲線 \(y=\sin x,\ y=\cos x\ \left(\dfrac\pi4\le x\le\dfrac{5\pi}{4}\right)\) で囲まれた部分の面積を求めよ。<br>(2) 曲線 \(y=\log x\)、\(x\) 軸、直線 \(x=e\) で囲まれた部分の面積を求めよ。</div>
       <p>(1) 交点は \(\tan x=1\) より \(x=\frac\pi4,\frac{5\pi}{4}\)。この間で \(\sin x\ge\cos x\)。</p>
-      \[ S=\int_{\frac\pi4}^{\frac{5\pi}{4}}(\sin x-\cos x)dx=\Big[-\cos x-\sin x\Big]_{\frac\pi4}^{\frac{5\pi}{4}}=\left(\frac{\sqrt2}{2}+\frac{\sqrt2}{2}\right)-\left(-\frac{\sqrt2}{2}-\frac{\sqrt2}{2}\right)=2\sqrt2 \]
+      \[ \begin{aligned}S & = \int_{\frac\pi4}^{\frac{5\pi}{4}}(\sin x-\cos x)dx \\ & = \Big[-\cos x-\sin x\Big]_{\frac\pi4}^{\frac{5\pi}{4}} \\ & = \left(\frac{\sqrt2}{2}+\frac{\sqrt2}{2}\right) \\ & \quad -\left(-\frac{\sqrt2}{2}-\frac{\sqrt2}{2}\right) = 2\sqrt2\end{aligned} \]
       <p>(2) \(1\le x\le e\) で \(\log x\ge0\)。\(\displaystyle S=\int_1^e\log x\,dx=\Big[x\log x-x\Big]_1^e=0-(-1)=1\)</p>
       <p class="answer">(1) \(2\sqrt2\)　(2) 1</p>
       <p class="point">(1) は区間の後半で両曲線とも \(x\) 軸より下に来るが、式は変わらない。「\(x\) 軸の下は \(-\int\)」は<b>曲線と \(x\) 軸の間</b>の面積の話（下側の曲線が \(y=0\)）。</p>
@@ -147,7 +148,7 @@
         <text x="236" y="40" font-size="11" fill="currentColor">y=sin x</text>
       </svg>
       <p>\(h(x)=\sin x-kx\) とおくと \(h(0)=0\)、\(h'(x)=\cos x-k\)。\(h'(0)=1-k\gt0\)、\(h''(x)=-\sin x\le0\) なので \(h\) は上に凸で、\(h(\pi)=-k\pi\lt0\)。よって \(0\lt x\lt\pi\) で \(h(x)=0\) となる \(x\) はちょうど1つ（これが \(\alpha\)）、\(0\lt x\lt\alpha\) で \(\sin x\gt kx\)。</p>
-      \[ S=\int_0^\alpha(\sin x-kx)dx=\Big[-\cos x\Big]_0^\alpha-\frac{k\alpha^2}{2}=1-\cos\alpha-\frac{k\alpha^2}{2} \]
+      \[ \begin{aligned}S & = \int_0^\alpha(\sin x-kx)dx \\ & = \Big[-\cos x\Big]_0^\alpha-\frac{k\alpha^2}{2} \\ & = 1-\cos\alpha-\frac{k\alpha^2}{2}\end{aligned} \]
       <p>\(\sin\alpha=k\alpha\) より \(k\alpha^2=\alpha\sin\alpha\)。</p>
       <p class="answer">\(S=1-\cos\alpha-\dfrac{\alpha\sin\alpha}{2}\)</p>
       <p class="point">数値確認：\(k=\frac12\) のとき \(\alpha\fallingdotseq1.8955\)、\(S\fallingdotseq0.4208\)（数値積分と一致）。「交点がちょうど1つ」の確認（上に凸＋端点の符号）を省くと減点される。<a href="../thinking.html#t-subst">発想：置き換え</a></p>
@@ -170,9 +171,9 @@
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">(1) サイクロイド \(x=t-\sin t,\ y=1-\cos t\ (0\le t\le2\pi)\) と \(x\) 軸で囲まれた部分の面積を求めよ。<br>(2) 楕円 \(x=a\cos t,\ y=b\sin t\ (a,b\gt0)\) の囲む面積を求めよ。</div>
       <p>(1) \(\frac{dx}{dt}=1-\cos t\ge0\) なので \(x\) は \(0\) から \(2\pi\) まで単調に増加し、\(y\ge0\)。</p>
-      \[ S=\int_0^{2\pi}y\,dx=\int_0^{2\pi}(1-\cos t)^2dt=\int_0^{2\pi}\left(1-2\cos t+\frac{1+\cos2t}{2}\right)dt=\frac32\cdot2\pi=3\pi \]
+      \[ \begin{aligned} S& =\int_0^{2\pi}y\,dx\\ & =\int_0^{2\pi}(1-\cos t)^2dt\\ & =\int_0^{2\pi}\left(\frac32-2\cos t+\frac{\cos2t}{2}\right)dt\\ & =\frac32\cdot2\pi=3\pi \end{aligned} \]
       <p>(2) 上半分（\(0\le t\le\pi\)、\(x\) は \(a\) から \(-a\) へ）の面積を2倍する。</p>
-      \[ S=2\int_{-a}^ay\,dx=2\int_\pi^0b\sin t\cdot(-a\sin t)dt=2ab\int_0^\pi\sin^2t\,dt=2ab\cdot\frac\pi2=\pi ab \]
+      \[ \begin{aligned}S & = 2\int_{-a}^ay\,dx \\ & = 2\int_\pi^0b\sin t\cdot(-a\sin t)dt \\ & = 2ab\int_0^\pi\sin^2t\,dt = 2ab\cdot\frac\pi2 \\ & = \pi ab\end{aligned} \]
       <p class="answer">(1) \(3\pi\)　(2) \(\pi ab\)</p>
       <p class="point">(2) で \(x=-a\) ⇔ \(t=\pi\)、\(x=a\) ⇔ \(t=0\)。\(\int_{-a}^a\) は \(\int_\pi^0\) になる（区間の上下を逆にしない）。（発展）カージオイド \(r=1+\cos\theta\) の面積は \(\frac12\int_0^{2\pi}(1+\cos\theta)^2d\theta=\frac{3\pi}{2}\)（<a href="mc-curves.html">平面上の曲線</a>）。</p>
     </div></details>
@@ -218,7 +219,7 @@
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">(1) 底面が円板 \(x^2+y^2\le1\) である立体があり、\(x\) 軸に垂直な平面による断面は、底面上の弦を1辺とする正方形である。この立体の体積を求めよ。<br>(2) 底面積 \(S\)、高さ \(h\) の錐体の体積が \(\frac13Sh\) であることを示せ。</div>
       <p>(1) 位置 \(x\ (-1\le x\le1)\) での弦の長さは \(2\sqrt{1-x^2}\)。断面積 \(S(x)=4(1-x^2)\)。</p>
-      \[ V=\int_{-1}^14(1-x^2)dx=8\int_0^1(1-x^2)dx=8\cdot\frac23=\frac{16}{3} \]
+      \[ \begin{aligned}V & = \int_{-1}^14(1-x^2)dx \\ & = 8\int_0^1(1-x^2)dx = 8\cdot\frac23 \\ & = \frac{16}{3}\end{aligned} \]
       <p>(2) 頂点からの距離が \(t\) の平面による断面は底面と相似で、相似比 \(\frac th\)、面積は \(S\left(\frac th\right)^2\)。</p>
       \[ V=\int_0^hS\frac{t^2}{h^2}dt=\frac{S}{h^2}\cdot\frac{h^3}{3}=\frac13Sh \]
       <p class="answer">(1) \(\frac{16}{3}\)　(2) 示された</p>
@@ -243,7 +244,7 @@
       <div class="problem">(1) 曲線 \(y=\sin x\ (0\le x\le\pi)\) と \(x\) 軸で囲まれた部分を \(x\) 軸のまわりに1回転してできる立体の体積を求めよ。<br>(2) 2曲線 \(y=\sqrt x,\ y=x\) で囲まれた部分を \(x\) 軸のまわりに1回転してできる立体の体積を求めよ。</div>
       <p>(1) \(\displaystyle V=\pi\int_0^\pi\sin^2x\,dx=\pi\cdot\frac\pi2=\frac{\pi^2}{2}\)</p>
       <p>(2) 交点は \(x=0,1\)。\(0\le x\le1\) で \(\sqrt x\ge x\ge0\)。断面は外半径 \(\sqrt x\)、内半径 \(x\) の円環。</p>
-      \[ V=\pi\int_0^1\{(\sqrt x)^2-x^2\}dx=\pi\left(\frac12-\frac13\right)=\frac\pi6 \]
+      \[ \begin{aligned}V & = \pi\int_0^1\{(\sqrt x)^2-x^2\}dx \\ & = \pi\left(\frac12-\frac13\right) = \frac\pi6\end{aligned} \]
       <p class="answer">(1) \(\dfrac{\pi^2}{2}\)　(2) \(\dfrac\pi6\)</p>
       <p class="point">(2) で \(\pi\int_0^1(\sqrt x-x)^2dx\) とするのは典型的な誤り（\(\frac{\pi}{30}\) になってしまう）。「外の円板 − 内の円板」と覚える。</p>
     </div></details>
@@ -265,11 +266,11 @@
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">(1) 曲線 \(y=\log x\)、\(x\) 軸、直線 \(x=e\) で囲まれた部分を \(y\) 軸のまわりに1回転してできる立体の体積を求めよ。<br>(2) 曲線 \(y=\sin x\ (0\le x\le\pi)\) と \(x\) 軸で囲まれた部分を \(y\) 軸のまわりに1回転してできる立体の体積を求めよ。</div>
       <p>(1) 図形は \(1\le x\le e,\ 0\le y\le\log x\)。高さ \(y\ (0\le y\le1)\) で横に切ると、\(x\) は \(e^y\) から \(e\) まで。断面は外半径 \(e\)、内半径 \(e^y\) の円環。</p>
-      \[ V=\pi\int_0^1(e^2-e^{2y})dy=\pi\left(e^2-\frac{e^2-1}{2}\right)=\frac{\pi(e^2+1)}{2} \]
+      \[ \begin{aligned}V & = \pi\int_0^1(e^2-e^{2y})dy \\ & = \pi\left(e^2-\frac{e^2-1}{2}\right) \\ & = \frac{\pi(e^2+1)}{2}\end{aligned} \]
       <p>(2) 高さ \(y\ (0\le y\le1)\) で切ると、\(\sin x=y\) の2解 \(x_1\ \left(0\le x_1\le\frac\pi2\right)\) と \(x_2=\pi-x_1\) の間。断面は外半径 \(x_2\)、内半径 \(x_1\) の円環で、</p>
-      \[ x_2^2-x_1^2=(x_2-x_1)(x_2+x_1)=\pi(\pi-2x_1) \]
+      \[ \begin{aligned}x_2^2-x_1^2 & = (x_2-x_1)(x_2+x_1) \\ & = \pi(\pi-2x_1)\end{aligned} \]
       <p>よって \(V=\pi\displaystyle\int_0^1\pi(\pi-2x_1)dy\)。\(y=\sin x_1\) と置換（\(dy=\cos x_1\,dx_1\)、\(y:0\to1\) で \(x_1:0\to\frac\pi2\)）：</p>
-      \[ V=\pi^2\int_0^{\frac\pi2}(\pi-2x)\cos x\,dx=\pi^2\left(\Big[(\pi-2x)\sin x\Big]_0^{\frac\pi2}+2\int_0^{\frac\pi2}\sin x\,dx\right)=\pi^2(0+2)=2\pi^2 \]
+      \[ \begin{aligned} V& =\pi^2\int_0^{\frac\pi2}(\pi-2x)\cos x\,dx\\ & =\pi^2\Big[(\pi-2x)\sin x\Big]_0^{\frac\pi2}\\ & \quad+2\pi^2\int_0^{\frac\pi2}\sin x\,dx\\ & =0+2\pi^2=2\pi^2 \end{aligned} \]
       <p class="answer">(1) \(\dfrac{\pi(e^2+1)}{2}\)　(2) \(2\pi^2\)</p>
       <p class="point">(2) で \(x_2=\pi-x_1\) という<b>対称性</b>を使って、2つの枝の置換を1回で済ませた。対称性がなければ \(\pi\int x_2^2dy-\pi\int x_1^2dy\) を別々に置換する（\(x_2\) の枝では \(y:0\to1\) のとき \(x_2:\pi\to\frac\pi2\)）。次の P8 の方法なら一瞬で \(2\pi\int_0^\pi x\sin x\,dx=2\pi^2\)。</p>
     </div></details>
@@ -291,10 +292,10 @@
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">\(0\le x\le1,\ 0\le y\le xe^{-x}\) で表される図形 \(D\) を \(y\) 軸のまわりに1回転してできる立体の体積 \(V\) を求めよ。</div>
       <p><b>公式の正当化</b>：\(f(x)=xe^{-x}\)（\(\ge0\)、連続）。\(0\le t\le1\) に対し、\(D\) のうち \(0\le x\le t\) の部分を回転させた立体の体積を \(V(t)\) とする。\(\Delta t\gt0\) のとき、\(t\le x\le t+\Delta t\) の部分を回転させた立体の体積 \(V(t+\Delta t)-V(t)\) は、\(f\) のこの区間での最小値 \(m\)、最大値 \(M\) を用いて</p>
-      \[ \pi\{(t+\Delta t)^2-t^2\}m\le V(t+\Delta t)-V(t)\le\pi\{(t+\Delta t)^2-t^2\}M \]
+      \[ \begin{aligned}& \pi\{(t+\Delta t)^2-t^2\}m \\ & \qquad \le V(t+\Delta t)-V(t) \\ & \qquad \le \pi\{(t+\Delta t)^2-t^2\}M\end{aligned} \]
       <p>（高さ \(m\) と \(M\) の円筒の殻で挟んだ）。\(\Delta t\) で割ると \(\pi(2t+\Delta t)m\le\dfrac{\Delta V}{\Delta t}\le\pi(2t+\Delta t)M\)。\(\Delta t\to+0\) で \(m,M\to f(t)\) なので \(V'(t)=2\pi tf(t)\)（\(\Delta t\lt0\) も同様）。\(V(0)=0\) より \(V=V(1)=2\pi\displaystyle\int_0^1xf(x)dx\)。</p>
       <p><b>計算</b>：</p>
-      \[ V=2\pi\int_0^1x^2e^{-x}dx=2\pi\Big[-(x^2+2x+2)e^{-x}\Big]_0^1=2\pi\left(2-\frac5e\right) \]
+      \[ \begin{aligned}V & = 2\pi\int_0^1x^2e^{-x}dx \\ & = 2\pi\Big[-(x^2+2x+2)e^{-x}\Big]_0^1 \\ & = 2\pi\left(2-\frac5e\right)\end{aligned} \]
       <p class="answer">\(V=2\pi\left(2-\dfrac5e\right)\)</p>
       <p class="point">別の正当化：\(f\) が単調なら、P7 の置換 \(\pi\int x^2dy=\pi\int x^2f'(x)dx\) を部分積分すると \(2\pi\int xf(x)dx\) に一致する。数値確認：横に切る方法で数値積分しても \(V\fallingdotseq1.0091\) で一致。阪大の採点では、公式を断りなく使うと減点される可能性があるので、上の3行程度の正当化を書く習慣をつけよう。</p>
     </div></details>
@@ -321,7 +322,7 @@
         <li>\(\frac\pi2\le x\le\pi\)：\(\cos x\le0\le\sin x\)（軸をまたぐ）。円板、半径 \(\max\{\sin x,|\cos x|\}\)。\(x\le\frac{3\pi}{4}\) なら \(\sin x\)、\(x\ge\frac{3\pi}{4}\) なら \(|\cos x|\)。</li>
         <li>\(\pi\le x\le\frac{5\pi}{4}\)：\(\cos x\le\sin x\le0\)。円環（外 \(|\cos x|\)、内 \(|\sin x|\)）。</li>
       </ul>
-      \[ \frac V\pi=\int_{\frac\pi4}^{\frac\pi2}(\sin^2x-\cos^2x)dx+\int_{\frac\pi2}^{\frac{3\pi}{4}}\sin^2x\,dx+\int_{\frac{3\pi}{4}}^{\pi}\cos^2x\,dx+\int_\pi^{\frac{5\pi}{4}}(\cos^2x-\sin^2x)dx \]
+      \[ \begin{aligned}\frac V\pi & = \int_{\frac\pi4}^{\frac\pi2}(\sin^2x-\cos^2x)dx \\ & \quad +\int_{\frac\pi2}^{\frac{3\pi}{4}}\sin^2x\,dx \\ & \quad +\int_{\frac{3\pi}{4}}^{\pi}\cos^2x\,dx \\ & \quad +\int_\pi^{\frac{5\pi}{4}}(\cos^2x-\sin^2x)dx\end{aligned} \]
       <p>第1項 \(=\int-\cos2x\,dx=\left[-\frac{\sin2x}{2}\right]_{\frac\pi4}^{\frac\pi2}=\frac12\)、第4項 \(=\left[\frac{\sin2x}{2}\right]_\pi^{\frac{5\pi}{4}}=\frac12\)。</p>
       <p>第2項 \(=\left[\frac x2-\frac{\sin2x}{4}\right]_{\frac\pi2}^{\frac{3\pi}{4}}=\frac\pi8+\frac14\)、第3項 \(=\left[\frac x2+\frac{\sin2x}{4}\right]_{\frac{3\pi}{4}}^{\pi}=\frac\pi8+\frac14\)。</p>
       <p>合計 \(\frac32+\frac\pi4\)。</p>
@@ -346,9 +347,9 @@
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">曲線 \(y=x^2\) と直線 \(y=x\) で囲まれた部分を、直線 \(y=x\) のまわりに1回転してできる立体の体積を求めよ。</div>
       <p>交点は \((0,0),(1,1)\)。\(0\le x\le1\) で \(x^2\le x\)。曲線上の点 \(P(x,x^2)\) から直線 \(y=x\) に下ろした垂線の足を \(H\) とすると</p>
-      \[ r=PH=\frac{|x-x^2|}{\sqrt2}=\frac{x-x^2}{\sqrt2},\qquad t=OH=\frac{(x,x^2)\cdot(1,1)}{\sqrt2}=\frac{x+x^2}{\sqrt2} \]
+      \[ \begin{aligned}r & = PH = \frac{|x-x^2|}{\sqrt2} = \frac{x-x^2}{\sqrt2}, \\ t & = OH = \frac{(x,x^2)\cdot(1,1)}{\sqrt2} \\ & = \frac{x+x^2}{\sqrt2}\end{aligned} \]
       <p>\(t\) は \(0\le x\le1\) で増加し、\(0\) から \(\sqrt2\)（\(=\)線分の長さ）まで動く。軸上の位置 \(t\) で軸に垂直に切った断面は半径 \(r\) の円なので</p>
-      \[ V=\pi\int_0^{\sqrt2}r^2dt=\pi\int_0^1\frac{(x-x^2)^2}{2}\cdot\frac{1+2x}{\sqrt2}dx=\frac{\pi}{2\sqrt2}\int_0^1(x^2-3x^4+2x^5)dx \]
+      \[ \begin{aligned}V & = \pi\int_0^{\sqrt2}r^2dt \\ & = \pi\int_0^1\frac{(x-x^2)^2}{2}\cdot\frac{1+2x}{\sqrt2}dx \\ & = \frac{\pi}{2\sqrt2}\int_0^1(x^2-3x^4+2x^5)dx\end{aligned} \]
       <p>\(\displaystyle\int_0^1(x^2-3x^4+2x^5)dx=\frac13-\frac35+\frac13=\frac{1}{15}\)。</p>
       <p class="answer">\(V=\dfrac{\pi}{30\sqrt2}=\dfrac{\sqrt2\,\pi}{60}\)</p>
       <p class="point">検算（パップス・ギュルダンの定理）：体積＝面積 \(\frac16\) × 重心 \(\left(\frac12,\frac25\right)\) が描く円周 \(2\pi\cdot\frac{1}{10\sqrt2}\) \(=\frac{\pi}{30\sqrt2}\)。一致する。「\(x\) を介して置換」の際、\(t\) が単調でないと断面が重なるので、単調性の確認は必須。</p>
@@ -372,7 +373,7 @@
       <div class="problem">円柱 \(x^2+y^2\le1\) のうち、\(0\le z\le x\) を満たす部分の体積を求めよ。</div>
       <p>立体：\(x^2+y^2\le1,\ 0\le z\le x\)（とくに \(x\ge0\)）。</p>
       <p><b>平面 \(y=t\ (-1\le t\le1)\) で切る</b>：\(0\le x\le\sqrt{1-t^2},\ 0\le z\le x\)。これは \(xz\) 平面で直角二等辺三角形（等辺 \(\sqrt{1-t^2}\)）、面積 \(\frac12(1-t^2)\)。</p>
-      \[ V=\int_{-1}^1\frac{1-t^2}{2}dt=\int_0^1(1-t^2)dt=\frac23 \]
+      \[ \begin{aligned}V & = \int_{-1}^1\frac{1-t^2}{2}dt = \int_0^1(1-t^2)dt \\ & = \frac23\end{aligned} \]
       <p><b>別解：平面 \(x=t\ (0\le t\le1)\) で切る</b>：\(|y|\le\sqrt{1-t^2},\ 0\le z\le t\)。長方形で面積 \(2t\sqrt{1-t^2}\)。\(\displaystyle V=\int_0^12t\sqrt{1-t^2}dt=\left[-\frac23(1-t^2)^{\frac32}\right]_0^1=\frac23\)</p>
       <p class="answer">\(\dfrac23\)</p>
       <p class="point">平面 \(z=t\) で切ると断面は「円の弓形」（\(x\ge t\) かつ \(x^2+y^2\le1\)）で、面積の計算に扇形が必要になり重い。<b>断面が直線で囲まれる切り方</b>を探すのがコツ。Monte Carlo 法（乱数）でも \(V\fallingdotseq0.667\) を確認。</p>
@@ -396,7 +397,7 @@
       <div class="problem">\(xyz\) 空間の2点 \(A(1,0,0),\ B(0,1,1)\) を結ぶ線分 \(AB\) を \(z\) 軸のまわりに1回転してできる曲面と、2平面 \(z=0,\ z=1\) で囲まれた立体の体積を求めよ。</div>
       <p>線分 \(AB\) 上の点は \((1-s,\ s,\ s)\ (0\le s\le1)\)。平面 \(z=t\ (0\le t\le1)\) との交点は \(s=t\) の点 \(P(1-t,\ t,\ t)\) の1点。</p>
       <p>\(P\) と \(z\) 軸の距離の2乗は \((1-t)^2+t^2\)。\(P\) が回転して半径 \(\sqrt{(1-t)^2+t^2}\) の円を描き、立体の断面はその円板。</p>
-      \[ V=\pi\int_0^1\{(1-t)^2+t^2\}dt=\pi\left(\frac13+\frac13\right)=\frac{2\pi}{3} \]
+      \[ \begin{aligned}V & = \pi\int_0^1\{(1-t)^2+t^2\}dt \\ & = \pi\left(\frac13+\frac13\right) = \frac{2\pi}{3}\end{aligned} \]
       <p class="answer">\(\dfrac{2\pi}{3}\)</p>
       <p class="point">断面の半径は \(t=\frac12\) で最小（\(\frac{1}{\sqrt2}\)）になり、立体は「くびれた鼓形」になる。ねじれた線分を回すと曲面ができることの体験。<b>回転の前に切る</b>のが鉄則。</p>
     </div></details>
@@ -419,7 +420,7 @@
       <div class="problem">2つの円柱 \(x^2+y^2\le1\)、\(y^2+z^2\le1\) の共通部分の体積を求めよ。</div>
       <p>平面 \(y=t\ (-1\le t\le1)\) で切ると、断面は \(x^2\le1-t^2\) かつ \(z^2\le1-t^2\)、すなわち \(|x|\le\sqrt{1-t^2},\ |z|\le\sqrt{1-t^2}\)。</p>
       <p>これは1辺 \(2\sqrt{1-t^2}\) の正方形で、面積は \(4(1-t^2)\)。</p>
-      \[ V=\int_{-1}^14(1-t^2)dt=8\left(1-\frac13\right)=\frac{16}{3} \]
+      \[ \begin{aligned}V & = \int_{-1}^14(1-t^2)dt \\ & = 8\left(1-\frac13\right) = \frac{16}{3}\end{aligned} \]
       <p class="answer">\(\dfrac{16}{3}\)</p>
       <p class="point">P5 (1) と同じ答え：どちらも断面が「1辺 \(2\sqrt{1-t^2}\) の正方形」なので、断面積が等しく体積も等しい（カヴァリエリの原理）。（発展）3つの円柱 \(x^2+y^2\le1,\ y^2+z^2\le1,\ z^2+x^2\le1\) の共通部分は \(8(2-\sqrt2)\)。阪大では \(z=t\) で切った断面が「正方形と円の共通部分」になる型も出るので、断面図を正確に描く練習を。</p>
     </div></details>
@@ -441,9 +442,9 @@
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">(1) 曲線 \(y=\dfrac{e^x+e^{-x}}{2}\ (0\le x\le1)\) の長さを求めよ。<br>(2) サイクロイド \(x=t-\sin t,\ y=1-\cos t\ (0\le t\le2\pi)\) の長さを求めよ。</div>
       <p>(1) \(y'=\dfrac{e^x-e^{-x}}{2}\)、\(1+y'^2=\dfrac{4+e^{2x}-2+e^{-2x}}{4}=\left(\dfrac{e^x+e^{-x}}{2}\right)^2\)。</p>
-      \[ L=\int_0^1\frac{e^x+e^{-x}}{2}dx=\left[\frac{e^x-e^{-x}}{2}\right]_0^1=\frac{e-e^{-1}}{2} \]
+      \[ \begin{aligned}L & = \int_0^1\frac{e^x+e^{-x}}{2}dx \\ & = \left[\frac{e^x-e^{-x}}{2}\right]_0^1 = \frac{e-e^{-1}}{2}\end{aligned} \]
       <p>(2) \(\dot x^2+\dot y^2=(1-\cos t)^2+\sin^2t=2-2\cos t=4\sin^2\frac t2\)。\(0\le t\le2\pi\) で \(\sin\frac t2\ge0\)。</p>
-      \[ L=\int_0^{2\pi}2\sin\frac t2\,dt=\Big[-4\cos\frac t2\Big]_0^{2\pi}=8 \]
+      \[ \begin{aligned}L & = \int_0^{2\pi}2\sin\frac t2\,dt \\ & = \Big[-4\cos\frac t2\Big]_0^{2\pi} = 8\end{aligned} \]
       <p class="answer">(1) \(\dfrac12\left(e-\dfrac1e\right)\)　(2) 8</p>
       <p class="point">(2) で \(t\) の範囲が \(0\le t\le4\pi\) なら \(\sin\frac t2\) が負になる区間があり、\(\left|\sin\frac t2\right|\) として分割が必要（答えは 16）。\(\sqrt{A^2}=|A|\) を忘れない。(1) の曲線はカテナリー（懸垂線）と呼ばれ、ロープを垂らした形。</p>
     </div></details>
@@ -465,9 +466,9 @@
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">次の極限を求めよ。(1) \(\displaystyle\lim_{n\to\infty}\sum_{k=1}^n\frac{1}{n+k}\)　(2) \(\displaystyle\lim_{n\to\infty}\sum_{k=1}^n\frac{n}{n^2+k^2}\)</div>
       <p>(1) \(\dfrac{1}{n+k}=\dfrac1n\cdot\dfrac{1}{1+\frac kn}\) より</p>
-      \[ \lim_{n\to\infty}\frac1n\sum_{k=1}^n\frac{1}{1+\frac kn}=\int_0^1\frac{dx}{1+x}=\log2 \]
+      \[ \begin{aligned}\lim_{n\to\infty}\frac1n\sum_{k=1}^n\frac{1}{1+\frac kn} & = \int_0^1\frac{dx}{1+x} \\ & = \log2\end{aligned} \]
       <p>(2) \(\dfrac{n}{n^2+k^2}=\dfrac1n\cdot\dfrac{1}{1+\left(\frac kn\right)^2}\) より</p>
-      \[ \lim_{n\to\infty}\frac1n\sum_{k=1}^n\frac{1}{1+\left(\frac kn\right)^2}=\int_0^1\frac{dx}{1+x^2}=\frac\pi4 \]
+      \[ \begin{aligned}& \lim_{n\to\infty}\frac1n\sum_{k=1}^n\frac{1}{1+\left(\frac kn\right)^2} \\ & \qquad = \int_0^1\frac{dx}{1+x^2} = \frac\pi4\end{aligned} \]
       <p class="answer">(1) \(\log2\)　(2) \(\dfrac\pi4\)</p>
       <p class="point">(2) の積分は \(x=\tan\theta\)（<a href="m3-integral.html">積分法（計算）</a>）。数値確認：\(n=10^5\) で (1) \(0.69314\cdots\)、(2) \(0.78539\cdots\)。</p>
     </div></details>
@@ -491,7 +492,7 @@
       <p>(1) \(\displaystyle\sum_{k=n+1}^{3n}\frac1k=\frac1n\sum_{k=n+1}^{3n}\frac{1}{\frac kn}\)。\(\frac kn\) は \(\frac{n+1}{n}\) から \(3\) まで、刻み \(\frac1n\) で \(2n\) 個。</p>
       \[ \to\int_1^3\frac{dx}{x}=\log3 \]
       <p>(2) \(\dfrac{(2n)!}{n!}=(n+1)(n+2)\cdots(2n)\) なので \(\dfrac{(2n)!}{n!\,n^n}=\displaystyle\prod_{k=1}^n\frac{n+k}{n}=\prod_{k=1}^n\left(1+\frac kn\right)\)。</p>
-      \[ \log\left\{\frac{(2n)!}{n!\,n^n}\right\}^{\frac1n}=\frac1n\sum_{k=1}^n\log\left(1+\frac kn\right)\to\int_0^1\log(1+x)dx \]
+      \[ \begin{aligned}& \log\left\{\frac{(2n)!}{n!\,n^n}\right\}^{\frac1n} \\ & \qquad = \frac1n\sum_{k=1}^n\log\left(1+\frac kn\right) \\ & \qquad \to \int_0^1\log(1+x)dx\end{aligned} \]
       <p>\(\displaystyle\int_0^1\log(1+x)dx=\Big[(1+x)\log(1+x)-x\Big]_0^1=2\log2-1\)。</p>
       <p>よって極限は \(e^{2\log2-1}=\dfrac{4}{e}\)。</p>
       <p class="answer">(1) \(\log3\)　(2) \(\dfrac4e\)</p>
@@ -519,7 +520,7 @@
       <p>右側を \(k=1,\dots,n\) で足すと \(\displaystyle\int_1^{n+1}\frac{dx}{x}\lt\sum_{k=1}^n\frac1k\)、すなわち \(\log(n+1)\lt\sum_{k=1}^n\frac1k\)。</p>
       <p>左側を \(k=1,\dots,n-1\) で足すと \(\displaystyle\sum_{k=2}^{n}\frac1k\lt\int_1^n\frac{dx}{x}=\log n\)（\(n\ge2\)）。両辺に 1 を足して \(\displaystyle\sum_{k=1}^n\frac1k\lt1+\log n\)。\(n=1\) では等号。（証明終）</p>
       <p>(2) \(n\ge2\) で \(\log n\gt0\)。(1) を \(\log n\) で割ると</p>
-      \[ \frac{\log(n+1)}{\log n}\lt\frac{1}{\log n}\sum_{k=1}^n\frac1k\le\frac{1}{\log n}+1 \]
+      \[ \begin{aligned}\frac{\log(n+1)}{\log n} & \lt \frac{1}{\log n}\sum_{k=1}^n\frac1k \\ & \le \frac{1}{\log n}+1\end{aligned} \]
       <p>\(\dfrac{\log(n+1)}{\log n}=1+\dfrac{\log\left(1+\frac1n\right)}{\log n}\to1\)、右辺 \(\to1\)。はさみうちより</p>
       <p class="answer">(2) 1</p>
       <p class="point">(1) の左側から \(\sum\frac1k\to\infty\)（調和級数の発散）も分かる。数値確認：\(n=1000\) で \(6.909\lt7.485\lt7.908\)。</p>
@@ -542,10 +543,10 @@
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">(1) \(n\ge2\) のとき、\(n\log n-n+1\lt\log n!\lt(n+1)\log(n+1)-n\) を示せ。<br>(2) \(\displaystyle\lim_{n\to\infty}\frac{\sqrt[n]{n!}}{n}\) を求めよ。</div>
       <p>(1) \(\log x\) は増加関数なので、\(k\ge2\) に対し \(\displaystyle\int_{k-1}^k\log x\,dx\lt\log k\lt\int_k^{k+1}\log x\,dx\)。\(k=2,\dots,n\) で足すと（\(\log1=0\) に注意）</p>
-      \[ \int_1^n\log x\,dx\lt\log n!\lt\int_2^{n+1}\log x\,dx\lt\int_1^{n+1}\log x\,dx \]
+      \[ \begin{aligned}\int_1^n\log x\,dx & \lt \log n! \\ & \lt \int_2^{n+1}\log x\,dx \\ & \lt \int_1^{n+1}\log x\,dx\end{aligned} \]
       <p>（最後は \(1\le x\le2\) で \(\log x\ge0\) より）。\(\int_1^n\log x\,dx=n\log n-n+1\)、\(\int_1^{n+1}\log x\,dx=(n+1)\log(n+1)-n\)。（証明終）</p>
       <p>(2) \(a_n=\log\dfrac{\sqrt[n]{n!}}{n}=\dfrac1n\log n!-\log n\) とおく。(1) を \(n\) で割って \(\log n\) を引くと</p>
-      \[ -1+\frac1n\lt a_n\lt\frac{n+1}{n}\log(n+1)-\log n-1=\log\frac{n+1}{n}+\frac{\log(n+1)}{n}-1 \]
+      \[ \begin{aligned}-1+\frac1n & \lt a_n \lt \frac{n+1}{n}\log(n+1) \\ & \quad -\log n -1 \\ & = \log\frac{n+1}{n} \\ & \quad +\frac{\log(n+1)}{n} -1\end{aligned} \]
       <p>\(\log\frac{n+1}{n}\to0\)。また \(\dfrac{\log(n+1)}{n}=\dfrac{\log(n+1)}{n+1}\cdot\dfrac{n+1}{n}\to0\)（\(\frac{\log x}{x}\to0\)、<a href="m3-diff.html">微分法</a>）。はさみうちで \(a_n\to-1\)。</p>
       <p class="answer">(2) \(\dfrac1e\)</p>
       <p class="point">(1) から \(\dfrac{\log n!}{n\log n}\to1\) も同様に分かる（「\(\log n!\) はおよそ \(n\log n\)」）。数値確認：\(n=1000\) で \(\frac{\sqrt[n]{n!}}{n}\fallingdotseq0.3695\)、\(\frac1e\fallingdotseq0.3679\)。</p>
@@ -569,7 +570,7 @@
       <div class="problem">\(I_n=\displaystyle\int_0^1\frac{x^n}{1+x}dx\) とする。(1) \(\displaystyle\lim_{n\to\infty}I_n\)　(2) \(\displaystyle\lim_{n\to\infty}nI_n\) を求めよ。</div>
       <p>(1) \(0\le x\le1\) で \(0\le\dfrac{x^n}{1+x}\le x^n\)。積分して \(0\le I_n\le\dfrac{1}{n+1}\)。はさみうちで \(I_n\to0\)。</p>
       <p>(2) 部分積分：</p>
-      \[ I_n=\left[\frac{x^{n+1}}{n+1}\cdot\frac{1}{1+x}\right]_0^1+\frac{1}{n+1}\int_0^1\frac{x^{n+1}}{(1+x)^2}dx=\frac{1}{2(n+1)}+\frac{J_n}{n+1} \]
+      \[ \begin{aligned}I_n & = \left[\frac{x^{n+1}}{n+1}\cdot\frac{1}{1+x}\right]_0^1 \\ & \quad +\frac{1}{n+1}\int_0^1\frac{x^{n+1}}{(1+x)^2}dx \\ & = \frac{1}{2(n+1)} +\frac{J_n}{n+1}\end{aligned} \]
       <p>ここで \(J_n=\displaystyle\int_0^1\frac{x^{n+1}}{(1+x)^2}dx\) は \(0\le J_n\le\displaystyle\int_0^1x^{n+1}dx=\frac{1}{n+2}\to0\)。</p>
       \[ nI_n=\frac{n}{n+1}\left(\frac12+J_n\right)\to\frac12 \]
       <p class="answer">(1) 0　(2) \(\dfrac12\)</p>
@@ -594,11 +595,11 @@
       <div class="problem">(1) 数直線上を動く点 P の時刻 \(t\) における速度が \(v(t)=1-2\sin t\) である。\(0\le t\le\pi\) における P の位置の変化と、道のりを求めよ。<br>(2) 座標平面上の点 Q の時刻 \(t\) における座標が \((e^{-t}\cos t,\ e^{-t}\sin t)\) である。\(t=0\) から \(t=T\) までに Q が動く道のりを求め、\(T\to\infty\) のときの極限を求めよ。</div>
       <p>(1) 位置の変化：\(\displaystyle\int_0^\pi(1-2\sin t)dt=\pi-4\)。</p>
       <p>\(v=0\) ⇔ \(\sin t=\frac12\) ⇔ \(t=\frac\pi6,\frac{5\pi}{6}\)。\(\frac\pi6\lt t\lt\frac{5\pi}{6}\) で \(v\lt0\)、それ以外で \(v\ge0\)。</p>
-      \[ \int_0^{\frac\pi6}(1-2\sin t)dt=\frac\pi6-2+\sqrt3,\quad \int_{\frac\pi6}^{\frac{5\pi}{6}}(2\sin t-1)dt=2\sqrt3-\frac{2\pi}{3} \]
+      \[ \begin{aligned}& \int_0^{\frac\pi6}(1-2\sin t)dt = \frac\pi6-2+\sqrt3, \\ & \int_{\frac\pi6}^{\frac{5\pi}{6}}(2\sin t-1)dt = 2\sqrt3-\frac{2\pi}{3}\end{aligned} \]
       <p>\(\left[\frac{5\pi}{6},\pi\right]\) は \(\left[0,\frac\pi6\right]\) と対称で同じ値。道のり \(=2\left(\frac\pi6-2+\sqrt3\right)+2\sqrt3-\frac{2\pi}{3}=4\sqrt3-4-\frac\pi3\)。</p>
       <p class="answer">(1) 位置の変化 \(\pi-4\)、道のり \(4\sqrt3-4-\dfrac\pi3\)</p>
       <p>(2) \(\dot x=-e^{-t}(\cos t+\sin t)\)、\(\dot y=e^{-t}(\cos t-\sin t)\)。\(\dot x^2+\dot y^2=e^{-2t}\cdot2\)、\(|\vec v|=\sqrt2e^{-t}\)。</p>
-      \[ L(T)=\int_0^T\sqrt2e^{-t}dt=\sqrt2(1-e^{-T})\to\sqrt2 \]
+      \[ \begin{aligned}L(T) & = \int_0^T\sqrt2e^{-t}dt \\ & = \sqrt2(1-e^{-T}) \to \sqrt2\end{aligned} \]
       <p class="answer">(2) \(\sqrt2(1-e^{-T})\)、極限 \(\sqrt2\)</p>
       <p class="point">(2) の点は原点のまわりを無限に回りながら近づく（等角らせん）が、道のりは有限の \(\sqrt2\)。直感に反する結果を計算が保証する例。(1) で \(\pi-4\lt0\) は「全体としては負の向きに進んだ」ことを意味する。</p>
     </div></details>
@@ -660,7 +661,7 @@
     </div></details>
     <details class="sol"><summary>解答</summary><div class="inner">
       <p>三角形 \(ABC\) は平面 \(x+y+z=1\) 上の \(x,y,z\ge0\) の部分。平面 \(z=t\ (0\le t\le1)\) との共通部分は</p>
-      \[ L_t:\ x+y=1-t,\ x\ge0,\ y\ge0,\ z=t \]
+      \[ \begin{aligned} & L_t:\ x+y=1-t,\\ & \qquad x\ge0,\ y\ge0,\ z=t \end{aligned} \]
       <p>という線分（端点 \((1-t,0,t)\)、\((0,1-t,t)\)）。</p>
       <p>\(L_t\) 上の点と \(z\) 軸との距離は \(\sqrt{x^2+y^2}\)。\(x+y=1-t\) のもとで \(x^2+y^2=\frac{(x+y)^2+(x-y)^2}{2}\) なので、</p>
       <ul>
@@ -668,8 +669,8 @@
         <li>最小は \(x=y=\frac{1-t}{2}\)（線分の中点、線分上にある）で \(r=\frac{1-t}{\sqrt2}\)。</li>
       </ul>
       <p>\(L_t\) は連結なので、距離は \(r\) から \(R\) までのすべての値をとる。よって \(L_t\) を回転させた図形は内半径 \(r\)、外半径 \(R\) の円環で、面積は</p>
-      \[ S(t)=\pi(R^2-r^2)=\pi\left\{(1-t)^2-\frac{(1-t)^2}{2}\right\}=\frac\pi2(1-t)^2 \]
-      \[ V=\int_0^1\frac\pi2(1-t)^2dt=\frac\pi2\cdot\frac13=\frac\pi6 \]
+      \[ \begin{aligned}S(t) & = \pi(R^2-r^2) \\ & = \pi\left\{(1-t)^2-\frac{(1-t)^2}{2}\right\} \\ & = \frac\pi2(1-t)^2\end{aligned} \]
+      \[ \begin{aligned}V & = \int_0^1\frac\pi2(1-t)^2dt = \frac\pi2\cdot\frac13 \\ & = \frac\pi6\end{aligned} \]
       <p class="answer">\(V=\dfrac\pi6\)</p>
       <p class="point">採点ポイント：①\(z=t\) で切る方針、②切り口の線分の正確な表示、③最小距離が線分の中点でとられること（垂線の足が線分上にある確認）、④円環の面積、⑤積分。最小距離を端点で考えて「円板」としてしまうと \(\frac\pi3\) になり誤り。Monte Carlo 法でも \(V\fallingdotseq0.5237\)（\(\frac\pi6\fallingdotseq0.5236\)）を確認。</p>
     </div></details>
@@ -683,9 +684,9 @@
     </div></details>
     <details class="sol"><summary>解答</summary><div class="inner">
       <p>(1) \(k\le x\le k+1\) で \(\frac{1}{\sqrt x}\le\frac{1}{\sqrt k}\)（等号は \(x=k\) のみ）より \(\displaystyle\int_k^{k+1}\frac{dx}{\sqrt x}\lt\frac{1}{\sqrt k}\)。\(k=1,\dots,n\) で足して</p>
-      \[ \sum_{k=1}^n\frac{1}{\sqrt k}\gt\int_1^{n+1}\frac{dx}{\sqrt x}=2\sqrt{n+1}-2 \]
+      \[ \begin{aligned}\sum_{k=1}^n\frac{1}{\sqrt k} & \gt \int_1^{n+1}\frac{dx}{\sqrt x} \\ & = 2\sqrt{n+1}-2\end{aligned} \]
       <p>また \(k\ge2\) のとき \(k-1\le x\le k\) で \(\frac{1}{\sqrt k}\le\frac{1}{\sqrt x}\) より \(\displaystyle\frac{1}{\sqrt k}\lt\int_{k-1}^k\frac{dx}{\sqrt x}\)。\(k=2,\dots,n\) で足して 1 を加えると（\(n\ge2\)）</p>
-      \[ \sum_{k=1}^n\frac{1}{\sqrt k}\lt1+\int_1^n\frac{dx}{\sqrt x}=1+2\sqrt n-2=2\sqrt n-1 \]
+      \[ \begin{aligned}\sum_{k=1}^n\frac{1}{\sqrt k} & \lt 1+\int_1^n\frac{dx}{\sqrt x} \\ & = 1+2\sqrt n-2 \\ & = 2\sqrt n-1\end{aligned} \]
       <p>\(n=1\) では右側は等号。（証明終）</p>
       <p>(2) \(n=10000\) とすると \(2\sqrt{10001}-2\lt S\lt2\cdot100-1=199\)。</p>
       <p>\(\sqrt{10001}\gt\sqrt{10000}=100\) より \(2\sqrt{10001}-2\gt198\)。よって \(198\lt S\lt199\)。</p>
@@ -703,13 +704,13 @@
     <details class="sol"><summary>解答</summary><div class="inner">
       <p>(1) 接点を \((t,\log t)\) とすると接線は \(y=\frac1t(x-t)+\log t\)。原点を通るので \(\log t=1\)、\(t=e\)。\(\ell:\ y=\dfrac xe\)、接点 \((e,1)\)。</p>
       <p>\(D\) は \(0\le y\le1\)、\(ey\le x\le e^y\)（\(e^y\ge ey\) は \(e^x\ge1+x\) の変形、あるいは接線の下に曲線があることから）。</p>
-      \[ S=\int_0^1(e^y-ey)dy=(e-1)-\frac e2=\frac e2-1 \]
+      \[ \begin{aligned}S & = \int_0^1(e^y-ey)dy \\ & = (e-1)-\frac e2 = \frac e2-1\end{aligned} \]
       <p>(2) \(x\) 軸回転：\(0\le x\le e\) で外側は \(\ell\)、内側は \(1\le x\le e\) で \(C\)（\(0\le x\le1\) では内側なし）。</p>
-      \[ V_x=\pi\int_0^e\frac{x^2}{e^2}dx-\pi\int_1^e(\log x)^2dx \]
+      \[ \begin{aligned}V_x & = \pi\int_0^e\frac{x^2}{e^2}dx \\ & \quad -\pi\int_1^e(\log x)^2dx\end{aligned} \]
       <p>\(\pi\int_0^e\frac{x^2}{e^2}dx=\frac{\pi e}{3}\)（円錐）。\(\displaystyle\int_1^e(\log x)^2dx=\Big[x(\log x)^2\Big]_1^e-2\int_1^e\log x\,dx=e-2\)。</p>
       \[ V_x=\frac{\pi e}{3}-\pi(e-2)=\frac{2\pi(3-e)}{3} \]
       <p>(3) \(y\) 軸回転：高さ \(y\) の断面は外半径 \(e^y\)、内半径 \(ey\) の円環。</p>
-      \[ V_y=\pi\int_0^1(e^{2y}-e^2y^2)dy=\pi\left(\frac{e^2-1}{2}-\frac{e^2}{3}\right)=\frac{\pi(e^2-3)}{6} \]
+      \[ \begin{aligned}V_y & = \pi\int_0^1(e^{2y}-e^2y^2)dy \\ & = \pi\left(\frac{e^2-1}{2}-\frac{e^2}{3}\right) \\ & = \frac{\pi(e^2-3)}{6}\end{aligned} \]
       <p class="answer">(1) \(\ell:\ y=\dfrac xe\)、面積 \(\dfrac e2-1\)　(2) \(V_x=\dfrac{2\pi(3-e)}{3}\)　(3) \(V_y=\dfrac{\pi(e^2-3)}{6}\)</p>
       <p class="point">採点ポイント：接点の決定、\(D\) の正確な把握（\(x\) で見るか \(y\) で見るか）、\(\int(\log x)^2dx\) の部分積分、円錐を引く形の立式。数値確認：\(V_x\fallingdotseq0.5900\)、\(V_y\fallingdotseq2.2981\)。(2) を \(\pi\int_0^e\left(\frac xe-\log x\right)^2dx\) とするのは P6 の典型ミス。</p>
     </div></details>
