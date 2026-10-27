@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>整数の性質（数学A）｜解法の地図</title>
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-unit="ma-integer" data-root="../">
+<main>
+
+<header class="unit-head">
+  <span class="subj-badge">数学A</span>
+  <h1>整数の性質</h1>
+  <p class="lead">阪大理系で毎年のように論証問題として出る最重要単元。「積の形にする」「余りで分類する」「不等式で範囲を絞る」の3つの武器と、「互いに素」「素数」の性質を組み合わせ、<b>なぜそう言えるかを1行ずつ書く</b>力をつける。</p>
+  <div class="goal">
+    <strong>このページの到達目標</strong>
+    <ul>
+      <li>【基礎】素因数分解・最大公約数・互除法・n進法を使いこなし、余りで分類して性質を示せる。</li>
+      <li>【標準】1次不定方程式、積の形・不等式による絞り込み、合同式によるべき乗の余りを処理できる。</li>
+      <li>【阪大】素数・互いに素の性質、背理法、数学的帰納法を使った整数の証明を、論理の飛躍なく答案に書ける。</li>
+    </ul>
+  </div>
+  <p class="prereq">前提：<a href="m1-numbers.html">数と式</a>（因数分解）、<a href="m1-logic.html">集合と命題</a>（背理法・対偶）／ 次に進む：<a href="mb-sequence.html">数列</a>（数学的帰納法）、<a href="m2-proof.html">式と証明</a></p>
+</header>
+
+<section id="core">
+  <h2>必ず押さえる基本事項</h2>
+
+  <div class="box theorem">
+    <p><span class="name">除法の原理</span>：整数 \(a\) と正の整数 \(b\) に対し、\(a=bq+r,\ 0\le r\lt b\) を満たす整数 \(q,r\) がただ1組存在する。</p>
+    <p>なぜ：数直線上で \(a\) 以下にある \(b\) の倍数のうち最大のものを \(bq\) とすれば、残り \(r=a-bq\) は \(0\) 以上 \(b\) 未満。<b>すべての整数は \(b\) 通りの余りのどれか1つに分類される</b>（剰余類）、というのが「余りで分類」の根拠。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">最大公約数と最小公倍数</span>：\(a,b\) の最大公約数を \(g\)、最小公倍数を \(l\) とすると</p>
+    \[ a=ga',\quad b=gb'\quad(a',b'\text{ は互いに素}) \]
+    \[ l=ga'b',\qquad ab=gl \]
+    <p>なぜ：共通の素因数を全部 \(g\) にくくり出すと、残りの \(a',b'\) には共通の素因数がない。最小公倍数は「どちらの素因数も持つ最小のもの」なので \(ga'b'\)。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">互いに素と素数の性質</span>（整数の論証の心臓部）</p>
+    <ul>
+      <li>\(a,b\) が互いに素で \(a\mid bc\) ならば \(a\mid c\)。</li>
+      <li>\(p\) が素数で \(p\mid ab\) ならば \(p\mid a\) または \(p\mid b\)。</li>
+      <li>\(a,b\) が互いに素で、\(a\mid n\) かつ \(b\mid n\) ならば \(ab\mid n\)。</li>
+    </ul>
+    <p>なぜ：素因数分解の一意性による。\(bc\) の素因数のうち \(a\) の素因数はすべて \(b\) には含まれないので、\(c\) に含まれるしかない。<b>「\(p\) が積を割るなら、因数のどれかを割る」</b>は、素数だから言えることで、合成数では成り立たない（\(6\mid 2\cdot3\) だが \(6\nmid2,\ 6\nmid3\)）。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">合同式</span>：\(a-b\) が \(m\) の倍数のとき \(a\equiv b\pmod m\) と書く。\(a\equiv b,\ c\equiv d\pmod m\) ならば</p>
+    \[ a\pm c\equiv b\pm d,\quad ac\equiv bd \]
+    \[ a^k\equiv b^k\pmod m \]
+    <p>なぜ：\(a=b+sm,\ c=d+tm\) とおいて展開すると、\(m\) の倍数の部分が残るだけ。<b>割り算は一般には不可</b>で、\(c\) と \(m\) が互いに素のときに限り \(ac\equiv bc\Rightarrow a\equiv b\) が言える。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">ユークリッドの互除法</span>：\(a=bq+r\) のとき \(\gcd(a,b)=\gcd(b,r)\)。</p>
+    <p>なぜ：\(a\) と \(b\) の公約数は \(r=a-bq\) も割り、\(b\) と \(r\) の公約数は \(a=bq+r\) も割る。つまり<b>公約数の集合がまったく同じ</b>なので、最大のものも等しい。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">1次不定方程式</span>：\(a,b\) が互いに素なら \(ax+by=1\) は整数解をもつ。一般に \(ax+by=c\) が整数解をもつ ⇔ \(\gcd(a,b)\mid c\)。</p>
+    <p>なぜ：\(a,2a,\ldots,ba\) を \(b\) で割った余りはすべて異なる（同じなら \(b\mid(i-j)a\) で、\(a,b\) 互いに素から \(b\mid i-j\) となり矛盾）。よって余りが1になる \(xa\) がある。互除法を逆にたどれば、具体的な解が求まる。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">フェルマーの小定理</span>（発展）：\(p\) が素数のとき、すべての整数 \(n\) で \(n^p\equiv n\pmod p\)。特に \(p\nmid n\) なら \(n^{p-1}\equiv1\pmod p\)。</p>
+    <p>なぜ：\(1\le k\le p-1\) で \(p\mid\C{p}{k}\)（P18）なので、二項定理から \((n+1)^p\equiv n^p+1\pmod p\)。これを使って \(n\) についての帰納法で示せる（P17）。</p>
+  </div>
+
+  <div class="box idea">
+    <p><b>この単元を貫く考え方</b>：整数問題の第一手は次の3つのどれか。<b>①積の形にする</b>（約数の組に絞れる）、<b>②余りで分類する</b>（無限の整数を有限個のグループに）、<b>③不等式で範囲を絞る</b>（候補を有限個に）。どれを使うか迷ったら、<b>小さい値で実験</b>して規則を見つけ、それを示す方法を選ぶ。<a href="../thinking.html#t-experiment">発想：小さい場合で実験</a></p>
+  </div>
+</section>
+
+<section id="quick">
+  <h2>早見表：こう来たら → こう解く</h2>
+  <div class="table-wrap"><table class="quick">
+    <tr><th>問題の特徴（こう来たら）</th><th>方針（こう解く）</th><th>使う道具</th><th>詳細</th></tr>
+    <tr data-level="1"><td>\(\sqrt{540n}\) が整数、約数の個数</td><td>素因数分解して指数を見る</td><td>素因数分解</td><td><a href="#int-p1">P1</a></td></tr>
+    <tr data-level="2"><td>\(n!\) は 2 で何回割り切れるか・末尾の 0 の個数</td><td>\(\left[\frac np\right]+\left[\frac n{p^2}\right]+\cdots\)</td><td>ルジャンドルの公式</td><td><a href="#int-p2">P2</a></td></tr>
+    <tr data-level="1"><td>最大公約数・最小公倍数から2数を求める</td><td>\(a=ga',\ b=gb'\)（互いに素）</td><td>\(ab=gl\)</td><td><a href="#int-p3">P3</a></td></tr>
+    <tr data-level="2"><td>「〜と〜は互いに素であることを示せ」</td><td>共通の素因数 \(p\) があると仮定して矛盾</td><td>背理法・素数の性質</td><td><a href="#int-p4">P4</a></td></tr>
+    <tr data-level="1"><td>「すべての整数 \(n\) で〜」「〜は解をもたない」</td><td>\(n\) を余りで分類して全部調べる</td><td>剰余類</td><td><a href="#int-p5">P5</a></td></tr>
+    <tr data-level="2"><td>余りの計算・\(3x\equiv5\pmod 7\)</td><td>合同式で数を小さく置き換える</td><td>合同式の性質</td><td><a href="#int-p6">P6</a></td></tr>
+    <tr data-level="2"><td>\(2^{100}\) を7で割った余り・一の位</td><td>1（または \(\pm1\)）になる累乗を探す</td><td>合同式・周期性</td><td><a href="#int-p7">P7</a></td></tr>
+    <tr data-level="1"><td>大きな数・文字式の最大公約数</td><td>大きい方から小さい方の倍数を引く</td><td>ユークリッドの互除法</td><td><a href="#int-p8">P8</a></td></tr>
+    <tr data-level="2"><td>\(17x+23y=500\) の整数解</td><td>特殊解を見つけて引き算 → 互いに素</td><td>1次不定方程式</td><td><a href="#int-p9">P9</a></td></tr>
+    <tr data-level="2"><td>\(xy-2x-3y=0\)、\(\frac1x+\frac1y=\frac16\)</td><td>\((x-a)(y-b)=k\) に変形し約数の組</td><td>積の形</td><td><a href="#int-p10">P10</a></td></tr>
+    <tr data-level="2"><td>\(\frac1x+\frac1y+\frac1z=1\)、\(xyz=x+y+z\)（対称）</td><td>\(x\le y\le z\) と仮定し、最小の文字を絞る</td><td>不等式で評価</td><td><a href="#int-p11">P11</a></td></tr>
+    <tr data-level="3"><td>2次の不定方程式・\(x^2-2y^2=1\)</td><td>平方完成して範囲を絞る／解から解を作る</td><td>平方の和・ペル方程式</td><td><a href="#int-p12">P12</a></td></tr>
+    <tr data-level="2"><td>「\(p\) と \(p^2+2\) がともに素数」</td><td>3 で割った余りで分類</td><td>素数の性質</td><td><a href="#int-p13">P13</a></td></tr>
+    <tr data-level="2"><td>「\(\sqrt6\) は無理数」「\(\log_23\) は無理数」</td><td>有理数と仮定し、既約分数・偶奇で矛盾</td><td>背理法</td><td><a href="#int-p14">P14</a></td></tr>
+    <tr data-level="1"><td>2進法・5進法への変換</td><td>割り算の余りを下から読む</td><td>n進法</td><td><a href="#int-p15">P15</a></td></tr>
+    <tr data-level="2"><td>\([x]\)（ガウス記号）を含む方程式</td><td>\([x]=n\) とおき \(n\le x\lt n+1\)</td><td>ガウス記号</td><td><a href="#int-p16">P16</a></td></tr>
+    <tr data-level="3"><td>\(n^7-n\) は 42 の倍数、\(3^{100}\) を 13 で割った余り</td><td>素数 \(p\) で \(n^p\equiv n\)</td><td>フェルマーの小定理</td><td><a href="#int-p17">P17</a></td></tr>
+    <tr data-level="3"><td>\(\C{p}{k}\) が \(p\) の倍数・\(\C{2n}{n}\) が偶数</td><td>\(k\C{p}{k}=p\C{p-1}{k-1}\)</td><td>二項係数の整除性</td><td><a href="#int-p18">P18</a></td></tr>
+    <tr data-level="3"><td>「すべての自然数 \(n\) で \(4^n+6n-1\) は9の倍数」</td><td>帰納法（または二項展開）</td><td>数学的帰納法</td><td><a href="#int-p19">P19</a></td></tr>
+    <tr data-level="3"><td>「\(n^2+1\) が 5 の倍数（25 の倍数）となる \(n\)」</td><td>余りで分類し、条件を段階的に強める</td><td>剰余類・互除法</td><td><a href="#int-p20">P20</a></td></tr>
+  </table></div>
+</section>
+
+<section id="patterns">
+  <h2>パターン別 解法マップ</h2>
+
+  <article class="pattern" id="int-p1" data-level="1">
+    <h3><span class="pid">P1</span>素因数分解の利用（平方数・約数）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\sqrt{540n}\) が自然数となる最小の自然数 \(n\)」「\(\sqrt{\frac{540}{n}}\) が自然数となる \(n\) をすべて」</dd>
+      <dt>こう考える</dt><dd>平方数 ⇔ <b>素因数分解の指数がすべて偶数</b>。指数を偶数にするのに足りない分を \(n\) が補う（または取り除く）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>素因数分解する：\(540=2^2\cdot3^3\cdot5\)。</li>
+        <li>掛ける場合：指数が奇数の素因数をもう1つずつ掛ける（最小のとき）。</li>
+        <li>割る場合：\(\frac{540}{n}=k^2\) なら \(k^2\) は 540 の約数で平方数。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>素因数分解の一意性、平方数の指数は偶数</dd>
+      <dt>なぜこの方法？</dt><dd>\(k^2\) の素因数分解は \(k\) の指数を2倍したものなので、指数はすべて偶数。逆に指数がすべて偶数なら、半分にしたものの2乗になる。素因数分解は<b>整数の「成分表示」</b>で、掛け算・割り算・平方の条件が指数の足し算・引き算・偶奇に変わる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\sqrt{540n}\) が自然数となる最小の自然数 \(n\) を求めよ。<br>(2) \(\sqrt{\dfrac{540}{n}}\) が自然数となる自然数 \(n\) をすべて求めよ。</div>
+      <p>\(540=2^2\cdot3^3\cdot5\)。</p>
+      <p>(1) 3 と 5 の指数が奇数なので、\(n=3\cdot5=15\) で \(540n=2^2\cdot3^4\cdot5^2=90^2\)。</p>
+      <p>(2) \(\frac{540}{n}=k^2\)（\(k\) は自然数）とすると \(k^2\) は 540 の約数で平方数。\(k^2=2^a3^b\)（\(a\in\{0,2\},\ b\in\{0,2\}\)）で \(k^2=1,4,9,36\)。\(n=540,\ 135,\ 60,\ 15\)。</p>
+      <p class="answer">(1) \(n=15\)　(2) \(n=15,\ 60,\ 135,\ 540\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="int-p2" data-level="2">
+    <h3><span class="pid">P2</span>\(n!\) に含まれる素因数の個数（ルジャンドル）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「100! を計算すると末尾に 0 は何個並ぶか」「30! は 2 で最大何回割り切れるか」</dd>
+      <dt>こう考える</dt><dd>末尾の 0 の個数＝10 で割れる回数＝（2 の個数と 5 の個数の少ない方）＝5 の個数。素因数 \(p\) の個数は、\(p\) の倍数の個数＋\(p^2\) の倍数の個数＋…。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>1〜\(n\) の中の \(p\) の倍数の個数 \(\left[\frac np\right]\) を数える。</li>
+        <li>\(p^2\) の倍数はもう1個ずつ \(p\) を持つので \(\left[\frac n{p^2}\right]\) を足す。</li>
+        <li>\(p^k\gt n\) になるまで繰り返す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\displaystyle\sum_{k\ge1}\left[\frac{n}{p^k}\right]\)（\([\ ]\) はガウス記号、P16）</dd>
+      <dt>なぜこの方法？</dt><dd>例えば 25 は 5 を2個持つ。「5 の倍数」で1個目を、「25 の倍数」で2個目を数えると、<b>各数がちょうど持っている個数だけ数えられる</b>。表を作って縦に数えるか横に数えるかの違い。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 100! を計算したとき、末尾に並ぶ 0 の個数を求めよ。<br>(2) 30! が \(2^k\) で割り切れる最大の自然数 \(k\) を求めよ。</div>
+      <p>(1) 2 の個数は 5 の個数より多いので、5 の個数を数える。\(\left[\frac{100}{5}\right]+\left[\frac{100}{25}\right]=20+4=24\)（\(125\gt100\)）。</p>
+      <p>(2) \(\left[\frac{30}{2}\right]+\left[\frac{30}{4}\right]+\left[\frac{30}{8}\right]+\left[\frac{30}{16}\right]=15+7+3+1=26\)。</p>
+      <p class="answer">(1) 24 個　(2) \(k=26\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="int-p3" data-level="1">
+    <h3><span class="pid">P3</span>最大公約数・最小公倍数から2数を決める</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「最大公約数が 12、最小公倍数が 360 である2つの自然数 \(a,b\ (a\lt b)\) の組をすべて求めよ」</dd>
+      <dt>こう考える</dt><dd>最大公約数 \(g\) が分かったら、すぐに<b>\(a=ga',\ b=gb'\)（\(a',b'\) は互いに素）</b>とおく。最小公倍数は \(ga'b'\) になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(a=12a',\ b=12b'\)、\(a',b'\) は互いに素、\(a'\lt b'\)。</li>
+        <li>最小公倍数 \(12a'b'=360\) より \(a'b'=30\)。</li>
+        <li>積が 30 で互いに素な組を書き出す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(a=ga',\ b=gb'\ (\gcd(a',b')=1)\)、\(l=ga'b'\)、\(ab=gl\)</dd>
+      <dt>なぜこの方法？</dt><dd>「互いに素」という条件を書き忘れると、\(a'=2,\ b'=4\) のように最大公約数が \(g\) より大きくなる組が混ざる。<b>「互いに素」まで含めて置く</b>ことで、条件と置き方が同値になる。<a href="../thinking.html#t-rephrase">発想：同値な言い換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">最大公約数が 12、最小公倍数が 360 である2つの自然数 \(a,b\ (a\lt b)\) の組をすべて求めよ。</div>
+      <p>\(a=12a',\ b=12b'\)（\(a',b'\) は互いに素な自然数、\(a'\lt b'\)）とおくと、最小公倍数は \(12a'b'=360\)、\(a'b'=30\)。</p>
+      <p>\(30=2\cdot3\cdot5\) で、\(a'\lt b'\) かつ互いに素な組は \((1,30),(2,15),(3,10),(5,6)\)（どれも共通の素因数を持たない）。</p>
+      <p class="answer">\((a,b)=(12,360),\ (24,180),\ (36,120),\ (60,72)\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="int-p4" data-level="2">
+    <h3><span class="pid">P4</span>「互いに素」の証明</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(a,b\) が互いに素な自然数のとき、\(a+b\) と \(ab\) は互いに素であることを証明せよ」</dd>
+      <dt>こう考える</dt><dd>「互いに素」＝「共通の素因数をもたない」。<b>共通の素因数 \(p\) があると仮定</b>して、\(p\mid ab\) から \(p\mid a\) または \(p\mid b\) に持ち込み、矛盾を導く。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>「\(a+b\) と \(ab\) が互いに素でないと仮定すると、共通の素因数 \(p\) がある」と書く。</li>
+        <li>\(p\mid ab\)、\(p\) は素数なので \(p\mid a\) または \(p\mid b\)。</li>
+        <li>\(p\mid a\) なら \(p\mid(a+b)-a=b\) で、\(a,b\) が互いに素に矛盾。\(p\mid b\) も同様。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>素数 \(p\) が積を割れば因数のどれかを割る、背理法</dd>
+      <dt>なぜこの方法？</dt><dd>「互いに素」は「〜が存在しない」という否定の形の主張なので、直接示しにくい。<b>否定（共通の素因数がある）を仮定する</b>と、具体的な \(p\) を使って計算できる。最大公約数 \(d\) で考えてもよいが、\(d\) は素数とは限らないので \(d\mid ab\) から先に進めない。素数 \(p\) で考えるのがコツ。<a href="../thinking.html#t-contradiction">発想：背理法</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(a,b\) が互いに素な自然数のとき、\(a+b\) と \(ab\) は互いに素であることを証明せよ。</div>
+      <p>\(a+b\) と \(ab\) が互いに素でないと仮定すると、両方を割り切る素数 \(p\) が存在する。</p>
+      <p>\(p\mid ab\) で \(p\) は素数なので、\(p\mid a\) または \(p\mid b\)。</p>
+      <ul>
+        <li>\(p\mid a\) のとき、\(p\mid(a+b)\) と合わせて \(p\mid(a+b)-a=b\)。</li>
+        <li>\(p\mid b\) のとき、同様に \(p\mid a\)。</li>
+      </ul>
+      <p>いずれの場合も \(p\) は \(a,b\) の公約数となり、\(a,b\) が互いに素であることに矛盾する。よって \(a+b\) と \(ab\) は互いに素である。（証明終）</p>
+      <p class="point">答案では「\(p\) は素数なので」を必ず書く（ここが採点の核心）。同じ型で「\(n\) と \(n+1\) は互いに素」「\(\gcd(a,b)=1\) なら \(\gcd(a,a+b)=1\)」も示せる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="int-p5" data-level="1">
+    <h3><span class="pid">P5</span>余りによる分類（剰余類）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「すべての整数 \(n\) について〜を示せ」「\(x^2+y^2=2027\) は整数解をもたないことを示せ」</dd>
+      <dt>こう考える</dt><dd>整数は無限にあるが、<b>\(m\) で割った余りは \(m\) 通り</b>しかない。余りごとに全部調べれば「すべての整数」について示したことになる。平方数は4で割ると 0 か 1、3で割ると 0 か 1、が基本。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>何で割るか（法 \(m\)）を決める：問題の数（2, 3, 4, 8 など）や、平方なら 3, 4, 8 を試す。</li>
+        <li>\(n=mk,\ mk+1,\ldots\)（または \(n\equiv0,1,\ldots\pmod m\)）と分けて計算する。</li>
+        <li>全部の場合を表にまとめて結論を書く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>除法の原理、平方数の余り</dd>
+      <dt>なぜこの方法？</dt><dd>\(n^2\) を \(m\) で割った余りは \(n\) を \(m\) で割った余りだけで決まる（\((mk+r)^2=m(\cdots)+r^2\)）。だから<b>有限個の場合を調べるだけで無限個について言える</b>。法の選び方は「問題に出てくる数」「平方なら 4 か 3」が第一候補。<a href="../thinking.html#t-mod">発想：余り・偶奇で分類</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 整数 \(n\) について、\(n^2\) を 4 で割った余りは 0 または 1 であることを示せ。<br>(2) \(x^2+y^2=2027\) を満たす整数 \(x,y\) は存在しないことを示せ。</div>
+      <p>(1) \(n\) が偶数なら \(n=2k\) で \(n^2=4k^2\)：余り 0。奇数なら \(n=2k+1\) で \(n^2=4(k^2+k)+1\)：余り 1。</p>
+      <p>(2) (1) より \(x^2+y^2\) を 4 で割った余りは \(0+0,\ 0+1,\ 1+1\) より 0, 1, 2 のいずれか。一方 \(2027=4\cdot506+3\) は 4 で割ると 3 余る。よって等式は成り立たない。（証明終）</p>
+      <p class="point">「なぜ 4 で割るのか」：平方数は 4 で割った余りが 2 種類しかなく、和が 3 になれない。2027 のように「4 で割って 3 余る」数が出たら、この型を疑う。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="int-p6" data-level="2">
+    <h3><span class="pid">P6</span>合同式の性質と1次合同式</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(a\) を 7 で割ると 3 余り、\(b\) を 7 で割ると 5 余る。\(2a+3b\) を 7 で割った余り」「\(3x\equiv5\pmod7\) を満たす \(x\)」</dd>
+      <dt>こう考える</dt><dd>合同式では、足し算・引き算・掛け算・累乗の途中で<b>いつでも余りに置き換えてよい</b>。割り算の代わりに「掛けて 1 になる数（逆数）」を掛ける。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(a\equiv3,\ b\equiv5\pmod7\) と書き、式に代入して計算する。</li>
+        <li>\(3x\equiv5\)：\(3\times c\equiv1\pmod 7\) となる \(c\)（\(c=5\)）を両辺に掛ける。</li>
+        <li>または \(x=0,1,\ldots,6\) を全部代入して調べる（法が小さいとき）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>合同式の和・差・積・累乗、\(\gcd(c,m)=1\) のときの約分</dd>
+      <dt>なぜこの方法？</dt><dd>\(a=7s+3\) のように文字を置いて展開しても同じだが、合同式は「7 の倍数の部分は最初から無視する」書き方なので計算が短い。逆数を掛けるのは、\(3\) と \(7\) が互いに素だから両辺の「割り算」ができることの具体化。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 整数 \(a,b\) を 7 で割った余りがそれぞれ 3, 5 のとき、\(2a+3b\) と \(a^2b\) を 7 で割った余りを求めよ。<br>(2) \(3x\equiv5\pmod7\) を満たす整数 \(x\) をすべて求めよ。</div>
+      <p>(1) \(2a+3b\equiv2\cdot3+3\cdot5=21\equiv0\pmod 7\)。\(a^2b\equiv9\cdot5\equiv2\cdot5=10\equiv3\pmod7\)。</p>
+      <p class="answer">(1) \(2a+3b\)：0、\(a^2b\)：3</p>
+      <p>(2) \(3\cdot5=15\equiv1\pmod7\) なので、両辺に 5 を掛けて \(15x\equiv25\)、\(x\equiv4\pmod7\)。逆に \(x\equiv4\) なら \(3x\equiv12\equiv5\) で成り立つ。</p>
+      <p class="answer">(2) \(x=7k+4\)（\(k\) は整数）</p>
+      <p class="point">合同式は教科書では発展扱いだが、答案に使ってよい。不安なら「\(a=7s+3,\ b=7t+5\) とおくと…」と書けば確実。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="int-p7" data-level="2">
+    <h3><span class="pid">P7</span>べき乗の余り・周期性（一の位）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(2^{100}\) を 7 で割った余り」「\(7^{2026}\) の一の位の数」</dd>
+      <dt>こう考える</dt><dd>余りは有限個なので、累乗の余りは必ず<b>周期的</b>になる。<b>余りが 1（または \(-1\)）になる累乗</b>を見つければ、指数をその周期で割った余りだけ考えればよい。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(a^1,a^2,a^3,\ldots\) の余りを順に計算し、1 または \(-1\) が出るまで続ける。</li>
+        <li>\(a^k\equiv1\) なら、指数 \(N=kq+r\) として \(a^N=(a^k)^qa^r\equiv a^r\)。</li>
+        <li>一の位は 10 で割った余り。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>合同式の累乗、周期性（フェルマーの小定理：P17）</dd>
+      <dt>なぜこの方法？</dt><dd>\(1^q=1\) なので、1 になる累乗を「かたまり」にすると何乗しても 1 のまま。\(-1\) なら \((-1)^q\) で符号だけ考えればよい。実験して周期を見つけるのが確実。<a href="../thinking.html#t-experiment">発想：小さい場合で実験</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(2^{100}\) および \(3^{100}\) を 7 で割った余りを求めよ。<br>(2) \(7^{2026}\) の一の位の数を求めよ。</div>
+      <p>(1) \(2^3=8\equiv1\pmod 7\)。\(100=3\cdot33+1\) より \(2^{100}=(2^3)^{33}\cdot2\equiv2\)。</p>
+      <p>\(3^3=27\equiv-1\pmod7\)、\(3^6\equiv1\)。\(100=6\cdot16+4\) より \(3^{100}\equiv3^4=81\equiv4\)。</p>
+      <p class="answer">(1) \(2^{100}\)：2、\(3^{100}\)：4</p>
+      <p>(2) \(7^2=49\equiv-1\pmod{10}\)、\(7^4\equiv1\)。\(2026=4\cdot506+2\) より \(7^{2026}\equiv7^2\equiv9\pmod{10}\)。</p>
+      <p class="answer">(2) 9</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="int-p8" data-level="1">
+    <h3><span class="pid">P8</span>ユークリッドの互除法（数・文字式）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「1729 と 1001 の最大公約数」「\(n+3\) と \(2n+1\) の最大公約数が 1 でないような \(n\)」</dd>
+      <dt>こう考える</dt><dd>素因数分解しにくい大きな数や、文字を含む式の最大公約数は、<b>大きい方から小さい方の倍数を引いて</b>小さくしていく。最大公約数は変わらない。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(a=bq+r\) と割り算し、\(\gcd(a,b)=\gcd(b,r)\)。</li>
+        <li>余りが 0 になるまで繰り返す。最後に割った数が最大公約数。</li>
+        <li>文字式：係数が消えるように引く（\(2n+1-2(n+3)=-5\)）。定数になれば、最大公約数はその定数の約数。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\gcd(a,b)=\gcd(b,a-bq)\)</dd>
+      <dt>なぜこの方法？</dt><dd>公約数の集合が変わらないので、数を小さくしても答えは同じ。<b>文字式でも同じ原理が使える</b>のが素因数分解との違いで、阪大の整数問題では「\(\gcd(n^2+1,\ 2n+1)\) は 1 か 5」のような形で頻出（P20）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 1729 と 1001 の最大公約数を求めよ。<br>(2) \(n\) を自然数とする。\(n+3\) と \(2n+1\) の最大公約数が 1 でないような 100 以下の \(n\) の個数を求めよ。</div>
+      <p>(1) \(1729=1001\cdot1+728\)、\(1001=728\cdot1+273\)、\(728=273\cdot2+182\)、\(273=182\cdot1+91\)、\(182=91\cdot2\)。</p>
+      <p class="answer">(1) 91</p>
+      <p>(2) \(2n+1=2(n+3)-5\) より \(\gcd(n+3,\ 2n+1)=\gcd(n+3,\ 5)\)。これは 1 か 5 で、5 になる ⇔ \(5\mid n+3\) ⇔ \(n\equiv2\pmod5\)。100 以下では \(n=2,7,\ldots,97\) の 20 個。</p>
+      <p class="answer">(2) 20 個</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="int-p9" data-level="2">
+    <h3><span class="pid">P9</span>1次不定方程式 \(ax+by=c\)</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(17x+23y=500\) を満たす自然数の組 \((x,y)\) をすべて求めよ」「\(ax+by=c\) の整数解」</dd>
+      <dt>こう考える</dt><dd>1組の解（特殊解）を見つけ、<b>もとの式から引き算</b>すると \(a(x-x_0)=-b(y-y_0)\) の形になる。\(a,b\) が互いに素なら、\(x-x_0\) は \(b\) の倍数。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>特殊解を見つける：小さい数を代入するか、互除法を逆にたどって \(ax+by=1\) の解を作り \(c\) 倍する。合同式 \(ax\equiv c\pmod b\) も便利。</li>
+        <li>引き算して \(a(x-x_0)=-b(y-y_0)\)。</li>
+        <li>\(a,b\) 互いに素より \(x-x_0=bk\)、\(y-y_0=-ak\)（\(k\) は整数）。</li>
+        <li>自然数などの条件から \(k\) の範囲を絞る。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>互除法、「\(a,b\) 互いに素で \(a\mid bm\) なら \(a\mid m\)」</dd>
+      <dt>なぜこの方法？</dt><dd>2つの解の差は \(ax+by=0\) を満たし、これは「\(a\) の倍数と \(b\) の倍数が等しい」という形。互いに素の性質から全部の解が \(k\) 1つで表せる。特殊解は何でもよい（答えの形は変わるが、表す集合は同じ）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(17x+23y=1\) を満たす整数 \(x,y\) を1組求めよ。<br>(2) \(17x+23y=500\) を満たす自然数の組 \((x,y)\) をすべて求めよ。</div>
+      <p>(1) 互除法：\(23=17\cdot1+6\)、\(17=6\cdot2+5\)、\(6=5\cdot1+1\)。逆にたどると</p>
+      <p>\(1=6-5=6-(17-6\cdot2)=6\cdot3-17=(23-17)\cdot3-17=23\cdot3-17\cdot4\)</p>
+      <p class="answer">(1) \((x,y)=(-4,\ 3)\)</p>
+      <p>(2) \(17\cdot1+23\cdot21=17+483=500\) より \((1,21)\) は解（(1) を 500 倍した \((-2000,1500)\) から調整してもよい。合同式なら \(500\equiv17\pmod{23}\) より \(17x\equiv17\)、\(x\equiv1\pmod{23}\) と見つかる）。</p>
+      <p>\(17x+23y=500\) から \(17\cdot1+23\cdot21=500\) を引いて \(17(x-1)=-23(y-21)\)。17 と 23 は互いに素なので \(x-1=23k\)、\(y-21=-17k\)（\(k\) は整数）。</p>
+      <p>\(x=23k+1\ge1\) より \(k\ge0\)、\(y=21-17k\ge1\) より \(k\le\frac{20}{17}\)、よって \(k=0,1\)。</p>
+      <p class="answer">(2) \((x,y)=(1,21),\ (24,4)\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="int-p10" data-level="2">
+    <h3><span class="pid">P10</span>積の形に持ち込む \((x-a)(y-b)=k\)</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\dfrac1x+\dfrac1y=\dfrac16\) を満たす自然数の組」「\(xy-2x-3y=0\) の整数解」</dd>
+      <dt>こう考える</dt><dd>\(xy\) の項があって1次の項もある → <b>\((x-a)(y-b)=k\) の形</b>に変形できる。整数×整数＝定数 なら、<b>約数の組</b>として候補が有限個になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>分母を払う：\(6x+6y=xy\)。</li>
+        <li>\(xy-6x-6y=0\) → \((x-6)(y-6)=36\)（展開して \(+36\) を両辺に足す）。</li>
+        <li>各因数の範囲（正か負か）を確認し、約数の組を書き出す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(xy+px+qy=(x+q)(y+p)-pq\)</dd>
+      <dt>なぜこの方法？</dt><dd>整数の方程式は、和の形だと候補が無限にあるが、<b>積が定数なら各因数は定数の約数</b>に限られる。これが整数問題で最も強力な「有限化」の方法。<a href="../thinking.html#t-rephrase">発想：同値な言い換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\dfrac1x+\dfrac1y=\dfrac16\) を満たす自然数の組 \((x,y)\) をすべて求めよ。</div>
+      <p>両辺に \(6xy\) を掛けて \(6y+6x=xy\)、\((x-6)(y-6)=36\)。</p>
+      <p>\(\frac1x=\frac16-\frac1y\lt\frac16\) より \(x\gt6\)。同様に \(y\gt6\)。よって \(x-6,\ y-6\) はともに正の整数で、積が 36。</p>
+      <p>\((x-6,y-6)\) は \((1,36)\)、\((2,18)\)、\((3,12)\)、\((4,9)\)、\((6,6)\)、\((9,4)\)、\((12,3)\)、\((18,2)\)、\((36,1)\)。</p>
+      <p class="answer">\((x,y)=\) \((7,42)\)、\((8,24)\)、\((9,18)\)、\((10,15)\)、\((12,12)\)、\((15,10)\)、\((18,9)\)、\((24,8)\)、\((42,7)\)（9組）</p>
+      <p class="point">\(x-6\) が負の場合を除く理由（\(x\gt6\)）を必ず書く。書かないと「負の約数の組」も調べる必要があり、答案が不完全になる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="int-p11" data-level="2">
+    <h3><span class="pid">P11</span>不等式で範囲を絞る（\(x\le y\le z\) と仮定）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\dfrac1x+\dfrac1y+\dfrac1z=1\) を満たす自然数の組（\(x\le y\le z\)）」「\(xyz=x+y+z\)」のように<b>文字について対称</b>な式</dd>
+      <dt>こう考える</dt><dd>対称なので<b>大小を仮定</b>してよい。すると「一番小さい \(x\) は、全体を支えるために大きすぎてはいけない」という不等式が作れ、\(x\) の候補が有限個になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(x\le y\le z\) と仮定（問題で指定がなければ、最後に並べ替えを加える）。</li>
+        <li>\(\frac1x\ge\frac1y\ge\frac1z\) より \(1=\frac1x+\frac1y+\frac1z\le\frac3x\)、\(x\le3\)。</li>
+        <li>\(x\) の各値で、残りの \(y\) を同様に絞る。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>大小関係による評価</dd>
+      <dt>なぜこの方法？</dt><dd>3つの文字を一度に絞るのは無理だが、最小の文字は「全部がそれと同じなら」という極端な場合で上から押さえられる。<b>1文字ずつ有限化</b>していく。<a href="../thinking.html#t-bound">発想：不等式で評価して絞る</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\dfrac1x+\dfrac1y+\dfrac1z=1,\ x\le y\le z\) を満たす自然数の組 \((x,y,z)\) をすべて求めよ。</div>
+      <p>\(x\le y\le z\) より \(1=\frac1x+\frac1y+\frac1z\le\frac3x\)、よって \(x\le3\)。また \(x=1\) だと \(\frac1y+\frac1z=0\) となり不適なので \(x=2,3\)。</p>
+      <ul>
+        <li>\(x=2\)：\(\frac1y+\frac1z=\frac12\le\frac2y\) より \(y\le4\)。また \(\frac1y\lt\frac12\) より \(y\ge3\)。\(y=3\) なら \(z=6\)、\(y=4\) なら \(z=4\)。</li>
+        <li>\(x=3\)：\(\frac1y+\frac1z=\frac23\le\frac2y\) より \(y\le3\)。\(y\ge x=3\) なので \(y=3\)、\(z=3\)。</li>
+      </ul>
+      <p class="answer">\((x,y,z)=(2,3,6),\ (2,4,4),\ (3,3,3)\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="int-p12" data-level="3">
+    <h3><span class="pid">P12</span>2次の不定方程式（平方完成・ペル型の初歩）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x^2-2xy+3y^2=9\) を満たす整数の組」「\(x^2-2y^2=1\) を満たす自然数の組が無数にあることを示せ」</dd>
+      <dt>こう考える</dt><dd>正の係数の2次式＝定数なら、<b>平方完成して「平方の和＝定数」</b>にすると各項が有界になり有限化できる（判別式 \(\ge0\) を使ってもよい）。\(x^2-2y^2=1\) のように差の形（ペル型）は解が無限にあるので、<b>解から次の解を作る</b>式を探す。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>平方完成：\((x-y)^2+2y^2=9\) → \(2y^2\le9\) で \(y\) を絞る。</li>
+        <li>各 \(y\) で \((x-y)^2\) が平方数になるか調べる。</li>
+        <li>ペル型：\((x+y\sqrt2)(3+2\sqrt2)=(3x+4y)+(2x+3y)\sqrt2\) に着目し、\((3x+4y,\ 2x+3y)\) も解であることを示す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>平方完成、\(A^2\ge0\)、\((a+b\sqrt2)(a-b\sqrt2)=a^2-2b^2\)</dd>
+      <dt>なぜこの方法？</dt><dd>平方の和は各項が 0 以上なので、和が 9 なら各項も 9 以下。<b>2次の場合の「不等式で絞る」</b>。ペル型は差なので絞れないが、\(\sqrt2\) を使った掛け算の構造で「解の列」を作れる。阪大では「無数にあることを示せ」の形で出る。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(x^2-2xy+3y^2=9\) を満たす整数の組 \((x,y)\) をすべて求めよ。<br>(2) 自然数 \(x,y\) が \(x^2-2y^2=1\) を満たすとき、\(X=3x+4y,\ Y=2x+3y\) も \(X^2-2Y^2=1\) を満たすことを示し、この方程式を満たす自然数の組が無数にあることを示せ。</div>
+      <p>(1) \((x-y)^2+2y^2=9\)。\(2y^2\le9\) より \(y=0,\pm1,\pm2\)。</p>
+      <ul>
+        <li>\(y=0\)：\(x^2=9\)、\(x=\pm3\)</li>
+        <li>\(y=\pm1\)：\((x-y)^2=7\) で平方数でなく不適</li>
+        <li>\(y=2\)：\((x-2)^2=1\)、\(x=3,1\)。\(y=-2\)：\((x+2)^2=1\)、\(x=-1,-3\)</li>
+      </ul>
+      <p class="answer">(1) \((x,y)=\) \((3,0)\)、\((-3,0)\)、\((3,2)\)、\((1,2)\)、\((-1,-2)\)、\((-3,-2)\)</p>
+      <p>(2) \(X^2-2Y^2=(9x^2+24xy+16y^2)-2(4x^2+12xy+9y^2)=x^2-2y^2=1\)。</p>
+      <p>\((3,2)\) は解（\(9-8=1\)）。解 \((x,y)\) から作った \((X,Y)\) は自然数の解で、\(X\gt x\) なので、この操作を繰り返すと \((3,2)\to(17,12)\to(99,70)\to\cdots\) と、互いに異なる解が限りなく得られる。（証明終）</p>
+      <p class="point">「無数にある」を示すには、<b>異なる解が次々と作れる</b>ことを言えば十分。\(X\gt x\) で「同じ解に戻らない」ことを保証するのがポイント。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="int-p13" data-level="2">
+    <h3><span class="pid">P13</span>素数の性質（余りで分類して合成数を作る）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(p\) と \(p^2+2\) がともに素数となる \(p\) をすべて求めよ」「\(p,\ p+2,\ p+4\) がすべて素数」</dd>
+      <dt>こう考える</dt><dd>小さい \(p\) で実験すると、条件を満たすのは特定の値だけ。その理由は「<b>それ以外では必ず 3（など）の倍数になる</b>」から。余りで分類して、3 の倍数かつ 3 より大きい → 合成数、と示す。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(p=2,3,5,7\) で実験し、どの数で割ると良いか見当をつける。</li>
+        <li>\(p\) をその数（3 など）で割った余りで分類。</li>
+        <li>\(p\ne3\) なら \(p^2+2\) は 3 の倍数で 3 より大きいので素数でない、と示す。</li>
+        <li>残った \(p=3\) が実際に条件を満たすことを確認。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>素数の定義（約数が 1 と自分自身のみ）、\(p^2\equiv1\pmod3\)（\(3\nmid p\)）</dd>
+      <dt>なぜこの方法？</dt><dd>「素数である」を直接示すのは難しいが、「素数でない」は<b>1つの約数を見つければ</b>示せる。3 の倍数になることを余りの計算で示すのが定石。<a href="../thinking.html#t-mod">発想：余りで分類</a>、<a href="../thinking.html#t-experiment">発想：実験</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(p\) と \(p^2+2\) がともに素数となるような自然数 \(p\) をすべて求めよ。</div>
+      <p>実験：\(p=2\) で 6、\(p=3\) で 11、\(p=5\) で 27、\(p=7\) で 51＝3·17。</p>
+      <p>\(p\) が 3 の倍数でないとき、\(p\equiv\pm1\pmod3\) より \(p^2\equiv1\)、\(p^2+2\equiv0\pmod3\)。\(p^2+2\gt3\) なので \(p^2+2\) は素数でない。</p>
+      <p>よって \(p\) は 3 の倍数で、素数だから \(p=3\)。このとき \(p^2+2=11\) は素数。</p>
+      <p class="answer">\(p=3\)</p>
+      <p class="point">「\(p^2+2\gt3\) なので」を書き忘れると論理が不完全（3 の倍数でも 3 自身は素数）。最後の「\(p=3\) は実際に条件を満たす」も忘れない（必要条件で絞ったら十分性を確認：<a href="../thinking.html#t-necessary">発想：必要条件で絞る</a>）。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="int-p14" data-level="2">
+    <h3><span class="pid">P14</span>無理数であることの証明（\(\sqrt2\) 型）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\sqrt6\) が無理数であることを証明せよ」「\(\log_23\) は無理数であることを示せ」</dd>
+      <dt>こう考える</dt><dd>無理数＝「有理数でない」という否定の主張 → <b>背理法</b>。有理数と仮定して既約分数 \(\frac mn\) とおき、整数の性質（偶奇・素因数）で矛盾を出す。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>「有理数であると仮定すると、互いに素な自然数 \(m,n\) で \(\sqrt6=\frac mn\) と書ける」。</li>
+        <li>両辺を2乗し分母を払う：\(m^2=6n^2\)。</li>
+        <li>\(m^2\) が偶数 → \(m\) が偶数 → \(m=2k\) を代入 → \(n\) も偶数。互いに素に矛盾。</li>
+        <li>対数なら \(2^{m}=3^{n}\) のように指数の形にし、偶奇で矛盾。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>背理法、「\(m^2\) が偶数 ⇒ \(m\) が偶数」（対偶：\(m\) 奇数 ⇒ \(m^2\) 奇数）</dd>
+      <dt>なぜこの方法？</dt><dd>無理数は「分数で書けない」という性質しか持たないので、<b>書けると仮定して矛盾</b>を導くしかない。「\(m^2\) が偶数 ⇒ \(m\) が偶数」は素数 2 の性質（\(2\mid m\cdot m\Rightarrow2\mid m\)）。<a href="../thinking.html#t-contradiction">発想：背理法</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\sqrt6\) は無理数であることを証明せよ。<br>(2) \(\log_23\) は無理数であることを証明せよ。</div>
+      <p>(1) \(\sqrt6\) が有理数であると仮定すると、互いに素な自然数 \(m,n\) を用いて \(\sqrt6=\frac mn\) と表せる。\(m^2=6n^2\) より \(m^2\) は偶数なので \(m\) も偶数（\(m\) が奇数なら \(m^2\) も奇数）。\(m=2k\) とおくと \(4k^2=6n^2\)、\(2k^2=3n^2\)。よって \(3n^2\) は偶数で、3 は奇数なので \(n^2\) が偶数、\(n\) も偶数。\(m,n\) がともに偶数となり、互いに素であることに矛盾。よって \(\sqrt6\) は無理数。（証明終）</p>
+      <p>(2) \(\log_23\gt0\) である。有理数と仮定すると、自然数 \(m,n\) を用いて \(\log_23=\frac mn\) と表せる。\(2^{m/n}=3\) より \(2^m=3^n\)。左辺は偶数（\(m\ge1\)）、右辺は奇数なので矛盾。よって \(\log_23\) は無理数。（証明終）</p>
+      <p class="point">(2) で「\(\log_23\gt0\) なので \(m,n\) は自然数にとれる」を書くと、\(m\ge1\) が保証され左辺が偶数と言える。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="int-p15" data-level="1">
+    <h3><span class="pid">P15</span>n進法</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(101101_{(2)}\) を10進法で表せ」「2026 を5進法で表せ」「\(0.101_{(2)}\) を10進法の小数で」</dd>
+      <dt>こう考える</dt><dd>\(n\) 進法の各桁は \(n^k\) の個数。<b>\(n\) 進→10進は位の重みを掛けて足す</b>、<b>10進→\(n\) 進は \(n\) で割り続け、余りを下から読む</b>。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(n\) 進→10進：\(a_ka_{k-1}\cdots a_0{}_{(n)}=a_kn^k+\cdots+a_1n+a_0\)。</li>
+        <li>10進→\(n\) 進：\(n\) で割った余りが一の位、商をさらに \(n\) で割った余りが次の位…。</li>
+        <li>小数：小数点以下 \(k\) 桁目の重みは \(n^{-k}\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>除法の原理（余りは \(0\) 以上 \(n\) 未満なので1桁の数字になる）</dd>
+      <dt>なぜこの方法？</dt><dd>\(N=n\cdot q+r\) の \(r\) は一の位そのもの。\(q\) はその数を1桁右にずらしたもの（\(N\) の一の位を消した数）。だから割り算を繰り返すと下の位から順に出てくる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(101101_{(2)}\) を10進法で表せ。(2) 2026 を5進法で表せ。(3) \(0.101_{(2)}\) を10進法の小数で表せ。</div>
+      <p>(1) \(2^5+2^3+2^2+1=32+8+4+1=45\)。</p>
+      <p>(2) \(2026=5\cdot405+1\)、\(405=5\cdot81+0\)、\(81=5\cdot16+1\)、\(16=5\cdot3+1\)、\(3=5\cdot0+3\)。余りを下から読んで \(31101_{(5)}\)。</p>
+      <p>(3) \(\frac12+\frac18=0.625\)。</p>
+      <p class="answer">(1) 45　(2) \(31101_{(5)}\)　(3) 0.625</p>
+      <p class="point">検算：\(3\cdot625+1\cdot125+1\cdot25+0\cdot5+1=1875+125+25+1=2026\)。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="int-p16" data-level="2">
+    <h3><span class="pid">P16</span>ガウス記号 \([x]\)</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\([x]\) は \(x\) を超えない最大の整数を表す。方程式 \([x]^2-3[x]-4=0\) を解け」「\(\left[\frac{3x}{2}\right]=x+1\) を満たす実数 \(x\)」</dd>
+      <dt>こう考える</dt><dd>\([x]=n\) ⇔ <b>\(n\le x\lt n+1\)（\(n\) は整数）</b>。ガウス記号は「整数部分」なので、<b>整数 \(n\) とおき直して不等式</b>に変える。式の一方が整数なら、もう一方も整数という条件も使える。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\([x]=n\) とおき、\(n\le x\lt n+1\) と書く。</li>
+        <li>\([\cdots]\) を含む等式では、右辺も整数でなければならない → \(x\) の形が絞れる。</li>
+        <li>不等式を解き、整数 \(n\) の条件を満たすものを選ぶ。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\([x]\le x\lt[x]+1\)、\(x-1\lt[x]\le x\)</dd>
+      <dt>なぜこの方法？</dt><dd>\([x]\) は階段状の関数で、式のままでは扱いにくい。<b>整数 \(n\) と不等式の組</b>に直すと、整数問題（有限個の候補）と不等式の問題に分解できる。\([x]\) のグラフ（階段）を描くと図で確認できる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\([x]\) で \(x\) を超えない最大の整数を表す。<br>(1) \([x]^2-3[x]-4=0\) を満たす実数 \(x\) の範囲を求めよ。<br>(2) \(\left[\dfrac{3x}{2}\right]=x+1\) を満たす実数 \(x\) をすべて求めよ。</div>
+      <p>(1) \(([x]-4)([x]+1)=0\) より \([x]=4\) または \([x]=-1\)。</p>
+      <p class="answer">(1) \(-1\le x\lt0,\ 4\le x\lt5\)</p>
+      <p>(2) 左辺は整数なので \(x+1\) も整数、よって \(x\) は整数。\(x=k\) とおくと \(\left[\frac{3k}{2}\right]=k+1\) ⇔ \(k+1\le\frac{3k}2\lt k+2\) ⇔ \(2\le k\lt4\)。\(k=2,3\)（確認：\([3]=3,\ [4.5]=4\)）。</p>
+      <p class="answer">(2) \(x=2,\ 3\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="int-p17" data-level="3">
+    <h3><span class="pid">P17</span>フェルマーの小定理（発展）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「すべての整数 \(n\) に対し \(n^7-n\) は 42 の倍数であることを示せ」「\(3^{100}\) を 13 で割った余り」「\(p\) を素数とする」</dd>
+      <dt>こう考える</dt><dd>素数 \(p\) を法とする累乗は、<b>\(n^{p}\equiv n\)（\(p\nmid n\) なら \(n^{p-1}\equiv1\)）</b>。42＝2·3·7 のように互いに素な素数の積なら、それぞれで割り切れることを示して合わせる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(n^p\equiv n\pmod p\) を、\(n\) についての帰納法と二項定理で示す（下の証明）。</li>
+        <li>\(n^7-n\) は 7 の倍数（小定理）。さらに因数分解して 2, 3 の倍数も示す。</li>
+        <li>2, 3, 7 は互いに素なので 42 の倍数。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>フェルマーの小定理、P18（\(p\mid\C{p}{k}\)）、「互いに素な \(a,b\) で割り切れれば \(ab\) で割り切れる」</dd>
+      <dt>なぜこの方法？</dt><dd>\((n+1)^p\) を二項展開すると、両端以外の係数 \(\C{p}{k}\) がすべて \(p\) の倍数なので \((n+1)^p\equiv n^p+1\)。<b>「\(n\) で成り立てば \(n+1\) でも」</b>の形なので帰納法がぴったり。教科書範囲外なので、答案で使うときは証明を添えるのが安全。<a href="../thinking.html#t-induction">発想：数学的帰納法</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(p\) を素数とする。(1) すべての自然数 \(n\) について \(n^p\equiv n\pmod p\) を示せ（\(1\le k\le p-1\) で \(\C{p}{k}\) が \(p\) の倍数であることは用いてよい）。<br>(2) すべての整数 \(n\) について、\(n^7-n\) は 42 の倍数であることを示せ。<br>(3) \(3^{100}\) を 13 で割った余りを求めよ。</div>
+      <p>(1) \(n=1\) では \(1\equiv1\)。\(n=k\) で \(k^p\equiv k\) と仮定すると、二項定理より</p>
+      <p>\((k+1)^p=k^p+\sum_{j=1}^{p-1}\C{p}{j}k^j+1\equiv k^p+1\equiv k+1\pmod p\)</p>
+      <p>よって \(n=k+1\) でも成り立ち、すべての自然数 \(n\) で成り立つ。（証明終）</p>
+      <p>(2) \(n^7-n=n(n^6-1)=(n-1)n(n+1)(n^2+n+1)(n^2-n+1)\)。連続3整数の積 \((n-1)n(n+1)\) は 2 の倍数かつ 3 の倍数。また (1)（\(p=7\)）より \(n\ge1\) で \(n^7-n\) は 7 の倍数。\(n=0\) では 0。\(n\lt0\) では \(n^7-n=-\{(-n)^7-(-n)\}\) より同様。2, 3, 7 は互いに素なので 42 の倍数。（証明終）</p>
+      <p>(3) \(3^3=27\equiv1\pmod{13}\)。\(100=3\cdot33+1\) より \(3^{100}\equiv3\)。（小定理 \(3^{12}\equiv1\) を使っても \(100=12\cdot8+4\)、\(3^4=81\equiv3\) で同じ。）</p>
+      <p class="answer">(3) 3</p>
+      <p class="point">(2) で「2, 3, 7 が互いに素」を書かずに 42 の倍数と結論すると減点。42 が最良であること（すべての \(n\) に共通な約数は 42）も確かめられる：\(n=2\) で \(126=2\cdot3^2\cdot7\)、\(n=3\) で \(2184=2^3\cdot3\cdot7\cdot13\)、最大公約数は 42。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="int-p18" data-level="3">
+    <h3><span class="pid">P18</span>二項係数の整除性</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(p\) が素数のとき、\(1\le k\le p-1\) に対し \(\C{p}{k}\) は \(p\) の倍数であることを示せ」「\(\C{2n}{n}\) は偶数であることを示せ」</dd>
+      <dt>こう考える</dt><dd>\(\C{p}{k}=\dfrac{p!}{k!(p-k)!}\) は整数で、分子の \(p\) は分母のどれにも割り切られない（分母は \(p\) 未満の数の積）。式で書くなら <b>\(k\,\C{p}{k}=p\,\C{p-1}{k-1}\)</b> を使う。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(k\C{p}{k}=p\C{p-1}{k-1}\)（両辺を階乗で書いて確認）。</li>
+        <li>右辺は \(p\) の倍数なので \(p\mid k\C{p}{k}\)。</li>
+        <li>\(1\le k\le p-1\) と \(p\) は素数より \(p\nmid k\)、よって \(p\mid\C{p}{k}\)。</li>
+        <li>\(\C{2n}{n}\)：パスカルの三角形 \(\C{2n}{n}=\C{2n-1}{n-1}+\C{2n-1}{n}\) と対称性。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(k\C{n}{k}=n\C{n-1}{k-1}\)、\(\C{n}{k}=\C{n-1}{k-1}+\C{n-1}{k}\)、素数の性質</dd>
+      <dt>なぜこの方法？</dt><dd>「分数の形なのに整数」という二項係数を、<b>掛け算の式</b>に直すと整除の議論ができる。素数 \(p\) が積 \(k\C{p}{k}\) を割り、\(k\) を割らないなら \(\C{p}{k}\) を割る（素数の性質）。\(p\) が素数でないと成り立たない（\(\C{4}{2}=6\) は 4 の倍数でない）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(p\) を素数とする。\(1\le k\le p-1\) のとき、\(\C{p}{k}\) は \(p\) の倍数であることを示せ。<br>(2) 自然数 \(n\) について、\(\C{2n}{n}\) は偶数であることを示せ。</div>
+      <p>(1) \(k\C{p}{k}=k\cdot\dfrac{p!}{k!(p-k)!}=p\cdot\dfrac{(p-1)!}{(k-1)!(p-k)!}=p\,\C{p-1}{k-1}\)。</p>
+      <p>よって \(p\mid k\C{p}{k}\)。\(p\) は素数で、\(1\le k\le p-1\) より \(p\nmid k\) なので、\(p\mid\C{p}{k}\)。（証明終）</p>
+      <p>(2) \(\C{2n}{n}=\C{2n-1}{n-1}+\C{2n-1}{n}\)。\(\C{2n-1}{n}=\C{2n-1}{(2n-1)-n}=\C{2n-1}{n-1}\) なので \(\C{2n}{n}=2\,\C{2n-1}{n-1}\) で偶数。（証明終）</p>
+      <p class="point">(1) の「\(p\nmid k\)」から「\(p\mid\C{p}{k}\)」へは、「\(p\) が素数で \(p\mid ab\) なら \(p\mid a\) または \(p\mid b\)」を使っている。答案ではこの根拠を1行書く。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="int-p19" data-level="3">
+    <h3><span class="pid">P19</span>数学的帰納法との融合（倍数の証明）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「すべての自然数 \(n\) について \(4^n+6n-1\) は 9 の倍数であることを証明せよ」</dd>
+      <dt>こう考える</dt><dd>\(n\) から \(n+1\) へ進むとき、<b>\(f(n+1)\) を「\(f(n)\) の何倍＋9 の倍数」</b>の形に書ければよい。\(4^{n+1}=4\cdot4^n\) なので、\(4f(n)\) を引いて残りを調べる。別解として二項展開 \((1+3)^n\) も強力。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(n=1\) で成り立つことを確認。</li>
+        <li>\(n=k\) で \(4^k+6k-1=9M\)（\(M\) は整数）と仮定。</li>
+        <li>\(4^{k+1}+6(k+1)-1=4(4^k+6k-1)-18k+9\) と変形し、9 の倍数であることを示す。</li>
+        <li>結論を書く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>数学的帰納法、二項定理</dd>
+      <dt>なぜこの方法？</dt><dd>指数 \(4^n\) は \(n\) が1増えると4倍になる。だから \(f(k+1)-4f(k)\) を計算すると指数の部分が消え、1次式だけが残る。この「指数を消す組合せ」を見つけるのがコツ。<a href="../thinking.html#t-induction">発想：数学的帰納法</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">すべての自然数 \(n\) について、\(4^n+6n-1\) は 9 の倍数であることを証明せよ。</div>
+      <p><b>証明1（帰納法）</b> (i) \(n=1\) のとき \(4+6-1=9\) で成り立つ。</p>
+      <p>(ii) \(n=k\) のとき成り立つ、すなわち \(4^k+6k-1=9M\)（\(M\) は整数）と仮定する。\(n=k+1\) のとき</p>
+      \[ \begin{aligned} &4^{k+1}+6(k+1)-1\\ &=4(4^k+6k-1)-18k+9\\ &=9(4M-2k+1) \end{aligned} \]
+      <p>で 9 の倍数。(i)(ii) よりすべての自然数 \(n\) で成り立つ。（証明終）</p>
+      <p><b>証明2（二項定理）</b> \(4^n=(1+3)^n=1+3n+\sum_{k=2}^{n}\C{n}{k}3^k\)。\(k\ge2\) の項はすべて 9 の倍数なので、\(4^n=1+3n+9N\)（\(N\) は整数、\(n=1\) では \(N=0\)）。よって \(4^n+6n-1=9n+9N\) は 9 の倍数。（証明終）</p>
+      <p class="point">帰納法の答案は「(i) 出発点」「(ii) 仮定を明示 → 仮定を使う」「結論」の3つがそろって初めて満点。仮定の式（\(=9M\)）を実際に使った行を必ず入れる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="int-p20" data-level="3">
+    <h3><span class="pid">P20</span>「\(n^2+1\) が〜の倍数」型</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(n^2+1\) が 5 の倍数となる \(n\)」「さらに 25 の倍数となる \(n\)」「\(n^2+1\) と \((n+1)^2+1\) の最大公約数」</dd>
+      <dt>こう考える</dt><dd>まず小さい法（5）で<b>余りの分類</b>をし、候補を \(n=5k+2\) などに絞る。次に、その形を代入して大きい法（25）の条件を \(k\) の条件に直す（<b>段階的に持ち上げる</b>）。最大公約数は互除法で文字を消す。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(n\equiv0,\pm1,\pm2\pmod5\) で \(n^2+1\) の余りを調べる。</li>
+        <li>条件を満たす形 \(n=5k+r\) を代入して展開し、\(25\) の倍数になる \(k\) の条件を求める。</li>
+        <li>最大公約数：\(d\) が両方を割るなら、差や組合せ \(4(n^2+1)-(2n+1)(2n-1)\) も割る → \(d\) は定数の約数。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>剰余類、互除法の原理（\(d\mid a,\ d\mid b\Rightarrow d\mid sa+tb\)）</dd>
+      <dt>なぜこの方法？</dt><dd>25 で割った余り 25 通りを全部調べるのは大変だが、5 の倍数の条件で候補を5分の2に減らしてから調べれば、1次の条件になる。<b>「必要条件で絞ってから詳しく調べる」</b>流れ。<a href="../thinking.html#t-necessary">発想：必要条件で絞る</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(n\) を整数とする。<br>(1) \(n^2+1\) が 5 の倍数となるための \(n\) の条件を求めよ。<br>(2) \(n^2+1\) が 25 の倍数となるための \(n\) の条件を求めよ。<br>(3) \(n^2+1\) と \((n+1)^2+1\) の最大公約数を求めよ。</div>
+      <p>(1) \(n\equiv0,\pm1,\pm2\pmod5\) に対し \(n^2+1\equiv1,\ 2,\ 5\equiv0\)。</p>
+      <p class="answer">(1) \(n\) を 5 で割った余りが 2 または 3</p>
+      <p>(2) (1) より \(n=5k+2\) または \(n=5k+3\) が必要。</p>
+      <ul>
+        <li>\(n=5k+2\)：\(n^2+1=25k^2+20k+5=5(5k^2+4k+1)\)。25 の倍数 ⇔ \(5\mid4k+1\) ⇔ \(k\equiv1\pmod5\) ⇔ \(n\equiv7\pmod{25}\)。</li>
+        <li>\(n=5k+3\)：\(n^2+1=25k^2+30k+10=5(5k^2+6k+2)\)。25 の倍数 ⇔ \(5\mid6k+2\) ⇔ \(k\equiv3\pmod5\) ⇔ \(n\equiv18\pmod{25}\)。</li>
+      </ul>
+      <p class="answer">(2) \(n\) を 25 で割った余りが 7 または 18</p>
+      <p>(3) 最大公約数を \(d\) とする。\(d\) は \((n+1)^2+1-(n^2+1)=2n+1\) を割る。さらに \(4(n^2+1)-(2n+1)(2n-1)=5\) を割るので \(d=1\) または \(5\)。</p>
+      <p>\(d=5\) ⇔ \(5\mid n^2+1\) かつ \(5\mid2n+1\)。\(5\mid2n+1\) ⇔ \(n\equiv2\pmod5\) で、このとき \(n^2+1\equiv0\)、\((n+1)^2+1\equiv10\equiv0\) となり確かに両方 5 の倍数。</p>
+      <p class="answer">(3) \(n\equiv2\pmod 5\) のとき 5、それ以外のとき 1</p>
+      <p class="point">検算：\(n=7\) で \(50=2\cdot25\)、\(n=18\) で \(325=13\cdot25\)。(3) は \(n=2\) で \(\gcd(5,10)=5\)、\(n=3\) で \(\gcd(10,17)=1\)。なお \(n^2+1\) は 3 の倍数にはならない（\(n^2\equiv0,1\pmod 3\)）。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="pitfalls">
+  <h2>よくあるミスと対策</h2>
+  <ul class="pitfalls">
+    <li><b>\(a=ga',\ b=gb'\) で「互いに素」を書き忘れる</b>（P3）。→ 置いた行に必ず「\(a',b'\) は互いに素」と添える。</li>
+    <li><b>積の形で、因数の符号・範囲を調べない</b>（P10）。→ 「\(x\gt6\) より \(x-6\gt0\)」のように範囲を先に確定させる。負の約数の組を忘れるミスも多い。</li>
+    <li><b>素数の性質を合成数に使う</b>（P4, P18）。→ 「\(p\mid ab\Rightarrow p\mid a\) または \(p\mid b\)」は \(p\) が素数のときだけ。最大公約数 \(d\) ではなく素数 \(p\) で議論する。</li>
+    <li><b>合同式で割り算をする</b>（P6）。→ 割る数と法が互いに素のときだけ約分可。それ以外は逆数を掛けるか、全部の余りを調べる。</li>
+    <li><b>必要条件で絞ったまま十分性を確認しない</b>（P13, P20）。→ 最後に「このとき実際に〜」と代入して確かめる。</li>
+    <li><b>「3 の倍数だから素数でない」で、3 自身を見落とす</b>（P13, 演1）。→ 「3 の倍数で 3 より大きいので」と大きさも書く。</li>
+    <li><b>帰納法で仮定を使わない、または出発点を書かない</b>（P19）。→ (i)(ii) と結論の3部構成を守る。</li>
+  </ul>
+</section>
+
+<section id="handai">
+  <h2>阪大レベルへの橋渡し</h2>
+  <p>阪大理系の整数問題は、<b>「〜をすべて求めよ」と「〜を証明せよ」</b>がセットになった論証問題が中心である。素数・互いに素・余り・帰納法を組み合わせ、<b>なぜその場合しかないのか</b>を言葉で説明できるかが問われる。計算力よりも「論理のつなぎ」で差がつく。</p>
+
+  <div class="box tip">
+    <p><b>整数の証明答案の型</b>（この順で書けば、論理の抜けが減る）</p>
+    <ol>
+      <li><b>設定を宣言する</b>：「\(p,q\) を素数とする」「\(n=5k+r\ (r=0,1,\ldots,4)\) とおく」「\(\gcd(a,b)=1\) なので」。何を文字で表したかを最初に書く。</li>
+      <li><b>場合分けを宣言する</b>：「\(p,q\) がともに奇数のとき／一方が 2 のとき」。分け方がもれなく重複なく全体を覆っていることが分かるように書く。<a href="../thinking.html#t-casework">発想：場合分け</a></li>
+      <li><b>根拠を1つずつ書く</b>：「\(p\) は素数なので」「2 と 3 は互いに素なので」「\(N\gt3\) かつ 3 の倍数なので素数でない」。整数の性質を使う行には、その性質の名前か理由を添える。</li>
+      <li><b>背理法なら仮定と矛盾をはっきり</b>：「…と仮定する」「これは…に矛盾する」「よって…」。</li>
+      <li><b>十分性を確認して結論</b>：絞り込んだ候補が実際に条件を満たすことを代入で確かめ、「以上より、求める組は…」と答えを明記する。</li>
+    </ol>
+    <p>部分点は「正しい場合分け」「正しい絞り込み（必要条件）」「十分性の確認」の各段階につく。最後まで解けなくても、<b>候補を絞るところまでを論理的に書く</b>ことに価値がある。</p>
+  </div>
+
+  <article class="pattern" id="int-h1" data-level="3">
+    <h3><span class="pid">演1</span>素数 \(p,q\) で \(p^q+q^p\) が素数</h3>
+    <div class="problem">\(p,q\) を素数とする。\(p^q+q^p\) が素数となるような組 \((p,q)\) をすべて求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>まず<b>偶奇</b>：\(p,q\) がともに奇数なら和は偶数で 2 より大きい。よって一方は 2。次に \(2^q+q^2\) を小さい \(q\) で実験すると \(q=3\) で 17、\(q=5\) で 57＝3·19、\(q=7\) で 177＝3·59。<b>3 の倍数になる</b>のではと見当をつけ、3 で割った余りで示す。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p><b>(i) \(p,q\) がともに奇数のとき</b>：\(p^q,\ q^p\) はともに奇数なので \(p^q+q^p\) は偶数。\(p^q+q^p\ge3^3+3^3\gt2\) なので素数でない。</p>
+      <p><b>(ii) \(p=q=2\) のとき</b>：\(2^2+2^2=8\) で素数でない。</p>
+      <p><b>(iii) 一方が 2 で他方が奇素数のとき</b>：対称性から \(p=2\)、\(q\) を奇素数として \(N=2^q+q^2\) を調べる。</p>
+      <ul>
+        <li>\(q=3\)：\(N=8+9=17\) は素数。</li>
+        <li>\(q\ne3\)（\(q\ge5\)）：\(q\) は 3 の倍数でないので \(q^2\equiv1\pmod3\)。また \(q\) は奇数なので \(2^q\equiv(-1)^q=-1\pmod 3\)。よって \(N\equiv-1+1=0\pmod 3\)。\(N\gt3\) なので \(N\) は素数でない。</li>
+      </ul>
+      <p>以上より、\(p^q+q^p\) が素数となるのは \(\{p,q\}=\{2,3\}\) のときに限り、このとき \(17\) で素数である。</p>
+      <p class="answer">\((p,q)=(2,3),\ (3,2)\)</p>
+      <p class="point">採点ポイント：①偶奇による場合分けで「一方は 2」に絞る（ここまでで部分点）、②\(2^q\equiv-1\) の根拠「\(q\) が奇数」、③「\(N\gt3\) なので素数でない」、④\((2,3)\) と \((3,2)\) の両方を答える。<b>実験（\(q=5,7\) で 3 の倍数）から証明の方針を立てる</b>という流れは、阪大整数の典型的な思考法。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="int-h2" data-level="3">
+    <h3><span class="pid">演2</span>指数の不定方程式 \(2^n+1=3^m\)</h3>
+    <div class="problem">\(2^n+1=3^m\) を満たす自然数の組 \((n,m)\) をすべて求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>実験すると \((1,1)\)（\(3=3\)）、\((3,2)\)（\(9=9\)）。\(n\ge2\) なら左辺は <b>4 で割って 1 余る</b>。右辺 \(3^m\equiv(-1)^m\pmod4\) なので \(m\) は偶数。\(m=2k\) とすれば \(2^n=3^{2k}-1=(3^k-1)(3^k+1)\) と<b>積の形</b>になり、2 つの因数はともに 2 の累乗で差が 2。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p><b>\(n=1\) のとき</b>：\(3=3^m\) より \(m=1\)。</p>
+      <p><b>\(n\ge2\) のとき</b>：\(2^n\equiv0\pmod4\) より \(3^m=2^n+1\equiv1\pmod 4\)。一方 \(3\equiv-1\pmod4\) より \(3^m\equiv(-1)^m\)。よって \(m\) は偶数で、\(m=2k\)（\(k\) は自然数）とおける。</p>
+      <p>\(2^n=3^{2k}-1=(3^k-1)(3^k+1)\)。右辺の2つの因数は \(2^n\) の正の約数なので、ともに 2 の累乗であり、\(3^k-1=2^a,\ 3^k+1=2^b\)（\(0\le a\lt b,\ a+b=n\)）と書ける。</p>
+      <p>差をとると \(2^b-2^a=2\)、\(2^a(2^{b-a}-1)=2\)。\(2^{b-a}-1\) は奇数なので \(2^a=2,\ 2^{b-a}-1=1\)、すなわち \(a=1,\ b=2\)。</p>
+      <p>このとき \(3^k=3\)、\(k=1\)、\(m=2\)、\(n=a+b=3\)。実際 \(2^3+1=9=3^2\)。</p>
+      <p class="answer">\((n,m)=(1,1),\ (3,2)\)</p>
+      <p class="point">採点ポイント：①\(n=1\) を別扱いにする理由（4 で割れるのは \(n\ge2\)）、②\(m\) が偶数であることの導出、③「2 の累乗の約数は 2 の累乗」から2因数を \(2^a,2^b\) とおく部分、④奇数・偶数の分解で \(a=1\) を決める部分。<b>余り（法 4）→ 積の形 → 約数の絞り込み</b>と、整数の3つの武器を全部使う問題。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="int-h3" data-level="3">
+    <h3><span class="pid">演3</span>フィボナッチ数列の整数の性質（周期性・帰納法・互いに素）</h3>
+    <div class="problem">数列 \(\{a_n\}\) を \(a_1=a_2=1,\ a_{n+2}=a_{n+1}+a_n\ (n\ge1)\) で定める。<br>(1) \(a_n\) を 3 で割った余りを \(b_n\) とする。すべての自然数 \(n\) について \(b_{n+8}=b_n\) であることを示せ。<br>(2) \(a_n\) が 3 の倍数であるための必要十分条件は、\(n\) が 4 の倍数であることを示せ。<br>(3) すべての自然数 \(n\) について、\(a_n\) と \(a_{n+1}\) は互いに素であることを示せ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>(1) \(b_n\) を順に計算すると 1, 1, 2, 0, 2, 2, 1, 0, 1, 1, …。<b>連続する2項 \((b_9,b_{10})=(b_1,b_2)\)</b> が一致すれば、漸化式で後ろが全部決まるので周期 8。これを帰納法で書く。</p>
+      <p>(3) 互いに素でないと仮定し、共通の素因数 \(p\) が \(a_{n-1}=a_{n+1}-a_n\) も割ることを使って、添え字を下げていく（互除法の考え方）。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) \(a_{n+2}=a_{n+1}+a_n\) より \(b_{n+2}\equiv b_{n+1}+b_n\pmod3\) で、\(b_{n+2}\) は \(b_{n+1},b_n\) から決まる。</p>
+      <div class="table-wrap"><table>
+        <tr><th>\(n\)</th><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td></tr>
+        <tr><th>\(b_n\)</th><td>1</td><td>1</td><td>2</td><td>0</td><td>2</td><td>2</td><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+      </table></div>
+      <p>「\(b_{n+8}=b_n\) かつ \(b_{n+9}=b_{n+1}\)」を \(n\) についての帰納法で示す。\(n=1\) では表より \(b_9=b_1,\ b_{10}=b_2\)。\(n=k\) で成り立つと仮定すると、\(b_{k+10}\equiv b_{k+9}+b_{k+8}\equiv b_{k+1}+b_k\equiv b_{k+2}\) で、どちらも 0, 1, 2 のいずれかなので \(b_{k+10}=b_{k+2}\)。よって \(n=k+1\) でも成り立つ。したがってすべての \(n\) で \(b_{n+8}=b_n\)。（証明終）</p>
+      <p>(2) (1) より \(b_n\) は周期 8。\(1\le n\le8\) で \(b_n=0\) となるのは \(n=4,8\) のみ。よって \(b_n=0\) ⇔ \(n\equiv0\) または \(4\pmod 8\) ⇔ \(n\) が 4 の倍数。（証明終）</p>
+      <p>(3) ある \(n\) で \(a_n,\ a_{n+1}\) が互いに素でないと仮定し、そのような \(n\) のうち最小のものを \(n\) とする。共通の素因数 \(p\) がある。\(n=1\) なら \(a_1=1\) で不可能なので \(n\ge2\)。\(a_{n-1}=a_{n+1}-a_n\) なので \(p\mid a_{n-1}\)。すると \(a_{n-1},\ a_n\) も互いに素でなく、\(n\) の最小性に矛盾する。よってすべての \(n\) で互いに素。（証明終）</p>
+      <p class="point">採点ポイント：(1) は「連続2項が一致すれば以降すべて一致」を帰納法の形で書くこと（表だけでは不十分）。「\(b\) は 0, 1, 2 のいずれかなので合同から等号が言える」も一言。(3) は帰納法で「\(\gcd(a_{n+1},a_n)=\gcd(a_n,a_{n-1})\)」と書いてもよい。<b>周期性（余り）・帰納法・互除法</b>という整数の道具がすべて出る、阪大型の総合問題。<a href="../thinking.html#t-induction">発想：数学的帰納法</a></p>
+    </div></details>
+  </article>
+</section>
+
+<section id="next">
+  <h2>次に学ぶとつながる単元</h2>
+  <ul>
+    <li><a href="mb-sequence.html">数列</a>：P19・演3 の数学的帰納法。漸化式で定まる数列の整数の性質（余りの周期性）は阪大の頻出テーマ。</li>
+    <li><a href="ma-counting.html">場合の数</a>：P1 の約数の個数・総和、P18 の二項係数。整数の個数を数える問題（倍数の個数、包除原理）とも直結する。</li>
+    <li><a href="ma-probability.html">確率</a>：「目の積が〜の倍数」（素因数で分類）、「和を3で割った余り」（剰余類）の確率。</li>
+    <li><a href="m2-proof.html">式と証明</a>・<a href="m2-complex-eq.html">複素数と方程式</a>：多項式の割り算（剰余の定理）は整数の除法の原理と同じ構造。整数係数の方程式の有理数解の問題にもつながる。</li>
+    <li><a href="m2-explog.html">指数関数・対数関数</a>：P14 の \(\log_23\) の無理数性、桁数の問題。</li>
+  </ul>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>

@@ -39,13 +39,15 @@
 
   <div class="box theorem">
     <p><span class="name">楕円</span>：2焦点からの距離の和が一定 \(2a\) の点の軌跡（\(a\gt b\gt0\)）</p>
-    \[ \frac{x^2}{a^2}+\frac{y^2}{b^2}=1,\qquad \text{焦点 }(\pm c,0),\ c=\sqrt{a^2-b^2} \]
+    \[ \frac{x^2}{a^2}+\frac{y^2}{b^2}=1 \]
+    \[ \text{焦点 }(\pm c,0),\ c=\sqrt{a^2-b^2} \]
     <p>なぜ：\(\sqrt{(x+c)^2+y^2}+\sqrt{(x-c)^2+y^2}=2a\) で1つの根号を移項して2乗を2回行うと \((a^2-c^2)x^2+a^2y^2=a^2(a^2-c^2)\)。\(b^2=a^2-c^2\) とおけば標準形。\(b\gt a\) のときは焦点が \(y\) 軸上 \((0,\pm\sqrt{b^2-a^2})\)。</p>
   </div>
 
   <div class="box theorem">
     <p><span class="name">双曲線</span>：2焦点からの距離の差（の絶対値）が一定 \(2a\) の点の軌跡</p>
-    \[ \frac{x^2}{a^2}-\frac{y^2}{b^2}=1,\quad \text{焦点 }(\pm c,0),\ c=\sqrt{a^2+b^2},\quad \text{漸近線 }y=\pm\frac bax \]
+    \[ \frac{x^2}{a^2}-\frac{y^2}{b^2}=1,\qquad \text{焦点 }(\pm c,0),\ c=\sqrt{a^2+b^2} \]
+    \[ \text{漸近線 }y=\pm\frac bax \]
     <p>なぜ：楕円と同じ計算で \(b^2=c^2-a^2\) とおく。\(|x|\) が大きいと \(y=\pm\frac bax\sqrt{1-\frac{a^2}{x^2}}\approx\pm\frac bax\) となるのが漸近線。\(\frac{x^2}{a^2}-\frac{y^2}{b^2}=-1\) は焦点が \(y\) 軸上 \((0,\pm c)\)。</p>
   </div>
 
@@ -84,7 +86,7 @@
 
 <section id="quick">
   <h2>早見表：こう来たら → こう解く</h2>
-  <div class="table-wrap"><table class="quick">
+  <div class="table-wrap" style="position:relative"><table class="quick">
     <tr><th>問題の特徴（こう来たら）</th><th>方針（こう解く）</th><th>使う道具</th><th>詳細</th></tr>
     <tr data-level="1"><td>放物線の焦点・準線、焦点と準線から方程式</td><td>\(y^2=4px\) の \(p\) を読む</td><td>放物線の標準形</td><td><a href="#crv-p1">P1</a></td></tr>
     <tr data-level="1"><td>楕円の焦点・長軸／距離の和が一定の点の軌跡</td><td>\(a,b,c\) の関係 \(c^2=a^2-b^2\)</td><td>楕円の標準形</td><td><a href="#crv-p2">P2</a></td></tr>
@@ -284,7 +286,7 @@
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">楕円 \(\dfrac{x^2}{9}+\dfrac{y^2}{4}=1\) 上に2点 \(A(3,0),\ B(0,2)\) をとる。点 \(P\) がこの楕円上を動くとき、\(\triangle PAB\) の面積の最大値と、そのときの \(P\) を求めよ。また、この楕円に内接し、各辺が座標軸に平行な長方形の面積の最大値を求めよ。</div>
       <p>直線 \(AB\)：\(2x+3y-6=0\)、\(AB=\sqrt{13}\)。\(P(3\cos\theta,2\sin\theta)\) と直線 \(AB\) の距離は</p>
-      \[ d=\frac{|6\cos\theta+6\sin\theta-6|}{\sqrt{13}}=\frac{\left|6\sqrt2\sin\left(\theta+\frac\pi4\right)-6\right|}{\sqrt{13}} \]
+      \[ \begin{aligned} d&=\frac{|6\cos\theta+6\sin\theta-6|}{\sqrt{13}}\\ &=\frac{\left|6\sqrt2\sin\left(\theta+\frac\pi4\right)-6\right|}{\sqrt{13}} \end{aligned} \]
       <p>\(\sin\left(\theta+\frac\pi4\right)=-1\)（\(\theta=\frac{5\pi}{4}\)）のとき最大 \(\dfrac{6\sqrt2+6}{\sqrt{13}}\)。面積 \(=\frac12\sqrt{13}\cdot\dfrac{6(\sqrt2+1)}{\sqrt{13}}\)。</p>
       <p class="answer">\(\triangle PAB\) の最大値 \(3(\sqrt2+1)\)、\(P\left(-\dfrac{3\sqrt2}{2},\ -\sqrt2\right)\)</p>
       <p>長方形：第1象限の頂点を \((3\cos\theta,2\sin\theta)\ \left(0\lt\theta\lt\frac\pi2\right)\) とすると面積 \(4\cdot3\cos\theta\cdot2\sin\theta=12\sin2\theta\le12\)（\(\theta=\frac\pi4\)）。</p>
@@ -493,7 +495,8 @@
       <p>\(y=\frac12x\) と連立：\(x\left(\frac{x_1}{4}-\frac{y_1}{2}\right)=1\) より \(Q\left(\dfrac{4}{x_1-2y_1},\ \dfrac{2}{x_1-2y_1}\right)\)。</p>
       <p>\(y=-\frac12x\) と連立：\(R\left(\dfrac{4}{x_1+2y_1},\ \dfrac{-2}{x_1+2y_1}\right)\)。</p>
       <p>(1) \(Q,R\) の \(x\) 座標の和 \(=\dfrac{4(x_1+2y_1)+4(x_1-2y_1)}{x_1^2-4y_1^2}=\dfrac{8x_1}{4}=2x_1\)。\(y\) 座標の和 \(=\dfrac{2(x_1+2y_1)-2(x_1-2y_1)}{x_1^2-4y_1^2}=\dfrac{8y_1}{4}=2y_1\)。よって中点は \(P\)。（証明終）</p>
-      <p>(2) \(\triangle OQR=\dfrac12\left|\dfrac{4}{x_1-2y_1}\cdot\dfrac{-2}{x_1+2y_1}-\dfrac{4}{x_1+2y_1}\cdot\dfrac{2}{x_1-2y_1}\right|=\dfrac12\cdot\dfrac{16}{|x_1^2-4y_1^2|}=2\)。</p>
+      <p>(2) \(A=x_1-2y_1,\ B=x_1+2y_1\) とおくと \(AB=x_1^2-4y_1^2=4\)、\(Q\left(\frac4A,\frac2A\right),\ R\left(\frac4B,-\frac2B\right)\)。原点と2点で作る三角形の面積の公式 \(\frac12|x_Qy_R-x_Ry_Q|\) より</p>
+      \[ \begin{aligned} \triangle OQR&=\frac12\left|\frac4A\cdot\frac{-2}{B}-\frac4B\cdot\frac2A\right|\\ &=\frac12\cdot\frac{16}{|AB|}=2 \end{aligned} \]
       <p class="answer">(2) 2（\(P\) によらず一定。一般に \(ab\)）</p>
     </div></details>
   </article>
@@ -533,7 +536,7 @@
       <p>(1) \(\triangle OQR=\dfrac12\cdot\dfrac{2}{\cos\theta}\cdot\dfrac{1}{\sin\theta}=\dfrac{2}{\sin2\theta}\ge2\)。等号は \(\sin2\theta=1\)、\(\theta=\frac\pi4\)。</p>
       <p class="answer">(1) 最小値 2、\(P\left(\sqrt2,\ \dfrac{\sqrt2}{2}\right)\)</p>
       <p>(2) \(QR^2=\dfrac{4}{\cos^2\theta}+\dfrac{1}{\sin^2\theta}\)。\(\cos^2\theta+\sin^2\theta=1\) を掛けて</p>
-      \[ QR^2=\left(\frac{4}{\cos^2\theta}+\frac{1}{\sin^2\theta}\right)(\cos^2\theta+\sin^2\theta)=5+\frac{4\sin^2\theta}{\cos^2\theta}+\frac{\cos^2\theta}{\sin^2\theta}\ge5+2\sqrt{4}=9 \]
+      \[ \begin{aligned} QR^2&=\left(\frac{4}{\cos^2\theta}+\frac{1}{\sin^2\theta}\right)(\cos^2\theta+\sin^2\theta)\\ &=5+\frac{4\sin^2\theta}{\cos^2\theta}+\frac{\cos^2\theta}{\sin^2\theta}\\ &\ge5+2\sqrt{4}=9 \end{aligned} \]
       <p>（相加平均・相乗平均の関係）。等号は \(4\sin^4\theta=\cos^4\theta\)、すなわち \(\tan^2\theta=\frac12\) のときで、\(0\lt\theta\lt\frac\pi2\) の範囲に存在する。</p>
       <p class="answer">(2) 最小値 3（\(\tan\theta=\dfrac{1}{\sqrt2}\)、すなわち \(\cos^2\theta=\dfrac23\) のとき）</p>
       <p class="point">採点ポイント：相加相乗を使うときは<b>等号成立条件を満たす \(\theta\) が範囲内に実在すること</b>を書く。微分で解く場合は \(u=\cos^2\theta\ (0\lt u\lt1)\) として \(f(u)=\frac4u+\frac1{1-u}\)、\(f'(u)=0\) から \(u=\frac23\)、増減表で最小値 9。一般に最小値は \(a+b\) になる（ここでは \(2+1=3\)）。</p>
@@ -569,10 +572,10 @@
     <details class="sol"><summary>解答</summary><div class="inner">
       <p>\(OP=r_1,\ OQ=r_2\) とし、\(P(r_1\cos\theta,\ r_1\sin\theta)\)、\(Q\left(r_2\cos\left(\theta+\frac\pi2\right),\ r_2\sin\left(\theta+\frac\pi2\right)\right)=(-r_2\sin\theta,\ r_2\cos\theta)\) とおける。</p>
       <p>\(E\) に代入して</p>
-      \[ \frac1{r_1^2}=\frac{\cos^2\theta}{4}+\sin^2\theta=\frac{1+3\sin^2\theta}{4},\qquad \frac1{r_2^2}=\frac{\sin^2\theta}{4}+\cos^2\theta=\frac{4-3\sin^2\theta}{4} \]
+      \[ \begin{aligned} \frac1{r_1^2}&=\frac{\cos^2\theta}{4}+\sin^2\theta=\frac{1+3\sin^2\theta}{4}\\ \frac1{r_2^2}&=\frac{\sin^2\theta}{4}+\cos^2\theta=\frac{4-3\sin^2\theta}{4} \end{aligned} \]
       <p>(1) 和は \(\dfrac{1+3\sin^2\theta+4-3\sin^2\theta}{4}=\dfrac54\)（一定）。（証明終）</p>
       <p>(2) \(s=\sin^2\theta\ (0\le s\le1)\) とおくと</p>
-      \[ \triangle OPQ^2=\frac14r_1^2r_2^2=\frac14\cdot\frac{16}{(1+3s)(4-3s)}=\frac{4}{-9s^2+9s+4} \]
+      \[ \begin{aligned} \triangle OPQ^2&=\frac14r_1^2r_2^2=\frac14\cdot\frac{16}{(1+3s)(4-3s)}\\ &=\frac{4}{-9s^2+9s+4} \end{aligned} \]
       <p>\(g(s)=-9s^2+9s+4=-9\left(s-\frac12\right)^2+\frac{25}{4}\) は \(0\le s\le1\) で最大 \(\frac{25}4\)（\(s=\frac12\)）、最小 4（\(s=0,1\)）。</p>
       <p>よって \(\triangle OPQ^2\) は最小 \(\frac{16}{25}\)、最大 1。</p>
       <p class="answer">(2) 最大値 1（\(P,Q\) が楕円の頂点のとき）、最小値 \(\dfrac45\)（\(\theta=\frac\pi4\) など、\(OP=OQ\) のとき）</p>

@@ -129,7 +129,7 @@
         <li>角の大小：最大辺の対角が最大角。具体的な角度が要るなら余弦定理（<a href="m1-trig.html">図形と計量</a>）。</li>
       </ol></dd>
       <dt>使う定理・公式</dt><dd>三角形の成立条件 \(\abs{b-c}\lt a\lt b+c\)、辺と角の大小関係</dd>
-      <dt>なぜこの方法？</dt><dd>最大辺が分かっていれば1つの不等式で済むが、文字を含むと最大辺が \(x\) の値で入れ替わる。3つすべて書けば<b>場合分けなしで</b>必要十分になる。</dd>
+      <dt>なぜこの方法？</dt><dd>最大辺が分かっていれば1つの不等式で済むが、文字を含むと最大辺が \(x\) の値で入れ替わる。3つすべて書けば<b>場合分けなしで</b>必要十分になる。<a href="../thinking.html#t-casework">発想：場合分け（もれなく重複なく）</a></dd>
     </dl>
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">(1) 3辺の長さが \(x,\ 2x-1,\ 5\) である三角形が存在するような \(x\) の範囲を求めよ。<br>(2) \(\triangle\)ABC で AB＝5、BC＝6、CA＝4 のとき、最大の角と最小の角を答えよ。</div>
@@ -243,7 +243,7 @@
         <li>頂点→分点→頂点→分点…と一周する順に比を書く：\(\frac{\text{AO}}{\text{OP}}\cdot\frac{\text{PB}}{\text{BC}}\cdot\frac{\text{CQ}}{\text{QA}}=1\)。</li>
       </ol></dd>
       <dt>使う定理・公式</dt><dd>チェバの定理、メネラウスの定理</dd>
-      <dt>なぜこの方法？</dt><dd>メネラウスの式は「三角形の3辺それぞれの比」を掛けたもの。求めたい比がその3つのうちの1つに入るように三角形を選べば、残り2つは既知になる。<b>三角形は「求めたい線分＋既知の比が載っている辺」で決まる</b>と覚える。</dd>
+      <dt>なぜこの方法？</dt><dd>メネラウスの式は「三角形の3辺それぞれの比」を掛けたもの。求めたい比がその3つのうちの1つに入るように三角形を選べば、残り2つは既知になる。<b>三角形は「求めたい線分＋既知の比が載っている辺」で決まる</b>と覚える。<a href="../thinking.html#t-goal">発想：ゴールから逆算する</a></dd>
     </dl>
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">\(\triangle\)ABC の辺 BC を \(3:2\) に内分する点を P、辺 CA を \(1:2\) に内分する点を Q とする。AP と BQ の交点を O、直線 CO と辺 AB の交点を R とする。AR:RB と AO:OP を求めよ。</div>
@@ -326,7 +326,7 @@
         <li>円が分かったら、その円の円周角・内接四角形の性質で角を運ぶ。</li>
       </ol></dd>
       <dt>使う定理・公式</dt><dd>円周角の定理の逆、内接四角形の条件</dd>
-      <dt>なぜこの方法？</dt><dd>図に円が描かれていなくても、<b>隠れた円を見つける</b>と角の関係が一気に増える。垂心の図（P4）は隠れた円の宝庫で、阪大の証明問題でも頻出（演2）。</dd>
+      <dt>なぜこの方法？</dt><dd>図に円が描かれていなくても、<b>隠れた円を見つける</b>と角の関係が一気に増える（「直角が2つ」を「円周上にある」と<a href="../thinking.html#t-rephrase">言い換える</a>）。垂心の図（P4）は隠れた円の宝庫で、阪大の証明問題でも頻出（演2）。</dd>
     </dl>
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">鋭角三角形 ABC の頂点 B, C から対辺 CA, AB に下ろした垂線の足を E, F とする。(1) 4点 B, C, E, F は同一円周上にあることを示せ。(2) \(\angle\text{AEF}=\angle\text{ABC}\) を示せ。</div>
@@ -446,7 +446,7 @@
         <li>できた三角形の3辺（面の対角線など）を求め、角を出す（正三角形・直角三角形になることが多い）。</li>
       </ol></dd>
       <dt>使う定理・公式</dt><dd>平行線の性質、三平方の定理、余弦定理</dd>
-      <dt>なぜこの方法？</dt><dd>交わらない2直線の「角」は、平行移動しても変わらない向きどうしの角として定義される。だから<b>平行移動で交わらせる</b>のが定義そのもの。ベクトルで \(\cos\theta=\frac{\vec{u}\cdot\vec{v}}{\abs{\vec u}\abs{\vec v}}\) とする方法も同じことを計算でやっている。</dd>
+      <dt>なぜこの方法？</dt><dd>交わらない2直線の「角」は、平行移動しても変わらない向きどうしの角として定義される（<a href="../thinking.html#t-rephrase">同値な言い換え</a>）。だから<b>平行移動で交わらせる</b>のが定義そのもの。ベクトルで \(\cos\theta=\frac{\vec{u}\cdot\vec{v}}{\abs{\vec u}\abs{\vec v}}\) とする方法も同じことを計算でやっている。</dd>
     </dl>
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">立方体 ABCD-EFGH（ABCD が底面、E, F, G, H はそれぞれ A, B, C, D の真上）がある。(1) 辺 AB とねじれの位置にある辺をすべて答えよ。(2) 直線 AC と直線 BG のなす角を求めよ。</div>
@@ -493,7 +493,7 @@
         <li>\(v-e+f=2\) を確認（または未知の1つをこれで求める）。</li>
       </ol></dd>
       <dt>使う定理・公式</dt><dd>オイラーの多面体定理 \(v-e+f=2\)（凸多面体）</dd>
-      <dt>なぜこの方法？</dt><dd>面ごとに数えると、辺は2回、頂点は（集まる面の数）回ずつ重複して数えられる。重複の回数で割るのは<a href="ma-counting.html">場合の数</a>の「同じものを割る」と同じ発想。正多面体は、1頂点に集まる正多角形の角の和が \(360^\circ\) 未満でなければならないので、(正三角形 3, 4, 5 枚)(正方形 3 枚)(正五角形 3 枚) の5通りしかない。</dd>
+      <dt>なぜこの方法？</dt><dd>面ごとに数えると、辺は2回、頂点は（集まる面の数）回ずつ重複して数えられる。重複の回数で割るのは<a href="ma-counting.html">場合の数</a>の「同じものを割る」と同じ発想。正多面体は、1頂点に集まる正多角形の角の和が \(360^\circ\) 未満でなければならないので（<a href="../thinking.html#t-bound">不等式で絞る</a>）、(正三角形 3, 4, 5 枚)(正方形 3 枚)(正五角形 3 枚) の5通りしかない。</dd>
     </dl>
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">(1) 正五角形 12 枚と正六角形 20 枚で囲まれ、各頂点に3つの面が集まる凸多面体の頂点の数と辺の数を求めよ。<br>(2) 正二十面体の頂点の数と辺の数を求めよ（各面は正三角形で、各頂点に5つの面が集まる）。</div>
@@ -523,7 +523,7 @@
         <li>\(\text{AD}\cdot\text{AE}=\text{AD}(\text{AD}+\text{DE})=\text{AD}^2+\text{AD}\cdot\text{DE}\)、方べきで \(\text{AD}\cdot\text{DE}=\text{BD}\cdot\text{DC}\)。</li>
       </ol></dd>
       <dt>使う定理・公式</dt><dd>円周角、相似、方べきの定理（余弦定理で確かめてもよい）</dd>
-      <dt>なぜこの方法？</dt><dd>余弦定理で \(\cos B\) を出して \(\triangle\)ABD に使っても解けるが、この方法は<b>補助線1本で3つの道具（円周角・相似・方べき）がつながる</b>ので、図形問題全般の補助線の練習になる。阪大の演1 でもこの図を使う。</dd>
+      <dt>なぜこの方法？</dt><dd>余弦定理で \(\cos B\) を出して \(\triangle\)ABD に使っても解けるが、この方法は<b>補助線1本で3つの道具（円周角・相似・方べき）がつながる</b>ので、図形問題全般の補助線の練習になる。<a href="../thinking.html#t-goal">発想：ゴールから逆算する</a>阪大の演1 でもこの図を使う。</dd>
     </dl>
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">AB＝6、BC＝5、CA＝4 の \(\triangle\)ABC で、\(\angle A\) の二等分線と BC の交点を D とする。AD の長さを求めよ。</div>
@@ -613,7 +613,7 @@
     <h3><span class="pid">演3</span>正四面体のねじれの位置にある辺（初等幾何 vs ベクトル）</h3>
     <div class="problem">1辺の長さが1の正四面体 OABC において、辺 OA の中点を M、辺 BC の中点を N とする。<br>(1) MN⊥OA かつ MN⊥BC であることを示せ。<br>(2) MN の長さを求めよ。<br>(3) 正四面体 OABC の体積を求めよ。</div>
     <details class="hint"><summary>着眼点</summary><div class="inner">
-      <p>(1) <b>二等辺三角形の中線は底辺に垂直</b>。\(\triangle\)MBC が MB＝MC の二等辺三角形なら MN⊥BC。MB, MC はどちらも正三角形の中線。同様に \(\triangle\)NOA も NO＝NA。</p>
+      <p>(1) <b>二等辺三角形の中線は底辺に垂直</b>（正四面体の<a href="../thinking.html#t-symmetry">対称性</a>を使う）。\(\triangle\)MBC が MB＝MC の二等辺三角形なら MN⊥BC。MB, MC はどちらも正三角形の中線。同様に \(\triangle\)NOA も NO＝NA。</p>
       <p>(3) BC⊥ON、BC⊥AN から BC⊥平面 OAN（P15 の考え方）。四面体を平面 OAN で2つに切ると、どちらも底面 \(\triangle\)OAN、高さ BN（CN）。</p>
       <p>ベクトルなら \(\vec{\text{MN}}=\frac12(\vec b+\vec c-\vec a)\)（O 基準）として内積を計算する方法もある。</p>
     </div></details>

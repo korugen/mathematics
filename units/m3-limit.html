@@ -57,13 +57,16 @@
 
   <div class="box theorem">
     <p><span class="name">重要な関数の極限</span></p>
-    \[ \lim_{x\to0}\frac{\sin x}{x}=1,\quad \lim_{x\to\pm\infty}\left(1+\frac1x\right)^x=\lim_{h\to0}(1+h)^{\frac1h}=e,\quad \lim_{x\to0}\frac{\log(1+x)}{x}=1,\quad \lim_{x\to0}\frac{e^x-1}{x}=1 \]
+    \[ \lim_{x\to0}\frac{\sin x}{x}=1 \]
+    \[ \lim_{x\to\pm\infty}\left(1+\frac1x\right)^x=\lim_{h\to0}(1+h)^{\frac1h}=e \]
+    \[ \lim_{x\to0}\frac{\log(1+x)}{x}=1,\qquad \lim_{x\to0}\frac{e^x-1}{x}=1 \]
     <p>なぜ：\(0\lt x\lt\frac\pi2\) で面積を比べると \(\sin x\lt x\lt\tan x\)（三角形 \(\lt\) 扇形 \(\lt\) 三角形）。逆数をとり \(\sin x\) を掛けて \(\cos x\lt\frac{\sin x}{x}\lt1\)、はさみうち。\(e\) の極限は \(e\) の定義。\(\frac{\log(1+x)}{x}=\log(1+x)^{\frac1x}\to\log e=1\)。\(t=e^x-1\) とおくと \(\frac{e^x-1}{x}=\frac{t}{\log(1+t)}\to1\)。</p>
   </div>
 
   <div class="box theorem">
     <p><span class="name">発散の速さの比較</span>（\(n\) は自然数）</p>
-    \[ \lim_{x\to\infty}\frac{x^n}{e^x}=0,\qquad \lim_{x\to\infty}\frac{\log x}{x}=0,\qquad \lim_{x\to+0}x\log x=0 \]
+    \[ \lim_{x\to\infty}\frac{x^n}{e^x}=0,\qquad \lim_{x\to\infty}\frac{\log x}{x}=0 \]
+    \[ \lim_{x\to+0}x\log x=0 \]
     <p>なぜ：\(x\gt0\) で \(e^x\gt\dfrac{x^{n+1}}{(n+1)!}\)（微分を繰り返して示せる）から \(0\lt\dfrac{x^n}{e^x}\lt\dfrac{(n+1)!}{x}\to0\)。\(\log x\) の方は \(x=e^t\) とおけば前者に帰着。<b>入試では誘導がなければ「既知」として使ってよいことが多いが、問題文に「示せ」とあれば証明が必要</b>（P19）。</p>
   </div>
 
@@ -83,7 +86,7 @@
 
 <section id="quick">
   <h2>早見表：こう来たら → こう解く</h2>
-  <div class="table-wrap"><table class="quick">
+  <div class="table-wrap" style="position:relative"><table class="quick">
     <tr><th>問題の特徴（こう来たら）</th><th>方針（こう解く）</th><th>使う道具</th><th>詳細</th></tr>
     <tr data-level="1"><td>分数式の極限（\(\frac\infty\infty\)）</td><td>分母の最高次で分母分子を割る</td><td>\(\frac1n\to0\)</td><td><a href="#lim-p1">P1</a></td></tr>
     <tr data-level="1"><td>\(\sqrt{n^2+3n}-n\)（\(\infty-\infty\)）</td><td>分子の有理化</td><td>\((a-b)(a+b)=a^2-b^2\)</td><td><a href="#lim-p2">P2</a></td></tr>
@@ -220,7 +223,9 @@
       \[ 0\lt\frac{n}{2^n}\le\frac{n}{\frac{n(n-1)}{2}}=\frac{2}{n-1}\to0 \]
       <p>はさみうちより \(\lim\frac{n}{2^n}=0\)。（証明終）</p>
       <p>(2) \(n\ge2\) で \(n^{\frac1n}\gt1\) なので \(n^{\frac1n}=1+h_n\ (h_n\gt0)\) とおく。</p>
-      \[ n=(1+h_n)^n\ge\C{n}{2}h_n^{\,2}=\frac{n(n-1)}{2}h_n^{\,2}\quad\text{より}\quad 0\lt h_n\le\sqrt{\frac{2}{n-1}}\to0 \]
+      \[ n=(1+h_n)^n\ge\C{n}{2}h_n^{\,2}=\frac{n(n-1)}{2}h_n^{\,2} \]
+      <p>より \(h_n^{\,2}\le\dfrac{2}{n-1}\)、すなわち</p>
+      \[ 0\lt h_n\le\sqrt{\frac{2}{n-1}}\to0 \]
       <p>よって \(h_n\to0\)、\(n^{\frac1n}\to1\)。（証明終）</p>
       <p class="point">(2) で1次の項 \(nh_n\) を取り出すと \(n\ge nh_n\)、\(h_n\le1\) しか言えず失敗する。<b>どの項を取り出せば挟めるか</b>を目標（\(h_n\to0\)）から逆算する（<a href="../thinking.html#t-goal">発想：ゴールから逆算</a>）。</p>
     </div></details>
@@ -265,7 +270,7 @@
       <div class="problem">\(a_1=1,\ a_{n+1}=\sqrt{a_n+2}\ (n=1,2,\dots)\) とする。(1) すべての \(n\) で \(1\le a_n\lt2\) を示せ。(2) \(2-a_{n+1}\le\dfrac13(2-a_n)\) を示せ。(3) \(\displaystyle\lim_{n\to\infty}a_n\) を求めよ。</div>
       <p>(1) \(n=1\) で成立。\(1\le a_k\lt2\) と仮定すると \(a_{k+1}=\sqrt{a_k+2}\) で \(\sqrt3\le a_{k+1}\lt\sqrt4=2\)、特に \(1\le a_{k+1}\lt2\)。帰納法により成立。（証明終）</p>
       <p>(2) 有理化して</p>
-      \[ 2-a_{n+1}=2-\sqrt{a_n+2}=\frac{4-(a_n+2)}{2+\sqrt{a_n+2}}=\frac{2-a_n}{2+\sqrt{a_n+2}} \]
+      \[ \begin{aligned} 2-a_{n+1}&=2-\sqrt{a_n+2}=\frac{4-(a_n+2)}{2+\sqrt{a_n+2}}\\ &=\frac{2-a_n}{2+\sqrt{a_n+2}} \end{aligned} \]
       <p>(1) より \(2-a_n\gt0\)、\(\sqrt{a_n+2}\ge\sqrt3\gt1\) なので分母 \(\gt3\)。よって \(2-a_{n+1}\le\frac13(2-a_n)\)。（証明終）</p>
       <p>(3) (2) を繰り返して \(0\lt2-a_n\le\left(\frac13\right)^{n-1}(2-a_1)=\left(\frac13\right)^{n-1}\to0\)。はさみうちより</p>
       <p class="answer">\(\displaystyle\lim_{n\to\infty}a_n=2\)</p>
@@ -335,7 +340,7 @@
       <div class="problem">(1) \(\displaystyle\sum_{n=1}^\infty\frac{n}{2n+1}\) は発散することを示せ。(2) \(\displaystyle\sum_{n=1}^\infty\frac1n\) は発散することを示せ。</div>
       <p>(1) \(\dfrac{n}{2n+1}\to\dfrac12\neq0\)。もし級数が収束すれば項は0に収束するはずなので、発散する。（証明終）</p>
       <p>(2) 部分和 \(S_{2^m}\) を考える。\(\frac1{2^{k-1}+1}+\cdots+\frac1{2^k}\)（\(2^{k-1}\) 個）の各項は \(\frac{1}{2^k}\) 以上なので、この塊は \(\frac12\) 以上。</p>
-      \[ S_{2^m}=1+\frac12+\left(\frac13+\frac14\right)+\left(\frac15+\cdots+\frac18\right)+\cdots\ge1+\frac m2 \]
+      \[ \begin{aligned} S_{2^m}&=1+\frac12+\left(\frac13+\frac14\right)\\ &\quad+\left(\frac15+\cdots+\frac18\right)+\cdots\\ &\ge1+\underbrace{\frac12+\frac12+\cdots+\frac12}_{m\text{ 個}}=1+\frac m2 \end{aligned} \]
       <p>\(S_n\) は増加数列なので、\(n\ge2^m\) で \(S_n\ge1+\frac m2\)。\(m\) はいくらでも大きくとれるので \(S_n\to\infty\)。（証明終）</p>
       <p class="point">阪大型演習2で、積分を使ってもっと精密に \(S_n\approx\log n\) を示す。</p>
     </div></details>
@@ -378,7 +383,7 @@
       <div class="problem">(1) \(\displaystyle\lim_{x\to2}\frac{x^3-8}{x-2}\)　(2) \(\displaystyle\lim_{x\to-\infty}\left(\sqrt{x^2+x}+x\right)\)</div>
       <p>(1) \(\dfrac{(x-2)(x^2+2x+4)}{x-2}=x^2+2x+4\to12\)。<span class="answer">12</span></p>
       <p>(2) \(x=-t\) とおくと \(t\to\infty\)。</p>
-      \[ \sqrt{t^2-t}-t=\frac{-t}{\sqrt{t^2-t}+t}=\frac{-1}{\sqrt{1-\frac1t}+1}\to-\frac12 \]
+      \[ \begin{aligned} \sqrt{t^2-t}-t&=\frac{-t}{\sqrt{t^2-t}+t}\\ &=\frac{-1}{\sqrt{1-\frac1t}+1}\to-\frac12 \end{aligned} \]
       <p class="answer">(2) \(-\dfrac12\)</p>
       <p class="point">(2) を \(x\) のまま有理化すると \(\dfrac{x}{\sqrt{x^2+x}-x}\)。ここで分母分子を \(x\) で割るとき、\(x\lt0\) なので \(\dfrac{\sqrt{x^2+x}}{x}=-\sqrt{1+\frac1x}\) となる。これを \(+\sqrt{1+\frac1x}\) としてしまうと分母が0に近づき「発散」と誤答する。置き換えればこの符号の罠を避けられる。</p>
     </div></details>
@@ -640,7 +645,7 @@
       <p>(2) \(c=1-\dfrac{1}{\sqrt n}\) とおく（\(0\le c\lt1\)）。\(t=\frac{1}{\sqrt n}\) とすると \(0\lt t\le1\) で、与えられた不等式より \(0\le1-t\le e^{-t}\)。各辺を \(n\) 乗して</p>
       \[ c^n=(1-t)^n\le e^{-nt}=e^{-\sqrt n} \]
       <p>また \(e^{u}\gt u\ (u\gt0)\) より \(e^{\sqrt n}\gt\sqrt n\)、すなわち \(e^{-\sqrt n}\lt\frac{1}{\sqrt n}\)。よって</p>
-      \[ f_n(c)=c^n+c-1=c^n-\frac1{\sqrt n}\le e^{-\sqrt n}-\frac{1}{\sqrt n}\lt0 \]
+      \[ \begin{aligned} f_n(c)&=c^n+c-1=c^n-\frac1{\sqrt n}\\ &\le e^{-\sqrt n}-\frac{1}{\sqrt n}\lt0 \end{aligned} \]
       <p>\(f_n\) は増加関数で \(f_n(a_n)=0\gt f_n(c)\) だから \(a_n\gt c=1-\dfrac1{\sqrt n}\)。（証明終）</p>
       <p>(3) (1)(2) より \(1-\dfrac1{\sqrt n}\lt a_n\lt1\)。両端 \(\to1\) なので、はさみうちより \(a_n\to1\)。</p>
       <p>また \(a_n\) は解なので \((a_n)^n=1-a_n\to0\)。</p>

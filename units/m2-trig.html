@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>三角関数（数学II）｜解法の地図</title>
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<link rel="stylesheet" href="../assets/style.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/site.js"></script>
+</head>
+<body data-unit="m2-trig" data-root="../">
+<main>
+
+<header class="unit-head">
+  <span class="subj-badge">数学II</span>
+  <h1>三角関数</h1>
+  <p class="lead">角を「単位円上の点の回転」としてとらえ直し、\(\sin,\cos,\tan\) を関数として扱う単元。公式は多いが、ほとんどが<b>加法定理1つから導ける</b>。方程式・最大最小は「単位円で見る」「1種類の関数・1つの角にそろえる」「置き換えて範囲を確認する」の3つでほぼ解ける。数IIIの微積分では毎回の計算道具になる。</p>
+  <div class="goal">
+    <strong>このページの到達目標</strong>
+    <ul>
+      <li>【基礎】弧度法・単位円の定義から値を求め、グラフをかき、基本的な方程式・不等式を単位円で解ける。加法定理を使って値を計算できる。</li>
+      <li>【標準】2倍角・半角・積和・合成を使い分け、\(\sin\theta,\cos\theta\) の2次式や \(t=\sin\theta+\cos\theta\) の置き換えで最大最小を求められる。</li>
+      <li>【阪大】置き換え後の「\(t\) 1個に \(\theta\) 何個」を数えて解の個数を分類し、\(\cos n\theta\) の多項式表示や三角形の角の条件を使った証明を答案にできる。</li>
+    </ul>
+  </div>
+  <p class="prereq">前提：<a href="m1-trig.html">図形と計量</a>（三角比）、<a href="m1-quadratic.html">2次関数</a>（置き換え・最大最小）／ 次に進む：<a href="m2-explog.html">指数関数・対数関数</a>、<a href="mc-complex.html">複素数平面</a>、<a href="m3-diff.html">微分法とその応用</a></p>
+</header>
+
+<section id="core">
+  <h2>必ず押さえる基本事項</h2>
+
+  <div class="box theorem">
+    <p><span class="name">弧度法と単位円による定義</span>：\(180^\circ=\pi\)（ラジアン）。半径 \(r\)、中心角 \(\theta\) の扇形の弧の長さ \(r\theta\)、面積 \(\frac12r^2\theta\)。</p>
+    <p>単位円上で \(x\) 軸の正の向きから角 \(\theta\) だけ回った点を \(P(x,y)\) とするとき</p>
+    \[ \cos\theta=x,\qquad \sin\theta=y,\qquad \tan\theta=\frac yx\ (\text{直線 }OP\text{ の傾き}) \]
+    <p>なぜ弧度法：半径1の円で「弧の長さ＝角の大きさ」となるように角を測るので、扇形の公式や微分（\(\lim\frac{\sin\theta}{\theta}=1\)）がきれいになる。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">相互関係と角の変換</span></p>
+    \[ \sin^2\theta+\cos^2\theta=1,\qquad \tan\theta=\frac{\sin\theta}{\cos\theta},\qquad 1+\tan^2\theta=\frac{1}{\cos^2\theta} \]
+    <p>\(\sin(-\theta)=-\sin\theta,\ \cos(-\theta)=\cos\theta\)、\(\sin(\theta+\pi)=-\sin\theta\)、\(\sin\left(\frac\pi2-\theta\right)=\cos\theta\) など。なぜ：単位円で点 \(P\) を \(x\) 軸に関して折り返す・原点対称に移す・直線 \(y=x\) で折り返すと、座標がどう変わるかを見ればよい（暗記不要）。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">加法定理</span>（すべての公式の親）</p>
+    \[ \begin{aligned} \sin(\alpha\pm\beta)&=\sin\alpha\cos\beta\pm\cos\alpha\sin\beta\\ \cos(\alpha\pm\beta)&=\cos\alpha\cos\beta\mp\sin\alpha\sin\beta\\ \tan(\alpha\pm\beta)&=\frac{\tan\alpha\pm\tan\beta}{1\mp\tan\alpha\tan\beta} \end{aligned} \]
+    <p>なぜ（導出の要点）：単位円上の2点 \(A(\cos\alpha,\sin\alpha),\ B(\cos\beta,\sin\beta)\) の距離 \(AB\) を2通りに計算する。座標で \(AB^2=2-2(\cos\alpha\cos\beta+\sin\alpha\sin\beta)\)、余弦定理で \(AB^2=2-2\cos(\alpha-\beta)\)。比べて \(\cos(\alpha-\beta)\) の式が出る。\(\beta\) を \(-\beta\) や \(\frac\pi2-\alpha\) に変えれば残りが出る。</p>
+  </div>
+
+  <div class="box theorem">
+    <p><span class="name">加法定理から出る公式</span></p>
+    <ul>
+      <li>2倍角：\(\sin2\alpha=2\sin\alpha\cos\alpha\)、\(\cos2\alpha=\cos^2\alpha-\sin^2\alpha=1-2\sin^2\alpha=2\cos^2\alpha-1\)</li>
+      <li>半角（2倍角の逆読み）：\(\sin^2\frac\alpha2=\frac{1-\cos\alpha}{2}\)、\(\cos^2\frac\alpha2=\frac{1+\cos\alpha}{2}\)</li>
+      <li>3倍角：\(\sin3\alpha=3\sin\alpha-4\sin^3\alpha\)、\(\cos3\alpha=4\cos^3\alpha-3\cos\alpha\)（\(3\alpha=2\alpha+\alpha\) で加法定理）</li>
+      <li>積→和：\(\sin\alpha\cos\beta=\frac12\{\sin(\alpha+\beta)+\sin(\alpha-\beta)\}\) など（加法定理2本を足し引き）</li>
+      <li>和→積：\(\sin A+\sin B=2\sin\frac{A+B}{2}\cos\frac{A-B}{2}\)、\(\cos A+\cos B=2\cos\frac{A+B}2\cos\frac{A-B}2\) など</li>
+      <li><b>合成</b>：\(a\sin\theta+b\cos\theta=\sqrt{a^2+b^2}\sin(\theta+\alpha)\)（\(\cos\alpha=\frac{a}{\sqrt{a^2+b^2}},\ \sin\alpha=\frac{b}{\sqrt{a^2+b^2}}\)）。右辺を加法定理で展開すると左辺になる。</li>
+    </ul>
+  </div>
+
+  <div class="box idea">
+    <p><b>この単元を貫く考え方</b>：三角関数の式は、<b>「角を1つにそろえる」「関数を1種類にそろえる」</b>と必ず扱える形になる。そろえる道具が加法定理系の公式で、そろえた後は<b>単位円か置き換え（\(t=\sin\theta\) など）</b>で処理する。置き換えたら \(t\) の範囲と「\(t\) 1つに \(\theta\) がいくつ対応するか」を必ず確認する。</p>
+  </div>
+</section>
+
+<section id="quick">
+  <h2>早見表：こう来たら → こう解く</h2>
+  <div class="table-wrap"><table class="quick">
+    <tr><th>問題の特徴（こう来たら）</th><th>方針（こう解く）</th><th>使う道具</th><th>詳細</th></tr>
+    <tr data-level="1"><td>度数とラジアンの変換、扇形の弧・面積</td><td>\(180^\circ=\pi\)、\(r\theta,\ \frac12r^2\theta\)</td><td>弧度法</td><td><a href="#trig-p1">P1</a></td></tr>
+    <tr data-level="1"><td>\(\sin\frac{7\pi}6\) の値、\(\sin\theta=\frac35\) のとき \(\cos\theta\)</td><td>単位円で読む／相互関係＋符号は象限で</td><td>単位円・相互関係</td><td><a href="#trig-p2">P2</a></td></tr>
+    <tr data-level="1"><td>\(y=2\sin(2\theta-\frac\pi3)\) のグラフ・周期</td><td>\(2(\theta-\frac\pi6)\) とくくって拡大・平行移動</td><td>グラフの変換</td><td><a href="#trig-p3">P3</a></td></tr>
+    <tr data-level="1"><td>\(\cos\theta=-\frac{\sqrt3}2\)、\(\tan\theta\ge\frac1{\sqrt3}\) を解け</td><td>単位円の \(x\) 座標・\(y\) 座標・傾きで読む</td><td>単位円</td><td><a href="#trig-p4">P4</a></td></tr>
+    <tr data-level="2"><td>\(\sin(2\theta+\frac\pi3)=\frac12\ (0\le\theta\lt2\pi)\)</td><td>\(t=2\theta+\frac\pi3\) とおき \(t\) の範囲を先に出す</td><td>範囲の変換</td><td><a href="#trig-p5">P5</a></td></tr>
+    <tr data-level="2"><td>\(\sin\) と \(\cos^2\) が混在する方程式・不等式</td><td>\(\cos^2=1-\sin^2\) で \(\sin\) にそろえ2次式に</td><td>相互関係・因数分解</td><td><a href="#trig-p6">P6</a></td></tr>
+    <tr data-level="1"><td>\(\sin75^\circ\)、\(\sin(\alpha+\beta)\) の値</td><td>既知の角の和・差に分解</td><td>加法定理</td><td><a href="#trig-p7">P7</a></td></tr>
+    <tr data-level="2"><td>2直線のなす角、ある角をなす直線</td><td>傾き＝\(\tan\)、\(\tan\) の差の公式</td><td>\(\tan\) の加法定理</td><td><a href="#trig-p8">P8</a></td></tr>
+    <tr data-level="2"><td>\(\sin2\alpha,\ \cos\frac\alpha2\) の値</td><td>2倍角・半角、半角は符号を範囲で決める</td><td>2倍角・半角</td><td><a href="#trig-p9">P9</a></td></tr>
+    <tr data-level="2"><td>\(2\theta\) と \(\theta\) が混在、\(\sin18^\circ\)</td><td>2倍角で角を \(\theta\) にそろえ因数分解／3倍角</td><td>2倍角・3倍角</td><td><a href="#trig-p10">P10</a></td></tr>
+    <tr data-level="2"><td>\(\sin\cdot\cos\) の積、\(\cos\theta+\cos3\theta=0\)</td><td>積→和、和→積で因数分解</td><td>積和・和積</td><td><a href="#trig-p11">P11</a></td></tr>
+    <tr data-level="1"><td>\(a\sin\theta+b\cos\theta\) の最大最小・方程式</td><td>合成して \(\sin\) 1つに</td><td>合成</td><td><a href="#trig-p12">P12</a></td></tr>
+    <tr data-level="2"><td>\(\sin^2\theta,\ \sin\theta\cos\theta,\ \cos^2\theta\) の式の最大最小</td><td>2倍角で次数下げ → 合成</td><td>半角・2倍角・合成</td><td><a href="#trig-p13">P13</a></td></tr>
+    <tr data-level="2"><td>\(\sin\theta+\cos\theta\) と \(\sin\theta\cos\theta\) が混在</td><td>\(t=\sin\theta+\cos\theta\)、\(t\) の範囲は合成で</td><td>置き換え</td><td><a href="#trig-p14">P14</a></td></tr>
+    <tr data-level="3"><td>「方程式の解の個数を \(a\) で分類せよ」</td><td>置き換え＋定数分離、\(t\) 1つに \(\theta\) 何個か数える</td><td>対応の個数</td><td><a href="#trig-p15">P15</a></td></tr>
+    <tr data-level="3"><td>\(\cos n\theta\) を \(\cos\theta\) の多項式で</td><td>\(\cos(n+1)\theta+\cos(n-1)\theta=2\cos\theta\cos n\theta\) で帰納法</td><td>和積・帰納法</td><td><a href="#trig-p16">P16</a></td></tr>
+    <tr data-level="3"><td>三角形 \(ABC\) で〜を証明せよ</td><td>\(C=\pi-(A+B)\) で1文字消去</td><td>加法定理・和積</td><td><a href="#trig-p17">P17</a></td></tr>
+  </table></div>
+</section>
+
+<section id="patterns">
+  <h2>パターン別 解法マップ</h2>
+
+  <article class="pattern" id="trig-p1" data-level="1">
+    <h3><span class="pid">P1</span>弧度法と扇形</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(150^\circ\) を弧度法で表せ」「半径6、中心角 \(\frac{2\pi}3\) の扇形の弧の長さと面積」</dd>
+      <dt>こう考える</dt><dd>\(\pi\) ラジアン \(=180^\circ\) の比例計算。扇形は「円全体の \(\frac{\theta}{2\pi}\) 倍」なので、弧 \(=2\pi r\cdot\frac\theta{2\pi}=r\theta\)、面積 \(=\pi r^2\cdot\frac\theta{2\pi}=\frac12r^2\theta\)。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>度 → ラジアン：\(\times\frac{\pi}{180}\)。ラジアン → 度：\(\times\frac{180}{\pi}\)。</li>
+        <li>扇形：\(\ell=r\theta,\ S=\frac12r^2\theta=\frac12r\ell\)（\(\theta\) はラジアン）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>弧度法、扇形の公式</dd>
+      <dt>なぜこの方法？</dt><dd>ラジアンは「半径1の円での弧の長さ」で角を測る単位。だから弧の長さが \(r\theta\) と掛け算1回になる。数IIIの微積分はすべてラジアンが前提。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(150^\circ\) を弧度法で、\(\frac{3\pi}{4}\) を度数法で表せ。<br>(2) 半径6、中心角 \(\frac{2\pi}{3}\) の扇形の弧の長さ \(\ell\) と面積 \(S\) を求めよ。</div>
+      <p>(1) \(150\times\frac{\pi}{180}=\frac{5\pi}{6}\)、\(\frac{3\pi}4\times\frac{180}{\pi}=135\)。<span class="answer">\(\frac{5\pi}{6}\)、\(135^\circ\)</span></p>
+      <p>(2) \(\ell=6\cdot\frac{2\pi}3=4\pi\)、\(S=\frac12\cdot36\cdot\frac{2\pi}{3}=12\pi\)。<span class="answer">\(\ell=4\pi,\ S=12\pi\)</span></p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="trig-p2" data-level="1">
+    <h3><span class="pid">P2</span>一般角・単位円での値と相互関係</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\sin\frac{7\pi}{6},\ \cos\left(-\frac\pi4\right),\ \tan\frac{5\pi}3\) の値」「\(\sin\theta=\frac35\ (\frac\pi2\lt\theta\lt\pi)\) のとき \(\cos\theta,\tan\theta\)」「\(\sin\theta+\cos\theta=\frac12\) のとき \(\sin\theta\cos\theta\)」</dd>
+      <dt>こう考える</dt><dd>値は<b>単位円上の点の座標</b>として読む（\(\frac{7\pi}6\) は第3象限、基準の角 \(\frac\pi6\)）。1つの値から他を求めるときは相互関係を使い、<b>符号は象限で決める</b>。\(\sin\theta+\cos\theta\) が与えられたら2乗する。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>角を「\(2n\pi+\)（\(0\) 以上 \(2\pi\) 未満の角）」に直し、単位円上の点を描く。</li>
+        <li>\(\cos^2\theta=1-\sin^2\theta\) で2乗を求め、象限から符号を選ぶ。</li>
+        <li>\((\sin\theta+\cos\theta)^2=1+2\sin\theta\cos\theta\)。3乗和は \(s^3+c^3=(s+c)(1-sc)\)。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>単位円による定義、\(\sin^2\theta+\cos^2\theta=1\)</dd>
+      <dt>なぜこの方法？</dt><dd>一般角は「何周回ったか」の違いだけで、点の位置は同じ。三角比の表を覚え直すのではなく、単位円上の30°・45°・60°の点の座標だけ覚えておけば、すべて対称移動で求まる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\sin\dfrac{7\pi}{6},\ \cos\left(-\dfrac\pi4\right),\ \tan\dfrac{5\pi}3\) の値を求めよ。<br>(2) \(\sin\theta=\frac35\ \left(\frac\pi2\lt\theta\lt\pi\right)\) のとき、\(\cos\theta,\ \tan\theta\) を求めよ。<br>(3) \(\sin\theta+\cos\theta=\frac12\) のとき、\(\sin\theta\cos\theta\) と \(\sin^3\theta+\cos^3\theta\) の値を求めよ。</div>
+      <p>(1) \(\frac{7\pi}6\) の点は \(\left(-\frac{\sqrt3}2,-\frac12\right)\)、\(-\frac\pi4\) の点は \(\left(\frac{\sqrt2}2,-\frac{\sqrt2}2\right)\)、\(\frac{5\pi}3\) の点は \(\left(\frac12,-\frac{\sqrt3}2\right)\)。<span class="answer">\(-\frac12,\ \frac{\sqrt2}2,\ -\sqrt3\)</span></p>
+      <p>(2) \(\cos^2\theta=1-\frac9{25}=\frac{16}{25}\)。第2象限なので \(\cos\theta\lt0\)。<span class="answer">\(\cos\theta=-\frac45,\ \tan\theta=-\frac34\)</span></p>
+      <p>(3) 2乗して \(1+2\sin\theta\cos\theta=\frac14\)、\(\sin\theta\cos\theta=-\frac38\)。\(\sin^3\theta+\cos^3\theta=(\sin\theta+\cos\theta)(1-\sin\theta\cos\theta)=\frac12\cdot\frac{11}{8}\)。</p>
+      <p class="answer">\(\sin\theta\cos\theta=-\dfrac38\)、\(\sin^3\theta+\cos^3\theta=\dfrac{11}{16}\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="trig-p3" data-level="1">
+    <h3><span class="pid">P3</span>グラフ（周期・平行移動・拡大）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(y=2\sin\left(2\theta-\frac\pi3\right)\) のグラフをかけ。周期を求めよ」</dd>
+      <dt>こう考える</dt><dd>\(\theta\) の係数で<b>くくって</b> \(2\left(\theta-\frac\pi6\right)\) とすると、「\(y=\sin\theta\) を \(\theta\) 方向に \(\frac12\) 倍、\(\frac\pi6\) だけ平行移動、\(y\) 方向に2倍」と読める。\(\theta\) の係数でくくらずに \(\frac\pi3\) 移動とするのが最頻出ミス。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(y=a\sin k(\theta-p)\) の形にする。</li>
+        <li>周期 \(\frac{2\pi}{\abs k}\)、値域 \(-\abs a\le y\le\abs a\)、平行移動 \(p\)。</li>
+        <li>「中の角 \(=0,\frac\pi2,\pi,\frac{3\pi}2,2\pi\)」となる \(\theta\) を求め、その5点を結ぶ。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>グラフの平行移動・拡大縮小、周期</dd>
+      <dt>なぜこの方法？</dt><dd>\(y=f(\theta-p)\) は \(y=f(\theta)\) を \(p\) だけ右へ移したもの。\(2\theta-\frac\pi3\) のままだと「何を \(\theta\) に代えたか」が見えないので、くくって \(\theta-p\) の形にする。中の角で5点をとる方法なら変換を考えなくても正確に描ける。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(y=2\sin\left(2\theta-\dfrac\pi3\right)\) の周期を求め、\(0\le\theta\le2\pi\) の範囲でグラフの概形をかけ。最大値をとる最小の正の \(\theta\) も求めよ。</div>
+      <p>\(y=2\sin2\left(\theta-\frac\pi6\right)\)。周期 \(\frac{2\pi}2=\pi\)、値域 \(-2\le y\le2\)。\(y=\sin\theta\) を \(\theta\) 方向に \(\frac12\) 倍、\(y\) 方向に2倍し、\(\theta\) 方向に \(\frac\pi6\) 平行移動したもの。</p>
+      <p>中の角 \(2\theta-\frac\pi3=0,\frac\pi2,\pi,\frac{3\pi}{2},2\pi\) となるのは \(\theta=\frac\pi6,\frac{5\pi}{12},\frac{2\pi}3,\frac{11\pi}{12},\frac{7\pi}6\)（\(y=0,2,0,-2,0\)）。</p>
+      <svg viewBox="0 0 410 160" width="410" style="max-width:100%;display:block;margin:8px auto" role="img" aria-label="y=2sin(2θ−π/3) と y=sinθ のグラフ">
+        <line x1="22" y1="80" x2="402" y2="80" stroke="currentColor" stroke-width="1"/>
+        <line x1="30" y1="10" x2="30" y2="152" stroke="currentColor" stroke-width="1"/>
+        <line x1="26" y1="20" x2="390" y2="20" stroke="currentColor" stroke-width="0.5" stroke-dasharray="2 4"/>
+        <line x1="26" y1="140" x2="390" y2="140" stroke="currentColor" stroke-width="0.5" stroke-dasharray="2 4"/>
+        <polyline fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4" opacity="0.6" points="30.0,80.0 31.5,79.2 33.0,78.4 34.5,77.6 36.0,76.9 37.5,76.1 39.0,75.3 40.5,74.5 42.0,73.8 43.5,73.0 45.0,72.2 46.5,71.5 48.0,70.7 49.5,70.0 51.0,69.2 52.5,68.5 54.0,67.8 55.5,67.1 57.0,66.4 58.5,65.7 60.0,65.0 61.5,64.3 63.0,63.7 64.5,63.0 66.0,62.4 67.5,61.7 69.0,61.1 70.5,60.5 72.0,59.9 73.5,59.3 75.0,58.8 76.5,58.2 78.0,57.7 79.5,57.2 81.0,56.7 82.5,56.2 84.0,55.7 85.5,55.3 87.0,54.8 88.5,54.4 90.0,54.0 91.5,53.6 93.0,53.3 94.5,52.9 96.0,52.6 97.5,52.3 99.0,52.0 100.5,51.7 102.0,51.5 103.5,51.2 105.0,51.0 106.5,50.8 108.0,50.7 109.5,50.5 111.0,50.4 112.5,50.3 114.0,50.2 115.5,50.1 117.0,50.0 118.5,50.0 120.0,50.0 121.5,50.0 123.0,50.0 124.5,50.1 126.0,50.2 127.5,50.3 129.0,50.4 130.5,50.5 132.0,50.7 133.5,50.8 135.0,51.0 136.5,51.2 138.0,51.5 139.5,51.7 141.0,52.0 142.5,52.3 144.0,52.6 145.5,52.9 147.0,53.3 148.5,53.6 150.0,54.0 151.5,54.4 153.0,54.8 154.5,55.3 156.0,55.7 157.5,56.2 159.0,56.7 160.5,57.2 162.0,57.7 163.5,58.2 165.0,58.8 166.5,59.3 168.0,59.9 169.5,60.5 171.0,61.1 172.5,61.7 174.0,62.4 175.5,63.0 177.0,63.7 178.5,64.3 180.0,65.0 181.5,65.7 183.0,66.4 184.5,67.1 186.0,67.8 187.5,68.5 189.0,69.2 190.5,70.0 192.0,70.7 193.5,71.5 195.0,72.2 196.5,73.0 198.0,73.8 199.5,74.5 201.0,75.3 202.5,76.1 204.0,76.9 205.5,77.6 207.0,78.4 208.5,79.2 210.0,80.0 211.5,80.8 213.0,81.6 214.5,82.4 216.0,83.1 217.5,83.9 219.0,84.7 220.5,85.5 222.0,86.2 223.5,87.0 225.0,87.8 226.5,88.5 228.0,89.3 229.5,90.0 231.0,90.8 232.5,91.5 234.0,92.2 235.5,92.9 237.0,93.6 238.5,94.3 240.0,95.0 241.5,95.7 243.0,96.3 244.5,97.0 246.0,97.6 247.5,98.3 249.0,98.9 250.5,99.5 252.0,100.1 253.5,100.7 255.0,101.2 256.5,101.8 258.0,102.3 259.5,102.8 261.0,103.3 262.5,103.8 264.0,104.3 265.5,104.7 267.0,105.2 268.5,105.6 270.0,106.0 271.5,106.4 273.0,106.7 274.5,107.1 276.0,107.4 277.5,107.7 279.0,108.0 280.5,108.3 282.0,108.5 283.5,108.8 285.0,109.0 286.5,109.2 288.0,109.3 289.5,109.5 291.0,109.6 292.5,109.7 294.0,109.8 295.5,109.9 297.0,110.0 298.5,110.0 300.0,110.0 301.5,110.0 303.0,110.0 304.5,109.9 306.0,109.8 307.5,109.7 309.0,109.6 310.5,109.5 312.0,109.3 313.5,109.2 315.0,109.0 316.5,108.8 318.0,108.5 319.5,108.3 321.0,108.0 322.5,107.7 324.0,107.4 325.5,107.1 327.0,106.7 328.5,106.4 330.0,106.0 331.5,105.6 333.0,105.2 334.5,104.7 336.0,104.3 337.5,103.8 339.0,103.3 340.5,102.8 342.0,102.3 343.5,101.8 345.0,101.2 346.5,100.7 348.0,100.1 349.5,99.5 351.0,98.9 352.5,98.3 354.0,97.6 355.5,97.0 357.0,96.3 358.5,95.7 360.0,95.0 361.5,94.3 363.0,93.6 364.5,92.9 366.0,92.2 367.5,91.5 369.0,90.8 370.5,90.0 372.0,89.3 373.5,88.5 375.0,87.8 376.5,87.0 378.0,86.2 379.5,85.5 381.0,84.7 382.5,83.9 384.0,83.1 385.5,82.4 387.0,81.6 388.5,80.8 390.0,80.0"/>
+        <polyline fill="none" stroke="var(--accent)" stroke-width="2.2" points="30.0,132.0 31.5,130.3 33.0,128.5 34.5,126.6 36.0,124.6 37.5,122.4 39.0,120.1 40.5,117.8 42.0,115.3 43.5,112.7 45.0,110.0 46.5,107.2 48.0,104.4 49.5,101.5 51.0,98.5 52.5,95.5 54.0,92.5 55.5,89.4 57.0,86.3 58.5,83.1 60.0,80.0 61.5,76.9 63.0,73.7 64.5,70.6 66.0,67.5 67.5,64.5 69.0,61.5 70.5,58.5 72.0,55.6 73.5,52.8 75.0,50.0 76.5,47.3 78.0,44.7 79.5,42.2 81.0,39.9 82.5,37.6 84.0,35.4 85.5,33.4 87.0,31.5 88.5,29.7 90.0,28.0 91.5,26.5 93.0,25.2 94.5,24.0 96.0,22.9 97.5,22.0 99.0,21.3 100.5,20.7 102.0,20.3 103.5,20.1 105.0,20.0 106.5,20.1 108.0,20.3 109.5,20.7 111.0,21.3 112.5,22.0 114.0,22.9 115.5,24.0 117.0,25.2 118.5,26.5 120.0,28.0 121.5,29.7 123.0,31.5 124.5,33.4 126.0,35.4 127.5,37.6 129.0,39.9 130.5,42.2 132.0,44.7 133.5,47.3 135.0,50.0 136.5,52.8 138.0,55.6 139.5,58.5 141.0,61.5 142.5,64.5 144.0,67.5 145.5,70.6 147.0,73.7 148.5,76.9 150.0,80.0 151.5,83.1 153.0,86.3 154.5,89.4 156.0,92.5 157.5,95.5 159.0,98.5 160.5,101.5 162.0,104.4 163.5,107.2 165.0,110.0 166.5,112.7 168.0,115.3 169.5,117.8 171.0,120.1 172.5,122.4 174.0,124.6 175.5,126.6 177.0,128.5 178.5,130.3 180.0,132.0 181.5,133.5 183.0,134.8 184.5,136.0 186.0,137.1 187.5,138.0 189.0,138.7 190.5,139.3 192.0,139.7 193.5,139.9 195.0,140.0 196.5,139.9 198.0,139.7 199.5,139.3 201.0,138.7 202.5,138.0 204.0,137.1 205.5,136.0 207.0,134.8 208.5,133.5 210.0,132.0 211.5,130.3 213.0,128.5 214.5,126.6 216.0,124.6 217.5,122.4 219.0,120.1 220.5,117.8 222.0,115.3 223.5,112.7 225.0,110.0 226.5,107.2 228.0,104.4 229.5,101.5 231.0,98.5 232.5,95.5 234.0,92.5 235.5,89.4 237.0,86.3 238.5,83.1 240.0,80.0 241.5,76.9 243.0,73.7 244.5,70.6 246.0,67.5 247.5,64.5 249.0,61.5 250.5,58.5 252.0,55.6 253.5,52.8 255.0,50.0 256.5,47.3 258.0,44.7 259.5,42.2 261.0,39.9 262.5,37.6 264.0,35.4 265.5,33.4 267.0,31.5 268.5,29.7 270.0,28.0 271.5,26.5 273.0,25.2 274.5,24.0 276.0,22.9 277.5,22.0 279.0,21.3 280.5,20.7 282.0,20.3 283.5,20.1 285.0,20.0 286.5,20.1 288.0,20.3 289.5,20.7 291.0,21.3 292.5,22.0 294.0,22.9 295.5,24.0 297.0,25.2 298.5,26.5 300.0,28.0 301.5,29.7 303.0,31.5 304.5,33.4 306.0,35.4 307.5,37.6 309.0,39.9 310.5,42.2 312.0,44.7 313.5,47.3 315.0,50.0 316.5,52.8 318.0,55.6 319.5,58.5 321.0,61.5 322.5,64.5 324.0,67.5 325.5,70.6 327.0,73.7 328.5,76.9 330.0,80.0 331.5,83.1 333.0,86.3 334.5,89.4 336.0,92.5 337.5,95.5 339.0,98.5 340.5,101.5 342.0,104.4 343.5,107.2 345.0,110.0 346.5,112.7 348.0,115.3 349.5,117.8 351.0,120.1 352.5,122.4 354.0,124.6 355.5,126.6 357.0,128.5 358.5,130.3 360.0,132.0 361.5,133.5 363.0,134.8 364.5,136.0 366.0,137.1 367.5,138.0 369.0,138.7 370.5,139.3 372.0,139.7 373.5,139.9 375.0,140.0 376.5,139.9 378.0,139.7 379.5,139.3 381.0,138.7 382.5,138.0 384.0,137.1 385.5,136.0 387.0,134.8 388.5,133.5 390.0,132.0"/>
+        <text x="203" y="96" font-size="12" fill="currentColor">π</text>
+        <text x="378" y="96" font-size="12" fill="currentColor">2π</text>
+        <text x="52" y="96" font-size="11" fill="currentColor">π/6</text>
+        <text x="14" y="24" font-size="12" fill="currentColor">2</text>
+        <text x="8" y="144" font-size="12" fill="currentColor">−2</text>
+        <text x="16" y="94" font-size="12" fill="currentColor">O</text>
+      </svg>
+      <p class="answer">周期 \(\pi\)。最大値2を最初にとるのは \(\theta=\dfrac{5\pi}{12}\)</p>
+      <p class="point">図の点線は \(y=\sin\theta\)。周期が半分、高さが2倍、スタート位置が \(\frac\pi6\) にずれていることを確認しよう。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="trig-p4" data-level="1">
+    <h3><span class="pid">P4</span>基本の方程式・不等式（単位円で解く）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(0\le\theta\lt2\pi\) のとき \(2\cos\theta+\sqrt3=0\) を解け」「\(\sqrt3\tan\theta\ge1\) を解け」</dd>
+      <dt>こう考える</dt><dd>\(\cos\theta=k\) は単位円と<b>縦線 \(x=k\)</b> の交点、\(\sin\theta=k\) は<b>横線 \(y=k\)</b> との交点、\(\tan\theta=k\) は<b>傾き \(k\) の原点を通る直線</b>との交点。不等式はその線の片側にある弧。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\sin\theta=k\) などの形に変形する。</li>
+        <li>単位円に線を描き、交点の角を読む（範囲 \(0\le\theta\lt2\pi\) を確認）。</li>
+        <li>不等式なら条件を満たす弧を読み、端点の等号を確認。\(\tan\) は \(\theta=\frac\pi2,\frac{3\pi}2\) で定義されないので除く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>単位円による定義</dd>
+      <dt>なぜこの方法？</dt><dd>グラフで解くより、単位円の方が「どの角が条件を満たすか」が一目で分かり、範囲の端の処理も確実。<a href="../thinking.html#t-graph">発想：図にする</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(0\le\theta\lt2\pi\) のとき、次を解け。(1) \(2\cos\theta+\sqrt3=0\)　(2) \(\sqrt3\tan\theta\ge1\)</div>
+      <p>(1) \(\cos\theta=-\frac{\sqrt3}2\)。縦線 \(x=-\frac{\sqrt3}2\) と単位円の交点は \(\theta=\frac{5\pi}6,\ \frac{7\pi}6\)。<span class="answer">\(\theta=\frac{5\pi}{6},\ \frac{7\pi}{6}\)</span></p>
+      <p>(2) \(\tan\theta\ge\frac1{\sqrt3}\)。傾き \(\frac1{\sqrt3}\) の直線と単位円の交点は \(\frac\pi6,\ \frac{7\pi}6\)。傾きが \(\frac1{\sqrt3}\) 以上になるのは、そこから \(y\) 軸（傾き無限大）の手前まで。</p>
+      <p class="answer">\(\frac\pi6\le\theta\lt\frac\pi2,\ \ \frac{7\pi}6\le\theta\lt\frac{3\pi}2\)</p>
+      <p class="point">\(\tan\) は周期 \(\pi\) なので答えも \(\pi\) ずれて2組出る。\(\frac\pi2\) を含めないこと。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="trig-p5" data-level="2">
+    <h3><span class="pid">P5</span>角に係数・定数がついた方程式（範囲の変換）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(0\le\theta\lt2\pi\) のとき \(\sin\left(2\theta+\frac\pi3\right)=\frac12\) を解け」</dd>
+      <dt>こう考える</dt><dd>中の角を <b>\(t=2\theta+\frac\pi3\) とまとめて</b>、まず \(t\) の範囲を求める。\(\theta\) が1周する間に \(t\) は2周するので、解は2倍の個数になる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(t=2\theta+\frac\pi3\) の範囲：\(\frac\pi3\le t\lt4\pi+\frac\pi3\)。</li>
+        <li>\(\sin t=\frac12\) をこの範囲で<b>すべて</b>求める（\(\frac\pi6+2n\pi,\ \frac{5\pi}6+2n\pi\) から範囲内のもの）。</li>
+        <li>\(\theta=\frac{t-\pi/3}{2}\) に戻す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>置き換え、一般角</dd>
+      <dt>なぜこの方法？</dt><dd>\(\theta\) の範囲のまま解くと、範囲外の解を拾ったり、2周目の解を落としたりする。範囲を先に変換しておけば、\(\sin t=\frac12\) という基本形を正しい範囲で解くだけになる。<a href="../thinking.html#t-subst">発想：置き換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(0\le\theta\lt2\pi\) のとき、\(\sin\left(2\theta+\dfrac\pi3\right)=\dfrac12\) を解け。</div>
+      <p>\(t=2\theta+\frac\pi3\) とおくと \(\frac\pi3\le t\lt\frac{13\pi}3\)。</p>
+      <p>この範囲で \(\sin t=\frac12\) となるのは \(t=\frac{5\pi}6,\ \frac{13\pi}6,\ \frac{17\pi}6,\ \frac{25\pi}6\)（\(\frac\pi6\) は範囲外、\(\frac{25\pi}6\lt\frac{26\pi}6\) は範囲内）。</p>
+      <p>\(2\theta=t-\frac\pi3=\frac{\pi}2,\ \frac{11\pi}6,\ \frac{5\pi}2,\ \frac{23\pi}{6}\)。</p>
+      <p class="answer">\(\theta=\frac\pi4,\ \frac{11\pi}{12},\ \frac{5\pi}4,\ \frac{23\pi}{12}\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="trig-p6" data-level="2">
+    <h3><span class="pid">P6</span>2次方程式・不等式型（1種類の関数にそろえる）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(2\cos^2\theta+3\sin\theta-3=0\)」「\(2\cos^2\theta+3\sin\theta-3\ge0\)」（\(\sin\) と \(\cos^2\) が混在）</dd>
+      <dt>こう考える</dt><dd>\(\cos^2\theta=1-\sin^2\theta\) で<b>\(\sin\) だけ</b>の式にすれば、\(s=\sin\theta\) の2次方程式・不等式になる。\(s\) は \(-1\le s\le1\) に制限される。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>2乗の項を書きかえて1種類にそろえる（1次の項がある方にそろえる）。</li>
+        <li>因数分解して \(s\) の値・範囲を求め、\(-1\le s\le1\) と合わせる。</li>
+        <li>単位円で \(\theta\) に戻す。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\sin^2\theta+\cos^2\theta=1\)、2次不等式</dd>
+      <dt>なぜこの方法？</dt><dd>\(\sin\theta\) と \(\cos\theta\) は独立に動けない（\(\sin^2+\cos^2=1\)）ので、1つに減らせる。\(\sin\theta\) の1次の項を \(\cos\) に直すと根号が出るので、2乗の方を直す。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(0\le\theta\lt2\pi\) のとき、(1) \(2\cos^2\theta+3\sin\theta-3=0\)　(2) \(2\cos^2\theta+3\sin\theta-3\ge0\) を解け。</div>
+      <p>\(s=\sin\theta\ (-1\le s\le1)\) とおくと \(2(1-s^2)+3s-3=-(2s^2-3s+1)=-(2s-1)(s-1)\)。</p>
+      <p>(1) \(s=\frac12,\ 1\)。\(\sin\theta=\frac12\) より \(\frac\pi6,\frac{5\pi}6\)、\(\sin\theta=1\) より \(\frac\pi2\)。<span class="answer">\(\theta=\frac\pi6,\ \frac\pi2,\ \frac{5\pi}6\)</span></p>
+      <p>(2) \((2s-1)(s-1)\le0\) より \(\frac12\le s\le1\)。単位円で \(y\ge\frac12\) の弧。<span class="answer">\(\frac\pi6\le\theta\le\frac{5\pi}6\)</span></p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="trig-p7" data-level="1">
+    <h3><span class="pid">P7</span>加法定理で値を求める</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\sin75^\circ\) の値」「\(\sin\alpha=\frac35\)（鋭角）、\(\cos\beta=-\frac5{13}\)（\(\frac\pi2\lt\beta\lt\pi\)）のとき \(\sin(\alpha+\beta)\)」</dd>
+      <dt>こう考える</dt><dd>求めたい角を<b>値の分かる角の和・差</b>に分ける（\(75^\circ=45^\circ+30^\circ\)）。\(\alpha,\beta\) が与えられたら、加法定理に必要な4つの値 \(\sin\alpha,\cos\alpha,\sin\beta,\cos\beta\) を先にそろえる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>足りない \(\cos\alpha,\ \sin\beta\) を相互関係と象限から求める。</li>
+        <li>加法定理に代入する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>加法定理（導出は基本事項）</dd>
+      <dt>なぜこの方法？</dt><dd>加法定理は「回転を2回続けると、回転角が足される」ことの式。値の分かる回転に分解すれば、どんな角も計算できる。<a href="mc-complex.html">複素数平面</a>では掛け算＝回転として同じ式が出てくる。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\sin75^\circ\) の値を求めよ。<br>(2) \(0\lt\alpha\lt\frac\pi2,\ \frac\pi2\lt\beta\lt\pi\) で \(\sin\alpha=\frac35,\ \cos\beta=-\frac5{13}\) のとき、\(\sin(\alpha+\beta),\ \cos(\alpha+\beta)\) を求めよ。</div>
+      <p>(1) \(\sin(45^\circ+30^\circ)=\frac{\sqrt2}2\cdot\frac{\sqrt3}2+\frac{\sqrt2}2\cdot\frac12\)。<span class="answer">\(\dfrac{\sqrt6+\sqrt2}{4}\)</span></p>
+      <p>(2) \(\cos\alpha=\frac45\)（\(\alpha\) は鋭角）、\(\sin\beta=\frac{12}{13}\)（第2象限で正）。</p>
+      <p>\(\sin(\alpha+\beta)=\frac35\cdot\left(-\frac5{13}\right)+\frac45\cdot\frac{12}{13}=\frac{33}{65}\)、\(\cos(\alpha+\beta)=\frac45\cdot\left(-\frac{5}{13}\right)-\frac35\cdot\frac{12}{13}=-\frac{56}{65}\)。</p>
+      <p class="answer">\(\sin(\alpha+\beta)=\dfrac{33}{65},\ \cos(\alpha+\beta)=-\dfrac{56}{65}\)</p>
+      <p class="point">検算：\(\left(\frac{33}{65}\right)^2+\left(\frac{56}{65}\right)^2=\frac{1089+3136}{4225}=1\)。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="trig-p8" data-level="2">
+    <h3><span class="pid">P8</span>\(\tan\) の加法定理と2直線のなす角</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「2直線 \(y=3x,\ y=\frac12x\) のなす鋭角」「直線 \(y=2x\) と \(\frac\pi4\) の角をなす直線」</dd>
+      <dt>こう考える</dt><dd>直線の<b>傾き＝\(x\) 軸の正の向きとなす角の \(\tan\)</b>。2直線のなす角は2つの角の差なので、\(\tan\) の差の公式で計算できる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>2直線が \(x\) 軸となす角を \(\alpha,\beta\) とし、\(\tan\alpha=m_1,\ \tan\beta=m_2\)。</li>
+        <li>\(\tan(\alpha-\beta)=\dfrac{m_1-m_2}{1+m_1m_2}\)。鋭角なら絶対値をとる。</li>
+        <li>\(1+m_1m_2=0\) なら垂直（なす角 \(\frac\pi2\)）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\tan\) の加法定理</dd>
+      <dt>なぜこの方法？</dt><dd>傾きはすでに \(\tan\) の値なので、\(\sin,\cos\) に直す必要がない。「角の最大」を問う問題でも、\(\tan\) の大小で比べられる（演3）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) 2直線 \(y=3x,\ y=\frac12x\) のなす鋭角 \(\theta\) を求めよ。<br>(2) 原点を通り、直線 \(y=2x\) と \(\frac\pi4\) の角をなす直線の方程式を求めよ。</div>
+      <p>(1) \(\tan\theta=\left|\dfrac{3-\frac12}{1+3\cdot\frac12}\right|=\dfrac{5/2}{5/2}=1\)。<span class="answer">\(\theta=\dfrac\pi4\)</span></p>
+      <p>(2) 求める直線の傾きを \(m\) とすると \(\left|\dfrac{m-2}{1+2m}\right|=1\)（\(1+2m\neq0\)）。</p>
+      <p>\(m-2=1+2m\) より \(m=-3\)、\(m-2=-(1+2m)\) より \(m=\frac13\)。</p>
+      <p class="answer">\(y=-3x,\ y=\dfrac13x\)</p>
+      <p class="point">\(y\) 軸に平行な直線（傾きなし）が答えになりうる問題では別に調べる。ここでは \(y\) 軸と \(y=2x\) のなす角は \(\frac\pi4\) でないので不適。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="trig-p9" data-level="2">
+    <h3><span class="pid">P9</span>2倍角・半角の公式</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\cos\alpha=-\frac35\ (\pi\lt\alpha\lt\frac{3\pi}2)\) のとき \(\sin2\alpha,\ \cos2\alpha,\ \cos\frac\alpha2\)」</dd>
+      <dt>こう考える</dt><dd>2倍角は加法定理で \(\beta=\alpha\) としたもの。半角は \(\cos2x=2\cos^2x-1\) を逆に読んで <b>2乗の値</b>を出す公式なので、最後に<b>符号を \(\frac\alpha2\) の範囲で決める</b>必要がある。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\sin\alpha\) を象限から求める。</li>
+        <li>2倍角に代入。\(\cos2\alpha\) は3つの形のうち計算が楽なものを選ぶ。</li>
+        <li>半角：\(\cos^2\frac\alpha2=\frac{1+\cos\alpha}2\)。\(\frac\alpha2\) の範囲を求めて符号を決める。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>2倍角・半角の公式</dd>
+      <dt>なぜこの方法？</dt><dd>半角の公式は「2乗」を「1次の \(\cos2x\)」に変える<b>次数下げ</b>の公式でもある。P13 の最大最小や数IIIの積分（\(\int\sin^2x\,dx\)）で同じ変形を使う。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(\pi\lt\alpha\lt\dfrac{3\pi}{2}\)、\(\cos\alpha=-\dfrac35\) のとき、\(\sin2\alpha,\ \cos2\alpha,\ \cos\dfrac\alpha2\) を求めよ。</div>
+      <p>第3象限なので \(\sin\alpha=-\frac45\)。</p>
+      <p>\(\sin2\alpha=2\cdot\left(-\frac45\right)\left(-\frac35\right)=\frac{24}{25}\)、\(\cos2\alpha=2\cdot\frac{9}{25}-1=-\frac{7}{25}\)。</p>
+      <p>\(\cos^2\frac\alpha2=\frac{1+\cos\alpha}2=\frac15\)。\(\frac\pi2\lt\frac\alpha2\lt\frac{3\pi}4\) なので \(\cos\frac\alpha2\lt0\)。</p>
+      <p class="answer">\(\sin2\alpha=\dfrac{24}{25},\ \cos2\alpha=-\dfrac{7}{25},\ \cos\dfrac\alpha2=-\dfrac{\sqrt5}{5}\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="trig-p10" data-level="2">
+    <h3><span class="pid">P10</span>2倍角を含む方程式・不等式、3倍角の利用</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\sin2\theta\gt\cos\theta\) を解け」「\(\sin18^\circ\) の値を求めよ」（\(2\theta\) と \(\theta\)、\(2\theta\) と \(3\theta\) が混在）</dd>
+      <dt>こう考える</dt><dd>角が \(2\theta\) と \(\theta\) で混在 → <b>2倍角で角を \(\theta\) にそろえ</b>、共通因数でくくる。\(18^\circ\) は \(5\times18^\circ=90^\circ\) より \(2\theta=90^\circ-3\theta\) という関係を作り、2倍角と3倍角でつなぐ。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>2倍角で展開し、\(\cos\theta(2\sin\theta-1)\) のような<b>積の形</b>にする。</li>
+        <li>積の符号は「両方正 or 両方負」で場合分け、単位円で範囲を読む。</li>
+        <li>\(\sin18^\circ\)：\(\theta=18^\circ\) とすると \(\sin2\theta=\cos3\theta\)。\(\cos\theta\neq0\) で割って \(\sin\theta\) の2次方程式に。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>2倍角・3倍角の公式</dd>
+      <dt>なぜこの方法？</dt><dd>角がそろわないと単位円の1つの点で考えられない。そろえれば積の符号判定に帰着する。特別な角の値は「角の関係式 → 多項式の方程式」と翻訳して求める（P16・演1へつながる）。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(0\le\theta\lt2\pi\) のとき、\(\sin2\theta\gt\cos\theta\) を解け。<br>(2) \(\sin18^\circ\) の値を求めよ。</div>
+      <p>(1) \(2\sin\theta\cos\theta-\cos\theta\gt0\iff\cos\theta(2\sin\theta-1)\gt0\)。</p>
+      <ul>
+        <li>\(\cos\theta\gt0\) かつ \(\sin\theta\gt\frac12\)：\(\frac\pi6\lt\theta\lt\frac\pi2\)</li>
+        <li>\(\cos\theta\lt0\) かつ \(\sin\theta\lt\frac12\)：\(\frac{5\pi}6\lt\theta\lt\frac{3\pi}2\)</li>
+      </ul>
+      <p class="answer">(1) \(\frac\pi6\lt\theta\lt\frac\pi2,\ \ \frac{5\pi}6\lt\theta\lt\frac{3\pi}2\)</p>
+      <p>(2) \(\theta=18^\circ\) とおくと \(5\theta=90^\circ\)、\(2\theta=90^\circ-3\theta\) なので \(\sin2\theta=\cos3\theta\)。</p>
+      <p>\(2\sin\theta\cos\theta=4\cos^3\theta-3\cos\theta\)。\(\cos\theta\neq0\) で割って \(2\sin\theta=4\cos^2\theta-3=1-4\sin^2\theta\)。</p>
+      <p>\(4\sin^2\theta+2\sin\theta-1=0\)、\(\sin\theta\gt0\) より \(\sin\theta=\frac{-1+\sqrt5}{4}\)。</p>
+      <p class="answer">(2) \(\sin18^\circ=\dfrac{\sqrt5-1}{4}\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="trig-p11" data-level="2">
+    <h3><span class="pid">P11</span>積和・和積の公式</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\sin75^\circ\cos15^\circ\) の値」「\(0\le\theta\lt\pi\) のとき \(\cos\theta+\cos3\theta=0\) を解け」</dd>
+      <dt>こう考える</dt><dd><b>積は和に</b>すると値の分かる角になる（\(75^\circ\pm15^\circ=90^\circ,60^\circ\)）。逆に<b>和は積に</b>すると因数分解できて方程式が解ける（積 \(=0\) なら各因数 \(=0\)）。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>積→和：\(\sin\alpha\cos\beta=\frac12\{\sin(\alpha+\beta)+\sin(\alpha-\beta)\}\)。</li>
+        <li>和→積：\(\cos A+\cos B=2\cos\frac{A+B}2\cos\frac{A-B}2\)。</li>
+        <li>積 \(=0\) を各因数ごとに解き、範囲内の解を集める。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>積和・和積の公式（加法定理2本の和・差から作れる）</dd>
+      <dt>なぜこの方法？</dt><dd>和積公式は覚えにくいが、\(\sin(\alpha+\beta)+\sin(\alpha-\beta)=2\sin\alpha\cos\beta\) から \(A=\alpha+\beta,\ B=\alpha-\beta\) とおけばすぐ出る。<b>導けることが一番の暗記法</b>。数IIIの積分（\(\int\sin3x\cos x\,dx\)）でも使う。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">(1) \(\sin75^\circ\cos15^\circ\) の値を求めよ。<br>(2) \(0\le\theta\lt\pi\) のとき、\(\cos\theta+\cos3\theta=0\) を解け。</div>
+      <p>(1) \(\frac12(\sin90^\circ+\sin60^\circ)=\frac12\left(1+\frac{\sqrt3}2\right)\)。<span class="answer">\(\dfrac{2+\sqrt3}{4}\)</span></p>
+      <p>(2) \(\cos3\theta+\cos\theta=2\cos2\theta\cos\theta=0\)。</p>
+      <p>\(\cos\theta=0\)：\(\theta=\frac\pi2\)。\(\cos2\theta=0\)：\(0\le2\theta\lt2\pi\) より \(2\theta=\frac\pi2,\frac{3\pi}2\)、\(\theta=\frac\pi4,\frac{3\pi}4\)。</p>
+      <p class="answer">(2) \(\theta=\dfrac\pi4,\ \dfrac\pi2,\ \dfrac{3\pi}4\)</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="trig-p12" data-level="1">
+    <h3><span class="pid">P12</span>三角関数の合成</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(y=\sin\theta+\sqrt3\cos\theta\ (0\le\theta\le\pi)\) の最大値・最小値」「\(\sqrt3\sin\theta-\cos\theta=1\) を解け」</dd>
+      <dt>こう考える</dt><dd>\(\sin\theta\) と \(\cos\theta\) の<b>1次式</b>は、1つの \(\sin\) にまとめられる。点 \((a,b)\) を座標平面にとり、その長さ \(\sqrt{a^2+b^2}\) と角 \(\alpha\) を読む。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(a\sin\theta+b\cos\theta\) の \((a,b)\) を図示し、\(r=\sqrt{a^2+b^2}\)、\(\cos\alpha=\frac ar,\ \sin\alpha=\frac br\) となる \(\alpha\) を求める。</li>
+        <li>\(r\sin(\theta+\alpha)\) と書きかえる。</li>
+        <li>\(\theta+\alpha\) の範囲を求めて（P5 の要領）、単位円で最大最小・方程式を解く。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>合成（加法定理の逆）</dd>
+      <dt>なぜこの方法？</dt><dd>\(\sin\theta\) と \(\cos\theta\) が同時に変化するので、別々に最大を考えても意味がない。1つの \(\sin\) にまとめれば、値域が \(-r\) から \(r\) と一目で分かる。<a href="mc-vector.html">ベクトル</a>で見れば \((a,b)\cdot(\sin\theta,\cos\theta)\) の内積。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(0\le\theta\le\pi\) のとき、\(y=\sin\theta+\sqrt3\cos\theta\) の最大値と最小値を求めよ。</div>
+      <p>\((1,\sqrt3)\) は長さ2、角 \(\frac\pi3\) の点なので \(y=2\sin\left(\theta+\frac\pi3\right)\)。</p>
+      <p>\(\frac\pi3\le\theta+\frac\pi3\le\frac{4\pi}3\)。\(\sin\) はこの範囲で、\(\frac\pi2\) のとき最大1、\(\frac{4\pi}3\) のとき最小 \(-\frac{\sqrt3}2\)。</p>
+      <p class="answer">最大値 2（\(\theta=\frac\pi6\)）、最小値 \(-\sqrt3\)（\(\theta=\pi\)）</p>
+      <p class="point">最小値を \(-2\) と答えるのは、\(\theta+\frac\pi3\) の範囲を確認していないミス。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="trig-p13" data-level="2">
+    <h3><span class="pid">P13</span>\(\sin\theta,\cos\theta\) の2次式の最大最小（次数下げ → 合成）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(f(\theta)=\sin^2\theta+2\sin\theta\cos\theta+3\cos^2\theta\ (0\le\theta\le\frac\pi2)\) の最大値・最小値」（すべての項が2次）</dd>
+      <dt>こう考える</dt><dd>2次の項 \(\sin^2,\ \sin\cos,\ \cos^2\) は、半角・2倍角で<b>すべて \(2\theta\) の1次式</b>に直せる。すると \(a\sin2\theta+b\cos2\theta+c\) となり、合成できる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\sin^2\theta=\frac{1-\cos2\theta}2,\ \cos^2\theta=\frac{1+\cos2\theta}2,\ \sin\theta\cos\theta=\frac{\sin2\theta}2\) を代入。</li>
+        <li>\(a\sin2\theta+b\cos2\theta+c\) を合成。</li>
+        <li>\(2\theta+\alpha\) の範囲で最大最小を読む。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>半角・2倍角（次数下げ）、合成</dd>
+      <dt>なぜこの方法？</dt><dd>2次式のままでは \(\sin\) と \(\cos\) が絡み合って1変数にできない。次数を下げると角が \(2\theta\) にそろい、合成で1つにまとまる。「2次の同次式」なら必ずこの手順で解ける。</dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(0\le\theta\le\dfrac\pi2\) のとき、\(f(\theta)=\sin^2\theta+2\sin\theta\cos\theta+3\cos^2\theta\) の最大値と最小値を求めよ。</div>
+      \[ \begin{aligned} f(\theta)&=\frac{1-\cos2\theta}{2}+\sin2\theta+\frac{3(1+\cos2\theta)}{2}\\&=\sin2\theta+\cos2\theta+2=\sqrt2\sin\left(2\theta+\frac\pi4\right)+2 \end{aligned} \]
+      <p>\(\frac\pi4\le2\theta+\frac\pi4\le\frac{5\pi}4\) なので \(-\frac{\sqrt2}2\le\sin\left(2\theta+\frac\pi4\right)\le1\)。</p>
+      <p>最大：\(2\theta+\frac\pi4=\frac\pi2\)（\(\theta=\frac\pi8\)）で \(2+\sqrt2\)。最小：\(2\theta+\frac\pi4=\frac{5\pi}4\)（\(\theta=\frac\pi2\)）で \(2-1=1\)。</p>
+      <p class="answer">最大値 \(2+\sqrt2\)（\(\theta=\frac\pi8\)）、最小値 1（\(\theta=\frac\pi2\)）</p>
+      <p class="point">検算：\(f\left(\frac\pi2\right)=1+0+0=1\)。端点の値は元の式に代入して確かめられる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="trig-p14" data-level="2">
+    <h3><span class="pid">P14</span>\(t=\sin\theta+\cos\theta\) の置き換えと \(t\) の範囲</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(y=\sin\theta\cos\theta+\sin\theta+\cos\theta\ (0\le\theta\le\pi)\) の最大・最小」（和 \(\sin\theta+\cos\theta\) と積 \(\sin\theta\cos\theta\) が混在）</dd>
+      <dt>こう考える</dt><dd>和と積が出たら、和を \(t\) とおく。\(t^2=1+2\sin\theta\cos\theta\) なので<b>積も \(t\) で表せる</b>。\(t\) の範囲は合成 \(t=\sqrt2\sin\left(\theta+\frac\pi4\right)\) で求める。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(t=\sin\theta+\cos\theta\) とおき、\(\sin\theta\cos\theta=\frac{t^2-1}2\)。</li>
+        <li>合成して \(t\) の範囲を求める（\(\theta\) の範囲に注意）。</li>
+        <li>\(t\) の2次関数の最大最小を求め、対応する \(\theta\) を求める。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\((\sin\theta+\cos\theta)^2=1+2\sin\theta\cos\theta\)、合成</dd>
+      <dt>なぜこの方法？</dt><dd>\(\sin\theta,\cos\theta\) について<b>対称な式</b>は、和と積で表せる（解と係数の関係と同じ）。積は和で表せるので、和1つの関数になる。<a href="m1-quadratic.html">2次関数</a>の「置き換えたら範囲」の三角関数版。<a href="../thinking.html#t-subst">発想：置き換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(0\le\theta\le\pi\) のとき、\(y=\sin\theta\cos\theta+\sin\theta+\cos\theta\) の最大値と最小値を求めよ。</div>
+      <p>\(t=\sin\theta+\cos\theta=\sqrt2\sin\left(\theta+\frac\pi4\right)\)。\(\frac\pi4\le\theta+\frac\pi4\le\frac{5\pi}4\) より \(-1\le t\le\sqrt2\)。</p>
+      <p>\(\sin\theta\cos\theta=\frac{t^2-1}{2}\) なので \(y=\frac{t^2-1}2+t=\frac12(t+1)^2-1\)。</p>
+      <p>\(-1\le t\le\sqrt2\) で、\(t=\sqrt2\)（\(\theta=\frac\pi4\)）のとき最大 \(\frac12(\sqrt2+1)^2-1=\frac12+\sqrt2\)、\(t=-1\)（\(\theta=\pi\)）のとき最小 \(-1\)。</p>
+      <p class="answer">最大値 \(\dfrac12+\sqrt2\)（\(\theta=\frac\pi4\)）、最小値 \(-1\)（\(\theta=\pi\)）</p>
+      <p class="point">\(t\) の範囲を \(-\sqrt2\le t\le\sqrt2\) としてしまうと、\(\theta\) の範囲 \(0\le\theta\le\pi\) を無視したことになる。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="trig-p15" data-level="3">
+    <h3><span class="pid">P15</span>方程式の解の個数（置き換え後の対応を数える）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(0\le\theta\lt2\pi\) における方程式 \(\cos2\theta+2\sin\theta=a\) の解の個数を、\(a\) の値によって調べよ」</dd>
+      <dt>こう考える</dt><dd>\(s=\sin\theta\) とおくと \(s\) の2次方程式。ただし答えるのは \(\theta\) の個数。<b>\(s\) 1つに \(\theta\) がいくつ対応するか</b>は \(s\) の値で違う：\(-1\lt s\lt1\) なら2個、\(s=\pm1\) なら1個。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>置き換えて \(a=g(s)\ (-1\le s\le1)\) と<b>定数分離</b>する。</li>
+        <li>\(y=g(s)\) のグラフと水平線 \(y=a\) の共有点を調べる。</li>
+        <li>各共有点の \(s\) が \(\pm1\) か、\(-1\lt s\lt1\) かで \(\theta\) の個数を数え、合計する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>2倍角、定数分離、単位円での対応</dd>
+      <dt>なぜこの方法？</dt><dd>\(s=\sin\theta\) は単位円と横線 \(y=s\) の交点の数だけ \(\theta\) を与える。横線が円を横切れば2点、てっぺん・底で接すれば1点。置き換えで問題が易しくなる代わりに、この<b>対応の個数</b>を最後に戻す作業が必要になる。<a href="../thinking.html#t-separate">発想：定数分離</a>・<a href="../thinking.html#t-casework">発想：場合分け</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">\(a\) を実数とする。\(0\le\theta\lt2\pi\) における方程式 \(\cos2\theta+2\sin\theta=a\) の異なる解の個数を、\(a\) の値によって分類せよ。</div>
+      <p>\(s=\sin\theta\ (-1\le s\le1)\) とおくと、\(\cos2\theta=1-2s^2\) より</p>
+      \[ a=-2s^2+2s+1=-2\left(s-\frac12\right)^2+\frac32=g(s) \]
+      <p>\(g(-1)=-3,\ g\left(\frac12\right)=\frac32,\ g(1)=1\)。\(g\) は \(-1\le s\le\frac12\) で増加、\(\frac12\le s\le1\) で減少。</p>
+      <p><b>対応</b>：\(-1\lt s\lt1\) の \(s\) 1つに \(\theta\) は2個、\(s=\pm1\) には1個。</p>
+      <ul>
+        <li>\(a\gt\frac32\)：\(s\) なし → 0個</li>
+        <li>\(a=\frac32\)：\(s=\frac12\) → 2個</li>
+        <li>\(1\lt a\lt\frac32\)：\(s\) が \(0\lt s\lt\frac12\) と \(\frac12\lt s\lt1\) に1つずつ → 4個</li>
+        <li>\(a=1\)：\(s=0\)（2個）と \(s=1\)（1個）→ 3個</li>
+        <li>\(-3\lt a\lt1\)：\(s\) は \(-1\lt s\lt0\) に1つ → 2個</li>
+        <li>\(a=-3\)：\(s=-1\) → 1個</li>
+        <li>\(a\lt-3\)：0個</li>
+      </ul>
+      <p class="answer">\(a\lt-3,\ \frac32\lt a\)：0個、\(a=-3\)：1個、\(-3\lt a\lt1,\ a=\frac32\)：2個、\(a=1\)：3個、\(1\lt a\lt\frac32\)：4個</p>
+      <p class="point">境界 \(a=1\) で \(s=1\)（\(\theta=\frac\pi2\) の1個）が出るのが落とし穴。「\(s\) が2個だから4個」と機械的に数えないこと。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="trig-p16" data-level="3">
+    <h3><span class="pid">P16</span>\(\cos n\theta\) を \(\cos\theta\) の多項式で表す（チェビシェフ型・帰納法）</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\cos n\theta\) は \(\cos\theta\) の \(n\) 次多項式で表せることを示せ」「その最高次の係数を求めよ」「\(\cos5\theta\) を \(\cos\theta\) で表せ」</dd>
+      <dt>こう考える</dt><dd>\(\cos(n+1)\theta\) と \(\cos(n-1)\theta\) を足すと、和積公式で <b>\(2\cos\theta\cos n\theta\)</b> になる。つまり \(\cos(n+1)\theta\) が \(\cos n\theta\) と \(\cos(n-1)\theta\) から作れる：<b>3項間の漸化式</b>。だから2つ前までの仮定を使う帰納法で示せる。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(\cos(n+1)\theta=2\cos\theta\cos n\theta-\cos(n-1)\theta\) を示す（加法定理2本の和）。</li>
+        <li>\(x=\cos\theta\) として \(T_{n+1}(x)=2xT_n(x)-T_{n-1}(x)\)、\(T_0=1,\ T_1=x\)。</li>
+        <li>「\(T_n\) は整数係数の \(n\) 次式で最高次の係数 \(2^{n-1}\)」を \(n\) と \(n-1\) で仮定して \(n+1\) を示す（2段階の帰納法）。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>加法定理（和積）、数学的帰納法</dd>
+      <dt>なぜこの方法？</dt><dd>\(\cos n\theta\) を直接展開するのは大変だが、隣どうしの関係なら1行で書ける。「直接求めにくいものは、1つ前との関係（漸化式）を作る」は数列・確率・整数でも共通の発想。<a href="../thinking.html#t-induction">発想：数学的帰納法</a>・<a href="../thinking.html#t-recurrence">発想：漸化式</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">自然数 \(n\) に対し、\(\cos n\theta=T_n(\cos\theta)\) を満たす \(n\) 次の整式 \(T_n(x)\) が存在し、その係数はすべて整数で、最高次の係数は \(2^{n-1}\) であることを示せ。また \(T_4(x),\ T_5(x)\) を求めよ。</div>
+      <p>加法定理より \(\cos(n+1)\theta+\cos(n-1)\theta=2\cos n\theta\cos\theta\)。よって</p>
+      \[ \cos(n+1)\theta=2\cos\theta\cos n\theta-\cos(n-1)\theta \qquad\cdots① \]
+      <p>\(T_1(x)=x,\ T_2(x)=2x^2-1\) とおくと \(n=1,2\) で主張は成り立つ（最高次の係数 \(1=2^0,\ 2=2^1\)）。</p>
+      <p>\(n=k,\ k+1\) で成り立つと仮定する（\(k\ge1\)）。①より \(\cos(k+2)\theta=2xT_{k+1}(x)-T_k(x)\)（\(x=\cos\theta\)）。右辺を \(T_{k+2}(x)\) とおくと、\(2xT_{k+1}\) は整数係数の \(k+2\) 次式で最高次の係数 \(2\cdot2^{k}=2^{k+1}\)、\(T_k\) は \(k\) 次なので最高次に影響しない。よって \(n=k+2\) でも成り立つ。</p>
+      <p>帰納法によりすべての自然数 \(n\) で成り立つ。（証明終）</p>
+      <p>\(T_3=2x(2x^2-1)-x=4x^3-3x\)、\(T_4=2x(4x^3-3x)-(2x^2-1)\)、\(T_5=2xT_4-T_3\)。</p>
+      <p class="answer">\(T_4(x)=8x^4-8x^2+1,\ \ T_5(x)=16x^5-20x^3+5x\)</p>
+      <p class="point">\(T_3\) は3倍角の公式そのもの。2つ前まで使う帰納法では、出発点を2つ（\(n=1,2\)）確認するのを忘れないこと。</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="trig-p17" data-level="3">
+    <h3><span class="pid">P17</span>三角形の角の条件つきの証明</h3>
+    <dl class="map">
+      <dt class="trigger">こう来たら</dt><dd class="trigger">「三角形 \(ABC\) において \(\tan A+\tan B+\tan C=\tan A\tan B\tan C\) を示せ」「\(\sin A+\sin B+\sin C=4\cos\frac A2\cos\frac B2\cos\frac C2\) を示せ」</dd>
+      <dt>こう考える</dt><dd>条件は \(A+B+C=\pi\) だけ。これは<b>1文字を消す条件</b>：\(C=\pi-(A+B)\) とすれば \(\sin C=\sin(A+B),\ \cos C=-\cos(A+B),\ \tan C=-\tan(A+B)\)。半角なら \(\frac C2=\frac\pi2-\frac{A+B}2\)。</dd>
+      <dt>こう解く</dt><dd><ol>
+        <li>\(C\) を \(A,B\) で表して代入する。</li>
+        <li>加法定理や和積公式で整理し、左辺 \(-\) 右辺 \(=0\) を示す。</li>
+        <li>\(\tan\) が定義されない場合（直角三角形）を除くなど、前提を確認する。</li>
+      </ol></dd>
+      <dt>使う定理・公式</dt><dd>\(\sin(\pi-x)=\sin x\)、\(\cos(\frac\pi2-x)=\sin x\)、加法定理、和積公式</dd>
+      <dt>なぜこの方法？</dt><dd>3つの角は独立でなく自由度は2。1文字消去で独立な文字だけにすれば、あとは恒等式の証明（<a href="m2-proof.html">式と証明</a>）になる。<a href="../thinking.html#t-rephrase">発想：同値な言い換え</a></dd>
+    </dl>
+    <details class="ex"><summary>例題</summary><div class="inner">
+      <div class="problem">三角形 \(ABC\) において、次を証明せよ。<br>(1) どの角も直角でないとき、\(\tan A+\tan B+\tan C=\tan A\tan B\tan C\)<br>(2) \(\sin A+\sin B+\sin C=4\cos\frac A2\cos\frac B2\cos\frac C2\)</div>
+      <p>(1) \(C=\pi-(A+B)\) より \(\tan C=-\tan(A+B)=-\dfrac{\tan A+\tan B}{1-\tan A\tan B}\)（\(A+B\neq\frac\pi2\) なので分母 \(\neq0\)）。分母を払うと</p>
+      \[ \tan C-\tan A\tan B\tan C=-\tan A-\tan B \]
+      <p>移項して \(\tan A+\tan B+\tan C=\tan A\tan B\tan C\)。</p>
+      <p>(2) 和積公式と \(\sin C=\sin(A+B)=2\sin\frac{A+B}2\cos\frac{A+B}2\) より</p>
+      \[ \begin{aligned} \sin A+\sin B+\sin C&=2\sin\frac{A+B}2\cos\frac{A-B}2+2\sin\frac{A+B}2\cos\frac{A+B}2\\&=2\sin\frac{A+B}2\left(\cos\frac{A-B}2+\cos\frac{A+B}2\right)\\&=2\sin\frac{A+B}2\cdot2\cos\frac A2\cos\frac B2 \end{aligned} \]
+      <p>\(\frac{A+B}{2}=\frac\pi2-\frac C2\) なので \(\sin\frac{A+B}2=\cos\frac C2\)。よって右辺に一致する。</p>
+      <p class="answer">(1)(2) とも成り立つ（証明終）</p>
+      <p class="point">(2) の最後の和積：\(\cos\frac{A-B}2+\cos\frac{A+B}2=2\cos\frac A2\cos\frac B2\)。和と差の平均が \(\frac A2,\ \frac B2\) になる。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="pitfalls">
+  <h2>よくあるミスと対策</h2>
+  <ul class="pitfalls">
+    <li><b>置き換えた角・変数の範囲を確認しない</b>（P5, P12, P14）。→ 「\(t=\) 〜とおく」の次の行に必ず「\(t\) の範囲は」と書く。</li>
+    <li><b>グラフの平行移動を \(\theta\) の係数でくくらずに読む</b>（P3）。→ \(2\theta-\frac\pi3=2\left(\theta-\frac\pi6\right)\)。移動量は \(\frac\pi6\)。</li>
+    <li><b>半角の公式で符号を決め忘れる</b>（P9）。→ \(\frac\alpha2\) の範囲を書いてから符号を選ぶ。</li>
+    <li><b>解の個数で「\(t\) 1つに \(\theta\) 何個」を考えない</b>（P15, 演2）。→ \(t=\pm1\)（\(\sin\)）や \(t=\pm\sqrt2\)（\(\sin+\cos\)）は1個、内側は2個。</li>
+    <li><b>\(\tan\) の不等式で定義されない角を含める</b>（P4）。→ \(\theta=\frac\pi2+n\pi\) は除外。</li>
+    <li><b>方程式を \(\cos\theta\) で割って解を失う</b>（P10）。→ 割らずに因数でくくり、\(\cos\theta=0\) の場合も解として拾う。</li>
+    <li><b>2つ前まで使う帰納法で出発点を1つしか確認しない</b>（P16）。→ \(n=1,2\) の両方を確認する。</li>
+  </ul>
+</section>
+
+<section id="handai">
+  <h2>阪大レベルへの橋渡し</h2>
+  <p>阪大理系では三角関数が単独で出ることは少なく、<b>\(\cos n\theta\) の多項式・特別な角の値</b>（整数・方程式との融合）、<b>置き換えによる解の個数・最大最小</b>（微分との融合）、<b>角の最大化</b>（図形との融合）として現れる。次の3点が答案の分かれ目になる。</p>
+  <ul>
+    <li>角の関係（\(7\theta=\pi\) など）を<b>多項式の方程式に翻訳</b>し、「解がちょうどそれらであること」を個数と相異性で言い切る（演1）。</li>
+    <li>置き換えたら<b>範囲と対応の個数</b>を明記する（演2）。</li>
+    <li>角そのものではなく<b>\(\tan\) を最大化</b>する（\(\tan\) は \(0\lt\theta\lt\frac\pi2\) で増加）（演3）。</li>
+  </ul>
+
+  <article class="pattern" id="trig-h1" data-level="3">
+    <h3><span class="pid">演1</span>\(\cos\frac{\pi}{7}\) を解にもつ3次方程式</h3>
+    <div class="problem">(1) \(x=\cos\theta\) とするとき、\(\cos3\theta+\cos4\theta\) を \(x\) の整式で表せ。<br>(2) 3次方程式 \(8x^3-4x^2-4x+1=0\) の3つの解は \(\cos\dfrac\pi7,\ \cos\dfrac{3\pi}7,\ \cos\dfrac{5\pi}7\) であることを示せ。<br>(3) \(\cos\dfrac\pi7\cos\dfrac{3\pi}7\cos\dfrac{5\pi}7\) と \(\cos\dfrac\pi7+\cos\dfrac{3\pi}7+\cos\dfrac{5\pi}7\) の値を求めよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>\(\theta=\frac{k\pi}{7}\)（\(k\) 奇数）なら \(7\theta=k\pi\)、つまり \(4\theta=k\pi-3\theta\)。両辺の \(\cos\) をとると \(\cos4\theta=-\cos3\theta\)。これを (1) の整式に入れれば \(\cos\theta\) が満たす方程式が出る。「3次方程式の解は高々3個」なので、異なる3つの解を見つければそれで全部。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) \(\cos3\theta=4x^3-3x\)、\(\cos4\theta=2\cos^22\theta-1=2(2x^2-1)^2-1=8x^4-8x^2+1\)。</p>
+      \[ \cos3\theta+\cos4\theta=8x^4+4x^3-8x^2-3x+1=(x+1)(8x^3-4x^2-4x+1) \]
+      <p class="answer">(1) \(8x^4+4x^3-8x^2-3x+1\ \ \left(=(x+1)(8x^3-4x^2-4x+1)\right)\)</p>
+      <p>(2) \(\theta=\frac\pi7,\ \frac{3\pi}7,\ \frac{5\pi}7\) とする。いずれも \(7\theta=k\pi\)（\(k=1,3,5\) は奇数）なので \(4\theta=k\pi-3\theta\)、</p>
+      \[ \cos4\theta=\cos(k\pi-3\theta)=(-1)^k\cos3\theta=-\cos3\theta \]
+      <p>よって \(\cos3\theta+\cos4\theta=0\)。(1) より \((x+1)(8x^3-4x^2-4x+1)=0\)（\(x=\cos\theta\)）。\(0\lt\theta\lt\pi\) なので \(x\neq-1\)、したがって \(8x^3-4x^2-4x+1=0\)。</p>
+      <p>\(\cos\) は \(0\le\theta\le\pi\) で減少するので、\(\cos\frac\pi7,\ \cos\frac{3\pi}7,\ \cos\frac{5\pi}7\) は互いに異なる。3次方程式の解は高々3個なので、これらがちょうど3つの解である。（証明終）</p>
+      <p>(3) 解と係数の関係より、積 \(=-\frac18\)、和 \(=\frac48=\frac12\)。</p>
+      <p class="answer">(3) 積 \(-\dfrac18\)、和 \(\dfrac12\)</p>
+      <p class="point">採点ポイント：①\(\cos4\theta=-\cos3\theta\) の根拠（\(k\) が奇数）、②\(x\neq-1\) の確認、③3つの値が<b>異なる</b>ことと「解は高々3個」で全解と言い切ること。ここが抜けると「解である」ことしか示していない。<a href="../thinking.html#t-goal">発想：ゴールから逆算</a>（関連：<a href="m2-complex-eq.html">複素数と方程式</a>の解と係数の関係、<a href="mc-complex.html">複素数平面</a>の \(z^7=-1\)）</p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="trig-h2" data-level="3">
+    <h3><span class="pid">演2</span>\(t=\sin\theta+\cos\theta\) による解の個数の分類</h3>
+    <div class="problem">\(a\) を実数とする。\(0\le\theta\lt2\pi\) における方程式<br>\(\qquad\sin\theta+\cos\theta+2\sin\theta\cos\theta=a\)<br>の異なる解の個数を、\(a\) の値によって分類せよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>和と積の混在 → \(t=\sin\theta+\cos\theta\)、\(2\sin\theta\cos\theta=t^2-1\)。\(t=\sqrt2\sin\left(\theta+\frac\pi4\right)\) なので \(-\sqrt2\le t\le\sqrt2\)、そして \(\abs t\lt\sqrt2\) なら \(\theta\) は2個、\(t=\pm\sqrt2\) なら1個。\(a=t^2+t-1\) と定数分離して水平線で数える。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>\(t=\sin\theta+\cos\theta=\sqrt2\sin\left(\theta+\frac\pi4\right)\) とおく。\(\theta\) が \(0\le\theta\lt2\pi\) を動くと \(\theta+\frac\pi4\) は1周するので、\(t\) の範囲は \(-\sqrt2\le t\le\sqrt2\)。</p>
+      <p><b>対応</b>：\(-\sqrt2\lt t\lt\sqrt2\) の各 \(t\) に \(\theta\) は2個、\(t=\pm\sqrt2\) には1個（\(\theta=\frac\pi4,\ \frac{5\pi}4\)）。異なる \(t\) には異なる \(\theta\) が対応する。</p>
+      <p>\(2\sin\theta\cos\theta=t^2-1\) より、方程式は</p>
+      \[ a=t^2+t-1=\left(t+\frac12\right)^2-\frac54=h(t)\qquad(-\sqrt2\le t\le\sqrt2) \]
+      <p>\(h\left(-\frac12\right)=-\frac54,\ h(-\sqrt2)=1-\sqrt2,\ h(\sqrt2)=1+\sqrt2\)。\(h\) は \(t\le-\frac12\) で減少、\(t\ge-\frac12\) で増加。\(-\frac54\lt1-\sqrt2\lt1+\sqrt2\) に注意して水平線 \(y=a\) との共有点を数える。</p>
+      <ul>
+        <li>\(a\lt-\frac54\)：\(t\) なし → 0個</li>
+        <li>\(a=-\frac54\)：\(t=-\frac12\) → 2個</li>
+        <li>\(-\frac54\lt a\lt1-\sqrt2\)：\(-\sqrt2\lt t\lt-\frac12\) と \(-\frac12\lt t\lt\sqrt2\) に1つずつ → 4個</li>
+        <li>\(a=1-\sqrt2\)：\(t=-\sqrt2\)（1個）と \(t=\sqrt2-1\)（2個）→ 3個</li>
+        <li>\(1-\sqrt2\lt a\lt1+\sqrt2\)：\(\sqrt2-1\lt t\lt\sqrt2\) に1つ → 2個</li>
+        <li>\(a=1+\sqrt2\)：\(t=\sqrt2\) → 1個</li>
+        <li>\(a\gt1+\sqrt2\)：0個</li>
+      </ul>
+      <p class="answer">\(a\lt-\frac54,\ 1+\sqrt2\lt a\)：0個、\(a=1+\sqrt2\)：1個、\(a=-\frac54\) または \(1-\sqrt2\lt a\lt1+\sqrt2\)：2個、\(a=1-\sqrt2\)：3個、\(-\frac54\lt a\lt1-\sqrt2\)：4個</p>
+      <p class="point">採点ポイント：①\(t\) の範囲、②\(t\) と \(\theta\) の対応の個数の明記、③\(h(t)\) のグラフでの数え上げ、④境界 \(a=1-\sqrt2\) で \(t=-\sqrt2\) が端点になる処理（もう一方の解は \(t=-1-(-\sqrt2)=\sqrt2-1\)、解の和が \(-1\) から）。<a href="../thinking.html#t-separate">発想：定数分離</a>・<a href="../thinking.html#t-subst">発想：置き換え</a></p>
+    </div></details>
+  </article>
+
+  <article class="pattern" id="trig-h3" data-level="3">
+    <h3><span class="pid">演3</span>見込む角の最大化（\(\tan\) と相加相乗）</h3>
+    <div class="problem">座標平面上に2点 \(A(0,a),\ B(0,b)\)（\(0\lt a\lt b\)）がある。\(x\) 軸の正の部分を動く点 \(P(x,0)\) に対し、\(\theta=\angle APB\) とする。<br>(1) \(\tan\theta\) を \(x,a,b\) で表せ。<br>(2) \(\theta\) が最大となる \(x\) と、そのときの \(\tan\theta\) を求めよ。<br>(3) \(a=1,\ b=4\) のときの最大値 \(\tan\theta\) と \(x\) を答えよ。</div>
+    <details class="hint"><summary>着眼点</summary><div class="inner">
+      <p>\(\angle APB=\angle OPB-\angle OPA\)。\(\angle OPB,\ \angle OPA\) の \(\tan\) は \(\frac bx,\ \frac ax\) とすぐ分かるので、\(\tan\) の差の公式。\(\theta\) は鋭角なので、\(\theta\) の最大は \(\tan\theta\) の最大と同じ。分母に \(x+\frac{ab}{x}\) が出たら相加相乗。</p>
+    </div></details>
+    <details class="sol"><summary>解答</summary><div class="inner">
+      <p>(1) \(\alpha=\angle OPA,\ \beta=\angle OPB\) とすると \(\tan\alpha=\frac ax,\ \tan\beta=\frac bx\)、\(0\lt\alpha\lt\beta\lt\frac\pi2\)、\(\theta=\beta-\alpha\)。</p>
+      \[ \tan\theta=\frac{\frac bx-\frac ax}{1+\frac{ab}{x^2}}=\frac{(b-a)x}{x^2+ab} \]
+      <p class="answer">(1) \(\tan\theta=\dfrac{(b-a)x}{x^2+ab}\)</p>
+      <p>(2) \(0\lt\theta\lt\frac\pi2\) で \(\tan\) は増加なので、\(\theta\) 最大 \(\iff\) \(\tan\theta\) 最大。\(\tan\theta=\dfrac{b-a}{x+\frac{ab}{x}}\)。</p>
+      <p>\(x\gt0\) より相加相乗で \(x+\frac{ab}x\ge2\sqrt{ab}\)、等号は \(x=\sqrt{ab}\)。分母が最小のとき \(\tan\theta\) は最大。</p>
+      <p class="answer">(2) \(x=\sqrt{ab}\) のとき最大で、\(\tan\theta=\dfrac{b-a}{2\sqrt{ab}}\)</p>
+      <p>(3) \(x=\sqrt4=2\)、\(\tan\theta=\frac{3}{2\cdot2}=\frac34\)。</p>
+      <p class="answer">(3) \(x=2\)、\(\tan\theta=\dfrac34\)</p>
+      <p class="point">採点ポイント：①\(\theta=\beta-\alpha\) と \(\tan\) の差の公式、②「\(\theta\) の最大 \(\iff\) \(\tan\theta\) の最大」の根拠（鋭角で単調増加）、③相加相乗の等号成立の確認。図形的には、\(A,B\) を通り \(x\) 軸に接する円の接点が \(P\)（方べきの定理 \(OP^2=OA\cdot OB\)）。<a href="m2-proof.html">式と証明</a>の相加相乗、<a href="ma-geometry.html">図形の性質</a>の方べきとつながる。</p>
+    </div></details>
+  </article>
+</section>
+
+<section id="next">
+  <h2>次に学ぶとつながる単元</h2>
+  <ul>
+    <li><a href="mc-complex.html">複素数平面</a>：P7 の加法定理は「複素数の掛け算＝回転」で一瞬で導ける。P16・演1 の \(\cos n\theta\) はド・モアブルの定理で見通しがよくなる。</li>
+    <li><a href="m3-diff.html">微分法とその応用</a>・<a href="m3-integral.html">積分法（計算）</a>：\((\sin x)'=\cos x\) は弧度法が前提。P9・P11 の次数下げ・積和は積分計算の主役。</li>
+    <li><a href="m2-explog.html">指数関数・対数関数</a>：P14・P15 の「置き換えて範囲と対応を確認」は \(t=2^x\) でも同じ。</li>
+    <li><a href="m2-coord.html">図形と方程式</a>：P8 の2直線のなす角、円のパラメータ表示 \((\cos\theta,\sin\theta)\) と領域の最大最小。</li>
+    <li><a href="m1-trig.html">図形と計量</a>：P17 の三角形の角の条件は、正弦定理・余弦定理と組み合わせて三角形の形状決定に使う。</li>
+  </ul>
+</section>
+
+</main>
+<footer class="site-footer">解法の地図 — 高校数学 解法パターン対応表</footer>
+</body>
+</html>
