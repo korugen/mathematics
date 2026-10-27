@@ -33,7 +33,7 @@
 
   <div class="box theorem">
     <p><span class="name">基本的な不定積分</span>（\(C\) は積分定数）</p>
-    \[ \begin{aligned} & \int x^\alpha dx=\frac{x^{\alpha+1}}{\alpha+1}+C\ (\alpha\ne-1),\\ & \int\frac{dx}{x}=\log|x|+C,\\ & \int e^x dx=e^x+C,\quad \int a^x dx=\frac{a^x}{\log a}+C,\\ & \int\sin x\,dx=-\cos x+C,\\ & \int\cos x\,dx=\sin x+C,\\ & \int\frac{dx}{\cos^2x}=\tan x+C \end{aligned} \]
+    \[ \begin{aligned} & \int x^\alpha dx=\frac{x^{\alpha+1}}{\alpha+1}+C\ (\alpha\ne-1),\\ & \int\frac{dx}{x}=\log|x|+C,\\ & \int e^x dx=e^x+C,\\ & \int a^x dx=\frac{a^x}{\log a}+C,\\ & \int\sin x\,dx=-\cos x+C,\\ & \int\cos x\,dx=\sin x+C,\\ & \int\frac{dx}{\cos^2x}=\tan x+C \end{aligned} \]
     <p>なぜ：右辺を微分すると左辺の被積分関数に戻る（<a href="m3-diff.html">微分法</a>の公式を逆に読んだだけ）。<b>答えに自信がなければ微分して検算</b>できるのが積分の強み。</p>
   </div>
 
@@ -388,7 +388,7 @@
       <p>(1) \(I=e^x\sin x-\displaystyle\int e^x\cos x\,dx=e^x\sin x-\left(e^x\cos x+\int e^x\sin x\,dx\right)=e^x(\sin x-\cos x)-I\)。</p>
       <p>よって \(2I=e^x(\sin x-\cos x)\)、\(I=\dfrac12e^x(\sin x-\cos x)+C\)。</p>
       <p>(2) \(J=\int_0^\pi e^{-x}\sin x\,dx\)。\(e^{-x}\) を積分側にして2回部分積分：</p>
-      \[ \begin{aligned} J& =\Big[-e^{-x}\sin x\Big]_0^\pi+\int_0^\pi e^{-x}\cos x\,dx\\ & =0+\Big[-e^{-x}\cos x\Big]_0^\pi\\ & \quad-\int_0^\pi e^{-x}\sin x\,dx\\ & =(e^{-\pi}+1)-J \end{aligned} \]
+      \[ \begin{aligned} J& =\Big[-e^{-x}\sin x\Big]_0^\pi\\ & \quad+\int_0^\pi e^{-x}\cos x\,dx\\ & =0+\Big[-e^{-x}\cos x\Big]_0^\pi\\ & \quad-\int_0^\pi e^{-x}\sin x\,dx\\ & =(e^{-\pi}+1)-J \end{aligned} \]
       <p class="answer">(1) \(\frac12e^x(\sin x-\cos x)+C\)　(2) \(\dfrac{1+e^{-\pi}}{2}\)</p>
       <p class="point">(2) は阪大頻出の「\(\int_0^{n\pi}e^{-x}|\sin x|dx\) の極限」（阪大演習3）の部品になる。不定積分の答えは微分して検算：\(\left\{\frac12e^x(\sin x-\cos x)\right\}'=\frac12e^x(\sin x-\cos x+\cos x+\sin x)=e^x\sin x\)。</p>
     </div></details>
@@ -410,7 +410,7 @@
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">(1) \(\displaystyle\int_{-\pi}^{\pi}(x^3\cos x+x\sin x)dx\)　(2) \(\displaystyle\int_{-\frac\pi2}^{\frac\pi2}(\sin x+\cos x)^2dx\)</div>
       <p>(1) \(x^3\cos x\) は奇関数なので積分は 0。\(x\sin x\) は偶関数なので</p>
-      \[ \begin{aligned} & 2\int_0^\pi x\sin x\,dx\\ & \quad=2\Big[-x\cos x\Big]_0^\pi+2\int_0^\pi\cos x\,dx\\ & \quad=2\pi+0=2\pi \end{aligned} \]
+      \[ \begin{aligned} & 2\int_0^\pi x\sin x\,dx\\ & \quad=2\Big[-x\cos x\Big]_0^\pi\\ & \qquad+2\int_0^\pi\cos x\,dx\\ & \quad=2\pi+0=2\pi \end{aligned} \]
       <p>(2) \((\sin x+\cos x)^2=1+\sin2x\)。\(\sin2x\) は奇関数なので \(\displaystyle\int_{-\frac\pi2}^{\frac\pi2}1\,dx=\pi\)。</p>
       <p class="answer">(1) \(2\pi\)　(2) \(\pi\)</p>
       <p class="point">偶奇の判定に迷ったら \(x\) に \(-x\) を代入してみる。\((-x)^3\cos(-x)=-x^3\cos x\) で奇関数、と式で確認すれば確実。</p>
@@ -457,8 +457,9 @@
     </dl>
     <details class="ex"><summary>例題</summary><div class="inner">
       <div class="problem">\(I_n=\displaystyle\int_0^{\frac\pi2}\sin^nx\,dx\ (n=0,1,2,\dots)\) とする。<br>(1) \(n\ge2\) のとき \(I_n=\dfrac{n-1}{n}I_{n-2}\) を示せ。　(2) \(I_5,\ I_6\) を求めよ。</div>
-      <p>(1) \(n\ge2\) のとき</p>
-      \[ \begin{aligned} I_n& =\int_0^{\frac\pi2}\sin^{n-1}x(-\cos x)'dx\\ & =\Big[-\sin^{n-1}x\cos x\Big]_0^{\frac\pi2}\\ & \quad+(n-1)\int_0^{\frac\pi2}\sin^{n-2}x\cos^2x\,dx\\ & =(n-1)\int_0^{\frac\pi2}(\sin^{n-2}x-\sin^nx)dx\\ & =(n-1)(I_{n-2}-I_n) \end{aligned} \]
+      <p>(1) \(n\ge2\) のとき、\(\sin^nx=\sin^{n-1}x\cdot(-\cos x)'\) とみて部分積分する。境界項 \(\Big[-\sin^{n-1}x\cos x\Big]_0^{\frac\pi2}\) は \(x=0,\frac\pi2\) で 0 になるので</p>
+      \[ I_n=(n-1)\int_0^{\frac\pi2}\sin^{n-2}x\cos^2x\,dx \]
+      <p>\(\cos^2x=1-\sin^2x\) を代入すると \(I_n=(n-1)\displaystyle\int_0^{\frac\pi2}(\sin^{n-2}x-\sin^nx)dx=(n-1)(I_{n-2}-I_n)\)。</p>
       <p>よって \(nI_n=(n-1)I_{n-2}\)、\(I_n=\dfrac{n-1}{n}I_{n-2}\)。（証明終）</p>
       <p>(2) \(I_1=1\)、\(I_0=\frac\pi2\) より</p>
       <p>\(I_5=\dfrac45\cdot\dfrac23\cdot I_1=\dfrac{8}{15}\)、\(I_6=\dfrac56\cdot\dfrac34\cdot\dfrac12\cdot I_0=\dfrac{5}{16}\cdot\dfrac\pi2=\dfrac{5\pi}{32}\)</p>
