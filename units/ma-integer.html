@@ -130,6 +130,15 @@
       <p>(2) \(\frac{540}{n}=k^2\)（\(k\) は自然数）とすると \(k^2\) は 540 の約数で平方数。\(k^2=2^a3^b\)（\(a\in\{0,2\},\ b\in\{0,2\}\)）で \(k^2=1,4,9,36\)。\(n=540,\ 135,\ 60,\ 15\)。</p>
       <p class="answer">(1) \(n=15\)　(2) \(n=15,\ 60,\ 135,\ 540\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) \(\sqrt{126n}\) が自然数となるような3桁の自然数 \(n\) をすべて求めよ。(2) 1200 の正の約数のうち、平方数であるものは何個あるか。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) \(126=2\cdot3^2\cdot7\)。指数をすべて偶数にするには \(n=2\cdot7\cdot m^2=14m^2\)（\(m\) は自然数）の形が必要十分。\(100\le14m^2\le999\) より \(8\le m^2\le71\)、\(m=3,\ldots,8\)。(2) \(1200=2^4\cdot3\cdot5^2\)。平方数の約数は指数が偶数：2 の指数 0, 2, 4、3 の指数 0、5 の指数 0, 2。\(3\cdot1\cdot2\)。</p>
+        <p class="answer">(1) \(n=126\)、224、350、504、686、896　(2) 6 個</p>
+        <p class="point">(1) で「最小の \(n=14\)」だけでなく、それに平方数 \(m^2\) を掛けたものもすべて条件を満たす。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="int-p2" data-level="2">
@@ -151,6 +160,15 @@
       <p>(2) \(\left[\frac{30}{2}\right]+\left[\frac{30}{4}\right]+\left[\frac{30}{8}\right]+\left[\frac{30}{16}\right]=15+7+3+1=26\)。</p>
       <p class="answer">(1) 24 個　(2) \(k=26\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) 50! が \(6^k\) で割り切れるような最大の自然数 \(k\) を求めよ。(2) 2026! を計算したとき、末尾に並ぶ 0 の個数を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) \(6^k=2^k3^k\) なので、50! に含まれる 2 の個数と 3 の個数の少ない方。2 の個数 \(25+12+6+3+1=47\)、3 の個数 \(\left[\frac{50}{3}\right]+\left[\frac{50}{9}\right]+\left[\frac{50}{27}\right]=16+5+1=22\)。(2) 5 の個数を数える：\(\left[\frac{2026}{5}\right]+\left[\frac{2026}{25}\right]+\left[\frac{2026}{125}\right]+\left[\frac{2026}{625}\right]=405+81+16+3\)。</p>
+        <p class="answer">(1) \(k=22\)　(2) 505 個</p>
+        <p class="point">(1) は「6 の倍数の個数」を数えるのではない（6 の倍数でない 4 や 9 も 2, 3 を持つ）。素因数ごとに数えて少ない方をとる。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="int-p3" data-level="1">
@@ -172,6 +190,15 @@
       <p>\(30=2\cdot3\cdot5\) で、\(a'\lt b'\) かつ互いに素な組は \((1,30),(2,15),(3,10),(5,6)\)（どれも共通の素因数を持たない）。</p>
       <p class="answer">\((a,b)=(12,360),\ (24,180),\ (36,120),\ (60,72)\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) 最大公約数が 8 で、和が 96 である2つの自然数 \(a,b\ (a\lt b)\) の組をすべて求めよ。(2) 最大公約数が 6 で、積が 1080 である2つの自然数 \(a,b\ (a\lt b)\) の組をすべて求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>最大公約数 \(g\) が分かったら \(a=ga',\ b=gb'\)（\(a',b'\) は互いに素、\(a'\lt b'\)）。(1) \(8(a'+b')=96\) より \(a'+b'=12\)。互いに素な組は \((1,11),(5,7)\)（\((2,10),(3,9),(4,8)\) は共通の約数をもつ）。(2) \(36a'b'=1080\) より \(a'b'=30\)。互いに素な組は \((1,30),(2,15),(3,10),(5,6)\)。</p>
+        <p class="answer">(1) \((a,b)=\) \((8,88)\)、\((40,56)\)　(2) \((a,b)=\) \((6,180)\)、\((12,90)\)、\((18,60)\)、\((30,36)\)</p>
+        <p class="point">(1) で \((3,9)\) を入れると \(a=24,\ b=72\) の最大公約数は 24 になってしまう。「互いに素」を必ず確認する。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="int-p4" data-level="2">
@@ -198,6 +225,15 @@
       <p>いずれの場合も \(p\) は \(a,b\) の公約数となり、\(a,b\) が互いに素であることに矛盾する。よって \(a+b\) と \(ab\) は互いに素である。（証明終）</p>
       <p class="point">答案では「\(p\) は素数なので」を必ず書く（ここが採点の核心）。同じ型で「\(n\) と \(n+1\) は互いに素」「\(\gcd(a,b)=1\) なら \(\gcd(a,a+b)=1\)」も示せる。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(a,b\) が互いに素な自然数のとき、\(a^2+b^2\) と \(ab\) は互いに素であることを証明せよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>互いに素でないと仮定し、両方を割り切る<b>素数</b> \(p\) をとる。\(p\mid ab\) より \(p\mid a\) または \(p\mid b\)。\(p\mid a\) なら \(p\mid(a^2+b^2)-a\cdot a=b^2\)、\(p\) は素数なので \(p\mid b\)。\(p\mid b\) のときも同様に \(p\mid a\)。どちらも \(a,b\) が互いに素であることに矛盾する。</p>
+        <p class="answer">共通の素因数 \(p\) があると仮定すると \(p\) が \(a,b\) の公約数になり矛盾（背理法）。よって \(a^2+b^2\) と \(ab\) は互いに素である。</p>
+        <p class="point">「\(p\mid b^2\Rightarrow p\mid b\)」も \(p\) が素数だから言える。素数の性質を2回使っていることを答案に書く。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="int-p5" data-level="1">
@@ -219,6 +255,15 @@
       <p>(2) (1) より \(x^2+y^2\) を 4 で割った余りは \(0+0,\ 0+1,\ 1+1\) より 0, 1, 2 のいずれか。一方 \(2027=4\cdot506+3\) は 4 で割ると 3 余る。よって等式は成り立たない。（証明終）</p>
       <p class="point">「なぜ 4 で割るのか」：平方数は 4 で割った余りが 2 種類しかなく、和が 3 になれない。2027 のように「4 で割って 3 余る」数が出たら、この型を疑う。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) すべての整数 \(n\) について、\(n(n+1)(2n+1)\) は 3 の倍数であることを示せ。(2) \(x^2-3y^2=2027\) を満たす整数 \(x,y\) は存在しないことを示せ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) \(n\) を 3 で割った余りで分ける。\(n\equiv0\) なら \(n\)、\(n\equiv1\) なら \(2n+1\equiv3\equiv0\)、\(n\equiv2\) なら \(n+1\equiv0\) が 3 の倍数。(2) 3 で割った余りを見る。\(3y^2\) は 3 の倍数なので左辺 \(\equiv x^2\equiv0\) または \(1\)。一方 \(2027=3\cdot675+2\) で余り 2。</p>
+        <p class="answer">(1) 余り 0, 1, 2 のどの場合も3つの因数のどれかが 3 の倍数　(2) \(x^2-3y^2\) を 3 で割った余りは 0 か 1 で、2027 の余り 2 にならない（証明の骨子）</p>
+        <p class="point">(2) は式に「3」が出てくるので法 3 を選ぶ。\(3y^2\) が消えて \(x^2\) の余りだけを調べればよくなる。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="int-p6" data-level="2">
@@ -242,13 +287,68 @@
       <p class="answer">(2) \(x=7k+4\)（\(k\) は整数）</p>
       <p class="point">合同式は教科書では発展扱いだが、答案に使ってよい。不安なら「\(a=7s+3,\ b=7t+5\) とおくと…」と書けば確実。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) 整数 \(a,b\) を 9 で割った余りがそれぞれ 4, 7 のとき、\(a^2-ab+b^2\) を 9 で割った余りを求めよ。(2) \(5x\equiv3\pmod{11}\) を満たす整数 \(x\) をすべて求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) \(a\equiv4,\ b\equiv7\pmod9\) を代入：\(16-28+49=37\equiv1\)。(2) \(5\times9=45\equiv1\pmod{11}\) なので、両辺に 9 を掛けて \(x\equiv27\equiv5\pmod{11}\)。逆に \(x\equiv5\) なら \(5x\equiv25\equiv3\) で成り立つ。</p>
+        <p class="answer">(1) 1　(2) \(x=11k+5\)（\(k\) は整数）</p>
+        <p class="point">(2) で「掛けて 1 になる数」が見つからないときは、\(x=0,1,\ldots,10\) を順に代入しても確実に見つかる。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="int-p7" data-level="2">
     <h3><span class="pid">P7</span>べき乗の余り・周期性（一の位）</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「\(2^{100}\) を 7 で割った余り」「\(7^{2026}\) の一の位の数」</dd>
-      <dt>こう考える</dt><dd>余りは有限個なので、累乗の余りは必ず<b>周期的</b>になる。<b>余りが 1（または \(-1\)）になる累乗</b>を見つければ、指数をその周期で割った余りだけ考えればよい。</dd>
+      <dt>こう考える</dt><dd>余りは有限個なので、累乗の余りは必ず<b>周期的</b>になる。<b>余りが 1（または \(-1\)）になる累乗</b>を見つければ、指数をその周期で割った余りだけ考えればよい。
+        <figure class="fig narrow"><svg viewBox="0 0 330 232" role="img" aria-label="3の累乗を7で割った余りの周期"><defs><marker id="ia1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="dot" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+<path class="axis" d="M170.8,48 Q190.1,47.6 199.4,64.5" marker-end="url(#ia1)"/>
+<text x="196.1" y="41.2" font-size="11" text-anchor="middle" font-family="sans-serif">×3</text>
+<path class="axis" d="M221,101 Q231,117.5 221,134" marker-end="url(#ia1)"/>
+<text x="243" y="121.5" font-size="11" text-anchor="middle" font-family="sans-serif">×3</text>
+<path class="axis" d="M200.2,171 Q190.9,187.9 171.7,187.5" marker-end="url(#ia1)"/>
+<text x="196.9" y="202.3" font-size="11" text-anchor="middle" font-family="sans-serif">×3</text>
+<path class="axis" d="M129.2,188 Q109.9,188.4 100.6,171.5" marker-end="url(#ia1)"/>
+<text x="103.9" y="202.8" font-size="11" text-anchor="middle" font-family="sans-serif">×3</text>
+<path class="axis" d="M79,135 Q69,118.5 79,102" marker-end="url(#ia1)"/>
+<text x="57" y="122.5" font-size="11" text-anchor="middle" font-family="sans-serif">×3</text>
+<path class="axis" d="M99.8,65 Q109.1,48.1 128.3,48.5" marker-end="url(#ia1)"/>
+<text x="103.1" y="41.7" font-size="11" text-anchor="middle" font-family="sans-serif">×3</text>
+<circle class="region" cx="150" cy="36" r="22"/>
+<circle class="axis" cx="150" cy="36" r="22"/>
+<text x="150" y="33" font-size="1" text-anchor="middle"></text>
+<text x="150" y="37" font-size="15" text-anchor="middle">3</text>
+<text x="150" y="51" font-size="10" text-anchor="middle" font-family="sans-serif">1乗</text>
+<circle class="region" cx="221" cy="77" r="22"/>
+<circle class="axis" cx="221" cy="77" r="22"/>
+<text x="221" y="74" font-size="1" text-anchor="middle"></text>
+<text x="221" y="78" font-size="15" text-anchor="middle">2</text>
+<text x="221" y="92" font-size="10" text-anchor="middle" font-family="sans-serif">2乗</text>
+<circle class="region2" cx="221" cy="159" r="22"/>
+<circle class="axis" cx="221" cy="159" r="22"/>
+<text x="221" y="156" font-size="1" text-anchor="middle"></text>
+<text x="221" y="160" font-size="15" text-anchor="middle">6</text>
+<text x="221" y="174" font-size="10" text-anchor="middle" font-family="sans-serif">3乗</text>
+<circle class="region" cx="150" cy="200" r="22"/>
+<circle class="axis" cx="150" cy="200" r="22"/>
+<text x="150" y="197" font-size="1" text-anchor="middle"></text>
+<text x="150" y="201" font-size="15" text-anchor="middle">4</text>
+<text x="150" y="215" font-size="10" text-anchor="middle" font-family="sans-serif">4乗</text>
+<circle class="region" cx="79" cy="159" r="22"/>
+<circle class="axis" cx="79" cy="159" r="22"/>
+<text x="79" y="156" font-size="1" text-anchor="middle"></text>
+<text x="79" y="160" font-size="15" text-anchor="middle">5</text>
+<text x="79" y="174" font-size="10" text-anchor="middle" font-family="sans-serif">5乗</text>
+<circle class="region2" cx="79" cy="77" r="22"/>
+<circle class="axis" cx="79" cy="77" r="22"/>
+<text x="79" y="74" font-size="1" text-anchor="middle"></text>
+<text x="79" y="78" font-size="15" text-anchor="middle">1</text>
+<text x="79" y="92" font-size="10" text-anchor="middle" font-family="sans-serif">6乗</text>
+<text x="150" y="112" font-size="12" text-anchor="middle" class="hl">6 ≡ −1</text>
+<text x="150" y="130" font-size="12" text-anchor="middle" font-family="sans-serif" class="hl">1 で一周</text>
+</svg><figcaption>\(3^k\) を 7 で割った余り。3乗で \(6\equiv-1\)、6乗で 1 に戻り、以後は同じ6個をくり返す（周期 6）。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>\(a^1,a^2,a^3,\ldots\) の余りを順に計算し、1 または \(-1\) が出るまで続ける。</li>
         <li>\(a^k\equiv1\) なら、指数 \(N=kq+r\) として \(a^N=(a^k)^qa^r\equiv a^r\)。</li>
@@ -265,13 +365,42 @@
       <p>(2) \(7^2=49\equiv-1\pmod{10}\)、\(7^4\equiv1\)。\(2026=4\cdot506+2\) より \(7^{2026}\equiv7^2\equiv9\pmod{10}\)。</p>
       <p class="answer">(2) 9</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) \(2^{2026}\) を 9 で割った余りを求めよ。(2) \(3^{2026}+7^{2026}\) の一の位の数を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) \(2^3=8\equiv-1\pmod9\) より \(2^6\equiv1\)。\(2026=6\cdot337+4\) より \(2^{2026}\equiv2^4=16\equiv7\)。(2) 10 で割った余りを考える。\(3^4=81\equiv1\)、\(7^4\equiv1\pmod{10}\)。\(2026=4\cdot506+2\) より \(3^{2026}\equiv9\)、\(7^{2026}\equiv49\equiv9\)。和は \(18\equiv8\)。</p>
+        <p class="answer">(1) 7　(2) 8</p>
+        <p class="point">周期は数によって違う（2 は法 9 で周期 6、3 と 7 は法 10 で周期 4）。必ず「1 になる累乗」を自分で確認してから指数を割る。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="int-p8" data-level="1">
     <h3><span class="pid">P8</span>ユークリッドの互除法（数・文字式）</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「1729 と 1001 の最大公約数」「\(n+3\) と \(2n+1\) の最大公約数が 1 でないような \(n\)」</dd>
-      <dt>こう考える</dt><dd>素因数分解しにくい大きな数や、文字を含む式の最大公約数は、<b>大きい方から小さい方の倍数を引いて</b>小さくしていく。最大公約数は変わらない。</dd>
+      <dt>こう考える</dt><dd>素因数分解しにくい大きな数や、文字を含む式の最大公約数は、<b>大きい方から小さい方の倍数を引いて</b>小さくしていく。最大公約数は変わらない。
+        <figure class="fig narrow"><svg viewBox="0 0 335 177" role="img" aria-label="48×18の長方形を正方形で切り取る互除法の図">
+<rect class="axis" x="14" y="14" width="307.2" height="115.2"/>
+<rect class="region" x="15.5" y="15.5" width="112.2" height="112.2"/>
+<rect class="axis" x="14" y="14" width="115.2" height="115.2"/>
+<text x="71.6" y="76.6" font-size="13" text-anchor="middle">18×18</text>
+<rect class="region" x="130.7" y="15.5" width="112.2" height="112.2"/>
+<rect class="axis" x="129.2" y="14" width="115.2" height="115.2"/>
+<text x="186.8" y="76.6" font-size="13" text-anchor="middle">18×18</text>
+<rect class="region2" x="245.9" y="15.5" width="73.8" height="73.8"/>
+<rect class="axis" x="244.4" y="14" width="76.8" height="76.8"/>
+<text x="282.8" y="57.4" font-size="13" text-anchor="middle">12×12</text>
+<rect class="hl" style="fill-opacity:.35" x="245.9" y="92.3" width="35.4" height="35.4"/>
+<rect class="axis" x="244.4" y="90.8" width="38.4" height="38.4"/>
+<text x="263.6" y="114" font-size="11" text-anchor="middle">6</text>
+<rect class="hl" style="fill-opacity:.35" x="284.3" y="92.3" width="35.4" height="35.4"/>
+<rect class="axis" x="282.8" y="90.8" width="38.4" height="38.4"/>
+<text x="302" y="114" font-size="11" text-anchor="middle">6</text>
+<text x="167.6" y="147.2" font-size="12" text-anchor="middle">48 = 18×2 + 12,　18 = 12×1 + 6,　12 = 6×2</text>
+<text x="167.6" y="165.2" font-size="12" text-anchor="middle" font-family="sans-serif">最後の正方形の1辺 6 が最大公約数</text>
+</svg><figcaption>48×18 の長方形から、短い辺を1辺とする正方形を取れるだけ取り、残った長方形で同じことをくり返す。最後にぴったり敷き詰める正方形の1辺が最大公約数。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>\(a=bq+r\) と割り算し、\(\gcd(a,b)=\gcd(b,r)\)。</li>
         <li>余りが 0 になるまで繰り返す。最後に割った数が最大公約数。</li>
@@ -287,13 +416,59 @@
       <p>(2) \(2n+1=2(n+3)-5\) より \(\gcd(n+3,\ 2n+1)=\gcd(n+3,\ 5)\)。これは 1 か 5 で、5 になる ⇔ \(5\mid n+3\) ⇔ \(n\equiv2\pmod5\)。100 以下では \(n=2,7,\ldots,97\) の 20 個。</p>
       <p class="answer">(2) 20 個</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) 2431 と 1547 の最大公約数を求めよ。(2) \(n\) を自然数とする。\(n+7\) と \(3n+1\) の最大公約数が 1 でないような 50 以下の \(n\) の個数を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) \(2431=1547\cdot1+884\)、\(1547=884\cdot1+663\)、\(884=663\cdot1+221\)、\(663=221\cdot3\)。(2) \(3n+1=3(n+7)-20\) より \(\gcd(n+7,\ 3n+1)=\gcd(n+7,\ 20)\)。これが 1 でない ⇔ \(n+7\) が 2 または 5 で割り切れる ⇔ \(n\) が奇数、または \(n\equiv3\pmod5\)。奇数 25 個に、偶数で \(n\equiv3\pmod5\)（\(n=8,18,28,38,48\)）の 5 個を加える。</p>
+        <p class="answer">(1) 221　(2) 30 個</p>
+        <p class="point">(2) は残った定数 20 が素数でないので、「20 の約数のどれかで割り切れる」を素因数 2, 5 に分けて数える。重なり（\(n\equiv3\pmod5\) の奇数）を二重に数えないこと。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="int-p9" data-level="2">
     <h3><span class="pid">P9</span>1次不定方程式 \(ax+by=c\)</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「\(17x+23y=500\) を満たす自然数の組 \((x,y)\) をすべて求めよ」「\(ax+by=c\) の整数解」</dd>
-      <dt>こう考える</dt><dd>1組の解（特殊解）を見つけ、<b>もとの式から引き算</b>すると \(a(x-x_0)=-b(y-y_0)\) の形になる。\(a,b\) が互いに素なら、\(x-x_0\) は \(b\) の倍数。</dd>
+      <dt>こう考える</dt><dd>1組の解（特殊解）を見つけ、<b>もとの式から引き算</b>すると \(a(x-x_0)=-b(y-y_0)\) の形になる。\(a,b\) が互いに素なら、\(x-x_0\) は \(b\) の倍数。
+        <figure class="fig narrow"><svg viewBox="0 0 340 270" role="img" aria-label="直線17x+23y=500上の格子点"><defs><marker id="ia2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="curve2" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+<line class="axis" x1="36" y1="236" x2="36" y2="24.8"/>
+<text x="36" y="251" font-size="11" text-anchor="middle">0</text>
+<line class="aux" x1="84" y1="236" x2="84" y2="24.8"/>
+<text x="84" y="251" font-size="11" text-anchor="middle">5</text>
+<line class="aux" x1="132" y1="236" x2="132" y2="24.8"/>
+<text x="132" y="251" font-size="11" text-anchor="middle">10</text>
+<line class="aux" x1="180" y1="236" x2="180" y2="24.8"/>
+<text x="180" y="251" font-size="11" text-anchor="middle">15</text>
+<line class="aux" x1="228" y1="236" x2="228" y2="24.8"/>
+<text x="228" y="251" font-size="11" text-anchor="middle">20</text>
+<line class="aux" x1="276" y1="236" x2="276" y2="24.8"/>
+<text x="276" y="251" font-size="11" text-anchor="middle">25</text>
+<line class="aux" x1="324" y1="236" x2="324" y2="24.8"/>
+<text x="324" y="251" font-size="11" text-anchor="middle">30</text>
+<line class="axis" x1="36" y1="236" x2="324" y2="236"/>
+<text x="24" y="240" font-size="11" text-anchor="middle">0</text>
+<line class="aux" x1="36" y1="188" x2="324" y2="188"/>
+<text x="24" y="192" font-size="11" text-anchor="middle">5</text>
+<line class="aux" x1="36" y1="140" x2="324" y2="140"/>
+<text x="24" y="144" font-size="11" text-anchor="middle">10</text>
+<line class="aux" x1="36" y1="92" x2="324" y2="92"/>
+<text x="24" y="96" font-size="11" text-anchor="middle">15</text>
+<line class="aux" x1="36" y1="44" x2="324" y2="44"/>
+<text x="24" y="48" font-size="11" text-anchor="middle">20</text>
+<line class="curve" x1="36" y1="27.3" x2="318.4" y2="236"/>
+<circle class="hl" cx="45.6" cy="34.4" r="4.5"/>
+<circle class="hl" cx="266.4" cy="197.6" r="4.5"/>
+<text x="53.6" y="28.4" font-size="12">(1, 21)</text>
+<text x="275.4" y="209.6" font-size="12">(24, 4)</text>
+<path class="curve2" d="M51.6,37.4 L260.4,37.4 L264.9,190.6" stroke-dasharray="5 3" marker-end="url(#ia2)"/>
+<text x="156" y="28.4" font-size="12" text-anchor="middle" font-family="sans-serif">x に +23</text>
+<text x="272.4" y="116" font-size="12" font-family="sans-serif">y に −17</text>
+<text x="328" y="240" font-size="13" font-style="italic">x</text>
+<text x="36" y="16.8" font-size="13" text-anchor="middle" font-style="italic">y</text>
+<text x="151.2" y="178.4" font-size="12" text-anchor="middle" font-style="italic">17x+23y=500</text>
+</svg><figcaption>直線 \(17x+23y=500\) 上の格子点（赤）は、\(x\) が 23 増えるごとに \(y\) が 17 減って次々に現れる。自然数の範囲に入るのは2個だけ。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>特殊解を見つける：小さい数を代入するか、互除法を逆にたどって \(ax+by=1\) の解を作り \(c\) 倍する。合同式 \(ax\equiv c\pmod b\) も便利。</li>
         <li>引き算して \(a(x-x_0)=-b(y-y_0)\)。</li>
@@ -313,13 +488,51 @@
       <p>\(x=23k+1\ge1\) より \(k\ge0\)、\(y=21-17k\ge1\) より \(k\le\frac{20}{17}\)、よって \(k=0,1\)。</p>
       <p class="answer">(2) \((x,y)=(1,21),\ (24,4)\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) \(19x-11y=3\) を満たす整数の組 \((x,y)\) をすべて求めよ。(2) \(19x+11y=400\) を満たす自然数の組 \((x,y)\) をすべて求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 特殊解 \((x,y)=(-1,-2)\)（\(-19+22=3\)）。引き算して \(19(x+1)=11(y+2)\)。19 と 11 は互いに素なので \(x+1=11k\)、\(y+2=19k\)。(2) 合同式：\(400\equiv4,\ 19\equiv8\pmod{11}\) より \(8x\equiv4\)、両辺に 7 を掛けて（\(8\cdot7=56\equiv1\)）\(x\equiv28\equiv6\)。特殊解 \((6,26)\)。\(19(x-6)=-11(y-26)\) より \(x=11k+6,\ y=26-19k\)。\(x\ge1,\ y\ge1\) より \(k=0,1\)。</p>
+        <p class="answer">(1) \(x=11k-1,\ y=19k-2\)（\(k\) は整数）　(2) \((x,y)=\) \((6,26)\)、\((17,7)\)</p>
+        <p class="point">(1) の答えは特殊解の選び方で見た目が変わる（例：\(x=11k+10,\ y=19k+17\)）が、表す集合は同じ。\(k\) に値を入れて元の式を満たすか確かめる。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="int-p10" data-level="2">
     <h3><span class="pid">P10</span>積の形に持ち込む \((x-a)(y-b)=k\)</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\dfrac1x+\dfrac1y=\dfrac16\) を満たす自然数の組」「\(xy-2x-3y=0\) の整数解」</dd>
-      <dt>こう考える</dt><dd>\(xy\) の項があって1次の項もある → <b>\((x-a)(y-b)=k\) の形</b>に変形できる。整数×整数＝定数 なら、<b>約数の組</b>として候補が有限個になる。</dd>
+      <dt>こう考える</dt><dd>\(xy\) の項があって1次の項もある → <b>\((x-a)(y-b)=k\) の形</b>に変形できる。整数×整数＝定数 なら、<b>約数の組</b>として候補が有限個になる。
+        <figure class="fig narrow"><svg viewBox="0 0 330 300" role="img" aria-label="双曲線(x-6)(y-6)=36上の格子点">
+<line class="axis" x1="40" y1="262" x2="299.2" y2="262"/>
+<line class="axis" x1="40" y1="262" x2="40" y2="13.6"/>
+<line class="aux" x1="72.4" y1="262" x2="72.4" y2="13.6"/>
+<line class="aux" x1="40" y1="229.6" x2="299.2" y2="229.6"/>
+<polyline class="curve" points="77.8,35.2 78.3,52.9 78.9,67.6 79.4,80.1 80,90.7 80.5,100 81,108.1 81.6,115.2 82.1,121.6 82.7,127.3 83.2,132.4 83.7,137 84.3,141.2 84.8,145.1 85.4,148.6 85.9,151.8 86.4,154.8 87,157.6 87.5,160.2 88.1,162.6 88.6,164.8 89.1,166.9 89.7,168.8 90.2,170.7 90.8,172.4 91.3,174.1 91.8,175.6 92.4,177.1 92.9,178.4 93.5,179.8 94,181 94.5,182.2 95.1,183.3 95.6,184.4 96.2,185.4 96.7,186.4 97.2,187.3 97.8,188.2 98.3,189.1 98.9,189.9 99.4,190.7 99.9,191.5 100.5,192.2 101,192.9 101.6,193.6 102.1,194.3 102.6,194.9 103.2,195.5 103.7,196.1 104.3,196.7 104.8,197.2 105.3,197.7 105.9,198.2 106.4,198.7 107,199.2 107.5,199.7 108,200.1 108.6,200.6 109.1,201 109.7,201.4 110.2,201.8 110.7,202.2 111.3,202.6 111.8,203 112.4,203.3 112.9,203.7 113.4,204 114,204.4 114.5,204.7 115.1,205 115.6,205.3 116.1,205.6 116.7,205.9 117.2,206.2 117.8,206.5 118.3,206.7 118.8,207 119.4,207.3 119.9,207.5 120.5,207.8 121,208 121.5,208.2 122.1,208.5 122.6,208.7 123.2,208.9 123.7,209.1 124.2,209.3 124.8,209.6 125.3,209.8 125.9,210 126.4,210.2 126.9,210.4 127.5,210.5 128,210.7 128.6,210.9 129.1,211.1 129.6,211.3 130.2,211.4 130.7,211.6 131.3,211.8 131.8,211.9 132.3,212.1 132.9,212.2 133.4,212.4 134,212.5 134.5,212.7 135,212.8 135.6,213 136.1,213.1 136.7,213.3 137.2,213.4 137.7,213.5 138.3,213.7 138.8,213.8 139.4,213.9 139.9,214 140.4,214.2 141,214.3 141.5,214.4 142.1,214.5 142.6,214.6 143.1,214.8 143.7,214.9 144.2,215 144.8,215.1 145.3,215.2 145.8,215.3 146.4,215.4 146.9,215.5 147.5,215.6 148,215.7 148.5,215.8 149.1,215.9 149.6,216 150.2,216.1 150.7,216.2 151.2,216.3 151.8,216.4 152.3,216.5 152.9,216.6 153.4,216.6 153.9,216.7 154.5,216.8 155,216.9 155.6,217 156.1,217.1 156.6,217.1 157.2,217.2 157.7,217.3 158.3,217.4 158.8,217.5 159.3,217.5 159.9,217.6 160.4,217.7 161,217.7 161.5,217.8 162,217.9 162.6,218 163.1,218 163.7,218.1 164.2,218.2 164.7,218.2 165.3,218.3 165.8,218.4 166.4,218.4 166.9,218.5 167.4,218.6 168,218.6 168.5,218.7 169.1,218.7 169.6,218.8 170.1,218.9 170.7,218.9 171.2,219 171.8,219 172.3,219.1 172.8,219.1 173.4,219.2 173.9,219.3 174.5,219.3 175,219.4 175.5,219.4 176.1,219.5 176.6,219.5 177.2,219.6 177.7,219.6 178.2,219.7 178.8,219.7 179.3,219.8 179.9,219.8 180.4,219.9 180.9,219.9 181.5,220 182,220 182.6,220.1 183.1,220.1 183.6,220.2 184.2,220.2 184.7,220.3 185.3,220.3 185.8,220.3 186.3,220.4 186.9,220.4 187.4,220.5 188,220.5 188.5,220.6 189,220.6 189.6,220.6 190.1,220.7 190.7,220.7 191.2,220.8 191.7,220.8 192.3,220.8 192.8,220.9 193.4,220.9 193.9,221 194.4,221 195,221 195.5,221.1 196.1,221.1 196.6,221.1 197.1,221.2 197.7,221.2 198.2,221.3 198.8,221.3 199.3,221.3 199.8,221.4 200.4,221.4 200.9,221.4 201.5,221.5 202,221.5 202.5,221.5 203.1,221.6 203.6,221.6 204.2,221.6 204.7,221.7 205.2,221.7 205.8,221.7 206.3,221.8 206.9,221.8 207.4,221.8 207.9,221.9 208.5,221.9 209,221.9 209.6,221.9 210.1,222 210.6,222 211.2,222 211.7,222.1 212.3,222.1 212.8,222.1 213.3,222.2 213.9,222.2 214.4,222.2 215,222.2 215.5,222.3 216,222.3 216.6,222.3 217.1,222.3 217.7,222.4 218.2,222.4 218.7,222.4 219.3,222.5 219.8,222.5 220.4,222.5 220.9,222.5 221.4,222.6 222,222.6 222.5,222.6 223.1,222.6 223.6,222.7 224.1,222.7 224.7,222.7 225.2,222.7 225.8,222.8 226.3,222.8 226.8,222.8 227.4,222.8 227.9,222.9 228.5,222.9 229,222.9 229.5,222.9 230.1,222.9 230.6,223 231.2,223 231.7,223 232.2,223 232.8,223.1 233.3,223.1 233.9,223.1 234.4,223.1 234.9,223.1 235.5,223.2 236,223.2 236.6,223.2 237.1,223.2 237.6,223.2 238.2,223.3 238.7,223.3 239.3,223.3 239.8,223.3 240.3,223.3 240.9,223.4 241.4,223.4 242,223.4 242.5,223.4 243,223.4 243.6,223.5 244.1,223.5 244.7,223.5 245.2,223.5 245.7,223.5 246.3,223.6 246.8,223.6 247.4,223.6 247.9,223.6 248.4,223.6 249,223.7 249.5,223.7 250.1,223.7 250.6,223.7 251.1,223.7 251.7,223.7 252.2,223.8 252.8,223.8 253.3,223.8 253.8,223.8 254.4,223.8 254.9,223.8 255.5,223.9 256,223.9 256.5,223.9 257.1,223.9 257.6,223.9 258.2,223.9 258.7,224 259.2,224 259.8,224 260.3,224 260.9,224 261.4,224 261.9,224.1 262.5,224.1 263,224.1 263.6,224.1 264.1,224.1 264.6,224.1 265.2,224.2 265.7,224.2 266.3,224.2 266.8,224.2 267.3,224.2 267.9,224.2 268.4,224.2 269,224.3 269.5,224.3 270,224.3 270.6,224.3 271.1,224.3 271.7,224.3 272.2,224.3 272.7,224.4 273.3,224.4 273.8,224.4 274.4,224.4 274.9,224.4 275.4,224.4 276,224.4 276.5,224.5 277.1,224.5 277.6,224.5 278.1,224.5 278.7,224.5 279.2,224.5 279.8,224.5 280.3,224.6 280.8,224.6 281.4,224.6 281.9,224.6 282.5,224.6 283,224.6 283.5,224.6 284.1,224.6 284.6,224.7 285.2,224.7 285.7,224.7 286.2,224.7 286.8,224.7 287.3,224.7 287.9,224.7 288.4,224.7 288.9,224.8 289.5,224.8 290,224.8 290.6,224.8 291.1,224.8 291.6,224.8 292.2,224.8 292.7,224.8 293.3,224.8 293.8,224.9 294.3,224.9 294.9,224.9 295.4,224.9 296,224.9"/>
+<circle class="hl" cx="77.8" cy="35.2" r="3.6"/>
+<circle class="hl" cx="83.2" cy="132.4" r="3.6"/>
+<circle class="hl" cx="88.6" cy="164.8" r="3.6"/>
+<circle class="hl" cx="94" cy="181" r="3.6"/>
+<circle class="hl" cx="104.8" cy="197.2" r="3.6"/>
+<circle class="hl" cx="121" cy="208" r="3.6"/>
+<circle class="hl" cx="137.2" cy="213.4" r="3.6"/>
+<circle class="hl" cx="169.6" cy="218.8" r="3.6"/>
+<circle class="hl" cx="266.8" cy="224.2" r="3.6"/>
+<text x="72.4" y="277" font-size="11" text-anchor="middle">6</text>
+<text x="28" y="233.6" font-size="11" text-anchor="middle">6</text>
+<text x="104.8" y="277" font-size="11" text-anchor="middle">12</text>
+<text x="28" y="201.2" font-size="11" text-anchor="middle">12</text>
+<text x="169.6" y="277" font-size="11" text-anchor="middle">24</text>
+<text x="28" y="136.4" font-size="11" text-anchor="middle">24</text>
+<text x="266.8" y="277" font-size="11" text-anchor="middle">42</text>
+<text x="28" y="39.2" font-size="11" text-anchor="middle">42</text>
+<text x="301.2" y="266" font-size="13" font-style="italic">x</text>
+<text x="40" y="7.6" font-size="13" text-anchor="middle" font-style="italic">y</text>
+<text x="158.8" y="121.6" font-size="12" font-style="italic">(x−6)(y−6)=36</text>
+<text x="81.8" y="39.2" font-size="11">(7, 42)</text>
+<text x="264.8" y="216.2" font-size="11" text-anchor="end">(42, 7)</text>
+</svg><figcaption>\((x-6)(y-6)=36\) のグラフは双曲線。格子点（赤）は無限にはなく、\(x-6\) が 36 の約数になる 9 個だけ。積の形にすると「有限個」が見える。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>分母を払う：\(6x+6y=xy\)。</li>
         <li>\(xy-6x-6y=0\) → \((x-6)(y-6)=36\)（展開して \(+36\) を両辺に足す）。</li>
@@ -336,6 +549,15 @@
       <p class="answer">\((x,y)=\) \((7,42)\)、\((8,24)\)、\((9,18)\)、\((10,15)\)、\((12,12)\)、\((15,10)\)、\((18,9)\)、\((24,8)\)、\((42,7)\)（9組）</p>
       <p class="point">\(x-6\) が負の場合を除く理由（\(x\gt6\)）を必ず書く。書かないと「負の約数の組」も調べる必要があり、答案が不完全になる。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(xy-3x-2y=4\) を満たす整数の組 \((x,y)\) をすべて求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\(xy-3x-2y=(x-2)(y-3)-6\) なので \((x-2)(y-3)=10\)。整数×整数＝10 なので、\(x-2\) は 10 の約数（<b>負の約数も含む</b>）：\(\pm1,\pm2,\pm5,\pm10\) の 8 通り。それぞれ \(y-3=\dfrac{10}{x-2}\)。</p>
+        <p class="answer">\((x,y)=\) \((3,13)\)、\((4,8)\)、\((7,5)\)、\((12,4)\)、\((1,-7)\)、\((0,-2)\)、\((-3,1)\)、\((-8,2)\)（8組）</p>
+        <p class="point">「自然数」ではなく「整数」なので負の約数の組も解になる。範囲の条件がないときは \(\pm\) の両方を書き出す。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="int-p11" data-level="2">
@@ -360,6 +582,15 @@
       </ul>
       <p class="answer">\((x,y,z)=(2,3,6),\ (2,4,4),\ (3,3,3)\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(xyz=x+y+z,\ x\le y\le z\) を満たす自然数の組 \((x,y,z)\) をすべて求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>対称な式なので大小を仮定してよい。\(z\) が最大なので \(xyz=x+y+z\le3z\)、両辺を \(z\gt0\) で割って \(xy\le3\)。\(x\le y\) より \((x,y)=(1,1),(1,2),(1,3)\)。\((1,1)\)：\(z=2+z\) で不適。\((1,2)\)：\(2z=3+z\) より \(z=3\)。\((1,3)\)：\(3z=4+z\) より \(z=2\) で \(y\le z\) に反する。</p>
+        <p class="answer">\((x,y,z)=(1,2,3)\)</p>
+        <p class="point">例題は「最小の文字」で押さえたが、この問題は「最大の文字 \(z\)」で右辺を押さえると \(z\) が消える。どの文字で評価すると有限化できるかを考える。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="int-p12" data-level="3">
@@ -388,6 +619,15 @@
       <p>\((3,2)\) は解（\(9-8=1\)）。解 \((x,y)\) から作った \((X,Y)\) は自然数の解で、\(X\gt x\) なので、この操作を繰り返すと \((3,2)\to(17,12)\to(99,70)\to\cdots\) と、互いに異なる解が限りなく得られる。（証明終）</p>
       <p class="point">「無数にある」を示すには、<b>異なる解が次々と作れる</b>ことを言えば十分。\(X\gt x\) で「同じ解に戻らない」ことを保証するのがポイント。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) \(x^2+2xy+3y^2=11\) を満たす整数の組 \((x,y)\) をすべて求めよ。(2) 自然数 \(x,y\) が \(x^2-3y^2=1\) を満たすとき、\(X=2x+3y,\ Y=x+2y\) も \(X^2-3Y^2=1\) を満たすことを示せ。また、\((x,y)=(2,1)\) から始めて、この方程式の自然数解を小さい方から3組求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 平方完成：\((x+y)^2+2y^2=11\)。\(2y^2\le11\) より \(y=0,\pm1,\pm2\)。\(y=0\)：\((x+y)^2=11\) 不適。\(y=\pm1\)：\((x+y)^2=9\)。\(y=\pm2\)：\((x+y)^2=3\) 不適。(2) \(X^2-3Y^2=(4x^2+12xy+9y^2)-3(x^2+4xy+4y^2)=x^2-3y^2=1\)。\((2,1)\to(7,4)\to(26,15)\)（\(X\gt x\) なので次々と大きい解ができる）。</p>
+        <p class="answer">(1) \((x,y)=\) \((2,1)\)、\((-4,1)\)、\((4,-1)\)、\((-2,-1)\)　(2) \((2,1)\)、\((7,4)\)、\((26,15)\)</p>
+        <p class="point">(2) は \((x+y\sqrt3)(2+\sqrt3)=(2x+3y)+(x+2y)\sqrt3\) という掛け算から作られている。例題の \(\sqrt2\) と同じ構造。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="int-p13" data-level="2">
@@ -412,6 +652,15 @@
       <p class="answer">\(p=3\)</p>
       <p class="point">「\(p^2+2\gt3\) なので」を書き忘れると論理が不完全（3 の倍数でも 3 自身は素数）。最後の「\(p=3\) は実際に条件を満たす」も忘れない（必要条件で絞ったら十分性を確認：<a href="../thinking.html#t-necessary">発想：必要条件で絞る</a>）。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(p,\ 2p+1,\ 4p+1\) がすべて素数となるような自然数 \(p\) をすべて求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>実験：\(p=2\) で \(5,9\)、\(p=3\) で \(7,13\)、\(p=5\) で \(11,21\)。3 で割った余りで分類する。\(p\equiv1\pmod3\) なら \(2p+1\equiv0\)、\(p\equiv2\) なら \(4p+1\equiv9\equiv0\)。どちらも 3 より大きい 3 の倍数で素数でない。よって \(p\) は 3 の倍数の素数 \(p=3\)。このとき \(7,\ 13\) は素数。</p>
+        <p class="answer">\(p=3\)</p>
+        <p class="point">「3 の倍数で 3 より大きい」まで書いて初めて「素数でない」と言える。最後に \(p=3\) が条件を満たすことの確認も忘れない。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="int-p14" data-level="2">
@@ -434,6 +683,15 @@
       <p>(2) \(\log_23\gt0\) である。有理数と仮定すると、自然数 \(m,n\) を用いて \(\log_23=\frac mn\) と表せる。\(2^{m/n}=3\) より \(2^m=3^n\)。左辺は偶数（\(m\ge1\)）、右辺は奇数なので矛盾。よって \(\log_23\) は無理数。（証明終）</p>
       <p class="point">(2) で「\(\log_23\gt0\) なので \(m,n\) は自然数にとれる」を書くと、\(m\ge1\) が保証され左辺が偶数と言える。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) \(\sqrt3\) は無理数であることを証明せよ。(2) \(\sqrt2+\sqrt3\) は無理数であることを証明せよ。ただし \(\sqrt6\) が無理数であることは用いてよい。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 有理数と仮定し、互いに素な自然数 \(m,n\) で \(\sqrt3=\frac mn\)。\(m^2=3n^2\) より \(m^2\) は 3 の倍数。\(m\) が 3 の倍数でないと \(m^2\equiv1\pmod3\) なので、\(m\) は 3 の倍数。\(m=3k\) を代入して \(3k^2=n^2\)、同様に \(n\) も 3 の倍数となり矛盾。(2) \(\sqrt2+\sqrt3=r\)（有理数）と仮定すると、2乗して \(5+2\sqrt6=r^2\)、\(\sqrt6=\frac{r^2-5}{2}\) は有理数となり矛盾。</p>
+        <p class="answer">(1) \(m,n\) がともに 3 の倍数となり互いに素に矛盾　(2) \(\sqrt6\) が有理数になって矛盾（どちらも背理法）</p>
+        <p class="point">(1) の「\(m^2\) が 3 の倍数 ⇒ \(m\) が 3 の倍数」は、余りで分類（\(m\equiv\pm1\) なら \(m^2\equiv1\)）して示す。(2) は無理数の和が無理数とは限らないので、2乗して既知の無理数に帰着させる。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="int-p15" data-level="1">
@@ -457,13 +715,61 @@
       <p class="answer">(1) 45　(2) \(31101_{(5)}\)　(3) 0.625</p>
       <p class="point">検算：\(3\cdot625+1\cdot125+1\cdot25+0\cdot5+1=1875+125+25+1=2026\)。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) \(1212_{(3)}\) を5進法で表せ。(2) 10進法の小数 0.3125 を2進法で表せ。(3) 3進法で表すとちょうど5桁になる自然数は何個あるか。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 10進法を経由：\(1\cdot27+2\cdot9+1\cdot3+2=50\)。\(50=5\cdot10+0\)、\(10=5\cdot2+0\)、\(2=5\cdot0+2\) で余りを下から読む。(2) \(0.3125=\frac{5}{16}=\frac14+\frac1{16}\)。小数点以下2桁目と4桁目が 1。(3) 5桁 ⇔ \(3^4\le N\lt3^5\)、つまり \(81\le N\le242\)。</p>
+        <p class="answer">(1) \(200_{(5)}\)　(2) \(0.0101_{(2)}\)　(3) 162 個</p>
+        <p class="point">(3) は最高位が 1 か 2（0 は不可）、残り4桁が 0〜2 と考えて \(2\cdot3^4=162\) でもよい。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="int-p16" data-level="2">
     <h3><span class="pid">P16</span>ガウス記号 \([x]\)</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「\([x]\) は \(x\) を超えない最大の整数を表す。方程式 \([x]^2-3[x]-4=0\) を解け」「\(\left[\frac{3x}{2}\right]=x+1\) を満たす実数 \(x\)」</dd>
-      <dt>こう考える</dt><dd>\([x]=n\) ⇔ <b>\(n\le x\lt n+1\)（\(n\) は整数）</b>。ガウス記号は「整数部分」なので、<b>整数 \(n\) とおき直して不等式</b>に変える。式の一方が整数なら、もう一方も整数という条件も使える。</dd>
+      <dt>こう考える</dt><dd>\([x]=n\) ⇔ <b>\(n\le x\lt n+1\)（\(n\) は整数）</b>。ガウス記号は「整数部分」なので、<b>整数 \(n\) とおき直して不等式</b>に変える。式の一方が整数なら、もう一方も整数という条件も使える。
+        <figure class="fig narrow"><svg viewBox="0 0 330 250" role="img" aria-label="階段関数y=[3x/2]と直線y=x+1の交点">
+<line class="axis" x1="18" y1="206" x2="294" y2="206"/>
+<line class="axis" x1="70" y1="258" x2="70" y2="14"/>
+<line class="curve" x1="43.3" y1="246" x2="70" y2="246"/>
+<circle class="dot" cx="43.3" cy="246" r="3"/>
+<circle class="axis" style="fill:var(--surface)" cx="70" cy="246" r="3"/>
+<line class="curve" x1="70" y1="206" x2="96.7" y2="206"/>
+<circle class="dot" cx="70" cy="206" r="3"/>
+<circle class="axis" style="fill:var(--surface)" cx="96.7" cy="206" r="3"/>
+<line class="curve" x1="96.7" y1="166" x2="123.3" y2="166"/>
+<circle class="dot" cx="96.7" cy="166" r="3"/>
+<circle class="axis" style="fill:var(--surface)" cx="123.3" cy="166" r="3"/>
+<line class="curve" x1="123.3" y1="126" x2="150" y2="126"/>
+<circle class="dot" cx="123.3" cy="126" r="3"/>
+<circle class="axis" style="fill:var(--surface)" cx="150" cy="126" r="3"/>
+<line class="curve" x1="150" y1="86" x2="176.7" y2="86"/>
+<circle class="dot" cx="150" cy="86" r="3"/>
+<circle class="axis" style="fill:var(--surface)" cx="176.7" cy="86" r="3"/>
+<line class="curve" x1="176.7" y1="46" x2="203.3" y2="46"/>
+<circle class="dot" cx="176.7" cy="46" r="3"/>
+<circle class="axis" style="fill:var(--surface)" cx="203.3" cy="46" r="3"/>
+<line class="curve2" x1="18" y1="218" x2="222" y2="14"/>
+<circle class="hl" cx="150" cy="86" r="5"/>
+<circle class="hl" cx="190" cy="46" r="5"/>
+<text x="110" y="221" font-size="11" text-anchor="middle">1</text>
+<text x="150" y="221" font-size="11" text-anchor="middle">2</text>
+<text x="190" y="221" font-size="11" text-anchor="middle">3</text>
+<text x="230" y="221" font-size="11" text-anchor="middle">4</text>
+<text x="270" y="221" font-size="11" text-anchor="middle">5</text>
+<text x="60" y="170" font-size="11" text-anchor="middle">1</text>
+<text x="60" y="130" font-size="11" text-anchor="middle">2</text>
+<text x="60" y="90" font-size="11" text-anchor="middle">3</text>
+<text x="60" y="50" font-size="11" text-anchor="middle">4</text>
+<text x="62" y="220" font-size="12" text-anchor="middle" font-style="italic">O</text>
+<text x="296" y="210" font-size="13" font-style="italic">x</text>
+<text x="70" y="8" font-size="13" text-anchor="middle" font-style="italic">y</text>
+<text x="80" y="74" font-size="12" font-style="italic">y=x+1</text>
+<text x="230" y="110" font-size="12" font-style="italic">y=[3x/2]</text>
+</svg><figcaption>例題 (2) の図：階段 \(y=\left[\frac{3x}{2}\right]\)（●は含む、○は含まない）と直線 \(y=x+1\) は \(x=2,\ 3\) の2点だけで交わる。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>\([x]=n\) とおき、\(n\le x\lt n+1\) と書く。</li>
         <li>\([\cdots]\) を含む等式では、右辺も整数でなければならない → \(x\) の形が絞れる。</li>
@@ -479,6 +785,15 @@
       <p>(2) 左辺は整数なので \(x+1\) も整数、よって \(x\) は整数。\(x=k\) とおくと \(\left[\frac{3k}{2}\right]=k+1\) ⇔ \(k+1\le\frac{3k}2\lt k+2\) ⇔ \(2\le k\lt4\)。\(k=2,3\)（確認：\([3]=3,\ [4.5]=4\)）。</p>
       <p class="answer">(2) \(x=2,\ 3\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\([x]\) で \(x\) を超えない最大の整数を表す。(1) \(2[x]^2-5[x]+2=0\) を満たす実数 \(x\) の範囲を求めよ。(2) \(\left[\dfrac{x}{2}\right]=\dfrac{x-1}{3}\) を満たす実数 \(x\) をすべて求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) \((2[x]-1)([x]-2)=0\)。\([x]\) は整数なので \([x]=\frac12\) は不適、\([x]=2\)。(2) 左辺は整数なので右辺も整数：\(\frac{x-1}3=k\)（整数）とおくと \(x=3k+1\)。\(\left[\frac{3k+1}{2}\right]=k\) ⇔ \(k\le\frac{3k+1}{2}\lt k+1\) ⇔ \(-1\le k\lt1\)。\(k=-1,0\)。</p>
+        <p class="answer">(1) \(2\le x\lt3\)　(2) \(x=-2,\ 1\)</p>
+        <p class="point">(1) で \([x]=\frac12\) を捨てる理由（\([x]\) は整数）を書く。(2) の確認：\(x=-2\) で \([-1]=-1\)、\(x=1\) で \(\left[\frac12\right]=0\)。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="int-p17" data-level="3">
@@ -504,6 +819,15 @@
       <p class="answer">(3) 3</p>
       <p class="point">(2) で「2, 3, 7 が互いに素」を書かずに 42 の倍数と結論すると減点。42 が最良であること（すべての \(n\) に共通な約数は 42）も確かめられる：\(n=2\) で \(126=2\cdot3^2\cdot7\)、\(n=3\) で \(2184=2^3\cdot3\cdot7\cdot13\)、最大公約数は 42。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) すべての整数 \(n\) について、\(n^5-n\) は 30 の倍数であることを示せ。(2) \(5^{2026}\) を 7 で割った余りを求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) \(n^5-n=(n-1)n(n+1)(n^2+1)\)。連続3整数の積なので 2 の倍数かつ 3 の倍数。フェルマーの小定理（\(p=5\)）より \(n^5\equiv n\pmod5\) で 5 の倍数（\(n\) を 5 で割った余り 0〜4 を代入して確かめてもよい）。2, 3, 5 は互いに素なので 30 の倍数。(2) 小定理より \(5^6\equiv1\pmod7\)。\(2026=6\cdot337+4\) より \(5^{2026}\equiv5^4=625\equiv2\)。</p>
+        <p class="answer">(1) 2, 3, 5 の倍数であることを示して合わせる（証明の骨子）　(2) 2</p>
+        <p class="point">(1) は \(n\) が負でも \(n^5-n=-\{(-n)^5-(-n)\}\) より成り立つ。小定理を使わず「\(n\equiv0,\pm1,\pm2\pmod5\) で \(n^5-n\equiv0\)」と調べるのも確実。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="int-p18" data-level="3">
@@ -527,6 +851,15 @@
       <p>(2) \(\C{2n}{n}=\C{2n-1}{n-1}+\C{2n-1}{n}\)。\(\C{2n-1}{n}=\C{2n-1}{(2n-1)-n}=\C{2n-1}{n-1}\) なので \(\C{2n}{n}=2\,\C{2n-1}{n-1}\) で偶数。（証明終）</p>
       <p class="point">(1) の「\(p\nmid k\)」から「\(p\mid\C{p}{k}\)」へは、「\(p\) が素数で \(p\mid ab\) なら \(p\mid a\) または \(p\mid b\)」を使っている。答案ではこの根拠を1行書く。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(p\) を素数とする。\(\C{2p}{p}=\displaystyle\sum_{k=0}^{p}\left(\C{p}{k}\right)^2\) が成り立つことは用いてよい。\(\C{2p}{p}-2\) は \(p^2\) の倍数であることを示せ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>和から \(k=0,\ p\) の項（どちらも 1）を取り出すと \(\C{2p}{p}-2=\displaystyle\sum_{k=1}^{p-1}\left(\C{p}{k}\right)^2\)。\(1\le k\le p-1\) では \(k\C{p}{k}=p\C{p-1}{k-1}\) と \(p\nmid k\) から \(p\mid\C{p}{k}\)。よって各項 \(\left(\C{p}{k}\right)^2\) は \(p^2\) の倍数で、その和も \(p^2\) の倍数。</p>
+        <p class="answer">\(\C{2p}{p}-2=\sum_{k=1}^{p-1}\left(\C{p}{k}\right)^2\) の各項が \(p^2\) の倍数（証明の骨子）</p>
+        <p class="point">検算：\(p=3\) で \(\C{6}{3}-2=18=2\cdot9\)、\(p=5\) で \(252-2=250=10\cdot25\)。\(p=2\) でも \(6-2=4\)。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="int-p19" data-level="3">
@@ -552,6 +885,15 @@
       <p><b>証明2（二項定理）</b> \(4^n=(1+3)^n=1+3n+\sum_{k=2}^{n}\C{n}{k}3^k\)。\(k\ge2\) の項はすべて 9 の倍数なので、\(4^n=1+3n+9N\)（\(N\) は整数、\(n=1\) では \(N=0\)）。よって \(4^n+6n-1=9n+9N\) は 9 の倍数。（証明終）</p>
       <p class="point">帰納法の答案は「(i) 出発点」「(ii) 仮定を明示 → 仮定を使う」「結論」の3つがそろって初めて満点。仮定の式（\(=9M\)）を実際に使った行を必ず入れる。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">すべての自然数 \(n\) について、\(3^{2n}-8n-1\) は 64 の倍数であることを証明せよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>帰納法：\(n=1\) で \(9-8-1=0\)。\(n=k\) で \(3^{2k}-8k-1=64M\) と仮定すると、\(3^{2(k+1)}-8(k+1)-1=9\cdot3^{2k}-8k-9=9(3^{2k}-8k-1)+64k=64(9M+k)\)。指数を消すため \(9f(k)\) を引くのがポイント。別解：\(3^{2n}=(1+8)^n=1+8n+\sum_{k\ge2}\C{n}{k}8^k\) で、\(k\ge2\) の項は 64 の倍数。</p>
+        <p class="answer">\(f(k+1)=9f(k)+64k\) より帰納法で成り立つ（または \((1+8)^n\) の二項展開）（証明の骨子）</p>
+        <p class="point">\(n=1\) では値が 0 で、0 も 64 の倍数。帰納法の仮定の式（\(=64M\)）を実際に代入した行を必ず書く。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="int-p20" data-level="3">
@@ -582,6 +924,15 @@
       <p class="answer">(3) \(n\equiv2\pmod 5\) のとき 5、それ以外のとき 1</p>
       <p class="point">検算：\(n=7\) で \(50=2\cdot25\)、\(n=18\) で \(325=13\cdot25\)。(3) は \(n=2\) で \(\gcd(5,10)=5\)、\(n=3\) で \(\gcd(10,17)=1\)。なお \(n^2+1\) は 3 の倍数にはならない（\(n^2\equiv0,1\pmod 3\)）。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(n\) を整数とする。(1) \(n^2+n+1\) が 7 の倍数となるための \(n\) の条件を求めよ。(2) \(n^2+n+1\) が 49 の倍数となるための \(n\) の条件を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) \(n\equiv0,1,\ldots,6\pmod7\) で \(n^2+n+1\equiv1,3,0,6,0,3,1\)。(2) (1) で絞った形を代入して持ち上げる。\(n=7k+2\)：\(n^2+n+1=7(7k^2+5k+1)\)、\(7\mid5k+1\) ⇔ \(k\equiv4\pmod7\) ⇔ \(n\equiv30\pmod{49}\)。\(n=7k+4\)：\(n^2+n+1=7(7k^2+9k+3)\)、\(7\mid9k+3\) ⇔ \(k\equiv2\pmod7\) ⇔ \(n\equiv18\pmod{49}\)。</p>
+        <p class="answer">(1) \(n\) を 7 で割った余りが 2 または 4　(2) \(n\) を 49 で割った余りが 18 または 30</p>
+        <p class="point">検算：\(18^2+18+1=343=7^3\)、\(30^2+30+1=931=49\cdot19\)。</p>
+      </div></details>
+    </div>
   </article>
 </section>
 

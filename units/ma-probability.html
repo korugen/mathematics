@@ -123,6 +123,15 @@
       <p class="answer">(2) 2個とも赤 \(\dfrac{3}{10}\)、1個ずつ \(\dfrac{3}{5}\)</p>
       <p class="point">「同時に取り出す」は組合せ、「1個ずつ順に取り出す」は順列で数えても、分母と分子で揃えれば同じ答えになる（順列なら \(\frac{3\cdot2}{5\cdot4}=\frac{3}{10}\)）。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) 2個のさいころを同時に投げるとき、出た目の差の絶対値が 2 である確率を求めよ。(2) 赤玉4個、白玉3個が入った袋から同時に3個取り出すとき、赤玉2個・白玉1個である確率を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>同じに見えるさいころ・玉も区別して数える。(1) (大,小) の 36 通りのうち差が 2 は \((1,3),(2,4),(3,5),(4,6)\) とその逆で 8 通り。(2) 7個を区別して \(\C{7}{3}=35\) 通り。赤2白1は \(\C{4}{2}\times\C{3}{1}=18\) 通り。</p>
+        <p class="answer">(1) \(\dfrac{2}{9}\)　(2) \(\dfrac{18}{35}\)</p>
+        <p class="point">(1) で \(\{1,3\}\) を1通りと数えると誤り。(大1,小3) と (大3,小1) は別の根元事象。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="prob-p2" data-level="1">
@@ -148,6 +157,15 @@
       <p class="answer">(1) \(\dfrac{91}{216}\)　(2) \(\dfrac78\)　(3) \(n=13\)</p>
       <p class="point">(3) で \(\log_{10}\frac56\lt0\) で割るので不等号の向きが逆になる。対数の扱いは<a href="m2-explog.html">指数関数・対数関数</a>。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) 4個のさいころを投げるとき、少なくとも2個のさいころの目が一致する確率を求めよ。(2) 1枚の硬貨を \(n\) 回投げるとき、少なくとも1回表が出る確率が 0.99 以上となる最小の \(n\) を求めよ。ただし \(\log_{10}2=0.3010\) とする。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 「少なくとも2個が一致」の否定は「4個とも異なる目」：\(\dfrac{6\cdot5\cdot4\cdot3}{6^4}=\dfrac{5}{18}\)。\(1-\dfrac5{18}\)。(2) 否定「\(n\) 回とも裏」：\(1-\left(\frac12\right)^n\ge0.99\) ⇔ \(2^n\ge100\) ⇔ \(n\ge\dfrac{2}{\log_{10}2}=6.64\cdots\)。</p>
+        <p class="answer">(1) \(\dfrac{13}{18}\)　(2) \(n=7\)</p>
+        <p class="point">(1) の否定を「4個とも同じ目」としないこと。「少なくとも2個が一致」の否定は「どの2個も一致しない」。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="prob-p3" data-level="1">
@@ -168,6 +186,15 @@
       <p>\(\dfrac{50}{100}+\dfrac{33}{100}-\dfrac{16}{100}=\dfrac{67}{100}\)</p>
       <p class="answer">\(\dfrac{67}{100}\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">2個のさいころを投げる。少なくとも一方の目が 1 であるか、または目の和が 7 である確率を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\(A\)：少なくとも一方が 1（\(36-25=11\) 通り）、\(B\)：和が 7（6 通り）。\(A\cap B\) は \((1,6),(6,1)\) の 2 通りで、排反ではない。加法定理で \(\dfrac{11+6-2}{36}\)。</p>
+        <p class="answer">\(\dfrac{15}{36}=\dfrac{5}{12}\)</p>
+        <p class="point">「または」を見たら、まず「同時に起こりうるか」を確認する。ここでは (1,6) が両方に入っている。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="prob-p4" data-level="1">
@@ -189,13 +216,47 @@
       <p>(2) 「A だけ当てる」と「B だけ当てる」は排反：\(\frac23\cdot\frac25+\frac13\cdot\frac35=\frac{4}{15}+\frac{3}{15}=\frac{7}{15}\)。</p>
       <p class="answer">(1) \(\dfrac{13}{15}\)　(2) \(\dfrac{7}{15}\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">A, B, C の3人がそれぞれ1回ずつ的を射る。的に当てる確率は A が \(\frac12\)、B が \(\frac23\)、C が \(\frac34\) で、3人の結果は互いに影響しない。(1) ちょうど2人が当てる確率 (2) 少なくとも1人が当てる確率 を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 外す1人で排反に分ける。A だけ外す \(\frac12\cdot\frac23\cdot\frac34=\frac{6}{24}\)、B だけ外す \(\frac12\cdot\frac13\cdot\frac34=\frac{3}{24}\)、C だけ外す \(\frac12\cdot\frac23\cdot\frac14=\frac{2}{24}\)。和は \(\frac{11}{24}\)。(2) 余事象「3人とも外す」\(\frac12\cdot\frac13\cdot\frac14=\frac1{24}\)。</p>
+        <p class="answer">(1) \(\dfrac{11}{24}\)　(2) \(\dfrac{23}{24}\)</p>
+        <p class="point">確認：0人・1人・2人・3人の確率 \(\frac{1}{24},\frac{6}{24},\frac{11}{24},\frac{6}{24}\) の和が 1 になる。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="prob-p5" data-level="2">
     <h3><span class="pid">P5</span>反復試行（\(n\) 回中 \(r\) 回、\(n\) 回目に \(r\) 回目）</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「さいころを5回投げて1の目がちょうど2回出る確率」「5回目に2回目の1の目が出る確率」</dd>
-      <dt>こう考える</dt><dd>同じ試行の繰り返しで、各回は独立。<b>何回目に起こるかの選び方</b> \(\C{n}{r}\) と、1つの並びの確率 \(p^rq^{n-r}\) の積。「\(n\) 回目にちょうど \(r\) 回目」は、<b>最後が成功と決まっている</b>ので選ぶのは前の \(n-1\) 回の中だけ。</dd>
+      <dt>こう考える</dt><dd>同じ試行の繰り返しで、各回は独立。<b>何回目に起こるかの選び方</b> \(\C{n}{r}\) と、1つの並びの確率 \(p^rq^{n-r}\) の積。「\(n\) 回目にちょうど \(r\) 回目」は、<b>最後が成功と決まっている</b>ので選ぶのは前の \(n-1\) 回の中だけ。
+        <figure class="fig narrow"><svg viewBox="0 0 320 120" role="img" aria-label="5回目に2回目の1の目が出る場合の並び">
+<rect class="region" x="22" y="34" width="48" height="34" rx="4"/>
+<rect class="axis" x="22" y="34" width="48" height="34" rx="4"/>
+<text x="46" y="26" font-size="12" text-anchor="middle" font-family="sans-serif">1回目</text>
+<text x="46" y="57" font-size="15" text-anchor="middle">?</text>
+<rect class="region" x="80" y="34" width="48" height="34" rx="4"/>
+<rect class="axis" x="80" y="34" width="48" height="34" rx="4"/>
+<text x="104" y="26" font-size="12" text-anchor="middle" font-family="sans-serif">2回目</text>
+<text x="104" y="57" font-size="15" text-anchor="middle">?</text>
+<rect class="region" x="138" y="34" width="48" height="34" rx="4"/>
+<rect class="axis" x="138" y="34" width="48" height="34" rx="4"/>
+<text x="162" y="26" font-size="12" text-anchor="middle" font-family="sans-serif">3回目</text>
+<text x="162" y="57" font-size="15" text-anchor="middle">?</text>
+<rect class="region" x="196" y="34" width="48" height="34" rx="4"/>
+<rect class="axis" x="196" y="34" width="48" height="34" rx="4"/>
+<text x="220" y="26" font-size="12" text-anchor="middle" font-family="sans-serif">4回目</text>
+<text x="220" y="57" font-size="15" text-anchor="middle">?</text>
+<rect class="region2" x="254" y="34" width="48" height="34" rx="4"/>
+<rect class="axis" x="254" y="34" width="48" height="34" rx="4"/>
+<text x="278" y="26" font-size="12" text-anchor="middle" font-family="sans-serif">5回目</text>
+<text x="278" y="57" font-size="15" text-anchor="middle" class="hl">1</text>
+<path class="axis" d="M22,76 Q22,84 133,84 Q244,84 244,76"/>
+<text x="133" y="102" font-size="12" text-anchor="middle" font-family="sans-serif">1の目がちょうど1回：C(4,1) 通り</text>
+<text x="278" y="90" font-size="12" text-anchor="middle" font-family="sans-serif" class="hl">確定</text>
+</svg><figcaption>「5回目に2回目」：最後の箱は 1 の目と決まっているので、選ぶのは前の 4 回のうち 1 の目が出る1回だけ。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>1回の成功確率 \(p\)、失敗確率 \(q=1-p\) を確認。</li>
         <li>ちょうど \(r\) 回：\(\C{n}{r}p^rq^{n-r}\)。</li>
@@ -212,13 +273,73 @@
       <p>(3) \(\displaystyle\sum_{r=3}^{5}\C{5}{r}\left(\tfrac16\right)^r\left(\tfrac56\right)^{5-r}=\frac{10\cdot25+5\cdot5+1}{7776}=\frac{276}{7776}=\frac{23}{648}\)</p>
       <p class="answer">(1) \(\dfrac{625}{3888}\)　(2) \(\dfrac{125}{1944}\)　(3) \(\dfrac{23}{648}\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">A, B の2人が試合を繰り返し、先に3勝した方を優勝とする。1試合で A が勝つ確率は \(\frac23\) で、引き分けはない。(1) ちょうど5試合目で優勝が決まる確率を求めよ。(2) A が優勝する確率を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>「\(n\) 試合目に優勝」＝「最後の試合に勝ち、それまでの \(n-1\) 試合でちょうど2勝」。(1) A が5試合目に優勝：\(\C{4}{2}\left(\frac23\right)^2\left(\frac13\right)^2\cdot\frac23=\frac{16}{81}\)、B が5試合目に優勝：\(\C{4}{2}\left(\frac13\right)^2\left(\frac23\right)^2\cdot\frac13=\frac{8}{81}\)。(2) A が3, 4, 5 試合目に優勝する確率 \(\frac{8}{27}+\frac{8}{27}+\frac{16}{81}\) の和。</p>
+        <p class="answer">(1) \(\dfrac{8}{27}\)　(2) \(\dfrac{64}{81}\)</p>
+        <p class="point">「5試合中3勝」\(\C{5}{3}\) としてはいけない（3勝した時点で試合は終わる）。最後の1試合は勝ちと決まっているので、選ぶのは前の4試合の中だけ。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="prob-p6" data-level="2">
     <h3><span class="pid">P6</span>最大値・最小値の確率</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「3個のさいころの目の最大値が4である確率」「最小値が2」「最大値が4かつ最小値が2」</dd>
-      <dt>こう考える</dt><dd>「最大値がちょうど \(k\)」は数えにくいが、<b>「最大値 \(\le k\)」＝「全部 \(k\) 以下」</b>なら独立で \(\left(\frac{k}{6}\right)^n\)。ちょうど \(k\) は差をとる。</dd>
+      <dt>こう考える</dt><dd>「最大値がちょうど \(k\)」は数えにくいが、<b>「最大値 \(\le k\)」＝「全部 \(k\) 以下」</b>なら独立で \(\left(\frac{k}{6}\right)^n\)。ちょうど \(k\) は差をとる。
+        <figure class="fig narrow"><svg viewBox="0 0 330 222" role="img" aria-label="2個のさいころで最大値が4となる目の組">
+<rect class="region" x="64" y="161" width="27" height="27"/>
+<rect class="region" x="64" y="134" width="27" height="27"/>
+<rect class="region" x="64" y="107" width="27" height="27"/>
+<rect class="region2" style="fill-opacity:.45" x="64" y="80" width="27" height="27"/>
+<rect class="region" x="91" y="161" width="27" height="27"/>
+<rect class="region" x="91" y="134" width="27" height="27"/>
+<rect class="region" x="91" y="107" width="27" height="27"/>
+<rect class="region2" style="fill-opacity:.45" x="91" y="80" width="27" height="27"/>
+<rect class="region" x="118" y="161" width="27" height="27"/>
+<rect class="region" x="118" y="134" width="27" height="27"/>
+<rect class="region" x="118" y="107" width="27" height="27"/>
+<rect class="region2" style="fill-opacity:.45" x="118" y="80" width="27" height="27"/>
+<rect class="region2" style="fill-opacity:.45" x="145" y="161" width="27" height="27"/>
+<rect class="region2" style="fill-opacity:.45" x="145" y="134" width="27" height="27"/>
+<rect class="region2" style="fill-opacity:.45" x="145" y="107" width="27" height="27"/>
+<rect class="region2" style="fill-opacity:.45" x="145" y="80" width="27" height="27"/>
+<line class="axis" x1="64" y1="26" x2="64" y2="188"/>
+<line class="axis" x1="64" y1="26" x2="226" y2="26"/>
+<line class="axis" x1="91" y1="26" x2="91" y2="188"/>
+<line class="axis" x1="64" y1="53" x2="226" y2="53"/>
+<line class="axis" x1="118" y1="26" x2="118" y2="188"/>
+<line class="axis" x1="64" y1="80" x2="226" y2="80"/>
+<line class="axis" x1="145" y1="26" x2="145" y2="188"/>
+<line class="axis" x1="64" y1="107" x2="226" y2="107"/>
+<line class="axis" x1="172" y1="26" x2="172" y2="188"/>
+<line class="axis" x1="64" y1="134" x2="226" y2="134"/>
+<line class="axis" x1="199" y1="26" x2="199" y2="188"/>
+<line class="axis" x1="64" y1="161" x2="226" y2="161"/>
+<line class="axis" x1="226" y1="26" x2="226" y2="188"/>
+<line class="axis" x1="64" y1="188" x2="226" y2="188"/>
+<text x="77.5" y="203" font-size="12" text-anchor="middle">1</text>
+<text x="54" y="178.5" font-size="12" text-anchor="middle">1</text>
+<text x="104.5" y="203" font-size="12" text-anchor="middle">2</text>
+<text x="54" y="151.5" font-size="12" text-anchor="middle">2</text>
+<text x="131.5" y="203" font-size="12" text-anchor="middle">3</text>
+<text x="54" y="124.5" font-size="12" text-anchor="middle">3</text>
+<text x="158.5" y="203" font-size="12" text-anchor="middle">4</text>
+<text x="54" y="97.5" font-size="12" text-anchor="middle">4</text>
+<text x="185.5" y="203" font-size="12" text-anchor="middle">5</text>
+<text x="54" y="70.5" font-size="12" text-anchor="middle">5</text>
+<text x="212.5" y="203" font-size="12" text-anchor="middle">6</text>
+<text x="54" y="43.5" font-size="12" text-anchor="middle">6</text>
+<text x="145" y="219" font-size="12" text-anchor="middle" font-family="sans-serif">大の目</text>
+<text x="22" y="111" font-size="12" text-anchor="middle" font-family="sans-serif">小の目</text>
+<rect class="region" x="236" y="70" width="14" height="14"/>
+<text x="256" y="82" font-size="12" font-family="sans-serif">最大値 ≦ 3</text>
+<rect class="region2" style="fill-opacity:.45" x="236" y="96" width="14" height="14"/>
+<text x="256" y="108" font-size="12" font-family="sans-serif">最大値 = 4</text>
+<text x="236" y="136" font-size="12">4×4 − 3×3 = 7</text>
+</svg><figcaption>2個のさいころの例。「最大値 \(\le4\)」は 4×4 の正方形、そこから「最大値 \(\le3\)」の 3×3 を除いた L 字が「最大値 \(=4\)」。3個なら立方体で \(4^3-3^3\)。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>\(P(\max=k)=P(\max\le k)-P(\max\le k-1)\)。</li>
         <li>\(P(\min=k)=P(\min\ge k)-P(\min\ge k+1)\)。</li>
@@ -234,6 +355,15 @@
       <p>(3) 全部 2〜4 の中：\(3^3=27\)。そこから「4 を含まない（全部 2〜3）」\(2^3\)、「2 を含まない（全部 3〜4）」\(2^3\) を引き、「どちらも含まない（全部 3）」\(1\) を足す。\(27-8-8+1=12\)。</p>
       <p class="answer">(1) \(\dfrac{37}{216}\)　(2) \(\dfrac{61}{216}\)　(3) \(\dfrac{12}{216}=\dfrac{1}{18}\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">4個のさいころを投げる。(1) 目の最小値が 3 である確率を求めよ。(2) 目の最大値が 5 かつ最小値が 2 である確率を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 「最小値 \(\ge3\)」は全部 3〜6 で \(4^4\)、「最小値 \(\ge4\)」は \(3^4\)。差をとって \(\dfrac{256-81}{1296}\)。(2) 全部 2〜5 の中（\(4^4=256\)）から、5 を含まない（全部 2〜4：\(3^4\)）、2 を含まない（全部 3〜5：\(3^4\)）を引き、両方含まない（全部 3〜4：\(2^4\)）を足す：\(256-81-81+16=110\)。</p>
+        <p class="answer">(1) \(\dfrac{175}{1296}\)　(2) \(\dfrac{110}{1296}=\dfrac{55}{648}\)</p>
+        <p class="point">(2) で \(2^4\) を足し戻すのを忘れやすい。2 も 5 も含まないものは2回引かれている。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="prob-p7" data-level="1">
@@ -255,6 +385,15 @@
       <p class="answer">(1) \(\dfrac{3}{10}\)　(2) \(\dfrac{3}{10}\)　(3) \(\dfrac{7}{30}\)</p>
       <p class="point">「B が当たる」と「A がはずれて B が当たる」は別の事象。問題文が前の人の結果を指定しているかを必ず確認する。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">8本中2本が当たりのくじを、A, B, C の3人がこの順に1本ずつ引く（引いたくじは戻さない）。(1) C が当たる確率を求めよ。(2) B と C がともに当たる確率を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>8本を1列に並べて前から順に受け取ると考える。(1) 何番目の人でも当たる確率は同じで \(\frac28\)。(2) 「2番目と3番目がともに当たり」の確率は、「1番目と2番目がともに当たり」と同じ（位置を入れ替えれば対応）：\(\frac28\cdot\frac17\)。</p>
+        <p class="answer">(1) \(\dfrac14\)　(2) \(\dfrac{1}{28}\)</p>
+        <p class="point">(2) を A の結果で場合分けして計算しても \(\frac68\cdot\frac27\cdot\frac16=\frac{1}{28}\)（A が当たると当たりが残り1本で B, C ともには当たれない）。対称性の答えと一致する。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="prob-p8" data-level="2">
@@ -279,13 +418,46 @@
       <p class="answer">(1) \(\dfrac35\)　(2) \(\dfrac12\)</p>
       <p class="point">(1) は和が8の5通りが同様に確からしい（大小区別）ので個数の比でよい。条件付き確率でも「区別して数える」原則は同じ。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) 2個のさいころを投げる。少なくとも一方の目が 6 であったとき、目の和が 10 以上である確率を求めよ。(2) 赤玉3個、白玉2個の袋から1個ずつ3回取り出す（戻さない）。3回目が白玉であったとき、1回目も白玉であった条件付き確率を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>「であったとき」が新しい全体。(1) 少なくとも一方が 6 は 11 通り。そのうち和が 10 以上は \((4,6),(5,6),(6,6),(6,4),(6,5)\) の 5 通り。(2) \(A\)：3回目が白、\(B\)：1回目が白。\(P(A)=\frac25\)（くじ引きの公平性）、\(P(A\cap B)=\frac25\cdot\frac14=\frac1{10}\)（1回目と3回目の2つが白、位置の対称性）。\(P_A(B)=\dfrac{1/10}{2/5}\)。</p>
+        <p class="answer">(1) \(\dfrac{5}{11}\)　(2) \(\dfrac14\)</p>
+        <p class="point">(2) は「3回目が白」で白が1個使われたので、残り4個中の白1個が1回目に来る確率 \(\frac14\) とも見られる。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="prob-p9" data-level="2">
     <h3><span class="pid">P9</span>原因の確率（ベイズ）</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「検査で陽性と判定された人が実際に病気である確率」「不良品であったとき、それが工場 A の製品である確率」</dd>
-      <dt>こう考える</dt><dd>原因（病気か健康か）→ 結果（陽性か陰性か）の順に<b>樹形図</b>を描く。「陽性」という結果になった枝だけを集め、その中で「病気」の枝が占める割合を求める。</dd>
+      <dt>こう考える</dt><dd>原因（病気か健康か）→ 結果（陽性か陰性か）の順に<b>樹形図</b>を描く。「陽性」という結果になった枝だけを集め、その中で「病気」の枝が占める割合を求める。
+        <figure class="fig narrow"><svg viewBox="0 0 340 190" role="img" aria-label="病気と検査結果の樹形図">
+<circle class="dot" cx="18" cy="95" r="3"/>
+<line class="axis" x1="22" y1="95" x2="88" y2="48"/>
+<line class="axis" x1="22" y1="95" x2="88" y2="142"/>
+<text x="52" y="62" font-size="12" text-anchor="middle">0.01</text>
+<text x="52" y="138" font-size="12" text-anchor="middle">0.99</text>
+<text x="112" y="53" font-size="13" text-anchor="middle" font-family="sans-serif">病気</text>
+<text x="112" y="147" font-size="13" text-anchor="middle" font-family="sans-serif">健康</text>
+<line class="curve2" x1="134" y1="48" x2="188" y2="24"/>
+<text x="161" y="32" font-size="12" text-anchor="middle">0.95</text>
+<text x="208" y="29" font-size="13" text-anchor="middle" font-family="sans-serif" class="hl">陽性</text>
+<text x="236" y="29" font-size="13">→ 0.0095</text>
+<line class="axis" x1="134" y1="48" x2="188" y2="72"/>
+<text x="161" y="56" font-size="12" text-anchor="middle">0.05</text>
+<text x="208" y="77" font-size="13" text-anchor="middle" font-family="sans-serif">陰性</text>
+<line class="curve2" x1="134" y1="142" x2="188" y2="118"/>
+<text x="161" y="126" font-size="12" text-anchor="middle">0.05</text>
+<text x="208" y="123" font-size="13" text-anchor="middle" font-family="sans-serif" class="hl">陽性</text>
+<text x="236" y="123" font-size="13">→ 0.0495</text>
+<line class="axis" x1="134" y1="142" x2="188" y2="166"/>
+<text x="161" y="150" font-size="12" text-anchor="middle">0.95</text>
+<text x="208" y="171" font-size="13" text-anchor="middle" font-family="sans-serif">陰性</text>
+<text x="232" y="108" font-size="1" text-anchor="middle"></text>
+</svg><figcaption>陽性になる枝（橙）は2本。その確率の和 \(0.0095+0.0495\) が分母、病気の枝 \(0.0095\) が分子になる。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>原因ごとに枝を分け、結果の確率を掛ける（乗法定理）。</li>
         <li>観測された結果に至る枝の確率をすべて足す（分母）。</li>
@@ -302,6 +474,15 @@
       <p class="answer">\(\dfrac{19}{118}\)（約 16%）</p>
       <p class="point">「95% 当たる検査なのに 16%？」と驚くのが普通。健康な人 99% の 5% が陽性になる数（495）が、病気の人の陽性（95）より多いからである。直感でなく<b>枝の確率を比べる</b>習慣をつけよう。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">ある製品は工場 A, B, C で、それぞれ全体の 50%, 30%, 20% が作られる。不良品の割合は A が 2%、B が 3%、C が 5% である。製品を1個取り出したところ不良品であった。それが工場 A の製品である確率を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>原因（工場）→ 結果（不良）の順に樹形図を描き、「不良」に至る枝を全部集める。\(0.5\times0.02=0.010\)、\(0.3\times0.03=0.009\)、\(0.2\times0.05=0.010\)。分母は和 \(0.029\)、分子は A の枝 \(0.010\)。</p>
+        <p class="answer">\(\dfrac{10}{29}\)</p>
+        <p class="point">不良率が最も高いのは C だが、生産量が多い A と同じ \(0.010\) になる。「割合×不良率」の枝で比べるのがベイズの考え方。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="prob-p10" data-level="2">
@@ -329,6 +510,15 @@
       <p class="answer">(1) \(\dfrac{161}{36}\)　(2) \(\dfrac{21}{2}\)</p>
       <p class="point">確率の和の検算：\(1+3+5+7+9+11=36\)。表を作ったら必ずやる。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) 2個のさいころを投げ、出た目の差の絶対値を \(X\) とする。\(X\) の期待値を求めよ。(2) 硬貨を 10 回投げ、表が出るたびに 100 円もらい、裏が出るたびに 30 円払う。収支の期待値を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 分布を作る：\(X=0,1,2,3,4,5\) の個数は \(6,10,8,6,4,2\)（合計 36）。\(E(X)=\dfrac{0+10+16+18+16+10}{36}\)。(2) 1回あたりの収支の期待値は \(100\cdot\frac12-30\cdot\frac12=35\) 円。線形性で 10 回分を足す。</p>
+        <p class="answer">(1) \(\dfrac{35}{18}\)　(2) 350 円</p>
+        <p class="point">(1) は個数の合計が 36 になるかで表を検算。(2) は表の回数 \(k\) を使って \(100k-30(10-k)=130k-300\) と書き、\(E(k)=5\) を代入しても同じ。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="prob-p11" data-level="3">
@@ -354,6 +544,15 @@
       <p class="answer">(2) 1</p>
       <p class="point">(2) の答えは人数 \(n\) によらず常に 1。分布を作ると完全順列（<a href="ma-counting.html">場合の数</a> P3）が必要になるが、期待値は一瞬。検算：\(n=2\) では種類の数は1か2で \(1\cdot\frac16+2\cdot\frac56=\frac{11}{6}\)、式も \(6\left(1-\frac{25}{36}\right)=\frac{11}6\)。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">赤玉4個と白玉6個を無作為に1列に並べる。隣り合う2個の色が異なる箇所の個数の期待値を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>隣り合う位置は 9 か所。\(k\) 番目と \(k+1\) 番目の色が異なれば 1、同じなら 0 とする指示関数 \(I_k\) の和に分ける。どの2か所の組も同じ確率で、色が異なる確率は \(\dfrac{4\cdot6\cdot2}{10\cdot9}=\dfrac{8}{15}\)。よって \(9\times\frac{8}{15}\)。</p>
+        <p class="answer">\(\dfrac{24}{5}\)</p>
+        <p class="point">\(I_1,\ldots,I_9\) は独立ではないが、期待値の線形性は独立性を必要としない。色の変わり目の個数の分布を求める必要はない。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="prob-p12" data-level="3">
@@ -379,13 +578,36 @@
       <p class="answer">\(n=17,\ 18\)</p>
       <p class="point">等号 \(n=17\) で \(p_{17}=p_{18}\) となり、最大を与える \(n\) が2つある。「\(\gt1\)」だけ調べて「\(n=17\)」と答えるのは典型的な失点。直感的には、1の目が3回出るのに平均 \(3\times6=18\) 回かかることと合っている。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">1個のさいころを 20 回投げるとき、3 の倍数の目がちょうど \(k\) 回出る確率を \(p_k\) とする。\(p_k\) を最大にする \(k\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\(p_k=\C{20}{k}\left(\frac13\right)^k\left(\frac23\right)^{20-k}\)。\(\dfrac{p_{k+1}}{p_k}=\dfrac{20-k}{k+1}\cdot\dfrac12\)。これが 1 より大 ⇔ \(20-k\gt2k+2\) ⇔ \(k\lt6\)。\(k=6\) で比は 1、\(k\gt6\) で 1 未満。よって \(p_0\lt\cdots\lt p_6=p_7\gt p_8\gt\cdots\)。</p>
+        <p class="answer">\(k=6,\ 7\)</p>
+        <p class="point">比がちょうど 1 になる \(k=6\) を見落とすと「\(k=6\)」だけ答えてしまう。期待値 \(20\times\frac13\approx6.7\) の近くで最大になるのも自然。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="prob-p13" data-level="3">
     <h3><span class="pid">P13</span>確率漸化式（2状態・対称性で状態を減らす）</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「正四面体の頂点を移動する点が \(n\) 秒後に頂点 A にいる確率 \(p_n\)」「\(n\) 回目に〜である確率を \(p_n\) とする」</dd>
-      <dt>こう考える</dt><dd>\(n\) 回目の様子を直接数えるのは無理。<b>\(n\) 回目の状態 → \(n+1\) 回目の状態</b>の移り方（遷移）を書く。対称な頂点（B, C, D）は1つの状態「A 以外」にまとめると2状態になる。</dd>
+      <dt>こう考える</dt><dd>\(n\) 回目の様子を直接数えるのは無理。<b>\(n\) 回目の状態 → \(n+1\) 回目の状態</b>の移り方（遷移）を書く。対称な頂点（B, C, D）は1つの状態「A 以外」にまとめると2状態になる。
+        <figure class="fig narrow"><svg viewBox="0 0 330 140" role="img" aria-label="Aと「A以外」の2状態の遷移図"><defs><marker id="pa1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="dot" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+<circle class="region" cx="80" cy="78" r="30"/>
+<circle class="axis" cx="80" cy="78" r="30"/>
+<text x="80" y="83" font-size="15" text-anchor="middle">A</text>
+<circle class="region2" cx="240" cy="78" r="30"/>
+<circle class="axis" cx="240" cy="78" r="30"/>
+<text x="240" y="83" font-size="13" text-anchor="middle" font-family="sans-serif">A以外</text>
+<path class="axis" d="M104,60 Q160,30 216,60" marker-end="url(#pa1)"/>
+<path class="axis" d="M216,96 Q160,126 104,96" marker-end="url(#pa1)"/>
+<text x="160" y="36" font-size="13" text-anchor="middle">1</text>
+<text x="160" y="132" font-size="13" text-anchor="middle">1/3</text>
+<path class="axis" d="M260,55 C315,18 315,138 260,101" marker-end="url(#pa1)"/>
+<text x="310" y="83" font-size="13">2/3</text>
+</svg><figcaption>B, C, D をまとめた2状態の遷移図。矢印の数は1秒で移る確率。A に入る矢印は「A以外 → A」の \(\frac13\) だけなので \(p_{n+1}=\frac13(1-p_n)\)。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>状態を決める（A にいる：\(p_n\)、A 以外：\(1-p_n\)）。</li>
         <li>\(n+1\) 回目に A にいるのは、どの状態から何の確率で来るかを書く。</li>
@@ -404,13 +626,45 @@
       <p class="answer">\(p_n=\dfrac14+\dfrac34\left(-\dfrac13\right)^n\)</p>
       <p class="point">検算：\(p_1=\frac14-\frac14=0\)（1秒後は A にいない）、\(p_2=\frac14+\frac1{12}=\frac13\)。\(n\to\infty\) で \(\frac14\)（4頂点に均等）に近づくのも自然。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">正四面体 ABCD の頂点上を点 P が動く。P は1秒ごとに、確率 \(\frac12\) で今いる頂点にとどまり、残りの3頂点へそれぞれ確率 \(\frac16\) で移る。最初 P は A にいる。\(n\) 秒後に P が A にいる確率 \(p_n\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>状態を「A」「A以外」にまとめる。A にいれば確率 \(\frac12\) で A にとどまり、A以外（どの頂点でも）にいれば確率 \(\frac16\) で A に来る。\(p_{n+1}=\frac12p_n+\frac16(1-p_n)=\frac13p_n+\frac16\)、\(p_0=1\)。\(\alpha=\frac14\) として \(p_n-\frac14=\left(\frac13\right)^n\left(1-\frac14\right)\)。</p>
+        <p class="answer">\(p_n=\dfrac14+\dfrac34\left(\dfrac13\right)^n\)</p>
+        <p class="point">検算：\(p_1=\frac14+\frac14=\frac12\)（とどまる確率）で一致。例題と違い「とどまる」があるので、A から A への矢印も忘れずに書く。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="prob-p14" data-level="3">
     <h3><span class="pid">P14</span>確率漸化式（3状態を減らす：余りの問題）</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「合計点を3で割った余りが0である確率」「\(n\) 回後の和が3の倍数である確率」</dd>
-      <dt>こう考える</dt><dd>状態は余り 0, 1, 2 の3つだが、<b>3つの確率の和は1</b>。さらに「余り0にいる確率」の遷移だけを見ると、余り1と2の確率の<b>和</b>しか現れないことが多く、2状態に帰着する。</dd>
+      <dt>こう考える</dt><dd>状態は余り 0, 1, 2 の3つだが、<b>3つの確率の和は1</b>。さらに「余り0にいる確率」の遷移だけを見ると、余り1と2の確率の<b>和</b>しか現れないことが多く、2状態に帰着する。
+        <figure class="fig narrow"><svg viewBox="0 0 330 236" role="img" aria-label="合計点を3で割った余りの遷移図"><defs><marker id="pa2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="dot" d="M0,0 L10,5 L0,10 z"/></marker><marker id="pa3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="hl" d="M0,0 L10,5 L0,10 z"/></marker></defs>
+<path class="axis" d="M170.9,70.3 Q184.1,113 214.5,145.7" marker-end="url(#pa2)"/>
+<text x="178" y="120.5" font-size="11" text-anchor="middle" font-family="sans-serif">1点</text>
+<path class="axis" d="M208.5,156 Q165,146 121.5,156" marker-end="url(#pa2)"/>
+<text x="165" y="143" font-size="11" text-anchor="middle" font-family="sans-serif">1点</text>
+<path class="curve2" d="M115.5,145.7 Q145.9,113 159.1,70.3" marker-end="url(#pa3)"/>
+<text x="152" y="120.5" font-size="11" text-anchor="middle" font-family="sans-serif" class="hl">1点</text>
+<path class="axis" d="M146.9,63.3 Q116.5,96 103.4,138.7" marker-end="url(#pa2)"/>
+<text x="110.4" y="96.5" font-size="11" text-anchor="middle" font-family="sans-serif">2点</text>
+<path class="axis" d="M121.5,170 Q165,180 208.5,170" marker-end="url(#pa2)"/>
+<text x="165" y="191" font-size="11" text-anchor="middle" font-family="sans-serif">2点</text>
+<path class="curve2" d="M226.6,138.7 Q213.5,96 183.1,63.3" marker-end="url(#pa3)"/>
+<text x="219.6" y="96.5" font-size="11" text-anchor="middle" font-family="sans-serif" class="hl">2点</text>
+<circle class="region2" cx="165" cy="46" r="24"/>
+<circle class="axis" cx="165" cy="46" r="24"/>
+<text x="165" y="51" font-size="12" text-anchor="middle" font-family="sans-serif">余り0</text>
+<circle class="region" cx="232.5" cy="163" r="24"/>
+<circle class="axis" cx="232.5" cy="163" r="24"/>
+<text x="232.5" y="168" font-size="12" text-anchor="middle" font-family="sans-serif">余り1</text>
+<circle class="region" cx="97.5" cy="163" r="24"/>
+<circle class="axis" cx="97.5" cy="163" r="24"/>
+<text x="97.5" y="168" font-size="12" text-anchor="middle" font-family="sans-serif">余り2</text>
+</svg><figcaption>各矢印の確率は \(\frac12\)。余り0に入る矢印（橙）は「余り1から2点」「余り2から1点」の2本だけで、どちらも \(\frac12\)。だから \(p_{n+1}=\frac12(q_n+r_n)=\frac12(1-p_n)\)。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>余り0, 1, 2 の確率を \(p_n,q_n,r_n\) とする（\(p_n+q_n+r_n=1\)）。</li>
         <li>\(p_{n+1}\) を \(p_n,q_n,r_n\) で表す。</li>
@@ -429,13 +683,66 @@
       <p class="answer">\(p_n=\dfrac13+\dfrac23\left(-\dfrac12\right)^n\)</p>
       <p class="point">検算：\(p_1=0\)、\(p_2=\frac12\)（表裏・裏表で3点）。P13 と同じ形になるのは偶然ではなく、「今が状態Xなら次は必ずX以外、X以外からは確率 \(c\) でXへ」という構造が共通だから。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">1, 2, 3, 6 の数字が書かれた4枚のカードから1枚引いて数字を記録し、カードを戻す。これを \(n\) 回繰り返したとき、記録した数の和が 3 の倍数である確率 \(p_n\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>3 で割った余りで見ると、引く数の余りは 0（3, 6）が \(\frac12\)、1 が \(\frac14\)、2 が \(\frac14\)。\(n+1\) 回後に余り 0 になるのは「余り0から余り0のカード」「余り1から余り2のカード」「余り2から余り1のカード」。\(p_{n+1}=\frac12p_n+\frac14q_n+\frac14r_n=\frac12p_n+\frac14(1-p_n)\)、\(p_0=1\)。</p>
+        <p class="answer">\(p_n=\dfrac13+\dfrac23\left(\dfrac14\right)^n\)</p>
+        <p class="point">余り1と余り2から余り0へ行く確率がどちらも \(\frac14\) で等しいので、\(q_n+r_n=1-p_n\) の形にまとまる。検算：\(p_1=\frac12\)（3 か 6 を引く）。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="prob-p15" data-level="2">
     <h3><span class="pid">P15</span>点の移動・ランダムウォーク</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「さいころを投げて1, 2 なら \(x\) 方向に1、それ以外は \(y\) 方向に1進む。6回後に点 \((2,4)\) にいる確率」「途中で点 \((1,1)\) を通らない」</dd>
-      <dt>こう考える</dt><dd>到達点が決まれば、<b>各方向に進んだ回数</b>が決まる。回数が決まれば反復試行。「途中で〜を通る／通らない」は<b>経路の数え上げ</b>（最短経路）と組み合わせる。</dd>
+      <dt>こう考える</dt><dd>到達点が決まれば、<b>各方向に進んだ回数</b>が決まる。回数が決まれば反復試行。「途中で〜を通る／通らない」は<b>経路の数え上げ</b>（最短経路）と組み合わせる。
+        <figure class="fig narrow"><svg viewBox="0 0 320 250" role="img" aria-label="(1,1)を通らずに(2,4)へ行く経路の数">
+<line class="axis" x1="110" y1="220" x2="110" y2="44"/>
+<line class="axis" x1="154" y1="220" x2="154" y2="44"/>
+<line class="axis" x1="198" y1="220" x2="198" y2="44"/>
+<line class="axis" x1="110" y1="220" x2="198" y2="220"/>
+<line class="axis" x1="110" y1="176" x2="198" y2="176"/>
+<line class="axis" x1="110" y1="132" x2="198" y2="132"/>
+<line class="axis" x1="110" y1="88" x2="198" y2="88"/>
+<line class="axis" x1="110" y1="44" x2="198" y2="44"/>
+<circle class="dot" cx="110" cy="220" r="2.5"/>
+<text x="115" y="215" font-size="13">1</text>
+<circle class="dot" cx="110" cy="176" r="2.5"/>
+<text x="115" y="171" font-size="13">1</text>
+<circle class="dot" cx="110" cy="132" r="2.5"/>
+<text x="115" y="127" font-size="13">1</text>
+<circle class="dot" cx="110" cy="88" r="2.5"/>
+<text x="115" y="83" font-size="13">1</text>
+<circle class="dot" cx="110" cy="44" r="2.5"/>
+<text x="115" y="39" font-size="13">1</text>
+<circle class="dot" cx="154" cy="220" r="2.5"/>
+<text x="159" y="215" font-size="13">1</text>
+<text x="154" y="182" font-size="18" text-anchor="middle" class="hl">×</text>
+<circle class="dot" cx="154" cy="132" r="2.5"/>
+<text x="159" y="127" font-size="13">1</text>
+<circle class="dot" cx="154" cy="88" r="2.5"/>
+<text x="159" y="83" font-size="13">2</text>
+<circle class="dot" cx="154" cy="44" r="2.5"/>
+<text x="159" y="39" font-size="13">3</text>
+<circle class="dot" cx="198" cy="220" r="2.5"/>
+<text x="203" y="215" font-size="13">1</text>
+<circle class="dot" cx="198" cy="176" r="2.5"/>
+<text x="203" y="171" font-size="13">1</text>
+<circle class="dot" cx="198" cy="132" r="2.5"/>
+<text x="203" y="127" font-size="13">2</text>
+<circle class="dot" cx="198" cy="88" r="2.5"/>
+<text x="203" y="83" font-size="13">4</text>
+<circle class="dot" cx="198" cy="44" r="2.5"/>
+<text x="203" y="39" font-size="13" class="hl">7</text>
+<text x="100" y="236" font-size="13" text-anchor="middle" font-style="italic">O</text>
+<text x="228" y="49" font-size="13">(2, 4)</text>
+<text x="182" y="196" font-size="12">(1, 1)</text>
+<text x="40" y="136" font-size="12" text-anchor="middle" font-family="sans-serif">y 方向</text>
+<text x="154" y="244" font-size="12" text-anchor="middle" font-family="sans-serif">x 方向</text>
+</svg><figcaption>(2) の経路の数え方：各点の数＝左の数＋下の数（(1, 1) は通れないので 0 とする）。(2, 4) で 7 通り。どの経路も確率は \(\left(\frac13\right)^2\left(\frac23\right)^4\)。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>到達点から、各方向の回数を連立方程式で求める（解がなければ確率0）。</li>
         <li>回数の並べ方（経路の数）× 1つの経路の確率。</li>
@@ -450,6 +757,15 @@
       <p>(2) \((2,4)\) への経路 15 通りのうち、\((1,1)\) を通るもの：\((0,0)\to(1,1)\) が 2 通り、\((1,1)\to(2,4)\) が \(\C{4}{1}=4\) 通りで 8 通り。通らないものは \(15-8=7\) 通り。各経路の確率は \(\frac{16}{729}\)。</p>
       <p class="answer">(1) \(\dfrac{80}{243}\)　(2) \(\dfrac{112}{729}\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">数直線上の原点に点 P がある。さいころを投げて 4 以下の目が出れば P は \(+1\)、5 以上の目が出れば \(-1\) 移動する。(1) さいころを6回投げた後に P が座標 2 にいる確率を求めよ。(2) 6回投げた後に座標 2 にいて、途中で一度も座標 \(-1\) に行かない確率を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) \(+1\) を \(a\) 回、\(-1\) を \(b\) 回とすると \(a+b=6,\ a-b=2\) より \(a=4,\ b=2\)。\(\C{6}{2}\left(\frac23\right)^4\left(\frac13\right)^2=15\cdot\frac{16}{729}\)。(2) どの経路も確率は同じ \(\frac{16}{729}\) なので、<b>経路の数</b>を数える。15 通りから \(-1\) に触れる経路を除くと 9 通り（下の確かめ参照）。\(9\cdot\frac{16}{729}\)。</p>
+        <p class="answer">(1) \(\dfrac{80}{243}\)　(2) \(\dfrac{16}{81}\)</p>
+        <p class="point">(2) の確かめ：\(-1\) に触れる経路は「1回目が \(-1\)」の5通りと「1回目 \(+1\)・2, 3回目 \(-1\)」の1通りで計6通り。\(15-6=9\)。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="prob-p16" data-level="2">
@@ -479,6 +795,15 @@
       <p class="answer">(1) \(\dfrac58\)　(2) \(\dfrac{133}{216}\)</p>
       <p class="point">(1) で 4 の目が1個あれば他は何でもよい。「2の倍数が2個以上」と考えると、4 の目1個だけの場合を落とす。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">3個のさいころを投げる。(1) 目の積が 9 の倍数になる確率を求めよ。(2) 目の積が 10 の倍数になる確率を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>目を素因数で分類する。(1) 3 の因数を持つ目は 3, 6（各1個）。9 の倍数 ⇔ 3 か 6 の目が2個以上：\(\C{3}{2}\left(\frac13\right)^2\frac23+\left(\frac13\right)^3=\frac{7}{27}\)。(2) 10 の倍数 ⇔ 5 の目を含み かつ 偶数の目を含む。余事象を包除：5 を含まない \(\left(\frac56\right)^3\)、偶数を含まない \(\left(\frac12\right)^3\)、両方含まない（1, 3 のみ）\(\left(\frac13\right)^3\)。\(1-\frac{125+27-8}{216}\)。</p>
+        <p class="answer">(1) \(\dfrac{7}{27}\)　(2) \(\dfrac{1}{3}\)</p>
+        <p class="point">(1) で 9 の目はないので「3 の因数が2個以上」は「3 か 6 が2個以上」と同じ。(2) の余事象は「5 を含まない または 偶数を含まない」で、和事象なので重なりを足し戻す。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="prob-p17" data-level="2">
@@ -503,6 +828,15 @@
       <p class="answer">(2) \(1-\dfrac{2^n-2}{3^{n-1}}\)</p>
       <p class="point">検算：\(n=2\) で \(1-\frac23=\frac13\)、\(n=3\) で \(1-\frac69=\frac13\)。\(n\to\infty\) では \(\left(\frac23\right)^{n-1}\to0\) よりあいこの確率は 1 に近づく（人数が多いとほぼ必ずあいこ）。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">5人で1回じゃんけんをする。(1) ちょうど2人が勝つ確率を求めよ。(2) あいこになる確率を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>手の出し方は \(3^5=243\) 通り。(1) 勝つ2人の選び方 \(\C{5}{2}=10\)、勝つ手 3 通り（残り3人は負ける手に決まる）：\(\frac{30}{243}\)。(2) 勝負がつく ⇔ 手がちょうど2種類：\(3\times(2^5-2)=90\) 通り。あいこは \(1-\frac{90}{243}\)。</p>
+        <p class="answer">(1) \(\dfrac{10}{81}\)　(2) \(\dfrac{17}{27}\)</p>
+        <p class="point">(2) は \(n\) 人の公式 \(1-\dfrac{2^n-2}{3^{n-1}}\) に \(n=5\) を代入しても \(1-\frac{30}{81}=\frac{17}{27}\)。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="prob-p18" data-level="3">
@@ -529,6 +863,15 @@
       <p class="answer">\(p_n=\dfrac12\left\{1-\left(\dfrac23\right)^n\right\}\)、\(\displaystyle\lim_{n\to\infty}p_n=\frac12\)</p>
       <p class="point">検算：\(p_1=\frac16\)（1回で1の目）、式も \(\frac12\cdot\frac13=\frac16\)。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">2つの箱 A, B があり、最初は玉が1個 A に入っている。1回の操作でさいころを1回投げ、1 または 2 の目が出たら玉をもう一方の箱へ移し、それ以外なら移さない。\(n\) 回の操作の後に玉が A に入っている確率 \(p_n\) を求め、\(\displaystyle\lim_{n\to\infty}p_n\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(A) 漸化式：\(p_{n+1}=\frac23p_n+\frac13(1-p_n)=\frac13p_n+\frac13\)、\(p_0=1\)。\(\alpha=\frac12\) で \(p_n-\frac12=\left(\frac13\right)^n\cdot\frac12\)。(B) 二項定理：玉が A にある ⇔ 1, 2 の目が偶数回。\(\left(\frac23+\frac13\right)^n+\left(\frac23-\frac13\right)^n\) で偶数回の項だけが2倍で残る。どちらでも同じ式になり、\(\left(\frac13\right)^n\to0\)。</p>
+        <p class="answer">\(p_n=\dfrac12+\dfrac12\left(\dfrac13\right)^n\)、\(\displaystyle\lim_{n\to\infty}p_n=\frac12\)</p>
+        <p class="point">検算：\(p_1=\frac23\)（1回で移らない）。長く続けると、最初にどちらの箱に入っていたかの影響が消えて半々になる。</p>
+      </div></details>
+    </div>
   </article>
 </section>
 

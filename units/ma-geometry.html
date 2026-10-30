@@ -143,13 +143,45 @@
       <p>(2) 最大辺 BC の対角 \(\angle A\) が最大、最小辺 CA の対角 \(\angle B\) が最小。</p>
       <p class="answer">(2) 最大 \(\angle A\)、最小 \(\angle B\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) 3辺の長さが \(x,\ x+2,\ 8-x\) である三角形が存在するような \(x\) の範囲を求めよ。(2) (1) で \(x=5\) のとき、この三角形の最大の角の大きさを求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 辺が正：\(0\lt x\lt8\)。最大辺が分からないので3つとも書く：\(x\lt(x+2)+(8-x)\) より \(x\lt10\)、\(x+2\lt x+(8-x)\) より \(x\lt6\)、\(8-x\lt x+(x+2)\) より \(x\gt2\)。(2) 3辺は 5, 7, 3。最大辺 7 の対角が最大角で、余弦定理より \(\cos\theta=\dfrac{5^2+3^2-7^2}{2\cdot5\cdot3}=-\dfrac12\)。</p>
+        <p class="answer">(1) \(2\lt x\lt6\)　(2) \(120^\circ\)</p>
+        <p class="point">(1) で \(x+2\) が最大辺だと決めつけると \(x\gt2\) や \(x\lt6\) の一方を落とす。\(x\) の値によって最大辺が \(8-x\) にも \(x+2\) にもなる。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="geo-p2" data-level="1">
     <h3><span class="pid">P2</span>角の二等分線と比（内角・外角・内心）</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\angle A\) の二等分線と辺 BC の交点を D とする。BD を求めよ」「外角の二等分線と直線 BC の交点」「内心 I について AI:ID」</dd>
-      <dt>こう考える</dt><dd>二等分線は<b>辺の比を対辺に写す</b>。内心は2本の二等分線の交点なので、この定理を2回使えば AI:ID も出る。</dd>
+      <dt>こう考える</dt><dd>二等分線は<b>辺の比を対辺に写す</b>。内心は2本の二等分線の交点なので、この定理を2回使えば AI:ID も出る。
+        <figure class="fig narrow"><svg viewBox="0 0 340 140" role="img" aria-label="内角と外角の二等分線が辺BCを内分・外分する図">
+<polygon class="axis" points="108.5,28.7 14,112 119,112"/>
+<line class="axis" x1="14" y1="112" x2="329" y2="112"/>
+<line class="curve" x1="108.5" y1="28.7" x2="77" y2="112"/>
+<line class="curve2" x1="108.5" y1="28.7" x2="329" y2="112"/>
+<polyline class="curve" points="96.5,39.2 96.6,39.4 96.8,39.5 96.9,39.7 97,39.8 97.2,40 97.3,40.1 97.4,40.2 97.6,40.4 97.7,40.5 97.9,40.6 98,40.7 98.2,40.9 98.3,41 98.5,41.1 98.6,41.2 98.8,41.4 98.9,41.5 99.1,41.6 99.2,41.7 99.4,41.8 99.6,41.9 99.7,42 99.9,42.1 100.1,42.2 100.2,42.4 100.4,42.4 100.6,42.5 100.7,42.6 100.9,42.7 101.1,42.8 101.2,42.9 101.4,43 101.6,43.1 101.8,43.2 101.9,43.3 102.1,43.3 102.3,43.4 102.5,43.5 102.7,43.6 102.8,43.6"/>
+<polyline class="curve" points="102.8,43.6 103,43.7 103.2,43.8 103.4,43.8 103.6,43.9 103.8,43.9 103.9,44 104.1,44.1 104.3,44.1 104.5,44.2 104.7,44.2 104.9,44.2 105.1,44.3 105.3,44.3 105.5,44.4 105.7,44.4 105.8,44.4 106,44.5 106.2,44.5 106.4,44.5 106.6,44.5 106.8,44.6 107,44.6 107.2,44.6 107.4,44.6 107.6,44.6 107.8,44.6 108,44.7 108.2,44.7 108.4,44.7 108.6,44.7 108.8,44.7 108.9,44.7 109.1,44.6 109.3,44.6 109.5,44.6 109.7,44.6 109.9,44.6 110.1,44.6 110.3,44.6 110.5,44.5"/>
+<circle class="dot" cx="108.5" cy="28.7" r="2.5"/>
+<circle class="dot" cx="14" cy="112" r="2.5"/>
+<circle class="dot" cx="119" cy="112" r="2.5"/>
+<circle class="dot" cx="77" cy="112" r="2.5"/>
+<circle class="dot" cx="329" cy="112" r="2.5"/>
+<text x="108.5" y="20.7" font-size="13" text-anchor="middle">A</text>
+<text x="12" y="128" font-size="13" text-anchor="middle">B</text>
+<text x="119" y="128" font-size="13" text-anchor="middle">C</text>
+<text x="77" y="128" font-size="13" text-anchor="middle">D</text>
+<text x="329" y="128" font-size="13" text-anchor="middle">E</text>
+<text x="67.2" y="81.1" font-size="12" text-anchor="middle">6</text>
+<text x="122.7" y="73.2" font-size="12" text-anchor="middle">4</text>
+<text x="45.5" y="107" font-size="12" text-anchor="middle">3</text>
+<text x="98" y="107" font-size="12" text-anchor="middle">2</text>
+<text x="224" y="107" font-size="12" text-anchor="middle">10</text>
+</svg><figcaption>例題の図（縮尺は正確）。内角の二等分線（青）は BC を \(6:4\) に内分、外角の二等分線（橙）は \(6:4\) に外分する。外分点 E は短い辺 AC の側にある。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>BD:DC＝AB:AC から BD を出す（内分）。</li>
         <li>外角の二等分線なら BE:EC＝AB:AC の外分（短い辺の側の延長上に E がある）。</li>
@@ -166,6 +198,15 @@
       <p class="answer">BD＝3、CE＝10、AI:ID＝2:1</p>
       <p class="point">AI:ID＝(AB＋AC):BC＝10:5 という公式も、この2回使いから出る。外分点の位置（どちら側の延長か）は、必ず図で確認する。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(\triangle\)ABC で AB＝9、BC＝10、CA＝6 とする。\(\angle A\) の二等分線と辺 BC の交点を D、\(\angle A\) の外角の二等分線と直線 BC の交点を E、内心を I とする。BD、DE の長さと AI:ID を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>内分：BD:DC＝9:6＝3:2 より BD＝6、DC＝4。外分：BE:EC＝3:2 で、AB＞AC なので E は C 側の延長上。BE－EC＝10 より EC＝20、DE＝DC＋CE。内心：\(\triangle\)ABD で BI は \(\angle B\) の二等分線なので AI:ID＝BA:BD＝9:6。</p>
+        <p class="answer">BD＝6、DE＝24、AI:ID＝3:2</p>
+        <p class="point">公式 AI:ID＝(AB＋AC):BC＝15:10＝3:2 でも確認できる。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="geo-p3" data-level="1">
@@ -188,6 +229,15 @@
       <p class="answer">\(\angle\text{BIC}=125^\circ,\ \angle\text{BOC}=140^\circ\)</p>
       <p class="point">\(\angle A\) が鈍角だと \(\angle\text{BOC}=360^\circ-2A\)（O が BC に関して A と反対側）。図を描いて O の位置を確かめる。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) \(\triangle\)ABC の内心を I とする。\(\angle\text{BIC}=118^\circ\) のとき、\(\angle A\) を求めよ。(2) 鋭角三角形 ABC の外心を O とする。\(\angle\text{OBC}=24^\circ\) のとき、\(\angle A\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 定義（角の二等分線）に戻る：\(\angle\text{IBC}+\angle\text{ICB}=\frac{B+C}{2}=\frac{180^\circ-A}{2}\)。\(\triangle\)IBC の内角の和から \(\angle\text{BIC}=90^\circ+\frac A2=118^\circ\)。(2) OB＝OC（外心は等距離）なので \(\triangle\)OBC は二等辺三角形で \(\angle\text{BOC}=180^\circ-2\cdot24^\circ=132^\circ\)。鋭角三角形なので O と A は BC の同じ側にあり、円周角は中心角の半分。</p>
+        <p class="answer">(1) \(\angle A=56^\circ\)　(2) \(\angle A=66^\circ\)</p>
+        <p class="point">(2) は「鋭角三角形」が効いている。\(\angle A\) が鈍角なら O は BC について A と反対側で、\(\angle A=180^\circ-66^\circ\) になる。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="geo-p4" data-level="2">
@@ -209,13 +259,47 @@
       <p class="answer">\(\angle\text{BHC}=110^\circ,\ \angle\text{BI}_A\text{C}=55^\circ\)</p>
       <p class="point">一般に \(\angle\text{BHC}=180^\circ-A\)、\(\angle\text{BI}_A\text{C}=90^\circ-\frac A2\)。外心 O・重心 G・垂心 H は一直線上（オイラー線）にあり OG:GH＝1:2 であることも、ベクトルで示せる（<a href="mc-vector.html">ベクトル</a>）。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) 鋭角三角形 ABC の垂心を H とする。\(\angle\text{BHC}=3\angle A\) のとき、\(\angle A\) を求めよ。(2) \(\triangle\)ABC の \(\angle A\) 内の傍心を \(\text{I}_A\) とする。\(\angle\text{BI}_A\text{C}=40^\circ\) のとき、\(\angle A\) と、内心 I について \(\angle\text{BIC}\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 垂線の足 E, F で四角形 AFHE を作ると、直角が2つで \(\angle\text{BHC}=\angle\text{FHE}=180^\circ-A\)。\(180^\circ-A=3A\)。(2) 外角の二等分線から \(\angle\text{I}_A\text{BC}+\angle\text{I}_A\text{CB}=\frac{(180^\circ-B)+(180^\circ-C)}{2}=90^\circ+\frac A2\)、よって \(\angle\text{BI}_A\text{C}=90^\circ-\frac A2=40^\circ\)。\(\angle\text{BIC}=90^\circ+\frac A2\)。</p>
+        <p class="answer">(1) \(\angle A=45^\circ\)　(2) \(\angle A=100^\circ\)、\(\angle\text{BIC}=140^\circ\)</p>
+        <p class="point">(2) で \(\angle\text{BIC}+\angle\text{BI}_A\text{C}=180^\circ\)。\(\angle\text{IBI}_A=\angle\text{ICI}_A=90^\circ\) なので、四角形 \(\text{BICI}_A\) は円に内接している。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="geo-p5" data-level="2">
     <h3><span class="pid">P5</span>接線の長さ（内接円・円外の点）</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\triangle\)ABC の内接円が辺 BC, CA, AB と接する点を P, Q, R とする。AR, BP の長さ」「円に外接する四角形」</dd>
-      <dt>こう考える</dt><dd>円外の点から引いた2本の<b>接線の長さは等しい</b>。頂点ごとに未知数を1つずつ置けば、各辺の長さは2つの未知数の和になる。</dd>
+      <dt>こう考える</dt><dd>円外の点から引いた2本の<b>接線の長さは等しい</b>。頂点ごとに未知数を1つずつ置けば、各辺の長さは2つの未知数の和になる。
+        <figure class="fig narrow"><svg viewBox="0 0 340 236" role="img" aria-label="内接円と接線の長さx,y,z">
+<polygon class="axis" points="215,85.1 50,215 290,215"/>
+<circle class="region" cx="200" cy="163" r="52"/>
+<circle class="curve" cx="200" cy="163" r="52"/>
+<line class="aux" x1="200" y1="163" x2="200" y2="215"/>
+<circle class="hl" cx="200" cy="215" r="3"/>
+<line class="aux" x1="200" y1="163" x2="245" y2="137.1"/>
+<circle class="hl" cx="245" cy="137.1" r="3"/>
+<line class="aux" x1="200" y1="163" x2="167.9" y2="122.2"/>
+<circle class="hl" cx="167.9" cy="122.2" r="3"/>
+<circle class="dot" cx="200" cy="163" r="2.5"/>
+<text x="215" y="77.1" font-size="13" text-anchor="middle">A</text>
+<text x="40" y="221" font-size="13" text-anchor="middle">B</text>
+<text x="300" y="221" font-size="13" text-anchor="middle">C</text>
+<text x="200" y="232" font-size="13" text-anchor="middle">P</text>
+<text x="257" y="135.1" font-size="13" text-anchor="middle">Q</text>
+<text x="155.9" y="120.2" font-size="13" text-anchor="middle">R</text>
+<text x="210" y="167" font-size="12" text-anchor="middle" font-family="sans-serif">I</text>
+<text x="185.9" y="100.6" font-size="13" text-anchor="middle" font-style="italic">x</text>
+<text x="103.4" y="165.5" font-size="13" text-anchor="middle" font-style="italic">y</text>
+<text x="125" y="208" font-size="13" text-anchor="middle" font-style="italic">y</text>
+<text x="245" y="208" font-size="13" text-anchor="middle" font-style="italic">z</text>
+<text x="275.3" y="175.5" font-size="13" text-anchor="middle" font-style="italic">z</text>
+<text x="237.8" y="110.6" font-size="13" text-anchor="middle" font-style="italic">x</text>
+</svg><figcaption>同じ頂点から出る2本の接線の長さは等しいので、頂点ごとに \(x,y,z\) と置ける。各辺は \(x+y,\ y+z,\ z+x\)。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>AR＝AQ＝\(x\)、BR＝BP＝\(y\)、CP＝CQ＝\(z\) とおく。</li>
         <li>\(x+y=c,\ y+z=a,\ z+x=b\) を解く（全部足すと \(x+y+z=s\)：半周長）。</li>
@@ -230,6 +314,15 @@
       <p>\(x=10-8=2,\ y=10-5=5,\ z=10-7=3\)。</p>
       <p class="answer">AR＝2、BP＝5、CQ＝3</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) \(\angle C=90^\circ\)、AC＝5、BC＝12、AB＝13 の直角三角形 ABC の内接円の半径 \(r\) を求めよ。(2) 円に外接する四角形 ABCD で AB＝6、BC＝7、CD＝5 のとき、DA を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 接点を BC 上 P、CA 上 Q、AB 上 R とし、AR＝AQ＝\(x\)、BR＝BP＝\(y\)、CP＝CQ＝\(z\) とおく。\(z=s-c=15-13=2\)。\(\angle C=90^\circ\) なので四角形 IPCQ は正方形で \(r=z\)。(2) 4つの頂点から接線の長さを置くと、AB＋CD と BC＋DA はどちらも4つの接線の長さの和になり等しい。\(6+5=7+\text{DA}\)。</p>
+        <p class="answer">(1) \(r=2\)　(2) DA＝4</p>
+        <p class="point">(1) の検算：面積 \(\frac12\cdot5\cdot12=30\) と \(rs=2\cdot15=30\) が一致する。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="geo-p6" data-level="2">
@@ -266,6 +359,15 @@
       <p class="answer">AR:RB＝4:3、AO:OP＝10:3</p>
       <p class="point">メネラウスで B は辺 PC の<b>延長上</b>の点なので、比は PB:BC＝3:5（PB:PC ではない）。分点が延長上のときこそ、一周の順に機械的に書くとミスが減る。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(\triangle\)ABC の辺 AB を \(1:2\) に内分する点を R、辺 BC を \(3:1\) に内分する点を P とする。CR と AP の交点を O、直線 BO と辺 CA の交点を Q とする。CQ:QA と AO:OP を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>辺上の比 CQ:QA → チェバ：\(\dfrac{\text{AR}}{\text{RB}}\cdot\dfrac{\text{BP}}{\text{PC}}\cdot\dfrac{\text{CQ}}{\text{QA}}=\dfrac12\cdot3\cdot\dfrac{\text{CQ}}{\text{QA}}=1\)。線分 AP の途中の比 → AP を辺に含む \(\triangle\)ABP と、それを横切る直線 CR にメネラウス（C は辺 BP の延長上、BC:CP＝4:1）：\(\dfrac{\text{AR}}{\text{RB}}\cdot\dfrac{\text{BC}}{\text{CP}}\cdot\dfrac{\text{PO}}{\text{OA}}=\dfrac12\cdot4\cdot\dfrac{\text{PO}}{\text{OA}}=1\)。</p>
+        <p class="answer">CQ:QA＝2:3、AO:OP＝2:1</p>
+        <p class="point">メネラウスで延長上の点 C を使うときは BC:CP＝4:1（BP:PC＝3:1 ではない）。頂点→分点→頂点…と一周する順に書く。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="geo-p7" data-level="2">
@@ -290,13 +392,38 @@
       <p class="answer">(2) \(\dfrac{3}{10}\) 倍</p>
       <p class="point">(1) の検算：\(\triangle\text{OBC}:\triangle\text{OCA}:\triangle\text{OAB}=3:4:6\) から AR:RB＝\(\triangle\)OCA:\(\triangle\)OBC＝4:3 となり、P6 のチェバの結果と一致する。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(\triangle\)ABC の辺 AB を \(1:2\) に内分する点を D、辺 BC を \(2:3\) に内分する点を E、辺 CA を \(3:1\) に内分する点を F とする。\(\triangle\)DEF の面積は \(\triangle\)ABC の何倍か。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\(\triangle\)DEF＝\(\triangle\)ABC から角の三角形3つを引く。角を共有する三角形は「はさむ2辺の積の比」：\(\triangle\text{ADF}=\frac13\cdot\frac14=\frac1{12}\)、\(\triangle\text{BED}=\frac25\cdot\frac23=\frac4{15}\)、\(\triangle\text{CFE}=\frac34\cdot\frac35=\frac9{20}\)（いずれも \(\triangle\)ABC に対する比）。\(1-\frac{5+16+27}{60}\)。</p>
+        <p class="answer">\(\dfrac15\) 倍</p>
+        <p class="point">F は CA を \(3:1\) に内分するので AF:AC＝1:4、CF:CA＝3:4。どの頂点から測った比かを毎回確認する。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="geo-p8" data-level="1">
     <h3><span class="pid">P8</span>円周角・接弦定理で角を求める</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「円周上に4点 A, B, C, D がある。\(\angle\)ACD を求めよ」「点 A における接線と直線 BC の交点を T とする。\(\angle\)ATB を求めよ」</dd>
-      <dt>こう考える</dt><dd>求めたい角が<b>どの弧を見込んでいるか</b>を確認し、同じ弧を見込む別の角を探す。接線が出てきたら接弦定理で「円の中の角」に移す。</dd>
+      <dt>こう考える</dt><dd>求めたい角が<b>どの弧を見込んでいるか</b>を確認し、同じ弧を見込む別の角を探す。接線が出てきたら接弦定理で「円の中の角」に移す。
+        <figure class="fig narrow"><svg viewBox="0 0 340 236" role="img" aria-label="接弦定理：接線と弦の角は反対側の円周角に等しい">
+<circle class="axis" cx="150" cy="118" r="88"/>
+<line class="curve" x1="25" y1="206" x2="300" y2="206"/>
+<polygon class="axis" points="150,206 229.8,80.8 82.6,61.4"/>
+<polyline class="curve2" points="172,206 172,205.4 172,204.9 171.9,204.3 171.9,203.8 171.8,203.2 171.8,202.7 171.7,202.2 171.6,201.6 171.4,201.1 171.3,200.5 171.2,200 171,199.5 170.8,199 170.7,198.4 170.5,197.9 170.3,197.4 170,196.9 169.8,196.4 169.5,195.9 169.3,195.4 169,194.9 168.7,194.5 168.4,194 168.1,193.5 167.8,193.1 167.5,192.6 167.1,192.2 166.8,191.8 166.4,191.4 166.1,191 165.7,190.6 165.3,190.2 164.9,189.8 164.5,189.4 164,189.1 163.6,188.7 163.2,188.4 162.7,188.1 162.3,187.7 161.8,187.4"/>
+<polyline class="curve2" points="91.9,81.4 92.4,81.1 92.9,80.9 93.4,80.6 93.8,80.3 94.3,80.1 94.8,79.8 95.2,79.4 95.7,79.1 96.1,78.8 96.5,78.4 97,78.1 97.4,77.7 97.8,77.3 98.2,77 98.6,76.6 98.9,76.2 99.3,75.7 99.7,75.3 100,74.9 100.3,74.4 100.7,74 101,73.5 101.3,73.1 101.5,72.6 101.8,72.1 102.1,71.6 102.3,71.1 102.6,70.6 102.8,70.1 103,69.6 103.2,69.1 103.4,68.6 103.6,68.1 103.7,67.5 103.9,67 104,66.5 104.1,65.9 104.2,65.4 104.3,64.9 104.4,64.3"/>
+<circle class="dot" cx="150" cy="206" r="2.5"/>
+<circle class="dot" cx="229.8" cy="80.8" r="2.5"/>
+<circle class="dot" cx="82.6" cy="61.4" r="2.5"/>
+<text x="150" y="224" font-size="13" text-anchor="middle">A</text>
+<text x="240.8" y="78.8" font-size="13" text-anchor="middle">B</text>
+<text x="71.6" y="59.4" font-size="13" text-anchor="middle">C</text>
+<text x="290" y="200" font-size="12" text-anchor="middle" font-family="sans-serif">接線</text>
+<text x="192" y="198" font-size="13" text-anchor="middle" font-style="italic">θ</text>
+<text x="112.6" y="81.4" font-size="13" text-anchor="middle" font-style="italic">θ</text>
+</svg><figcaption>接弦定理：接線と弦 AB のなす角 \(\theta\) は、弦 AB を反対側から見込む円周角 \(\angle\text{ACB}\) に等しい。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>求める角の両端（弦の端点）を確認する。</li>
         <li>同じ弦を同じ側から見込む円周角を探す（等しい）。反対側なら \(180^\circ\) から引く。</li>
@@ -314,13 +441,40 @@
       <p class="answer">(2) \(20^\circ\)</p>
       <p class="point">(1) の検算：\(\triangle\)PCD で \(80^\circ+65^\circ+35^\circ=180^\circ\)。(2) は T の位置を誤ると全く違う答えになる。図を正確に描くこと。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) 円周上に4点 A, B, C, D がこの順にあり、AC と BD の交点を P とする。\(\angle\text{ABD}=30^\circ,\ \angle\text{BDC}=45^\circ\) のとき、\(\angle\text{APB}\) を求めよ。(2) 円に内接する \(\triangle\)ABC で \(\angle A=40^\circ,\ \angle B=75^\circ\) とする。点 C における接線と直線 AB の交点を T とするとき、\(\angle\text{BTC}\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) \(\angle\text{BAC}=\angle\text{BDC}=45^\circ\)（弧 BC）。\(\triangle\)ABP で \(\angle\text{APB}=180^\circ-45^\circ-30^\circ\)。(2) \(\angle A\lt\angle B\) より CB＜CA なので、T は辺 AB の B 側の延長上。接弦定理で \(\angle\text{TCB}=\angle\text{CAB}=40^\circ\)。\(\angle\text{TBC}=180^\circ-75^\circ=105^\circ\)。\(\triangle\)TBC の内角の和。</p>
+        <p class="answer">(1) \(105^\circ\)　(2) \(35^\circ\)</p>
+        <p class="point">(2) は T の位置（A 側か B 側か）を図で確かめてから角を追う。接線と弦 CB の角は、弦 CB を反対側から見込む円周角 \(\angle\)CAB に等しい。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="geo-p9" data-level="2">
     <h3><span class="pid">P9</span>四点が同一円周上にある条件（内接四角形）</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「4点 B, C, E, F は同一円周上にあることを示せ」「\(\angle\text{AEF}=\angle\text{ABC}\) を示せ」（垂線の足が2つある図）</dd>
-      <dt>こう考える</dt><dd><b>直角が2つ</b>あれば円が見える：同じ線分を見込む角がともに \(90^\circ\)（その線分が直径）、または向かい合う角が \(90^\circ\) ずつ（対角の和 \(180^\circ\)）。円が見えたら円周角で角を運べる。</dd>
+      <dt>こう考える</dt><dd><b>直角が2つ</b>あれば円が見える：同じ線分を見込む角がともに \(90^\circ\)（その線分が直径）、または向かい合う角が \(90^\circ\) ずつ（対角の和 \(180^\circ\)）。円が見えたら円周角で角を運べる。
+        <figure class="fig narrow"><svg viewBox="0 0 320 300" role="img" aria-label="垂線の足E,Fが線分BCを直径とする円の上にある図">
+<circle class="aux" cx="160.4" cy="184" r="106.4"/>
+<polygon class="axis" points="130,24.4 54,184 266.8,184"/>
+<line class="curve" x1="54" y1="184" x2="176.7" y2="78.9"/>
+<line class="curve" x1="266.8" y1="184" x2="93.3" y2="101.4"/>
+<polyline class="curve2" points="170.6,84.1 165.4,78 171.5,72.8"/>
+<polyline class="curve2" points="100.6,104.8 104,97.6 96.8,94.2"/>
+<circle class="dot" cx="130" cy="24.4" r="2.5"/>
+<circle class="dot" cx="54" cy="184" r="2.5"/>
+<circle class="dot" cx="266.8" cy="184" r="2.5"/>
+<circle class="dot" cx="176.7" cy="78.9" r="2.5"/>
+<circle class="dot" cx="93.3" cy="101.4" r="2.5"/>
+<text x="130" y="16.4" font-size="13" text-anchor="middle">A</text>
+<text x="44" y="198" font-size="13" text-anchor="middle">B</text>
+<text x="276.8" y="198" font-size="13" text-anchor="middle">C</text>
+<text x="187.7" y="76.9" font-size="13" text-anchor="middle">E</text>
+<text x="82.3" y="99.4" font-size="13" text-anchor="middle">F</text>
+</svg><figcaption>\(\angle\text{BEC}=\angle\text{BFC}=90^\circ\) なので、E, F は BC を直径とする円（点線）の上にある。図に描かれていない「隠れた円」を見つける。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>四点共円の条件のどれかを確認する：①対角の和が \(180^\circ\)、②1つの外角が内対角に等しい、③線分の同じ側から見込む角が等しい。</li>
         <li>円が分かったら、その円の円周角・内接四角形の性質で角を運ぶ。</li>
@@ -334,13 +488,56 @@
       <p>(2) 四角形 BCEF は円に内接するので、外角 \(\angle\text{AEF}\)（頂点 E の外角）は内対角 \(\angle\text{FBC}\) に等しい。\(\angle\text{FBC}=\angle\text{ABC}\) なので \(\angle\text{AEF}=\angle\text{ABC}\)。（証明終）</p>
       <p class="point">(2) から \(\triangle\text{AEF}\sim\triangle\text{ABC}\)（\(\angle A\) 共通）が出る。「垂線の足を結ぶと、元の三角形と相似な三角形ができる」は覚えておく価値がある。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">鋭角三角形 ABC の頂点 A, B から対辺 BC, CA に下ろした垂線の足をそれぞれ D, E とする。(1) 4点 A, B, D, E は同一円周上にあることを示せ。(2) \(\angle\text{CDE}=\angle\text{CAB}\) を示せ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) \(\angle\text{ADB}=\angle\text{AEB}=90^\circ\) で、D, E は直線 AB に関して同じ側（C の側）にあるので、AB を直径とする円周上にある（直角が2つ → 隠れた円）。(2) 四角形 ABDE はこの円に内接するので、頂点 D の外角 \(\angle\text{CDE}\) は内対角 \(\angle\text{BAE}=\angle\text{CAB}\) に等しい。</p>
+        <p class="answer">(1) A, B, D, E は AB を直径とする円周上にある　(2) 内接四角形 ABDE の外角＝内対角 より \(\angle\text{CDE}=\angle\text{CAB}\)（証明の骨子）</p>
+        <p class="point">(2) から \(\triangle\text{CDE}\sim\triangle\text{CAB}\)（\(\angle C\) 共通）。例題と同じく「垂線の足を結ぶと相似な三角形ができる」。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="geo-p10" data-level="2">
     <h3><span class="pid">P10</span>方べきの定理</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「点 P を通る2直線が円と A, B および C, D で交わる。PA＝3、AB＝5、PC＝4 のとき CD を求めよ」「接線 PT の長さ」「2つの弦の交点」</dd>
-      <dt>こう考える</dt><dd>円と、1点 P を通る直線たち → <b>「P から2つの交点までの長さの積」は直線によらず一定</b>。接線なら2つの交点が重なって \(\text{PT}^2\)。</dd>
+      <dt>こう考える</dt><dd>円と、1点 P を通る直線たち → <b>「P から2つの交点までの長さの積」は直線によらず一定</b>。接線なら2つの交点が重なって \(\text{PT}^2\)。
+        <figure class="fig row"><svg viewBox="0 0 200 180" role="img" aria-label="方べきの定理（P が円の外）">
+<circle class="axis" cx="118" cy="94" r="52"/>
+<line class="curve" x1="14" y1="128" x2="152" y2="54.6"/>
+<line class="curve2" x1="14" y1="128" x2="161.3" y2="122.9"/>
+<circle class="dot" cx="14" cy="128" r="2.5"/>
+<circle class="dot" cx="66.4" cy="100.2" r="2.5"/>
+<circle class="dot" cx="152" cy="54.6" r="2.5"/>
+<circle class="dot" cx="76.9" cy="125.8" r="2.5"/>
+<circle class="dot" cx="161.3" cy="122.9" r="2.5"/>
+<text x="12" y="144" font-size="13" text-anchor="middle">P</text>
+<text x="64.4" y="92.2" font-size="13" text-anchor="middle">A</text>
+<text x="158" y="48.6" font-size="13" text-anchor="middle">B</text>
+<text x="74.9" y="141.8" font-size="13" text-anchor="middle">C</text>
+<text x="169.3" y="136.9" font-size="13" text-anchor="middle">D</text>
+<text x="100" y="174" font-size="12" text-anchor="middle">PA·PB = PC·PD</text>
+<text x="100" y="16" font-size="12" text-anchor="middle" font-family="sans-serif">P が円の外</text>
+</svg>
+<svg viewBox="0 0 200 180" role="img" aria-label="方べきの定理（P が円の内）">
+<circle class="axis" cx="118" cy="94" r="52"/>
+<line class="curve" x1="73" y1="68" x2="166.9" y2="111.8"/>
+<line class="curve2" x1="127" y1="42.8" x2="100.2" y2="142.9"/>
+<circle class="dot" cx="115" cy="87.6" r="2.5"/>
+<circle class="dot" cx="73" cy="68" r="2.5"/>
+<circle class="dot" cx="166.9" cy="111.8" r="2.5"/>
+<circle class="dot" cx="127" cy="42.8" r="2.5"/>
+<circle class="dot" cx="100.2" cy="142.9" r="2.5"/>
+<text x="125" y="81.6" font-size="13" text-anchor="middle">P</text>
+<text x="63" y="66" font-size="13" text-anchor="middle">A</text>
+<text x="176.9" y="117.8" font-size="13" text-anchor="middle">B</text>
+<text x="127" y="34.8" font-size="13" text-anchor="middle">C</text>
+<text x="94.2" y="158.9" font-size="13" text-anchor="middle">D</text>
+<text x="100" y="174" font-size="12" text-anchor="middle">PA·PB = PC·PD</text>
+<text x="100" y="16" font-size="12" text-anchor="middle" font-family="sans-serif">P が円の内</text>
+</svg><figcaption>P が円の外でも内でも、「P から2つの交点までの長さの積」は直線によらず一定。長さは必ず P から測る。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>P が円の外か内かを確認する。</li>
         <li>PA, PB を<b>P からの長さ</b>で書く（PB＝PA＋AB）。AB をそのまま使わない。</li>
@@ -356,13 +553,46 @@
       <p>(2) \(\text{PA}\cdot\text{PB}=\text{PC}\cdot\text{PD}\) より \(12=2\,\text{PD}\)。</p>
       <p class="answer">(2) PD＝6</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) 円の外部の点 P から円に引いた接線の接点を T とすると PT＝6 である。P を通る直線が円と2点 A, B（PA＜PB）で交わり、AB＝5 のとき、PA を求めよ。(2) 円の2つの弦 AB, CD が点 P で交わり、PA＝2、PB＝6、CD＝7、PC＜PD のとき、PC を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 長さは P から測る：PB＝PA＋5。方べきで \(\text{PA}(\text{PA}+5)=6^2\)、\(\text{PA}^2+5\,\text{PA}-36=0\)、\((\text{PA}-4)(\text{PA}+9)=0\)。(2) PC＝\(t\) とおくと PD＝\(7-t\)。\(2\cdot6=t(7-t)\) より \(t^2-7t+12=0\)、\(t=3,4\)。PC＜PD より \(t=3\)。</p>
+        <p class="answer">(1) PA＝4　(2) PC＝3</p>
+        <p class="point">(2) は2つの解がどちらも正なので、条件 PC＜PD で選ぶ。方べきで2次方程式が出たら、正であることと大小の条件で解を絞る。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="geo-p11" data-level="2">
     <h3><span class="pid">P11</span>2円の位置関係・共通接線</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「半径 5 と 3 の2円の中心間の距離が 10 のとき、共通接線は何本か。共通外接線の2接点間の距離は」</dd>
-      <dt>こう考える</dt><dd>位置関係は<b>中心間の距離 \(d\) と、半径の和 \(r+r'\)・差 \(\abs{r-r'}\) の大小</b>で決まる。共通接線の長さは、接線に平行に中心を通る線を引いて<b>直角三角形</b>を作る。</dd>
+      <dt>こう考える</dt><dd>位置関係は<b>中心間の距離 \(d\) と、半径の和 \(r+r'\)・差 \(\abs{r-r'}\) の大小</b>で決まる。共通接線の長さは、接線に平行に中心を通る線を引いて<b>直角三角形</b>を作る。
+        <figure class="fig narrow"><svg viewBox="0 0 340 224" role="img" aria-label="共通外接線の長さを求める直角三角形">
+<circle class="axis" cx="95" cy="140" r="75"/>
+<circle class="axis" cx="245" cy="140" r="45"/>
+<line class="curve" x1="41" y1="59.2" x2="282.8" y2="104.7"/>
+<line class="axis" x1="95" y1="140" x2="80" y2="66.5"/>
+<line class="axis" x1="245" y1="140" x2="236" y2="95.9"/>
+<line class="aux" x1="95" y1="140" x2="245" y2="140"/>
+<line class="curve2" x1="245" y1="140" x2="89" y2="110.6"/>
+<polyline class="axis" points="81.4,73.4 88.3,74.7 86.9,67.8"/>
+<polyline class="axis" points="237.4,102.8 230.5,101.5 229.1,94.6"/>
+<polyline class="curve2" points="90.4,117.5 97.3,118.8 95.9,111.9"/>
+<circle class="dot" cx="95" cy="140" r="2.5"/>
+<circle class="dot" cx="245" cy="140" r="2.5"/>
+<circle class="dot" cx="80" cy="66.5" r="2.5"/>
+<circle class="dot" cx="236" cy="95.9" r="2.5"/>
+<circle class="dot" cx="89" cy="110.6" r="2.5"/>
+<text x="91" y="156" font-size="13" text-anchor="middle">O</text>
+<text x="251" y="156" font-size="13" text-anchor="middle">O′</text>
+<text x="74" y="58.5" font-size="13" text-anchor="middle">A</text>
+<text x="240" y="87.9" font-size="13" text-anchor="middle">A′</text>
+<text x="77" y="114.6" font-size="13" text-anchor="middle">H</text>
+<text x="170" y="156" font-size="13" text-anchor="middle" font-style="italic">d</text>
+<text x="70.4" y="133.7" font-size="12" text-anchor="middle" font-style="italic">r−r′</text>
+</svg><figcaption>O′ から半径 OA に垂線 O′H を下ろすと、AA′＝O′H。直角三角形 OHO′ で OH＝\(r-r'\)、OO′＝\(d\) なので \(\text{AA}'^2=d^2-(r-r')^2\)。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>\(d\) と \(r+r',\ \abs{r-r'}\) を比べる（下の表）。</li>
         <li>共通外接線：2つの半径（接線に垂直）の差 \(\abs{r-r'}\) を1辺とする直角三角形 → \(\sqrt{d^2-(r-r')^2}\)。</li>
@@ -386,6 +616,15 @@
       <p>内接線：同様に半径の和 5＋3＝8 を使って \(\sqrt{10^2-8^2}=6\)。</p>
       <p class="answer">(1) 外部にある、4本　(2) 外接線 \(4\sqrt6\)、内接線 6</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) 半径 6 の円 O と半径 2 の円 O′ が外接している。共通外接線の2つの接点間の距離を求めよ。(2) 半径 4 の円と半径 \(r\) の円があり、中心間の距離は 5 である。2円が2点で交わるような \(r\) の範囲を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 外接 ⇔ \(d=6+2=8\)。半径の差 \(6-2=4\) を1辺とする直角三角形を作ると、接点間の距離は \(\sqrt{8^2-4^2}\)。(2) 2点で交わる ⇔ \(\abs{r-4}\lt5\lt r+4\)。\(\abs{r-4}\lt5\) より \(-1\lt r\lt9\)、\(5\lt r+4\) より \(r\gt1\)。</p>
+        <p class="answer">(1) \(4\sqrt3\)　(2) \(1\lt r\lt9\)</p>
+        <p class="point">(2) は三角形の成立条件（2つの半径と中心間の距離で三角形ができる）と同じ形。\(r=1\) で内接、\(r=9\) でも内接になる。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="geo-p12" data-level="3">
@@ -409,6 +648,15 @@
       <p class="answer">\(x=\dfrac{1+\sqrt5}{2}\)、\(\cos36^\circ=\dfrac{x}{2}=\dfrac{1+\sqrt5}{4}\)</p>
       <p class="point">\(x=\frac{1+\sqrt5}{2}\) は黄金比。正五角形では「対角線：辺＝黄金比」であり、\(\cos72^\circ=\frac{\sqrt5-1}{4}\) なども同じ図から出る（<a href="m2-trig.html">三角関数</a>の \(\cos5\theta\) を使う方法と比べてみよう）。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">正三角形 ABC の外接円の、A を含まない弧 BC 上に点 P があり、PB＝1、PC＝2 である。(1) PA＝PB＋PC であることを示せ。(2) 正三角形の1辺の長さと PA を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 四角形 ABPC は円に内接するのでトレミーの定理より \(\text{PA}\cdot\text{BC}=\text{PB}\cdot\text{AC}+\text{PC}\cdot\text{AB}\)。AB＝BC＝CA で割って PA＝PB＋PC。(2) \(\angle\text{BPC}=180^\circ-\angle\text{BAC}=120^\circ\)（内接四角形の対角）。余弦定理で \(\text{BC}^2=1+4-2\cdot1\cdot2\cos120^\circ=7\)。</p>
+        <p class="answer">(1) トレミーの等式を辺 BC で割る　(2) 1辺 \(\sqrt7\)、PA＝3</p>
+        <p class="point">トレミーでは四角形の頂点を円周上の順（A, B, P, C）に並べ、対角線が AP と BC であることを確認してから式を書く。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="geo-p13" data-level="2">
@@ -433,6 +681,15 @@
       <p class="answer">(1) OX＝\(ab\)　(2) CD＝\(\sqrt{ab}\)（作図と証明は上の通り）</p>
       <p class="point">(1) で OE＝1 と OB＝\(b\) を入れ替えると \(\frac ab\) も作れる。(2) で \(b=1\) とすれば \(\sqrt a\) が作れる。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">長さ 1 と \(a\) の線分が与えられている。(1) 与えられた線分 AB を \(2:3\) に内分する点 P の作図方法を述べ、理由を示せ。(2) 長さ \(\dfrac1a\) の線分の作図方法を述べ、その長さになる理由を示せ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) A から AB と異なる半直線を引き、コンパスで等間隔に5点 \(\text{C}_1,\ldots,\text{C}_5\) をとる。\(\text{C}_5\) と B を結び、\(\text{C}_2\) を通って \(\text{C}_5\text{B}\) に平行な直線と AB の交点を P とする。平行線と比より AP:PB＝\(\text{AC}_2:\text{C}_2\text{C}_5\)＝2:3。(2) 点 O から半直線 \(\ell,\ m\) を引き、\(\ell\) 上に OE＝\(a\)、OA＝1、\(m\) 上に OB＝1 をとる。A を通り EB に平行な直線と \(m\) の交点を X とすると、\(\triangle\text{OEB}\sim\triangle\text{OAX}\) より \(a:1=1:\text{OX}\)。</p>
+        <p class="answer">(1) AP:PB＝2:3（平行線と比）　(2) OX＝\(\dfrac1a\)（\(\triangle\text{OEB}\sim\triangle\text{OAX}\) から）</p>
+        <p class="point">作図の答案は「手順」と「なぜその長さになるか（証明）」の両方が必要。比は平行線で作る、と覚えておく。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="geo-p14" data-level="1">
@@ -455,6 +712,15 @@
       <p>(2) AB∥HG かつ AB＝HG なので四角形 ABGH は平行四辺形で、BG∥AH。よって AC と BG のなす角は \(\angle\text{CAH}\)。AC, AH, CH はいずれも正方形の面の対角線で長さが等しいので、\(\triangle\)ACH は正三角形。</p>
       <p class="answer">(2) \(60^\circ\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">立方体 ABCD-EFGH（ABCD が底面、E, F, G, H はそれぞれ A, B, C, D の真上）がある。(1) 対角線 AG とねじれの位置にある辺は何本あるか。(2) 辺 AE と直線 BH のなす角を \(\theta\) とするとき、\(\cos\theta\) の値を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) AG と交わる辺：A を通る AB, AD, AE と G を通る CG, FG, GH の6本。AG に平行な辺はない。残りの BC, CD, DH, HE, EF, BF の6本がねじれ。(2) AE∥BF なので、なす角は \(\angle\text{FBH}\)。BF⊥平面 EFGH より \(\triangle\)BFH は \(\angle\text{BFH}=90^\circ\) の直角三角形。1辺を 1 とすると BF＝1、BH＝\(\sqrt3\)。</p>
+        <p class="answer">(1) 6 本　(2) \(\cos\theta=\dfrac{1}{\sqrt3}=\dfrac{\sqrt3}{3}\)</p>
+        <p class="point">(2) は AE を平行移動して B に持ってくる（BF）のがポイント。平行移動した線分で三角形を作り、3辺の長さから角を求める。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="geo-p15" data-level="3">
@@ -480,6 +746,15 @@
       <p class="answer">(1) \(\sqrt6\)　(2) \(\dfrac{\sqrt6}{3}\)</p>
       <p class="point">(2) の別解：BC⊥平面 OAM なので平面 ABC⊥平面 OAM。O から AM に下ろした垂線が求める垂線で、直角三角形 OAM の高さ \(\frac{\text{OA}\cdot\text{OM}}{\text{AM}}=\frac{\sqrt2}{\sqrt3}=\frac{\sqrt6}3\)。2通りで一致する。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">四面体 OABC で OA, OB, OC は互いに垂直で、OA＝5、OB＝15、OC＝20 である。(1) A から直線 BC までの距離を求めよ。(2) O から平面 ABC までの距離を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 平面 OBC 内で O から BC に垂線 OM を下ろす：BC＝25、OM＝\(\frac{15\cdot20}{25}=12\)。OA⊥平面 OBC、OM⊥BC なので、三垂線の定理より AM⊥BC。AM＝\(\sqrt{5^2+12^2}\)。(2) 体積 \(V=\frac13\cdot\frac12\cdot15\cdot20\cdot5=250\)、\(\triangle\text{ABC}=\frac12\cdot25\cdot13=\frac{325}2\)。\(\frac13\cdot\frac{325}{2}\cdot h=250\)。</p>
+        <p class="answer">(1) 13　(2) \(\dfrac{60}{13}\)</p>
+        <p class="point">(2) の別解：直角三角形 OAM の斜辺 AM への高さ \(\frac{\text{OA}\cdot\text{OM}}{\text{AM}}=\frac{5\cdot12}{13}\)。2通りで一致する。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="geo-p16" data-level="1">
@@ -510,13 +785,43 @@
         <tr><td>正二十面体</td><td>正三角形</td><td>12</td><td>30</td><td>20</td></tr>
       </table></div>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) 正方形 6 枚と正三角形 8 枚で囲まれ、各頂点に正方形2枚と正三角形2枚が集まる凸多面体の、頂点の数と辺の数を求めよ。(2) すべての面が合同な正三角形で、各頂点に4つの面が集まる凸多面体がある。面の数を \(f\) として頂点の数・辺の数を \(f\) で表し、オイラーの多面体定理を用いて \(f\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 辺の数：各面の辺の合計 \(6\cdot4+8\cdot3=48\) を2で割る。頂点の数：各面の頂点の合計 48 を、1頂点に集まる面の数 4 で割る。検算 \(12-24+14=2\)。(2) \(e=\frac{3f}{2}\)、\(v=\frac{3f}{4}\)。\(\frac{3f}{4}-\frac{3f}{2}+f=2\) より \(\frac f4=2\)。</p>
+        <p class="answer">(1) 頂点 12、辺 24　(2) \(v=\frac{3f}{4},\ e=\frac{3f}{2}\)、\(f=8\)（正八面体）</p>
+        <p class="point">(2) のように \(v-e+f=2\) は「未知数を求める式」としても使える。答えが正八面体の表の値と合うか確認する。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="geo-p17" data-level="3">
     <h3><span class="pid">P17</span>角の二等分線の長さ（相似＋方べき）</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\angle A\) の二等分線と BC の交点を D とする。AD の長さを求めよ」「AD を外接円まで延長した点 E」</dd>
-      <dt>こう考える</dt><dd>二等分線 AD を<b>外接円との交点 E まで延長</b>すると、相似な三角形と方べきが同時に現れる。そこから \(\text{AD}^2=\text{AB}\cdot\text{AC}-\text{BD}\cdot\text{DC}\) が出る。</dd>
+      <dt>こう考える</dt><dd>二等分線 AD を<b>外接円との交点 E まで延長</b>すると、相似な三角形と方べきが同時に現れる。そこから \(\text{AD}^2=\text{AB}\cdot\text{AC}-\text{BD}\cdot\text{DC}\) が出る。
+        <figure class="fig narrow"><svg viewBox="0 0 340 229" role="img" aria-label="角の二等分線ADを外接円まで延長した図">
+<circle class="axis" cx="170" cy="112.7" r="90.7"/>
+<polygon class="axis" points="230,44.7 95,163.7 245,163.7"/>
+<line class="curve" x1="230" y1="44.7" x2="170" y2="203.4"/>
+<line class="aux" x1="170" y1="203.4" x2="245" y2="163.7"/>
+<line class="aux" x1="170" y1="203.4" x2="95" y2="163.7"/>
+<circle class="dot" cx="230" cy="44.7" r="2.5"/>
+<circle class="dot" cx="95" cy="163.7" r="2.5"/>
+<circle class="dot" cx="245" cy="163.7" r="2.5"/>
+<circle class="dot" cx="185" cy="163.7" r="2.5"/>
+<circle class="dot" cx="170" cy="203.4" r="2.5"/>
+<text x="230" y="36.7" font-size="13" text-anchor="middle">A</text>
+<text x="84" y="167.7" font-size="13" text-anchor="middle">B</text>
+<text x="256" y="167.7" font-size="13" text-anchor="middle">C</text>
+<text x="194" y="157.7" font-size="13" text-anchor="middle">D</text>
+<text x="170" y="220.4" font-size="13" text-anchor="middle">E</text>
+<text x="156.5" y="101.5" font-size="12" text-anchor="middle">6</text>
+<text x="246.4" y="107.1" font-size="12" text-anchor="middle">4</text>
+<text x="140" y="176.7" font-size="12" text-anchor="middle">3</text>
+<text x="215" y="176.7" font-size="12" text-anchor="middle">2</text>
+</svg><figcaption>AD を延長して外接円との交点 E をとると、\(\triangle\text{ABD}\sim\triangle\text{AEC}\)（点線の辺）と方べき \(\text{AD}\cdot\text{DE}=\text{BD}\cdot\text{DC}\) が同時に使える。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>P2 で BD, DC を求める。</li>
         <li>\(\triangle\text{ABD}\sim\triangle\text{AEC}\)（\(\angle\text{BAD}=\angle\text{EAC}\)、\(\angle\text{ABD}=\angle\text{AEC}\)：弧 AC）より \(\text{AB}\cdot\text{AC}=\text{AD}\cdot\text{AE}\)。</li>
@@ -535,6 +840,15 @@
       <p class="answer">AD＝\(3\sqrt2\)</p>
       <p class="point">検算（余弦定理）：\(\cos B=\frac{36+25-16}{2\cdot6\cdot5}=\frac34\)、\(\text{AD}^2=36+9-2\cdot6\cdot3\cdot\frac34=18\)。一致する。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">AB＝8、BC＝7、CA＝6 の \(\triangle\)ABC で、\(\angle A\) の二等分線と辺 BC の交点を D とし、AD の延長と外接円の交点を E とする。AD と DE の長さを求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>BD:DC＝8:6 より BD＝4、DC＝3。\(\triangle\text{ABD}\sim\triangle\text{AEC}\) から \(\text{AB}\cdot\text{AC}=\text{AD}\cdot\text{AE}\)、方べきから \(\text{AD}\cdot\text{DE}=\text{BD}\cdot\text{DC}\)。合わせて \(\text{AD}^2=\text{AB}\cdot\text{AC}-\text{BD}\cdot\text{DC}=48-12=36\)。DE＝\(\frac{\text{BD}\cdot\text{DC}}{\text{AD}}\)。</p>
+        <p class="answer">AD＝6、DE＝2</p>
+        <p class="point">検算（余弦定理）：\(\cos B=\frac{64+49-36}{2\cdot8\cdot7}=\frac{11}{16}\)、\(\text{AD}^2=64+16-2\cdot8\cdot4\cdot\frac{11}{16}=36\)。</p>
+      </div></details>
+    </div>
   </article>
 </section>
 

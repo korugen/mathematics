@@ -214,7 +214,7 @@ table.reverse td:nth-child(3) { white-space: nowrap; width: 1%; }
 
 /* ---- figures ---- */
 figure.fig { margin: 1rem auto; text-align: center; max-width: 100%; }
-figure.fig svg { width: 100%; height: auto; display: block; margin: 0 auto; overflow: visible; }
+figure.fig > svg { width: 100%; height: auto; display: block; margin: 0 auto; overflow: visible; }
 figure.fig figcaption { font-size: .85rem; color: var(--muted); margin-top: .3em; }
 figure.fig svg text { font-family: "Times New Roman", "Noto Serif JP", serif; fill: currentColor; }
 figure.fig svg .axis { stroke: var(--muted); stroke-width: 1; fill: none; }
@@ -226,9 +226,9 @@ figure.fig svg .region2 { fill: var(--trigger); fill-opacity: .15; stroke: none;
 figure.fig svg .dot { fill: currentColor; }
 figure.fig svg .hl { fill: var(--trigger); }
 figure.fig.row { display: flex; flex-wrap: wrap; gap: 6px 10px; justify-content: center; }
-figure.fig.row svg { width: 190px; max-width: 100%; flex: 0 0 auto; margin: 0; }
+figure.fig.row > svg { width: 190px; max-width: 100%; flex: 0 0 auto; margin: 0; }
 figure.fig.row figcaption { flex-basis: 100%; }
-figure.fig.narrow svg { max-width: 360px; }
+figure.fig.narrow > svg { max-width: 360px; }
 
 /* ---- buttons ---- */
 .btn { display: inline-block; font: inherit; font-size: .92rem; padding: 6px 16px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--text); text-decoration: none; cursor: pointer; margin: 2px 4px 2px 0; }
