@@ -120,7 +120,29 @@
     <h3><span class="pid">P1</span>集合の演算（共通部分・和集合・補集合）</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「\(A\cap B,\ A\cup B,\ \overline A\cap B\) を求めよ」（要素を並べた集合、または \(\{x\mid -1\le x\lt3\}\) のような範囲の集合）</dd>
-      <dt>こう考える</dt><dd>要素が有限個なら<b>ベン図</b>に書き込む。範囲の集合なら<b>数直線</b>に描く。頭の中だけで処理しない。</dd>
+      <dt>こう考える</dt><dd>要素が有限個なら<b>ベン図</b>に書き込む。範囲の集合なら<b>数直線</b>に描く。頭の中だけで処理しない。
+        <figure class="fig narrow"><svg viewBox="0 0 340 196" role="img" aria-label="U={1,…,10}、A={2,3,5,7}、B={1,3,5,7,9} のベン図">
+<circle class="region" cx="128" cy="100" r="62"/>
+<circle class="region2" cx="212" cy="100" r="62"/>
+<rect class="axis" x="10" y="16" width="320" height="164" rx="6"/>
+<circle cx="128" cy="100" r="62" class="axis" style="stroke:var(--accent);stroke-width:1.8"/>
+<circle cx="212" cy="100" r="62" class="axis" style="stroke:var(--trigger);stroke-width:1.8"/>
+<text x="22.0" y="32.0" font-size="13" text-anchor="start" font-style="italic">U</text>
+<text x="84.0" y="46.0" font-size="14" text-anchor="middle" font-style="italic" font-weight="700">A</text>
+<text x="256.0" y="46.0" font-size="14" text-anchor="middle" font-style="italic" font-weight="700">B</text>
+<text x="98.0" y="105.0" font-size="14" text-anchor="middle">2</text>
+<text x="170.0" y="88.0" font-size="14" text-anchor="middle">3</text>
+<text x="170.0" y="108.0" font-size="14" text-anchor="middle">5</text>
+<text x="170.0" y="128.0" font-size="14" text-anchor="middle">7</text>
+<text x="240.0" y="95.0" font-size="14" text-anchor="middle">1</text>
+<text x="240.0" y="118.0" font-size="14" text-anchor="middle">9</text>
+<text x="40.0" y="60.0" font-size="14" text-anchor="middle">4</text>
+<text x="40.0" y="160.0" font-size="14" text-anchor="middle">6</text>
+<text x="300.0" y="60.0" font-size="14" text-anchor="middle">8</text>
+<text x="300.0" y="160.0" font-size="14" text-anchor="middle">10</text>
+<text x="170.0" y="186.0" font-size="11" text-anchor="middle" font-family="sans-serif">A∩B（両方）</text>
+<line class="aux" x1="170" y1="134" x2="170" y2="174"/>
+</svg><figcaption>例題 (1) のベン図。重なり（両方）が \(A\cap B=\{3,5,7\}\)、\(B\) だけの部分が \(\overline A\cap B=\{1,9\}\)、円の外が \(\overline{A\cup B}=\{4,6,8,10\}\)。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>有限集合：全体集合 \(U\) の要素を1つずつ、どの領域に入るかベン図に書き込む。</li>
         <li>範囲の集合：数直線に \(A\)、\(B\) を上下2段で描き、端点の ●（含む）○（含まない）を区別する。</li>
@@ -138,13 +160,42 @@
       <p class="answer">(2) \(A\cap B=\{x\mid 1\lt x\lt3\},\ A\cup B=\{x\mid -1\le x\le5\},\ \overline A\cap B=\{x\mid 3\le x\le5\}\)</p>
       <p class="point">(2) で \(A\) は「\(x\lt3\)」なので3を含まない。だから \(\overline A\) は3を<b>含む</b>。端点の ● ○ が反転することに注意。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) \(U=\{1,2,\dots,12\}\) を全体集合とし、\(A\) を12の正の約数の集合、\(B\) を12以下の正の3の倍数の集合とする。\(A\cap B,\ A\cup B,\ \overline A\cap B,\ A\cap\overline B,\ \overline A\cap\overline B\) を求めよ。<br>(2) 実数全体を全体集合とし、\(A=\{x\mid \abs{x-1}\le2\},\ B=\{x\mid 2x-3\gt1\}\) とする。\(A\cap B,\ A\cup B,\ A\cap\overline B\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 要素を書き出す：\(A=\{1,2,3,4,6,12\},\ B=\{3,6,9,12\}\)。ベン図の4つの部屋（\(A\) だけ・両方・\(B\) だけ・どちらでもない）に要素を入れてから読む。</p>
+        <p>(2) 条件を解いて範囲にする：\(A=\{x\mid -1\le x\le3\},\ B=\{x\mid x\gt2\}\)。数直線に描き、端点の ● ○ に注意。\(\overline B=\{x\mid x\le2\}\)。</p>
+        <p class="answer">(1) \(A\cap B=\{3,6,12\},\ A\cup B=\{1,2,3,4,6,9,12\},\ \overline A\cap B=\{9\},\ A\cap\overline B=\{1,2,4\},\ \overline A\cap\overline B=\{5,7,8,10,11\}\)<br>(2) \(A\cap B=\{x\mid 2\lt x\le3\},\ A\cup B=\{x\mid x\ge-1\},\ A\cap\overline B=\{x\mid -1\le x\le2\}\)</p>
+        <p class="point">(2) で \(\overline B\) は \(x\le2\)（等号つき）。補集合では ○ と ● が入れかわる。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="logic-p2" data-level="1">
     <h3><span class="pid">P2</span>ド・モルガンの法則と要素の個数</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「2の倍数でも3の倍数でもない数」「\(\overline A\cap\overline B\)」「\(\overline{A}\cup\overline{B}\) の要素の個数」</dd>
-      <dt>こう考える</dt><dd>「〜でも〜でもない」は直接数えにくい。ド・モルガンで<b>和集合の補集合</b> \(\overline{A\cup B}\) に直せば、「全体 − 少なくとも一方」で数えられる。</dd>
+      <dt>こう考える</dt><dd>「〜でも〜でもない」は直接数えにくい。ド・モルガンで<b>和集合の補集合</b> \(\overline{A\cup B}\) に直せば、「全体 − 少なくとも一方」で数えられる。
+        <figure class="fig narrow"><svg viewBox="0 0 340 190" role="img" aria-label="1から30のうち2の倍数A、3の倍数Bのベン図と各部分の個数">
+<rect class="region2" x="10" y="16" width="320" height="164" rx="6"/>
+<circle cx="128" cy="100" r="62" style="fill:var(--surface)"/>
+<circle cx="212" cy="100" r="62" style="fill:var(--surface)"/>
+<rect class="axis" x="10" y="16" width="320" height="164" rx="6"/>
+<circle cx="128" cy="100" r="62" class="axis" style="stroke:var(--accent);stroke-width:1.8"/>
+<circle cx="212" cy="100" r="62" class="axis" style="stroke:var(--trigger);stroke-width:1.8"/>
+<text x="22.0" y="32.0" font-size="12" text-anchor="start" font-family="sans-serif">U（30個）</text>
+<text x="84.0" y="46.0" font-size="14" text-anchor="middle" font-style="italic" font-weight="700">A</text>
+<text x="256.0" y="46.0" font-size="14" text-anchor="middle" font-style="italic" font-weight="700">B</text>
+<text x="98.0" y="98.0" font-size="15" text-anchor="middle" font-weight="700">10</text>
+<text x="98.0" y="116.0" font-size="10" text-anchor="middle" font-family="sans-serif">Aだけ</text>
+<text x="170.0" y="98.0" font-size="15" text-anchor="middle" font-weight="700">5</text>
+<text x="170.0" y="116.0" font-size="10" text-anchor="middle" font-family="sans-serif">6の倍数</text>
+<text x="242.0" y="98.0" font-size="15" text-anchor="middle" font-weight="700">5</text>
+<text x="242.0" y="116.0" font-size="10" text-anchor="middle" font-family="sans-serif">Bだけ</text>
+<text x="296.0" y="150.0" font-size="15" text-anchor="middle" font-weight="700">10</text>
+<text x="296.0" y="168.0" font-size="10" text-anchor="middle" font-family="sans-serif">外側</text>
+</svg><figcaption>\(A\)：2の倍数（15個）、\(B\)：3の倍数（10個）。塗った外側が「どちらでもない」\(\overline A\cap\overline B=\overline{A\cup B}\) で \(30-(15+10-5)=10\) 個。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>\(\overline A\cap\overline B=\overline{A\cup B}\)、\(\overline A\cup\overline B=\overline{A\cap B}\) と書き換える。</li>
         <li>\(n(A\cup B)=n(A)+n(B)-n(A\cap B)\) で和集合を数える。</li>
@@ -160,6 +211,16 @@
       <p>(2) \(n(\overline A\cup\overline B)=n(\overline{A\cap B})=30-5=25\)。</p>
       <p class="answer">(1) 10個　(2) 25個</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">40人のクラスで、数学が好きな生徒は25人、英語が好きな生徒は18人、両方とも好きな生徒は10人いる。(1) 数学も英語も好きでない生徒の人数、(2) 数学と英語の少なくとも一方が好きでない生徒の人数を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>数学が好きな生徒の集合を \(A\)、英語を \(B\) とする。(1) 「どちらも好きでない」は \(\overline A\cap\overline B=\overline{A\cup B}\)。\(n(A\cup B)=25+18-10=33\) を全体から引く。</p>
+        <p>(2) 「少なくとも一方が好きでない」は \(\overline A\cup\overline B=\overline{A\cap B}\)。両方好きな10人を全体から引く。</p>
+        <p class="answer">(1) 7人　(2) 30人</p>
+        <p class="point">(2) を「\(n(\overline A)+n(\overline B)\)」\(=15+22=37\) とすると、両方好きでない7人を二重に数えている。ド・モルガンで1つの補集合にまとめるのが安全。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="logic-p3" data-level="2">
@@ -185,6 +246,16 @@
       <p class="answer">\(a=-2\)、\(A\cup B=\{2,4,5,17\}\)</p>
       <p class="point">\(a=\pm2\) を出した時点で答えにすると誤り。候補の確認（十分性）を答案に必ず書く。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(a\) は実数とする。\(A=\{1,3,a^2-2a\},\ B=\{3,2a,a^2+a+2\}\) について \(A\cap B=\{3,8\}\) となるとき、\(a\) の値と \(A\cup B\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>（必要条件で絞る）\(8\in A\) で、\(1,3\ne8\) なので \(a^2-2a=8\)、\((a-4)(a+2)=0\)、\(a=4,\ -2\)。</p>
+        <p>（代入して確認）\(a=4\)：\(A=\{1,3,8\},\ B=\{3,8,22\}\) で \(A\cap B=\{3,8\}\)（適）。\(a=-2\)：\(B=\{3,-4,4\}\) で \(8\notin B\)（不適）。</p>
+        <p class="answer">\(a=4\)、\(A\cup B=\{1,3,8,22\}\)</p>
+        <p class="point">\(8\in A\) は必要条件にすぎない。候補を必ず両方の集合に代入し、共通部分がちょうど \(\{3,8\}\) になるかを確かめる。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="logic-p4" data-level="1">
@@ -208,6 +279,16 @@
       <p>(4) \(n=4k\) なら \(n=2\cdot2k\)。<span class="answer">真</span></p>
       <p class="point">反例は「仮定を満たし、結論を満たさない」もの。(1) で \(x=2\) を反例とするのは誤り（そもそも仮定 \(x^2=1\) を満たしていない）。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(x,y\) は実数、\(n\) は整数とする。次の命題の真偽を答え、偽なら反例を挙げよ。<br>(1) \(x^2\gt x\Longrightarrow x\gt1\)　(2) \(x+y\) が有理数 \(\Longrightarrow\) \(x,y\) はともに有理数　(3) \(\abs x\lt1\Longrightarrow x^2\lt1\)　(4) \(n^2\) が偶数 \(\Longrightarrow\) \(n\) は4の倍数</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) \(x^2\gt x\iff x\lt0\) または \(x\gt1\)。\(P\) が \(Q=\{x\mid x\gt1\}\) からはみ出す（負の数）。</p>
+        <p>(2) 無理数どうしの和が有理数になる例を探す。(3) \(\abs x\lt1\iff -1\lt x\lt1\iff x^2\lt1\)。(4) \(n^2\) が偶数なら \(n\) は偶数だが、4の倍数とは限らない。</p>
+        <p class="answer">(1) 偽（反例 \(x=-1\)）　(2) 偽（反例 \(x=\sqrt2,\ y=-\sqrt2\)）　(3) 真　(4) 偽（反例 \(n=2\)）</p>
+        <p class="point">反例は「仮定を満たし、結論を満たさない」ものを1つ。(1) で \(x=\frac12\) は仮定 \(x^2\gt x\) を満たさないので反例にならない。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="logic-p5" data-level="2">
@@ -231,13 +312,54 @@
       <p>(4) \(q\Rightarrow p\) は明らか。\(p\Rightarrow q\)：\(ab\gt0\) より \(a,b\) は同符号、さらに \(a+b\gt0\) より両方正。<span class="answer">必要十分条件</span></p>
       <p class="point">(3) は「\(p\) が大きい集合」なので必要条件。「\(\abs{x-1}\lt2\) の方が見た目が厳しそう」などの印象で決めず、必ず集合にする。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(x,y\) は実数とする。\(p\) は \(q\) であるための何条件か（必要・十分・必要十分・いずれでもない）答えよ。<br>(1) \(p:x^2=x,\ q:x=1\)　(2) \(p:x\gt1\ \text{かつ}\ y\gt1,\ q:x+y\gt2\)　(3) \(p:\abs x\lt1,\ q:x^2\lt1\)　(4) \(p:x\gt0,\ q:x^2\gt2x\)</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>どれも \(p\Rightarrow q\) と \(q\Rightarrow p\) を別々に調べる。(1) \(P=\{0,1\}\supset Q=\{1\}\)：\(p\Rightarrow q\) は偽（\(x=0\)）、\(q\Rightarrow p\) は真。</p>
+        <p>(2) \(p\Rightarrow q\) は真、\(q\Rightarrow p\) は偽（\(x=3,\ y=0\)）。(3) \(P=Q\)。(4) \(Q=\{x\mid x\lt0\ \text{または}\ x\gt2\}\)。\(x=1\) が \(p\Rightarrow q\) の反例、\(x=-1\) が \(q\Rightarrow p\) の反例。</p>
+        <p class="answer">(1) 必要条件　(2) 十分条件　(3) 必要十分条件　(4) いずれでもない</p>
+        <p class="point">「小さい集合が十分、大きい集合が必要」。(1) は \(P\) の方が大きいので \(p\) は必要条件。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="logic-p6" data-level="2">
     <h3><span class="pid">P6</span>文字を含む条件：区間の包含で範囲を求める</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x^2-4x+3\le0\) が \(\abs{x-a}\lt2\) であるための十分条件となるような \(a\) の値の範囲を求めよ」</dd>
-      <dt>こう考える</dt><dd>「\(p\) が \(q\) の十分条件」⇔ \(P\subset Q\)。区間どうしの包含は<b>端点の大小比較</b>に帰着する。勝負は<b>端点の等号</b>。</dd>
+      <dt>こう考える</dt><dd>「\(p\) が \(q\) の十分条件」⇔ \(P\subset Q\)。区間どうしの包含は<b>端点の大小比較</b>に帰着する。勝負は<b>端点の等号</b>。
+        <figure class="fig narrow"><svg viewBox="0 0 360 124" role="img" aria-label="P=[1,3] が Q=(a-2,a+2) に含まれる様子">
+<line class="axis" x1="16.0" y1="93.2" x2="344.0" y2="93.2"/>
+<line class="axis" x1="65.7" y1="89.2" x2="65.7" y2="97.2"/>
+<text x="65.7" y="110.2" font-size="12" text-anchor="middle">0</text>
+<line class="axis" x1="115.4" y1="89.2" x2="115.4" y2="97.2"/>
+<text x="115.4" y="110.2" font-size="12" text-anchor="middle">1</text>
+<line class="axis" x1="165.1" y1="89.2" x2="165.1" y2="97.2"/>
+<text x="165.1" y="110.2" font-size="12" text-anchor="middle">2</text>
+<line class="axis" x1="214.8" y1="89.2" x2="214.8" y2="97.2"/>
+<text x="214.8" y="110.2" font-size="12" text-anchor="middle">3</text>
+<line class="axis" x1="264.5" y1="89.2" x2="264.5" y2="97.2"/>
+<text x="264.5" y="110.2" font-size="12" text-anchor="middle">4</text>
+<line class="axis" x1="314.2" y1="89.2" x2="314.2" y2="97.2"/>
+<text x="314.2" y="110.2" font-size="12" text-anchor="middle">5</text>
+<rect class="region" x="115.4" y="62.0" width="99.4" height="14.6"/>
+<polyline class="curve" points="115.4,69.3 214.8,69.3"/>
+<circle class="dot" cx="115.4" cy="69.3" r="4" style="fill:var(--accent)"/>
+<circle class="dot" cx="214.8" cy="69.3" r="4" style="fill:var(--accent)"/>
+<text x="165.1" y="58.0" font-size="12" text-anchor="middle">P：1≦x≦3</text>
+<rect class="region2" x="80.6" y="30.8" width="198.8" height="14.6"/>
+<polyline class="curve2" points="80.6,38.1 279.4,38.1"/>
+<circle cx="80.6" cy="38.1" r="3.5" fill="var(--surface)" stroke="currentColor" stroke-width="1.5"/>
+<circle cx="279.4" cy="38.1" r="3.5" fill="var(--surface)" stroke="currentColor" stroke-width="1.5"/>
+<text x="180.0" y="25.8" font-size="12" text-anchor="middle">Q：a−2&lt;x&lt;a+2</text>
+<text x="80.6" y="56.1" font-size="12" text-anchor="middle" font-style="italic">a−2</text>
+<text x="279.4" y="56.1" font-size="12" text-anchor="middle" font-style="italic">a+2</text>
+<line class="aux" x1="80.6" y1="93.2" x2="80.6" y2="38.1"/>
+<line class="aux" x1="279.4" y1="93.2" x2="279.4" y2="38.1"/>
+<line class="aux" x1="115.4" y1="93.2" x2="115.4" y2="69.3"/>
+<line class="aux" x1="214.8" y1="93.2" x2="214.8" y2="69.3"/>
+</svg><figcaption>\(Q\)（橙）を左右に動かして、\(P\)（青）をはみ出さずに覆う条件を読む：\(a-2\lt1\) かつ \(3\lt a+2\)。\(Q\) の端は含まれない（○）ので、端点がぴったり重なると \(P\) の端がこぼれる。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>どちらがどちらに含まれるべきかを、矢印から決める（十分条件の方が小さい集合）。</li>
         <li>両方の条件を区間で表し、数直線に描く。</li>
@@ -255,6 +377,17 @@
       <p class="answer">(2) \(a=2\)</p>
       <p class="point">(1) で \(a=1\) とすると \(Q=\{x\mid -1\lt x\lt3\}\) で \(x=3\) が入らない。境界の値を代入して確かめれば、等号の判断ミスは防げる。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(p:x^2-2x-3\lt0,\ q:a\le x\le a+5,\ r:a\le x\le a+2\) とする（\(a\) は実数の定数）。<br>(1) \(p\) が \(q\) であるための十分条件となる \(a\) の範囲を求めよ。<br>(2) \(p\) が \(r\) であるための必要条件となる \(a\) の範囲を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\(P=\{x\mid -1\lt x\lt3\}\)（端点を含まない ○）、\(Q,\ R\) は端点を含む（●）。</p>
+        <p>(1) 十分条件 ⇔ \(P\subset Q\)。\(P\) の端は含まれないので、\(Q\) の端と一致してもよい：\(a\le-1\) かつ \(3\le a+5\)。</p>
+        <p>(2) 必要条件 ⇔ \(R\subset P\)。\(R\) の端点 \(a,\ a+2\) は \(P\) に入らなければならず、\(P\) の端は含まれないので等号なし：\(-1\lt a\) かつ \(a+2\lt3\)。</p>
+        <p class="answer">(1) \(-2\le a\le-1\)　(2) \(-1\lt a\lt1\)</p>
+        <p class="point">等号は境界を代入して確認：(1) \(a=-1\) なら \(Q=\{x\mid -1\le x\le4\}\) は \(P\) を含む（適）。(2) \(a=-1\) なら \(x=-1\) が \(R\) に入るが \(P\) に入らない（不適）。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="logic-p7" data-level="2">
@@ -278,13 +411,62 @@
       <p>(4) 否定：ある実数 \(x\) が存在して、すべての実数 \(y\) について \(x+y\neq0\)。もとの命題は、各 \(x\) に \(y=-x\) を選べば成り立つので<span class="answer">真</span>。</p>
       <p class="point">(4) で「ある \(y\) が存在して、すべての \(x\) について \(x+y=0\)」と<b>順番を入れかえると別の命題</b>（偽）になる。「すべての \(x\) に対して \(y\) が存在」なら \(y\) は \(x\) ごとに選び直してよいが、「ある \(y\) がすべての \(x\) に対して」なら1つの \(y\) で全部に対応しなければならない。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">次の命題の否定を述べ、もとの命題の真偽を答えよ（\(x,y\) は実数、\(n\) は自然数）。<br>(1) すべての自然数 \(n\) について \(n^2\ge n\)　(2) ある実数 \(x\) について \(x^2+1=0\)　(3) \(x\le1\) または \(y\gt2\)（条件の否定）　(4) ある実数 \(y\) が存在して、すべての実数 \(x\) について \(xy=0\)</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>「すべて」↔「ある」、「かつ」↔「または」と入れかえ、最後の条件を否定する。(4) は順番を保ったまま両方の言葉を入れかえる。</p>
+        <p>真偽：(1) \(n^2-n=n(n-1)\ge0\) で真。(2) \(x^2+1\ge1\) で偽。(4) \(y=0\) をとればよいので真。</p>
+        <p class="answer">(1) 否定「ある自然数 \(n\) について \(n^2\lt n\)」、もとは真　(2) 否定「すべての実数 \(x\) について \(x^2+1\ne0\)」、もとは偽　(3) 否定「\(x\gt1\) かつ \(y\le2\)」　(4) 否定「すべての実数 \(y\) に対して、ある実数 \(x\) が存在して \(xy\ne0\)」、もとは真</p>
+        <p class="point">(4) は「ある \(y\)」が先なので、例題の「すべての \(x\) に対してある \(y\)」とは意味が違う。1つの \(y\) が全部の \(x\) に通用するかを問うている。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="logic-p8" data-level="1">
     <h3><span class="pid">P8</span>逆・裏・対偶とその真偽</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「命題 \(x^2=4\Longrightarrow x=2\) の逆・裏・対偶を述べ、それぞれの真偽を答えよ」</dd>
-      <dt>こう考える</dt><dd>4つの命題は2組に分かれる：<b>（もと・対偶）は同じ真偽、（逆・裏）は同じ真偽</b>。だから実際に調べるのは「もと」と「逆」の2つだけでよい。</dd>
+      <dt>こう考える</dt><dd>4つの命題は2組に分かれる：<b>（もと・対偶）は同じ真偽、（逆・裏）は同じ真偽</b>。だから実際に調べるのは「もと」と「逆」の2つだけでよい。
+        <figure class="fig narrow"><svg viewBox="0 0 340 220" role="img" aria-label="もと・逆・裏・対偶の関係図">
+<defs><marker id="lg-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
+<rect x="18" y="18" width="116" height="44" rx="8" class="region"/>
+<rect x="18" y="18" width="116" height="44" rx="8" class="axis"/>
+<text x="76.0" y="34.0" font-size="11" text-anchor="middle" font-family="sans-serif">もと</text>
+<text x="58.0" y="54.0" font-size="14" text-anchor="middle" font-style="italic">p</text>
+<text x="76.0" y="54.0" font-size="13" text-anchor="middle">⇒</text>
+<text x="94.0" y="54.0" font-size="14" text-anchor="middle" font-style="italic">q</text>
+<rect x="206" y="18" width="116" height="44" rx="8" class="region2"/>
+<rect x="206" y="18" width="116" height="44" rx="8" class="axis"/>
+<text x="264.0" y="34.0" font-size="11" text-anchor="middle" font-family="sans-serif">逆</text>
+<text x="246.0" y="54.0" font-size="14" text-anchor="middle" font-style="italic">q</text>
+<text x="264.0" y="54.0" font-size="13" text-anchor="middle">⇒</text>
+<text x="282.0" y="54.0" font-size="14" text-anchor="middle" font-style="italic">p</text>
+<rect x="18" y="138" width="116" height="44" rx="8" class="region2"/>
+<rect x="18" y="138" width="116" height="44" rx="8" class="axis"/>
+<text x="76.0" y="154.0" font-size="11" text-anchor="middle" font-family="sans-serif">裏</text>
+<text x="58.0" y="174.0" font-size="14" text-anchor="middle" font-style="italic">p</text>
+<text x="76.0" y="174.0" font-size="13" text-anchor="middle">⇒</text>
+<text x="94.0" y="174.0" font-size="14" text-anchor="middle" font-style="italic">q</text>
+<line x1="54.0" y1="162.5" x2="62.0" y2="162.5" stroke="currentColor" stroke-width="1.2"/>
+<line x1="90.0" y1="162.5" x2="98.0" y2="162.5" stroke="currentColor" stroke-width="1.2"/>
+<rect x="206" y="138" width="116" height="44" rx="8" class="region"/>
+<rect x="206" y="138" width="116" height="44" rx="8" class="axis"/>
+<text x="264.0" y="154.0" font-size="11" text-anchor="middle" font-family="sans-serif">対偶</text>
+<text x="246.0" y="174.0" font-size="14" text-anchor="middle" font-style="italic">q</text>
+<text x="264.0" y="174.0" font-size="13" text-anchor="middle">⇒</text>
+<text x="282.0" y="174.0" font-size="14" text-anchor="middle" font-style="italic">p</text>
+<line x1="242.0" y1="162.5" x2="250.0" y2="162.5" stroke="currentColor" stroke-width="1.2"/>
+<line x1="278.0" y1="162.5" x2="286.0" y2="162.5" stroke="currentColor" stroke-width="1.2"/>
+<line x1="138" y1="40" x2="202" y2="40" stroke="currentColor" stroke-width="1.2" fill="none" marker-start="url(#lg-ar)" marker-end="url(#lg-ar)"/>
+<text x="170.0" y="32.0" font-size="11" text-anchor="middle" font-family="sans-serif">逆</text>
+<line x1="76" y1="66" x2="76" y2="134" stroke="currentColor" stroke-width="1.2" fill="none" marker-start="url(#lg-ar)" marker-end="url(#lg-ar)"/>
+<text x="70.0" y="104.0" font-size="11" text-anchor="end" font-family="sans-serif">裏</text>
+<line x1="134" y1="64" x2="206" y2="136" class="aux" stroke-width="1.6"/>
+<line x1="134" y1="136" x2="206" y2="64" class="aux"/>
+<text x="170.0" y="92.0" font-size="11" text-anchor="middle" font-family="sans-serif">対偶</text>
+<text x="170.0" y="212.0" font-size="11" text-anchor="middle" font-family="sans-serif">同じ色どうしは真偽が一致する</text>
+</svg><figcaption>対角線の位置にある「もと」と「対偶」（青）は真偽が一致し、「逆」と「裏」（橙）も一致する。上に線のついた文字は否定。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>逆：矢印の向きを変える。裏：両方を否定する。対偶：向きを変えて両方否定する。</li>
         <li>もとの命題と逆の真偽を調べる。</li>
@@ -301,6 +483,16 @@
       <p>対偶：\(x\neq2\Rightarrow x^2\neq4\)。もとと同じく<span class="answer">偽</span>（反例 \(x=-2\)）</p>
       <p class="point">「もとが偽でも逆は真」ということは普通に起こる。「逆は必ずしも真ならず」は、両方向で起こる。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(x\) を実数とする。命題「\(x\gt1\Longrightarrow x^2\gt1\)」の逆・裏・対偶を述べ、もとの命題を含めた4つの真偽を答えよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>逆「\(x^2\gt1\Rightarrow x\gt1\)」、裏「\(x\le1\Rightarrow x^2\le1\)」、対偶「\(x^2\le1\Rightarrow x\le1\)」。</p>
+        <p>調べるのは「もと」と「逆」だけ。もと：\(x\gt1\) なら \(x^2\gt1\) で真。逆：\(x=-2\) が反例で偽。対偶はもとと、裏は逆と同じ真偽。</p>
+        <p class="answer">もと：真、逆：偽（反例 \(x=-2\)）、裏：偽（反例 \(x=-2\)）、対偶：真</p>
+        <p class="point">裏をつくるとき「\(x\gt1\)」の否定は「\(x\le1\)」（等号つき）。\(x\lt1\) としないこと。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="logic-p9" data-level="2">
@@ -325,6 +517,16 @@
       <p class="answer">（証明終）</p>
       <p class="point">答案では「対偶を示す」と最初に宣言し、対偶の文を書いてから証明する。\(n=3k+1,\ 3k+2\) と分けてもよい。この (2) は P11 の「\(\sqrt3\) は無理数」の証明の部品になる。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) 整数 \(n\) について、\(n^2-1\) が8の倍数でないならば \(n\) は偶数であることを示せ。<br>(2) 実数 \(x,y\) について、\(x^2+y^2\gt2\) ならば \(\abs x\gt1\) または \(\abs y\gt1\) であることを示せ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 仮定が「〜でない」の形で扱いにくいので対偶「\(n\) が奇数ならば \(n^2-1\) は8の倍数」を示す。\(n=2k+1\) とおくと \(n^2-1=4k(k+1)\)、\(k(k+1)\) は連続2整数の積で偶数。</p>
+        <p>(2) 結論が「または」なので対偶「\(\abs x\le1\) かつ \(\abs y\le1\) ならば \(x^2+y^2\le2\)」を示す。\(x^2\le1,\ y^2\le1\) を足せばよい。</p>
+        <p class="answer">(1) 対偶「\(n\) が奇数 \(\Rightarrow\) \(n^2-1=4k(k+1)\) は8の倍数」を示せばよい　(2) 対偶「\(\abs x\le1\) かつ \(\abs y\le1\) \(\Rightarrow\) \(x^2+y^2\le2\)」を示せばよい（証明終）</p>
+        <p class="point">答案には最初に「対偶を示す」と書き、対偶の命題を正確に書いてから証明する。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="logic-p10" data-level="2">
@@ -349,6 +551,16 @@
       <p class="answer">（証明終）</p>
       <p class="point">「互いに素」を最初に書かないと、最後の矛盾が言えない。同じ方法で \(\sqrt3\)（P9 の (2) を使う）、\(\sqrt5\) なども示せる。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(\sqrt[3]{2}\) が無理数であることを証明せよ。ただし、整数 \(p\) について「\(p^3\) が偶数ならば \(p\) は偶数」であることは用いてよい。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>有理数と仮定して \(\sqrt[3]{2}=\dfrac pq\)（\(p,q\) は互いに素な自然数）とおく。3乗して \(p^3=2q^3\)、よって \(p^3\) は偶数なので \(p\) は偶数。</p>
+        <p>\(p=2k\) を代入すると \(8k^3=2q^3\)、\(q^3=4k^3\) で \(q\) も偶数。\(p,q\) がともに偶数となり、互いに素に矛盾。</p>
+        <p class="answer">\(\sqrt[3]{2}=\dfrac pq\)（既約）と仮定すると \(p,q\) がともに偶数となり矛盾。よって無理数（証明終）</p>
+        <p class="point">「互いに素」と最初に書いておかないと、最後の矛盾が言えない。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="logic-p11" data-level="3">
@@ -375,6 +587,16 @@
       <p class="answer">（証明終）</p>
       <p class="point">「無理数 + 無理数 = 無理数」は一般には誤り（\(\sqrt2+(-\sqrt2)=0\)）。だから「\(\sqrt2\) と \(\sqrt3\) が無理数だから和も無理数」は証明にならない。一方「有理数 + 無理数 = 無理数」は正しい（差をとると背理法で示せる）。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(\sqrt3\) が無理数であることを用いて、\(\sqrt2+\sqrt6\) が無理数であることを証明せよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\(\sqrt2+\sqrt6=r\)（\(r\) は有理数）と仮定する。両辺を2乗すると \(8+2\sqrt{12}=r^2\)、すなわち \(8+4\sqrt3=r^2\)。</p>
+        <p>\(\sqrt3=\dfrac{r^2-8}{4}\) となり、右辺は有理数どうしの四則演算なので有理数。\(\sqrt3\) が無理数であることに矛盾する。</p>
+        <p class="answer">有理数 \(r\) と仮定すると \(\sqrt3=\dfrac{r^2-8}{4}\) が有理数となり矛盾。よって \(\sqrt2+\sqrt6\) は無理数（証明終）</p>
+        <p class="point">2乗する目的は「既に無理数と分かっている \(\sqrt3\) を \(r\) で表すこと」。\(\sqrt3\) が1か所だけに残る形を作る。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="logic-p12" data-level="3">
@@ -399,6 +621,16 @@
       <p class="answer">（証明終）</p>
       <p class="point">よくある誤解：「\(N\) 自身が新しい素数になる」わけではない（\(2\cdot3\cdot5\cdot7\cdot11\cdot13+1=30031=59\times509\)）。言えるのは「\(N\) の素因数がリストにない」こと。答案でもそう書く。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(x^2=4y^2+2\) を満たす整数 \(x,y\) の組は存在しないことを証明せよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>存在すると仮定し、整数の組 \((x,y)\) をとる。右辺 \(4y^2+2\) は偶数なので \(x^2\) は偶数、よって \(x\) は偶数。</p>
+        <p>\(x=2k\) とおくと \(4k^2=4y^2+2\)、すなわち \(2(k^2-y^2)=1\)。左辺は偶数、右辺は奇数で矛盾。</p>
+        <p class="answer">存在すると仮定すると \(2(k^2-y^2)=1\)（偶数＝奇数）となり矛盾。よって存在しない（証明終）</p>
+        <p class="point">「存在しない」は1つずつ調べられないので背理法。仮定で手に入れた具体的な \(x,y\) を式で追いかける。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="logic-p13" data-level="2">
@@ -423,6 +655,16 @@
       <p class="answer">（証明終）</p>
       <p class="point">(2) で「\(x=1\) を代入すると成り立つ」と書くのは誤り。それは「\(x=1\) なら条件を満たす」（逆向き）を確かめているにすぎない。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) 実数 \(x,y\) が \(xy+2=2x+y\) を満たすとき、\(x=1\) または \(y=2\) であることを示せ。<br>(2) 実数 \(x,y\) が \(x^2+y^2-2x+4y+5=0\) を満たすとき、\(x,y\) の値を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 「\(x=1\) または \(y=2\)」⇔ \((x-1)(y-2)=0\)。条件を移項すると \(xy-2x-y+2=0\)、これが \((x-1)(y-2)=0\) と因数分解できる。</p>
+        <p>(2) 平方完成して \((x-1)^2+(y+2)^2=0\)。実数の2乗の和が0 ⇔ ともに0。</p>
+        <p class="answer">(1) \((x-1)(y-2)=0\) より \(x=1\) または \(y=2\)（証明終）　(2) \(x=1,\ y=-2\)</p>
+        <p class="point">「少なくとも一方」は積＝0、「ともに」は2乗の和＝0 に翻訳する。(2) は \(x,y\) が実数だから使える。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="logic-p14" data-level="3">
@@ -446,13 +688,46 @@
       <p class="answer">（証明終）</p>
       <p class="point">発展：このとき残り2つの和は0になる（例えば \(a=1\) なら \(b+c=0\)）。「少なくとも1つ」の問題では、ゴールの式を先に書いてから計算を始めると迷わない。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">実数 \(a,b,c\) が \(a+b+c=ab+bc+ca\) かつ \(abc=1\) を満たすとき、\(a,b,c\) のうち少なくとも1つは1であることを示せ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>示すべきことは \((a-1)(b-1)(c-1)=0\)。展開すると \(abc-(ab+bc+ca)+(a+b+c)-1\)。</p>
+        <p>条件 \(a+b+c=ab+bc+ca\) で真ん中の2項が打ち消し合い、\(abc=1\) で残りも \(1-1=0\)。</p>
+        <p class="answer">\((a-1)(b-1)(c-1)=abc-(ab+bc+ca)+(a+b+c)-1=0\) より、少なくとも1つは1（証明終）</p>
+        <p class="point">例えば \(a=1,\ b=2,\ c=\frac12\) は条件を満たす。具体例で確かめておくと安心。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="logic-p15" data-level="3">
     <h3><span class="pid">P15</span>「必要十分条件を求めよ」の答案の書き方</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「\(0\le x\le1\) を満たすすべての \(x\) について \(ax+b\gt0\) が成り立つための、\(a,b\) の必要十分条件を求めよ」</dd>
-      <dt>こう考える</dt><dd>答案は<b>2段構え</b>：①【必要性】条件が成り立つなら、特別な値（端点など）でも成り立つ → 候補の条件が出る。②【十分性】その候補の条件があれば、もとの条件がすべての場合に成り立つことを示す。</dd>
+      <dt>こう考える</dt><dd>答案は<b>2段構え</b>：①【必要性】条件が成り立つなら、特別な値（端点など）でも成り立つ → 候補の条件が出る。②【十分性】その候補の条件があれば、もとの条件がすべての場合に成り立つことを示す。
+        <figure class="fig narrow"><svg viewBox="0 0 340 200" role="img" aria-label="0≦x≦1 での直線 y=ax+b。両端が正なら間も正">
+<rect class="region" x="24.0" y="18.0" width="286.0" height="123.2"/>
+<line class="axis" x1="16.0" y1="141.2" x2="318.0" y2="141.2"/>
+<text x="320.0" y="145.2" font-size="12" text-anchor="start" font-style="italic">x</text>
+<line class="axis" x1="79.6" y1="194.0" x2="79.6" y2="10.0"/>
+<text x="83.6" y="10.0" font-size="12" text-anchor="start" font-style="italic">y</text>
+<text x="75.6" y="154.2" font-size="12" text-anchor="end">O</text>
+<line class="aux" x1="238.5" y1="186.0" x2="238.5" y2="18.0"/>
+<text x="242.5" y="154.2" font-size="12" text-anchor="start">1</text>
+<polyline class="curve" points="79.6,118.8 238.5,59.1"/>
+<circle class="hl" cx="79.6" cy="118.8" r="4"/>
+<circle class="hl" cx="238.5" cy="59.1" r="4"/>
+<polyline class="aux" points="31.9,136.7 79.6,118.8"/>
+<polyline class="aux" points="238.5,59.1 302.1,35.2"/>
+<polyline class="curve2" points="79.6,44.1 238.5,122.5"/>
+<circle class="hl" cx="79.6" cy="44.1" r="4"/>
+<circle class="hl" cx="238.5" cy="122.5" r="4"/>
+<polyline class="aux" points="31.9,20.6 79.6,44.1"/>
+<polyline class="aux" points="238.5,122.5 302.1,153.9"/>
+<text x="74.6" y="122.8" font-size="12" text-anchor="end" font-style="italic">b</text>
+<text x="244.5" y="54.1" font-size="12" text-anchor="start" font-style="italic">a+b</text>
+<text x="159.1" y="29.2" font-size="11" text-anchor="middle" font-family="sans-serif">y＞0 の部分</text>
+</svg><figcaption>\(0\le x\le1\) では \(y=ax+b\) は線分。両端 \(x=0\)（値 \(b\)）と \(x=1\)（値 \(a+b\)）が正なら、線分全体が塗った部分 \(y\gt0\) に入る（十分性の図）。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>「（必要性）」と見出しをつけ、\(x=0,1\) など扱いやすい値を代入して条件を出す。</li>
         <li>「（十分性）」と見出しをつけ、出した条件のもとで、すべての \(x\) について成り立つことを示す。</li>
@@ -473,6 +748,16 @@
       <p class="answer">(2) \(b\gt0\) かつ \(a+b\gt0\)</p>
       <p class="point">(2) は「1次関数は区間の端で最小になる」と言ってもよい（\(y=ax+b\) のグラフは直線なので、両端が正なら間も正）。採点では「必要性」「十分性」の両方が書かれているかが見られる。代入して出た条件だけで答えると、十分性の欠落で大きく減点される。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(a,b\) を実数の定数とする。\(-1\le x\le1\) を満たすすべての実数 \(x\) について \(\abs{ax+b}\le1\) が成り立つための、\(a,b\) の必要十分条件を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>（必要性）端点で成り立たなければならない。\(x=1\) で \(\abs{a+b}\le1\)、\(x=-1\) で \(\abs{-a+b}\le1\)。</p>
+        <p>（十分性）\(-1\le x\le1\) のとき \(ax+b=\dfrac{1+x}{2}(a+b)+\dfrac{1-x}{2}(b-a)\) で、係数 \(\frac{1+x}{2},\ \frac{1-x}{2}\) は0以上で和が1。よって \(\abs{ax+b}\le\frac{1+x}{2}\cdot1+\frac{1-x}{2}\cdot1=1\)。</p>
+        <p class="answer">\(\abs{a+b}\le1\) かつ \(\abs{a-b}\le1\)</p>
+        <p class="point">「直線は両端の値の間にある」ことを式で書いたのが十分性。必要性だけで答えると減点。</p>
+      </div></details>
+    </div>
   </article>
 </section>
 

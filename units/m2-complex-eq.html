@@ -118,6 +118,17 @@
       <p>(3) \(\sqrt2\,i\cdot\sqrt3\,i=\sqrt6\,i^2\)。<span class="answer">\(-\sqrt6\)</span></p>
       <p class="point">(3) を \(\sqrt{(-2)(-3)}=\sqrt6\) とするのは典型的な誤り。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">次の計算をせよ。(1) \(\dfrac{2+3i}{3-2i}\)　(2) \((1+i)^8\)　(3) \(\dfrac{\sqrt{12}}{\sqrt{-3}}\)</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 分母の共役 \(3+2i\) を分母・分子に掛ける：\(\dfrac{(2+3i)(3+2i)}{9+4}=\dfrac{6+4i+9i+6i^2}{13}=\dfrac{13i}{13}\)。</p>
+        <p>(2) 8回掛けずに \((1+i)^2=2i\) を先に作る：\((1+i)^8=\{(1+i)^2\}^4=(2i)^4=16i^4\)。</p>
+        <p>(3) 先に \(\sqrt{-3}=\sqrt3\,i\) と \(i\) を出す：\(\dfrac{2\sqrt3}{\sqrt3\,i}=\dfrac2i=\dfrac{2i}{i^2}\)。</p>
+        <p class="answer">(1) \(i\)　(2) \(16\)　(3) \(-2i\)</p>
+        <p class="point">(3) を \(\sqrt{\frac{12}{-3}}=\sqrt{-4}=2i\) とすると符号が逆になる。負の数の根号は、計算の前に必ず \(i\) を出す。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="ceq-p2" data-level="1">
@@ -140,13 +151,42 @@
       <p>\(y=\frac2x\) を代入して \(x^4-3x^2-4=0\)、\((x^2-4)(x^2+1)=0\)。\(x\) は実数なので \(x^2=4\)、\(x=\pm2\)、\(y=\pm1\)（複号同順）。</p>
       <p class="answer">\(z=\pm(2+i)\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) \(\dfrac{x}{1+i}+\dfrac{y}{1-i}=\dfrac{5}{2+i}\) を満たす実数 \(x,y\) を求めよ。<br>(2) \(z^2=-5-12i\) を満たす複素数 \(z\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 各分母を実数化して整理：左辺 \(=\dfrac{x(1-i)+y(1+i)}{2}=\dfrac{x+y}{2}+\dfrac{y-x}{2}i\)、右辺 \(=2-i\)。\(x,y\) は実数なので実部・虚部を比べ \(x+y=4,\ y-x=-2\)。</p>
+        <p>(2) \(z=a+bi\)（\(a,b\) 実数）とおくと \(a^2-b^2=-5,\ 2ab=-12\)。\(b=-\frac6a\) を代入して \(a^4+5a^2-36=0\)、\((a^2+9)(a^2-4)=0\)。\(a\) は実数なので \(a=\pm2\)。</p>
+        <p class="answer">(1) \(x=3,\ y=1\)　(2) \(z=\pm(2-3i)\)</p>
+        <p class="point">(2) の検算：\((2-3i)^2=4-12i+9i^2=-5-12i\)。\(a^2=-9\) を「\(a=\pm3i\)」として残さないこと（\(a\) は実数とおいた）。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="ceq-p3" data-level="2">
     <h3><span class="pid">P3</span>共役複素数の性質を使う</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「\(z+\frac1z\) が実数となる虚数 \(z\)」「\(z=2+3i\) を解にもつ実数係数の2次方程式」「\(z\bar z\)」</dd>
-      <dt>こう考える</dt><dd>「\(w\) が実数」は \(\bar w=w\) と<b>等式で言い換えられる</b>。成分 \(a+bi\) で計算するより、共役の計算規則でまとめて処理すると速い。</dd>
+      <dt>こう考える</dt><dd>「\(w\) が実数」は \(\bar w=w\) と<b>等式で言い換えられる</b>。成分 \(a+bi\) で計算するより、共役の計算規則でまとめて処理すると速い。
+        <figure class="fig narrow"><svg viewBox="0 0 340 250" role="img" aria-label="単位円上の z と共役複素数">
+<line class="axis" x1="20.9" y1="125.0" x2="319.1" y2="125.0"/>
+<line class="axis" x1="170.0" y1="240.0" x2="170.0" y2="10.0"/>
+<text x="318.1" y="120.0" font-size="11" text-anchor="end">実軸</text>
+<text x="175.0" y="20.0" font-size="11" text-anchor="start">虚軸</text>
+<text x="166.0" y="138.0" font-size="12" text-anchor="end">O</text>
+<circle class="curve" cx="170.0" cy="125.0" r="85.2"/>
+<line class="aux" x1="170.0" y1="125.0" x2="224.8" y2="59.7"/>
+<line class="aux" x1="170.0" y1="125.0" x2="224.8" y2="190.3"/>
+<line class="aux" x1="224.8" y1="59.7" x2="224.8" y2="190.3"/>
+<circle class="hl" cx="224.8" cy="59.7" r="4"/>
+<circle class="hl" cx="224.8" cy="190.3" r="4"/>
+<text x="231.8" y="55.7" font-size="13" text-anchor="start" font-style="italic">z</text>
+<text x="232.8" y="203.3" font-size="13" text-anchor="start" font-style="italic">z</text>
+<line class="axis" x1="232.8" y1="192.3" x2="239.3" y2="192.3" style="stroke:currentColor"/>
+<text x="242.8" y="203.3" font-size="13" text-anchor="start">= 1/<tspan font-style="italic">z</tspan></text>
+<text x="259.2" y="139.0" font-size="12" text-anchor="start">1</text>
+<text x="84.8" y="48.3" font-size="12" text-anchor="middle">|z|=1</text>
+</svg><figcaption>\(z\bar z=\abs z^2=1\) のとき \(\frac1z=\bar z\)（実軸について対称な点）。だから \(z+\frac1z=z+\bar z\) は実数になる。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>実数条件を \(\bar w=w\) と書く（\(\overline{z+\frac1z}=\bar z+\frac{1}{\bar z}\)）。</li>
         <li>移項して因数分解し、\(z-\bar z\) の因数を作る。</li>
@@ -163,13 +203,47 @@
       <p>\(z\) は虚数なので \(z\neq\bar z\)。よって \(1-\frac1{z\bar z}=0\)、\(z\bar z=1\)。（証明終）</p>
       <p class="point">(2) の結論は \(z=a+bi\) なら \(a^2+b^2=1\)、つまり \(z\) は複素数平面の単位円上にある。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">虚数 \(z\)（ただし \(z\neq\pm i\)）について、\(\dfrac{z}{z^2+1}\) が実数であるとき、\(\abs{z}\) の値を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\(w=\dfrac{z}{z^2+1}\) が実数 \(\iff\bar w=w\)：\(\dfrac{\bar z}{\bar z^2+1}=\dfrac{z}{z^2+1}\)。分母を払うと \(\bar z(z^2+1)=z(\bar z^2+1)\)。</p>
+        <p>移項して因数分解：\(z\bar z(z-\bar z)-(z-\bar z)=(z-\bar z)(z\bar z-1)=0\)。\(z\) は虚数なので \(z-\bar z\neq0\)、よって \(z\bar z=\abs z^2=1\)。</p>
+        <p class="answer">\(\abs z=1\)</p>
+        <p class="point">成分 \(z=a+bi\) で計算すると、虚部 \(=0\) の条件は \(-b(a^2+b^2-1)=0\) となり（\(b\neq0\)）同じ結論になる。共役で計算した方が短い。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="ceq-p4" data-level="1">
     <h3><span class="pid">P4</span>2次方程式の解の判別（虚数解）</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x^2+2(k-1)x+k+5=0\) の解の種類を判別せよ」「虚数解をもつ \(k\) の範囲」</dd>
-      <dt>こう考える</dt><dd>解の公式の \(\sqrt{\ }\) の中身 \(D\) の符号で、解が実数か虚数かが決まる。<b>係数が実数であること</b>が前提。</dd>
+      <dt>こう考える</dt><dd>解の公式の \(\sqrt{\ }\) の中身 \(D\) の符号で、解が実数か虚数かが決まる。<b>係数が実数であること</b>が前提。
+        <figure class="fig row"><svg viewBox="0 0 200 165" role="img" aria-label="① k=−2：D＞0">
+<line class="axis" x1="8.0" y1="89.3" x2="192.0" y2="89.3"/>
+<line class="axis" x1="63.2" y1="141.0" x2="63.2" y2="8.0"/>
+<text x="191.0" y="84.3" font-size="12" text-anchor="end" font-style="italic">x</text>
+<polyline class="curve" points="42.5,8.0 43.3,10.4 44.8,15.4 46.3,20.3 47.9,25.0 49.4,29.7 50.9,34.3 52.5,38.7 54.0,43.1 55.5,47.4 57.1,51.5 58.6,55.6 60.1,59.5 61.7,63.4 63.2,67.1 64.7,70.8 66.3,74.3 67.8,77.7 69.3,81.1 70.9,84.3 72.4,87.4 73.9,90.5 75.5,93.4 77.0,96.2 78.5,98.9 80.1,101.5 81.6,104.1 83.1,106.5 84.7,108.8 86.2,111.0 87.7,113.1 89.3,115.1 90.8,117.0 92.3,118.8 93.9,120.5 95.4,122.1 96.9,123.6 98.5,124.9 100.0,126.2 101.5,127.4 103.1,128.5 104.6,129.5 106.1,130.3 107.7,131.1 109.2,131.8 110.7,132.3 112.3,132.8 113.8,133.1 115.3,133.4 116.9,133.6 118.4,133.6 119.9,133.6 121.5,133.4 123.0,133.1 124.5,132.8 126.1,132.3 127.6,131.8 129.1,131.1 130.7,130.3 132.2,129.5 133.7,128.5 135.3,127.4 136.8,126.2 138.3,124.9 139.9,123.6 141.4,122.1 142.9,120.5 144.5,118.8 146.0,117.0 147.5,115.1 149.1,113.1 150.6,111.0 152.1,108.8 153.7,106.5 155.2,104.1 156.7,101.5 158.3,98.9 159.8,96.2 161.3,93.4 162.9,90.5 164.4,87.4 165.9,84.3 167.5,81.1 169.0,77.7 170.5,74.3 172.1,70.8 173.6,67.1 175.1,63.4 176.7,59.5 178.2,55.6 179.7,51.5 181.3,47.4 182.8,43.1 184.3,38.7 185.9,34.3 187.4,29.7 188.9,25.0 190.5,20.3 192.0,15.4"/>
+<circle class="hl" cx="73.3" cy="89.3" r="3.5"/>
+<circle class="hl" cx="163.5" cy="89.3" r="3.5"/>
+<text x="100.0" y="161.0" font-size="11.5" text-anchor="middle" font-family="sans-serif">① k=−2：D&gt;0</text>
+</svg>
+<svg viewBox="0 0 200 165" role="img" aria-label="② k=−1：D=0">
+<line class="axis" x1="8.0" y1="89.3" x2="192.0" y2="89.3"/>
+<line class="axis" x1="63.2" y1="141.0" x2="63.2" y2="8.0"/>
+<text x="191.0" y="84.3" font-size="12" text-anchor="end" font-style="italic">x</text>
+<polyline class="curve" points="39.0,8.0 40.2,11.2 41.7,15.2 43.3,19.0 44.8,22.8 46.3,26.4 47.9,30.0 49.4,33.4 50.9,36.7 52.5,40.0 54.0,43.1 55.5,46.1 57.1,49.0 58.6,51.9 60.1,54.6 61.7,57.2 63.2,59.7 64.7,62.1 66.3,64.4 67.8,66.6 69.3,68.8 70.9,70.8 72.4,72.7 73.9,74.4 75.5,76.1 77.0,77.7 78.5,79.2 80.1,80.6 81.6,81.9 83.1,83.1 84.7,84.1 86.2,85.1 87.7,86.0 89.3,86.8 90.8,87.4 92.3,88.0 93.9,88.5 95.4,88.8 96.9,89.1 98.5,89.2 100.0,89.3 101.5,89.2 103.1,89.1 104.6,88.8 106.1,88.5 107.7,88.0 109.2,87.4 110.7,86.8 112.3,86.0 113.8,85.1 115.3,84.1 116.9,83.1 118.4,81.9 119.9,80.6 121.5,79.2 123.0,77.7 124.5,76.1 126.1,74.4 127.6,72.7 129.1,70.8 130.7,68.8 132.2,66.6 133.7,64.4 135.3,62.1 136.8,59.7 138.3,57.2 139.9,54.6 141.4,51.9 142.9,49.0 144.5,46.1 146.0,43.1 147.5,40.0 149.1,36.7 150.6,33.4 152.1,30.0 153.7,26.4 155.2,22.8 156.7,19.0 158.3,15.2 159.8,11.2 161.0,8.0"/>
+<circle class="hl" cx="100.0" cy="89.3" r="3.5"/>
+<text x="100.0" y="161.0" font-size="11.5" text-anchor="middle" font-family="sans-serif">② k=−1：D=0</text>
+</svg>
+<svg viewBox="0 0 200 165" role="img" aria-label="③ k=1：D＜0">
+<line class="axis" x1="8.0" y1="89.3" x2="192.0" y2="89.3"/>
+<line class="axis" x1="63.2" y1="141.0" x2="63.2" y2="8.0"/>
+<text x="191.0" y="84.3" font-size="12" text-anchor="end" font-style="italic">x</text>
+<polyline class="curve" points="22.1,8.0 23.3,10.3 24.9,12.9 26.4,15.4 27.9,17.8 29.5,20.1 31.0,22.3 32.5,24.4 34.1,26.4 35.6,28.3 37.1,30.1 38.7,31.8 40.2,33.4 41.7,34.9 43.3,36.3 44.8,37.6 46.3,38.7 47.9,39.8 49.4,40.8 50.9,41.7 52.5,42.4 54.0,43.1 55.5,43.7 57.1,44.1 58.6,44.5 60.1,44.7 61.7,44.9 63.2,44.9 64.7,44.9 66.3,44.7 67.8,44.5 69.3,44.1 70.9,43.7 72.4,43.1 73.9,42.4 75.5,41.7 77.0,40.8 78.5,39.8 80.1,38.7 81.6,37.6 83.1,36.3 84.7,34.9 86.2,33.4 87.7,31.8 89.3,30.1 90.8,28.3 92.3,26.4 93.9,24.4 95.4,22.3 96.9,20.1 98.5,17.8 100.0,15.4 101.5,12.9 103.1,10.3 104.3,8.0"/>
+<text x="100.0" y="161.0" font-size="11.5" text-anchor="middle" font-family="sans-serif">③ k=1：D&lt;0</text>
+</svg><figcaption>\(y=x^2+2(k-1)x+k+5\) のグラフ。\(x\) 軸との共有点（赤）が実数解。\(D\lt0\) では共有点がなく、解は虚数になる。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>\(x\) の係数が偶数なら \(D/4=b'^2-ac\) を使う。</li>
         <li>\(D\) を因数分解して符号を調べる。</li>
@@ -184,6 +258,16 @@
       <p class="answer">\(k\lt-1,\ 4\lt k\)：異なる2つの実数解／\(k=-1,\ 4\)：重解／\(-1\lt k\lt4\)：異なる2つの虚数解</p>
       <p class="point">重解は \(x=-(k-1)\)。\(k=-1\) で \(x=2\)、\(k=4\) で \(x=-3\)。代入して確かめると安心。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(k\) を実数の定数とする。\(x\) の方程式 \(kx^2+4x+k-3=0\) の解の種類を判別せよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\(x^2\) の係数が文字なので、まず \(k=0\) を分ける：\(4x-3=0\) で実数解 \(x=\frac34\) が1つ。</p>
+        <p>\(k\neq0\) のとき2次方程式で、\(D/4=4-k(k-3)=-(k^2-3k-4)=-(k-4)(k+1)\)。\(D/4\gt0\iff-1\lt k\lt4\)（ただし \(k\neq0\)）。</p>
+        <p class="answer">\(k\lt-1,\ 4\lt k\)：異なる2つの虚数解／\(k=-1,\ 4\)：重解／\(-1\lt k\lt0,\ 0\lt k\lt4\)：異なる2つの実数解／\(k=0\)：実数解 \(x=\frac34\)（1次方程式）</p>
+        <p class="point">「2次方程式」と書かれていない限り \(k=0\) を忘れない。\(D/4\) の符号は \(-(k-4)(k+1)\) と負号つきなので、範囲が例題と逆向きになる点も注意。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="ceq-p5" data-level="1">
@@ -206,6 +290,16 @@
       <p class="answer">\(1,\ -1,\ \dfrac23\)</p>
       <p class="point">この方程式の解は虚数（\(D/4=4-6\lt0\)）だが、対称式の値は実数になる。\((\alpha-\beta)^2=4-6=-2\) のように負になることもある。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">2次方程式 \(x^2-3x+5=0\) の2つの解を \(\alpha,\beta\) とする。\(\alpha^4+\beta^4\)、\(\dfrac{\beta^2}{\alpha}+\dfrac{\alpha^2}{\beta}\)、\((\alpha-\beta)^2\) の値を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\(\alpha+\beta=3,\ \alpha\beta=5\)。まず \(\alpha^2+\beta^2=9-10=-1\)。</p>
+        <p>\(\alpha^4+\beta^4=(\alpha^2+\beta^2)^2-2(\alpha\beta)^2=1-50\)。分数は通分して \(\dfrac{\alpha^3+\beta^3}{\alpha\beta}\)、\(\alpha^3+\beta^3=27-3\cdot5\cdot3=-18\)。\((\alpha-\beta)^2=(\alpha+\beta)^2-4\alpha\beta=9-20\)。</p>
+        <p class="answer">\(\alpha^4+\beta^4=-49\)、\(\dfrac{\beta^2}{\alpha}+\dfrac{\alpha^2}{\beta}=-\dfrac{18}{5}\)、\((\alpha-\beta)^2=-11\)</p>
+        <p class="point">4乗和は「2乗和の2乗 \(-2\times\)積の2乗」。解は虚数なので、値が負になっても誤りではない。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="ceq-p6" data-level="2">
@@ -228,6 +322,16 @@
       <p class="answer">\(k=8\)、解は \(x=2,\ 4\)</p>
       <p class="point">「和が2、積が5の2数」は \(t^2-2t+5=0\) の解 \(1\pm2i\)。実数とは限らないことに注意。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) \(x^2-3x+1=0\) の2つの解を \(\alpha,\beta\) とするとき、\(\alpha+\dfrac1\beta,\ \beta+\dfrac1\alpha\) を解とする2次方程式を1つ作れ。<br>(2) \(x\) の2次方程式 \(x^2-kx+k+2=0\) の一方の解が他方の解より2だけ大きいとき、定数 \(k\) の値と2つの解を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 和 \(=(\alpha+\beta)+\dfrac{\alpha+\beta}{\alpha\beta}=3+3=6\)、積 \(=\alpha\beta+2+\dfrac{1}{\alpha\beta}=1+2+1=4\)。\(x^2-(\text{和})x+(\text{積})=0\)。</p>
+        <p>(2) 2つの解を \(\alpha,\ \alpha+2\) とおく。和：\(2\alpha+2=k\)、積：\(\alpha(\alpha+2)=k+2=2\alpha+4\)。よって \(\alpha^2=4\)、\(\alpha=\pm2\)。</p>
+        <p class="answer">(1) \(x^2-6x+4=0\)　(2) \(k=6\)（解 \(2,\ 4\)）、\(k=-2\)（解 \(-2,\ 0\)）</p>
+        <p class="point">(2) は \(\alpha=-2\) の方を落としやすい。\(k=-2\) のとき方程式は \(x^2+2x=0\) で、確かに解は \(0,\ -2\)。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="ceq-p7" data-level="2">
@@ -252,6 +356,16 @@
       <p>(3) 各解は \(t^3=2t^2-3t+4\) を満たすので、足して \(\alpha^3+\beta^3+\gamma^3=2(-2)-3\cdot2+3\cdot4=2\)。<span class="answer">\(2\)</span></p>
       <p class="point">(1) が負になるのは、解に虚数が含まれるから。実数解だけなら2乗和は負にならない。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">3次方程式 \(x^3+2x^2-x+3=0\) の3つの解を \(\alpha,\beta,\gamma\) とする。次の値を求めよ。<br>(1) \(\dfrac1\alpha+\dfrac1\beta+\dfrac1\gamma\)　(2) \((1-\alpha)(1-\beta)(1-\gamma)\)　(3) \(\alpha^2\beta^2+\beta^2\gamma^2+\gamma^2\alpha^2\)</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\(\alpha+\beta+\gamma=-2,\ \alpha\beta+\beta\gamma+\gamma\alpha=-1,\ \alpha\beta\gamma=-3\)（符号は \(-\frac ba,\ \frac ca,\ -\frac da\)）。</p>
+        <p>(1) 通分して \(\dfrac{\alpha\beta+\beta\gamma+\gamma\alpha}{\alpha\beta\gamma}\)。(2) \(f(x)=(x-\alpha)(x-\beta)(x-\gamma)\) に \(x=1\) を代入すると \(f(1)\) そのもの。(3) \(\alpha\beta,\beta\gamma,\gamma\alpha\) の2乗和なので \((\alpha\beta+\beta\gamma+\gamma\alpha)^2-2\alpha\beta\gamma(\alpha+\beta+\gamma)\)。</p>
+        <p class="answer">(1) \(\dfrac13\)　(2) \(5\)　(3) \(-11\)</p>
+        <p class="point">(3) の \(\alpha\beta\cdot\beta\gamma+\beta\gamma\cdot\gamma\alpha+\gamma\alpha\cdot\alpha\beta=\alpha\beta\gamma(\alpha+\beta+\gamma)\) は頻出。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="ceq-p8" data-level="1">
@@ -273,6 +387,16 @@
       <p>\(P(x)=x^3+2x^2+3x-6\) を \(2x-1\) で割った余りは \(P\left(\frac12\right)=\frac18+\frac12+\frac32-6=-\frac{31}{8}\)。</p>
       <p class="answer">\(a=2,\ b=3\)、余り \(-\dfrac{31}{8}\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(P(x)=2x^3+ax^2+bx+3\) は \(2x-1\) で割り切れ、\(x+1\) で割ると余りが6である。定数 \(a,b\) の値と、\(P(x)\) を \(x-2\) で割った余りを求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>「\(2x-1\) で割り切れる」\(\iff P\left(\frac12\right)=0\)：\(\frac14+\frac a4+\frac b2+3=0\)、すなわち \(a+2b=-13\)。</p>
+        <p>「\(x+1\) で割った余りが6」\(\iff P(-1)=6\)：\(1+a-b=6\)。連立して \(a,b\)。余りは \(P(2)\)。</p>
+        <p class="answer">\(a=-1,\ b=-6\)、\(x-2\) で割った余りは \(3\)</p>
+        <p class="point">\(2x-1\) で割り切れる条件は \(P(2)=0\) でも \(P(1)=0\) でもなく \(P\left(\frac12\right)=0\)（割る式 \(=0\) となる \(x\) を代入）。実際 \(P(x)=(2x-1)(x^2-3)\)。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="ceq-p9" data-level="2">
@@ -294,6 +418,16 @@
       <p>\(P(1)=a+b=3\)、\(P(-2)=-2a+b=-3\)。辺々引いて \(3a=6\)、\(a=2,\ b=1\)。</p>
       <p class="answer">\(2x+1\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">整式 \(P(x)\) を \(x^2-3x+2\) で割ると余りが \(3x-1\)、\(x+3\) で割ると余りが \(-5\) である。\(P(x)\) を \(x^2+x-6\) で割った余りを求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\(x^2-3x+2=(x-1)(x-2)\) なので、1つ目の条件から \(P(2)=3\cdot2-1=5\)（\(P(1)=2\) も分かるが今回は使わない）。2つ目から \(P(-3)=-5\)。</p>
+        <p>\(x^2+x-6=(x-2)(x+3)\)。余りを \(ax+b\) とおき、\(P(x)=(x-2)(x+3)Q(x)+ax+b\) に \(x=2,\ -3\) を代入：\(2a+b=5,\ -3a+b=-5\)。</p>
+        <p class="answer">\(2x+1\)</p>
+        <p class="point">割る式を因数分解すると、どの値を代入すればよいかが見える。2次式の余り \(3x-1\) からも「その因数が 0 になる \(x\)」での値が取り出せる。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="ceq-p10" data-level="2">
@@ -317,6 +451,16 @@
       \[ R(x)=-\frac13(x-1)^2+2x+1=-\frac13x^2+\frac83x+\frac23 \]
       <p class="answer">\(-\dfrac13x^2+\dfrac83x+\dfrac23\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">整式 \(P(x)\) を \((x+1)^2\) で割ると余りが \(x-2\)、\(x-1\) で割ると余りが3である。\(P(x)\) を \((x+1)^2(x-1)\) で割った余りを求めよ。また、\(P(x)\) を \(x^2-1\) で割った余りを求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\((x+1)^2(x-1)\) で割った余り \(R(x)\) は2次以下で、\(R(x)\) を \((x+1)^2\) で割った余りは \(x-2\)。よって \(R(x)=a(x+1)^2+x-2\) とおける。\(P(1)=R(1)=4a-1=3\) より \(a=1\)。</p>
+        <p>\(x^2-1\) で割った余り：\(P(1)=3,\ P(-1)=-1-2=-3\) を使い、余り \(cx+d\) について \(c+d=3,\ -c+d=-3\)。（\(R(x)\) を \(x^2-1\) で割っても同じ）</p>
+        <p class="answer">\((x+1)^2(x-1)\) で割った余り \(x^2+3x-1\)、\(x^2-1\) で割った余り \(3x\)</p>
+        <p class="point">\(P(-1)\) は「\((x+1)^2\) で割った余り \(x-2\) に \(x=-1\) を代入」して \(-3\)。重解型の条件からも普通の剰余の定理の値が取り出せる。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="ceq-p11" data-level="3">
@@ -343,6 +487,16 @@
       <p class="answer">(2) \(x\)</p>
       <p class="point">(1) を \(n=2,3,4\) で実験すると \(2x-1,\ 3x-2,\ 4x-3\) となり規則が見える。予想してから証明する姿勢が大切。<a href="../thinking.html#t-experiment">発想：小さい場合で実験</a></p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) \(n\) を2以上の整数とする。\(x^n\) を \((x+1)^2\) で割った余りを求めよ。<br>(2) \(x^{50}\) を \(x^2+x+1\) で割った余りを求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) \(x+1\) を主役にして \(x=-1+(x+1)\)。二項定理で \(x^n=(-1)^n+n(-1)^{n-1}(x+1)+\sum_{k\ge2}\C nk(-1)^{n-k}(x+1)^k\)。\(k\ge2\) の項は \((x+1)^2\) で割り切れる。</p>
+        <p>(2) \(x^3\) を \(x^2+x+1\) で割った余りは1（\(x^3-1=(x-1)(x^2+x+1)\)）。\(x^{50}=x^2\cdot(x^3)^{16}\) より、\(x^{50}\) と \(x^2\) の余りは等しい。\(x^2=(x^2+x+1)-x-1\)。</p>
+        <p class="answer">(1) \((-1)^{n-1}(nx+n-1)\)　(2) \(-x-1\)</p>
+        <p class="point">(1) の検算：\(n=2\) で \(x^2=(x+1)^2-2x-1\) より余り \(-2x-1\)、公式と一致。(2) は「\(x^2\)」で止めず、2次なのでもう一度割る。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="ceq-p12" data-level="1">
@@ -367,13 +521,39 @@
       <p class="answer">(2) \(x=-1\pm i,\ 1\pm i\)</p>
       <p class="point">(2) は \(x^2=\pm2i\) と解いてもよいが、平方の差の方が実数係数の因数分解が見えて速い。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">次の方程式を解け。(1) \(3x^3+x^2+x-2=0\)　(2) \(x^4+x^2+1=0\)</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 最高次の係数が3なので、解の候補は \(\pm1,\pm2,\pm\frac13,\pm\frac23\)。\(P\left(\frac23\right)=\frac89+\frac49+\frac23-2=0\)。組立除法で \((3x-2)(x^2+x+1)=0\)。</p>
+        <p>(2) \(x^4+x^2+1=(x^2+1)^2-x^2=(x^2+x+1)(x^2-x+1)\)（平方の差）。それぞれ解の公式。</p>
+        <p class="answer">(1) \(x=\dfrac23,\ \dfrac{-1\pm\sqrt3\,i}{2}\)　(2) \(x=\dfrac{-1\pm\sqrt3\,i}{2},\ \dfrac{1\pm\sqrt3\,i}{2}\)</p>
+        <p class="point">(1) で整数の候補 \(\pm1,\pm2\) だけ試して「解が見つからない」と止まらないこと。(2) は \(x^2=X\) とおくと \(X^2+X+1=0\) で \(X\) が虚数になり、そこから先が大変。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="ceq-p13" data-level="2">
     <h3><span class="pid">P13</span>1の3乗根 \(\omega\) の性質</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「\(x^3=1\) の虚数解の1つを \(\omega\) とするとき、\(\omega^{100}+\omega^{50}+1\) の値」「\(x^{2n}+x^n+1\) が \(x^2+x+1\) で割り切れることを示せ」</dd>
-      <dt>こう考える</dt><dd>\(\omega\) の具体的な値 \(\frac{-1+\sqrt3 i}{2}\) は使わない。使うのは <b>\(\omega^3=1\)（指数は3で割った余りだけが効く）と \(\omega^2+\omega+1=0\)</b> の2つだけ。</dd>
+      <dt>こう考える</dt><dd>\(\omega\) の具体的な値 \(\frac{-1+\sqrt3 i}{2}\) は使わない。使うのは <b>\(\omega^3=1\)（指数は3で割った余りだけが効く）と \(\omega^2+\omega+1=0\)</b> の2つだけ。
+        <figure class="fig narrow"><svg viewBox="0 0 340 250" role="img" aria-label="1, ω, ω² は単位円上の正三角形の頂点">
+<defs><marker id="ceq-arr13" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
+<circle class="curve" cx="170.0" cy="125.0" r="81.0"/>
+<polygon class="aux" points="251.0,125.0 129.5,54.9 129.5,195.1"/>
+<polyline class="curve2" points="259.0,97.5 257.5,93.1 255.8,88.8 253.9,84.5 251.8,80.4 249.4,76.4 246.9,72.5 244.2,68.7 241.3,65.1 238.3,61.6 235.0,58.3 231.6,55.2 228.1,52.2 224.4,49.4 220.5,46.8 216.6,44.3 212.5,42.1 208.3,40.1 204.0,38.3 199.7,36.7 195.2,35.4 190.8,34.2 186.2,33.3 181.6,32.6 177.0,32.1 172.4,31.9 167.7,31.9 163.1,32.1 158.5,32.6 153.9,33.3 149.3,34.2" marker-end="url(#ceq-arr13)"/>
+<polyline class="curve2" points="101.7,61.7 98.6,65.2 95.7,68.8 93.0,72.6 90.5,76.5 88.2,80.5 86.1,84.6 84.2,88.9 82.5,93.2 81.0,97.6 79.7,102.0 78.7,106.6 77.9,111.1 77.3,115.7 77.0,120.4 76.9,125.0 77.0,129.6 77.3,134.3 77.9,138.9 78.7,143.4 79.7,148.0 81.0,152.4 82.5,156.8 84.2,161.1 86.1,165.4 88.2,169.5 90.5,173.5 93.0,177.4 95.7,181.2 98.6,184.8 101.7,188.3" marker-end="url(#ceq-arr13)"/>
+<polyline class="curve2" points="149.3,215.8 153.9,216.7 158.5,217.4 163.1,217.9 167.7,218.1 172.4,218.1 177.0,217.9 181.6,217.4 186.2,216.7 190.8,215.8 195.2,214.6 199.7,213.3 204.0,211.7 208.3,209.9 212.5,207.9 216.6,205.7 220.5,203.2 224.4,200.6 228.1,197.8 231.6,194.8 235.0,191.7 238.3,188.4 241.3,184.9 244.2,181.3 246.9,177.5 249.4,173.6 251.8,169.6 253.9,165.5 255.8,161.2 257.5,156.9 259.0,152.5" marker-end="url(#ceq-arr13)"/>
+<circle class="hl" cx="251.0" cy="125.0" r="4"/>
+<circle class="hl" cx="129.5" cy="54.9" r="4"/>
+<circle class="hl" cx="129.5" cy="195.1" r="4"/>
+<text x="276.9" y="130.0" font-size="15" text-anchor="middle">1</text>
+<text x="116.5" y="37.4" font-size="15" text-anchor="middle" font-style="italic">ω</text>
+<text x="116.5" y="222.6" font-size="15" text-anchor="middle" font-style="italic">ω²</text>
+<text x="170.0" y="110.4" font-size="12" text-anchor="middle" font-family="sans-serif">×ω で</text>
+<text x="170.0" y="134.7" font-size="12" text-anchor="middle" font-family="sans-serif">120° 回転</text>
+</svg><figcaption>\(\omega^n\) は \(1\to\omega\to\omega^2\to1\to\cdots\) と周期3でくり返す（\(\omega\) を掛けるごとに \(120^\circ\) 回転）。たとえば \(\omega^4=\omega^7=\omega\)。3点の重心は原点なので \(1+\omega+\omega^2=0\)。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>指数を3で割った余りに直す：\(\omega^{100}=\omega^{3\cdot33+1}=\omega\)。</li>
         <li>\(1+\omega=-\omega^2\)、\(\frac1\omega=\omega^2\) などに置き換える。</li>
@@ -392,6 +572,16 @@
       <p>いずれも \(a\omega+b=0\)。\(a\neq0\) なら \(\omega=-\frac ba\) が実数となり矛盾。よって \(a=0\)、したがって \(b=0\)。余りが 0 なので割り切れる。（証明終）</p>
       <p class="point">\(n\) が3の倍数なら \(P(\omega)=3\neq0\) で割り切れない。逆向きの確認もしておくと理解が深まる。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(x^3=1\) の虚数解の1つを \(\omega\) とする。次の値を求めよ。<br>(1) \(\omega^{100}+\dfrac{1}{\omega^{100}}\)　(2) \((1+2\omega+3\omega^2)(1+3\omega+2\omega^2)\)</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) \(\omega^{100}=\omega^{99}\cdot\omega=\omega\)、\(\frac1\omega=\frac{\omega^3}{\omega}=\omega^2\)。よって \(\omega+\omega^2=-1\)。</p>
+        <p>(2) 展開して \(\omega^3=1\)、\(\omega^4=\omega\) で次数を下げると \(14+11\omega+11\omega^2=14+11(\omega+\omega^2)\)。</p>
+        <p class="answer">(1) \(-1\)　(2) \(3\)</p>
+        <p class="point">(2) は \(\omega^2+\omega+1=0\) を使える形（\(\omega\) と \(\omega^2\) の係数がそろう）になるのがポイント。具体的な値 \(\frac{-1+\sqrt3 i}{2}\) は代入しない。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="ceq-p14" data-level="2">
@@ -414,7 +604,32 @@
       <p>定数項より \(5c=10\)、\(c=2\)。よって \(a=c-2=0,\ b=5-2c=1\)。</p>
       <p class="answer">\(a=0,\ b=1\)、他の解は \(x=1-2i,\ -2\)</p>
       <p class="point">検算：\((1+2i)^3=-11-2i\) なので \((1+2i)^3+(1+2i)+10=0\)。解法1で実部・虚部を比較しても同じ結果になる。</p>
+          <figure class="fig narrow"><svg viewBox="0 0 320 240" role="img" aria-label="3つの解の複素数平面上の位置">
+<line class="axis" x1="39.9" y1="120.0" x2="276.1" y2="120.0"/>
+<line class="axis" x1="170.2" y1="230.0" x2="170.2" y2="10.0"/>
+<text x="275.1" y="115.0" font-size="11" text-anchor="end">実軸</text>
+<text x="175.2" y="20.0" font-size="11" text-anchor="start">虚軸</text>
+<text x="166.2" y="133.0" font-size="12" text-anchor="end">O</text>
+<line class="aux" x1="211.0" y1="38.5" x2="211.0" y2="201.5"/>
+<circle class="hl" cx="211.0" cy="38.5" r="4"/>
+<text x="219.0" y="42.5" font-size="13" text-anchor="start">1+2i</text>
+<circle class="hl" cx="211.0" cy="201.5" r="4"/>
+<text x="219.0" y="205.5" font-size="13" text-anchor="start">1−2i</text>
+<circle class="hl" cx="88.7" cy="120.0" r="4"/>
+<text x="88.7" y="110.0" font-size="13" text-anchor="middle">−2</text>
+<text x="216.0" y="134.0" font-size="12" text-anchor="start">1</text>
+</svg><figcaption>\(x^3+x+10=0\) の3つの解。実数係数なので虚数解は実軸について対称なペア（共役）で現れ、残る1つは実数。</figcaption></figure>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(a,b\) を実数とする。3次方程式 \(x^3+ax+b=0\) が \(2-i\) を解にもつとき、\(a,b\) の値と他の解を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>係数が実数なので \(2+i\) も解。2数の和4、積5より、左辺は \(x^2-4x+5\) で割り切れる。</p>
+        <p>\(x^3+ax+b=(x^2-4x+5)(x+c)=x^3+(c-4)x^2+(5-4c)x+5c\)。\(x^2\) の係数が 0 なので \(c=4\)。</p>
+        <p class="answer">\(a=-11,\ b=20\)、他の解は \(x=2+i,\ -4\)</p>
+        <p class="point">\(x^2\) の項がない（係数0）ことが残りの解を決める。解と係数の関係で「3解の和 \(=0\)」から \((2-i)+(2+i)+\gamma=0\) としても \(\gamma=-4\)。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="ceq-p15" data-level="2">
@@ -438,7 +653,37 @@
       <p>\(t=1\)：\(x^2-x+1=0\) より \(x=\dfrac{1\pm\sqrt3 i}{2}\)。\(t=-3\)：\(x^2+3x+1=0\) より \(x=\dfrac{-3\pm\sqrt5}{2}\)。</p>
       <p class="answer">\(x=\dfrac{1\pm\sqrt3 i}{2},\ \dfrac{-3\pm\sqrt5}{2}\)</p>
       <p class="point">実数 \(x\) に対して \(t=x+\frac1x\) は \(\abs t\ge2\) の範囲しかとらない（\(t=1\) からは虚数解）。解の個数を問われたらこの対応が鍵（演3）。</p>
+          <figure class="fig narrow"><svg viewBox="0 0 360 250" role="img" aria-label="t=x+1/x のグラフと水平線">
+<rect class="region2" x="10.0" y="80.8" width="336.0" height="88.5"/>
+<line class="axis" x1="10.0" y1="125.0" x2="346.0" y2="125.0"/>
+<line class="axis" x1="178.0" y1="240.0" x2="178.0" y2="10.0"/>
+<text x="345.0" y="120.0" font-size="12" text-anchor="end" font-style="italic">x</text>
+<text x="183.0" y="20.0" font-size="12" text-anchor="start" font-style="italic">t</text>
+<text x="174.0" y="138.0" font-size="12" text-anchor="end">O</text>
+<polyline class="curve" points="186.0,10.0 187.3,25.1 188.7,36.2 190.0,44.6 191.3,51.3 192.7,56.6 194.0,60.9 195.3,64.4 196.7,67.3 198.0,69.7 199.3,71.7 200.7,73.4 202.0,74.9 203.3,76.1 204.7,77.1 206.0,77.9 207.3,78.6 208.7,79.2 210.0,79.7 211.3,80.0 212.7,80.3 214.0,80.5 215.3,80.7 216.7,80.7 218.0,80.8 219.3,80.7 220.7,80.7 222.0,80.6 223.3,80.4 224.7,80.2 226.0,80.0 227.3,79.8 228.7,79.5 230.0,79.2 231.3,78.9 232.7,78.6 234.0,78.2 235.3,77.9 236.7,77.5 238.0,77.1 239.3,76.7 240.7,76.2 242.0,75.8 243.3,75.3 244.7,74.9 246.0,74.4 247.3,73.9 248.7,73.4 250.0,72.9 251.3,72.4 252.7,71.9 254.0,71.3 255.3,70.8 256.7,70.3 258.0,69.7 259.3,69.2 260.7,68.6 262.0,68.0 263.3,67.5 264.7,66.9 266.0,66.3 267.3,65.7 268.7,65.1 270.0,64.5 271.3,63.9 272.7,63.3 274.0,62.7 275.3,62.1 276.7,61.5 278.0,60.9 279.3,60.2 280.7,59.6 282.0,59.0 283.3,58.4 284.7,57.7 286.0,57.1 287.3,56.5 288.7,55.8 290.0,55.2 291.3,54.5 292.7,53.9 294.0,53.2 295.3,52.6 296.7,51.9 298.0,51.3 299.3,50.6 300.7,50.0 302.0,49.3 303.3,48.6 304.7,48.0 306.0,47.3 307.3,46.7 308.7,46.0 310.0,45.3 311.3,44.6 312.7,44.0 314.0,43.3 315.3,42.6 316.7,42.0 318.0,41.3 319.3,40.6 320.7,39.9 322.0,39.2 323.3,38.6 324.7,37.9 326.0,37.2 327.3,36.5 328.7,35.8 330.0,35.1 331.3,34.5 332.7,33.8 334.0,33.1 335.3,32.4 336.7,31.7 338.0,31.0 339.3,30.3 340.7,29.6 342.0,28.9 343.3,28.2 344.7,27.5 346.0,26.8"/>
+<polyline class="curve" points="10.0,223.2 11.3,222.5 12.7,221.8 14.0,221.1 15.3,220.4 16.7,219.7 18.0,219.0 19.3,218.3 20.7,217.6 22.0,216.9 23.3,216.2 24.7,215.5 26.0,214.9 27.3,214.2 28.7,213.5 30.0,212.8 31.3,212.1 32.7,211.4 34.0,210.8 35.3,210.1 36.7,209.4 38.0,208.7 39.3,208.0 40.7,207.4 42.0,206.7 43.3,206.0 44.7,205.4 46.0,204.7 47.3,204.0 48.7,203.3 50.0,202.7 51.3,202.0 52.7,201.4 54.0,200.7 55.3,200.0 56.7,199.4 58.0,198.7 59.3,198.1 60.7,197.4 62.0,196.8 63.3,196.1 64.7,195.5 66.0,194.8 67.3,194.2 68.7,193.5 70.0,192.9 71.3,192.3 72.7,191.6 74.0,191.0 75.3,190.4 76.7,189.8 78.0,189.1 79.3,188.5 80.7,187.9 82.0,187.3 83.3,186.7 84.7,186.1 86.0,185.5 87.3,184.9 88.7,184.3 90.0,183.7 91.3,183.1 92.7,182.5 94.0,182.0 95.3,181.4 96.7,180.8 98.0,180.3 99.3,179.7 100.7,179.2 102.0,178.7 103.3,178.1 104.7,177.6 106.0,177.1 107.3,176.6 108.7,176.1 110.0,175.6 111.3,175.1 112.7,174.7 114.0,174.2 115.3,173.8 116.7,173.3 118.0,172.9 119.3,172.5 120.7,172.1 122.0,171.8 123.3,171.4 124.7,171.1 126.0,170.8 127.3,170.5 128.7,170.2 130.0,170.0 131.3,169.8 132.7,169.6 134.0,169.4 135.3,169.3 136.7,169.3 138.0,169.2 139.3,169.3 140.7,169.3 142.0,169.5 143.3,169.7 144.7,170.0 146.0,170.3 147.3,170.8 148.7,171.4 150.0,172.1 151.3,172.9 152.7,173.9 154.0,175.1 155.3,176.6 156.7,178.3 158.0,180.3 159.3,182.7 160.7,185.6 162.0,189.1 163.3,193.4 164.7,198.7 166.0,205.4 167.3,213.8 168.7,224.9 170.0,240.0"/>
+<line class="aux" x1="10.0" y1="102.9" x2="346.0" y2="102.9"/>
+<line class="curve2" x1="10.0" y1="191.3" x2="346.0" y2="191.3"/>
+<text x="344.0" y="97.9" font-size="12" text-anchor="end" font-family="sans-serif">t=1：交点なし</text>
+<text x="344.0" y="207.3" font-size="12" text-anchor="end" font-family="sans-serif">t=−3：交点2個</text>
+<circle class="hl" cx="73.3" cy="191.3" r="3.5"/>
+<circle class="hl" cx="162.7" cy="191.3" r="3.5"/>
+<circle class="dot" cx="218.0" cy="80.8" r="2.5"/>
+<circle class="dot" cx="138.0" cy="169.2" r="2.5"/>
+<text x="224.0" y="76.8" font-size="11" text-anchor="start">(1, 2)</text>
+<text x="132.0" y="182.2" font-size="11" text-anchor="end">(−1, −2)</text>
+</svg><figcaption>\(t=x+\frac1x\)（\(x\) は実数）は \(\abs t\ge2\) の値しかとらない。帯 \(\abs t\lt2\) の中の \(t\)（例：\(t=1\)）からは虚数解が、帯の外の \(t\) からは実数解が2つ出る。</figcaption></figure>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">方程式 \(2x^4-9x^3+14x^2-9x+2=0\) を解け。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>係数が \(2,-9,14,-9,2\) と左右対称。\(x=0\) は解でないので \(x^2\) で割り、\(2\left(x^2+\frac1{x^2}\right)-9\left(x+\frac1x\right)+14=0\)。</p>
+        <p>\(t=x+\frac1x\) とおくと \(2(t^2-2)-9t+14=0\)、\(2t^2-9t+10=(2t-5)(t-2)=0\)。\(t=\frac52\)：\(2x^2-5x+2=0\)。\(t=2\)：\(x^2-2x+1=0\)。</p>
+        <p class="answer">\(x=\dfrac12,\ 1,\ 2\)（\(x=1\) は重解）</p>
+        <p class="point">\(x\) と \(\frac1x\) がペア（\(2\) と \(\frac12\)）で現れ、\(t=2\) では \(x=\frac1x=1\) が重なる。異なる解は3個。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="ceq-p16" data-level="3">
@@ -463,6 +708,16 @@
       <p class="answer">\(2-i\)</p>
       <p class="point">検算：右辺を展開すると \(x^5-2x^4+3x^3-4x^2+6x-4-x+3\) となり \(P(x)\) に一致。割り算は必ず \(A=BQ+R\) で検算する。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(\alpha=2-\sqrt3\) のとき、\(P(\alpha)=\alpha^4-4\alpha^3+2\alpha^2-3\alpha+5\) の値を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\(\alpha\) と \(2+\sqrt3\) の和4、積1より、\(\alpha\) は \(g(x)=x^2-4x+1=0\) の解。</p>
+        <p>\(P(x)\) を \(g(x)\) で割ると \(P(x)=(x^2-4x+1)(x^2+1)+x+4\)。\(g(\alpha)=0\) なので \(P(\alpha)=\alpha+4\)。</p>
+        <p class="answer">\(6-\sqrt3\)</p>
+        <p class="point">複素数でなくても、根号を含む数なら同じ方法が使える。検算：右辺を展開すると \(x^4-4x^3+2x^2-4x+1+x+4\) で \(P(x)\) に一致。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="ceq-p17" data-level="3">
@@ -488,6 +743,16 @@
       <p class="answer">(2) \(y^3-3y^2+8y-16=0\)</p>
       <p class="point">(1) の検算：新しい3解の和は \(2(\alpha+\beta+\gamma)=4\) で、\(y^2\) の係数 \(-4\) と合う。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(x^3+x^2-2x+3=0\) の3つの解を \(\alpha,\beta,\gamma\) とする。<br>(1) \(2\alpha+1,\ 2\beta+1,\ 2\gamma+1\) を解とする3次方程式を1つ作れ。<br>(2) \(\alpha^2,\ \beta^2,\ \gamma^2\) を解とする3次方程式を1つ作れ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 新しい解は \(y=2x+1\)（\(x\) は元の解）と1次式で書けるので、\(x=\frac{y-1}2\) を元の方程式に代入して8倍：\((y-1)^3+2(y-1)^2-8(y-1)+24=0\)。</p>
+        <p>(2) \(\alpha+\beta+\gamma=-1,\ \alpha\beta+\beta\gamma+\gamma\alpha=-2,\ \alpha\beta\gamma=-3\)。和 \(=(-1)^2-2(-2)=5\)、2つずつの積の和 \(=(-2)^2-2(-3)(-1)=-2\)、積 \(=(-3)^2=9\)。</p>
+        <p class="answer">(1) \(y^3-y^2-9y+33=0\)　(2) \(y^3-5y^2-2y-9=0\)</p>
+        <p class="point">(1) の検算：新しい3解の和は \(2(\alpha+\beta+\gamma)+3=1\) で、\(y^2\) の係数 \(-1\) と合う。</p>
+      </div></details>
+    </div>
   </article>
 </section>
 

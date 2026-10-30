@@ -137,6 +137,15 @@
       <p>(3) \(|\vec a|=\sqrt5\)。</p>
       <p class="answer">(3) \(\pm\left(\dfrac{2}{\sqrt5},\ -\dfrac{1}{\sqrt5}\right)\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(\vec a=(1,2),\ \vec b=(3,-1)\) とする。(1) \(\vec c=(-1,5)\) を \(s\vec a+t\vec b\) の形で表せ。(2) \(\vec a+t\vec b\) が \(\vec d=(2,-3)\) と平行になる \(t\) を求めよ。(3) \(\vec b\) と逆向きで、大きさが 5 のベクトルを求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 成分で \(s+3t=-1,\ 2s-t=5\) を連立。(2) \(\vec a+t\vec b=(1+3t,\ 2-t)\) が \((2,-3)\) と平行 ⇔ \((1+3t)\cdot(-3)-(2-t)\cdot2=0\)。(3) まず \(\vec b\) と同じ向きの単位ベクトル \(\dfrac{\vec b}{|\vec b|}=\dfrac{1}{\sqrt{10}}(3,-1)\) を作り、\(-5\) 倍する。</p>
+        <p class="answer">(1) \(\vec c=2\vec a-\vec b\)　(2) \(t=-1\)　(3) \(\left(-\dfrac{3\sqrt{10}}{2},\ \dfrac{\sqrt{10}}{2}\right)\)</p>
+        <p class="point">(3) は「逆向き」なので符号は \(-\) だけ。「平行な」なら \(\pm\) の2つになる。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="vec-p2" data-level="1">
@@ -159,6 +168,15 @@
       <p class="answer">\(x=\dfrac52,\ y=\dfrac12\)</p>
       <p class="point">もし \(\vec b=2\vec a\) のように平行なら、\((x+y)+2(x-2)=3+2y\) という1つの式しか得られず、\(x,y\) は決まらない。1次独立の仮定がなぜ必要か、ここで納得しておこう。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(\vec a,\vec b\) は1次独立とし、\(\vec p=2\vec a+3\vec b,\ \vec q=\vec a-\vec b\) とする。(1) \(4\vec a+11\vec b\) を \(x\vec p+y\vec q\) の形で表せ。(2) \((x^2-1)\vec a+(x+y)\vec b=\vec 0\) を満たす実数 \(x,y\) をすべて求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) \(x\vec p+y\vec q=(2x+y)\vec a+(3x-y)\vec b\)。\(\vec a,\vec b\) が1次独立だから係数を比較して \(2x+y=4,\ 3x-y=11\)。(2) 1次独立なので「\(\vec 0\) を表す係数はともに 0」：\(x^2-1=0,\ x+y=0\)。</p>
+        <p class="answer">(1) \(4\vec a+11\vec b=3\vec p-2\vec q\)　(2) \((x,y)=(1,-1),\ (-1,1)\)</p>
+        <p class="point">係数比較ができるのは「1次独立」と書いてあるから。この一言がないと答案は減点される。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="vec-p3" data-level="1">
@@ -184,6 +202,15 @@
       <p class="answer">(2) \(\vec s=\dfrac{-\vec a+3\vec b}{2}\)</p>
       <p class="point">チェック：外分点 \(S\) は \(B\) の外側にあるはず。\(\vec s=\vec a+\frac32(\vec b-\vec a)\) と書き直すと、\(A\) から \(\vec{AB}\) の \(1.5\) 倍進んだ点で \(B\) を越えている。OK。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(\triangle ABC\) の頂点の位置ベクトルを \(\vec a,\vec b,\vec c\) とする。辺 \(BC\) を \(2:1\) に外分する点を \(D\) とする。(1) \(D\) の位置ベクトルを \(\vec b,\vec c\) で表せ。(2) \(\triangle ABD\) の重心 \(G\) は、辺 \(AC\) を \(2:1\) に内分する点であることを示せ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) \(m:n\) の外分は \(\dfrac{-n\vec b+m\vec c}{m-n}\)（\(n\) を \(-n\) にした内分の公式）。(2) 重心は3頂点の平均：\(\vec g=\dfrac{\vec a+\vec b+\vec d}{3}\) に (1) を代入すると \(\vec b\) が消え、\(\dfrac{\vec a+2\vec c}{3}\) になる。これは \(AC\) の \(2:1\) 内分点の公式そのもの。</p>
+        <p class="answer">(1) \(\vec d=-\vec b+2\vec c\)　(2) \(\vec g=\dfrac{\vec a+\vec b+(-\vec b+2\vec c)}{3}=\dfrac{\vec a+2\vec c}{3}\) より示された</p>
+        <p class="point">外分の公式は「\(C\) は \(BD\) の中点」と言い換えて \(\vec c=\dfrac{\vec b+\vec d}{2}\) からも出せる。2通りで確かめるとよい。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="vec-p4" data-level="1">
@@ -207,13 +234,48 @@
       <p class="answer">\(PQ:QR=1:3\)</p>
       <p class="point">メネラウスで確認：\(\dfrac{OP}{PA}\cdot\dfrac{AQ}{QB}\cdot\dfrac{BR}{RO}=\dfrac12\cdot\dfrac31\cdot\dfrac23=1\)。一致する。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">平行四辺形 \(ABCD\) で、辺 \(AB\) を \(2:1\) に内分する点を \(E\)、対角線 \(BD\) を \(1:3\) に内分する点を \(F\) とする。3点 \(E,F,C\) は一直線上にあることを示し、\(EF:FC\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>始点を \(A\) にとり \(\vec b=\vec{AB},\ \vec d=\vec{AD}\)（1次独立）、\(\vec{AC}=\vec b+\vec d\)。\(\vec{AE}=\dfrac23\vec b,\ \vec{AF}=\dfrac{3\vec b+\vec d}{4}\)。\(\vec{EF}=\dfrac{\vec b+3\vec d}{12},\ \vec{EC}=\dfrac{\vec b+3\vec d}{3}\) だから \(\vec{EC}=4\vec{EF}\)。</p>
+        <p class="answer">\(\vec{EC}=4\vec{EF}\) より3点は一直線上、\(EF:FC=1:3\)</p>
+        <p class="point">「\(\vec{EC}=k\vec{EF}\)」を示すのが一直線の証明。\(k=4\) から \(EF:EC=1:4\)、よって \(EF:FC=1:3\)（\(1:4\) と答えない）。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="vec-p5" data-level="2">
     <h3><span class="pid">P5</span>交点の位置ベクトル（2通りに表して係数比較）</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「線分 \(AD\) と \(BC\) の交点を \(P\) とするとき、\(\vec{OP}\) を \(\vec a,\vec b\) で表せ」「直線 \(OP\) と辺 \(AB\) の交点」</dd>
-      <dt>こう考える</dt><dd>交点は「\(AD\) 上の点」でもあり「\(BC\) 上の点」でもある。<b>それぞれの直線上の点として別々の文字で表し</b>、同じ点だから係数が一致する、と考える。</dd>
+      <dt>こう考える</dt><dd>交点は「\(AD\) 上の点」でもあり「\(BC\) 上の点」でもある。<b>それぞれの直線上の点として別々の文字で表し</b>、同じ点だから係数が一致する、と考える。
+        <figure class="fig narrow"><svg viewBox="0 0 340 230" role="img" aria-label="線分ADとBCの交点P、直線OPと辺ABの交点Q">
+<polygon class="axis" points="55.6,195.1 284.4,195.1 139.5,27.3"/>
+<line class="curve" x1="284.4" y1="195.1" x2="97.5" y2="111.2"/>
+<line class="curve2" x1="139.5" y1="27.3" x2="131.9" y2="195.1"/>
+<line class="aux" x1="55.6" y1="195.1" x2="187.8" y2="83.2"/>
+<circle class="dot" cx="55.6" cy="195.1" r="3"/>
+<circle class="dot" cx="284.4" cy="195.1" r="3"/>
+<circle class="dot" cx="139.5" cy="27.3" r="3"/>
+<circle class="dot" cx="131.9" cy="195.1" r="3"/>
+<circle class="dot" cx="97.5" cy="111.2" r="3"/>
+<circle class="dot" cx="187.8" cy="83.2" r="3"/>
+<circle class="hl" cx="134.9" cy="128.0" r="4"/>
+<text x="47.6" y="207.1" font-size="12" text-anchor="middle" font-style="italic">O</text>
+<text x="293.4" y="207.1" font-size="12" text-anchor="middle" font-style="italic">A</text>
+<text x="139.5" y="19.3" font-size="12" text-anchor="middle" font-style="italic">B</text>
+<text x="131.9" y="211.1" font-size="12" text-anchor="middle" font-style="italic">C</text>
+<text x="87.5" y="111.2" font-size="12" text-anchor="middle" font-style="italic">D</text>
+<text x="197.8" y="81.2" font-size="12" text-anchor="middle" font-style="italic">Q</text>
+<text x="130.9" y="119.0" font-size="12" text-anchor="middle" font-style="italic">P</text>
+<text x="208.1" y="209.1" font-size="11" text-anchor="middle">2</text>
+<text x="93.7" y="209.1" font-size="11" text-anchor="middle">1</text>
+<text x="68.5" y="153.1" font-size="11" text-anchor="middle">1</text>
+<text x="110.5" y="69.2" font-size="11" text-anchor="middle">1</text>
+<text x="225.0" y="157.1" font-size="11" text-anchor="middle" font-family="sans-serif">AD上：s</text>
+<text x="140.0" y="169.9" font-size="11" text-anchor="start" font-family="sans-serif">BC上：t</text>
+</svg><figcaption>青の線分 \(AD\) 上の点としても、橙の線分 \(BC\) 上の点としても表せるのが交点 \(P\)。2通りの表し方の係数を比べる。\(Q\) は直線 \(OP\) と辺 \(AB\) の交点。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>\(AP:PD=s:(1-s)\) とおき \(\vec{OP}=(1-s)\vec{OA}+s\vec{OD}\)。</li>
         <li>\(BP:PC=t:(1-t)\) とおき \(\vec{OP}=(1-t)\vec{OB}+t\vec{OC}\)。</li>
@@ -233,6 +295,15 @@
       <p class="answer">(2) \(AQ:QB=2:1\)</p>
       <p class="point">メネラウスで検算：\(\triangle OAD\) と直線 \(BC\) で \(\dfrac{OC}{CA}\cdot\dfrac{AP}{PD}\cdot\dfrac{DB}{BO}=\dfrac12\cdot\dfrac{AP}{PD}\cdot\dfrac12=1\) より \(AP:PD=4:1\)。(1) の \(s=\frac45\) と一致する。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(\triangle OAB\) で、辺 \(OA\) を \(2:1\) に内分する点を \(C\)、辺 \(OB\) を \(3:1\) に内分する点を \(D\) とし、線分 \(AD\) と \(BC\) の交点を \(P\) とする。(1) \(\vec{OP}\) を \(\vec a=\vec{OA},\ \vec b=\vec{OB}\) で表し、\(AP:PD\) を求めよ。(2) 直線 \(OP\) と辺 \(AB\) の交点を \(Q\) とするとき、\(AQ:QB\) と \(OP:PQ\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) \(AD\) 上として \(\vec{OP}=(1-s)\vec a+\dfrac{3s}{4}\vec b\)、\(BC\) 上として \(\vec{OP}=\dfrac{2t}{3}\vec a+(1-t)\vec b\)。1次独立より係数比較して \(s=\dfrac23,\ t=\dfrac12\)。(2) \(\vec{OQ}=k\vec{OP}\) とおき、\(Q\) が \(AB\) 上なので係数の和 \(=1\) から \(k=\dfrac65\)。</p>
+        <p class="answer">(1) \(\vec{OP}=\dfrac13\vec a+\dfrac12\vec b\)、\(AP:PD=2:1\)　(2) \(AQ:QB=3:2\)、\(OP:PQ=5:1\)</p>
+        <p class="point">\(\vec{OQ}=\dfrac25\vec a+\dfrac35\vec b\) の「\(\vec b\) の係数 \(\frac35\)」が \(AQ:AB\)。\(AQ:QB\) を \(2:3\) と逆にしやすい。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="vec-p6" data-level="1">
@@ -256,6 +327,15 @@
       <p>(2) \(\vec a\cdot\vec b=3+2=5\)、\(|\vec a|=\sqrt5,\ |\vec b|=\sqrt{10}\)。\(\cos\theta=\dfrac{5}{\sqrt{50}}=\dfrac{1}{\sqrt2}\)。</p>
       <p class="answer">(2) \(\theta=\dfrac\pi4\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) \(|\vec a|=3,\ |\vec b|=2,\ |\vec a+2\vec b|=\sqrt{13}\) のとき、\(\vec a\cdot\vec b\)、\(\vec a\) と \(\vec b\) のなす角 \(\theta\)、\(|\vec a-\vec b|\) を求めよ。(2) \(\vec a=(2,-1),\ \vec b=(-1,3)\) のなす角を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 分かっている長さ \(|\vec a+2\vec b|\) を<b>2乗して展開</b>：\(13=9+4\vec a\cdot\vec b+4\cdot4\)。求める \(|\vec a-\vec b|\) も2乗して \(9-2\vec a\cdot\vec b+4\)。(2) 成分で \(\vec a\cdot\vec b=-5\)、\(|\vec a|=\sqrt5,\ |\vec b|=\sqrt{10}\)、\(\cos\theta=-\dfrac{1}{\sqrt2}\)。</p>
+        <p class="answer">(1) \(\vec a\cdot\vec b=-3,\ \theta=\dfrac{2}{3}\pi,\ |\vec a-\vec b|=\sqrt{19}\)　(2) \(\theta=\dfrac34\pi\)</p>
+        <p class="point">\(|2\vec b|^2=4|\vec b|^2\) を \(2|\vec b|^2\) としないこと。内積が負ならなす角は鈍角。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="vec-p7" data-level="1">
@@ -281,13 +361,43 @@
       <p>よって \(\vec c\cdot(\vec b-\vec a)=\vec b\cdot\vec c-\vec a\cdot\vec c=\vec a\cdot\vec b-\vec a\cdot\vec b=0\)。\(\vec{OC}\cdot\vec{AB}=0\) だから \(OC\perp AB\)。（証明終）</p>
       <p class="point">(2) は「3つの内積 \(\vec a\cdot\vec b,\ \vec b\cdot\vec c,\ \vec c\cdot\vec a\) が全部等しい」と読み替えるのが核心。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) \(\vec a=(3,4)\) に垂直な単位ベクトルを求めよ。(2) \(|\vec a|=2,\ |\vec b|=1,\ \vec a\cdot\vec b=1\) のとき、\(\vec a+t\vec b\) と \(2\vec a-\vec b\) が垂直になる実数 \(t\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>垂直 ⇔ 内積 \(=0\)。(1) 求めるベクトルを \((x,y)\) とおき \(3x+4y=0,\ x^2+y^2=1\)。(2) 成分がないので内積のまま展開：\((\vec a+t\vec b)\cdot(2\vec a-\vec b)=2|\vec a|^2-\vec a\cdot\vec b+2t\,\vec a\cdot\vec b-t|\vec b|^2=7+t\)。</p>
+        <p class="answer">(1) \(\pm\left(\dfrac45,\ -\dfrac35\right)\)　(2) \(t=-7\)</p>
+        <p class="point">(1) は向きが2つあるので \(\pm\) を忘れない。\((x,y)\) と垂直なベクトルは \((y,-x)\) の定数倍、と覚えておくと速い。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="vec-p8" data-level="2">
     <h3><span class="pid">P8</span>\(|\vec a+t\vec b|\) の最小値</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「\(|\vec a+t\vec b|\) を最小にする実数 \(t\) と最小値」「直線上の点 \(P\) と点 \(A\) の距離の最小」</dd>
-      <dt>こう考える</dt><dd>\(\sqrt{\ }\) のままでは扱いにくいので<b>2乗して \(t\) の2次関数</b>にする。図形的には \(\vec a+t\vec b\) の終点は直線上を動き、最小になるのは<b>垂線の足</b>。</dd>
+      <dt>こう考える</dt><dd>\(\sqrt{\ }\) のままでは扱いにくいので<b>2乗して \(t\) の2次関数</b>にする。図形的には \(\vec a+t\vec b\) の終点は直線上を動き、最小になるのは<b>垂線の足</b>。
+        <figure class="fig narrow"><svg viewBox="0 0 320 260" role="img" aria-label="a+tbの終点が動く直線と、Oからの垂線の足">
+<defs><marker id="vp8a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="curve" d="M1,1 L9,5 L1,9" style="stroke-dasharray:none"/></marker><marker id="vp8b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="curve2" d="M1,1 L9,5 L1,9" style="stroke-dasharray:none"/></marker></defs>
+<line class="axis" x1="53.3" y1="150.0" x2="266.7" y2="150.0"/>
+<line class="axis" x1="93.3" y1="250.0" x2="93.3" y2="10.0"/>
+<text x="262.7" y="164.0" font-size="12" text-anchor="end" font-style="italic">x</text>
+<text x="101.3" y="14.0" font-size="12" text-anchor="start" font-style="italic">y</text>
+<text x="85.3" y="163.0" font-size="12" text-anchor="middle" font-style="italic">O</text>
+<line class="aux" x1="128.3" y1="246.7" x2="243.3" y2="16.7"/>
+<line class="curve" x1="93.3" y1="150.0" x2="193.3" y2="116.7" marker-end="url(#vp8a)"/>
+<line class="curve2" x1="193.3" y1="116.7" x2="226.7" y2="50.0" marker-end="url(#vp8b)"/>
+<line class="curve2" x1="93.3" y1="150.0" x2="160.0" y2="183.3"/>
+<polyline class="axis" points="163.7,175.9 156.3,172.2 152.5,179.6"/>
+<circle class="dot" cx="193.3" cy="116.7" r="3"/>
+<circle class="hl" cx="160.0" cy="183.3" r="4"/>
+<text x="205.3" y="122.7" font-size="12" text-anchor="middle" font-style="italic">a</text>
+<text x="214.7" y="48.0" font-size="12" text-anchor="middle" font-style="italic">b</text>
+<text x="186.0" y="187.3" font-size="11" text-anchor="middle" font-style="italic">t=−1</text>
+<text x="223.3" y="56.7" font-size="1" text-anchor="middle"></text>
+<text x="154.0" y="201.3" font-size="11" text-anchor="middle" font-family="sans-serif">垂線の足</text>
+<text x="143.0" y="237.3" font-size="11" text-anchor="start" font-family="sans-serif">a+tb の終点が動く直線</text>
+</svg><figcaption>\(\overset{\to}{a}=(3,1),\ \overset{\to}{b}=(1,2)\)。\(\overset{\to}{a}+t\overset{\to}{b}\) の終点は点 \(A\) を通り \(\overset{\to}{b}\) 方向の直線（点線）上を動く。\(O\) から最も近いのは垂線の足で、そこでは \(\overset{\to}{a}+t\overset{\to}{b}\) と \(\overset{\to}{b}\) が垂直。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>\(|\vec a+t\vec b|^2=|\vec b|^2t^2+2(\vec a\cdot\vec b)t+|\vec a|^2\)。</li>
         <li>平方完成して最小値と \(t\) を求める。</li>
@@ -303,6 +413,15 @@
       <p class="answer">\(t=-1\) のとき最小値 \(\sqrt5\)</p>
       <p class="point">検算：\(t=-1\) で \(\vec a-\vec b=(2,-1)\)、\((2,-1)\cdot(1,2)=0\)。確かに \(\vec b\) と垂直になっている。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(|\vec a|=2,\ |\vec b|=1\) で、\(\vec a\) と \(\vec b\) のなす角が \(120^\circ\) のとき、\(|\vec a+t\vec b|\) を最小にする実数 \(t\) と最小値を求めよ。また、そのとき \(\vec a+t\vec b\) と \(\vec b\) が垂直であることを確かめよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\(\vec a\cdot\vec b=2\cdot1\cdot\cos120^\circ=-1\)。<b>2乗して \(t\) の2次関数</b>にする：\(|\vec a+t\vec b|^2=t^2-2t+4=(t-1)^2+3\)。最小のとき \((\vec a+\vec b)\cdot\vec b=-1+1=0\)（終点が垂線の足になっている）。</p>
+        <p class="answer">\(t=1\) のとき最小値 \(\sqrt3\)</p>
+        <p class="point">2乗した式の最小値 3 をそのまま答えない。最後に \(\sqrt{\ }\) をつける。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="vec-p9" data-level="2">
@@ -324,13 +443,53 @@
       <p>\(S=\dfrac12\sqrt{6\cdot11-4^2}=\dfrac12\sqrt{50}=\dfrac{5\sqrt2}{2}\)</p>
       <p class="answer">\(\dfrac{5\sqrt2}{2}\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) \(OA=3,\ OB=4,\ \vec{OA}\cdot\vec{OB}=6\) である \(\triangle OAB\) の面積を求めよ。(2) 座標空間の3点 \(A(1,0,1)\)、\(B(2,1,3)\)、\(C(0,2,2)\) を頂点とする \(\triangle ABC\) の面積を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>どちらも面積公式 \(S=\dfrac12\sqrt{|\vec u|^2|\vec v|^2-(\vec u\cdot\vec v)^2}\) を使う。(1) \(\dfrac12\sqrt{9\cdot16-36}\)。(2) \(\vec{AB}=(1,1,2),\ \vec{AC}=(-1,2,1)\)、\(|\vec{AB}|^2=|\vec{AC}|^2=6,\ \vec{AB}\cdot\vec{AC}=3\)。</p>
+        <p class="answer">(1) \(3\sqrt3\)　(2) \(\dfrac{3\sqrt3}{2}\)</p>
+        <p class="point">空間では成分版 \(\frac12|x_1y_2-x_2y_1|\) は使えない。内積版の公式は平面でも空間でも使える。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="vec-p10" data-level="2">
     <h3><span class="pid">P10</span>点 \(P\) の存在範囲（\(\vec{OP}=s\vec{OA}+t\vec{OB}\)）</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\vec{OP}=s\vec{OA}+t\vec{OB}\)、\(s+2t=2,\ s\ge0,\ t\ge0\) のとき点 \(P\) の存在範囲」「\(s+t\le1\)」「\(1\le s+t\le2\)」</dd>
-      <dt>こう考える</dt><dd>基準は<b>「係数の和が1なら直線 \(AB\) 上」</b>。条件の式を変形して、係数の和が1になる形を無理やり作る。</dd>
+      <dt>こう考える</dt><dd>基準は<b>「係数の和が1なら直線 \(AB\) 上」</b>。条件の式を変形して、係数の和が1になる形を無理やり作る。
+        <figure class="fig row"><svg viewBox="0 0 200 170" role="img" aria-label="(1) s+2t=2：線分A′B">
+<polygon class="axis" points="24.3,131.0 100.0,131.0 50.8,74.2"/>
+<line class="aux" x1="100.0" y1="131.0" x2="175.7" y2="131.0"/>
+<line class="curve" x1="175.7" y1="131.0" x2="50.8" y2="74.2"/>
+<circle class="dot" cx="175.7" cy="131.0" r="3"/>
+<circle class="dot" cx="50.8" cy="74.2" r="3"/>
+<circle class="dot" cx="100.0" cy="131.0" r="3"/>
+<text x="18.3" y="143.0" font-size="12" text-anchor="middle" font-style="italic">O</text>
+<text x="100.0" y="144.0" font-size="12" text-anchor="middle" font-style="italic">A</text>
+<text x="175.7" y="144.0" font-size="12" text-anchor="middle" font-style="italic">A′</text>
+<text x="50.8" y="67.2" font-size="12" text-anchor="middle" font-style="italic">B</text>
+<text x="100.0" y="164.0" font-size="11.5" text-anchor="middle" font-family="sans-serif">(1) s+2t=2：線分A′B</text>
+</svg><svg viewBox="0 0 200 170" role="img" aria-label="(2) s+t≦1：△OAB">
+<polygon class="region" points="24.3,131.0 100.0,131.0 50.8,74.2"/>
+<polygon class="curve" points="24.3,131.0 100.0,131.0 50.8,74.2"/>
+<text x="18.3" y="143.0" font-size="12" text-anchor="middle" font-style="italic">O</text>
+<text x="100.0" y="144.0" font-size="12" text-anchor="middle" font-style="italic">A</text>
+<text x="50.8" y="67.2" font-size="12" text-anchor="middle" font-style="italic">B</text>
+<text x="100.0" y="164.0" font-size="11.5" text-anchor="middle" font-family="sans-serif">(2) s+t≦1：△OAB</text>
+</svg><svg viewBox="0 0 200 170" role="img" aria-label="(3) 1≦s+t≦2：台形">
+<polygon class="region" points="100.0,131.0 175.7,131.0 77.3,17.4 50.8,74.2"/>
+<polygon class="curve" points="100.0,131.0 175.7,131.0 77.3,17.4 50.8,74.2"/>
+<line class="axis" x1="24.3" y1="131.0" x2="100.0" y2="131.0"/>
+<line class="axis" x1="24.3" y1="131.0" x2="50.8" y2="74.2"/>
+<text x="18.3" y="143.0" font-size="12" text-anchor="middle" font-style="italic">O</text>
+<text x="100.0" y="144.0" font-size="12" text-anchor="middle" font-style="italic">A</text>
+<text x="175.7" y="144.0" font-size="12" text-anchor="middle" font-style="italic">A″</text>
+<text x="42.8" y="72.2" font-size="12" text-anchor="middle" font-style="italic">B</text>
+<text x="77.3" y="10.4" font-size="12" text-anchor="middle" font-style="italic">B″</text>
+<text x="100.0" y="164.0" font-size="11.5" text-anchor="middle" font-family="sans-serif">(3) 1≦s+t≦2：台形</text>
+</svg><figcaption>\(\overset{\longrightarrow}{OP}=s\overset{\longrightarrow}{OA}+t\overset{\longrightarrow}{OB}\ (s\ge0,\ t\ge0)\)。係数の和が 1 になるように点をとり直す（\(\overset{\longrightarrow}{OA'}=2\overset{\longrightarrow}{OA}\) など）と、存在範囲が見える。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>\(s+t=1\)、\(s,t\ge0\) → 線分 \(AB\)。</li>
         <li>\(s+t=k\) → \(\vec{OP}=\dfrac sk(k\vec{OA})+\dfrac tk(k\vec{OB})\) と変形し、\(AB\) に平行な線分 \(A'B'\)（\(\vec{OA'}=k\vec{OA}\)）。</li>
@@ -349,6 +508,15 @@
       <p>(3) 同様に \(k\) を \(1\) から \(2\) まで動かす。\(\vec{OA''}=2\vec{OA},\ \vec{OB''}=2\vec{OB}\) とすると、線分 \(AB\) が \(A''B''\) まで平行移動する。</p>
       <p class="answer">(3) 台形 \(ABB''A''\) の周および内部。面積は \(\triangle OA''B''-\triangle OAB=4S-S=3S\) より 3倍</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(\triangle OAB\) の面積を \(S\) とし、\(\vec{OP}=s\vec{OA}+t\vec{OB}\) とする。次の条件を満たす点 \(P\) の存在範囲を図示し、その面積を \(S\) で表せ。(1) \(2s+t\le2,\ s\ge0,\ t\ge0\)　(2) \(0\le s\le1,\ 0\le t\le2\)</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 両辺を 2 で割って \(s+\dfrac t2\le1\)。\(\vec{OP}=s\vec{OA}+\dfrac t2(2\vec{OB})\) と書き、\(\vec{OB'}=2\vec{OB}\) とおけば「係数がともに 0 以上で和が 1 以下」の形。(2) \(s,t\) が別々に動くので、\(\vec{OA}\) と \(2\vec{OB}\) を2辺とする平行四辺形。</p>
+        <p class="answer">(1) \(\vec{OB'}=2\vec{OB}\) とすると \(\triangle OAB'\) の周および内部、面積 \(2S\)　(2) \(\vec{OB'}=2\vec{OB},\ \vec{OC}=\vec{OA}+2\vec{OB}\) とすると平行四辺形 \(OACB'\) の周および内部、面積 \(4S\)</p>
+        <p class="point">和の条件（\(s+t\)）なら三角形・台形、別々の条件（\(s\) と \(t\) の範囲）なら平行四辺形になる。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="vec-p11" data-level="2">
@@ -372,6 +540,15 @@
       <p class="answer">(2) 中心 \(\left(\dfrac{11}{3},\ \dfrac23\right)\)、半径 2 の円</p>
       <p class="point">(1) を座標で確かめる：\((x-1)(x-5)+(y-2)y=0\) を整理すると \(x^2-6x+y^2-2y+5=0\)、すなわち \((x-3)^2+(y-1)^2=5\)。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(A(4,2),\ B(-2,0)\) とし、\(\vec a=\vec{OA},\ \vec b=\vec{OB},\ \vec p=\vec{OP}\) とする。次の式を満たす点 \(P\) の全体を求めよ。(1) \((\vec p-\vec a)\cdot(\vec b-\vec a)=0\)　(2) \(|2\vec p-\vec a-\vec b|=|\vec a-\vec b|\)</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) \(\vec{AP}\cdot\vec{AB}=0\)：\(A\) を通り \(\vec{AB}\) に垂直な直線。\(\vec{AB}=(-6,-2)\) が法線ベクトル。(2) 2 で割ると \(\left|\vec p-\dfrac{\vec a+\vec b}{2}\right|=\dfrac{|\vec a-\vec b|}{2}\)：中心が \(AB\) の中点、半径が \(\dfrac{AB}{2}\) の円、つまり \(AB\) を直径とする円。</p>
+        <p class="answer">(1) 直線 \(3x+y=14\)　(2) 円 \((x-1)^2+(y-1)^2=10\)</p>
+        <p class="point">\(|k\vec p-\cdots|\) の形は、まず \(\vec p\) の係数で割って \(|\vec p-\vec c|=r\) に直す。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="vec-p12" data-level="3">
@@ -403,6 +580,15 @@
       <p class="answer">(2) \(\vec{OH}=\dfrac23\vec a+\dfrac19\vec b\)</p>
       <p class="point">検算：(1) 余弦定理 \(AB^2=4+9-6=7\)、正弦定理 \(2R=\dfrac{\sqrt7}{\sin60^\circ}\) より \(R^2=\frac73\) で一致。(2) オイラー線の関係 \(\vec{OH}=\vec a+\vec b-2\vec{OP}=\frac23\vec a+\frac19\vec b\) とも一致する。内心は公式から \(\vec{OI}=\dfrac{3\vec a+2\vec b}{5+\sqrt7}\)。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(\triangle OAB\) で \(OA=3,\ OB=5,\ \angle AOB=120^\circ\) とし、\(\vec a=\vec{OA},\ \vec b=\vec{OB}\) とする。(1) 内心 \(I\) について \(\vec{OI}\) を \(\vec a,\vec b\) で表せ。(2) 垂心 \(H\) について \(\vec{OH}\) を \(\vec a,\vec b\) で表せ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>まず \(AB^2=9+25-2\cdot3\cdot5\cos120^\circ=49\) で \(AB=7\)、\(\vec a\cdot\vec b=-\dfrac{15}{2}\)。(1) 内心は「頂点に向かいの辺の長さの重み」：\(\vec{OI}=\dfrac{7\cdot\vec 0+5\vec a+3\vec b}{7+5+3}\)（角の二等分線の比 \(AD:DB=3:5\) からも出る）。(2) \(\vec{OH}=s\vec a+t\vec b\) とおき、\(\vec{AH}\cdot\vec b=0,\ \vec{BH}\cdot\vec a=0\) を連立：\(-\dfrac{15}{2}s+25t=-\dfrac{15}{2},\ 9s-\dfrac{15}{2}t=-\dfrac{15}{2}\)。</p>
+        <p class="answer">(1) \(\vec{OI}=\dfrac13\vec a+\dfrac15\vec b\)　(2) \(\vec{OH}=-\dfrac{13}{9}\vec a-\dfrac{11}{15}\vec b\)</p>
+        <p class="point">\(\angle O\) が鈍角なので垂心は三角形の外にあり、係数が負になる。係数が負でも慌てない。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="vec-p13" data-level="1">
@@ -426,13 +612,48 @@
       <p class="answer">(2) \(P\left(\dfrac32,0,0\right)\)</p>
       <p class="point">(1) で \(\vec d=\vec a+\vec b-\vec c\) としてしまうと、\(ABDC\) の順の平行四辺形になる。「\(\vec{AD}=\vec{BC}\)」と向きを確認してから式を作る。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">座標空間に \(A(2,1,-1)\)、\(B(0,3,1)\)、\(C(1,-1,2)\) がある。(1) 四角形 \(ABDC\) が平行四辺形となる点 \(D\) を求めよ。(2) \(y\) 軸上にあって \(A,B\) から等距離にある点 \(P\) を求めよ。(3) 線分 \(AB\) の長さを求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 頂点の順が \(A\to B\to D\to C\) なので、向かい合う辺は \(AB\) と \(CD\)。平行四辺形 ⇔ \(\vec{AB}=\vec{CD}\) から \(\vec{OD}=\vec{OB}+\vec{OC}-\vec{OA}\)。(2) \(P(0,y,0)\) とおき \(AP^2=BP^2\)：\(4+(y-1)^2+1=(y-3)^2+1\)。(3) \(\vec{AB}=(-2,2,2)\)。</p>
+        <p class="answer">(1) \(D(-1,1,4)\)　(2) \(P(0,1,0)\)　(3) \(AB=2\sqrt3\)</p>
+        <p class="point">四角形の名前の順に頂点が並ぶ。\(ABCD\) と \(ABDC\) では \(D\) が変わる。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="vec-p14" data-level="2">
     <h3><span class="pid">P14</span>四面体と平面の交点（係数の和が1）</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「四面体 \(OABC\) で、直線 \(OG\) と平面 \(DEF\) の交点を \(P\) とする。\(\vec{OP}\) を表せ」「直線と平面 \(ABC\) の交点」</dd>
-      <dt>こう考える</dt><dd>\(P\) が平面 \(DEF\) 上 ⇔ \(\vec{OP}=x\vec{OD}+y\vec{OE}+z\vec{OF},\ x+y+z=1\)。<b>平面を作る3点の位置ベクトル</b>で書き直して係数の和を1にする。</dd>
+      <dt>こう考える</dt><dd>\(P\) が平面 \(DEF\) 上 ⇔ \(\vec{OP}=x\vec{OD}+y\vec{OE}+z\vec{OF},\ x+y+z=1\)。<b>平面を作る3点の位置ベクトル</b>で書き直して係数の和を1にする。
+        <figure class="fig narrow"><svg viewBox="0 0 340 225" role="img" aria-label="四面体OABCと平面DEF、直線OGの交点P">
+<polygon class="region2" points="95.0,175.0 126.7,150.0 67.5,117.0"/>
+<polygon class="curve2" points="95.0,175.0 126.7,150.0 67.5,117.0"/>
+<line class="axis" x1="40.0" y1="150.0" x2="150.0" y2="200.0"/>
+<line class="axis" x1="150.0" y1="200.0" x2="300.0" y2="150.0"/>
+<line class="axis" x1="40.0" y1="150.0" x2="150.0" y2="18.0"/>
+<line class="axis" x1="150.0" y1="200.0" x2="150.0" y2="18.0"/>
+<line class="axis" x1="300.0" y1="150.0" x2="150.0" y2="18.0"/>
+<line class="aux" x1="40.0" y1="150.0" x2="300.0" y2="150.0"/>
+<polygon class="region" points="150.0,200.0 300.0,150.0 150.0,18.0"/>
+<line class="curve" x1="40.0" y1="150.0" x2="200.0" y2="122.7"/>
+<circle class="dot" cx="95.0" cy="175.0" r="3"/>
+<circle class="dot" cx="126.7" cy="150.0" r="3"/>
+<circle class="dot" cx="67.5" cy="117.0" r="3"/>
+<circle class="dot" cx="200.0" cy="122.7" r="3"/>
+<circle class="hl" cx="93.3" cy="140.9" r="4"/>
+<text x="30.0" y="154.0" font-size="12" text-anchor="middle" font-style="italic">O</text>
+<text x="150.0" y="216.0" font-size="12" text-anchor="middle" font-style="italic">A</text>
+<text x="310.0" y="154.0" font-size="12" text-anchor="middle" font-style="italic">B</text>
+<text x="150.0" y="12.0" font-size="12" text-anchor="middle" font-style="italic">C</text>
+<text x="91.0" y="191.0" font-size="12" text-anchor="middle" font-style="italic">D</text>
+<text x="135.7" y="144.0" font-size="12" text-anchor="middle" font-style="italic">E</text>
+<text x="57.5" y="117.0" font-size="12" text-anchor="middle" font-style="italic">F</text>
+<text x="210.0" y="118.7" font-size="12" text-anchor="middle" font-style="italic">G</text>
+<text x="97.3" y="155.9" font-size="12" text-anchor="middle" font-style="italic">P</text>
+</svg><figcaption>青の面が \(\triangle ABC\)（\(G\) はその重心）、橙が平面 \(DEF\)。\(P\) は「直線 \(OG\) 上」かつ「平面 \(DEF\) 上」の点。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>直線上の点として \(\vec{OP}=k\vec{OG}\) とおく。</li>
         <li>\(\vec{OP}\) を \(\vec{OD},\vec{OE},\vec{OF}\) で書き直す（\(\vec a=2\vec{OD}\) などを代入）。</li>
@@ -448,6 +669,15 @@
       <p>\(P\) は平面 \(DEF\) 上だから \(\dfrac{2k}3+k+\dfrac{4k}3=3k=1\)、\(k=\frac13\)。</p>
       <p class="answer">\(\vec{OP}=\dfrac19(\vec a+\vec b+\vec c)\)、\(OP:OG=1:3\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">四面体 \(OABC\) で、辺 \(OA\) を \(1:2\) に内分する点を \(P\)、辺 \(OB\) の中点を \(Q\)、辺 \(OC\) を \(2:1\) に内分する点を \(R\) とし、\(\triangle PQR\) の重心を \(G\) とする。直線 \(OG\) と平面 \(ABC\) の交点を \(H\) とするとき、\(\vec{OH}\) を \(\vec a,\vec b,\vec c\) で表し、\(OG:GH\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\(\vec{OG}=\dfrac13\left(\dfrac13\vec a+\dfrac12\vec b+\dfrac23\vec c\right)=\dfrac19\vec a+\dfrac16\vec b+\dfrac29\vec c\)。\(H\) は直線 \(OG\) 上なので \(\vec{OH}=k\vec{OG}\)、平面 \(ABC\) 上なので（\(\vec a,\vec b,\vec c\) の）係数の和 \(=1\)：\(k\cdot\dfrac12=1\)、\(k=2\)。</p>
+        <p class="answer">\(\vec{OH}=\dfrac29\vec a+\dfrac13\vec b+\dfrac49\vec c\)、\(OG:GH=1:1\)</p>
+        <p class="point">平面 \(ABC\) なら \(\vec a,\vec b,\vec c\) の係数の和、平面 \(PQR\) なら \(\vec{OP},\vec{OQ},\vec{OR}\) で書き直した係数の和。どの3点の平面かを確認する。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="vec-p15" data-level="2">
@@ -472,6 +702,15 @@
       <p class="answer">\(H\left(\dfrac43,\dfrac23,\dfrac23\right)\)、\(OH=\dfrac{2\sqrt6}3\)、\(\triangle ABC=4\sqrt6\)</p>
       <p class="point">検算：P9 の公式で \(\frac12\sqrt{20\cdot20-4^2}=\frac12\sqrt{384}=4\sqrt6\)。また平面 \(ABC\) は \(2x+y+z=4\)（切片形 \(\frac x2+\frac y4+\frac z4=1\)）で、法線 \((2,1,1)\) と \(\vec{OH}\) は平行。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(A(1,0,0)\)、\(B(0,2,0)\)、\(C(0,0,2)\)、\(D(2,2,2)\) とする。点 \(D\) から平面 \(ABC\) に下ろした垂線の足 \(H\) の座標と \(DH\) の長さを求めよ。さらに四面体 \(ABCD\) の体積を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\(H\) は平面 \(ABC\) 上なので \(\vec{AH}=s\vec{AB}+t\vec{AC}\)、つまり \(H(1-s-t,\ 2s,\ 2t)\)。\(\vec{DH}\perp\vec{AB},\ \vec{DH}\perp\vec{AC}\) の2式から \(s=t=\dfrac12\)。体積は \(\dfrac13\times\triangle ABC\times DH\)（\(\triangle ABC=\sqrt6\)）。</p>
+        <p class="answer">\(H(0,1,1)\)、\(DH=\sqrt6\)、四面体 \(ABCD\) の体積 \(2\)</p>
+        <p class="point">検算：\(H\) が平面 \(2x+y+z=2\) 上にあり、\(\vec{DH}=(-2,-1,-1)\) が法線 \((2,1,1)\) と平行になっている。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="vec-p16" data-level="2">
@@ -497,6 +736,15 @@
       <p>(3) \(|\vec{AB}|^2=3,\ |\vec{AC}|^2=5,\ \vec{AB}\cdot\vec{AC}=1\) より \(\triangle ABC=\frac12\sqrt{15-1}=\frac{\sqrt{14}}2\)。体積 \(=\frac13\cdot\frac{\sqrt{14}}{2}\cdot\frac{15}{\sqrt{14}}=\frac52\)。</p>
       <p class="answer">(3) \(\dfrac52\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(A(1,1,0)\)、\(B(0,2,1)\)、\(C(2,0,2)\)、\(D(3,3,5)\) とする。(1) 平面 \(ABC\) の方程式を求めよ。(2) 点 \(D\) と平面 \(ABC\) の距離を求めよ。(3) 四面体 \(ABCD\) の体積を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 法線 \(\vec n=(p,q,r)\) を \(\vec n\cdot\vec{AB}=0,\ \vec n\cdot\vec{AC}=0\)（\(\vec{AB}=(-1,1,1),\ \vec{AC}=(1,-1,2)\)）から求めると \(r=0,\ p=q\)、\(\vec n=(1,1,0)\)。(2) 点と平面の距離の公式 \(\dfrac{|3+3-2|}{\sqrt2}\)。(3) \(\vec{AB}\cdot\vec{AC}=0\) なので \(\triangle ABC=\dfrac12|\vec{AB}||\vec{AC}|=\dfrac12\sqrt3\sqrt6=\dfrac{3\sqrt2}{2}\)、体積は \(\dfrac13\times\dfrac{3\sqrt2}{2}\times2\sqrt2\)。</p>
+        <p class="answer">(1) \(x+y=2\)　(2) \(2\sqrt2\)　(3) \(2\)</p>
+        <p class="point">法線の \(z\) 成分が 0 になり、平面の式に \(z\) が出てこない（\(z\) 軸に平行な平面）。「\(ax+by+cz=d\) の形にならない」と焦らない。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="vec-p17" data-level="2">
@@ -521,6 +769,15 @@
       <p>(3) 中心と平面の距離 \(=\dfrac{|2-2+6-k|}{\sqrt{4+1+4}}=\dfrac{|6-k|}{3}=3\) より \(|6-k|=9\)。</p>
       <p class="answer">(3) \(k=-3,\ 15\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">2点 \(A(1,2,-1),\ B(3,0,3)\) を直径の両端とする球面を \(S\) とする。(1) \(S\) の方程式を求めよ。(2) \(S\) と \(xy\) 平面の交わりの円の中心と半径を求めよ。(3) \(S\) と平面 \(x+2y+2z=k\) の交わりが半径 1 の円になるような \(k\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 中心は \(AB\) の中点 \((2,1,1)\)、半径 \(\dfrac{AB}{2}=\sqrt6\)。(2) \(z=0\) を代入して \((x-2)^2+(y-1)^2=5\)。(3) 中心と平面の距離を \(d\) とすると、断面の円の半径は \(\sqrt{6-d^2}\)（三平方）。\(d=\dfrac{|6-k|}{3}\) で \(6-d^2=1\)。</p>
+        <p class="answer">(1) \((x-2)^2+(y-1)^2+(z-1)^2=6\)　(2) 中心 \((2,1,0)\)、半径 \(\sqrt5\)　(3) \(k=6\pm3\sqrt5\)</p>
+        <p class="point">(3) は「球の半径・中心と平面の距離・断面の半径」の直角三角形を描く。\(|6-k|\) の絶対値で答えが2つ出る。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="vec-p18" data-level="2">
@@ -544,6 +801,15 @@
       <p>(2) \(3+2t=0\)、\(t=-\frac32\)。</p>
       <p class="answer">(2) \(\left(-\dfrac12,\ \dfrac72,\ 0\right)\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">点 \(L(1,1,5)\) に点光源がある。(1) 点 \(B(2,3,3)\) の \(xy\) 平面への影の座標を求めよ。(2) 直線 \(LB\) と平面 \(x-y+z=1\) の交点を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>影は「光源 \(L\) から出て \(B\) を通る直線」と平面の交点。直線 \(LB\) を \((x,y,z)=(1+t,\ 1+2t,\ 5-2t)\) と媒介変数表示し、(1) は \(z=0\)、(2) は平面の式に代入して \(t\) を求める。</p>
+        <p class="answer">(1) \(\left(\dfrac72,\ 6,\ 0\right)\)　(2) \(\left(\dfrac73,\ \dfrac{11}{3},\ \dfrac73\right)\)</p>
+        <p class="point">(1) で \(t=\frac52\gt1\)：影は \(B\) の先（光源と反対側）にできる。\(0\lt t\lt1\) なら \(L\) と \(B\) の間なので、影としては不自然と気づける。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="vec-p19" data-level="3">
@@ -568,13 +834,41 @@
       <p class="answer">最小値 \(\sqrt3\)（\(P(0,0,0),\ Q(1,-1,1)\)）</p>
       <p class="point">「垂直なら最小」は直観だが、答案では \(|\vec{PQ}|^2=(1-s)^2+(t-s)^2+(2+t)^2\) を \(s\) について平方完成→\(t\) について平方完成して最小を示すと、論理の抜けがない。（実際 \(|\vec{PQ}|^2=2\left(s-\frac{t+1}2\right)^2+\frac32(t+1)^2+3\) となり、最小値 3。）</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">2点 \(A(0,1,0),\ B(1,1,1)\) を通る直線を \(\ell\)、原点 \(O\) と \(C(1,-1,0)\) を通る直線を \(m\) とする。(1) \(\ell\) と \(m\) はねじれの位置にあることを示せ。(2) \(\ell\) 上の点 \(P\) と \(m\) 上の点 \(Q\) の距離 \(PQ\) の最小値と、そのときの \(P,Q\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\(P(s,1,s),\ Q(t,-t,0)\) とおく。(1) 方向ベクトル \((1,0,1),\ (1,-1,0)\) は平行でなく、\(P=Q\) となる \(s,t\) もない（\(s=t,\ 1=-t,\ s=0\) が矛盾）。(2) \(\vec{PQ}\) が<b>両方の方向ベクトルに垂直</b>：\(t-2s=0,\ 2t-s+1=0\) から \(s=-\dfrac13,\ t=-\dfrac23\)。</p>
+        <p class="answer">(1) 平行でなく交わらないので、ねじれの位置　(2) 最小値 \(\dfrac{\sqrt3}{3}\)（\(P\left(-\frac13,1,-\frac13\right),\ Q\left(-\frac23,\frac23,0\right)\)）</p>
+        <p class="point">\(PQ^2\) を \(s,t\) の2変数2次式として平方完成しても同じ答え。垂直条件のほうが計算は軽い。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="vec-p20" data-level="3">
     <h3><span class="pid">P20</span>動点と内積の最大・最小（中点を使う変形）</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「点 \(P\) が辺 \(CD\) 上を動くとき \(\vec{PA}\cdot\vec{PB}\) の最大値・最小値」「\(\vec{PA}\cdot\vec{PB}\) が一定となる点 \(P\) の軌跡」</dd>
-      <dt>こう考える</dt><dd>\(\vec{PA}\cdot\vec{PB}\) は \(P\) が2か所に入っていて扱いにくい。\(AB\) の中点 \(M\) を使うと<b>\(P\) が1か所（\(|\vec{PM}|\)）だけ</b>の式になる。</dd>
+      <dt>こう考える</dt><dd>\(\vec{PA}\cdot\vec{PB}\) は \(P\) が2か所に入っていて扱いにくい。\(AB\) の中点 \(M\) を使うと<b>\(P\) が1か所（\(|\vec{PM}|\)）だけ</b>の式になる。
+        <figure class="fig narrow"><svg viewBox="0 0 320 210" role="img" aria-label="正方形ABCDとABの中点M、PA・PB=PM²−1">
+<polygon class="axis" points="93.3,170.0 226.7,170.0 226.7,36.7 93.3,36.7"/>
+<polyline class="aux" points="293.3,170.0 293.3,167.9 293.3,165.8 293.2,163.7 293.1,161.6 292.9,159.5 292.7,157.5 292.5,155.4 292.3,153.3 292.0,151.2 291.7,149.1 291.3,147.1 291.0,145.0 290.6,143.0 290.1,140.9 289.6,138.9 289.1,136.8 288.6,134.8 288.0,132.8 287.4,130.8 286.8,128.8 286.1,126.8 285.5,124.8 284.7,122.9 284.0,120.9 283.2,119.0 282.4,117.0 281.5,115.1 280.6,113.2 279.7,111.3 278.8,109.5 277.8,107.6 276.8,105.8 275.8,103.9 274.8,102.1 273.7,100.3 272.6,98.6 271.4,96.8 270.3,95.1 269.1,93.3 267.9,91.6 266.6,89.9 265.4,88.3 264.1,86.6 262.7,85.0 261.4,83.4 260.0,81.8 258.6,80.3 257.2,78.7 255.8,77.2 254.3,75.7 252.8,74.2 251.3,72.8 249.7,71.4 248.2,70.0 246.6,68.6 245.0,67.3 243.4,65.9 241.7,64.6 240.1,63.4 238.4,62.1 236.7,60.9 234.9,59.7 233.2,58.6 231.4,57.4 229.7,56.3 227.9,55.2 226.1,54.2 224.2,53.2 222.4,52.2 220.5,51.2 218.7,50.3 216.8,49.4 214.9,48.5 213.0,47.6 211.0,46.8 209.1,46.0 207.1,45.3 205.2,44.5 203.2,43.9 201.2,43.2 199.2,42.6 197.2,42.0 195.2,41.4 193.2,40.9 191.1,40.4 189.1,39.9 187.0,39.4 185.0,39.0 182.9,38.7 180.9,38.3 178.8,38.0 176.7,37.7 174.6,37.5 172.5,37.3 170.5,37.1 168.4,36.9 166.3,36.8 164.2,36.7 162.1,36.7 160.0,36.7 157.9,36.7 155.8,36.7 153.7,36.8 151.6,36.9 149.5,37.1 147.5,37.3 145.4,37.5 143.3,37.7 141.2,38.0 139.1,38.3 137.1,38.7 135.0,39.0 133.0,39.4 130.9,39.9 128.9,40.4 126.8,40.9 124.8,41.4 122.8,42.0 120.8,42.6 118.8,43.2 116.8,43.9 114.8,44.5 112.9,45.3 110.9,46.0 109.0,46.8 107.0,47.6 105.1,48.5 103.2,49.4 101.3,50.3 99.5,51.2 97.6,52.2 95.8,53.2 93.9,54.2 92.1,55.2 90.3,56.3 88.6,57.4 86.8,58.6 85.1,59.7 83.3,60.9 81.6,62.1 79.9,63.4 78.3,64.6 76.6,65.9 75.0,67.3 73.4,68.6 71.8,70.0 70.3,71.4 68.7,72.8 67.2,74.2 65.7,75.7 64.2,77.2 62.8,78.7 61.4,80.3 60.0,81.8 58.6,83.4 57.3,85.0 55.9,86.6 54.6,88.3 53.4,89.9 52.1,91.6 50.9,93.3 49.7,95.1 48.6,96.8 47.4,98.6 46.3,100.3 45.2,102.1 44.2,103.9 43.2,105.8 42.2,107.6 41.2,109.5 40.3,111.3 39.4,113.2 38.5,115.1 37.6,117.0 36.8,119.0 36.0,120.9 35.3,122.9 34.5,124.8 33.9,126.8 33.2,128.8 32.6,130.8 32.0,132.8 31.4,134.8 30.9,136.8 30.4,138.9 29.9,140.9 29.4,143.0 29.0,145.0 28.7,147.1 28.3,149.1 28.0,151.2 27.7,153.3 27.5,155.4 27.3,157.5 27.1,159.5 26.9,161.6 26.8,163.7 26.7,165.8 26.7,167.9 26.7,170.0"/>
+<line class="aux" x1="130.0" y1="36.7" x2="93.3" y2="170.0"/>
+<line class="aux" x1="130.0" y1="36.7" x2="226.7" y2="170.0"/>
+<line class="curve2" x1="130.0" y1="36.7" x2="160.0" y2="170.0"/>
+<line class="curve" x1="93.3" y1="36.7" x2="226.7" y2="36.7"/>
+<circle class="dot" cx="160.0" cy="170.0" r="3"/>
+<circle class="hl" cx="130.0" cy="36.7" r="4"/>
+<circle class="dot" cx="160.0" cy="36.7" r="3"/>
+<text x="85.3" y="184.0" font-size="12" text-anchor="middle" font-style="italic">A</text>
+<text x="234.7" y="184.0" font-size="12" text-anchor="middle" font-style="italic">B</text>
+<text x="234.7" y="30.7" font-size="12" text-anchor="middle" font-style="italic">C</text>
+<text x="85.3" y="30.7" font-size="12" text-anchor="middle" font-style="italic">D</text>
+<text x="160.0" y="185.0" font-size="12" text-anchor="middle" font-style="italic">M</text>
+<text x="130.0" y="28.7" font-size="12" text-anchor="middle" font-style="italic">P</text>
+<text x="161.0" y="107.3" font-size="11" text-anchor="middle" font-style="italic">PM</text>
+<text x="172.0" y="28.7" font-size="11" text-anchor="middle" font-family="sans-serif">最小</text>
+</svg><figcaption>\(\overset{\longrightarrow}{PA}\cdot\overset{\longrightarrow}{PB}=PM^2-MA^2=PM^2-1\)。\(P\) が辺 \(CD\) 上を動くとき、\(M\) からの距離 \(PM\) だけを見ればよい（点線は \(M\) を中心とする半径 2 の円で、\(CD\) の中点で接する）。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>\(\vec{PA}=\vec{PM}+\vec{MA},\ \vec{PB}=\vec{PM}+\vec{MB}=\vec{PM}-\vec{MA}\)。</li>
         <li>\(\vec{PA}\cdot\vec{PB}=|\vec{PM}|^2-|\vec{MA}|^2\)。</li>
@@ -590,6 +884,15 @@
       <p class="answer">最大値 4（\(P=C,D\)）、最小値 3（\(P\) が \(CD\) の中点）</p>
       <p class="point">座標で検算：\(A(0,0),B(2,0),P(x,2)\ (0\le x\le2)\) とすると \(\vec{PA}\cdot\vec{PB}=-x(2-x)+4=(x-1)^2+3\)。\(x=1\) で 3、\(x=0,2\) で 4。一致。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">1辺の長さが 4 の正三角形 \(ABC\) がある。(1) 点 \(P\) が辺 \(AC\) 上を動くとき、\(\vec{PA}\cdot\vec{PB}\) の最大値と最小値を求めよ。(2) 平面上で \(\vec{PA}\cdot\vec{PB}=5\) を満たす点 \(P\) の軌跡を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\(AB\) の中点 \(M\) を使うと \(\vec{PA}\cdot\vec{PB}=|\vec{PM}|^2-|\vec{MA}|^2=PM^2-4\)。(1) \(P\) が \(AC\) 上を動くとき \(PM\) は、\(M\) から \(AC\) に下ろした垂線の足（\(AP=1\)）で最小 \(\sqrt3\)、\(P=C\) で最大 \(2\sqrt3\)。(2) \(PM^2=9\)。</p>
+        <p class="answer">(1) 最大値 \(8\)（\(P=C\)）、最小値 \(-1\)（\(AP=1\) の点）　(2) \(AB\) の中点を中心とする半径 3 の円</p>
+        <p class="point">最小になる点が辺の上にあるか（垂線の足が \(A\) と \(C\) の間にあるか）を必ず確認する。</p>
+      </div></details>
+    </div>
   </article>
 </section>
 

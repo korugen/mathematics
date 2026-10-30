@@ -134,6 +134,15 @@
       <p>(3) \(z\bar z=|z|^2=4\)。よって \(\dfrac4z=\bar z\)。<span class="answer">\(z\bar z=4,\ \dfrac4z=\bar z\)</span></p>
       <p class="point">(3) の「\(|z|=r\) なら \(\bar z=\frac{r^2}{z}\)」は、共役を消去したいときの必須の変形。P2・P19 で使う。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) 2点 \(A(-1+3i)\)、\(B(2-i)\) 間の距離を求めよ。(2) \(\left|\dfrac{(1+\sqrt3i)^3}{(2-i)^2}\right|\) を求めよ。(3) \(|z|=3\) のとき、\(\dfrac{9}{\bar z}\) と \(\overline{\left(\dfrac1z\right)}\) をそれぞれ \(z\) で表せ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 距離は差の絶対値：\(|(2-i)-(-1+3i)|=|3-4i|\)。(2) 展開せずに<b>絶対値の積・商に分ける</b>：\(\dfrac{|1+\sqrt3i|^3}{|2-i|^2}=\dfrac{2^3}{(\sqrt5)^2}\)。(3) \(z\bar z=|z|^2=9\) から \(\bar z=\dfrac9z\)。</p>
+        <p class="answer">(1) \(5\)　(2) \(\dfrac85\)　(3) \(\dfrac{9}{\bar z}=z\)、\(\overline{\left(\dfrac1z\right)}=\dfrac{1}{\bar z}=\dfrac{z}{9}\)</p>
+        <p class="point">\(|w^n|=|w|^n\)。分子を展開してから絶対値をとると計算が重くミスも増える。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="cpx-p2" data-level="1">
@@ -157,6 +166,15 @@
       <p>よって \(w\) は実数。（証明終）</p>
       <p class="point">(2) で分母分子に \(z^2\) を掛ける操作がポイント。\(1/z\) を含む式は \(z\) の累乗を掛けて分数を解消する。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) 実数 \(a\) に対し、\((a+i)^3\) が実数となる \(a\)、純虚数となる \(a\) をそれぞれ求めよ。(2) \(|z|=1,\ z\ne\pm1\) のとき、\(w=\dfrac{1+z}{1-z}\) は純虚数であることを示せ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 具体的な数なので展開して実部・虚部に分ける：\((a+i)^3=(a^3-3a)+(3a^2-1)i\)。実数 ⇔ 虚部 \(=0\)、純虚数 ⇔ 実部 \(=0\) かつ虚部 \(\ne0\)。(2) 文字のままなので \(\bar w=-w\) を示す。\(\bar z=\dfrac1z\) を使うと \(\bar w=\dfrac{1+\frac1z}{1-\frac1z}=\dfrac{z+1}{z-1}=-w\)。さらに \(z\ne-1\) より \(w\ne0\)。</p>
+        <p class="answer">(1) 実数：\(a=\pm\dfrac{\sqrt3}{3}\)、純虚数：\(a=0,\ \pm\sqrt3\)　(2) \(\bar w=-w\) かつ \(w\ne0\) より \(w\) は純虚数</p>
+        <p class="point">\(\bar w=-w\) だけでは \(w=0\) の可能性が残る。純虚数は 0 を含まないので \(w\ne0\) も確認する。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="cpx-p3" data-level="1">
@@ -179,6 +197,15 @@
       <p>(2) 一方で \(\dfrac\alpha\beta=\dfrac{(1+\sqrt3i)(1+i)}{2}=\dfrac{(1-\sqrt3)+(1+\sqrt3)i}{2}\)。実部を比べて \(\sqrt2\cos\frac{7\pi}{12}=\frac{1-\sqrt3}{2}\)。</p>
       <p class="answer">(2) \(\cos\dfrac{7\pi}{12}=\dfrac{1-\sqrt3}{2\sqrt2}=\dfrac{\sqrt2-\sqrt6}{4}\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(\alpha=\sqrt3+i,\ \beta=1+i\) とする。(1) \(\alpha\beta,\ \dfrac\alpha\beta\) を極形式で表せ（偏角は \(0\le\theta\lt2\pi\)）。(2) \(\alpha\beta\) を \(a+bi\) の形でも計算し、\(\sin\dfrac{5\pi}{12}\) の値を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\(\alpha=2\left(\cos\frac\pi6+i\sin\frac\pi6\right),\ \beta=\sqrt2\left(\cos\frac\pi4+i\sin\frac\pi4\right)\)。積は長さ \(2\sqrt2\)・角 \(\frac\pi6+\frac\pi4\)、商は長さ \(\sqrt2\)・角 \(\frac\pi6-\frac\pi4=-\frac{\pi}{12}\)（\(+2\pi\) して範囲に入れる）。(2) \(\alpha\beta=(\sqrt3-1)+(\sqrt3+1)i\) と極形式の虚部を比べる。</p>
+        <p class="answer">(1) \(\alpha\beta=2\sqrt2\left(\cos\dfrac{5\pi}{12}+i\sin\dfrac{5\pi}{12}\right)\)、\(\dfrac\alpha\beta=\sqrt2\left(\cos\dfrac{23\pi}{12}+i\sin\dfrac{23\pi}{12}\right)\)　(2) \(\sin\dfrac{5\pi}{12}=\dfrac{\sqrt3+1}{2\sqrt2}=\dfrac{\sqrt6+\sqrt2}{4}\)</p>
+        <p class="point">商の偏角が負になったら \(2\pi\) を足して指定の範囲に直す。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="cpx-p4" data-level="1">
@@ -202,6 +229,15 @@
       <p>実数 ⇔ \(\sin\frac{n\pi}{6}=0\) ⇔ \(n\) が6の倍数。純虚数 ⇔ \(\cos\frac{n\pi}6=0\) ⇔ \(\frac{n\pi}{6}=\frac\pi2+k\pi\) ⇔ \(n=3+6k\)。</p>
       <p class="answer">(2) 実数：\(n=6\)（値は \(-64\)）、純虚数：\(n=3\)（値は \(8i\)）</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) \(\left(\dfrac{1+i}{\sqrt3-i}\right)^{12}\) を計算せよ。(2) \((1-i)^n\) が正の実数となる最小の自然数 \(n\) と、そのときの値を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 分子・分母を極形式に：\(1+i=\sqrt2\left(\cos\frac\pi4+i\sin\frac\pi4\right)\)、\(\sqrt3-i=2\left\{\cos\left(-\frac\pi6\right)+i\sin\left(-\frac\pi6\right)\right\}\)。商は長さ \(\frac{1}{\sqrt2}\)・角 \(\frac{5\pi}{12}\)。12乗で長さ \(\frac{1}{64}\)・角 \(5\pi\)。(2) \((1-i)^n=(\sqrt2)^n\left\{\cos\left(-\frac{n\pi}4\right)+i\sin\left(-\frac{n\pi}4\right)\right\}\)。正の実数 ⇔ 偏角が \(2\pi\) の整数倍 ⇔ \(n\) が 8 の倍数。</p>
+        <p class="answer">(1) \(-\dfrac{1}{64}\)　(2) \(n=8\)（値は \(16\)）</p>
+        <p class="point">「実数」なら偏角は \(\pi\) の整数倍（\(n=4\) で \(-4\) も実数）、「正の実数」なら \(2\pi\) の整数倍。条件の違いを読み落とさない。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="cpx-p5" data-level="2">
@@ -225,13 +261,45 @@
       <p class="answer">\(z=1+\sqrt3i,\ -\sqrt3+i,\ -1-\sqrt3i,\ \sqrt3-i\)</p>
       <p class="point">4つの解は半径2の円に内接する正方形の頂点。1つ見つけたら \(i\) を次々掛ける（\(\frac\pi2\) 回転）だけで残りが出る、という検算ができる。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">方程式 \(z^3=-8i\) を解け。また、解を表す3点を頂点とする三角形の面積を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\(z=r(\cos\theta+i\sin\theta)\) とおき、\(-8i=8\left(\cos\frac{3\pi}{2}+i\sin\frac{3\pi}{2}\right)\) と比べる：\(r^3=8,\ 3\theta=\dfrac{3\pi}{2}+2k\pi\)。\(r=2,\ \theta=\dfrac\pi2,\ \dfrac{7\pi}{6},\ \dfrac{11\pi}{6}\)（\(k=0,1,2\)）。3点は半径 2 の円に内接する正三角形をなす。</p>
+        <p class="answer">\(z=2i,\ -\sqrt3-i,\ \sqrt3-i\)、面積 \(3\sqrt3\)</p>
+        <p class="point">\(+2k\pi\) を付けないと \(z=2i\) しか出ない。\(n\) 乗根は円周を \(n\) 等分する、と図で確認する。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="cpx-p6" data-level="2">
     <h3><span class="pid">P6</span>1の \(n\) 乗根の性質（和が0、因数分解）</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\omega=\cos\frac{2\pi}{5}+i\sin\frac{2\pi}5\) のとき \(1+\omega+\omega^2+\omega^3+\omega^4\) の値」「\((1-\omega)(1-\omega^2)(1-\omega^3)(1-\omega^4)\) の値」</dd>
-      <dt>こう考える</dt><dd>\(\omega\) の性質は<b>「\(\omega^n=1\)」と「\(z^n-1=(z-1)(z-\omega)\cdots(z-\omega^{n-1})\)」</b>の2つに集約される。具体的な値（\(\cos\frac{2\pi}5\) など）を計算に持ち込まない。</dd>
+      <dt>こう考える</dt><dd>\(\omega\) の性質は<b>「\(\omega^n=1\)」と「\(z^n-1=(z-1)(z-\omega)\cdots(z-\omega^{n-1})\)」</b>の2つに集約される。具体的な値（\(\cos\frac{2\pi}5\) など）を計算に持ち込まない。
+        <figure class="fig narrow"><svg viewBox="0 0 300 260" role="img" aria-label="1の5乗根と正五角形">
+<line class="axis" x1="13.9" y1="130.0" x2="286.1" y2="130.0"/>
+<line class="axis" x1="150.0" y1="252.0" x2="150.0" y2="8.0"/>
+<text x="284.1" y="125.0" font-size="10.5" text-anchor="end" font-family="sans-serif">実軸</text>
+<text x="155.0" y="17.0" font-size="10.5" text-anchor="start" font-family="sans-serif">虚軸</text>
+<circle class="aux" cx="150.0" cy="130.0" r="93.8"/>
+<polygon class="region" points="243.8,130.0 179.0,40.7 74.1,74.8 74.1,185.2 179.0,219.3"/>
+<polygon class="curve" points="243.8,130.0 179.0,40.7 74.1,74.8 74.1,185.2 179.0,219.3"/>
+<circle class="hl" cx="243.8" cy="130.0" r="4"/>
+<text x="252.8" y="146.0" font-size="13" text-anchor="middle">1</text>
+<circle class="hl" cx="179.0" cy="40.7" r="4"/>
+<text x="183.9" y="29.5" font-size="13" text-anchor="middle" font-style="italic">ω</text>
+<circle class="hl" cx="74.1" cy="74.8" r="4"/>
+<text x="61.1" y="69.4" font-size="13" text-anchor="middle" font-style="italic">ω²</text>
+<circle class="hl" cx="74.1" cy="185.2" r="4"/>
+<text x="61.1" y="198.6" font-size="13" text-anchor="middle" font-style="italic">ω³</text>
+<circle class="hl" cx="179.0" cy="219.3" r="4"/>
+<text x="183.9" y="238.5" font-size="13" text-anchor="middle" font-style="italic">ω⁴</text>
+<circle class="dot" cx="150.0" cy="130.0" r="3"/>
+<text x="141.0" y="144.0" font-size="12" text-anchor="middle" font-style="italic">O</text>
+<polyline class="axis" points="180.0,130.0 180.0,129.1 180.0,128.1 179.9,127.2 179.8,126.2 179.7,125.3 179.5,124.4 179.3,123.4 179.1,122.5 178.8,121.6 178.6,120.7 178.3,119.8 177.9,118.9 177.6,118.1 177.2,117.2 176.8,116.4 176.3,115.5 175.8,114.7 175.4,113.9 174.8,113.1 174.3,112.3 173.7,111.6 173.1,110.9 172.5,110.1 171.9,109.4 171.2,108.8 170.6,108.1 169.9,107.5 169.1,106.9 168.4,106.3 167.7,105.7 166.9,105.2 166.1,104.6 165.3,104.2 164.5,103.7 163.6,103.2 162.8,102.8 161.9,102.4 161.1,102.1 160.2,101.7 159.3,101.4"/>
+<text x="187.9" y="110.8" font-size="10.5" text-anchor="start">2π/5</text>
+</svg><figcaption>\(\omega^k\ (k=0,1,\dots,4)\) は単位円を 5 等分する点（正五角形の頂点）。正五角形の重心は原点なので \(1+\omega+\omega^2+\omega^3+\omega^4=0\)。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>\(\omega^n=1,\ \omega\neq1\) から \(\omega^{n-1}+\cdots+\omega+1=0\)（\(z^n-1=(z-1)(z^{n-1}+\cdots+1)\) より）。</li>
         <li>高い次数は \(\omega^n=1\) で下げる。\(\bar\omega=\omega^{-1}=\omega^{n-1}\)。</li>
@@ -251,6 +319,15 @@
       <p class="answer">(3) \(\omega+\omega^4\)（\(=2\cos\frac{2\pi}{5}\)）</p>
       <p class="point">(2) の結果は「単位円に内接する正五角形の1頂点から他の4頂点への距離の積は5」を意味する（\(|1-\omega^k|\) が距離）。阪大型演習2で一般化する。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(\omega=\cos\dfrac{2\pi}{7}+i\sin\dfrac{2\pi}{7}\) とする。(1) \((2-\omega)(2-\omega^2)(2-\omega^3)(2-\omega^4)(2-\omega^5)(2-\omega^6)\) の値を求めよ。(2) \(\alpha=\omega+\omega^2+\omega^4,\ \beta=\omega^3+\omega^5+\omega^6\) とするとき、\(\alpha+\beta\) と \(\alpha\beta\) の値を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) \(z^7-1=(z-1)(z-\omega)\cdots(z-\omega^6)\) から \((z-\omega)\cdots(z-\omega^6)=z^6+z^5+\cdots+z+1\)。\(z=2\) を代入。(2) \(\alpha+\beta=\omega+\omega^2+\cdots+\omega^6=-1\)。\(\alpha\beta\) は展開して \(\omega^7=1\) で次数を下げると \(3+(\omega+\cdots+\omega^6)\)。</p>
+        <p class="answer">(1) \(127\)　(2) \(\alpha+\beta=-1,\ \alpha\beta=2\)</p>
+        <p class="point">(1) は \(\dfrac{2^7-1}{2-1}\) とも書ける。\(\cos\frac{2\pi}7\) などの具体的な値は一切使わない。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="cpx-p7" data-level="2">
@@ -275,13 +352,43 @@
       <p class="answer">\(\cos\dfrac{2\pi}{5}=\dfrac{\sqrt5-1}{4}\)</p>
       <p class="point">もう一方の解 \(\frac{-1-\sqrt5}{2}\) は \(\omega^2+\omega^{-2}=2\cos\frac{4\pi}{5}\)。2解が \(2\cos\frac{2\pi}5\) と \(2\cos\frac{4\pi}{5}\) であることも答案で使える。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(\omega=\cos\dfrac{2\pi}{7}+i\sin\dfrac{2\pi}{7}\)、\(t=\omega+\dfrac1\omega\) とする。(1) \(t\) は3次方程式 \(t^3+t^2-2t-1=0\) の解であることを示せ。(2) \(c=\cos\dfrac{2\pi}{7}\) が満たす3次方程式を1つ求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\(\omega^6+\omega^5+\cdots+\omega+1=0\) は係数が左右対称。<b>\(\omega^3\) で割る</b>と \(\left(\omega^3+\frac1{\omega^3}\right)+\left(\omega^2+\frac1{\omega^2}\right)+\left(\omega+\frac1\omega\right)+1=0\)。\(\omega^2+\frac1{\omega^2}=t^2-2\)、\(\omega^3+\frac1{\omega^3}=t^3-3t\) を代入。(2) \(\frac1\omega=\bar\omega\) より \(t=2c\) を代入。</p>
+        <p class="answer">(1) \((t^3-3t)+(t^2-2)+t+1=t^3+t^2-2t-1=0\)　(2) \(8c^3+4c^2-4c-1=0\)</p>
+        <p class="point">\(n=5\) なら \(\omega^2\) で割って2次方程式、\(n=7\) なら \(\omega^3\) で割って3次方程式になる。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="cpx-p8" data-level="1">
     <h3><span class="pid">P8</span>点の回転と拡大</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「点 \(B(3+2i)\) を点 \(A(1+i)\) のまわりに \(\frac\pi2\) 回転した点」「原点のまわりに \(\frac\pi3\) 回転し、2倍に拡大した点」</dd>
-      <dt>こう考える</dt><dd>原点まわりの回転は掛け算。中心が原点でなければ<b>「中心を原点に移す → 掛ける → 戻す」</b>の3段階。</dd>
+      <dt>こう考える</dt><dd>原点まわりの回転は掛け算。中心が原点でなければ<b>「中心を原点に移す → 掛ける → 戻す」</b>の3段階。
+        <figure class="fig narrow"><svg viewBox="0 0 320 230" role="img" aria-label="点Aのまわりに点Bをπ/2回転">
+<defs><marker id="cp8a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="curve" d="M1,1 L9,5 L1,9" style="stroke-dasharray:none"/></marker><marker id="cp8b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="curve2" d="M1,1 L9,5 L1,9" style="stroke-dasharray:none"/></marker></defs>
+<line class="axis" x1="37.7" y1="191.4" x2="282.3" y2="191.4"/>
+<line class="axis" x1="88.7" y1="222.0" x2="88.7" y2="8.0"/>
+<text x="280.3" y="186.4" font-size="10.5" text-anchor="end" font-family="sans-serif">実軸</text>
+<text x="93.7" y="17.0" font-size="10.5" text-anchor="start" font-family="sans-serif">虚軸</text>
+<text x="80.7" y="204.4" font-size="12" text-anchor="middle" font-style="italic">O</text>
+<line class="curve" x1="139.6" y1="140.5" x2="241.5" y2="89.5" marker-end="url(#cp8a)"/>
+<line class="curve2" x1="139.6" y1="140.5" x2="88.7" y2="38.6" marker-end="url(#cp8b)"/>
+<polyline class="axis" points="185.5,117.5 184.5,115.8 183.5,114.0 182.5,112.3 181.3,110.7 180.1,109.0 178.9,107.5 177.5,106.0 176.1,104.5 174.7,103.1 173.2,101.7 171.7,100.5 170.1,99.2 168.4,98.1 166.7,97.0 165.0,95.9 163.2,95.0 161.4,94.1 159.6,93.3 157.7,92.5 155.8,91.8 153.9,91.2 152.0,90.7 150.0,90.3 148.0,89.9 146.0,89.6 144.0,89.4 142.0,89.3 140.0,89.2 138.0,89.2 136.0,89.3 134.0,89.5 132.0,89.8 130.0,90.1 128.0,90.5 126.1,91.0 124.1,91.6 122.2,92.2 120.4,93.0 118.5,93.8 116.7,94.6"/>
+<line class="aux" x1="88.7" y1="191.4" x2="139.6" y2="140.5"/>
+<circle class="dot" cx="139.6" cy="140.5" r="3"/>
+<circle class="dot" cx="241.5" cy="89.5" r="3"/>
+<circle class="dot" cx="88.7" cy="38.6" r="3"/>
+<text x="147.6" y="154.5" font-size="11.5" text-anchor="start">A(1+i)</text>
+<text x="247.5" y="83.5" font-size="11.5" text-anchor="start">B(3+2i)</text>
+<text x="80.7" y="33.6" font-size="11.5" text-anchor="end">3i</text>
+<text x="161.9" y="83.7" font-size="11" text-anchor="middle">π/2</text>
+<text x="198.6" y="129.0" font-size="11" text-anchor="middle" font-style="italic">β−α</text>
+<text x="108.1" y="85.5" font-size="11" text-anchor="end" font-style="italic">i(β−α)</text>
+</svg><figcaption>中心 \(A\) を原点に移すと \(B\) は \(\beta-\alpha=2+i\)。それに \(i\) を掛けて \(\frac\pi2\) 回転し、\(\alpha\) を足して戻すと \(3i\)。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>\(\beta-\alpha\)（中心 \(\alpha\) から見た位置）を作る。</li>
         <li>\(r(\cos\theta+i\sin\theta)\) を掛ける（\(\frac\pi2\) 回転なら \(i\)、\(-\frac\pi2\) なら \(-i\)）。</li>
@@ -298,6 +405,15 @@
       <p class="answer">(2) \(\dfrac{1-\sqrt3}{2}+\dfrac{1+\sqrt3}{2}i\)</p>
       <p class="point">(1) の検算：\(AB=|2+i|=\sqrt5\)、\(AC=|3i-(1+i)|=|-1+2i|=\sqrt5\)、\((2+i)\cdot(-1+2i)\) の内積に当たる \(2\cdot(-1)+1\cdot2=0\) で直交。OK。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) 点 \(B(4+3i)\) を点 \(A(2+i)\) を中心に \(-\dfrac\pi4\) だけ回転し、\(A\) からの距離を \(\sqrt2\) 倍した点 \(C\) を求めよ。(2) 点 \(P(z)\) を点 \(1\) のまわりに \(\dfrac\pi2\) だけ回転すると点 \(3+2i\) に移る。\(z\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>中心が原点でないので「中心を原点に移す → 掛ける → 戻す」。(1) \(\gamma-\alpha=\sqrt2\left\{\cos\left(-\frac\pi4\right)+i\sin\left(-\frac\pi4\right)\right\}(\beta-\alpha)=(1-i)(2+2i)=4\)。(2) \((3+2i)-1=i(z-1)\) を \(z\) について解く（\(i\) で割る＝\(-\frac\pi2\) 回転して戻す）。</p>
+        <p class="answer">(1) \(C(6+i)\)　(2) \(z=3-2i\)</p>
+        <p class="point">(2) のように「回転後の点」が分かっている問題は、逆向きの回転（\(\div i\)）で戻せばよい。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="cpx-p9" data-level="2">
@@ -320,6 +436,15 @@
       <p>\((2+i)\left(\frac12-\frac{\sqrt3}2i\right)=\left(1+\frac{\sqrt3}{2}\right)+\left(\frac12-\sqrt3\right)i\)</p>
       <p class="answer">\(B=\left(1-\dfrac{\sqrt3}{2}\right)+\left(\dfrac12+\sqrt3\right)i,\ \ \left(1+\dfrac{\sqrt3}{2}\right)+\left(\dfrac12-\sqrt3\right)i\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">2点 \(A(1+2i),\ B(4+3i)\) に対し、線分 \(AB\) を1辺とする正方形 \(ABCD\) の残りの頂点 \(C,D\) を表す複素数を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>正方形 ⇔ \(\overrightarrow{AD}\) は \(\overrightarrow{AB}\) を \(\pm\dfrac\pi2\) 回転したもの。\(\beta-\alpha=3+i\)。反時計回りなら \(\delta=\alpha+i(\beta-\alpha)\)、時計回りなら \(\delta=\alpha-i(\beta-\alpha)\)。\(C\) は \(\gamma=\delta+(\beta-\alpha)\)（\(\overrightarrow{DC}=\overrightarrow{AB}\)）。</p>
+        <p class="answer">\((C,D)=(3+6i,\ 5i)\) または \((5,\ 2-i)\)</p>
+        <p class="point">正方形が \(AB\) のどちら側にできるかで2通り。片方だけ答えるのは典型的な減点。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="cpx-p10" data-level="2">
@@ -343,6 +468,15 @@
       <p>(2) \(1+\sqrt3i=2\left(\cos\frac\pi3+i\sin\frac\pi3\right)\) より \(AC=2AB\)、\(\angle BAC=\frac\pi3\)。余弦定理で \(BC^2=AB^2+4AB^2-2\cdot AB\cdot2AB\cdot\frac12=3AB^2\)。\(AB^2+BC^2=4AB^2=AC^2\) なので \(\angle B=\frac\pi2\)。</p>
       <p class="answer">(2) \(\angle A=\dfrac\pi3,\ \angle B=\dfrac\pi2,\ \angle C=\dfrac\pi6\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) 3点 \(A(2+i),\ B(4+2i),\ C(a+5i)\)（\(a\) は実数）について、3点が一直線上にある \(a\) と、\(\angle BAC=\dfrac\pi4\) となる \(a\) を求めよ。(2) 異なる3点 \(A(\alpha),B(\beta),C(\gamma)\) が \(\dfrac{\gamma-\alpha}{\beta-\alpha}=\sqrt3\,i\) を満たすとき、\(\triangle ABC\) の3つの角を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) \(\dfrac{\gamma-\alpha}{\beta-\alpha}=\dfrac{(a-2)+4i}{2+i}=\dfrac{2a}{5}+\dfrac{10-a}{5}i\)。一直線 ⇔ 実数（虚部 \(=0\)）。\(\angle BAC=\frac\pi4\) ⇔ 偏角 \(\pm\frac\pi4\)、つまり 実部 \(=\) |虚部| かつ実部 \(\gt0\)。(2) \(\sqrt3i\) の偏角は \(\frac\pi2\)、絶対値は \(\sqrt3\) なので \(\angle A=\frac\pi2,\ AC=\sqrt3AB\)。</p>
+        <p class="answer">(1) 一直線上：\(a=10\)、\(\angle BAC=\dfrac\pi4\)：\(a=\dfrac{10}{3}\)　(2) \(\angle A=\dfrac\pi2,\ \angle B=\dfrac\pi3,\ \angle C=\dfrac\pi6\)</p>
+        <p class="point">(1) の角の条件は偏角 \(-\frac\pi4\)（虚部 \(=-\)実部）も含むが、そのとき \(2a=a-10\) で \(a=-10\)、実部 \(\lt0\) となり不適。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="cpx-p11" data-level="1">
@@ -365,13 +499,45 @@
       <p class="answer">(3) 中心 \(1+i\)、半径2の円</p>
       <p class="point">(3) を \(z=x+yi\) で確かめると \(x^2+y^2-2x-2y-2=0\)、すなわち \((x-1)^2+(y-1)^2=4\)。一致する。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">次の式を満たす点 \(z\) 全体はどのような図形か。(1) \(|iz+2|=4\)　(2) \(|z-2i|=|z-4|\)　(3) \(z\bar z+(1+2i)z+(1-2i)\bar z+1=0\)</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) \(i\) をくくり出す：\(|i|\left|z+\frac2i\right|=|z-2i|=4\)。(2) 2点 \(2i,\ 4\) から等距離。(3) \((z+1-2i)(\bar z+1+2i)=z\bar z+(1+2i)z+(1-2i)\bar z+5\) なので、式は \(|z+1-2i|^2=4\)。</p>
+        <p class="answer">(1) 中心 \(2i\)、半径 4 の円　(2) 2点 \(2i,\ 4\) を結ぶ線分の垂直二等分線（直線 \(y=2x-3\)）　(3) 中心 \(-1+2i\)、半径 2 の円</p>
+        <p class="point">(1) \(\dfrac2i=-2i\) なので \(z+\dfrac2i=z-2i\)。符号を間違えると中心が \(-2i\) になってしまう。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="cpx-p12" data-level="2">
     <h3><span class="pid">P12</span>アポロニウスの円 \(|z-\alpha|=k|z-\beta|\)</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「\(|z-3|=2|z|\) を満たす点 \(z\) 全体」「2点からの距離の比が \(2:1\) である点の軌跡」</dd>
-      <dt>こう考える</dt><dd>距離の比が一定（\(\neq1\)）なら円。<b>両辺を2乗して \(|w|^2=w\bar w\) で展開</b>し、P11 の型にまとめる。</dd>
+      <dt>こう考える</dt><dd>距離の比が一定（\(\neq1\)）なら円。<b>両辺を2乗して \(|w|^2=w\bar w\) で展開</b>し、P11 の型にまとめる。
+        <figure class="fig narrow"><svg viewBox="0 0 340 220" role="img" aria-label="アポロニウスの円 |z−3|=2|z|">
+<line class="axis" x1="17.0" y1="110.0" x2="323.0" y2="110.0"/>
+<line class="axis" x1="170.0" y1="212.0" x2="170.0" y2="8.0"/>
+<text x="321.0" y="105.0" font-size="10.5" text-anchor="end" font-family="sans-serif">実軸</text>
+<text x="175.0" y="17.0" font-size="10.5" text-anchor="start" font-family="sans-serif">虚軸</text>
+<circle class="curve" cx="127.5" cy="110.0" r="85.0"/>
+<line class="curve2" x1="156.6" y1="30.1" x2="170.0" y2="110.0"/>
+<line class="curve2" x1="156.6" y1="30.1" x2="297.5" y2="110.0"/>
+<circle class="hl" cx="170.0" cy="110.0" r="4"/>
+<circle class="hl" cx="297.5" cy="110.0" r="4"/>
+<circle class="dot" cx="212.5" cy="110.0" r="3"/>
+<circle class="dot" cx="42.5" cy="110.0" r="3"/>
+<circle class="dot" cx="127.5" cy="110.0" r="3"/>
+<circle class="dot" cx="156.6" cy="30.1" r="3"/>
+<text x="161.0" y="124.0" font-size="12" text-anchor="middle">0</text>
+<text x="297.5" y="125.0" font-size="12" text-anchor="middle">3</text>
+<text x="221.5" y="124.0" font-size="12" text-anchor="middle">1</text>
+<text x="32.5" y="124.0" font-size="12" text-anchor="middle">−3</text>
+<text x="127.5" y="124.0" font-size="11" text-anchor="middle">−1</text>
+<text x="154.6" y="22.1" font-size="12" text-anchor="middle" font-style="italic">z</text>
+<text x="149.3" y="70.1" font-size="11" text-anchor="middle" font-style="italic">|z|</text>
+<text x="237.0" y="68.1" font-size="11" text-anchor="start" font-style="italic">|z−3|</text>
+</svg><figcaption>\(|z-3|=2|z|\)：点 \(3\) までの距離が点 \(0\) までの距離の 2 倍。実軸上では \(z=1\)（内分点）と \(z=-3\)（外分点）がこの条件を満たし、この2点を直径の両端とする円（中心 \(-1\)、半径 2）になる。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>両辺を2乗：\((z-\alpha)(\bar z-\bar\alpha)=k^2(z-\beta)(\bar z-\bar\beta)\)。</li>
         <li>展開して \(z\bar z\) の係数で割る。</li>
@@ -387,13 +553,63 @@
       <p class="answer">中心 \(-1\)、半径2の円</p>
       <p class="point">検算：実軸上で \(0\) と \(3\) を \(2:1\) …ではなく、\(|z-3|:|z|=2:1\) なので \(3\) からの距離が \(0\) からの距離の2倍。内分点 \(z=1\)（\(2=2\cdot1\)）、外分点 \(z=-3\)（\(6=2\cdot3\)）。これを直径の両端とする円は中心 \(-1\)、半径2。一致。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">2点 \(A(-1),\ B(2i)\) からの距離の比が \(AP:BP=2:1\) である点 \(P(z)\) の軌跡を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>条件は \(|z+1|=2|z-2i|\)。両辺を2乗して \(|w|^2=w\bar w\) で展開：\((z+1)(\bar z+1)=4(z-2i)(\bar z+2i)\)。整理すると \(3z\bar z-(1-8i)z-(1+8i)\bar z+15=0\)、\(3\) で割って \(\left(z-\frac{1+8i}{3}\right)\left(\bar z-\frac{1-8i}{3}\right)=\frac{65}{9}-5\)。</p>
+        <p class="answer">中心 \(\dfrac{1+8i}{3}\)、半径 \(\dfrac{2\sqrt5}{3}\) の円</p>
+        <p class="point">検算：\(AB\) を \(2:1\) に内分する点 \(\frac{-1+4i}{3}\) と外分する点 \(1+4i\) が直径の両端。その中点 \(\frac{1+8i}{3}\) が中心になっている。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="cpx-p13" data-level="2">
     <h3><span class="pid">P13</span>\(w=f(z)\) による図形の像（\(w=\frac1z\) など）</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「点 \(z\) が円 \(|z-1|=1\)（\(z\neq0\)）上を動くとき、\(w=\frac1z\) はどのような図形を描くか」「\(z\) が直線上を動くとき \(w=\frac{1}{z}\) の軌跡」</dd>
-      <dt>こう考える</dt><dd>\(w\) の満たす式を作りたい。<b>\(z\) を \(w\) で表し（逆に解き）、\(z\) の条件式に代入</b>すれば、それが \(w\) の満たすべき条件になる。</dd>
+      <dt>こう考える</dt><dd>\(w\) の満たす式を作りたい。<b>\(z\) を \(w\) で表し（逆に解き）、\(z\) の条件式に代入</b>すれば、それが \(w\) の満たすべき条件になる。
+        <figure class="fig row"><svg viewBox="0 0 200 190" role="img" aria-label="z平面：円|z−1|=1">
+<line class="axis" x1="8.6" y1="86.0" x2="191.4" y2="86.0"/>
+<line class="axis" x1="48.6" y1="166.0" x2="48.6" y2="6.0"/>
+<text x="189.4" y="81.0" font-size="10.5" text-anchor="end" font-family="sans-serif">実軸</text>
+<text x="53.6" y="15.0" font-size="10.5" text-anchor="start" font-family="sans-serif">虚軸</text>
+<text x="40.6" y="99.0" font-size="12" text-anchor="middle" font-style="italic">O</text>
+<circle class="curve" cx="105.7" cy="86.0" r="57.1"/>
+<circle class="hl" cx="146.1" cy="45.6" r="3.5"/>
+<text x="153.9" y="41.8" font-size="11" text-anchor="middle">1</text>
+<circle class="hl" cx="95.8" cy="29.7" r="3.5"/>
+<text x="93.9" y="22.9" font-size="11" text-anchor="middle">2</text>
+<circle class="hl" cx="61.9" cy="49.3" r="3.5"/>
+<text x="53.5" y="46.2" font-size="11" text-anchor="middle">3</text>
+<circle class="hl" cx="146.1" cy="126.4" r="3.5"/>
+<text x="153.9" y="138.2" font-size="11" text-anchor="middle">4</text>
+<circle class="hl" cx="95.8" cy="142.3" r="3.5"/>
+<text x="93.9" y="157.1" font-size="11" text-anchor="middle">5</text>
+<circle class="hl" cx="61.9" cy="122.7" r="3.5"/>
+<text x="53.5" y="133.8" font-size="11" text-anchor="middle">6</text>
+<text x="100.0" y="184.0" font-size="11.5" text-anchor="middle" font-family="sans-serif">z 平面：|z−1|=1</text>
+</svg><svg viewBox="0 0 200 190" role="img" aria-label="w平面：直線Re w=1/2">
+<line class="axis" x1="51.6" y1="86.0" x2="148.4" y2="86.0"/>
+<line class="axis" x1="81.1" y1="166.0" x2="81.1" y2="6.0"/>
+<text x="146.4" y="81.0" font-size="10.5" text-anchor="end" font-family="sans-serif">実軸</text>
+<text x="86.1" y="15.0" font-size="10.5" text-anchor="start" font-family="sans-serif">虚軸</text>
+<text x="73.1" y="99.0" font-size="12" text-anchor="middle" font-style="italic">O</text>
+<line class="curve" x1="102.1" y1="166.0" x2="102.1" y2="6.0"/>
+<circle class="hl" cx="102.1" cy="94.7" r="3.5"/>
+<text x="112.1" y="98.7" font-size="11" text-anchor="middle">1</text>
+<circle class="hl" cx="102.1" cy="111.1" r="3.5"/>
+<text x="112.1" y="115.1" font-size="11" text-anchor="middle">2</text>
+<circle class="hl" cx="102.1" cy="143.8" r="3.5"/>
+<text x="112.1" y="147.8" font-size="11" text-anchor="middle">3</text>
+<circle class="hl" cx="102.1" cy="77.3" r="3.5"/>
+<text x="112.1" y="81.3" font-size="11" text-anchor="middle">4</text>
+<circle class="hl" cx="102.1" cy="60.9" r="3.5"/>
+<text x="112.1" y="64.9" font-size="11" text-anchor="middle">5</text>
+<circle class="hl" cx="102.1" cy="28.2" r="3.5"/>
+<text x="112.1" y="32.2" font-size="11" text-anchor="middle">6</text>
+<text x="100.0" y="184.0" font-size="11.5" text-anchor="middle" font-family="sans-serif">w 平面：Re w=1/2</text>
+</svg><figcaption>\(w=\dfrac1z\) で、円 \(|z-1|=1\) 上の点（番号）は直線 \(\mathrm{Re}\,w=\dfrac12\) 上の同じ番号の点に移る。\(z\) が原点に近づくほど \(w\) は遠くへ行く。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>\(w=f(z)\) を \(z=g(w)\) と解く（\(w\neq0\) などの除外値も確認）。</li>
         <li>\(z\) の条件（\(|z-1|=1\) など）に \(z=g(w)\) を代入。</li>
@@ -412,6 +628,15 @@
       <p class="answer">(2) 中心 \(\dfrac12\)、半径 \(\dfrac12\) の円から原点を除いたもの</p>
       <p class="point">\(w=\frac1z\) は「原点を通る円 ⇔ 原点を通らない直線」を入れ替える。原点は \(\frac1z\) では到達できないので<b>除外点</b>になる。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(w=\dfrac1z\) とする。(1) 点 \(z\) が直線 \(\mathrm{Im}\,z=1\)（虚部が 1）上を動くとき、点 \(w\) の描く図形を求めよ。(2) 点 \(z\) が円 \(|z-1|=2\) 上を動くとき、点 \(w\) の描く図形を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\(z=\dfrac1w\)（\(w\ne0\)）を \(z\) の条件に代入する。(1) \(\mathrm{Im}\,z=1\) ⇔ \(\dfrac{z-\bar z}{2i}=1\)。\(\dfrac{1}{w}-\dfrac{1}{\bar w}=2i\) の分母を払うと \(\bar w-w=2iw\bar w\)、整理して \(\left(w+\dfrac i2\right)\left(\bar w-\dfrac i2\right)=\dfrac14\)。(2) \(\left|\dfrac1w-1\right|=2\) ⇔ \(|1-w|=2|w|\)（アポロニウスの円）。2乗して整理すると \(\left|w+\dfrac13\right|=\dfrac23\)。</p>
+        <p class="answer">(1) 中心 \(-\dfrac i2\)、半径 \(\dfrac12\) の円から原点を除いたもの　(2) 中心 \(-\dfrac13\)、半径 \(\dfrac23\) の円</p>
+        <p class="point">原点を通らない円 (2) は円に、直線 (1) は原点を通る円（原点を除く）に移る。(2) は \(z\) が原点を通らないので除く点はない。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="cpx-p14" data-level="3">
@@ -437,13 +662,43 @@
       <p class="answer">(2) 実軸上の線分 \(-2\le w\le2\)（2点 \(-2,\ 2\) を結ぶ線分）</p>
       <p class="point">(1) の楕円の焦点は \(c=\sqrt{\frac{25}4-\frac94}=2\) で、\(r\) によらず常に \(\pm2\)。\(r\to1\) で楕円がつぶれて (2) の線分（焦点間の線分）になる。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(w=z-\dfrac1z\) とする。(1) 点 \(z\) が円 \(|z|=2\) 上を動くとき、点 \(w\) の描く図形を求めよ。(2) 点 \(z\) が円 \(|z|=1\) 上を動くとき、点 \(w\) の描く図形を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\(|z|\) が一定なので極形式でおく。(1) \(z=2(\cos\theta+i\sin\theta)\) とすると \(\dfrac1z=\dfrac12(\cos\theta-i\sin\theta)\)。\(w=X+Yi\) とおくと \(X=\dfrac32\cos\theta,\ Y=\dfrac52\sin\theta\)。(2) \(z=\cos\theta+i\sin\theta\) で \(w=2i\sin\theta\)。</p>
+        <p class="answer">(1) 楕円 \(\dfrac{X^2}{\left(\frac32\right)^2}+\dfrac{Y^2}{\left(\frac52\right)^2}=1\)（縦長、焦点 \(\pm2i\)）　(2) 虚軸上の線分（\(-2i\) と \(2i\) を結ぶ線分）</p>
+        <p class="point">\(z+\frac1z\) と違い、\(-\frac1z\) の符号で \(\sin\) 側の係数が大きくなり縦長になる。\(\theta\) が一周すると \(w\) も楕円を一周する（全体が現れる）。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="cpx-p15" data-level="2">
     <h3><span class="pid">P15</span>円上の点 \(z\) と \(|z|\)・\(\arg z\) の最大最小</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「\(|z-(\sqrt3+i)|=1\) のとき \(|z|\) の最大値・最小値」「\(\arg z\) の取りうる値の範囲」</dd>
-      <dt>こう考える</dt><dd>計算より<b>図</b>。\(|z|\) は原点からの距離 → 原点と円の中心を結ぶ直線上で最大・最小。\(\arg z\) は原点から引いた<b>接線</b>で最大・最小。</dd>
+      <dt>こう考える</dt><dd>計算より<b>図</b>。\(|z|\) は原点からの距離 → 原点と円の中心を結ぶ直線上で最大・最小。\(\arg z\) は原点から引いた<b>接線</b>で最大・最小。
+        <figure class="fig narrow"><svg viewBox="0 0 320 230" role="img" aria-label="円上の点zと|z|・arg zの最大最小">
+<line class="axis" x1="25.4" y1="180.6" x2="294.6" y2="180.6"/>
+<line class="axis" x1="59.9" y1="222.0" x2="59.9" y2="8.0"/>
+<text x="292.6" y="175.6" font-size="10.5" text-anchor="end" font-family="sans-serif">実軸</text>
+<text x="64.9" y="17.0" font-size="10.5" text-anchor="start" font-family="sans-serif">虚軸</text>
+<text x="51.9" y="193.6" font-size="12" text-anchor="middle" font-style="italic">O</text>
+<circle class="curve" cx="179.5" cy="111.5" r="69.0"/>
+<line class="aux" x1="59.9" y1="180.6" x2="239.3" y2="77.0"/>
+<line class="curve2" x1="59.9" y1="180.6" x2="140.6" y2="40.8"/>
+<circle class="dot" cx="179.5" cy="111.5" r="3"/>
+<circle class="hl" cx="239.3" cy="77.0" r="4"/>
+<circle class="hl" cx="119.7" cy="146.1" r="4"/>
+<circle class="dot" cx="119.7" cy="77.0" r="3"/>
+<circle class="dot" cx="179.5" cy="180.6" r="3"/>
+<text x="187.5" y="115.5" font-size="11" text-anchor="start">√3+i</text>
+<text x="245.3" y="71.0" font-size="11" text-anchor="start" font-family="sans-serif">最大 3</text>
+<text x="127.7" y="160.1" font-size="11" text-anchor="start" font-family="sans-serif">最小 1</text>
+<text x="111.7" y="77.0" font-size="11" text-anchor="end" font-family="sans-serif">接点</text>
+<polyline class="axis" points="91.0,180.6 91.0,179.8 90.9,179.0 90.9,178.1 90.8,177.3 90.7,176.5 90.6,175.7 90.4,174.9 90.3,174.1 90.1,173.3 89.9,172.5 89.7,171.8 89.4,171.0 89.2,170.2 88.9,169.4 88.6,168.7 88.3,167.9 87.9,167.2 87.6,166.5 87.2,165.8 86.8,165.0 86.4,164.3 86.0,163.7 85.5,163.0 85.0,162.3 84.5,161.7 84.0,161.0 83.5,160.4 83.0,159.8 82.4,159.2 81.9,158.6 81.3,158.0 80.7,157.5 80.1,157.0 79.5,156.4 78.8,155.9 78.2,155.4 77.5,155.0 76.8,154.5 76.1,154.1 75.4,153.7"/>
+<text x="99.8" y="163.9" font-size="11" text-anchor="start">π/3</text>
+</svg><figcaption>\(|z|\)（原点からの距離）は直線 \(O\)–中心 上の2点で最大・最小。\(\arg z\) は原点から引いた2本の接線（実軸と橙の線）の間、\(0\le\arg z\le\frac\pi3\)。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>円の中心 \(C\) と原点の距離 \(d\)、半径 \(r\) を求める。</li>
         <li>\(|z|\) の範囲：\(d-r\le|z|\le d+r\)（原点が円の外部のとき）。</li>
@@ -460,13 +715,43 @@
       <p class="answer">\(|z|\)：最大値 3、最小値 1。\(0\le\arg z\le\dfrac\pi3\)</p>
       <p class="point">接点は \(\arg z=0\) で \(z=\sqrt3\)、\(\arg z=\frac\pi3\) で \(z=\frac{\sqrt3}{2}+\frac32i\)。どちらも \(|z-C|=1\) を満たすことを確かめておこう。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">点 \(z\) が \(|z-(2+2i)|=\sqrt2\) を満たして動くとき、\(|z|\) の最大値・最小値と、\(\arg z\ (0\le\arg z\lt2\pi)\) の取りうる値の範囲を求めよ。また、\(\arg z\) が最大となる \(z\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>図をかく。中心 \(C(2+2i)\) は原点から距離 \(2\sqrt2\)、偏角 \(\frac\pi4\)。\(|z|\) は直線 \(OC\) 上で最大 \(2\sqrt2+\sqrt2\)・最小 \(2\sqrt2-\sqrt2\)。\(\arg z\) は原点から引いた接線で最大・最小：\(\sin\varphi=\dfrac{\sqrt2}{2\sqrt2}=\dfrac12\) より \(\varphi=\frac\pi6\)、範囲は \(\frac\pi4\pm\frac\pi6\)。接点までの距離は \(\sqrt{8-2}=\sqrt6\)。</p>
+        <p class="answer">\(|z|\)：最大値 \(3\sqrt2\)、最小値 \(\sqrt2\)。\(\dfrac{\pi}{12}\le\arg z\le\dfrac{5\pi}{12}\)。\(\arg z\) が最大となるのは \(z=\sqrt6\left(\cos\dfrac{5\pi}{12}+i\sin\dfrac{5\pi}{12}\right)=\dfrac{3-\sqrt3}{2}+\dfrac{3+\sqrt3}{2}i\)</p>
+        <p class="point">接点は「原点からの距離 \(\sqrt6\)、偏角 \(\frac{5\pi}{12}\)」で求めると速い。\(\cos\frac{5\pi}{12}=\frac{\sqrt6-\sqrt2}{4}\) を使う。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="cpx-p16" data-level="2">
     <h3><span class="pid">P16</span>\(z_{n+1}=\alpha z_n+\beta\) の点列（回転しながら近づく）</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「\(z_0=0,\ z_{n+1}=\frac{1+i}{2}z_n+1\) で定まる点列」「\(z_n\) を求めよ」「線分 \(z_nz_{n+1}\) の長さの総和」</dd>
-      <dt>こう考える</dt><dd>数列の1次漸化式と同じく<b>不動点 \(c=\alpha c+\beta\)</b> を引くと \(z_{n+1}-c=\alpha(z_n-c)\)。図形的には「点 \(c\) を中心に、毎回 \(\arg\alpha\) 回転して \(|\alpha|\) 倍」。</dd>
+      <dt>こう考える</dt><dd>数列の1次漸化式と同じく<b>不動点 \(c=\alpha c+\beta\)</b> を引くと \(z_{n+1}-c=\alpha(z_n-c)\)。図形的には「点 \(c\) を中心に、毎回 \(\arg\alpha\) 回転して \(|\alpha|\) 倍」。
+        <figure class="fig narrow"><svg viewBox="0 0 320 230" role="img" aria-label="点列z_nが1+iのまわりを回りながら近づく">
+<line class="axis" x1="42.8" y1="186.3" x2="277.2" y2="186.3"/>
+<line class="axis" x1="83.6" y1="222.0" x2="83.6" y2="8.0"/>
+<text x="275.2" y="181.3" font-size="10.5" text-anchor="end" font-family="sans-serif">実軸</text>
+<text x="88.6" y="17.0" font-size="10.5" text-anchor="start" font-family="sans-serif">虚軸</text>
+<polyline class="curve" points="83.6,186.3 185.5,186.3 236.4,135.4 236.4,84.4 211.0,59.0 185.5,59.0 172.7,71.7 172.7,84.4 179.1,90.8 185.5,90.8 188.7,87.6 188.7,84.4 187.1,82.8 185.5,82.8 184.7,83.6"/>
+<circle class="dot" cx="83.6" cy="186.3" r="3"/>
+<circle class="dot" cx="185.5" cy="186.3" r="3"/>
+<circle class="dot" cx="236.4" cy="135.4" r="3"/>
+<circle class="dot" cx="236.4" cy="84.4" r="3"/>
+<circle class="dot" cx="211.0" cy="59.0" r="3"/>
+<circle class="dot" cx="185.5" cy="59.0" r="3"/>
+<circle class="dot" cx="172.7" cy="71.7" r="3"/>
+<circle class="hl" cx="185.5" cy="84.4" r="4.5"/>
+<text x="73.6" y="201.3" font-size="12" text-anchor="middle" font-style="italic">z₀</text>
+<text x="189.5" y="201.3" font-size="12" text-anchor="middle" font-style="italic">z₁</text>
+<text x="246.4" y="139.4" font-size="12" text-anchor="middle" font-style="italic">z₂</text>
+<text x="244.4" y="78.4" font-size="12" text-anchor="middle" font-style="italic">z₃</text>
+<text x="207.0" y="51.0" font-size="12" text-anchor="middle" font-style="italic">z₄</text>
+<text x="195.5" y="98.4" font-size="11.5" text-anchor="start">1+i</text>
+</svg><figcaption>\(z_{n+1}=\dfrac{1+i}{2}z_n+1\)（\(z_0=0\)）。不動点 \(1+i\) のまわりに毎回 \(\frac\pi4\) 回転し、距離が \(\left|\dfrac{1+i}{2}\right|\) 倍（約 0.71 倍）になりながら近づく。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>\(c=\dfrac{\beta}{1-\alpha}\) を求める。</li>
         <li>\(z_n-c=\alpha^n(z_0-c)\)。\(\alpha^n\) はド・モアブルで計算。</li>
@@ -486,6 +771,15 @@
       \[ \sum_{n=0}^{\infty}\left(\frac1{\sqrt2}\right)^n=\frac{1}{1-\frac{1}{\sqrt2}}=\frac{\sqrt2}{\sqrt2-1}=2+\sqrt2 \]
       <p class="answer">(3) \(2+\sqrt2\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(z_0=0,\ z_{n+1}=\dfrac i2z_n+1\ (n=0,1,2,\dots)\) で定まる点列について、(1) \(z_n\) を \(n\) で表せ。(2) 点 \(z_n\) が近づいていく点を求めよ。(3) 折れ線 \(z_0z_1z_2\cdots\) の長さの総和 \(\displaystyle\sum_{n=0}^{\infty}|z_{n+1}-z_n|\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>不動点 \(c=\dfrac i2c+1\) を解くと \(c=\dfrac{1}{1-\frac i2}=\dfrac{4+2i}{5}\)。引き算して \(z_{n+1}-c=\dfrac i2(z_n-c)\)、よって \(z_n-c=\left(\dfrac i2\right)^n(z_0-c)\)。点 \(c\) のまわりに毎回 \(\frac\pi2\) 回転して \(\frac12\) 倍。(3) \(z_{n+1}-z_n=\left(\dfrac i2\right)^n(z_1-z_0)\) なので長さは初項 \(|z_1-z_0|=1\)、公比 \(\frac12\) の等比数列。</p>
+        <p class="answer">(1) \(z_n=\dfrac{4+2i}{5}\left\{1-\left(\dfrac i2\right)^n\right\}\)　(2) \(\dfrac45+\dfrac25i\)　(3) \(2\)</p>
+        <p class="point">検算：\(z_1=1,\ z_2=1+\frac i2\) を (1) の式に \(n=1,2\) を入れて確かめる。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="cpx-p17" data-level="3">
@@ -512,6 +806,15 @@
       <p class="answer">(2) \(S=\dfrac12\)（証明終）</p>
       <p class="point">実数だけの別解：\(2\sin\frac\pi7\cdot S\) を積和公式で変形すると隣どうしが打ち消し合い \(\sin\frac{6\pi}{7}=\sin\frac{\pi}{7}\) が残る。どちらも「打ち消し合う和（望遠鏡和）」が本質。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(z=\cos\dfrac{2\pi}{9}+i\sin\dfrac{2\pi}{9}\) とする。(1) \(\cos\dfrac{2\pi}{9}+\cos\dfrac{4\pi}{9}+\cos\dfrac{6\pi}{9}+\cos\dfrac{8\pi}{9}=-\dfrac12\) を示せ。(2) \(\cos\dfrac{2\pi}{9}+\cos\dfrac{4\pi}{9}+\cos\dfrac{8\pi}{9}\) の値を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) \(z^9=1,\ z\ne1\) より \(z+z^2+\cdots+z^8=-1\)（等比数列の和）。<b>実部</b>をとると \(\displaystyle\sum_{k=1}^{8}\cos\frac{2k\pi}{9}=-1\)。\(\cos\frac{2(9-k)\pi}{9}=\cos\frac{2k\pi}{9}\) なので、左辺は \(2\displaystyle\sum_{k=1}^{4}\cos\frac{2k\pi}{9}\)。(2) \(\cos\frac{6\pi}{9}=\cos\frac{2\pi}{3}=-\frac12\) を (1) から引く。</p>
+        <p class="answer">(1) \(2\displaystyle\sum_{k=1}^{4}\cos\frac{2k\pi}{9}=-1\) より示された　(2) \(0\)</p>
+        <p class="point">別解：\(\theta=\frac{2\pi}9,\frac{4\pi}9,\frac{8\pi}9\) はどれも \(\cos3\theta=-\frac12\) を満たすので、3次方程式 \(4c^3-3c+\frac12=0\) の3解。\(c^2\) の項がないので和は 0。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="cpx-p18" data-level="2">
@@ -533,6 +836,15 @@
       <p>よって \(OA=2OB\)、\(\angle AOB=\frac\pi3\)。余弦定理で \(AB^2=OB^2+4OB^2-2\cdot OB\cdot 2OB\cdot\frac12=3OB^2\)。\(OB^2+AB^2=4OB^2=OA^2\) より \(\angle OBA=\frac\pi2\)。</p>
       <p class="answer">\(\angle O=\dfrac\pi3,\ \angle B=\dfrac\pi2,\ \angle A=\dfrac\pi6\)（\(\angle B\) が直角の直角三角形）</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">0でない複素数 \(\alpha,\beta\) が \(\alpha^2-2\alpha\beta+2\beta^2=0\) を満たす。\(O(0),\ A(\alpha),\ B(\beta)\) とするとき、\(\triangle OAB\) はどのような三角形か。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>同次式なので \(\beta^2\) で割り、\(t=\dfrac\alpha\beta\) とおくと \(t^2-2t+2=0\)、\(t=1\pm i=\sqrt2\left\{\cos\left(\pm\frac\pi4\right)+i\sin\left(\pm\frac\pi4\right)\right\}\)。よって \(OA=\sqrt2\,OB,\ \angle AOB=\dfrac\pi4\)。辺の比 \(OB:OA=1:\sqrt2\) と挟む角 \(\frac\pi4\) から形が決まる。</p>
+        <p class="answer">\(OB=AB\)、\(\angle B=\dfrac\pi2\) の直角二等辺三角形（\(\angle O=\angle A=\dfrac\pi4\)）</p>
+        <p class="point">余弦定理で確認：\(AB^2=OB^2+2OB^2-2\cdot OB\cdot\sqrt2OB\cos\frac\pi4=OB^2\)。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="cpx-p19" data-level="3">
@@ -556,6 +868,15 @@
       <p class="answer">(2) \(H=B\)。\(AC\) が直径なので \(\angle B=90^\circ\) の直角三角形であり、直角三角形の垂心は直角の頂点に一致する。</p>
       <p class="point">\(H=A\)（\(\beta+\gamma=0\)）のときは \(BC\) が直径で \(\angle A=90^\circ\)、やはり \(H\) は垂心。場合分けまで書けると阪大の答案として満点。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">単位円 \(|z|=1\) 上の異なる3点 \(A(\alpha),\ B(\beta),\ C(\gamma)\) が \(\alpha+\beta+\gamma=0\) を満たすとき、\(\triangle ABC\) は正三角形であることを示せ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\(\gamma=-(\alpha+\beta)\) で \(|\gamma|=1\) だから \(|\alpha+\beta|^2=1\)。展開して \(|\alpha|^2+|\beta|^2+\alpha\bar\beta+\bar\alpha\beta=1\)、つまり \(\alpha\bar\beta+\bar\alpha\beta=-1\)。すると \(|\alpha-\beta|^2=2-(\alpha\bar\beta+\bar\alpha\beta)=3\)。他の2辺も同様（式が対称）。図形的には「垂心 \(\alpha+\beta+\gamma\) が外心 \(O\) と一致」。</p>
+        <p class="answer">\(AB=BC=CA=\sqrt3\) となるので \(\triangle ABC\) は正三角形</p>
+        <p class="point">\(|w|^2=w\bar w\) で展開し、\(|\alpha|=|\beta|=1\)（\(\bar\alpha=\frac1\alpha\)）で数値に落とすのが単位円問題の定石。</p>
+      </div></details>
+    </div>
   </article>
 </section>
 

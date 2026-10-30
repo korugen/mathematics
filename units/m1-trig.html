@@ -134,7 +134,22 @@
     <h3><span class="pid">P1</span>直角三角形で三角比を求める</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\angle C=90^\circ\) の直角三角形 ABC で \(\sin A,\ \cos A,\ \tan A\) を求めよ」</dd>
-      <dt>こう考える</dt><dd>角 \(A\) から見て、<b>斜辺（直角の向かい）・対辺（\(A\) の向かい）・隣辺（\(A\) を挟む直角でない方）</b>を確認する。\(\sin=\frac{\text{対辺}}{\text{斜辺}},\ \cos=\frac{\text{隣辺}}{\text{斜辺}},\ \tan=\frac{\text{対辺}}{\text{隣辺}}\)。</dd>
+      <dt>こう考える</dt><dd>角 \(A\) から見て、<b>斜辺（直角の向かい）・対辺（\(A\) の向かい）・隣辺（\(A\) を挟む直角でない方）</b>を確認する。\(\sin=\frac{\text{対辺}}{\text{斜辺}},\ \cos=\frac{\text{隣辺}}{\text{斜辺}},\ \tan=\frac{\text{対辺}}{\text{隣辺}}\)。
+        <figure class="fig narrow"><svg viewBox="0 0 360 132" role="img" aria-label="直角三角形ABCで角Aから見た斜辺・対辺・隣辺">
+<polygon class="region" points="94.8,108.0 300.0,22.5 300.0,108.0"/>
+<line class="axis" x1="94.8" y1="108.0" x2="300" y2="108" style="stroke:var(--trigger);stroke-width:3"/>
+<line class="axis" x1="300" y1="108" x2="300" y2="22.5" style="stroke:var(--ok);stroke-width:3"/>
+<line class="axis" x1="94.8" y1="108.0" x2="300" y2="22.5" style="stroke:var(--accent);stroke-width:3"/>
+<polyline class="axis" points="290,108 290,98 300,98"/>
+<path class="axis" d="M122.8,108.0 A28,28 0 0 0 120.6,97.2"/>
+<text x="86.8" y="112.0" font-size="14" text-anchor="end" font-style="italic">A</text>
+<text x="308.0" y="26.5" font-size="14" text-anchor="start" font-style="italic">B</text>
+<text x="308.0" y="112.0" font-size="14" text-anchor="start" font-style="italic">C</text>
+<text x="197.4" y="126.0" font-size="12" text-anchor="middle" font-family="sans-serif" style="fill:var(--trigger)">隣辺 AC=12</text>
+<text x="308.0" y="69.2" font-size="12" text-anchor="start" font-family="sans-serif" style="fill:var(--ok)">対辺</text>
+<text x="308.0" y="84.2" font-size="12" text-anchor="start" font-family="sans-serif" style="fill:var(--ok)">BC=5</text>
+<text x="189.4" y="57.2" font-size="12" text-anchor="middle" font-family="sans-serif" style="fill:var(--accent)">斜辺 AB=13</text>
+</svg><figcaption>角 \(A\) から見て、斜辺＝直角の向かい（AB）、対辺＝\(A\) の向かい（BC）、隣辺＝\(A\) を挟む残りの辺（AC）。\(\sin A=\frac{5}{13},\ \cos A=\frac{12}{13},\ \tan A=\frac{5}{12}\)。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>足りない辺は三平方の定理で求める。</li>
         <li>角 \(A\) を左下、直角を右下に置いた図を描き直すと、定義と一致して迷わない。</li>
@@ -149,6 +164,16 @@
       <p class="answer">\(\sin A=\dfrac5{13},\ \cos A=\dfrac{12}{13},\ \tan A=\dfrac5{12},\ \sin B=\dfrac{12}{13}\)</p>
       <p class="point">\(\sin B=\cos A\) になっている。\(B=90^\circ-A\) だから \(\sin(90^\circ-A)=\cos A\)（P2）。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(\angle B=90^\circ,\ AB=2,\ AC=3\) の直角三角形 ABC について、\(\sin C,\ \cos C,\ \tan C\) および \(\cos A\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>斜辺は直角の向かいの AC。三平方の定理で残りの辺 \(BC=\sqrt{3^2-2^2}=\sqrt5\)。</p>
+        <p>角 C から見ると、対辺は AB、隣辺は BC。角 A から見ると隣辺は AB。</p>
+        <p class="answer">\(\sin C=\dfrac23,\ \cos C=\dfrac{\sqrt5}3,\ \tan C=\dfrac{2}{\sqrt5}=\dfrac{2\sqrt5}5,\ \cos A=\dfrac23\)</p>
+        <p class="point">直角が C 以外にあるときは要注意。まず「斜辺＝直角の向かい」を確定させてから、見る角ごとに対辺・隣辺を決める。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="tri1-p2" data-level="1">
@@ -172,6 +197,16 @@
       <p>(4) \(\cos160^\circ=-\cos20^\circ\)。よって \(0\)。</p>
       <p class="answer">(1) \(\dfrac{\sqrt2}2,\ -\dfrac{\sqrt3}2,\ -\sqrt3\)　(2) 0　(3) 1　(4) 0</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) \(\sin150^\circ,\ \cos135^\circ,\ \tan150^\circ\) の値を求めよ。(2) \(\sin115^\circ-\cos25^\circ\)　(3) \(\tan35^\circ\tan55^\circ\)　(4) \(\cos^2100^\circ+\cos^210^\circ\) の値を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 単位円上の点の座標で読む：\(150^\circ\) は \((-\frac{\sqrt3}2,\ \frac12)\)、\(135^\circ\) は \((-\frac{1}{\sqrt2},\ \frac{1}{\sqrt2})\)。</p>
+        <p>(2) \(\sin115^\circ=\sin65^\circ=\cos25^\circ\)。(3) \(\tan55^\circ=\tan(90^\circ-35^\circ)=\dfrac{1}{\tan35^\circ}\)。(4) \(\cos100^\circ=-\cos80^\circ=-\sin10^\circ\) として \(\sin^2+\cos^2=1\)。</p>
+        <p class="answer">(1) \(\dfrac12,\ -\dfrac{\sqrt2}2,\ -\dfrac{\sqrt3}3\)　(2) \(0\)　(3) \(1\)　(4) \(1\)</p>
+        <p class="point">角の変換は「\(180^\circ-\theta\)」で鋭角にし、「\(90^\circ-\theta\)」で同じ角にそろえる、の2段階。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="tri1-p3" data-level="1">
@@ -194,13 +229,42 @@
       <p>(2) \(\tan\theta\lt0\) なので \(\theta\) は鈍角、\(\cos\theta\lt0\)。\(\cos^2\theta=\frac{1}{1+4}=\frac15\)、\(\cos\theta=-\frac1{\sqrt5}\)。\(\sin\theta=\tan\theta\cos\theta=\frac{2}{\sqrt5}\)。</p>
       <p class="answer">(2) \(\sin\theta=\dfrac{2\sqrt5}5,\ \cos\theta=-\dfrac{\sqrt5}5\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(0^\circ\le\theta\le180^\circ\) とする。(1) \(\cos\theta=-\dfrac14\) のとき \(\sin\theta,\ \tan\theta\) を求めよ。(2) \(\tan\theta=\dfrac13\) のとき \(\sin\theta,\ \cos\theta\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) \(0^\circ\le\theta\le180^\circ\) では \(\sin\theta\ge0\) なので、\(\sin\theta=\sqrt{1-\frac1{16}}\) の1通り。\(\cos\) が与えられたときは \(\pm\) の場合分けがいらない。</p>
+        <p>(2) \(1+\tan^2\theta=\dfrac{1}{\cos^2\theta}\) より \(\cos^2\theta=\dfrac{9}{10}\)。\(\tan\theta\gt0\) なので鋭角で \(\cos\theta\gt0\)。\(\sin\theta=\tan\theta\cos\theta\)。</p>
+        <p class="answer">(1) \(\sin\theta=\dfrac{\sqrt{15}}4,\ \tan\theta=-\sqrt{15}\)　(2) \(\cos\theta=\dfrac{3\sqrt{10}}{10},\ \sin\theta=\dfrac{\sqrt{10}}{10}\)</p>
+        <p class="point">どの三角比が与えられたかで、符号の判断が変わる。\(\sin\) のときだけ鋭角・鈍角の2通りになる。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="tri1-p4" data-level="2">
     <h3><span class="pid">P4</span>三角比を含む方程式・不等式</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「\(0^\circ\le\theta\le180^\circ\) のとき \(\cos\theta\lt-\frac1{\sqrt2}\) を解け」「\(2\cos^2\theta+3\sin\theta-3=0\) を解け」</dd>
-      <dt>こう考える</dt><dd>\(\sin\theta=k\) は単位円と<b>水平線 \(y=k\)</b>、\(\cos\theta=k\) は<b>垂直線 \(x=k\)</b>、\(\tan\theta=k\) は<b>傾き \(k\) の直線</b>との交点。種類が混ざっていたら、\(\sin^2+\cos^2=1\) で<b>1種類にそろえて置き換え</b>る。</dd>
+      <dt>こう考える</dt><dd>\(\sin\theta=k\) は単位円と<b>水平線 \(y=k\)</b>、\(\cos\theta=k\) は<b>垂直線 \(x=k\)</b>、\(\tan\theta=k\) は<b>傾き \(k\) の直線</b>との交点。種類が混ざっていたら、\(\sin^2+\cos^2=1\) で<b>1種類にそろえて置き換え</b>る。
+        <figure class="fig narrow"><svg viewBox="0 0 340 200" role="img" aria-label="単位円と直線 x=-1/√2。135°&lt;θ≦180° の弧">
+<line class="axis" x1="12.0" y1="156.0" x2="328.0" y2="156.0"/>
+<text x="330.0" y="160.0" font-size="12" text-anchor="start" font-style="italic">x</text>
+<line class="axis" x1="170.0" y1="192.0" x2="170.0" y2="8.0"/>
+<text x="174.0" y="8.0" font-size="12" text-anchor="start" font-style="italic">y</text>
+<text x="166.0" y="169.0" font-size="12" text-anchor="end">O</text>
+<polyline class="aux" points="58.9,156.0 60.0,140.2 61.1,133.7 62.2,128.8 63.3,124.6 64.4,121.0 65.6,117.8 66.7,114.8 67.8,112.1 68.9,109.6 70.0,107.2 71.1,104.9 72.2,102.8 73.3,100.8 74.4,98.8 75.6,97.0 76.7,95.2 77.8,93.5 78.9,91.9 80.0,90.3 81.1,88.8 82.2,87.3 83.3,85.9 84.4,84.5 85.6,83.2 86.7,81.9 87.8,80.7 88.9,79.5 90.0,78.3 91.1,77.1 92.2,76.0 93.3,74.9 94.4,73.9 95.6,72.9 96.7,71.9 97.8,70.9 98.9,69.9 100.0,69.0 101.1,68.1 102.2,67.3 103.3,66.4 104.4,65.6 105.6,64.8 106.7,64.0 107.8,63.2 108.9,62.5 110.0,61.7 111.1,61.0 112.2,60.3 113.3,59.7 114.4,59.0 115.6,58.4 116.7,57.7 117.8,57.1 118.9,56.6 120.0,56.0 121.1,55.4 122.2,54.9 123.3,54.4 124.4,53.8 125.6,53.4 126.7,52.9 127.8,52.4 128.9,51.9 130.0,51.5 131.1,51.1 132.2,50.7 133.3,50.3 134.4,49.9 135.6,49.5 136.7,49.2 137.8,48.8 138.9,48.5 140.0,48.2 141.1,47.9 142.2,47.6 143.3,47.3 144.4,47.0 145.6,46.7 146.7,46.5 147.8,46.3 148.9,46.0 150.0,45.8 151.1,45.6 152.2,45.4 153.3,45.3 154.4,45.1 155.6,45.0 156.7,44.8 157.8,44.7 158.9,44.6 160.0,44.5 161.1,44.4 162.2,44.3 163.3,44.2 164.4,44.1 165.6,44.1 166.7,44.1 167.8,44.0 168.9,44.0 170.0,44.0 171.1,44.0 172.2,44.0 173.3,44.1 174.4,44.1 175.6,44.1 176.7,44.2 177.8,44.3 178.9,44.4 180.0,44.5 181.1,44.6 182.2,44.7 183.3,44.8 184.4,45.0 185.6,45.1 186.7,45.3 187.8,45.4 188.9,45.6 190.0,45.8 191.1,46.0 192.2,46.3 193.3,46.5 194.4,46.7 195.6,47.0 196.7,47.3 197.8,47.6 198.9,47.9 200.0,48.2 201.1,48.5 202.2,48.8 203.3,49.2 204.4,49.5 205.6,49.9 206.7,50.3 207.8,50.7 208.9,51.1 210.0,51.5 211.1,51.9 212.2,52.4 213.3,52.9 214.4,53.4 215.6,53.8 216.7,54.4 217.8,54.9 218.9,55.4 220.0,56.0 221.1,56.6 222.2,57.1 223.3,57.7 224.4,58.4 225.6,59.0 226.7,59.7 227.8,60.3 228.9,61.0 230.0,61.7 231.1,62.5 232.2,63.2 233.3,64.0 234.4,64.8 235.6,65.6 236.7,66.4 237.8,67.3 238.9,68.1 240.0,69.0 241.1,69.9 242.2,70.9 243.3,71.9 244.4,72.9 245.6,73.9 246.7,74.9 247.8,76.0 248.9,77.1 250.0,78.3 251.1,79.5 252.2,80.7 253.3,81.9 254.4,83.2 255.6,84.5 256.7,85.9 257.8,87.3 258.9,88.8 260.0,90.3 261.1,91.9 262.2,93.5 263.3,95.2 264.4,97.0 265.6,98.8 266.7,100.8 267.8,102.8 268.9,104.9 270.0,107.2 271.1,109.6 272.2,112.1 273.3,114.8 274.4,117.8 275.6,121.0 276.7,124.6 277.8,128.8 278.9,133.7 280.0,140.2 281.1,156.0"/>
+<line class="curve2" x1="91.4" y1="172.8" x2="91.4" y2="27.2" stroke-width="1.5"/>
+<polyline class="curve" points="91.4,76.8 90.7,77.5 90.1,78.2 89.4,78.9 88.7,79.6 88.1,80.3 87.4,81.1 86.8,81.8 86.1,82.5 85.5,83.3 84.9,84.0 84.3,84.8 83.7,85.5 83.0,86.3 82.4,87.0 81.8,87.8 81.3,88.6 80.7,89.4 80.1,90.2 79.5,91.0 79.0,91.8 78.4,92.6 77.9,93.4 77.3,94.2 76.8,95.0 76.3,95.8 75.8,96.6 75.3,97.5 74.8,98.3 74.3,99.2 73.8,100.0 73.3,100.8 72.8,101.7 72.4,102.6 71.9,103.4 71.4,104.3 71.0,105.2 70.6,106.0 70.1,106.9 69.7,107.8 69.3,108.7 68.9,109.6 68.5,110.4 68.1,111.3 67.7,112.2 67.3,113.1 67.0,114.0 66.6,115.0 66.3,115.9 65.9,116.8 65.6,117.7 65.3,118.6 64.9,119.5 64.6,120.5 64.3,121.4 64.0,122.3 63.7,123.3 63.5,124.2 63.2,125.1 62.9,126.1 62.7,127.0 62.4,128.0 62.2,128.9 62.0,129.9 61.7,130.8 61.5,131.8 61.3,132.7 61.1,133.7 60.9,134.6 60.7,135.6 60.6,136.6 60.4,137.5 60.3,138.5 60.1,139.4 60.0,140.4 59.8,141.4 59.7,142.4 59.6,143.3 59.5,144.3 59.4,145.3 59.3,146.2 59.2,147.2 59.2,148.2 59.1,149.2 59.0,150.1 59.0,151.1 59.0,152.1 58.9,153.1 58.9,154.0 58.9,155.0 58.9,156.0" stroke-width="4"/>
+<circle cx="91.4" cy="76.8" r="3.5" fill="var(--surface)" stroke="currentColor" stroke-width="1.5"/>
+<circle class="hl" cx="58.9" cy="156.0" r="4"/>
+<line class="aux" x1="170.0" y1="156.0" x2="91.4" y2="76.8"/>
+<path class="axis" d="M192.0,156.0 A22,22 0 0 0 154.4,140.4"/>
+<text x="172.0" y="130.0" font-size="12" text-anchor="start">135°</text>
+<text x="91.4" y="186.8" font-size="12" text-anchor="middle" font-style="italic">x=−1/√2</text>
+<text x="281.1" y="170.0" font-size="12" text-anchor="middle">1</text>
+<text x="56.9" y="170.0" font-size="12" text-anchor="end">−1</text>
+<text x="57.1" y="105.6" font-size="12" text-anchor="end" font-family="sans-serif" style="fill:var(--accent)">解の部分</text>
+</svg><figcaption>\(\cos\theta\) は単位円上の点の \(x\) 座標。垂直線 <i>x</i>＝−1/√2 より左にある弧（太線）が、例題 (1) の解 \(135^\circ\lt\theta\le180^\circ\)。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>2種類以上の三角比があれば、\(\cos^2\theta=1-\sin^2\theta\) などで1種類にする。</li>
         <li>\(t=\sin\theta\) とおき、<b>\(t\) の範囲</b>（\(0\le\theta\le180^\circ\) なら \(0\le\sin\theta\le1\)、\(-1\le\cos\theta\le1\)）を書く。</li>
@@ -219,6 +283,16 @@
       <p class="answer">(3) \(\theta=30^\circ,\ 90^\circ,\ 150^\circ\)</p>
       <p class="point">\(\sin\theta=\frac12\) は \(30^\circ\) と \(150^\circ\) の2つ。鈍角側を忘れるのが最頻出のミス。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(0^\circ\le\theta\le180^\circ\) のとき、次を解け。(1) \(2\sin\theta\ge\sqrt3\)　(2) \(\sqrt3\tan\theta\lt1\)　(3) \(2\sin^2\theta-\cos\theta-1=0\)</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) \(\sin\theta\ge\frac{\sqrt3}2\)：単位円で水平線 \(y=\frac{\sqrt3}2\) 以上の部分。(2) \(\tan\theta\lt\frac{1}{\sqrt3}\)：\(0^\circ\le\theta\lt30^\circ\) と、\(\tan\theta\lt0\) となる鈍角すべて（\(90^\circ\) は除く）。</p>
+        <p>(3) \(\sin^2\theta=1-\cos^2\theta\) で \(\cos\) にそろえると \(2\cos^2\theta+\cos\theta-1=0\)、\((2\cos\theta-1)(\cos\theta+1)=0\)。\(t=\cos\theta\) の範囲 \(-1\le t\le1\) に両方入る。</p>
+        <p class="answer">(1) \(60^\circ\le\theta\le120^\circ\)　(2) \(0^\circ\le\theta\lt30^\circ,\ 90^\circ\lt\theta\le180^\circ\)　(3) \(\theta=60^\circ,\ 180^\circ\)</p>
+        <p class="point">(2) で \(\theta=90^\circ\) は \(\tan\) が定義されないので含めない。(3) の \(\cos\theta=-1\) は \(\theta=180^\circ\) を見落としやすい。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="tri1-p5" data-level="2">
@@ -243,6 +317,17 @@
       <p class="answer">(1) \(-\dfrac38\)　(2) \(\dfrac{\sqrt7}2\)　(3) \(\dfrac{11}{16}\)　(4) \(-\dfrac83\)</p>
       <p class="point">(2) の符号決定が採点ポイント。「積が負 → \(\sin\) と \(\cos\) は異符号 → \(\sin\gt0\) なので \(\cos\lt0\)」と根拠を書く。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(0^\circ\lt\theta\lt180^\circ\)、\(\sin\theta-\cos\theta=\dfrac12\) のとき、次の値を求めよ。(1) \(\sin\theta\cos\theta\)　(2) \(\sin\theta+\cos\theta\)　(3) \(\sin^3\theta-\cos^3\theta\)</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 両辺を2乗：\(1-2\sin\theta\cos\theta=\frac14\)。</p>
+        <p>(2) \((\sin\theta+\cos\theta)^2=1+2\cdot\frac38=\frac74\)。(1) より \(\sin\theta\cos\theta\gt0\) で、\(\sin\theta\gt0\) だから \(\cos\theta\gt0\)。よって \(\sin\theta+\cos\theta\gt0\)。</p>
+        <p>(3) \(\sin^3\theta-\cos^3\theta=(\sin\theta-\cos\theta)(1+\sin\theta\cos\theta)\)。</p>
+        <p class="answer">(1) \(\dfrac38\)　(2) \(\dfrac{\sqrt7}2\)　(3) \(\dfrac{11}{16}\)</p>
+        <p class="point">(2) は2乗して求めるので符号の判定が必要。積の符号から「\(\theta\) は鋭角」と決めてから正の方を選ぶ。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="tri1-p6" data-level="1">
@@ -264,6 +349,16 @@
       <p>\(b=2R\sin60^\circ=4\sqrt2\cdot\dfrac{\sqrt3}2=2\sqrt6\)。</p>
       <p class="answer">\(b=2\sqrt6,\ R=2\sqrt2\)</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">外接円の半径が3である \(\triangle ABC\) において、\(A=60^\circ,\ C=45^\circ\) のとき、\(B\) と辺 \(a,\ c\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>外接円の半径 \(R\) が出てきたら正弦定理 \(\dfrac{a}{\sin A}=\dfrac{c}{\sin C}=2R\)。</p>
+        <p>\(B=180^\circ-60^\circ-45^\circ\)。\(a=2R\sin A=6\cdot\frac{\sqrt3}2\)、\(c=2R\sin C=6\cdot\frac{\sqrt2}2\)。</p>
+        <p class="answer">\(B=75^\circ,\ a=3\sqrt3,\ c=3\sqrt2\)</p>
+        <p class="point">\(\dfrac{a}{\sin A}=R\) と書く誤りが多い。右辺は直径 \(2R\)。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="tri1-p7" data-level="1">
@@ -285,6 +380,16 @@
       <p>(2) \(\cos B=\dfrac{a^2+c^2-b^2}{2ac}=\dfrac{25+64-49}{80}=\dfrac12\)。<span class="answer">\(B=60^\circ\)</span></p>
       <p class="point">(2) で「\(b\) は中くらいの辺だから \(B\) は中くらいの角」というチェックもできる。辺の大小と向かいの角の大小は一致する。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) \(\triangle ABC\) で \(a=\sqrt2,\ c=3,\ B=135^\circ\) のとき \(b\) を求めよ。(2) 3辺の長さが \(3,\ 5,\ 7\) の三角形の最も大きい角の大きさを求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 2辺とその間の角 → 余弦定理で辺：\(b^2=2+9-2\cdot\sqrt2\cdot3\cos135^\circ=11+6\)。</p>
+        <p>(2) 最も大きい角は最も長い辺 7 の向かい。\(\cos\theta=\dfrac{3^2+5^2-7^2}{2\cdot3\cdot5}\)。</p>
+        <p class="answer">(1) \(b=\sqrt{17}\)　(2) \(120^\circ\)</p>
+        <p class="point">(1) は \(\cos135^\circ=-\frac{\sqrt2}2\) なので \(-2ac\cos B\) が「＋」になる。符号を最後まで追う。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="tri1-p8" data-level="2">
@@ -308,13 +413,43 @@
       <p class="answer">\(a=2,\ B=60^\circ,\ C=75^\circ\)</p>
       <p class="point">正弦定理なら \(\sin B=\frac{b\sin A}{a}=\frac{\sqrt3}2\) で \(B=60^\circ,120^\circ\)。\(B=120^\circ\) だと \(C=15^\circ\lt B\) なのに \(c\gt b\) となり矛盾、と除外する必要がある。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(\triangle ABC\) で \(a=\sqrt3+1,\ b=2,\ C=60^\circ\) のとき、\(c,\ A,\ B\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>2辺夾角なので、まず余弦定理で \(c^2=(4+2\sqrt3)+4-2(\sqrt3+1)\cdot2\cdot\frac12=6\)。</p>
+        <p>次に角は余弦定理で \(\cos B=\dfrac{a^2+c^2-b^2}{2ac}=\dfrac{6+2\sqrt3}{2\sqrt6(\sqrt3+1)}=\dfrac{1}{\sqrt2}\)。最後に \(A=180^\circ-B-C\)。</p>
+        <p class="answer">\(c=\sqrt6,\ A=75^\circ,\ B=45^\circ\)</p>
+        <p class="point">\(B\) を正弦定理で求めると \(\sin B=\frac{1}{\sqrt2}\) から \(45^\circ,\ 135^\circ\) の2候補が出る。余弦定理なら1つに決まる（\(135^\circ\) だと \(C\) と合わせて \(180^\circ\) を超えるので、どのみち不適）。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="tri1-p9" data-level="2">
     <h3><span class="pid">P9</span>三角形の決定：解が2つある場合（あいまいな場合）</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「\(b=2,\ c=\sqrt6,\ B=45^\circ\) のとき \(a\) と \(C\) を求めよ」（2辺と、その間でない角）</dd>
-      <dt>こう考える</dt><dd>2辺とその間でない角では、三角形が<b>2つできることがある</b>。求めたい辺 \(a\) を未知数にして余弦定理を書くと <b>\(a\) の2次方程式</b>になり、正の解の個数＝三角形の個数。</dd>
+      <dt>こう考える</dt><dd>2辺とその間でない角では、三角形が<b>2つできることがある</b>。求めたい辺 \(a\) を未知数にして余弦定理を書くと <b>\(a\) の2次方程式</b>になり、正の解の個数＝三角形の個数。
+        <figure class="fig narrow"><svg viewBox="0 0 340 210" role="img" aria-label="B=45°, AB=√6, AC=2 で C が2通りに決まる図">
+<line class="axis" x1="31.8" y1="168.5" x2="312.2" y2="168.5"/>
+<polyline class="aux" points="36.7,75.5 37.1,77.8 37.7,80.1 38.3,82.4 38.9,84.6 39.6,86.9 40.3,89.2 41.1,91.4 41.9,93.7 42.8,95.9 43.7,98.1 44.6,100.3 45.6,102.5 46.7,104.6 47.8,106.8 48.9,108.9 50.1,111.0 51.3,113.1 52.5,115.2 53.8,117.3 55.2,119.3 56.5,121.3 58.0,123.3 59.4,125.3 60.9,127.3 62.5,129.2 64.0,131.1 65.7,133.0 67.3,134.9 69.0,136.7 70.7,138.5 72.5,140.3 74.3,142.0 76.1,143.8 78.0,145.5 79.9,147.1 81.9,148.8 83.8,150.4 85.8,152.0 87.9,153.5 89.9,155.1 92.0,156.6 94.2,158.0 96.3,159.4 98.5,160.8 100.7,162.2 103.0,163.5 105.2,164.8 107.5,166.1 109.8,167.3 112.2,168.5 114.5,169.6 116.9,170.8 119.3,171.8 121.8,172.9 124.2,173.9 126.7,174.9 129.2,175.8 131.7,176.7 134.2,177.6 136.8,178.4 139.4,179.2 141.9,179.9 144.5,180.6 147.1,181.3 149.8,181.9 152.4,182.5 155.0,183.0 157.7,183.6 160.3,184.0 163.0,184.4 165.7,184.8 168.4,185.2 171.1,185.5 173.8,185.8 176.5,186.0 179.2,186.2 181.9,186.3 184.6,186.4 187.4,186.5 190.1,186.5 192.8,186.5 195.5,186.4 198.2,186.3 200.9,186.2 203.7,186.0 206.4,185.8 209.1,185.5 211.8,185.2 214.4,184.8 217.1,184.4 219.8,184.0 222.5,183.6 225.1,183.0 227.8,182.5 230.4,181.9 233.0,181.3 235.6,180.6 238.2,179.9 240.8,179.2 243.4,178.4 245.9,177.6 248.4,176.7 250.9,175.8 253.4,174.9 255.9,173.9 258.4,172.9 260.8,171.8 263.2,170.8 265.6,169.6 268.0,168.5 270.3,167.3 272.6,166.1 274.9,164.8 277.2,163.5 279.4,162.2 281.6,160.8 283.8,159.4 286.0,158.0 288.1,156.6 290.2,155.1 292.3,153.5 294.3,152.0 296.3,150.4 298.3,148.8 300.2,147.1 302.1,145.5 304.0,143.8 305.8,142.0 307.7,140.3 309.4,138.5 311.1,136.7 312.8,134.9 314.5,133.0 316.1,131.1 317.7,129.2 319.2,127.3 320.7,125.3 322.2,123.3 323.6,121.3 325.0,119.3 326.3,117.3 327.6,115.2 328.9,113.1 330.1,111.0 331.3,108.9 332.4,106.8 333.5,104.6 334.5,102.5 335.5,100.3 336.5,98.1 337.4,95.9 338.2,93.7 339.1,91.4 339.8,89.2 340.6,86.9 341.2,84.6 341.9,82.4 342.5,80.1 343.0,77.8 343.5,75.5"/>
+<polyline class="axis" points="55.2,168.5 190.1,52.1" style="stroke-width:1.6"/>
+<polyline class="curve" points="190.1,52.1 268.0,168.5"/>
+<polyline class="curve2" points="190.1,52.1 112.2,168.5"/>
+<circle class="dot" cx="55.2" cy="168.5" r="3"/>
+<circle class="dot" cx="190.1" cy="52.1" r="3"/>
+<circle class="dot" cx="268.0" cy="168.5" r="3.5" style="fill:var(--accent)"/>
+<circle class="hl" cx="112.2" cy="168.5" r="3.5"/>
+<path class="axis" d="M81.2,168.5 A26,26 0 0 0 73.5,150.1"/>
+<text x="85.2" y="162.5" font-size="12" text-anchor="start">45°</text>
+<text x="49.2" y="172.5" font-size="14" text-anchor="end" font-style="italic">B</text>
+<text x="190.1" y="44.1" font-size="14" text-anchor="middle" font-style="italic">A</text>
+<text x="268.0" y="184.5" font-size="13" text-anchor="middle" font-style="italic">C₁</text>
+<text x="112.2" y="184.5" font-size="13" text-anchor="middle" font-style="italic">C₂</text>
+<text x="105.6" y="104.7" font-size="12" text-anchor="end">√6</text>
+<text x="235.0" y="108.0" font-size="12" text-anchor="start" style="fill:var(--accent)">2</text>
+<text x="147.1" y="108.0" font-size="12" text-anchor="end" style="fill:var(--trigger)">2</text>
+</svg><figcaption>\(B=45^\circ\)、AB＝√6 を固定し、A を中心とする半径 \(b=2\) の円（点線）を描くと、直線 BC と2点 \(C_1,\ C_2\) で交わる。だから三角形が2つできる（\(a=BC_1,\ BC_2\)）。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>既知の角 \(B\) について余弦定理：\(b^2=a^2+c^2-2ac\cos B\)。これは \(a\) の2次方程式。</li>
         <li>正の解をすべて求める（2つあれば三角形は2つ）。</li>
@@ -335,6 +470,16 @@
       <p class="answer">\(a=\sqrt3+1,\ C=60^\circ\) または \(a=\sqrt3-1,\ C=120^\circ\)</p>
       <p class="point">\(a\) と \(C\) の組を正しく対応させて答える。「\(a=\sqrt3\pm1,\ C=60^\circ,120^\circ\)」とばらばらに書くと、どれとどれが組か分からず減点。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(\triangle ABC\) で \(a=\sqrt2,\ b=2,\ A=30^\circ\) のとき、\(c,\ B,\ C\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>2辺とその間でない角。求める辺 \(c\) を未知数にして余弦定理：\(2=4+c^2-2\cdot2c\cos30^\circ\)、\(c^2-2\sqrt3c+2=0\)、\(c=\sqrt3\pm1\)（どちらも正なので三角形は2つ）。</p>
+        <p>それぞれ \(\cos B=\dfrac{a^2+c^2-b^2}{2ac}\) を計算する。\(c=\sqrt3+1\) なら \(\cos B=\frac{1}{\sqrt2}\)、\(c=\sqrt3-1\) なら \(\cos B=-\frac{1}{\sqrt2}\)。</p>
+        <p class="answer">\(c=\sqrt3+1,\ B=45^\circ,\ C=105^\circ\) または \(c=\sqrt3-1,\ B=135^\circ,\ C=15^\circ\)</p>
+        <p class="point">答えは組で書く。\(a\lt b\) なので \(B\) は \(A\) より大きく、鋭角・鈍角の両方がありうる（2つできる理由）。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="tri1-p10" data-level="2">
@@ -359,6 +504,16 @@
       <p class="answer">\(1\lt x\lt3\)</p>
       <p class="point">\(x=3\) のとき 3, 4, 5 の直角三角形になる。境界の値を代入して「直角」になることを確かめると安心。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">3辺の長さが \(3,\ 4,\ x\) である三角形が鋭角三角形となるような \(x\) の値の範囲を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>① 三角形の成立：\(4-3\lt x\lt4+3\)。② 最大の角が鋭角。ただし最大辺が \(4\) か \(x\) かで分ける。</p>
+        <p>\(x\ge4\) のとき：\(x^2\lt3^2+4^2\) より \(x\lt5\)。\(x\lt4\) のとき：\(4^2\lt3^2+x^2\) より \(x\gt\sqrt7\)。</p>
+        <p class="answer">\(\sqrt7\lt x\lt5\)</p>
+        <p class="point">最大辺が分からないときは場合分け。\(x=5\) は直角三角形、\(x=\sqrt7\) では辺4の向かいが直角になる。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="tri1-p11" data-level="1">
@@ -381,6 +536,16 @@
       <p class="answer">\(S=10\sqrt3\)</p>
       <p class="point">ヘロンの公式で検算：\(s=10\)、\(\sqrt{10\cdot5\cdot3\cdot2}=\sqrt{300}=10\sqrt3\)。一致。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">(1) \(b=4,\ c=5,\ A=150^\circ\) の \(\triangle ABC\) の面積を求めよ。(2) 3辺の長さが \(4,\ 5,\ 6\) の三角形の面積を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 2辺と間の角：\(S=\frac12\cdot4\cdot5\sin150^\circ\)。</p>
+        <p>(2) 3辺だけなので、長さ6の辺の向かいの角を \(\theta\) とし、余弦定理 \(\cos\theta=\dfrac{16+25-36}{40}=\dfrac18\) → \(\sin\theta=\dfrac{3\sqrt7}{8}\) → \(S=\frac12\cdot4\cdot5\sin\theta\)。</p>
+        <p class="answer">(1) \(5\)　(2) \(\dfrac{15\sqrt7}{4}\)</p>
+        <p class="point">(2) はどの角を選んでも同じ答えになる。ヘロンの公式 \(\sqrt{s(s-a)(s-b)(s-c)}\)（\(s=\frac{15}2\)）で検算できる。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="tri1-p12" data-level="2">
@@ -403,13 +568,40 @@
       <p class="answer">\(r=\sqrt3,\ R=\dfrac{7\sqrt3}3\)</p>
       <p class="point">検算：\(R=\dfrac{abc}{4S}=\dfrac{280}{40\sqrt3}=\dfrac{7}{\sqrt3}\)。一致。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">3辺の長さが \(3,\ 5,\ 7\) の三角形の内接円の半径 \(r\) と外接円の半径 \(R\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>長さ7の辺の向かいの角を \(\theta\) とすると \(\cos\theta=-\frac12\)、\(\theta=120^\circ\)。面積 \(S=\frac12\cdot3\cdot5\sin120^\circ=\frac{15\sqrt3}4\)。</p>
+        <p>内接円は \(S=rs\)（\(s=\frac{3+5+7}2=\frac{15}2\)）。外接円は正弦定理 \(2R=\dfrac{7}{\sin120^\circ}\)。</p>
+        <p class="answer">\(r=\dfrac{\sqrt3}2,\ R=\dfrac{7\sqrt3}3\)</p>
+        <p class="point">\(S=rs\) の \(s\) は周の長さの半分。周の長さそのものを使うと答えが半分になる。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="tri1-p13" data-level="2">
     <h3><span class="pid">P13</span>角の二等分線の長さ</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「\(\angle A\) の二等分線と辺 BC の交点を D とする。AD の長さを求めよ」</dd>
-      <dt>こう考える</dt><dd>\(\triangle ABC=\triangle ABD+\triangle ADC\) と<b>面積を2通りに表す</b>。どちらの小三角形も「2辺と間の角 \(\frac A2\)」が分かっているので、AD を未知数にした1次方程式になる。</dd>
+      <dt>こう考える</dt><dd>\(\triangle ABC=\triangle ABD+\triangle ADC\) と<b>面積を2通りに表す</b>。どちらの小三角形も「2辺と間の角 \(\frac A2\)」が分かっているので、AD を未知数にした1次方程式になる。
+        <figure class="fig narrow"><svg viewBox="0 0 340 175" role="img" aria-label="角Aの二等分線ADで三角形を2つに分ける図">
+<polygon class="region" points="180.0,150.0 258.0,150.0 206.0,105.0"/>
+<polygon class="region2" points="180.0,150.0 206.0,105.0 102.0,14.9"/>
+<polygon class="axis" points="180.0,150.0 258.0,150.0 102.0,14.9" style="stroke-width:1.5"/>
+<line class="curve" x1="180.0" y1="150.0" x2="206.0" y2="105.0"/>
+<path class="axis" d="M198.0,150.0 A18,18 0 0 0 189.0,134.4"/>
+<path class="axis" d="M192.0,129.2 A24,24 0 0 0 168.0,129.2"/>
+<text x="198.0" y="128.0" font-size="11" text-anchor="start">60°</text>
+<text x="168.0" y="124.0" font-size="11" text-anchor="end">60°</text>
+<text x="174.0" y="164.0" font-size="14" text-anchor="end" font-style="italic">A</text>
+<text x="264.0" y="164.0" font-size="14" text-anchor="start" font-style="italic">B</text>
+<text x="96.0" y="18.9" font-size="14" text-anchor="end" font-style="italic">C</text>
+<text x="213.0" y="103.0" font-size="14" text-anchor="start" font-style="italic">D</text>
+<text x="219.0" y="166.0" font-size="12" text-anchor="middle">3</text>
+<text x="133.0" y="86.5" font-size="12" text-anchor="end">6</text>
+<text x="203.0" y="141.5" font-size="13" text-anchor="start" font-style="italic">x</text>
+</svg><figcaption>\(\triangle ABC\)（面積 \(\frac12\cdot3\cdot6\sin120^\circ\)）を、二等分線 AD で青と橙の2つに分ける。どちらも「2辺と間の角 \(60^\circ\)」が分かるので、\(AD=x\) の1次方程式になる。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>\(\frac12bc\sin A=\frac12c\cdot AD\sin\frac A2+\frac12b\cdot AD\sin\frac A2\) を立てる。</li>
         <li>\(\sin\frac A2\) が分かる角（\(A=120^\circ,\ 60^\circ,\ 90^\circ\)）ならそのまま解く。</li>
@@ -426,13 +618,38 @@
       <p class="answer">\(AD=2\)</p>
       <p class="point">別解（確認）：\(BC^2=9+36+18=63\)、\(BC=3\sqrt7\)。\(BD=\frac13BC=\sqrt7\)。\(\cos B=\frac{9+63-36}{2\cdot3\cdot3\sqrt7}=\frac{2}{\sqrt7}\)。\(AD^2=9+7-2\cdot3\sqrt7\cdot\frac2{\sqrt7}=4\)。一致する。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(AB=4,\ AC=6,\ \angle A=60^\circ\) の \(\triangle ABC\) で、\(\angle A\) の二等分線と辺 BC の交点を D とする。AD と BD の長さを求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>面積を2通りに：\(\triangle ABC=\triangle ABD+\triangle ADC\)。\(\frac12\cdot4\cdot6\sin60^\circ=\frac12\cdot4\cdot AD\sin30^\circ+\frac12\cdot6\cdot AD\sin30^\circ\)、\(6\sqrt3=\frac52AD\)。</p>
+        <p>BD は二等分線の性質 \(BD:DC=AB:AC=2:3\) と、余弦定理 \(BC^2=16+36-24=28\) から \(BD=\frac25BC\)。</p>
+        <p class="answer">\(AD=\dfrac{12\sqrt3}5,\ BD=\dfrac{4\sqrt7}5\)</p>
+        <p class="point">小さい三角形の角は \(\frac A2=30^\circ\)。\(\sin60^\circ\) のまま使わないこと。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="tri1-p14" data-level="2">
     <h3><span class="pid">P14</span>円に内接する四角形（対角の和 \(180^\circ\) と余弦定理2回）</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「円に内接する四角形 ABCD で \(AB=1,BC=2,CD=3,DA=4\) のとき、\(\cos B\)、対角線 AC、面積を求めよ」</dd>
-      <dt>こう考える</dt><dd>対角線 AC で2つの三角形に分ける。AC は<b>両方の三角形の辺</b>なので、余弦定理で2通りに表せる。円に内接するから <b>\(D=180^\circ-B\)、\(\cos D=-\cos B\)</b> で未知数が1つに減る。</dd>
+      <dt>こう考える</dt><dd>対角線 AC で2つの三角形に分ける。AC は<b>両方の三角形の辺</b>なので、余弦定理で2通りに表せる。円に内接するから <b>\(D=180^\circ-B\)、\(\cos D=-\cos B\)</b> で未知数が1つに減る。
+        <figure class="fig narrow"><svg viewBox="0 0 340 208" role="img" aria-label="円に内接する四角形ABCDと対角線AC">
+<circle class="aux" cx="170" cy="104" r="92.1"/>
+<polygon class="region" points="83.4,135.5 79.0,89.7 136.7,18.1"/>
+<polygon class="region2" points="83.4,135.5 136.7,18.1 259.3,81.5"/>
+<polygon class="axis" points="83.4,135.5 79.0,89.7 136.7,18.1 259.3,81.5" style="stroke-width:1.6"/>
+<line class="curve" x1="83.4" y1="135.5" x2="136.7" y2="18.1"/>
+<text x="70.3" y="145.3" font-size="14" text-anchor="middle" font-style="italic">A</text>
+<text x="65.2" y="92.6" font-size="14" text-anchor="middle" font-style="italic">B</text>
+<text x="131.7" y="10.0" font-size="14" text-anchor="middle" font-style="italic">C</text>
+<text x="272.9" y="83.0" font-size="14" text-anchor="middle" font-style="italic">D</text>
+<text x="94.2" y="115.4" font-size="12" text-anchor="middle">1</text>
+<text x="118.0" y="66.1" font-size="12" text-anchor="middle">2</text>
+<text x="192.1" y="65.3" font-size="12" text-anchor="middle">3</text>
+<text x="167.6" y="100.1" font-size="12" text-anchor="middle">4</text>
+</svg><figcaption>対角線 AC は青の \(\triangle ABC\) と橙の \(\triangle ACD\) の共通の辺。向かい合う角 \(B,\ D\) は \(B+D=180^\circ\) なので \(\cos D=-\cos B\) となり、余弦定理2本から \(\cos B\) が求まる。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>\(\triangle ABC\) と \(\triangle ACD\) で \(AC^2\) を余弦定理で表す。</li>
         <li>\(\cos D=-\cos B\) を代入し、2式を等しいとおいて \(\cos B\) を求める。</li>
@@ -450,6 +667,16 @@
       <p class="answer">\(\cos B=-\dfrac57,\ AC=\dfrac{\sqrt{385}}7,\ \text{面積}\ 2\sqrt6\)</p>
       <p class="point">\(\cos D=-\cos B\) の符号を落とすと全部崩れる。面積は「ブラーマグプタの公式」\(\sqrt{(s-a)(s-b)(s-c)(s-d)}=\sqrt{4\cdot3\cdot2\cdot1}=2\sqrt6\)（\(s=5\)）でも検算できる。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">円に内接する四角形 ABCD で \(AB=5,\ BC=3,\ CD=3,\ DA=8\) とする。\(\angle B\) の大きさ、対角線 AC の長さ、四角形 ABCD の面積を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>AC を \(\triangle ABC\) と \(\triangle ACD\) の両方で余弦定理で表す。\(D=180^\circ-B\) より \(\cos D=-\cos B\)：\(25+9-30\cos B=9+64+48\cos B\)。</p>
+        <p>\(\cos B=-\frac12\) から \(B=120^\circ,\ D=60^\circ\)、\(AC^2=34+15\)。面積は2つの三角形の和：\(\frac12\cdot5\cdot3\sin120^\circ+\frac12\cdot3\cdot8\sin60^\circ\)。</p>
+        <p class="answer">\(\angle B=120^\circ,\ AC=7,\ \text{面積}\ \dfrac{39\sqrt3}{4}\)</p>
+        <p class="point">\(\sin D=\sin B\) なので、面積は \(\frac12(5\cdot3+3\cdot8)\sin B\) とまとめて計算できる。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="tri1-p15" data-level="2">
@@ -473,13 +700,44 @@
       <p class="answer">\(5(\sqrt3+1)\) m（約 13.7 m）</p>
       <p class="point">別解：\(\triangle TAB\) で \(\angle TAB=30^\circ,\ \angle ATB=45^\circ-30^\circ=15^\circ\)。正弦定理で TB を出し、\(h=TB\sin45^\circ\)。\(\sin15^\circ\) が必要になるので、この問題では上の方法の方が楽。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">水平な地面上に、100 m 離れた2地点 A, B がある。塔の根元を H とすると \(\angle HAB=75^\circ,\ \angle HBA=45^\circ\) であり、A から塔の先端 P を見上げた仰角は \(45^\circ\) であった。塔の高さ PH を求めよ（目の高さは無視する）。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>高さを直接は測れないので、まず地面上の \(\triangle ABH\) で AH を求める。\(\angle AHB=180^\circ-75^\circ-45^\circ=60^\circ\)。1辺 AB と両端の角 → 正弦定理 \(\dfrac{AH}{\sin45^\circ}=\dfrac{100}{\sin60^\circ}\)。</p>
+        <p>次に縦の直角三角形 \(\triangle PAH\) で \(PH=AH\tan45^\circ=AH\)。</p>
+        <p class="answer">\(\dfrac{100\sqrt6}{3}\) m（約 81.6 m）</p>
+        <p class="point">地面の三角形（水平）と、高さを含む直角三角形（垂直）を別々に描く。\(\angle AHB\) は AB の向かいの角。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="tri1-p16" data-level="2">
     <h3><span class="pid">P16</span>正四面体の高さ・体積・内接球</h3>
     <dl class="map">
       <dt class="trigger">こう来たら</dt><dd class="trigger">「1辺の長さ6の正四面体の高さ、体積、内接球の半径を求めよ」</dd>
-      <dt>こう考える</dt><dd>頂点 A から底面 BCD に下ろした垂線の足 H は、<b>底面の正三角形の重心（＝外心）</b>。BH は外接円の半径なので、\(\triangle ABH\) で三平方の定理。</dd>
+      <dt>こう考える</dt><dd>頂点 A から底面 BCD に下ろした垂線の足 H は、<b>底面の正三角形の重心（＝外心）</b>。BH は外接円の半径なので、\(\triangle ABH\) で三平方の定理。
+        <figure class="fig narrow"><svg viewBox="0 0 340 200" role="img" aria-label="正四面体ABCDと垂線AH、直角三角形ABH">
+<polygon class="region" points="83.7,185.4 221.7,185.4 204.6,154.2"/>
+<polygon class="region2" points="170.0,62.3 83.7,185.4 170.0,175.0"/>
+<line class="aux" x1="83.7" y1="185.4" x2="204.6" y2="154.2"/>
+<line class="aux" x1="221.7" y1="185.4" x2="204.6" y2="154.2"/>
+<line class="aux" x1="170.0" y1="62.3" x2="204.6" y2="154.2"/>
+<line class="axis" x1="170.0" y1="62.3" x2="83.7" y2="185.4" style="stroke-width:1.6"/>
+<line class="axis" x1="170.0" y1="62.3" x2="221.7" y2="185.4" style="stroke-width:1.6"/>
+<line class="axis" x1="83.7" y1="185.4" x2="221.7" y2="185.4" style="stroke-width:1.6"/>
+<line class="curve" x1="170.0" y1="62.3" x2="170.0" y2="175.0"/>
+<line class="curve2" x1="83.7" y1="185.4" x2="170.0" y2="175.0"/>
+<circle class="hl" cx="170.0" cy="175.0" r="3.5"/>
+<text x="170.0" y="54.3" font-size="14" text-anchor="middle" font-style="italic">A</text>
+<text x="75.7" y="199.4" font-size="14" text-anchor="end" font-style="italic">B</text>
+<text x="229.7" y="199.4" font-size="14" text-anchor="start" font-style="italic">C</text>
+<text x="212.6" y="152.2" font-size="14" text-anchor="start" font-style="italic">D</text>
+<text x="180.0" y="189.0" font-size="14" text-anchor="start" font-style="italic">H</text>
+<text x="176.0" y="118.7" font-size="13" text-anchor="start" font-style="italic">h</text>
+<text x="260.0" y="40.0" font-size="11" text-anchor="start" font-family="sans-serif">H は △BCD の</text>
+<text x="260.0" y="56.0" font-size="11" text-anchor="start" font-family="sans-serif">重心＝外心</text>
+</svg><figcaption>A から底面に下ろした垂線の足 H は正三角形 BCD の中心。BH は外接円の半径なので、橙の直角三角形 \(ABH\) で三平方の定理を使えば高さ \(h\) が出る。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
         <li>\(AB=AC=AD\) と \(AH\) 共通から \(\triangle ABH\equiv\triangle ACH\equiv\triangle ADH\)、よって \(BH=CH=DH\) で H は外心。</li>
         <li>\(BH=R=\dfrac{a}{2\sin60^\circ}=\dfrac{a}{\sqrt3}\)、高さ \(AH=\sqrt{a^2-\frac{a^2}3}=\sqrt{\frac23}\,a\)。</li>
@@ -497,6 +755,16 @@
       <p class="answer">\(h=2\sqrt6,\ V=18\sqrt2,\ r=\dfrac{\sqrt6}2\)</p>
       <p class="point">\(r=\frac h4\) になっている（正四面体の内接球の中心は高さを \(3:1\) に分ける）。外接球の半径は \(\frac34h=\frac{3\sqrt6}2\)。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">1辺の長さが4の正四面体 ABCD について、高さ \(h\) と、4つの頂点を通る球（外接球）の半径 \(R\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>A から底面 BCD に下ろした垂線の足 H は正三角形 BCD の外心（重心）。\(BH=\dfrac{4}{2\sin60^\circ}=\dfrac{4}{\sqrt3}\)、\(h=\sqrt{16-\frac{16}3}\)。</p>
+        <p>外接球の中心 O は対称性から線分 AH 上にある。\(OA=OB=R\)、\(OH=h-R\) として \(\triangle OBH\) で三平方：\(R^2=(h-R)^2+BH^2\)。</p>
+        <p class="answer">\(h=\dfrac{4\sqrt6}3,\ R=\sqrt6\)</p>
+        <p class="point">確認：\(R=\frac34h\) になっている（外接球の中心は高さを \(3:1\) に分ける）。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="tri1-p17" data-level="3">
@@ -522,6 +790,16 @@
       <p class="answer">\(V=\dfrac{70\sqrt2}3\)</p>
       <p class="point">採点ポイント：「H が外心である理由」を合同で説明すること。いきなり「H は外心なので」と書くと根拠不足で減点されうる。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">四面体 OABC で \(OA=OB=OC=13,\ AB=6,\ BC=8,\ CA=10\) である。O から平面 ABC に下ろした垂線の足を H とするとき、H の位置と四面体 OABC の体積 \(V\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\(OA=OB=OC\) なので、直角三角形 \(OAH,\ OBH,\ OCH\) は合同で \(HA=HB=HC\)。H は \(\triangle ABC\) の外心。</p>
+        <p>\(6^2+8^2=10^2\) より \(\angle B=90^\circ\)。直角三角形の外心は斜辺 CA の中点で、外接円の半径は5。\(OH=\sqrt{13^2-5^2}=12\)、底面積 \(\frac12\cdot6\cdot8=24\)。</p>
+        <p class="answer">H は辺 CA の中点、\(V=96\)</p>
+        <p class="point">底面が直角三角形だと外心が斜辺の中点になり、正弦定理を使わずに \(R\) が出る。3辺を見たら三平方の関係を一度チェック。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="tri1-p18" data-level="3">
@@ -548,6 +826,16 @@
       <p class="answer">(3) \(d=\dfrac{\sqrt6}3\)</p>
       <p class="point">(2) は二等辺三角形なので、E から BD の中点への長さ \(\sqrt{5-2}=\sqrt3\) を高さとして \(\frac12\cdot2\sqrt2\cdot\sqrt3=\sqrt6\) とも計算できる。2通りで一致を確認しよう。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">1辺の長さが2の立方体 ABCD-EFGH（E, F, G, H はそれぞれ A, B, C, D の真上の頂点）を、3点 A, C, F を通る平面で切る。(1) 断面 \(\triangle ACF\) の面積を求めよ。(2) 頂点 B から平面 ACF までの距離 \(d\) を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>(1) 断面の3辺 AC, CF, FA はどれも立方体の面の対角線で、長さ \(2\sqrt2\)。正三角形なので面積は \(\frac{\sqrt3}4(2\sqrt2)^2\)。</p>
+        <p>(2) 四面体 BACF の体積を2通りに：底面 \(\triangle ABC\)（面積2）・高さ BF=2 で \(V=\frac43\)。底面 \(\triangle ACF\) とみると \(V=\frac13\cdot2\sqrt3\cdot d\)。</p>
+        <p class="answer">(1) \(2\sqrt3\)　(2) \(d=\dfrac{2\sqrt3}3\)</p>
+        <p class="point">「点と平面の距離」は体積の2通り表示が定石。B, A, C, F の4点は、B に直角が3つ集まる扱いやすい四面体になっている。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="tri1-p19" data-level="3">
@@ -575,6 +863,16 @@
       <p class="answer">\(a=b\) の二等辺三角形、または \(C=90^\circ\) の直角三角形</p>
       <p class="point">\(a^2-b^2\) で両辺を割って「\(c^2=a^2+b^2\)」だけを答えるのは誤り（\(a=b\) の場合が抜ける）。文字式で割るときは0でないか確認する（<a href="m1-numbers.html">数と式</a> P15）。</p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(\triangle ABC\) において、次の等式が成り立つとき、それぞれどのような三角形か。(1) \(\sin A=2\cos B\sin C\)　(2) \(a\cos B-b\cos A=c\)</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>どちらも辺だけの式に統一する。(1) \(\sin A=\frac{a}{2R},\ \sin C=\frac{c}{2R},\ \cos B=\frac{c^2+a^2-b^2}{2ca}\) を代入：\(a=\dfrac{c^2+a^2-b^2}{a}\)、整理して \(b^2=c^2\)。</p>
+        <p>(2) \(\cos B=\frac{c^2+a^2-b^2}{2ca},\ \cos A=\frac{b^2+c^2-a^2}{2bc}\) を代入：\(\dfrac{c^2+a^2-b^2}{2c}-\dfrac{b^2+c^2-a^2}{2c}=c\)、\(a^2-b^2=c^2\)。</p>
+        <p class="answer">(1) \(b=c\) の二等辺三角形　(2) \(A=90^\circ\) の直角三角形</p>
+        <p class="point">(1) で \(b^2=c^2\) から \(b=c\)（辺は正）。答えは「どの辺が等しいか」「どの角が直角か」まで書く。</p>
+      </div></details>
+    </div>
   </article>
 
   <article class="pattern" id="tri1-p20" data-level="3">
@@ -602,6 +900,17 @@
       <p class="answer">(2) \(6\lt AB+AC\le4\sqrt3\)</p>
       <p class="point">\(t\gt6\) は三角形の成立条件 \(b+c\gt a\) と一致する。「\(t\) の範囲を出したら、その \(t\) を実現する \(b,c\) が本当にあるか」を確認するのが阪大答案のポイント（<a href="m1-quadratic.html">2次関数</a> の実数条件と同じ）。<a href="../thinking.html#t-inverse">発想：逆像法</a></p>
     </div></details>
+    <div class="practice">
+      <p class="practice-label">類題（自力で解こう）</p>
+      <div class="problem">\(BC=2\sqrt3,\ \angle A=60^\circ\) の \(\triangle ABC\) について、(1) 面積 \(S\) の最大値を求めよ。(2) \(AB^2+AC^2\) の取りうる値の範囲を求めよ。</div>
+      <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
+        <p>\(b=CA,\ c=AB\) とおく。余弦定理：\(12=b^2+c^2-bc\)。面積 \(S=\frac{\sqrt3}4bc\) なので \(bc\) の範囲を調べる。</p>
+        <p>(1) \(b^2+c^2\ge2bc\) より \(12+bc\ge2bc\)、\(bc\le12\)（等号は \(b=c=2\sqrt3\)）。</p>
+        <p>(2) \(b^2+c^2=12+bc\)。\(bc\) は \(0\lt bc\le12\) のすべての値をとる（\(b+c=s,\ bc=p\) が正の実数 \(b,c\) を定める条件 \(s^2\ge4p\) は \(p\le12\) と同値）。</p>
+        <p class="answer">(1) \(3\sqrt3\)（正三角形のとき）　(2) \(12\lt AB^2+AC^2\le24\)</p>
+        <p class="point">下端 12 は \(bc\to0\)（三角形がつぶれる極限）でとらないので等号なし。</p>
+      </div></details>
+    </div>
   </article>
 </section>
 
