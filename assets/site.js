@@ -571,6 +571,34 @@
     });
   }
 
+  // ---- 阪大対策ページ：阪大型演習の一覧 ----
+  function buildHandaiList() {
+    var box = document.getElementById("handai-list");
+    if (!box || !window.KAIHO_PATTERNS) return;
+    var ex = window.KAIHO_PATTERNS.filter(function (p) { return /-h\d+$/.test(p.id); });
+    var done = ex.filter(function (p) { var r = rec(p.id); return r && r.st === "m"; }).length;
+    var html = "<p>全 " + ex.length + " 題（習得 " + done + " 題）。1題30分を目安に、何も見ずに取り組んでください。</p>";
+    SUBJECTS.forEach(function (s) {
+      var list = ex.filter(function (p) { return UNIT_BY_ID[p.u].subj === s; });
+      if (!list.length) return;
+      html += "<h3>" + s + '</h3><div class="table-wrap"><table class="reverse"><tr><th>演習</th><th>単元</th><th>状態</th></tr>' +
+        list.map(function (p) {
+          var r = rec(p.id);
+          return '<tr><td><a href="' + unitHref(p.u, p.id) + '">' + p.t + "</a></td><td>" + UNIT_BY_ID[p.u].title + " " + p.n +
+            '</td><td class="st">' + (r ? (r.st === "m" ? "習得" : "復習中") : "−") + "</td></tr>";
+        }).join("") + "</table></div>";
+    });
+    box.innerHTML = html;
+  }
+
+  // タブのアイコン
+  (function () {
+    var l = el("link", { rel: "icon", href: "data:image/svg+xml," + encodeURIComponent(
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#1f5fa8"/>' +
+      '<text x="16" y="24" font-size="22" text-anchor="middle" fill="#fff" font-family="serif">∫</text></svg>') });
+    document.head.appendChild(l);
+  })();
+
   // 印刷するときは解答もすべて開く
   window.addEventListener("beforeprint", function () {
     document.querySelectorAll("details").forEach(function (d) { d.open = true; });
@@ -584,6 +612,7 @@
   buildSearch();
   buildDrill();
   buildThinkingRefs();
+  buildHandaiList();
   renderMath(document.body);
   window.KAIHO_UNITS = UNITS;
 })();
