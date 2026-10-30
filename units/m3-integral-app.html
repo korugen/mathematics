@@ -319,8 +319,8 @@
 <circle class="dot" cx="137.8" cy="57.6" r="3"/>
 <circle class="dot" cx="137.8" cy="75.7" r="3"/>
 <text x="142.8" y="125.5" font-size="12" text-anchor="middle" font-style="italic">t</text>
-<text x="125.8" y="53.6" font-size="11" text-anchor="end">R=√t</text>
-<text x="125.8" y="87.7" font-size="11" text-anchor="end">r=t</text>
+<text x="113.8" y="55.6" font-size="11" text-anchor="end">R=√t</text>
+<text x="113.8" y="83.7" font-size="11" text-anchor="end">r=t</text>
 <text x="245.2" y="18.7" font-size="12" text-anchor="end" font-style="italic">y=√x</text>
 <text x="231.2" y="55.0" font-size="12" text-anchor="start" font-style="italic">y=x</text>
 </svg><figcaption>例題 (2)：\(y=\sqrt x\) と \(y=x\) の間を回すと、\(x=t\) での断面は外半径 \(\sqrt t\)、内半径 \(t\) の円環。面積は \(\pi(t-t^2)\)（2乗の差）。</figcaption></figure></dd>
@@ -473,7 +473,7 @@
 <text x="260.1" y="99.7" font-size="11" text-anchor="middle">π</text>
 <text x="92.8" y="43.7" font-size="11" text-anchor="end" font-style="italic">y=sin x</text>
 <text x="256.3" y="178.4" font-size="11" text-anchor="middle" font-style="italic">y=cos x</text>
-<text x="259.8" y="47.1" font-size="11" text-anchor="middle" font-family="sans-serif">外側の半径</text>
+<text x="259.8" y="30.2" font-size="11" text-anchor="middle" font-family="sans-serif">外側の半径</text>
 <text x="305.7" y="77.6" font-size="11" text-anchor="start" font-family="sans-serif">折り返し</text>
 </svg><figcaption>例題の図形（色）。\(x\) 軸より下の境界を上に折り返す（点線）。各 \(x\) で軸から最も遠い点までの距離（太い橙）\(=\max(\sin x,\,-\cos x)\) が断面の外半径になる。</figcaption></figure></dd>
       <dt>こう解く</dt><dd><ol>
@@ -504,7 +504,7 @@
       <div class="problem">放物線 \(y=x^2-1\) と直線 \(y=x+1\) で囲まれた部分を \(x\) 軸のまわりに1回転してできる立体の体積を求めよ。</div>
       <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
         <p>交点は \(x=-1,\ 2\)。図形は \(-1\lt x\lt1\) で \(x\) 軸の下にはみ出すので、下の部分を \(x\) 軸で上に折り返して重ねる。各 \(x\) で断面の半径は \(\max(|x+1|,\ |x^2-1|)\)。</p>
-        <p>\(-1\le x\le1\) では折り返した \(1-x^2\) と \(x+1\) を比べて、\(-1\le x\le0\) では \(1-x^2\ge x+1\)、\(0\le x\le1\) では \(x+1\) が大きい。\(1\le x\le2\) は円環（外 \(x+1\)、内 \(x^2-1\)）。\[ \begin{aligned}\frac{V}{\pi} & = \int_{-1}^0(1-x^2)^2dx+\int_0^2(x+1)^2dx \\ & \quad -\int_1^2(x^2-1)^2dx \\ & = \frac{8}{15}+\frac{26}{3}-\frac{38}{15}\end{aligned} \]</p>
+        <p>\(-1\le x\le1\) では折り返した \(1-x^2\) と \(x+1\) を比べて、\(-1\le x\le0\) では \(1-x^2\ge x+1\)、\(0\le x\le1\) では \(x+1\) が大きい。\(1\le x\le2\) は円環（外 \(x+1\)、内 \(x^2-1\)）。\[ \begin{aligned}\frac{V}{\pi} & = \int_{-1}^0(1-x^2)^2dx \\ & \quad +\int_0^2(x+1)^2dx \\ & \quad -\int_1^2(x^2-1)^2dx \\ & = \frac{8}{15}+\frac{26}{3}-\frac{38}{15}\end{aligned} \]</p>
         <p class="answer">\(\dfrac{20\pi}{3}\)</p>
         <p class="point">\(-1\lt x\lt0\) では \(x\) 軸より下の部分の方が軸から遠い。上側だけ回して終わりにすると、この部分を見落とす。</p>
       </div></details>
@@ -539,7 +539,7 @@
       <div class="problem">曲線 \(y=x^2\) と直線 \(y=2x\) で囲まれた部分を、直線 \(y=2x\) のまわりに1回転してできる立体の体積を求めよ。</div>
       <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
         <p>曲線上の点 \(P(x,x^2)\ (0\le x\le2)\) から直線 \(2x-y=0\) までの距離（回転半径）は \(r=\dfrac{2x-x^2}{\sqrt5}\)。</p>
-        <p>直線に沿った座標 \(s\)（原点からの、\(P\) を直線に下ろした足までの距離）は \(s=\dfrac{x+2x^2}{\sqrt5}\)、\(ds=\dfrac{1+4x}{\sqrt5}dx\)（\(x\) に関して増加）。\[ \begin{aligned}V & = \pi\int r^2ds \\ & = \frac{\pi}{5\sqrt5}\int_0^2(2x-x^2)^2(1+4x)\,dx \\ & = \frac{\pi}{5\sqrt5}\cdot\frac{16}{3}\end{aligned} \]</p>
+        <p>直線に沿った座標 \(s\)（原点からの、\(P\) を直線に下ろした足までの距離）は \(s=\dfrac{x+2x^2}{\sqrt5}\)、\(ds=\dfrac{1+4x}{\sqrt5}dx\)（\(x\) に関して増加）。\[ \begin{aligned}V & = \pi\int r^2ds \\ & = \frac{\pi}{5\sqrt5}\int_0^2(2x-x^2)^2 \\ & \qquad \times(1+4x)\,dx \\ & = \frac{\pi}{5\sqrt5}\cdot\frac{16}{3}\end{aligned} \]</p>
         <p class="answer">\(\dfrac{16\pi}{15\sqrt5}=\dfrac{16\sqrt5\,\pi}{75}\)</p>
         <p class="point">\(s\) が \(x\) について単調であることの確認が必要（\(1+4x\gt0\)）。パップス・ギュルダンの定理（面積 \(\frac43\) × 重心が描く円周）でも検算できる。</p>
       </div></details>
