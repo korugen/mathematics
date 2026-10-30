@@ -316,7 +316,7 @@
       <p class="practice-label">類題（自力で解こう）</p>
       <div class="problem">二項定理を用いて次を示せ。(1) \(\displaystyle\lim_{n\to\infty}\frac{n^2}{3^n}=0\)　(2) \(\displaystyle\lim_{n\to\infty}\sqrt[n]{n^2}=1\)</div>
       <details class="sol"><summary>答えと解き方の要点</summary><div class="inner">
-        <p>(1) \(n\ge3\) のとき \(3^n=(1+2)^n\ge{}_n\mathrm{C}_3\,2^3=\dfrac43n(n-1)(n-2)\)（全項正なので1項だけ残す）。分子が \(n^2\) なので<b>3次の項</b>を取り出すのが急所。(2) \(\sqrt[n]{n^2}=1+h_n\ (h_n\gt0)\) とおくと \(n^2=(1+h_n)^n\ge{}_n\mathrm{C}_3\,h_n^3\)、よって \(0\lt h_n^3\le\dfrac{6n}{(n-1)(n-2)}\)。</p>
+        <p>(1) \(n\ge3\) のとき \(3^n=(1+2)^n\ge{}_n\mathrm{C}_3\,2^3=\dfrac43n(n-1)(n-2)\)（全項正なので1項だけ残す）。分子が \(n^2\) なので<b>3次の項</b>を取り出すのが急所。(2) \(n\ge3\) のとき \(\sqrt[n]{n^2}=1+h_n\ (h_n\gt0)\) とおくと \(n^2=(1+h_n)^n\ge{}_n\mathrm{C}_3\,h_n^3\)、よって \(0\lt h_n^3\le\dfrac{6n}{(n-1)(n-2)}\)。</p>
         <p class="answer">(1) \(0\lt\dfrac{n^2}{3^n}\le\dfrac{3n}{4(n-1)(n-2)}\to0\) よりはさみうちで \(0\)　(2) \(h_n^3\to0\) より \(h_n\to0\)、よって \(\sqrt[n]{n^2}\to1\)</p>
         <p class="point">取り出す項の次数は「分子の次数＋1」。2次の項まででは \(\frac{n^2}{n^2}\) となり 0 に挟めない。</p>
       </div></details>
